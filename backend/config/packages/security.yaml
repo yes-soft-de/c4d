@@ -1,0 +1,43 @@
+security:
+    encoders:
+        App\Entity\UserEntity:
+            algorithm: auto
+
+    providers:
+
+        app_user_provider:
+            entity:
+                class: App\Entity\UserEntity
+                property: userID
+    firewalls:
+
+        login:
+            pattern:  ^/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path:               /login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+
+        main:
+            stateless: true
+            anonymous: ~
+            logout:
+                path: /logout
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+                entry_point: lexik_jwt_authentication.jwt_token_authenticator
+
+        register:
+            pattern:  ^/register
+            stateless: true
+            anonymous: true
+
+        api:
+            pattern:   ^/user
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
