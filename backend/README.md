@@ -1,4 +1,4 @@
-# Skeleton App Backend  🚧
+# c4d App Backend  🚧
 *. env file and private-public keys not enclosed .*
 ## Project setup
 
