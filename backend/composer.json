@@ -33,6 +33,7 @@
       "ext-json": "*"
     },
     "require-dev": {
+        "squizlabs/php_codesniffer": "*"
     },
     "config": {
         "optimize-autoloader": true,
