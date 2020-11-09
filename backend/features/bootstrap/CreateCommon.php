@@ -51,6 +51,16 @@ trait CreateCommon
     }
 
     /**
+     * @Given /^I have valid admin credentials$/
+     */
+    public function iHaveValidAdminCredentials()
+    {
+        $factoryRequest = new RequestFactory();
+
+        $this->userCredentials = $factoryRequest->prepareAdminLoginRequestPayload();
+    }
+
+    /**
      * @When I request login check
      */
     public function iRequestLoginCheck()
@@ -163,4 +173,30 @@ trait CreateCommon
             throw new Exception('Wrong returned data !');
         }
     }
+
+    /**
+     * @Given /^I am signed in admin$/
+     */
+    public function iAmSignedInAdmin()
+    {
+        $this->iHaveAccessToBackend();
+        $this->iHaveValidUserCredentials();
+        $this->iRequestLoginCheck();
+        $this->iExpectATokenWithinTheResponse();
+    }
+
+    /**
+     * @Given /^A json response with the required information$/
+     */
+    public function aJsonResponseWithTheRequiredInformation()
+    {
+        $data = json_decode($this->response->getBody(), true);
+
+        if($data['Data'] == null)
+        {
+            throw new Exception('Error in retrieving the token!');
+        }
+    }
+
+
 }
