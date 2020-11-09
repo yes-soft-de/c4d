@@ -57,17 +57,15 @@ class PackageController extends BaseController
     }
 
     /**
-     * @Route("packagesbycityowner", name="getPackagesByCityOwner", methods={"GET"})
-     * @param Request $request
+     * @Route("packages/{location}", name="getPackagesByCityOwner", methods={"GET"})
+     * @param $location
      * @return JsonResponse
      */
-    public function getPackagesByCityOwner(Request $request)
+    public function getPackagesByCityOwner($location)
     {
-//        $request = new GetByIdRequest($request->get('id'));
-//
-//        $result = $this->packageService->getCarById($request);
-//
-//        return $this->response($result, self::FETCH);
+        $result = $this->packageService->getByCityOwner($location);
+
+        return $this->response($result, self::FETCH);
     }
 
     /**

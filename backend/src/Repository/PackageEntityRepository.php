@@ -30,15 +30,14 @@ class PackageEntityRepository extends ServiceEntityRepository
         ;
     }
 
-    /*
-    public function findOneBySomeField($value): ?PackageEntity
+    public function getPackagesByCityOwner($location)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('package')
+            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.orderCount, package.status')
+            ->andWhere('package.city = :city')
+            ->setParameter('city', $location)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
 }

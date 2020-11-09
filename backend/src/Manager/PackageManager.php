@@ -35,8 +35,10 @@ class PackageManager
         return $packageEntity;
     }
 
-    public function getByCityOwner()
-    {}
+    public function getByCityOwner($location)
+    {
+        return $this->packageEntityRepository->getPackagesByCityOwner($location);
+    }
 
     public function getActivePackages()
     {
