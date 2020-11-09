@@ -19,32 +19,13 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, SubscriptionEntity::class);
     }
 
-    // /**
-    //  * @return SubscriptionEntity[] Returns an array of SubscriptionEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getCurrentSubscribedPackages()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('subscription')
+            ->andWhere('subscription.status = :val')
+            ->setParameter('val', "current")
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?SubscriptionEntity
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
