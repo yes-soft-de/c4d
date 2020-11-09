@@ -22,6 +22,11 @@ class CreateContext implements Context
      */
     private $admin;
 
+    /**
+     * @var array $package
+     */
+    private $package;
+
     public function __construct()
     {
     }
@@ -137,6 +142,48 @@ class CreateContext implements Context
             throw new Exception('Created data does not match the new one!');
         }
     }
+
+    /**
+     * @Given I have valid new package data
+     */
+    public function iHaveValidNewPackageData()
+    {
+        $factoryRequest = new RequestFactory();
+
+        $this->package = $factoryRequest->prepareCreatePackageRequestPayload();
+    }
+
+    /**
+     * @When I request create a new package with the data I have
+     */
+    public function iRequestCreateANewPackageWithTheDataIHave()
+    {
+        $this->response = $this->httpClient->post(
+            ConfigLinks::$BASE_API . ConfigLinks::$PACKAGE_ENDPOINT,
+            [
+                'body'=>json_encode($this->package),
+                'headers'=>[
+                    "Authorization" => "Bearer " . $this->token,
+                    "Accept"        => "application/json",
+                ]
+            ]
+        );
+    }
+
+    /**
+     * @Then A json response with the new package information
+     */
+    public function aJsonResponseWithTheNewPackageInformation()
+    {
+        $data = json_decode($this->response->getBody(), true);
+
+        if($data['Data']['name'] != "p22")
+        {
+            throw new Exception('Created data does not match the new one!');
+        }
+    }
+
+
 
     use CreateCommon;
 }

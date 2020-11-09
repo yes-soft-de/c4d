@@ -56,5 +56,28 @@ class QueryContext implements Context
         }
     }
 
+    /**
+     * @When I request active packages
+     */
+    public function iRequestActivePackages()
+    {
+        try
+        {
+            $this->response = $this->httpClient->get(
+                ConfigLinks::$BASE_API . 'activepackages',
+                [
+                    'headers' => [
+                        "Authorization" => "Bearer " . $this->token,
+                        "Accept" => "application/json",
+                    ]
+                ]
+            );
+        }
+        catch (GuzzleHttp\Exception\ClientException $ex)
+        {
+            throw new Exception('No data were found!');
+        }
+    }
+
     use CreateCommon;
 }
