@@ -35,6 +35,32 @@ App\Request\PackageCreateRequest:
     status:
       - NotBlank: ~
 
+App\Request\PackageUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+    cost:
+      - NotBlank: ~
+    carCount:
+      - NotBlank: ~
+    orderCount:
+      - NotBlank: ~
+    city:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+
+App\Request\SubscriptionCreateRequest:
+  properties:
+    ownerID:
+      - NotBlank: ~
+    packageID:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+
 App\Request\UserRegisterRequest:
   properties:
     userID:
