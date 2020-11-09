@@ -53,11 +53,48 @@ class RequestFactory
         $adminMapper = new MapperAdmin();
 
         $adminMapper->setAdmin("a22@test.com",
-            ['user'],
+            ['admin'],
             "000",
             "a22"
         );
 
         return $adminMapper->getAdminAsArray();
+    }
+
+    public function prepareAdminLoginRequestPayload()
+    {
+        return [
+            "username"=>"a22",
+            "password"=>"000"
+        ];
+    }
+
+    public function prepareCreatePackageRequestPayload()
+    {
+        $packageMapper = new MapperPackage();
+
+        $packageMapper->setPackage("p22",
+            "2000",
+            "",
+            "22",
+            "fake city",
+            "120",
+            "not active"
+        );
+
+        return $packageMapper->getPackageAsArray();
+    }
+
+    public function preparePackageUpdateRequestPayload($id)
+    {
+        return [
+            "id"=>$id,
+            "name" => "p22",
+            "cost" => "2000",
+            "carCount" => "20",
+            "city" => "updated address",
+            "orderCount"=>"120",
+            "status"=>"active"
+        ];
     }
 }
