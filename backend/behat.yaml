@@ -1,0 +1,21 @@
+default:
+      suites:
+          login:
+            paths:
+              - "%paths.base%/features/login"
+            contexts: [LoginUserContext]
+
+          create:
+            paths:
+              - "%paths.base%/features/create"
+            contexts: [CreateContext]
+
+          query:
+            paths:
+              - "%paths.base%/features/query"
+            contexts: [QueryContext]
+
+          update:
+            paths:
+              - "%paths.base%/features/update"
+            contexts: [UpdateContext]
