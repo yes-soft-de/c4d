@@ -14,4 +14,6 @@ class ConfigLinks
     static $PROFILE_ENDPOINTS = 'userprofile';
 
     static $PACKAGE_ENDPOINT = 'package';
+
+    static $SUBSCRIPTION_ENDPOINT = 'subscription';
 }

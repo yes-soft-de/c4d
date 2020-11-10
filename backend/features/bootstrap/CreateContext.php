@@ -27,6 +27,11 @@ class CreateContext implements Context
      */
     private $package;
 
+    /**
+     * @var array $subscription
+     */
+    private $subscription;
+
     public function __construct()
     {
     }
@@ -183,6 +188,45 @@ class CreateContext implements Context
         }
     }
 
+    /**
+     * @Given /^I have valid new subscription data$/
+     */
+    public function iHaveValidNewSubscriptionData()
+    {
+        $factoryRequest = new RequestFactory();
+
+        $this->subscription = $factoryRequest->prepareCreateSubscriptionRequestPayload();
+    }
+
+    /**
+     * @When /^I request create a new subscription with the data I have$/
+     */
+    public function iRequestCreateANewSubscriptionWithTheDataIHave()
+    {
+        $this->response = $this->httpClient->post(
+            ConfigLinks::$BASE_API . ConfigLinks::$SUBSCRIPTION_ENDPOINT,
+            [
+                'body'=>json_encode($this->subscription),
+                'headers'=>[
+                    "Authorization" => "Bearer " . $this->token,
+                    "Accept"        => "application/json",
+                ]
+            ]
+        );
+    }
+
+    /**
+     * @Given /^A json response with the new subscription information$/
+     */
+    public function aJsonResponseWithTheNewSubscriptionInformation()
+    {
+        $data = json_decode($this->response->getBody(), true);
+
+        if($data['Data']['ownerID'] != "a22")
+        {
+            throw new Exception('Created data does not match the new one!');
+        }
+    }
 
 
     use CreateCommon;

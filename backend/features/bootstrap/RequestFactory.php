@@ -97,4 +97,17 @@ class RequestFactory
             "status"=>"active"
         ];
     }
+
+    public function prepareCreateSubscriptionRequestPayload()
+    {
+        $subscriptionMapper = new MapperSubscription();
+
+        $subscriptionMapper->setSubscription(
+            "a22",
+            "11",
+            "current"
+        );
+
+        return $subscriptionMapper->getSubscriptionAsArray();
+    }
 }
