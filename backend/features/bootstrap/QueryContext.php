@@ -80,6 +80,29 @@ class QueryContext implements Context
     }
 
     /**
+     * @When /^I request packages for location "([^"]*)"$/
+     */
+    public function iRequestPackagesForLocation($arg1)
+    {
+        try
+        {
+            $this->response = $this->httpClient->get(
+                ConfigLinks::$BASE_API . 'packages/' . $arg1,
+                [
+                    'headers' => [
+                        "Authorization" => "Bearer " . $this->token,
+                        "Accept" => "application/json",
+                    ]
+                ]
+            );
+        }
+        catch (GuzzleHttp\Exception\ClientException $ex)
+        {
+            throw new Exception('No data were found!');
+        }
+    }
+
+    /**
      * @When /^I request current subscriptions$/
      */
     public function iRequestCurrentSubscriptions()
