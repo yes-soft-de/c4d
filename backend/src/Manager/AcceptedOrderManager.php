@@ -44,6 +44,11 @@ class AcceptedOrderManager
         return $this->repository->acceptedOrder($userID, $ID);
     }
 
+    public function totalEarn($userID)
+    {
+        return $this->repository->totalEarn($userID);
+    }
+
     public function closestOrders()
     {
         return $this->repository->closestOrders();

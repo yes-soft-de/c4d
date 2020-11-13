@@ -28,11 +28,21 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+   
     public function closestOrders()
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
             ->select('AcceptedOrderEntity.orderID as id ')
             ->getQuery()
             ->getResult();
+    }
+   
+    public function totalEarn()
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select("sum(AcceptedOrderEntity.cost) as CaptaintotalEarn ")
+            ->andWhere("AcceptedOrderEntity.state = 'deliverd'")
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

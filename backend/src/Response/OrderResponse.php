@@ -15,4 +15,5 @@ class OrderResponse
     public $payment;
     public $recipientName;
     public $recipientPhone;
+    public $state;
 }

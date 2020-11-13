@@ -47,7 +47,7 @@ class OrderService
         $result = $this->orderManager->getOrdersByOwnerID($userID);
         foreach($result as $item)
         {
-            $response[] = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $item);
         }
         return $response;
     }
@@ -56,7 +56,7 @@ class OrderService
     {
         $result = $this->orderManager->orderStatus($userID, $ID);
         
-        $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $result);
+        $response = $this->autoMapping->map('array', OrderResponse::class, $result);
         
         return $response;
     }

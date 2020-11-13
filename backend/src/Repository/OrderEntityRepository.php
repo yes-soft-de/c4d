@@ -32,6 +32,14 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersByOwnerID($userID)
     {
         return $this->createQueryBuilder('OrderEntity')
+            ->addselect('OrderEntity.id','OrderEntity.ownerID','OrderEntity.source','OrderEntity.destination','OrderEntity.date','OrderEntity.note','OrderEntity.payment','OrderEntity.recipientName','OrderEntity.recipientPhone','acceptedOrderEntity.state')
+           
+            ->leftJoin(
+                AcceptedOrderEntity::class,                   
+                'acceptedOrderEntity',
+                Join::WITH,             
+                'acceptedOrderEntity.orderID = OrderEntity.id'  
+            )
             ->andWhere('OrderEntity.ownerID = :userID')
             ->setParameter('userID', $userID)
             ->getQuery()
@@ -41,6 +49,14 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function orderStatus($userID, $ID)
     {
         return $this->createQueryBuilder('OrderEntity')
+        ->addselect('OrderEntity.id','OrderEntity.ownerID','OrderEntity.source','OrderEntity.destination','OrderEntity.date','OrderEntity.note','OrderEntity.payment','OrderEntity.recipientName','OrderEntity.recipientPhone','acceptedOrderEntity.state')
+        
+        ->leftJoin(
+            AcceptedOrderEntity::class,                   
+            'acceptedOrderEntity',
+            Join::WITH,             
+            'acceptedOrderEntity.orderID = OrderEntity.id'  
+        )
             ->andWhere('OrderEntity.ownerID = :userID')
             ->andWhere('OrderEntity.id = :ID')
             ->setParameter('userID', $userID)
@@ -52,11 +68,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function closestOrders()
     {
         return $this->createQueryBuilder('OrderEntity')
-      
-            // ->andWhere('OrderEntity.ownerID = :userID')
-            // ->setParameter('userID', $userID)
             ->getQuery()
             ->getArrayResult();
-                        // ->getResult();
     }
 }
