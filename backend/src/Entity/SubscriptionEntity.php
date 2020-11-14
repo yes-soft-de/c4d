@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SubscriptionEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=SubscriptionEntityRepository::class)
@@ -28,6 +29,7 @@ class SubscriptionEntity
     private $packageID;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $startDate;

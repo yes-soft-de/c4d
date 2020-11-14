@@ -95,6 +95,12 @@ class UserManager
         return $this->userProfileEntityRepository->getProfileByUSerID($userID);
     }
 
+    public function getremainingOrders($userID)
+    {
+        $date = new \DateTime("Now");
+        return $this->userProfileEntityRepository->getremainingOrders($userID, $date);
+    }
+
     public function captainprofileCreate(CaptainProfileCreateRequest $request)
     {
         $captainprofile = $this->autoMapping->map(CaptainProfileCreateRequest::class, CaptainProfileEntity::class, $request);

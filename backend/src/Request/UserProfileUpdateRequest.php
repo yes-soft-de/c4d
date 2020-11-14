@@ -15,6 +15,8 @@ class UserProfileUpdateRequest
     private $story;
 
     private $image;
+    
+    private $branch;
 
     /**
      * @return mixed

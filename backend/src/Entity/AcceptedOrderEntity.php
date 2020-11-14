@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AcceptedOrderEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=AcceptedOrderEntityRepository::class)
@@ -28,6 +29,7 @@ class AcceptedOrderEntity
     private $captainID;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;

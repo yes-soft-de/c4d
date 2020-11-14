@@ -52,6 +52,11 @@ class PackageEntity
      */
     private $status;
 
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $branch;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class PackageEntity
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getBranch(): ?string
+    {
+        return $this->branch;
+    }
+
+    public function setBranch(string $branch): self
+    {
+        $this->branch = $branch;
 
         return $this;
     }

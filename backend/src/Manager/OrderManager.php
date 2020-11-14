@@ -33,7 +33,9 @@ class OrderManager
     public function create(OrderCreateRequest $request)
     {
         $item = $this->autoMapping->map(OrderCreateRequest::class, OrderEntity::class, $request);
-
+      
+        $item->setDate($item->getDate());
+       
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();

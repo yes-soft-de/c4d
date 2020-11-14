@@ -18,6 +18,7 @@ use App\Response\UserProfileCreateResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
+use App\Response\remainingOrdersResponse;
 
 class UserService
 {
@@ -57,6 +58,16 @@ class UserService
 
         return $this->autoMapping->map('array', UserProfileResponse::class, $item);
 
+    }
+
+    public function getremainingOrders($userID)
+    {$respons =[];
+        $items = $this->userManager->getremainingOrders($userID);
+        foreach($items as $item)
+        {
+            $respons = $this->autoMapping->map('array', remainingOrdersResponse::class, $item);
+        }
+        return $respons;
     }
 
     public function captainprofileCreate(CaptainProfileCreateRequest $request)

@@ -21,6 +21,8 @@ class PackageUpdateRequest
     private $orderCount;
 
     private $status;
+    
+    private $branch;
 
     /**
      * @return mixed

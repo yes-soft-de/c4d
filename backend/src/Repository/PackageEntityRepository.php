@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\PackageEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method PackageEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,14 +32,31 @@ class PackageEntityRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getPackagesByCityOwner($location)
+    // public function getPackagesByCityOwner($location)
+    // {
+    //     return $this->createQueryBuilder('package')
+    //         ->select('package.id, package.name, package.cost, package.note, package.carCount, package.orderCount, package.status, package.branch')
+    //         ->andWhere('package.city = :city')
+    //         ->setParameter('city', $location)
+    //         ->getQuery()
+    //         ->getResult()
+    //         ;
+    // }
+    public function getPackages($user)
     {
         return $this->createQueryBuilder('package')
-            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.orderCount, package.status')
-            ->andWhere('package.city = :city')
-            ->setParameter('city', $location)
+            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.orderCount, package.status, package.city, package.branch')
+            ->join(
+                UserProfileEntity::class,                   
+                'userProfileEntity',
+                Join::WITH,             
+                'userProfileEntity.userID = :user'   
+            )
+            ->andWhere('userProfileEntity.branch = package.branch')
+            ->andWhere('userProfileEntity.location = package.city')
+            ->setParameter('user', $user)
+            ->groupBy('package.id')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 }

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class UserController extends BaseController
 {
     private $autoMapping;
@@ -105,6 +105,18 @@ class UserController extends BaseController
         $response = $this->userService->getUserProfileByUserID($this->getUserId());
 
         return $this->response($response,self::FETCH);
+    }
+
+    /**
+     * @Route("/remainingOrders", name="GetOrdersByOwnerID", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     */
+    public function getremainingOrders()
+    {       
+        $result = $this->userService->getremainingOrders($this->getUserId());
+
+        return $this->response($result, self::FETCH);
     }
 
     /**

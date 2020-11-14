@@ -28,9 +28,16 @@ class PackageService
         return $this->autoMapping->map(PackageEntity::class, PackageResponse::class, $carResult);
     }
 
-    public function getByCityOwner($location)
-    {
-        return $this->packageManager->getByCityOwner($location);
+    public function getPackages($user)
+    {   
+        $respons =[];
+        $items = $this->packageManager->getPackages($user);
+        
+        foreach($items as $item)
+        {
+            $respons[]= $this->autoMapping->map('array', PackageResponse::class,  $item);
+        }
+        return $respons;
     }
 
     public function getActivePackages()

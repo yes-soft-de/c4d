@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class PackageController extends BaseController
 {
     private $autoMapping;
@@ -57,13 +58,13 @@ class PackageController extends BaseController
     }
 
     /**
-     * @Route("packages/{location}", name="getPackagesByCityOwner", methods={"GET"})
-     * @param $location
+     * @Route("packages", name="getPackages", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
-    public function getPackagesByCityOwner($location)
+    public function getPackages()
     {
-        $result = $this->packageService->getByCityOwner($location);
+        $result = $this->packageService->getPackages($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

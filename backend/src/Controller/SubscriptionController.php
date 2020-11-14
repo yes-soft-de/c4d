@@ -40,7 +40,8 @@ class SubscriptionController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,SubscriptionCreateRequest::class, (object)$data);
-
+        $request->setOwnerID($this->getUserId());
+        
         $violations = $this->validator->validate($request);
 
         if (\count($violations) > 0)
