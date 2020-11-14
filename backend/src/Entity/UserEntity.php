@@ -129,12 +129,12 @@ class UserEntity implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreateDate(): ?\DateTimeInterface
+    public function getCreateDate()
     {
         return $this->createDate;
     }
 
-    public function setCreateDate(?\DateTimeInterface $createDate): self
+    public function setCreateDate($createDate): self
     {
         $this->createDate = $createDate;
 

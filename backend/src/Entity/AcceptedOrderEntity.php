@@ -49,6 +49,13 @@ class AcceptedOrderEntity
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getOrderID(): ?string
     {
         return $this->orderID;
@@ -73,12 +80,12 @@ class AcceptedOrderEntity
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate()
     {
         return $this->date;
     }
 
-    public function setDate(?\DateTimeInterface $date): self
+    public function setDate( $date): self
     {
         $this->date = $date;
 
