@@ -14,7 +14,7 @@ use App\Response\OrderResponse;
 use App\Tests\fixtures\OrderProvider;
 use PHPUnit\Framework\TestCase;
 
-class OrderServiceServiceUnitTest extends TestCase
+class OrderServiceUnitTest extends TestCase
 {
     private $mockManager;
     private $autoMapping;
