@@ -146,6 +146,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/captainprofile", name="captainprofileUpdate", methods={"PUT"})
+     * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
      */
@@ -163,7 +164,8 @@ class UserController extends BaseController
 
     /**
      * @Route("/captainprofile", name="getCaptainprofileByID",methods={"GET"})
-     * @return JsonResponse
+     * @IsGranted("ROLE_CAPTAIN")
+     *  @return JsonResponse
      */
     public function getcaptainprofileByID()
     {
