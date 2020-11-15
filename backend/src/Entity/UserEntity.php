@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=UserEntityRepository::class)
@@ -35,6 +36,7 @@ class UserEntity implements UserInterface
     private $password;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="date", nullable=true)
      */
     private $createDate;
@@ -127,12 +129,12 @@ class UserEntity implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreateDate(): ?\DateTimeInterface
+    public function getCreateDate()
     {
         return $this->createDate;
     }
 
-    public function setCreateDate(?\DateTimeInterface $createDate): self
+    public function setCreateDate($createDate): self
     {
         $this->createDate = $createDate;
 

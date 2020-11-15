@@ -42,6 +42,16 @@ class UserProfileEntity
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $branch;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +113,18 @@ class UserProfileEntity
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+    
+    public function getBranch(): ?string
+    {
+        return $this->branch;
+    }
+
+    public function setBranch(string $branch): self
+    {
+        $this->branch = $branch;
 
         return $this;
     }

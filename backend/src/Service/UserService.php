@@ -7,13 +7,18 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\UserEntity;
 use App\Entity\UserProfileEntity;
+use App\Entity\CaptainProfileEntity;
 use App\Manager\UserManager;
 use App\Request\UserProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
+use App\Request\CaptainProfileCreateRequest;
+use App\Request\CaptainProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Response\UserProfileCreateResponse;
+use App\Response\CaptainProfileCreateResponse;
 use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
+use App\Response\remainingOrdersResponse;
 
 class UserService
 {
@@ -52,6 +57,39 @@ class UserService
         $item = $this->userManager->getProfileByUserID($userID);
 
         return $this->autoMapping->map('array', UserProfileResponse::class, $item);
+
+    }
+
+    public function getremainingOrders($userID)
+    {
+        $respons =[];
+        $items = $this->userManager->getremainingOrders($userID);
+        foreach($items as $item)
+        {
+            $respons = $this->autoMapping->map('array', remainingOrdersResponse::class, $item);
+        }
+        return $respons;
+    }
+
+    public function captainprofileCreate(CaptainProfileCreateRequest $request)
+    {
+        $captainProfile = $this->userManager->captainprofileCreate($request);
+
+        return $this->autoMapping->map(CaptainProfileEntity::class,CaptainProfileCreateResponse::class, $captainProfile);
+    }
+
+    public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
+    {
+        $item = $this->userManager->captainprofileUpdate($request);
+
+        return $this->autoMapping->map(CaptainProfileEntity::class,CaptainProfileCreateResponse::class, $item);
+    }
+
+    public function getcaptainprofileByID($userID)
+    {
+        $item = $this->userManager->getcaptainprofileByID($userID);
+
+        return $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
 
     }
 }

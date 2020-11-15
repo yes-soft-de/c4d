@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\UserProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
+use App\Request\CaptainProfileCreateRequest;
+use App\Request\CaptainProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
 use App\Service\UserService;
 use stdClass;
@@ -14,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class UserController extends BaseController
 {
     private $autoMapping;
@@ -101,6 +103,73 @@ class UserController extends BaseController
     public function getUserProfileByID()
     {
         $response = $this->userService->getUserProfileByUserID($this->getUserId());
+
+        return $this->response($response,self::FETCH);
+    }
+
+    /**
+     * @Route("/remainingOrders", name="GetremainingOrdersSpecificOwner", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @return JsonResponse
+     */
+    public function getremainingOrders()
+    {       
+        $result = $this->userService->getremainingOrders($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/captainprofile", name="captainprofileCreate", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function captainprofileCreate(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class,CaptainProfileCreateRequest::class,(object)$data);
+
+        $request->setCaptainID($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->userService->captainprofileCreate($request);
+
+        return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("/captainprofile", name="captainprofileUpdate", methods={"PUT"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function captainprofileUpdate(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class,CaptainProfileUpdateRequest::class,(object)$data);
+        $request->setCaptainID($this->getUserId());
+
+        $response = $this->userService->captainprofileUpdate($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * @Route("/captainprofile", name="getCaptainprofileSpecificCaptain",methods={"GET"})
+     * @IsGranted("ROLE_CAPTAIN")
+     *  @return JsonResponse
+     */
+    public function getcaptainprofileByID()
+    {
+        $response = $this->userService->getcaptainprofileByID($this->getUserId());
 
         return $this->response($response,self::FETCH);
     }

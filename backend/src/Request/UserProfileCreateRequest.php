@@ -16,6 +16,8 @@ class UserProfileCreateRequest
 
     private $image;
 
+    private $branch;
+
     /**
      * @return mixed
      */
