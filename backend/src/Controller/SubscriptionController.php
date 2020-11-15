@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class SubscriptionController extends BaseController
 {
     private $autoMapping;
@@ -32,6 +32,7 @@ class SubscriptionController extends BaseController
 
     /**
      * @Route("subscription", name="createSubscription", methods={"POST"})
+     * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
@@ -57,7 +58,8 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("currentsubscriptions", name="getCurrentSubscribedPackages", methods={"GET"})
+     * @Route("currentSubscription", name="getCurrentSubscribedPackages", methods={"GET"})
+     *  @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
     public function getCurrentSubscribedPackages()

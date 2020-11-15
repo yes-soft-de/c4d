@@ -108,7 +108,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/remainingOrders", name="GetOrdersByOwnerID", methods={"GET"})
+     * @Route("/remainingOrders", name="GetremainingOrdersSpecificOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
@@ -163,7 +163,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/captainprofile", name="getCaptainprofileByID",methods={"GET"})
+     * @Route("/captainprofile", name="getCaptainprofileSpecificCaptain",methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      *  @return JsonResponse
      */

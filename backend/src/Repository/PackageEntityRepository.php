@@ -32,16 +32,6 @@ class PackageEntityRepository extends ServiceEntityRepository
         ;
     }
 
-    // public function getPackagesByCityOwner($location)
-    // {
-    //     return $this->createQueryBuilder('package')
-    //         ->select('package.id, package.name, package.cost, package.note, package.carCount, package.orderCount, package.status, package.branch')
-    //         ->andWhere('package.city = :city')
-    //         ->setParameter('city', $location)
-    //         ->getQuery()
-    //         ->getResult()
-    //         ;
-    // }
     public function getPackages($user)
     {
         return $this->createQueryBuilder('package')
@@ -54,7 +44,9 @@ class PackageEntityRepository extends ServiceEntityRepository
             )
             ->andWhere('userProfileEntity.branch = package.branch')
             ->andWhere('userProfileEntity.location = package.city')
+            ->andWhere('package.status = :status')
             ->setParameter('user', $user)
+            ->setParameter('status', "active")
             ->groupBy('package.id')
             ->getQuery()
             ->getResult();

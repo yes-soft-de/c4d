@@ -91,7 +91,7 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/closestOrders", name="GetClosestOrdersToCaptain", methods={"GET"})
+     * @Route("/closestOrders", name="GetClosestOrdersToCaptainAnd NoOtherCaptainTookIt", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @return JsonResponse
      */
