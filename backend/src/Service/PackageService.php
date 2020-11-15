@@ -47,8 +47,8 @@ class PackageService
 
     public function update($request)
     {
-        $carResult = $this->packageManager->update($request);
+        $result = $this->packageManager->update($request);
 
-        return $this->autoMapping->map(PackageEntity::class, PackageResponse::class, $carResult);
+        return $this->autoMapping->map(PackageEntity::class, PackageResponse::class, $result);
     }
 }
