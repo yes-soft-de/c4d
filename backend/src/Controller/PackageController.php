@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-
 use App\AutoMapping;
 use App\Request\PackageCreateRequest;
 use App\Request\PackageUpdateRequest;
@@ -17,14 +16,14 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 class PackageController extends BaseController
 {
     private $autoMapping;
     private $validator;
     private $packageService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator,
-                                PackageService $packageService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, PackageService $packageService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
@@ -41,12 +40,11 @@ class PackageController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,PackageCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, PackageCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
 
-        if (\count($violations) > 0)
-        {
+        if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
@@ -93,8 +91,7 @@ class PackageController extends BaseController
 
         $violations = $this->validator->validate($request);
 
-        if (\count($violations) > 0)
-        {
+        if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);

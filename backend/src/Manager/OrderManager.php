@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\AutoMapping;
 use App\Entity\OrderEntity;
@@ -22,7 +20,7 @@ class OrderManager
     private $repository;
     private $userProfileEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, OrderEntityRepository $repository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface  $entityManager, UserPasswordEncoderInterface $encoder, OrderEntityRepository $repository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -67,10 +65,8 @@ class OrderManager
     {
         $item = $this->repository->find($request->getId());
 
-        if ($item)
-        {
-            $item = $this->autoMapping->mapToObject(OrderUpdateRequest::class,
-            OrderEntity::class, $request, $item);
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(OrderUpdateRequest::class, OrderEntity::class, $request, $item);
 
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -82,11 +78,8 @@ class OrderManager
     public function delete(DeleteRequest $request)
     {
         $entity = $this->repository->find($request->getId());
-        if(!$entity )
-        {
-        }
-        else
-        {
+        if (!$entity) {
+        } else {
             $this->entityManager->remove($entity);
             $this->entityManager->flush();
         }

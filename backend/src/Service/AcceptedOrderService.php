@@ -1,16 +1,15 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\AutoMapping;
 use App\Entity\AcceptedOrderEntity;
 use App\Manager\AcceptedOrderManager;
 use App\Request\AcceptedOrderCreateRequest;
-use App\Response\AcceptedOrderResponse;;
+use App\Response\AcceptedOrderResponse;
 use App\Response\CaptaintotalEarnResponse;
 use App\Response\OrderResponse;
+
 class AcceptedOrderService
 {
     private $autoMapping;
@@ -26,7 +25,7 @@ class AcceptedOrderService
     {
         $item = $this->acceptedOrderManager->create($request);
 
-        return $this->autoMapping->map(AcceptedOrderEntity::class,AcceptedOrderResponse::class, $item);
+        return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
     }
 
     public function acceptedOrder($userID, $ID)
@@ -49,6 +48,6 @@ class AcceptedOrderService
 
     public function closestOrders()
     {
-        return $this->acceptedOrderManager->closestOrders();         
+        return $this->acceptedOrderManager->closestOrders();
     }
 }

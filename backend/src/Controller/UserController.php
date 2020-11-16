@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 class UserController extends BaseController
 {
     private $autoMapping;
@@ -40,7 +41,7 @@ class UserController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,UserRegisterRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
@@ -63,7 +64,7 @@ class UserController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,UserProfileCreateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, UserProfileCreateRequest::class, (object)$data);
 
         $request->setUserID($this->getUserId());
 
@@ -88,7 +89,7 @@ class UserController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,UserProfileUpdateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, UserProfileUpdateRequest::class, (object)$data);
         $request->setUserID($this->getUserId());
 
         $response = $this->userService->userProfileUpdate($request);
@@ -104,7 +105,7 @@ class UserController extends BaseController
     {
         $response = $this->userService->getUserProfileByUserID($this->getUserId());
 
-        return $this->response($response,self::FETCH);
+        return $this->response($response, self::FETCH);
     }
 
     /**
@@ -113,7 +114,7 @@ class UserController extends BaseController
      * @return JsonResponse
      */
     public function getremainingOrders()
-    {       
+    {
         $result = $this->userService->getremainingOrders($this->getUserId());
 
         return $this->response($result, self::FETCH);
@@ -128,7 +129,7 @@ class UserController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,CaptainProfileCreateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, CaptainProfileCreateRequest::class, (object)$data);
 
         $request->setCaptainID($this->getUserId());
 
@@ -154,7 +155,7 @@ class UserController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,CaptainProfileUpdateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, CaptainProfileUpdateRequest::class, (object)$data);
         $request->setCaptainID($this->getUserId());
 
         $response = $this->userService->captainprofileUpdate($request);
@@ -171,6 +172,6 @@ class UserController extends BaseController
     {
         $response = $this->userService->getcaptainprofileByID($this->getUserId());
 
-        return $this->response($response,self::FETCH);
+        return $this->response($response, self::FETCH);
     }
 }

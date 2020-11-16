@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Response;
 
-
-class remainingOrdersResponse
+class RemainingOrdersResponse
 {
     public $packageID;
     public $subscriptionID;

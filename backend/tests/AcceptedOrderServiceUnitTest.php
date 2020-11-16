@@ -50,7 +50,6 @@ class AcceptedOrderServiceUnitTest extends TestCase
         $service = new AcceptedOrderService($this->autoMapping, $this->mockManager);
         
         $this->assertEquals($response, $service->create($request));
-       
     }
 
     public function create()
@@ -87,9 +86,8 @@ class AcceptedOrderServiceUnitTest extends TestCase
         $service = new AcceptedOrderService($this->autoMapping, $this->mockManager);
 
         $this->assertEquals($response, $service->acceptedOrder($actual, $actual));
-       
     }
-
+    
     public function acceptedOrder()
     {
         $result = new AcceptedOrderProvider();
@@ -111,7 +109,6 @@ class AcceptedOrderServiceUnitTest extends TestCase
         $service = new AcceptedOrderService($this->autoMapping, $this->mockManager);
 
         $this->assertEquals($response, $service->totalEarn($expected));
-       
     }
 
     public function totalEarn()
@@ -131,13 +128,11 @@ class AcceptedOrderServiceUnitTest extends TestCase
         $service = new AcceptedOrderService($this->autoMapping, $this->mockManager);
 
         $this->assertIsArray($service->closestOrders($expected));
-       
     }
-
+    
     public function closestOrders()
     {
         $result = new AcceptedOrderProvider();
         return $result->closestOrders();
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Request;
-
 
 class UserProfileUpdateRequest
 {
@@ -97,6 +95,4 @@ class UserProfileUpdateRequest
     {
         $this->image = $image;
     }
-
-
 }

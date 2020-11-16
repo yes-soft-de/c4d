@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\AutoMapping;
 use App\Entity\PackageEntity;
@@ -49,20 +47,14 @@ class PackageManager
     {
         $packageEntity = $this->packageEntityRepository->find($request->getId());
 
-        if(!$packageEntity)
-        {
+        if (!$packageEntity) {
             return null;
-        }
-        else
-        {
-            $packageEntity = $this->autoMapping->mapToObject(PackageUpdateRequest::class,
-                PackageEntity::class, $request, $packageEntity);
+        } else {
+            $packageEntity = $this->autoMapping->mapToObject(PackageUpdateRequest::class, PackageEntity::class, $request, $packageEntity);
 
             $this->entityManager->flush();
 
             return $packageEntity;
         }
     }
-
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Request;
-
 
 class OrderCreateRequest
 {
@@ -30,5 +28,4 @@ class OrderCreateRequest
     {
         return $this->ownerID;
     }
-
 }

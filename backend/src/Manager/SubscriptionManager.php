@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\AutoMapping;
 use App\Entity\SubscriptionEntity;
@@ -38,5 +36,4 @@ class SubscriptionManager
     {
         return $this->subscriptionEntityRepository->getCurrentSubscribedPackages();
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Request;
-
 
 class GetByIdRequest
 {
@@ -32,5 +30,4 @@ class GetByIdRequest
     {
         $this->id = $id;
     }
-
 }

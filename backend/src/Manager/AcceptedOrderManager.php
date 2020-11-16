@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\AutoMapping;
 use App\Entity\AcceptedOrderEntity;
@@ -53,5 +51,4 @@ class AcceptedOrderManager
     {
         return $this->repository->closestOrders();
     }
-
 }

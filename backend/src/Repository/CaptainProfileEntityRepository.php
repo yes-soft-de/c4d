@@ -32,7 +32,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainprofileByUserID($userID)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id','captainProfile.captainID','captainProfile.name','captainProfile.image','captainProfile.location','captainProfile.age','captainProfile.car','captainProfile.drivingLicence')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence')
             ->andWhere('captainProfile.captainID=:userID')
             ->setParameter('userID', $userID)
 

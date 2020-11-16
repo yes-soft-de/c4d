@@ -7,6 +7,7 @@ use App\Entity\AcceptedOrderEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+
 /**
  * @method OrderEntity|null find($id, $lockMode = null, $lockVersion = null)
  * @method OrderEntity|null findOneBy(array $criteria, array $orderBy = null)
@@ -32,14 +33,9 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersByOwnerID($userID)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->addselect('OrderEntity.id','OrderEntity.ownerID','OrderEntity.source','OrderEntity.destination','OrderEntity.date','OrderEntity.note','OrderEntity.payment','OrderEntity.recipientName','OrderEntity.recipientPhone','acceptedOrderEntity.state')
+            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
            
-            ->leftJoin(
-                AcceptedOrderEntity::class,                   
-                'acceptedOrderEntity',
-                Join::WITH,             
-                'acceptedOrderEntity.orderID = OrderEntity.id'  
-            )
+            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
             ->andWhere('OrderEntity.ownerID = :userID')
             ->setParameter('userID', $userID)
             ->getQuery()
@@ -49,14 +45,9 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function orderStatus($userID, $ID)
     {
         return $this->createQueryBuilder('OrderEntity')
-        ->addselect('OrderEntity.id','OrderEntity.ownerID','OrderEntity.source','OrderEntity.destination','OrderEntity.date','OrderEntity.note','OrderEntity.payment','OrderEntity.recipientName','OrderEntity.recipientPhone','acceptedOrderEntity.state')
+        ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
         
-        ->leftJoin(
-            AcceptedOrderEntity::class,                   
-            'acceptedOrderEntity',
-            Join::WITH,             
-            'acceptedOrderEntity.orderID = OrderEntity.id'  
-        )
+        ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
             ->andWhere('OrderEntity.ownerID = :userID')
             ->andWhere('OrderEntity.id = :ID')
             ->setParameter('userID', $userID)

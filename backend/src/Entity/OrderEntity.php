@@ -62,7 +62,6 @@ class OrderEntity
         return $this->id;
     }
 
-    
     public function setId(string $id): self
     {
         $this->id = $id;
@@ -113,7 +112,7 @@ class OrderEntity
 
     public function setDate($date): self
     {
-        $this->date = new \DateTime ($date);
+        $this->date = new \DateTime($date);
 
         return $this;
     }

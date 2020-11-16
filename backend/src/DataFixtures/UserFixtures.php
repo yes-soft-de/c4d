@@ -12,14 +12,14 @@ class UserFixtures extends Fixture
 {
     private $encode;
 
-    public function __construct(UserPasswordEncoderInterface $encoder) {
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
         $this->encode = $encoder;
     }
 
     public function load(ObjectManager $manager)
     {
-        for($i = 2; $i < 20; $i++)
-        {
+        for ($i = 2; $i < 20; $i++) {
             $user = new UserEntity("u" . $i);
 
             $password = $this->encode->encodePassword($user, "000");
@@ -31,7 +31,6 @@ class UserFixtures extends Fixture
 
             $manager->persist($user);
         }
-
         $manager->flush();
     }
 }

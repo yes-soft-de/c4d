@@ -49,25 +49,10 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     public function getremainingOrders($userID, $date)
     {
         return $this->createQueryBuilder('profile')
-            ->select('subscriptionEntity.id as subscriptionID','subscriptionEntity.status as subscriptionstatus','subscriptionEntity.packageID as packageID','packageEntity.orderCount - count(orderEntity.id) as remainingOrders','subscriptionEntity.startDate as subscriptionStartDate')
-            ->leftJoin(
-                SubscriptionEntity::class,                   
-                'subscriptionEntity',
-                Join::WITH,             
-                'subscriptionEntity.ownerID = profile.userID'  
-            )
-            ->leftJoin(
-                PackageEntity::class,                   
-                'packageEntity',
-                Join::WITH,             
-                'packageEntity.id = subscriptionEntity.packageID'  
-            )
-            ->leftJoin(
-                OrderEntity::class,                   
-                'orderEntity',
-                Join::WITH,             
-                'orderEntity.ownerID = profile.userID'  
-            )
+            ->select('subscriptionEntity.id as subscriptionID', 'subscriptionEntity.status as subscriptionstatus', 'subscriptionEntity.packageID as packageID', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'subscriptionEntity.startDate as subscriptionStartDate')
+            ->leftJoin(SubscriptionEntity::class, 'subscriptionEntity', Join::WITH, 'subscriptionEntity.ownerID = profile.userID')
+            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscriptionEntity.packageID')
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = profile.userID')
             ->andWhere('profile.userID=:userID')
             ->andWhere('subscriptionEntity.endDate < :date')
             ->setParameter('userID', $userID)
@@ -75,6 +60,5 @@ class UserProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
-            
     }
 }

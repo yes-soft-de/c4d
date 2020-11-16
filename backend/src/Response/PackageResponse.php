@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Response;
-
 
 class PackageResponse
 {
@@ -21,4 +19,6 @@ class PackageResponse
     public $orderCount;
 
     public $status;
+    
+    public $branch;
 }

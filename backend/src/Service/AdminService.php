@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\AutoMapping;
 use App\Entity\UserEntity;
@@ -25,7 +23,7 @@ class AdminService
     {
         $adminCreate = $this->adminManager->adminCreate($request);
 
-        $response = $this->autoMapping->map(UserEntity::class,AdminCreateResponse::class, $adminCreate);
+        $response = $this->autoMapping->map(UserEntity::class, AdminCreateResponse::class, $adminCreate);
 
         return $response;
     }

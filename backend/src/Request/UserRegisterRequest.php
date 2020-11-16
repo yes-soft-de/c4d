@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Request;
-
 
 class UserRegisterRequest
 {
@@ -59,6 +57,4 @@ class UserRegisterRequest
     {
         $this->password = $password;
     }
-
-
 }

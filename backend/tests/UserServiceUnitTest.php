@@ -14,7 +14,7 @@ use App\Request\UserRegisterRequest;
 use App\Response\UserProfileCreateResponse;
 use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
-use App\Response\remainingOrdersResponse;
+use App\Response\RemainingOrdersResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Service\UserService;
 use App\Tests\fixtures\UserProvider;
@@ -30,11 +30,10 @@ class UserServiceUnitTest extends TestCase
     {
         $this->mockManager = $this->createMock(UserManager::class);
         $this->autoMapping = new AutoMapping();
-        
     }
 
     /**
-     * @dataProvider Register
+     * @dataProvider register
      */
     public function testuserRegisterWithDataProvider($expected, $actual)
     {
@@ -60,10 +59,9 @@ class UserServiceUnitTest extends TestCase
 
         $service = new UserService($this->autoMapping, $this->mockManager);
         $this->assertIsObject($service->userRegister($request));
-      
     }
-
-    public function Register()
+    
+    public function register()
     {
         $result = new UserProvider();
         return $result->register();
@@ -94,8 +92,7 @@ class UserServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new UserService($this->autoMapping, $this->mockManager);
-        $this->assertEquals($response,$service->userProfileCreate($request));
-
+        $this->assertEquals($response, $service->userProfileCreate($request));
     }
 
     public function userProfileCreate()
@@ -129,8 +126,7 @@ class UserServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new UserService($this->autoMapping, $this->mockManager);
-        $this->assertEquals($response,$service->userProfileUpdate($request));
-
+        $this->assertEquals($response, $service->userProfileUpdate($request));
     }
 
     public function userProfileUpdate()
@@ -163,8 +159,7 @@ class UserServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new UserService($this->autoMapping, $this->mockManager);
-        $this->assertIsArray($service->getUserProfileByUserID($response->userID ));
-
+        $this->assertIsArray($service->getUserProfileByUserID($response->userID));
     }
 
     public function getUserProfileByUserID()
@@ -173,52 +168,6 @@ class UserServiceUnitTest extends TestCase
         return $result->getUserProfileByUserID();
     }
 
-    // /**
-    //  * @dataProvider getremainingOrders
-    //  */
-    // public function testgetremainingOrders($expected, $actual)
-    // {
-    //     $response = new remainingOrdersResponse();
-    //     $response->packageID = $expected;
-    //     $response->subscriptionID = $expected;
-    //     $response->remainingOrders = $expected;
-    //     $response->subscriptionstatus = $expected;
-    //     // $response->subscriptionStartDate = $expected;
-
-    //     // $entity = new UserProfileEntity();
-    //     // $entity->setUserID($actual);
-    //     // $entity->setUserName($actual);
-    //     // $entity->setLocation($actual);
-    //     // $entity->setStory($actual);
-    //     // $entity->setImage($actual);
-
-    //     // $request = new UserProfileUpdateRequest();
-
-    //     $this->mockManager
-    //         ->method('getremainingOrders')
-    //         ->willReturn(
-    //             ["packageID"=>$actual]
-    //             // ,
-    //             // ["subscriptionID"=>$actual],
-    //             // ["remainingOrders"=>$actual],
-    //             // ["subscriptionstatus"=>$actual]
-    //             // , ["subscriptionStartDate"=>$actual]            
-    //         );
-    //     $service = new UserService($this->autoMapping, $this->mockManager);
-
-    //     $this->assertIsArray($service->getremainingOrders("55"));
-
-    // }
-
-    // public function getremainingOrders()
-    // {
-    //     $result = new UserProvider();
-    //     return $result->getremainingOrders();
-    // }
-
-     /**
-     * @dataProvider captainprofileCreate
-     */
     public function testCaptainprofileCreate($expected, $actual)
     {
         $response = new CaptainProfileCreateResponse();
@@ -246,8 +195,7 @@ class UserServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new UserService($this->autoMapping, $this->mockManager);
-        $this->assertEquals($response,$service->captainprofileCreate($request));
-
+        $this->assertEquals($response, $service->captainprofileCreate($request));
     }
 
     public function captainprofileCreate()
@@ -286,8 +234,7 @@ class UserServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new UserService($this->autoMapping, $this->mockManager);
-        $this->assertEquals($response,$service->captainprofileUpdate($request));
-
+        $this->assertEquals($response, $service->captainprofileUpdate($request));
     }
 
     public function captainprofileUpdate()
@@ -324,8 +271,7 @@ class UserServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new UserService($this->autoMapping, $this->mockManager);
-        $this->assertIsArray($service->getcaptainprofileByID($response->captainID ));
-
+        $this->assertIsArray($service->getcaptainprofileByID($response->captainID));
     }
 
     public function getcaptainprofileByID()
@@ -333,5 +279,4 @@ class UserServiceUnitTest extends TestCase
         $result = new UserProvider();
         return $result->getcaptainprofileByID();
     }
-    
 }
