@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\AutoMapping;
 use App\Entity\OrderEntity;
@@ -18,7 +16,7 @@ class OrderService
     private $orderManager;
     private $acceptedOrderService;
 
-    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager,AcceptedOrderService $acceptedOrderService)
+    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService)
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
@@ -29,7 +27,7 @@ class OrderService
     {
         $item = $this->orderManager->create($request);
 
-        return $this->autoMapping->map(OrderEntity::class,OrderResponse::class, $item);
+        return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
     }
 
     public function getOrderById($request)
@@ -45,8 +43,7 @@ class OrderService
     {
         $response = [];
         $result = $this->orderManager->getOrdersByOwnerID($userID);
-        foreach($result as $item)
-        {
+        foreach ($result as $item) {
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $item);
         }
         return $response;
@@ -62,7 +59,7 @@ class OrderService
     }
 
     public function searchMyArray($arrays, $key, $search)
-    {       
+    {
         $count = 0;
 
         foreach ($arrays as $object) {
@@ -72,44 +69,38 @@ class OrderService
             if (array_key_exists($key, $object) && $object[$key] == $search) {
                 $count++;
             }
-
         }
         return $count;
     }
 
     public function closestOrders()
-    { 
+    {
         $response=[];
         $orders = $this->orderManager->closestOrders();
         $acceptedOrder = $this->acceptedOrderService->closestOrders();
         
-        foreach($orders as $res)
-        { 
-          if (!$this->searchMyArray($acceptedOrder, 'id', $res['id']))
-          {
-              $response[] = $this->autoMapping->map('array', OrderResponse::class, $res);
-          }
+        foreach ($orders as $res) {
+            if (!$this->searchMyArray($acceptedOrder, 'id', $res['id'])) {
+                $response[] = $this->autoMapping->map('array', OrderResponse::class, $res);
+            }
         }
-         return $response;
+        return $response;
     }
 
     public function update(OrderUpdateRequest $request)
     {
         $item = $this->orderManager->update($request);
 
-        return $this->autoMapping->map(OrderEntity::class,OrderResponse::class, $item);
+        return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
     }
 
     public function delete($result)
     {
         $result = $this->orderManager->delete($result);
 
-        if($result == null)
-        {
+        if ($result == null) {
             return null;
         }
-
         return  $this->autoMapping->map(OrderEntity::class, DeleteResponse::class, $result);
     }
-
 }

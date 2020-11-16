@@ -37,7 +37,7 @@ class AcceptedOrderController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,AcceptedOrderCreateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
@@ -58,7 +58,7 @@ class AcceptedOrderController extends BaseController
      * @return JsonResponse
      */
     public function acceptedOrder($ID)
-    {    
+    {
         $result = $this->acceptedOrderService->acceptedOrder($this->getUserId(), $ID);
 
         return $this->response($result, self::FETCH);
@@ -71,7 +71,7 @@ class AcceptedOrderController extends BaseController
      * @return JsonResponse
      */
     public function totalEarn()
-    {    
+    {
         $result = $this->acceptedOrderService->totalEarn($this->getUserId());
 
         return $this->response($result, self::FETCH);

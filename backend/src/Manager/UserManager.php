@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\AutoMapping;
 use App\Entity\UserEntity;
@@ -28,8 +26,7 @@ class UserManager
     private $userProfileEntityRepository;
     private $captainProfileEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,
-                                UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, UserProfileEntityRepository $userProfileEntityRepository, CaptainProfileEntityRepository $captainProfileEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, UserProfileEntityRepository $userProfileEntityRepository, CaptainProfileEntityRepository $captainProfileEntityRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -45,13 +42,11 @@ class UserManager
 
         $user = new UserEntity($request->getUserID());
 
-        if ($request->getPassword())
-        {
+        if ($request->getPassword()) {
             $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
         }
 
-        if ($request->getRoles() == null)
-        {
+        if ($request->getRoles() == null) {
             $request->setRoles(['user']);
         }
         $userRegister->setRoles($request->getRoles());
@@ -78,10 +73,8 @@ class UserManager
     {
         $item = $this->userProfileEntityRepository->getUserProfile($request->getUserID());
 
-        if ($item)
-        {
-            $item = $this->autoMapping->mapToObject(UserProfileUpdateRequest::class,
-                UserProfileEntity::class, $request, $item);
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(UserProfileUpdateRequest::class, UserProfileEntity::class, $request, $item);
 
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -116,10 +109,8 @@ class UserManager
     {
         $item = $this->captainProfileEntityRepository->getCaptainprofile($request->getCaptainID());
 
-        if ($item)
-        {
-            $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class,
-            CaptainProfileEntity::class, $request, $item);
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
 
             $this->entityManager->flush();
             $this->entityManager->clear();

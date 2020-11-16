@@ -64,7 +64,6 @@ class OrderServiceUnitTest extends TestCase
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
         
         $this->assertEquals($response, $service->create($request));
-       
     }
 
     public function create()
@@ -110,7 +109,6 @@ class OrderServiceUnitTest extends TestCase
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
 
         $this->assertEquals($response, $service->getOrderById($request));
-       
     }
 
     public function getOrderById()
@@ -154,7 +152,6 @@ class OrderServiceUnitTest extends TestCase
 
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
         $this->assertIsArray($service->getOrdersByOwnerID($actual));
-       
     }
 
     public function getOrdersByOwnerID()
@@ -198,7 +195,6 @@ class OrderServiceUnitTest extends TestCase
 
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
         $this->assertIsArray($service->orderStatus($actual, $actual));
-       
     }
 
     public function orderStatus()
@@ -243,7 +239,6 @@ class OrderServiceUnitTest extends TestCase
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
 
         $this->assertIsArray($service->closestOrders());
-       
     }
 
     public function closestOrders()
@@ -292,7 +287,6 @@ class OrderServiceUnitTest extends TestCase
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
         
         $this->assertEquals($response, $service->update($request));
-       
     }
 
     public function update()
@@ -334,8 +328,7 @@ class OrderServiceUnitTest extends TestCase
 
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
         
-        $this->assertIsObject( $service->delete($request));
-       
+        $this->assertIsObject($service->delete($request));
     }
 
     public function delete()

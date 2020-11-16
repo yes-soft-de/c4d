@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Request;
-
 
 class CaptainProfileCreateRequest
 {
@@ -22,7 +20,7 @@ class CaptainProfileCreateRequest
 
     /**
      * Get the value of captainID
-     */ 
+     */
     public function getCaptainID()
     {
         return $this->captainID;
@@ -32,7 +30,7 @@ class CaptainProfileCreateRequest
      * Set the value of captainID
      *
      * @return  self
-     */ 
+     */
     public function setCaptainID($captainID)
     {
         $this->captainID = $captainID;
@@ -42,7 +40,7 @@ class CaptainProfileCreateRequest
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -52,7 +50,7 @@ class CaptainProfileCreateRequest
      * Set the value of name
      *
      * @return  self
-     */ 
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -62,7 +60,7 @@ class CaptainProfileCreateRequest
 
     /**
      * Get the value of image
-     */ 
+     */
     public function getImage()
     {
         return $this->image;
@@ -72,7 +70,7 @@ class CaptainProfileCreateRequest
      * Set the value of image
      *
      * @return  self
-     */ 
+     */
     public function setImage($image)
     {
         $this->image = $image;
@@ -82,7 +80,7 @@ class CaptainProfileCreateRequest
 
     /**
      * Get the value of location
-     */ 
+     */
     public function getLocation()
     {
         return $this->location;
@@ -92,7 +90,7 @@ class CaptainProfileCreateRequest
      * Set the value of location
      *
      * @return  self
-     */ 
+     */
     public function setLocation($location)
     {
         $this->location = $location;
@@ -102,7 +100,7 @@ class CaptainProfileCreateRequest
 
     /**
      * Get the value of age
-     */ 
+     */
     public function getAge()
     {
         return $this->age;
@@ -112,7 +110,7 @@ class CaptainProfileCreateRequest
      * Set the value of age
      *
      * @return  self
-     */ 
+     */
     public function setAge($age)
     {
         $this->age = $age;
@@ -120,11 +118,9 @@ class CaptainProfileCreateRequest
         return $this;
     }
 
-    
-
     /**
      * Get the value of car
-     */ 
+     */
     public function getCar()
     {
         return $this->car;
@@ -134,7 +130,7 @@ class CaptainProfileCreateRequest
      * Set the value of car
      *
      * @return  self
-     */ 
+     */
     public function setCar($car)
     {
         $this->car = $car;
@@ -144,7 +140,7 @@ class CaptainProfileCreateRequest
 
     /**
      * Get the value of drivingLicence
-     */ 
+     */
     public function getDrivingLicence()
     {
         return $this->drivingLicence;
@@ -154,7 +150,7 @@ class CaptainProfileCreateRequest
      * Set the value of drivingLicence
      *
      * @return  self
-     */ 
+     */
     public function setDrivingLicence($drivingLicence)
     {
         $this->drivingLicence = $drivingLicence;

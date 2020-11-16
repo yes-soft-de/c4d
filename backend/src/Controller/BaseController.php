@@ -33,8 +33,7 @@ class BaseController extends AbstractController
     {
         $userID = 0;
 
-        if ($this->getUser())
-        {
+        if ($this->getUser()) {
             $userID = $this->getUser()->getUsername();
         }
 
@@ -114,7 +113,7 @@ class BaseController extends AbstractController
     }
     public function response($result, $status) :jsonResponse
     {
-        if($result!=null) {
+        if ($result!=null) {
             $encoders = [new JsonEncoder()];
             $normalizers = [new ObjectNormalizer()];
             $this->serializer = new Serializer($normalizers, $encoders);
@@ -123,18 +122,13 @@ class BaseController extends AbstractController
             $response = new jsonResponse(["status_code" => $status[1],
                     "msg" => $status[0] . " " . "Successfully.",
                     "Data" => json_decode($result)
-                ]
-                , Response::HTTP_OK);
+                ], Response::HTTP_OK);
             $response->headers->set('Access-Control-Allow-Headers', 'X-Header-One,X-Header-Two');
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods', 'PUT');
             return $response;
-        }
-        else
-        {
-            $response = new JsonResponse(["status_code"=>"404",
-                 "msg"=>"Data not found!"],
-             Response::HTTP_NOT_FOUND);
+        } else {
+            $response = new JsonResponse(["status_code"=>"404", "msg"=>"Data not found!"], Response::HTTP_NOT_FOUND);
 
             return $response;
         }

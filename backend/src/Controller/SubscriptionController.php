@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-
 use App\AutoMapping;
 use App\Request\SubscriptionCreateRequest;
 use App\Service\SubscriptionService;
@@ -15,14 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 class SubscriptionController extends BaseController
 {
     private $autoMapping;
     private $validator;
     private $subscriptionService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator,
-                                SubscriptionService $subscriptionService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, SubscriptionService $subscriptionService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
@@ -40,13 +39,12 @@ class SubscriptionController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,SubscriptionCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, SubscriptionCreateRequest::class, (object)$data);
         $request->setOwnerID($this->getUserId());
         
         $violations = $this->validator->validate($request);
 
-        if (\count($violations) > 0)
-        {
+        if (\count($violations) > 0) {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);

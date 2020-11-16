@@ -10,8 +10,7 @@ class PackageFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i < 20; $i++)
-        {
+        for ($i = 0; $i < 20; $i++) {
             $package = new PackageEntity();
 
             $package->setName("p" . $i);

@@ -112,7 +112,7 @@ class OrderEntity
 
     public function setDate($date): self
     {
-        $this->date = new \DateTime ($date);
+        $this->date = new \DateTime($date);
 
         return $this;
     }

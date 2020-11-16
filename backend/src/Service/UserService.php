@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\AutoMapping;
 use App\Entity\UserEntity;
@@ -18,7 +16,7 @@ use App\Response\UserProfileCreateResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
-use App\Response\remainingOrdersResponse;
+use App\Response\RemainingOrdersResponse;
 
 class UserService
 {
@@ -35,21 +33,21 @@ class UserService
     {
         $userRegister = $this->userManager->userRegister($request);
 
-        return $this->autoMapping->map(UserEntity::class,UserRegisterResponse::class, $userRegister);
+        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
     }
 
     public function userProfileCreate(UserProfileCreateRequest $request)
     {
         $userProfile = $this->userManager->userProfileCreate($request);
 
-        return $this->autoMapping->map(UserProfileEntity::class,UserProfileCreateResponse::class, $userProfile);
+        return $this->autoMapping->map(UserProfileEntity::class, UserProfileCreateResponse::class, $userProfile);
     }
 
     public function userProfileUpdate(UserProfileUpdateRequest $request)
     {
         $item = $this->userManager->userProfileUpdate($request);
 
-        return $this->autoMapping->map(UserProfileEntity::class,UserProfileResponse::class, $item);
+        return $this->autoMapping->map(UserProfileEntity::class, UserProfileResponse::class, $item);
     }
 
     public function getUserProfileByUserID($userID)
@@ -57,16 +55,14 @@ class UserService
         $item = $this->userManager->getProfileByUserID($userID);
 
         return $this->autoMapping->map('array', UserProfileResponse::class, $item);
-
     }
 
     public function getremainingOrders($userID)
     {
         $respons =[];
         $items = $this->userManager->getremainingOrders($userID);
-        foreach($items as $item)
-        {
-            $respons = $this->autoMapping->map('array', remainingOrdersResponse::class, $item);
+        foreach ($items as $item) {
+            $respons = $this->autoMapping->map('array', RemainingOrdersResponse::class, $item);
         }
         return $respons;
     }
@@ -75,14 +71,14 @@ class UserService
     {
         $captainProfile = $this->userManager->captainprofileCreate($request);
 
-        return $this->autoMapping->map(CaptainProfileEntity::class,CaptainProfileCreateResponse::class, $captainProfile);
+        return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
     }
 
     public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
     {
         $item = $this->userManager->captainprofileUpdate($request);
 
-        return $this->autoMapping->map(CaptainProfileEntity::class,CaptainProfileCreateResponse::class, $item);
+        return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
 
     public function getcaptainprofileByID($userID)
@@ -90,6 +86,5 @@ class UserService
         $item = $this->userManager->getcaptainprofileByID($userID);
 
         return $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
-
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Request;
-
 
 class PackageUpdateRequest
 {
@@ -31,5 +29,4 @@ class PackageUpdateRequest
     {
         return $this->id;
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Manager;
-
 
 use App\AutoMapping;
 use App\Entity\UserEntity;
@@ -18,8 +16,7 @@ class AdminManager
     private $encoder;
     private $userRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,
-                                UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -33,15 +30,13 @@ class AdminManager
 
         $user = new UserEntity($request->getUserID());
 
-        if ($request->getPassword())
-        {
+        if ($request->getPassword()) {
             $adminCreate->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
         }
 
         $adminCreate->setCreateDate(new \DateTime('now'));
 
-        if ($request->getRoles() == null)
-        {
+        if ($request->getRoles() == null) {
             $request->setRoles(['user']);
         }
         $adminCreate->setRoles($request->getRoles());

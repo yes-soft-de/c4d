@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\AutoMapping;
 use App\Service\OrderService;
 use App\Request\OrderCreateRequest;
@@ -15,6 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use stdClass;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 class OrderController extends BaseController
 {
     private $autoMapping;
@@ -36,7 +38,7 @@ class OrderController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,OrderCreateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
         $request->setOwnerID($this->getUserId());
         
         $violations = $this->validator->validate($request);
@@ -71,7 +73,7 @@ class OrderController extends BaseController
      * @return JsonResponse
      */
     public function getOrdersByOwnerID()
-    {       
+    {
         $result = $this->orderService->getOrdersByOwnerID($this->getUserId());
 
         return $this->response($result, self::FETCH);
@@ -84,7 +86,7 @@ class OrderController extends BaseController
      * @return JsonResponse
      */
     public function orderStatus($ID)
-    {    
+    {
         $result = $this->orderService->orderStatus($this->getUserId(), $ID);
 
         return $this->response($result, self::FETCH);
@@ -96,7 +98,7 @@ class OrderController extends BaseController
      * @return JsonResponse
      */
     public function closestOrders()
-    {  
+    {
         $result = $this->orderService->closestOrders($this->getUserId());
 
         return $this->response($result, self::FETCH);
@@ -112,7 +114,7 @@ class OrderController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,OrderUpdateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, OrderUpdateRequest::class, (object) $data);
         $request->setOwnerID($this->getUserId());
 
         $response = $this->orderService->update($request);
@@ -134,5 +136,4 @@ class OrderController extends BaseController
 
         return $this->response($result, self::DELETE);
     }
-    
 }

@@ -56,7 +56,6 @@ class PackageServiceUnitTest extends TestCase
         $service = new PackageService($this->autoMapping, $this->mockManager);
         
         $this->assertEquals($response, $service->create($request));
-       
     }
 
     public function create()
@@ -98,7 +97,6 @@ class PackageServiceUnitTest extends TestCase
         $service = new PackageService($this->autoMapping, $this->mockManager);
         
         $this->assertIsArray($service->getPackages($actual));
-       
     }
 
     public function getPackages()
@@ -140,8 +138,6 @@ class PackageServiceUnitTest extends TestCase
         $service = new PackageService($this->autoMapping, $this->mockManager);
         
         $this->assertIsObject($service->getActivePackages());
-       
-       
     }
 
     public function getActivePackages()
@@ -185,7 +181,6 @@ class PackageServiceUnitTest extends TestCase
         $service = new PackageService($this->autoMapping, $this->mockManager);
         
         $this->assertEquals($response, $service->update($request));
-       
     }
 
     public function update()

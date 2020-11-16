@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\AutoMapping;
 use App\Entity\SubscriptionEntity;
@@ -32,5 +30,4 @@ class SubscriptionService
     {
         return $this->subscriptionManager->getCurrentSubscriptions();
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\AutoMapping;
 use App\Entity\PackageEntity;
@@ -29,13 +27,12 @@ class PackageService
     }
 
     public function getPackages($user)
-    {   
+    {
         $respons =[];
         $items = $this->packageManager->getPackages($user);
         
-        foreach($items as $item)
-        {
-            $respons[]= $this->autoMapping->map('array', PackageResponse::class,  $item);
+        foreach ($items as $item) {
+            $respons[]= $this->autoMapping->map('array', PackageResponse::class, $item);
         }
         return $respons;
     }

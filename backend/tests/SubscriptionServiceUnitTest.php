@@ -52,7 +52,6 @@ class SubscriptionServiceUnitTest extends TestCase
         $service = new SubscriptionService($this->autoMapping, $this->mockManager);
         
         $this->assertEquals($response, $service->create($request));
-       
     }
 
     public function create()
@@ -60,5 +59,4 @@ class SubscriptionServiceUnitTest extends TestCase
         $result = new SubscriptionProvider();
         return $result->create();
     }
-
 }

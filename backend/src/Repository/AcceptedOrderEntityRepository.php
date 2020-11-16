@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AcceptedOrderEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 /**
  * @method AcceptedOrderEntity|null find($id, $lockMode = null, $lockVersion = null)
  * @method AcceptedOrderEntity|null findOneBy(array $criteria, array $orderBy = null)

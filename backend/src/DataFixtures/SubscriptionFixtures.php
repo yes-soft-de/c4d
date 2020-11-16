@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\DataFixtures;
-
 
 use App\Entity\SubscriptionEntity;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -13,8 +11,7 @@ class SubscriptionFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i < 20; $i++)
-        {
+        for ($i = 0; $i < 20; $i++) {
             $startDate = \DateTime::createFromFormat('Ymd', '2019'.$i.'01');
             $endDate = \DateTime::createFromFormat('Ymd', '2020'.$i.'01');
 
@@ -28,7 +25,6 @@ class SubscriptionFixtures extends Fixture
 
             $manager->persist($subscription);
         }
-
         $manager->flush();
     }
 }

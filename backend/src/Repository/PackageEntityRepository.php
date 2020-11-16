@@ -36,12 +36,7 @@ class PackageEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('package')
             ->select('package.id, package.name, package.cost, package.note, package.carCount, package.orderCount, package.status, package.city, package.branch')
-            ->join(
-                UserProfileEntity::class,                   
-                'userProfileEntity',
-                Join::WITH,             
-                'userProfileEntity.userID = :user'   
-            )
+            ->join(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = :user')
             ->andWhere('userProfileEntity.branch = package.branch')
             ->andWhere('userProfileEntity.location = package.city')
             ->andWhere('package.status = :status')

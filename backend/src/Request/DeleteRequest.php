@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Request;
-
 
 class DeleteRequest
 {
-public $id;
+    public $id;
 
     /**
      * DeleteRequest constructor.
@@ -24,7 +22,4 @@ public $id;
     {
         return $this->id;
     }
-
-    
-
 }

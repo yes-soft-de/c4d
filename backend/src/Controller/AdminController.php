@@ -36,7 +36,7 @@ class AdminController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,AdminCreateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, AdminCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
