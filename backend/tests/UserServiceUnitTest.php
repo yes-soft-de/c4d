@@ -168,6 +168,9 @@ class UserServiceUnitTest extends TestCase
         return $result->getUserProfileByUserID();
     }
 
+     /**
+     * @dataProvider captainprofileCreate
+     */
     public function testCaptainprofileCreate($expected, $actual)
     {
         $response = new CaptainProfileCreateResponse();
