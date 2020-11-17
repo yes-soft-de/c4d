@@ -54,7 +54,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscriptionEntity.packageID')
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = profile.userID')
             ->andWhere('profile.userID=:userID')
-            ->andWhere('subscriptionEntity.endDate < :date')
+            ->andWhere('subscriptionEntity.endDate > :date')
             ->setParameter('userID', $userID)
             ->setParameter('date', $date)
 
