@@ -80,14 +80,14 @@ class OrderController extends BaseController
     }
      
     /**
-     * @Route("/orderStatus/{id}", name="orderStatusForOwner", methods={"GET"})
+     * @Route("/orderStatus/{orderId}", name="orderStatusForOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
-    public function orderStatus($id)
+    public function orderStatus($orderId)
     {
-        $result = $this->orderService->orderStatus($this->getUserId(), $id);
+        $result = $this->orderService->orderStatus($this->getUserId(), $orderId);
 
         return $this->response($result, self::FETCH);
     }

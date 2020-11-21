@@ -36,9 +36,9 @@ class AcceptedOrderManager
         return $item;
     }
 
-    public function acceptedOrder($userID, $id)
+    public function acceptedOrder($userID, $acceptedOrderId)
     {
-        return $this->repository->acceptedOrder($userID, $id);
+        return $this->repository->acceptedOrder($userID, $acceptedOrderId);
     }
 
     public function totalEarn($userID)

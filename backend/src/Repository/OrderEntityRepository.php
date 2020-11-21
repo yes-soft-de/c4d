@@ -44,7 +44,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function orderStatus($userID, $id)
+    public function orderStatus($userID, $orderId)
     {
         return $this->createQueryBuilder('OrderEntity')
         ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
@@ -53,7 +53,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.ownerID = :userID')
             ->andWhere('OrderEntity.id = :ID')
             ->setParameter('userID', $userID)
-            ->setParameter('ID', $id)
+            ->setParameter('ID', $orderId)
             ->getQuery()
             ->getOneOrNullResult();
     }

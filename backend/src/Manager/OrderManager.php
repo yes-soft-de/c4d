@@ -50,9 +50,9 @@ class OrderManager
         return $this->repository->getOrdersByOwnerID($userID);
     }
 
-    public function orderStatus($userID, $id)
+    public function orderStatus($userID, $orderId)
     {
-        return $this->repository->orderStatus($userID, $id);
+        return $this->repository->orderStatus($userID, $orderId);
     }
 
     public function closestOrders()

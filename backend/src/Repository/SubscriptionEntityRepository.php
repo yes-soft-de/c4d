@@ -24,7 +24,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
     public function getCurrentSubscribedPackages($userId)
     {
         return $this->createQueryBuilder('subscription')
-            ->select('subscription.id','subscription.packageID', 'packageEntity.name','subscription.startDate','subscription.endDate','subscription.status')
+            ->select('subscription.id', 'subscription.packageID', 'packageEntity.name', 'subscription.startDate', 'subscription.endDate', 'subscription.status')
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
             ->andWhere("subscription.status = 'active'")
             ->andWhere("subscription.ownerID = :userId")

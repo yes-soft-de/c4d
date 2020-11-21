@@ -49,9 +49,9 @@ class OrderService
         return $response;
     }
 
-    public function orderStatus($userID, $id)
+    public function orderStatus($userID, $orderId)
     {
-        $result = $this->orderManager->orderStatus($userID, $id);
+        $result = $this->orderManager->orderStatus($userID, $orderId);
         
         $response = $this->autoMapping->map('array', OrderResponse::class, $result);
         

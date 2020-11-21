@@ -19,14 +19,14 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AcceptedOrderEntity::class);
     }
 
-    public function acceptedOrder($userID, $id)
+    public function acceptedOrder($userID, $acceptedOrderId)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
-            ->addSelect('AcceptedOrderEntity.id','AcceptedOrderEntity.orderID','AcceptedOrderEntity.date','AcceptedOrderEntity.cost','AcceptedOrderEntity.state')
+            ->addSelect('AcceptedOrderEntity.id', 'AcceptedOrderEntity.orderID', 'AcceptedOrderEntity.date', 'AcceptedOrderEntity.cost', 'AcceptedOrderEntity.state')
             ->andWhere('AcceptedOrderEntity.captainID = :userID')
             ->andWhere('AcceptedOrderEntity.id = :ID')
             ->setParameter('userID', $userID)
-            ->setParameter('ID', $id)
+            ->setParameter('ID', $acceptedOrderId)
             ->getQuery()
             ->getOneOrNullResult();
     }
