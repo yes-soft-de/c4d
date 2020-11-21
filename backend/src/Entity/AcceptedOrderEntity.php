@@ -84,7 +84,7 @@ class AcceptedOrderEntity
     {
         return $this->date;
     }
-    
+
     public function setDate($date): self
     {
         $this->date = $date;

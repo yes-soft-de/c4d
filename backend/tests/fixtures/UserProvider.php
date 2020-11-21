@@ -12,7 +12,7 @@ class UserProvider extends TestCase
             'userRegister' => [1, 1], [33, 33], [55, 55]
         ];
     }
-    
+
     public function userProfileCreate()
     {
         return [
@@ -47,7 +47,7 @@ class UserProvider extends TestCase
             'captainprofileCreate' => ["11", "11"]
         ];
     }
-    
+
     public function captainprofileUpdate()
     {
         return [

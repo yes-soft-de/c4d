@@ -18,7 +18,7 @@ class AutoMapping
     public function map($source, $target, $object)
     {
         $response = [];
-        $mapper=$this->config($source, $target);
+        $mapper = $this->config($source, $target);
 
         try {
             $response = $mapper->map($object, $target);

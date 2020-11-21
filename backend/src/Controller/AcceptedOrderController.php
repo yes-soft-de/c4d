@@ -30,7 +30,7 @@ class AcceptedOrderController extends BaseController
     }
 
     /**
-     * @Route("/acceptedOrder", name="createAcceptedOrder", methods={"POST"})
+     * @Route("/acceptedOrder",   name="createAcceptedOrder", methods={"POST"})
      * @IsGranted("ROLE_CAPTAIN")
      */
     public function create(Request $request)
@@ -54,8 +54,8 @@ class AcceptedOrderController extends BaseController
     /**
      * @Route("/acceptedOrder/{acceptedOrderId}", name="GetOrderStatusForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
-     * @param Request $request
-     * @return JsonResponse
+     * @param                                     Request $request
+     * @return                                    JsonResponse
      */
     public function acceptedOrder($acceptedOrderId)
     {
@@ -65,10 +65,10 @@ class AcceptedOrderController extends BaseController
     }
 
     /**
-     * @Route("/totalEarn", name="GetTotalEarnForCaptain", methods={"GET"})
+     * @Route("/totalEarn",       name="GetTotalEarnForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
-     * @param Request $request
-     * @return JsonResponse
+     * @param                     Request $request
+     * @return                    JsonResponse
      */
     public function totalEarn()
     {

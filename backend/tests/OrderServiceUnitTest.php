@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use App\AutoMapping;
@@ -37,7 +38,7 @@ class OrderServiceUnitTest extends TestCase
         $response->ownerID = $expected;
         $response->source = [$expected];
         $response->destination = [$expected];
-        $date=new \DateTime("2020-02-02");
+        $date = new \DateTime("2020-02-02");
         $response->date = $date;
         $response->note = $expected;
         $response->payment = $expected;
@@ -62,7 +63,7 @@ class OrderServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
-        
+
         $this->assertEquals($response, $service->create($request));
     }
 
@@ -82,7 +83,7 @@ class OrderServiceUnitTest extends TestCase
         $response->ownerID = $expected;
         $response->source = [$expected];
         $response->destination = [$expected];
-        $date=new \DateTime("2020-02-02");
+        $date = new \DateTime("2020-02-02");
         $response->date = $date;
         $response->note = $expected;
         $response->payment = $expected;
@@ -100,15 +101,13 @@ class OrderServiceUnitTest extends TestCase
         $entity->setRecipientName($actual);
         $entity->setRecipientPhone($actual);
 
-        $request = new GetByIdRequest($response->id);
-
         $this->mockManager
             ->method('getOrderById')
             ->willReturn($entity);
 
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
 
-        $this->assertEquals($response, $service->getOrderById($request));
+        $this->assertIsArray($service->getOrderById($actual));
     }
 
     public function getOrderById()
@@ -127,7 +126,7 @@ class OrderServiceUnitTest extends TestCase
         $response->ownerID = $expected;
         $response->source = [$expected];
         $response->destination = [$expected];
-        $date=new \DateTime("2020-02-02");
+        $date = new \DateTime("2020-02-02");
         $response->date = $date;
         $response->note = $expected;
         $response->payment = $expected;
@@ -170,7 +169,7 @@ class OrderServiceUnitTest extends TestCase
         $response->ownerID = $expected;
         $response->source = [$expected];
         $response->destination = [$expected];
-        $date=new \DateTime("2020-02-02");
+        $date = new \DateTime("2020-02-02");
         $response->date = $date;
         $response->note = $expected;
         $response->payment = $expected;
@@ -213,7 +212,7 @@ class OrderServiceUnitTest extends TestCase
         $response->ownerID = $expected;
         $response->source = [$expected];
         $response->destination = [$expected];
-        $date=new \DateTime("2020-02-02");
+        $date = new \DateTime("2020-02-02");
         $response->date = $date;
         $response->note = $expected;
         $response->payment = $expected;
@@ -247,7 +246,7 @@ class OrderServiceUnitTest extends TestCase
         return $result->closestOrders();
     }
 
-    
+
 
 
      /**
@@ -260,7 +259,7 @@ class OrderServiceUnitTest extends TestCase
         $response->ownerID = $expected;
         $response->source = [$expected];
         $response->destination = [$expected];
-        $date=new \DateTime("2020-02-02");
+        $date = new \DateTime("2020-02-02");
         $response->date = $date;
         $response->note = $expected;
         $response->payment = $expected;
@@ -285,7 +284,7 @@ class OrderServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
-        
+
         $this->assertEquals($response, $service->update($request));
     }
 
@@ -327,7 +326,7 @@ class OrderServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
-        
+
         $this->assertIsObject($service->delete($request));
     }
 

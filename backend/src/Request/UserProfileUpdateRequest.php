@@ -13,7 +13,7 @@ class UserProfileUpdateRequest
     private $story;
 
     private $image;
-    
+
     private $branch;
 
     /**

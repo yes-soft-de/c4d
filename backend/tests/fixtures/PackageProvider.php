@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests\fixtures;
 
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ class PackageProvider extends TestCase
             'getPackages' => [1, 1], [1, 1],[12, 12], [13, 13]
         ];
     }
-       
+
     public function getActivePackages()
     {
         return [

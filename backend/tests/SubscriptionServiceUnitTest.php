@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use App\AutoMapping;
@@ -50,7 +51,7 @@ class SubscriptionServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new SubscriptionService($this->autoMapping, $this->mockManager);
-        
+
         $this->assertEquals($response, $service->create($request));
     }
 

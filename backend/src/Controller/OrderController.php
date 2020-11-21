@@ -7,7 +7,6 @@ use App\Service\OrderService;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\DeleteRequest;
-use App\Request\GetByIdRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +30,7 @@ class OrderController extends BaseController
         $this->orderService = $orderService;
     }
     /**
-     * @Route("/order", name="createOrder", methods={"POST"})
+     * @Route("/order",         name="createOrder", methods={"POST"})
      * @IsGranted("ROLE_OWNER")
      */
     public function create(Request $request)
@@ -40,7 +39,7 @@ class OrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
         $request->setOwnerID($this->getUserId());
-        
+
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
@@ -54,36 +53,34 @@ class OrderController extends BaseController
     }
 
      /**
-     * @Route("/order/{ID}", name="GetOrderByID", methods={"GET"})
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function getOrderById(Request $request)
+      * @Route("/order/{orderId}", name="GetOrderByID", methods={"GET"})
+      * @param                     Request $request
+      * @return                    JsonResponse
+      */
+    public function getOrderById($orderId)
     {
-        $request = new GetByIdRequest($request->get('ID'));
-       
-        $result = $this->orderService->getOrderById($request);
+        $result = $this->orderService->getOrderById($orderId);
 
         return $this->response($result, self::FETCH);
     }
 
      /**
-     * @Route("/orders", name="GetOrdersByOwnerID", methods={"GET"})
-     * @IsGranted("ROLE_OWNER")
-     * @return JsonResponse
-     */
+      * @Route("/orders",        name="GetOrdersByOwnerID", methods={"GET"})
+      * @IsGranted("ROLE_OWNER")
+      * @return                  JsonResponse
+      */
     public function getOrdersByOwnerID()
     {
         $result = $this->orderService->getOrdersByOwnerID($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
-     
+
     /**
      * @Route("/orderStatus/{orderId}", name="orderStatusForOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
-     * @param Request $request
-     * @return JsonResponse
+     * @param                           Request $request
+     * @return                          JsonResponse
      */
     public function orderStatus($orderId)
     {
@@ -93,9 +90,9 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/closestOrders", name="GetClosestOrdersToCaptainAnd NoOtherCaptainTookIt", methods={"GET"})
+     * @Route("/closestOrders",   name="GetClosestOrdersToCaptainAnd NoOtherCaptainTookIt", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
-     * @return JsonResponse
+     * @return                    JsonResponse
      */
     public function closestOrders()
     {
@@ -105,10 +102,10 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/order", name="orderUpdate", methods={"PUT"})
-     *  @IsGranted("ROLE_OWNER")
-     * @param Request $request
-     * @return JsonResponse
+     * @Route("/order",         name="orderUpdate", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
+     * @param                   Request $request
+     * @return                  JsonResponse
      */
     public function update(Request $request)
     {
@@ -123,10 +120,10 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("order/{id}", name="deleteOrder", methods={"DELETE"})
-     *  @IsGranted("ROLE_OWNER")
-     * @param Request $request
-     * @return JsonResponse
+     * @Route("order/{id}",     name="deleteOrder", methods={"DELETE"})
+     * @IsGranted("ROLE_OWNER")
+     * @param                   Request $request
+     * @return                  JsonResponse
      */
     public function delete(Request $request)
     {

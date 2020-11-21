@@ -19,7 +19,7 @@ class OrderManager
     private $encoder;
     private $repository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface  $entityManager, UserPasswordEncoderInterface $encoder, OrderEntityRepository $repository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, OrderEntityRepository $repository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -30,9 +30,9 @@ class OrderManager
     public function create(OrderCreateRequest $request)
     {
         $item = $this->autoMapping->map(OrderCreateRequest::class, OrderEntity::class, $request);
-      
+
         $item->setDate($item->getDate());
-       
+
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -40,9 +40,9 @@ class OrderManager
         return $item;
     }
 
-    public function getOrderById(GetByIdRequest $request)
+    public function getOrderById($orderId)
     {
-        return $this->repository->getOrderById($request->getId());
+        return $this->repository->getOrderById($orderId);
     }
 
     public function getOrdersByOwnerID($userID)
@@ -81,7 +81,7 @@ class OrderManager
         }
         $this->entityManager->remove($entity);
         $this->entityManager->flush();
-        
+
         return $entity;
     }
 }

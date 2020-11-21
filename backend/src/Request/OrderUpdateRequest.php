@@ -21,7 +21,7 @@ class OrderUpdateRequest
     {
         return $this->id;
     }
-    
+
     /**
      * @param mixed $id
      */

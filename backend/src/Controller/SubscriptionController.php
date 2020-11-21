@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\AutoMapping;
@@ -41,7 +40,7 @@ class SubscriptionController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, SubscriptionCreateRequest::class, (object)$data);
         $request->setOwnerID($this->getUserId());
-        
+
         $violations = $this->validator->validate($request);
 
         if (\count($violations) > 0) {

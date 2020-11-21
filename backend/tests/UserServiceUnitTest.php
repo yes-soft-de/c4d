@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use App\AutoMapping;
@@ -18,7 +19,6 @@ use App\Response\RemainingOrdersResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Service\UserService;
 use App\Tests\fixtures\UserProvider;
-
 use PHPUnit\Framework\TestCase;
 
 class UserServiceUnitTest extends TestCase
@@ -60,7 +60,7 @@ class UserServiceUnitTest extends TestCase
         $service = new UserService($this->autoMapping, $this->mockManager);
         $this->assertIsObject($service->userRegister($request));
     }
-    
+
     public function register()
     {
         $result = new UserProvider();

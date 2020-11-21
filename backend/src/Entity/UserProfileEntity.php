@@ -106,7 +106,7 @@ class UserProfileEntity
 
         return $this;
     }
-    
+
     public function getBranch(): ?string
     {
         return $this->branch;

@@ -12,8 +12,8 @@ class SubscriptionFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         for ($i = 0; $i < 20; $i++) {
-            $startDate = \DateTime::createFromFormat('Ymd', '2019'.$i.'01');
-            $endDate = \DateTime::createFromFormat('Ymd', '2020'.$i.'01');
+            $startDate = \DateTime::createFromFormat('Ymd', '2019' . $i . '01');
+            $endDate = \DateTime::createFromFormat('Ymd', '2020' . $i . '01');
 
             $subscription = new SubscriptionEntity();
 

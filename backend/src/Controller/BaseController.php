@@ -23,9 +23,9 @@ class BaseController extends AbstractController
     }
     const STATE_OK = 200;
     const CREATE = ["created ","201"];
-    const UPDATE=["updated","204"];
-    const DELETE=["deleted","401"];
-    const FETCH=["fetched","200"];
+    const UPDATE = ["updated","204"];
+    const DELETE = ["deleted","401"];
+    const FETCH = ["fetched","200"];
 
 
     public function getUserId()
@@ -110,9 +110,9 @@ class BaseController extends AbstractController
 
         return new JsonResponse($data, $this->getStatusCode());
     }
-    public function response($result, $status) :jsonResponse
+    public function response($result, $status): jsonResponse
     {
-        if ($result!=null) {
+        if ($result != null) {
             $encoders = [new JsonEncoder()];
             $normalizers = [new ObjectNormalizer()];
             $this->serializer = new Serializer($normalizers, $encoders);
@@ -127,7 +127,7 @@ class BaseController extends AbstractController
             $response->headers->set('Access-Control-Allow-Methods', 'PUT');
             return $response;
         }
-        $response = new JsonResponse(["status_code"=>"404", "msg"=>"Data not found!"], Response::HTTP_NOT_FOUND);
+        $response = new JsonResponse(["status_code" => "404", "msg" => "Data not found!"], Response::HTTP_NOT_FOUND);
 
             return $response;
     }

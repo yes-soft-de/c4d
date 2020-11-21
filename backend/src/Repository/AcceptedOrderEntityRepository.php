@@ -30,7 +30,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-   
+
     public function closestOrders()
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
@@ -38,7 +38,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-   
+
     public function totalEarn($userID)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')

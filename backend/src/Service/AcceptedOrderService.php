@@ -31,18 +31,18 @@ class AcceptedOrderService
     public function acceptedOrder($userID, $acceptedOrderId)
     {
         $result = $this->acceptedOrderManager->acceptedOrder($userID, $acceptedOrderId);
-        
+
         $response = $this->autoMapping->map('array', AcceptedOrderResponse::class, $result);
-        
+
         return $response;
     }
 
     public function totalEarn($userID)
     {
         $result = $this->acceptedOrderManager->totalEarn($userID);
-        
+
         $response = $this->autoMapping->map('array', CaptaintotalEarnResponse::class, $result);
-      
+
         return $response;
     }
 

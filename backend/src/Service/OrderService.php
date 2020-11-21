@@ -30,9 +30,9 @@ class OrderService
         return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
     }
 
-    public function getOrderById($request)
+    public function getOrderById($orderId)
     {
-        $result = $this->orderManager->getOrderById($request);
+        $result = $this->orderManager->getOrderById($orderId);
 
         $response = $this->autoMapping->map('array', OrderResponse::class, $result);
 
@@ -52,9 +52,9 @@ class OrderService
     public function orderStatus($userID, $orderId)
     {
         $result = $this->orderManager->orderStatus($userID, $orderId);
-        
+
         $response = $this->autoMapping->map('array', OrderResponse::class, $result);
-        
+
         return $response;
     }
 
@@ -75,10 +75,10 @@ class OrderService
 
     public function closestOrders()
     {
-        $response=[];
+        $response = [];
         $orders = $this->orderManager->closestOrders();
         $acceptedOrder = $this->acceptedOrderService->closestOrders();
-        
+
         foreach ($orders as $res) {
             if (!$this->searchMyArray($acceptedOrder, 'id', $res['id'])) {
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $res);

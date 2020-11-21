@@ -19,6 +19,6 @@ class PackageResponse
     public $orderCount;
 
     public $status;
-    
+
     public $branch;
 }

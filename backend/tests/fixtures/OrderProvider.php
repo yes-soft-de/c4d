@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests\fixtures;
 
 use PHPUnit\Framework\TestCase;
@@ -11,14 +12,14 @@ class OrderProvider extends TestCase
             'CreateOrder' => [1, 1], [1, 1],[12, 12], [13, 13]
         ];
     }
-       
+
     public function getOrderById()
     {
         return [
             'getOrderById' => [1, 1], [1, 1],[12, 12], [13, 13]
         ];
     }
-    
+
     public function getOrdersByOwnerID()
     {
         return [
@@ -37,14 +38,14 @@ class OrderProvider extends TestCase
             'closestOrders' => [1, 1], [1, 1],[12, 12], [13, 13]
         ];
     }
-    
+
     public function update()
     {
         return [
             'update' => [1, 1], [1, 1],[12, 12], [13, 13]
         ];
     }
-    
+
     public function delete()
     {
         return [

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use App\AutoMapping;
@@ -48,7 +49,7 @@ class AcceptedOrderServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new AcceptedOrderService($this->autoMapping, $this->mockManager);
-        
+
         $this->assertEquals($response, $service->create($request));
     }
 
@@ -84,10 +85,9 @@ class AcceptedOrderServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new AcceptedOrderService($this->autoMapping, $this->mockManager);
-
-        $this->assertEquals($response, $service->acceptedOrder($actual, $actual));
+        $this->assertIsArray($service->acceptedOrder($actual, $actual));
     }
-    
+
     public function acceptedOrder()
     {
         $result = new AcceptedOrderProvider();
@@ -129,7 +129,7 @@ class AcceptedOrderServiceUnitTest extends TestCase
 
         $this->assertIsArray($service->closestOrders($expected));
     }
-    
+
     public function closestOrders()
     {
         $result = new AcceptedOrderProvider();

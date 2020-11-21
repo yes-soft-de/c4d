@@ -28,11 +28,11 @@ class PackageService
 
     public function getPackages($user)
     {
-        $respons =[];
+        $respons = [];
         $items = $this->packageManager->getPackages($user);
-        
+
         foreach ($items as $item) {
-            $respons[]= $this->autoMapping->map('array', PackageResponse::class, $item);
+            $respons[] = $this->autoMapping->map('array', PackageResponse::class, $item);
         }
         return $respons;
     }

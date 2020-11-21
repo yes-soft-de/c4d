@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\AutoMapping;
@@ -14,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class PackageController extends BaseController

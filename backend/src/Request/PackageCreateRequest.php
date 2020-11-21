@@ -17,6 +17,6 @@ class PackageCreateRequest
     private $orderCount;
 
     private $status;
-    
+
     private $branch;
 }

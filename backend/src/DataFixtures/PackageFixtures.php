@@ -17,7 +17,7 @@ class PackageFixtures extends Fixture
             $package->setCity("fixture city");
             $package->setCarCount($i);
             $package->setOrderCount($i);
-            $package->setCost($i*20);
+            $package->setCost($i * 20);
             $package->setStatus('');
             $package->setNote('fake');
 

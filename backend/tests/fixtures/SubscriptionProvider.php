@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests\fixtures;
 
 use PHPUnit\Framework\TestCase;

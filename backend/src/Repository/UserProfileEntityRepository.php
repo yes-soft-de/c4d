@@ -51,17 +51,17 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
             ->select('subscriptionEntity.id as subscriptionID', 'subscriptionEntity.status as subscriptionstatus', 'subscriptionEntity.packageID as packageID', 'packageEntity.name as packagename', 'packageEntity.orderCount - count(acceptedOrderEntity.orderID) as remainingOrders', 'subscriptionEntity.startDate as subscriptionStartDate', 'subscriptionEntity.endDate as subscriptionEndDate')
-           
+
             ->leftJoin(SubscriptionEntity::class, 'subscriptionEntity', Join::WITH, 'subscriptionEntity.ownerID = profile.userID')
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscriptionEntity.packageID')
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = profile.userID')
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = orderEntity.id')
-           
+
             ->andWhere('profile.userID=:userID')
             ->andWhere('subscriptionEntity.endDate > :date')
             ->andWhere("subscriptionEntity.status ='active'")
             ->andWhere("acceptedOrderEntity.state ='deliverd'")
-           
+
             ->setParameter('userID', $userID)
             ->setParameter('date', $date)
 

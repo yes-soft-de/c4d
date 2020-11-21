@@ -21,13 +21,13 @@ class OrderEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderEntity::class);
     }
 
-    public function getOrderById($id)
+    public function getOrderById($orderId)
     {
         return $this->createQueryBuilder('OrderEntity')
             ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
             ->andWhere('OrderEntity.id = :id')
-            ->setParameter('id', $id)
+            ->setParameter('id', $orderId)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -36,7 +36,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
             ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
-           
+
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
             ->andWhere('OrderEntity.ownerID = :userID')
             ->setParameter('userID', $userID)
@@ -48,7 +48,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
         ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
-        
+
         ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
             ->andWhere('OrderEntity.ownerID = :userID')
             ->andWhere('OrderEntity.id = :ID')

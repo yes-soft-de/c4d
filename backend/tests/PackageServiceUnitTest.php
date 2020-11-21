@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use App\AutoMapping;
@@ -54,7 +55,7 @@ class PackageServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new PackageService($this->autoMapping, $this->mockManager);
-        
+
         $this->assertEquals($response, $service->create($request));
     }
 
@@ -95,7 +96,7 @@ class PackageServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new PackageService($this->autoMapping, $this->mockManager);
-        
+
         $this->assertIsArray($service->getPackages($actual));
     }
 
@@ -136,7 +137,7 @@ class PackageServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new PackageService($this->autoMapping, $this->mockManager);
-        
+
         $this->assertIsObject($service->getActivePackages());
     }
 
@@ -145,7 +146,7 @@ class PackageServiceUnitTest extends TestCase
         $result = new PackageProvider();
         return $result->getActivePackages();
     }
-  
+
     /**
      * @dataProvider update
      */
@@ -179,7 +180,7 @@ class PackageServiceUnitTest extends TestCase
             ->willReturn($entity);
 
         $service = new PackageService($this->autoMapping, $this->mockManager);
-        
+
         $this->assertEquals($response, $service->update($request));
     }
 
