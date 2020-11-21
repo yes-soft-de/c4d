@@ -19,13 +19,14 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AcceptedOrderEntity::class);
     }
 
-    public function acceptedOrder($userID, $ID)
+    public function acceptedOrder($userID, $id)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->addSelect('AcceptedOrderEntity.id','AcceptedOrderEntity.orderID','AcceptedOrderEntity.date','AcceptedOrderEntity.cost','AcceptedOrderEntity.state')
             ->andWhere('AcceptedOrderEntity.captainID = :userID')
             ->andWhere('AcceptedOrderEntity.id = :ID')
             ->setParameter('userID', $userID)
-            ->setParameter('ID', $ID)
+            ->setParameter('ID', $id)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -38,11 +39,13 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
    
-    public function totalEarn()
+    public function totalEarn($userID)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
             ->select("sum(AcceptedOrderEntity.cost) as CaptaintotalEarn ")
             ->andWhere("AcceptedOrderEntity.state = 'deliverd'")
+            ->andWhere('AcceptedOrderEntity.captainID = :userID')
+            ->setParameter('userID', $userID)
             ->getQuery()
             ->getOneOrNullResult();
     }

@@ -16,7 +16,6 @@ class AcceptedOrderManager
     private $entityManager;
     private $encoder;
     private $repository;
-    private $userProfileEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, AcceptedOrderEntityRepository $repository)
     {
@@ -37,9 +36,9 @@ class AcceptedOrderManager
         return $item;
     }
 
-    public function acceptedOrder($userID, $ID)
+    public function acceptedOrder($userID, $id)
     {
-        return $this->repository->acceptedOrder($userID, $ID);
+        return $this->repository->acceptedOrder($userID, $id);
     }
 
     public function totalEarn($userID)

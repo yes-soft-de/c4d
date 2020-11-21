@@ -28,11 +28,11 @@ class AcceptedOrderService
         return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
     }
 
-    public function acceptedOrder($userID, $ID)
+    public function acceptedOrder($userID, $id)
     {
-        $result = $this->acceptedOrderManager->acceptedOrder($userID, $ID);
+        $result = $this->acceptedOrderManager->acceptedOrder($userID, $id);
         
-        $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $result);
+        $response = $this->autoMapping->map('array', AcceptedOrderResponse::class, $result);
         
         return $response;
     }

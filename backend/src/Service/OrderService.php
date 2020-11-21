@@ -34,7 +34,7 @@ class OrderService
     {
         $result = $this->orderManager->getOrderById($request);
 
-        $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $result);
+        $response = $this->autoMapping->map('array', OrderResponse::class, $result);
 
         return $response;
     }
@@ -49,9 +49,9 @@ class OrderService
         return $response;
     }
 
-    public function orderStatus($userID, $ID)
+    public function orderStatus($userID, $id)
     {
-        $result = $this->orderManager->orderStatus($userID, $ID);
+        $result = $this->orderManager->orderStatus($userID, $id);
         
         $response = $this->autoMapping->map('array', OrderResponse::class, $result);
         

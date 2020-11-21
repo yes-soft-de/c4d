@@ -13,13 +13,13 @@ class PackageManager
 {
     private $autoMapping;
     private $entityManager;
-    private $packageEntityRepository;
+    private $packageRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, PackageEntityRepository $packageEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, PackageEntityRepository $packageRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->packageEntityRepository = $packageEntityRepository;
+        $this->packageRepository = $packageRepository;
     }
 
     public function create(PackageCreateRequest $request)
@@ -35,26 +35,25 @@ class PackageManager
 
     public function getPackages($user)
     {
-        return $this->packageEntityRepository->getPackages($user);
+        return $this->packageRepository->getPackages($user);
     }
 
     public function getActivePackages()
     {
-        return $this->packageEntityRepository->getActivePackages();
+        return $this->packageRepository->getActivePackages();
     }
 
     public function update(PackageUpdateRequest $request)
     {
-        $packageEntity = $this->packageEntityRepository->find($request->getId());
+        $packageEntity = $this->packageRepository->find($request->getId());
 
         if (!$packageEntity) {
             return null;
-        } else {
-            $packageEntity = $this->autoMapping->mapToObject(PackageUpdateRequest::class, PackageEntity::class, $request, $packageEntity);
-
-            $this->entityManager->flush();
-
-            return $packageEntity;
         }
+        $packageEntity = $this->autoMapping->mapToObject(PackageUpdateRequest::class, PackageEntity::class, $request, $packageEntity);
+
+        $this->entityManager->flush();
+
+        return $packageEntity;
     }
 }

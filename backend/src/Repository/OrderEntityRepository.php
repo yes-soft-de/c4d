@@ -24,6 +24,8 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrderById($id)
     {
         return $this->createQueryBuilder('OrderEntity')
+            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
+            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
             ->andWhere('OrderEntity.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
@@ -42,7 +44,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function orderStatus($userID, $ID)
+    public function orderStatus($userID, $id)
     {
         return $this->createQueryBuilder('OrderEntity')
         ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'acceptedOrderEntity.state')
@@ -51,7 +53,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.ownerID = :userID')
             ->andWhere('OrderEntity.id = :ID')
             ->setParameter('userID', $userID)
-            ->setParameter('ID', $ID)
+            ->setParameter('ID', $id)
             ->getQuery()
             ->getOneOrNullResult();
     }

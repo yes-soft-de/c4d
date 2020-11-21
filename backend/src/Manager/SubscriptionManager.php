@@ -12,13 +12,13 @@ class SubscriptionManager
 {
     private $autoMapping;
     private $entityManager;
-    private $subscriptionEntityRepository;
+    private $subscribeRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, SubscriptionEntityRepository $subscriptionEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, SubscriptionEntityRepository $subscribeRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->subscriptionEntityRepository = $subscriptionEntityRepository;
+        $this->subscribeRepository = $subscribeRepository;
     }
 
     public function create(SubscriptionCreateRequest $request)
@@ -32,8 +32,8 @@ class SubscriptionManager
         return $subscriptionEntity;
     }
 
-    public function getCurrentSubscriptions()
+    public function getCurrentSubscriptions($userId)
     {
-        return $this->subscriptionEntityRepository->getCurrentSubscribedPackages();
+        return $this->subscribeRepository->getCurrentSubscribedPackages($userId);
     }
 }

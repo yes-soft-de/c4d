@@ -9,4 +9,20 @@ class AcceptedOrderCreateRequest
     private $date;
     private $cost;
     private $state;
+
+     /**
+     * @param mixed $captainID
+     */
+    public function setCaptainID($captainID): void
+    {
+        $this->captainID = $captainID;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getCaptainID()
+    {
+        return $this->captainID;
+    }
 }

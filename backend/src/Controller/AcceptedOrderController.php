@@ -38,7 +38,7 @@ class AcceptedOrderController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
-
+        $request->setCaptainID($this->getUserId());
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
@@ -52,14 +52,14 @@ class AcceptedOrderController extends BaseController
     }
 
     /**
-     * @Route("/acceptedOrder/{ID}", name="GetOrderStatusForCaptain", methods={"GET"})
+     * @Route("/acceptedOrder/{id}", name="GetOrderStatusForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
      */
-    public function acceptedOrder($ID)
+    public function acceptedOrder($id)
     {
-        $result = $this->acceptedOrderService->acceptedOrder($this->getUserId(), $ID);
+        $result = $this->acceptedOrderService->acceptedOrder($this->getUserId(), $id);
 
         return $this->response($result, self::FETCH);
     }

@@ -21,17 +21,6 @@ class PackageEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, PackageEntity::class);
     }
 
-    public function getActivePackages()
-    {
-        return $this->createQueryBuilder('package')
-            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.city, package.orderCount')
-            ->andWhere('package.status = :status')
-            ->setParameter('status', "active")
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
     public function getPackages($user)
     {
         return $this->createQueryBuilder('package')
@@ -39,11 +28,20 @@ class PackageEntityRepository extends ServiceEntityRepository
             ->join(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = :user')
             ->andWhere('userProfileEntity.branch = package.branch')
             ->andWhere('userProfileEntity.location = package.city')
-            ->andWhere('package.status = :status')
+            ->andWhere("package.status = 'active'")
             ->setParameter('user', $user)
-            ->setParameter('status', "active")
             ->groupBy('package.id')
             ->getQuery()
             ->getResult();
+    }
+
+    public function getActivePackages()
+    {
+        return $this->createQueryBuilder('package')
+            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.city, package.orderCount')
+            ->andWhere("package.status = 'active'")
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

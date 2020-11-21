@@ -47,16 +47,6 @@ class UserProfileEntity
      */
     private $branch;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $city;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getUserID(): ?string
     {
         return $this->userID;

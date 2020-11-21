@@ -18,7 +18,6 @@ class OrderManager
     private $entityManager;
     private $encoder;
     private $repository;
-    private $userProfileEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface  $entityManager, UserPasswordEncoderInterface $encoder, OrderEntityRepository $repository)
     {
@@ -51,9 +50,9 @@ class OrderManager
         return $this->repository->getOrdersByOwnerID($userID);
     }
 
-    public function orderStatus($userID, $ID)
+    public function orderStatus($userID, $id)
     {
-        return $this->repository->orderStatus($userID, $ID);
+        return $this->repository->orderStatus($userID, $id);
     }
 
     public function closestOrders()
@@ -79,10 +78,10 @@ class OrderManager
     {
         $entity = $this->repository->find($request->getId());
         if (!$entity) {
-        } else {
-            $this->entityManager->remove($entity);
-            $this->entityManager->flush();
         }
+        $this->entityManager->remove($entity);
+        $this->entityManager->flush();
+        
         return $entity;
     }
 }

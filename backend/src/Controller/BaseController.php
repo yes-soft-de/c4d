@@ -26,7 +26,6 @@ class BaseController extends AbstractController
     const UPDATE=["updated","204"];
     const DELETE=["deleted","401"];
     const FETCH=["fetched","200"];
-    //const NOTFOUND=["Not found", "404"];
 
 
     public function getUserId()
@@ -127,10 +126,9 @@ class BaseController extends AbstractController
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods', 'PUT');
             return $response;
-        } else {
-            $response = new JsonResponse(["status_code"=>"404", "msg"=>"Data not found!"], Response::HTTP_NOT_FOUND);
+        }
+        $response = new JsonResponse(["status_code"=>"404", "msg"=>"Data not found!"], Response::HTTP_NOT_FOUND);
 
             return $response;
-        }
     }
 }

@@ -23,17 +23,17 @@ class UserManager
     private $entityManager;
     private $encoder;
     private $userRepository;
-    private $userProfileEntityRepository;
-    private $captainProfileEntityRepository;
+    private $captainProRepository;
+    private $profileRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, UserProfileEntityRepository $userProfileEntityRepository, CaptainProfileEntityRepository $captainProfileEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, CaptainProfileEntityRepository $captainProRepository, UserProfileEntityRepository $profileRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
-        $this->userProfileEntityRepository = $userProfileEntityRepository;
-        $this->captainProfileEntityRepository = $captainProfileEntityRepository;
+        $this->captainProRepository = $captainProRepository;
+        $this->profileRepository = $profileRepository;
     }
 
     public function userRegister(UserRegisterRequest $request)
@@ -71,7 +71,7 @@ class UserManager
 
     public function userProfileUpdate(UserProfileUpdateRequest $request)
     {
-        $item = $this->userProfileEntityRepository->getUserProfile($request->getUserID());
+        $item = $this->profileRepository->getUserProfile($request->getUserID());
 
         if ($item) {
             $item = $this->autoMapping->mapToObject(UserProfileUpdateRequest::class, UserProfileEntity::class, $request, $item);
@@ -85,13 +85,13 @@ class UserManager
 
     public function getProfileByUserID($userID)
     {
-        return $this->userProfileEntityRepository->getProfileByUSerID($userID);
+        return $this->profileRepository->getProfileByUSerID($userID);
     }
 
     public function getremainingOrders($userID)
     {
         $date = new \DateTime("Now");
-        return $this->userProfileEntityRepository->getremainingOrders($userID, $date);
+        return $this->profileRepository->getremainingOrders($userID, $date);
     }
 
     public function captainprofileCreate(CaptainProfileCreateRequest $request)
@@ -107,7 +107,7 @@ class UserManager
 
     public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
     {
-        $item = $this->captainProfileEntityRepository->getCaptainprofile($request->getCaptainID());
+        $item = $this->captainProRepository->getCaptainprofile($request->getCaptainID());
 
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
@@ -121,6 +121,6 @@ class UserManager
 
     public function getcaptainprofileByID($userID)
     {
-        return $this->captainProfileEntityRepository->getCaptainprofileByUserID($userID);
+        return $this->captainProRepository->getCaptainprofileByUserID($userID);
     }
 }

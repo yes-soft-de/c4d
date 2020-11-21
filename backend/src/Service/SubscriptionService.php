@@ -26,8 +26,8 @@ class SubscriptionService
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
     }
 
-    public function getCurrentSubscriptions()
+    public function getCurrentSubscriptions($userId)
     {
-        return $this->subscriptionManager->getCurrentSubscriptions();
+        return $this->subscriptionManager->getCurrentSubscriptions($userId);
     }
 }

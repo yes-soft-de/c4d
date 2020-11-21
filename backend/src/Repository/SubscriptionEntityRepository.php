@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\SubscriptionEntity;
+use App\Entity\PackageEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method SubscriptionEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,11 +21,14 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, SubscriptionEntity::class);
     }
 
-    public function getCurrentSubscribedPackages()
+    public function getCurrentSubscribedPackages($userId)
     {
         return $this->createQueryBuilder('subscription')
-            ->andWhere('subscription.status = :val')
-            ->setParameter('val', "current")
+            ->select('subscription.id','subscription.packageID', 'packageEntity.name','subscription.startDate','subscription.endDate','subscription.status')
+            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+            ->andWhere("subscription.status = 'active'")
+            ->andWhere("subscription.ownerID = :userId")
+            ->setParameter('userId', $userId)
             ->getQuery()
             ->getResult()
         ;

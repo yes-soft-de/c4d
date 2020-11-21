@@ -62,7 +62,7 @@ class SubscriptionController extends BaseController
      */
     public function getCurrentSubscribedPackages()
     {
-        $result = $this->subscriptionService->getCurrentSubscriptions();
+        $result = $this->subscriptionService->getCurrentSubscriptions($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

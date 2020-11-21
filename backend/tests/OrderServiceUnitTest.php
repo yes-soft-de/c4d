@@ -18,12 +18,12 @@ class OrderServiceUnitTest extends TestCase
 {
     private $mockManager;
     private $autoMapping;
-    private $mockAcceptedOrderService;
+    private $mockAccepteService;
 
     protected function setUp()
     {
         $this->mockManager = $this->createMock(OrderManager::class);
-        $this->mockAcceptedOrderService = $this->createMock(AcceptedOrderService::class);
+        $this->mockAccepteService = $this->createMock(AcceptedOrderService::class);
         $this->autoMapping = new AutoMapping();
     }
 
@@ -61,7 +61,7 @@ class OrderServiceUnitTest extends TestCase
             ->method('create')
             ->willReturn($entity);
 
-        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
+        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
         
         $this->assertEquals($response, $service->create($request));
     }
@@ -106,7 +106,7 @@ class OrderServiceUnitTest extends TestCase
             ->method('getOrderById')
             ->willReturn($entity);
 
-        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
+        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
 
         $this->assertEquals($response, $service->getOrderById($request));
     }
@@ -150,7 +150,7 @@ class OrderServiceUnitTest extends TestCase
             ->method('getOrdersByOwnerID')
             ->willReturn($entity);
 
-        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
+        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
         $this->assertIsArray($service->getOrdersByOwnerID($actual));
     }
 
@@ -193,7 +193,7 @@ class OrderServiceUnitTest extends TestCase
             ->method('orderStatus')
             ->willReturn($entity);
 
-        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
+        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
         $this->assertIsArray($service->orderStatus($actual, $actual));
     }
 
@@ -236,7 +236,7 @@ class OrderServiceUnitTest extends TestCase
             ->method('closestOrders')
             ->willReturn($entity);
 
-        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
+        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
 
         $this->assertIsArray($service->closestOrders());
     }
@@ -284,7 +284,7 @@ class OrderServiceUnitTest extends TestCase
             ->method('update')
             ->willReturn($entity);
 
-        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
+        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
         
         $this->assertEquals($response, $service->update($request));
     }
@@ -326,7 +326,7 @@ class OrderServiceUnitTest extends TestCase
             ->method('delete')
             ->willReturn($entity);
 
-        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAcceptedOrderService);
+        $service = new OrderService($this->autoMapping, $this->mockManager, $this->mockAccepteService);
         
         $this->assertIsObject($service->delete($request));
     }
