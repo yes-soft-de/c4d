@@ -57,6 +57,12 @@ class OrderEntity
      */
     private $recipientPhone;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updateDate;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -161,6 +167,18 @@ class OrderEntity
     public function setRecipientPhone(?string $recipientPhone): self
     {
         $this->recipientPhone = $recipientPhone;
+
+        return $this;
+    }
+
+    public function getUpdateDate()
+    {
+        return $this->updateDate;
+    }
+
+    public function setUpdateDate($updateDate): self
+    {
+        $this->updateDate = new \DateTime($updateDate);
 
         return $this;
     }

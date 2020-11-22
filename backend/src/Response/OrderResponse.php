@@ -9,9 +9,11 @@ class OrderResponse
     public $source = [];
     public $destination = [];
     public $date;
+    public $updateDate;
     public $note;
     public $payment;
     public $recipientName;
     public $recipientPhone;
     public $state;
+    
 }

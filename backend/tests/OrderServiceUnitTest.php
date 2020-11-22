@@ -246,9 +246,6 @@ class OrderServiceUnitTest extends TestCase
         return $result->closestOrders();
     }
 
-
-
-
      /**
      * @dataProvider update
      */

@@ -63,10 +63,13 @@ class OrderManager
     public function update(OrderUpdateRequest $request)
     {
         $item = $this->repository->find($request->getId());
+       
 
         if ($item) {
             $item = $this->autoMapping->mapToObject(OrderUpdateRequest::class, OrderEntity::class, $request, $item);
 
+            $item->setUpdateDate($item->getUpdateDate());
+            
             $this->entityManager->flush();
             $this->entityManager->clear();
 
