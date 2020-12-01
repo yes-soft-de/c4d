@@ -52,6 +52,16 @@ class CaptainProfileEntity
      */
     private $drivingLicence;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $salary;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,4 +150,29 @@ class CaptainProfileEntity
 
         return $this;
     }
+
+    public function getSalary(): ?float
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(float $salary): self
+    {
+        $this->salary = $salary;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
 }

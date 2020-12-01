@@ -16,6 +16,8 @@ class UserProfileCreateRequest
 
     private $branch;
 
+    private $status;
+
     /**
      * @return mixed
      */
@@ -94,5 +96,25 @@ class UserProfileCreateRequest
     public function setImage($image): void
     {
         $this->image = $image;
+    }
+
+     /**
+     * Get the value of status
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+     /**
+     * Set the value of status
+     *
+     * @return  self
+     */
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

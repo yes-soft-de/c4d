@@ -50,4 +50,11 @@ class AcceptedOrderService
     {
         return $this->acceptedOrderManager->closestOrders();
     }
+
+    public function update($request)
+    {
+        $result = $this->acceptedOrderManager->update($request);
+
+        return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $result);
+    }
 }

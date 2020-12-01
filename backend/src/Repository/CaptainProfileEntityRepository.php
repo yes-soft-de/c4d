@@ -29,14 +29,28 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
     public function getCaptainprofileByUserID($userID)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status')
+
             ->andWhere('captainProfile.captainID=:userID')
+            
             ->setParameter('userID', $userID)
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getCaptainsInactive()
+    {
+        return $this->createQueryBuilder('captainProfile')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status')
+
+            ->andWhere("captainProfile.status = 'inactive' ")
+
+            ->getQuery()
+            ->getResult();
     }
 }

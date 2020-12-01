@@ -38,9 +38,13 @@ class PackageManager
         return $this->packageRepository->getPackages($user);
     }
 
-    public function getActivePackages()
+    public function getAllpackages()
     {
-        return $this->packageRepository->getActivePackages();
+        return $this->packageRepository->getAllpackages();
+    }
+    public function getpackagesById($id)
+    {
+        return $this->packageRepository->getpackagesById($id);
     }
 
     public function update(PackageUpdateRequest $request)

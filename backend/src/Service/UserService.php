@@ -40,7 +40,14 @@ class UserService
     {
         $userProfile = $this->userManager->userProfileCreate($request);
 
-        return $this->autoMapping->map(UserProfileEntity::class, UserProfileCreateResponse::class, $userProfile);
+        if ($userProfile instanceof UserProfile) {
+
+            return $this->autoMapping->map(UserProfileEntity::class,UserProfileCreateResponse::class, $userProfile);
+       }
+       else if ($userProfile == 1) {
+          
+           return $this->getUserProfileByUserID($request->getUserID());
+       }
     }
 
     public function userProfileUpdate(UserProfileUpdateRequest $request)
@@ -71,8 +78,15 @@ class UserService
     public function captainprofileCreate(CaptainProfileCreateRequest $request)
     {
         $captainProfile = $this->userManager->captainprofileCreate($request);
-
-        return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
+       
+        if ($captainProfile instanceof captainProfile) {
+            return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
+        }
+        else if ($captainProfile == 1) {
+           
+            return $this->getcaptainprofileByID($request->getCaptainID());
+        }
+       
     }
 
     public function captainprofileUpdate(CaptainProfileUpdateRequest $request)

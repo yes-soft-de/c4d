@@ -80,11 +80,11 @@ class OrderManager
     public function delete(DeleteRequest $request)
     {
         $entity = $this->repository->find($request->getId());
-        if (!$entity) {
+        if ($entity) {
+        
+            $this->entityManager->remove($entity);
+            $this->entityManager->flush();
         }
-        $this->entityManager->remove($entity);
-        $this->entityManager->flush();
-
         return $entity;
     }
 }

@@ -47,6 +47,11 @@ class UserProfileEntity
      */
     private $branch;
 
+     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $status;
+
     public function getUserID(): ?string
     {
         return $this->userID;
@@ -118,4 +123,17 @@ class UserProfileEntity
 
         return $this;
     }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
 }

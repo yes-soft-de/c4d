@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\SubscriptionCreateRequest;
+use App\Request\SubscriptionUpdateRequest;
 use App\Service\SubscriptionService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,7 +40,12 @@ class SubscriptionController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, SubscriptionCreateRequest::class, (object)$data);
+
         $request->setOwnerID($this->getUserId());
+
+        if (!$request->getStatus()) {
+            $request->setStatus('inactive');
+            }
 
         $violations = $this->validator->validate($request);
 
@@ -55,7 +61,7 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("currentSubscription", name="getCurrentSubscribedPackages", methods={"GET"})
+     * @Route("activeSubscription", name="getActiveSubscribedPackages", methods={"GET"})
      *  @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
@@ -64,5 +70,30 @@ class SubscriptionController extends BaseController
         $result = $this->subscriptionService->getCurrentSubscriptions($this->getUserId());
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("subscription", name="updateSubscription", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(\stdClass::class, SubscriptionUpdateRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->subscriptionService->update($request);
+
+        return $this->response($result, self::UPDATE);
     }
 }

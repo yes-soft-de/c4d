@@ -18,6 +18,10 @@ class CaptainProfileCreateRequest
 
     private $drivingLicence;
 
+    private $salary;
+
+    private $status;
+
     /**
      * Get the value of captainID
      */
@@ -154,6 +158,46 @@ class CaptainProfileCreateRequest
     public function setDrivingLicence($drivingLicence)
     {
         $this->drivingLicence = $drivingLicence;
+
+        return $this;
+    }
+
+     /**
+     * Get the value of salary
+     */
+    public function getSalary(): ?float
+    {
+        return $this->salary;
+    }
+
+     /**
+     * Set the value of salary
+     *
+     * @return  self
+     */
+    public function setSalary(float $salary): self
+    {
+        $this->salary = $salary;
+
+        return $this;
+    }
+     
+     /**
+     * Get the value of status
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+     /**
+     * Set the value of status
+     *
+     * @return  self
+     */
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

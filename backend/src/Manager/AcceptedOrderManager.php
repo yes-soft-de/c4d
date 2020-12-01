@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\AcceptedOrderEntity;
 use App\Repository\AcceptedOrderEntityRepository;
 use App\Request\AcceptedOrderCreateRequest;
+use App\Request\AcceptedOrderUpdateRequest;
 use App\Request\GetByIdRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -49,5 +50,19 @@ class AcceptedOrderManager
     public function closestOrders()
     {
         return $this->repository->closestOrders();
+    }
+
+    public function update(AcceptedOrderUpdateRequest $request)
+    {
+        $acceptedOrderEntity = $this->repository->find($request->getId());
+        $request->setDate($acceptedOrderEntity->getDate());
+        if (!$acceptedOrderEntity) {
+            return null;
+        }
+        $acceptedOrderEntity = $this->autoMapping->mapToObject(AcceptedOrderUpdateRequest::class, AcceptedOrderEntity::class, $request, $acceptedOrderEntity);
+
+        $this->entityManager->flush();
+
+        return $acceptedOrderEntity;
     }
 }

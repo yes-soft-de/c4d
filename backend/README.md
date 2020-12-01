@@ -26,9 +26,21 @@ php bin/console doctrine:migration:migrate
 ```
 
 ### Account
+#### Create admin
+```
+/createAdmin
+methods: POST
+```
+
 #### Create new user
 ```
 /user
+methods: POST
+```
+
+#### Create new captain
+```
+/captain
 methods: POST
 ```
 #### login

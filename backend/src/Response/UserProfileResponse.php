@@ -11,4 +11,6 @@ class UserProfileResponse
     public $story;
 
     public $image;
+
+    public $status;
 }

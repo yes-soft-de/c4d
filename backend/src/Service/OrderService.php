@@ -33,6 +33,10 @@ class OrderService
     public function getOrderById($orderId)
     {
         $result = $this->orderManager->getOrderById($orderId);
+      
+        if ($result && $result['state'] == null) {
+            $result['state'] ="pendings";
+        }
 
         $response = $this->autoMapping->map('array', OrderResponse::class, $result);
 
@@ -43,7 +47,12 @@ class OrderService
     {
         $response = [];
         $result = $this->orderManager->getOrdersByOwnerID($userID);
+       
         foreach ($result as $item) {
+
+            if ($item['state'] == null) {
+                $item['state'] ="pendings";
+            }
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $item);
         }
         return $response;
@@ -52,7 +61,10 @@ class OrderService
     public function orderStatus($userID, $orderId)
     {
         $result = $this->orderManager->orderStatus($userID, $orderId);
-
+        
+        if ($result && $result['state'] == null) {
+            $result['state'] ="pendings";
+        }
         $response = $this->autoMapping->map('array', OrderResponse::class, $result);
 
         return $response;

@@ -28,7 +28,7 @@ class AdminController extends BaseController
     }
 
     /**
-     * @Route("/createnimda", name="adminCreate", methods={"POST"})
+     * @Route("/createAdmin", name="adminCreate", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */

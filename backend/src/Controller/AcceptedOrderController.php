@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Service\AcceptedOrderService;
 use App\Request\AcceptedOrderCreateRequest;
+use App\Request\AcceptedOrderUpdateRequest;
 use App\Request\GetByIdRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,9 @@ class AcceptedOrderController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
+
         $request->setCaptainID($this->getUserId());
+
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0) {
             $violationsString = (string) $violations;
@@ -75,5 +78,30 @@ class AcceptedOrderController extends BaseController
         $result = $this->acceptedOrderService->totalEarn($this->getUserId());
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("acceptedOrder", name="updateAcceptedOrder", methods={"PUT"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(\stdClass::class, AcceptedOrderUpdateRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->acceptedOrderService->update($request);
+
+        return $this->response($result, self::UPDATE);
     }
 }

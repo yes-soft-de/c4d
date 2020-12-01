@@ -4,36 +4,30 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Entity\UserEntity;
-use App\Entity\UserProfileEntity;
 use App\Entity\CaptainProfileEntity;
 use App\Repository\UserEntityRepository;
-use App\Repository\UserProfileEntityRepository;
 use App\Repository\CaptainProfileEntityRepository;
-use App\Request\UserProfileCreateRequest;
 use App\Request\CaptainProfileCreateRequest;
-use App\Request\UserProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserManager
+class CaptainManager
 {
     private $autoMapping;
     private $entityManager;
     private $encoder;
     private $userRepository;
     private $captainProRepository;
-    private $profileRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, CaptainProfileEntityRepository $captainProRepository, UserProfileEntityRepository $profileRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, CaptainProfileEntityRepository $captainProRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
         $this->captainProRepository = $captainProRepository;
-        $this->profileRepository = $profileRepository;
     }
 
     public function userRegister(UserRegisterRequest $request)
@@ -47,7 +41,7 @@ class UserManager
         }
 
         if ($request->getRoles() == null) {
-            $request->setRoles(['user']);
+            $request->setRoles(['ROLE_CAPTAIN']);
         }
         $userRegister->setRoles($request->getRoles());
 
@@ -56,48 +50,6 @@ class UserManager
         $this->entityManager->clear();
 
         return $userRegister;
-    }
-
-    public function userProfileCreate(UserProfileCreateRequest $request)
-    {
-        $userProfile = $this->getProfileByUserID($request->getUserID());
-        if ($userProfile == null) {
-            $userProfile = $this->autoMapping->map(UserProfileCreateRequest::class, UserProfileEntity::class, $request);
-
-            $this->entityManager->persist($userProfile);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-
-            return $userProfile;
-        }
-        else {
-            return 1;
-        }
-    }
-
-    public function userProfileUpdate(UserProfileUpdateRequest $request)
-    {
-        $item = $this->profileRepository->getUserProfile($request->getUserID());
-
-        if ($item) {
-            $item = $this->autoMapping->mapToObject(UserProfileUpdateRequest::class, UserProfileEntity::class, $request, $item);
-
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-
-            return $item;
-        }
-    }
-
-    public function getProfileByUserID($userID)
-    {
-        return $this->profileRepository->getProfileByUSerID($userID);
-    }
-
-    public function getremainingOrders($userID)
-    {
-        $date = new \DateTime("Now");
-        return $this->profileRepository->getremainingOrders($userID, $date);
     }
 
     public function captainprofileCreate(CaptainProfileCreateRequest $request)
@@ -135,5 +87,10 @@ class UserManager
     public function getcaptainprofileByID($userID)
     {
         return $this->captainProRepository->getCaptainprofileByUserID($userID);
+    }
+
+    public function getCaptainsInactive()
+    {
+        return $this->captainProRepository->getCaptainsInactive();
     }
 }

@@ -35,13 +35,21 @@ class PackageEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getActivePackages()
+    public function getAllpackages()
     {
         return $this->createQueryBuilder('package')
-            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.city, package.orderCount')
-            ->andWhere("package.status = 'active'")
+            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.city, package.orderCount, package.status')
+
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+    }
+    public function getpackagesById($id)
+    {
+        return $this->createQueryBuilder('package')
+            ->select('package.id, package.name, package.cost, package.note, package.carCount, package.city, package.orderCount, package.status')
+            ->andWhere('package.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
     }
 }

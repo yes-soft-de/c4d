@@ -90,7 +90,7 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/closestOrders",   name="GetClosestOrdersToCaptainAnd NoOtherCaptainTookIt", methods={"GET"})
+     * @Route("/closestOrders",   name="GetClosestOrdersToCaptainAndNoOtherCaptainTookIt", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @return                    JsonResponse
      */
@@ -103,7 +103,6 @@ class OrderController extends BaseController
 
     /**
      * @Route("/order",         name="orderUpdate", methods={"PUT"})
-     * @IsGranted("ROLE_OWNER")
      * @param                   Request $request
      * @return                  JsonResponse
      */
@@ -112,7 +111,7 @@ class OrderController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateRequest::class, (object) $data);
-        $request->setOwnerID($this->getUserId());
+        $request->setCaptainID($this->getUserId());
 
         $response = $this->orderService->update($request);
 

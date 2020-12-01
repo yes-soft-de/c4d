@@ -31,6 +31,7 @@ class PackageController extends BaseController
 
     /**
      * @Route("package", name="createPackage", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
      */
@@ -54,7 +55,7 @@ class PackageController extends BaseController
     }
 
     /**
-     * @Route("packages", name="getPackages", methods={"GET"})
+     * @Route("packages", name="getPackagesUserCompatible", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
@@ -66,18 +67,31 @@ class PackageController extends BaseController
     }
 
     /**
-     * @Route("activepackages", name="getActivePackages", methods={"GET"})
+     * @Route("getAllpackages", name="getAllPackages", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
-    public function getActivePackages()
+    public function getAllpackages()
     {
-        $result = $this->packageService->getActivePackages();
+        $result = $this->packageService->getAllpackages();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("getpackagesById/{id}", name="getpackagesById", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getpackagesById($id)
+    {
+        $result = $this->packageService->getpackagesById($id);
 
         return $this->response($result, self::FETCH);
     }
 
     /**
      * @Route("package", name="updatePackage", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
      */

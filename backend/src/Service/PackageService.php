@@ -37,9 +37,14 @@ class PackageService
         return $respons;
     }
 
-    public function getActivePackages()
+    public function getAllpackages()
     {
-        return $this->packageManager->getActivePackages();
+        return $this->packageManager->getAllpackages();
+    }
+
+    public function getpackagesById($id)
+    {
+        return $this->packageManager->getpackagesById($id);
     }
 
     public function update($request)
