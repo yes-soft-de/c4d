@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Service\AcceptedOrderService;
+use App\Service\UserService;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Request\AcceptedOrderUpdateRequest;
 use App\Request\GetByIdRequest;
@@ -21,13 +22,15 @@ class AcceptedOrderController extends BaseController
     private $autoMapping;
     private $validator;
     private $acceptedOrderService;
+    private $userService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AcceptedOrderService $acceptedOrderService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AcceptedOrderService $acceptedOrderService, UserService $userService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->acceptedOrderService = $acceptedOrderService;
+        $this->userService = $userService;
     }
 
     /**
@@ -35,21 +38,26 @@ class AcceptedOrderController extends BaseController
      * @IsGranted("ROLE_CAPTAIN")
      */
     public function create(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
+    {   
+        $response ="this user inactive!!";
+        $status = $this->userService->userIsActive('captain', $this->getUserId());
+        
+        if ($status == 'active') {
+            $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
+            $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
 
-        $request->setCaptainID($this->getUserId());
+            $request->setCaptainID($this->getUserId());
 
-        $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
-            $violationsString = (string) $violations;
+            $violations = $this->validator->validate($request);
+            if (\count($violations) > 0) {
+                $violationsString = (string) $violations;
 
-            return new JsonResponse($violationsString, Response::HTTP_OK);
+                return new JsonResponse($violationsString, Response::HTTP_OK);
+            }
+
+            $response = $this->acceptedOrderService->create($request);
         }
-
-        $response = $this->acceptedOrderService->create($request);
 
         return $this->response($response, self::CREATE);
     }

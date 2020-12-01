@@ -136,4 +136,24 @@ class UserManager
     {
         return $this->captainProRepository->getCaptainprofileByUserID($userID);
     }
+
+    public function getUserInactive($userType)
+    {
+        if ($userType == "owner") {
+            return $this->profileRepository->getUserInactive();
+        }
+        if ($userType == "captain") {
+            return $this->captainProRepository->getUserInactive();
+        }
+    }
+
+    public function userIsActive($userType, $userID)
+    {
+        if ($userType == "owner") {
+        return $this->profileRepository->userIsActive($userID);
+        }
+        if ($userType == "captain") {
+        return $this->captainProRepository->userIsActive($userID);
+        }
+    }
 }

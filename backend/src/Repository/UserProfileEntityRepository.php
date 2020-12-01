@@ -68,4 +68,30 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getUserInactive()
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->select('profile.userName', 'profile.image', 'profile.story', 'profile.location', 'profile.status')
+
+            ->andWhere("profile.status = 'inactive' ")
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function userIsActive( $userID)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.status')
+
+            ->andWhere('profile.userID=:userID')
+
+            ->setParameter('userID', $userID)
+            
+            ->getQuery()
+            ->getResult();
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Service\OrderService;
+use App\Service\UserService;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\DeleteRequest;
@@ -21,34 +22,39 @@ class OrderController extends BaseController
     private $autoMapping;
     private $validator;
     private $orderService;
+    private $userService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, OrderService $orderService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, OrderService $orderService, UserService $userService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->orderService = $orderService;
+        $this->userService = $userService;
     }
     /**
      * @Route("/order",         name="createOrder", methods={"POST"})
      * @IsGranted("ROLE_OWNER")
      */
     public function create(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
+    {  
+       $response ="this user inactive!!";
+       $status = $this->userService->userIsActive('owner', $this->getUserId());
+        if ($status == 'active') {
+            $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
-        $request->setOwnerID($this->getUserId());
+            $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
+            $request->setOwnerID($this->getUserId());
 
-        $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
-            $violationsString = (string) $violations;
+            $violations = $this->validator->validate($request);
+            if (\count($violations) > 0) {
+                $violationsString = (string) $violations;
 
-            return new JsonResponse($violationsString, Response::HTTP_OK);
+                return new JsonResponse($violationsString, Response::HTTP_OK);
+            }
+
+            $response = $this->orderService->create($request);
         }
-
-        $response = $this->orderService->create($request);
-
         return $this->response($response, self::CREATE);
     }
 
@@ -96,7 +102,13 @@ class OrderController extends BaseController
      */
     public function closestOrders()
     {
-        $result = $this->orderService->closestOrders($this->getUserId());
+        $result ="this user inactive!!";
+        $status = $this->userService->userIsActive('captain', $this->getUserId());
+        
+        if ($status == 'active') {
+
+            $result = $this->orderService->closestOrders($this->getUserId());
+         }
 
         return $this->response($result, self::FETCH);
     }

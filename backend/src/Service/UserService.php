@@ -102,4 +102,32 @@ class UserService
 
         return $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
     }
+
+    public function getUserInactive($userType)
+    {
+        $response = [];
+        $items = $this->userManager->getUserInactive($userType);
+
+        if($userType == "captain") {
+            foreach( $items as  $item ) {
+                $response  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
+            }
+        }
+        if($userType == "owner") {
+            foreach( $items as  $item ) {
+                $response  = $this->autoMapping->map('array', UserProfileResponse::class, $item);
+            }
+        }
+     return $response;
+    }
+
+    public function userIsActive($userType, $userID)
+    {
+        $item = $this->userManager->userIsActive($userType, $userID);
+        if ($item) {
+          return  $item[0]['status'];
+        }
+
+        return $item ;
+     }
 }

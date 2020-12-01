@@ -43,12 +43,25 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getCaptainsInactive()
+    public function getUserInactive()
     {
         return $this->createQueryBuilder('captainProfile')
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status')
 
             ->andWhere("captainProfile.status = 'inactive' ")
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function userIsActive( $userID)
+    {
+        return $this->createQueryBuilder('captainProfile')
+            ->select('captainProfile.status')
+
+            ->andWhere('captainProfile.captainID=:userID')
+
+            ->setParameter('userID', $userID)
 
             ->getQuery()
             ->getResult();
