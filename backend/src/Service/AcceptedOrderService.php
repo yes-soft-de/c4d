@@ -9,6 +9,7 @@ use App\Request\AcceptedOrderCreateRequest;
 use App\Response\AcceptedOrderResponse;
 use App\Response\CaptaintotalEarnResponse;
 use App\Response\OrderResponse;
+use App\Response\ongoingCaptainsResponse;
 
 class AcceptedOrderService
 {
@@ -46,6 +47,11 @@ class AcceptedOrderService
         return $response;
     }
 
+    public function countOrdersDeliverd($userID)
+    {
+        return $this->acceptedOrderManager->countOrdersDeliverd($userID);
+    }
+
     public function closestOrders()
     {
         return $this->acceptedOrderManager->closestOrders();
@@ -56,5 +62,10 @@ class AcceptedOrderService
         $result = $this->acceptedOrderManager->update($request);
 
         return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $result);
+    }
+
+    public function getAcceptedOrderByOrderId($orderId)
+    {
+        return $this->acceptedOrderManager->getAcceptedOrderByOrderId($orderId);
     }
 }

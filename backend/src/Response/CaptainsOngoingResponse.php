@@ -2,12 +2,12 @@
 
 namespace App\Response;
 
-class AcceptedOrderResponse
+class CaptainsOngoingResponse
 {
     public $id;
-    public $orderID;
     public $captainID;
-    public $date;
-    public $cost;
+    public $name;
+    public $orderID;
     public $duration;
+    public $date;
 }

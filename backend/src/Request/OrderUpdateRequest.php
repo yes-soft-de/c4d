@@ -8,12 +8,12 @@ class OrderUpdateRequest
     private $ownerID;
     private $source = [];
     private $destination = [];
-    // private $date;
     private $note;
     private $payment;
     private $recipientName;
     private $recipientPhone;
     private $updateDate;
+    private $state;
 
      /**
      * @return mixed

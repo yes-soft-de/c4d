@@ -8,7 +8,9 @@ class UserProfileUpdateRequest
 
     private $userName;
 
-    private $location;
+    private $city;
+
+    private $location = [];
 
     private $story;
 

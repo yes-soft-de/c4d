@@ -81,17 +81,4 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function userIsActive( $userID)
-    {
-        return $this->createQueryBuilder('profile')
-            ->select('profile.status')
-
-            ->andWhere('profile.userID=:userID')
-
-            ->setParameter('userID', $userID)
-            
-            ->getQuery()
-            ->getResult();
-    }
-
 }

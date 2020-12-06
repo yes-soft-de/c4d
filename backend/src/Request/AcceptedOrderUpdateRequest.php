@@ -6,10 +6,9 @@ class AcceptedOrderUpdateRequest
 {
     private $id;
     private $orderID;
-    // private $captainID;
     private $date;
     private $cost;
-    private $state;
+    private $duration;
 
      /**
      * @return mixed

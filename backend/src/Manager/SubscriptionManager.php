@@ -33,9 +33,9 @@ class SubscriptionManager
         return $subscriptionEntity;
     }
 
-    public function getCurrentSubscriptions($userId)
+    public function activeSubscription($userId)
     {
-        return $this->subscribeRepository->getCurrentSubscribedPackages($userId);
+        return $this->subscribeRepository->activeSubscription($userId);
     }
 
     public function update(SubscriptionUpdateRequest $request)
@@ -55,5 +55,35 @@ class SubscriptionManager
         $this->entityManager->flush();
 
         return $subscribeEntity;
+    }
+
+    public function getSubscriptionsPending()
+    {
+        return $this->subscribeRepository->getSubscriptionsPending();
+    }
+
+    public function getSubscriptionById($id)
+    {
+        return $this->subscribeRepository->getSubscriptionById($id);
+    }
+
+    public function subscriptionIsActive($ownerID)
+    {
+        return $this->subscribeRepository->subscriptionIsActive($ownerID);
+    }
+
+    public function countpendingContracts()
+    {
+        return $this->subscribeRepository->countpendingContracts();
+    }
+
+    public function countDoneContracts()
+    {
+        return $this->subscribeRepository->countDoneContracts();
+    }
+
+    public function countCancelledContracts()
+    {
+        return $this->subscribeRepository->countCancelledContracts();
     }
 }

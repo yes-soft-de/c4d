@@ -132,9 +132,13 @@ class UserManager
         }
     }
 
-    public function getcaptainprofileByID($userID)
+    public function getcaptainprofileByCaptainID($userID)
     {
-        return $this->captainProRepository->getCaptainprofileByUserID($userID);
+        return $this->captainProRepository->getcaptainprofileByCaptainID($userID);
+    }
+    public function getCaptainprofileByID($id)
+    {
+        return $this->captainProRepository->getCaptainprofileByID($id);
     }
 
     public function getUserInactive($userType)
@@ -147,13 +151,41 @@ class UserManager
         }
     }
 
-    public function userIsActive($userType, $userID)
+    public function captainIsActive($captainID)
     {
-        if ($userType == "owner") {
-        return $this->profileRepository->userIsActive($userID);
-        }
-        if ($userType == "captain") {
-        return $this->captainProRepository->userIsActive($userID);
-        }
+        return $this->captainProRepository->captainIsActive($captainID);
+    }
+
+    public function getCaptinsActive()
+    {
+        return $this->captainProRepository->getCaptinsActive();
+    }
+
+    public function ongoingCaptains()
+    {
+        return $this->captainProRepository->ongoingCaptains();
+    }
+
+    public function pendingCaptains()
+    {
+        return $this->captainProRepository->pendingCaptains();
+    }
+
+    public function dayOfCaptains()
+    {
+        return $this->captainProRepository->dayOfCaptains();
+    }
+
+    public function countpendingCaptains()
+    {
+        return $this->captainProRepository->countpendingCaptains();
+    }
+    public function countOngoingCaptains()
+    {
+        return $this->captainProRepository->countOngoingCaptains();
+    }
+    public function countDayOfCaptains()
+    {
+        return $this->captainProRepository->countDayOfCaptains();
     }
 }

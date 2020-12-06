@@ -34,6 +34,8 @@ App\Request\PackageCreateRequest:
       - NotBlank: ~
     status:
       - NotBlank: ~
+    branch:
+      - NotBlank: ~
 
 App\Request\PackageUpdateRequest:
   properties:
@@ -51,14 +53,21 @@ App\Request\PackageUpdateRequest:
       - NotBlank: ~
     status:
       - NotBlank: ~
+    branch:
+      - NotBlank: ~
 
 App\Request\SubscriptionCreateRequest:
   properties:
-    ownerID:
+    packageID:
       - NotBlank: ~
+
+App\Request\SubscriptionUpdateRequest:
+  properties:
     packageID:
       - NotBlank: ~
     status:
+      - NotBlank: ~
+    endDate:
       - NotBlank: ~
 
 App\Request\UserRegisterRequest:

@@ -87,4 +87,29 @@ class OrderManager
         }
         return $entity;
     }
+
+    public function countAllOrders()
+    {
+        return $this->repository->countAllOrders();
+    }
+
+    public function countpendingOrders()
+    {
+        return $this->repository->countpendingOrders();
+    }
+
+    public function countOngoingOrders()
+    {
+        return $this->repository->countOngoingOrders();
+    }
+
+    public function countCancelledOrders()
+    {
+        return $this->repository->countCancelledOrders();
+    }
+
+    public function ongoingOrders()
+    {
+        return $this->repository->ongoingOrders();
+    }
 }

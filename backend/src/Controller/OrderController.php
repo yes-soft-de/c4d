@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Service\OrderService;
 use App\Service\UserService;
+use App\Service\SubscriptionService;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\DeleteRequest;
@@ -23,14 +24,16 @@ class OrderController extends BaseController
     private $validator;
     private $orderService;
     private $userService;
+    private $subscriptionService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, OrderService $orderService, UserService $userService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, OrderService $orderService, UserService $userService, SubscriptionService $subscriptionService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->orderService = $orderService;
         $this->userService = $userService;
+        $this->subscriptionService = $subscriptionService;
     }
     /**
      * @Route("/order",         name="createOrder", methods={"POST"})
@@ -38,8 +41,8 @@ class OrderController extends BaseController
      */
     public function create(Request $request)
     {  
-       $response ="this user inactive!!";
-       $status = $this->userService->userIsActive('owner', $this->getUserId());
+        $status = $this->subscriptionService->subscriptionIsActive($this->getUserId());
+        
         if ($status == 'active') {
             $data = json_decode($request->getContent(), true);
 
@@ -55,6 +58,19 @@ class OrderController extends BaseController
 
             $response = $this->orderService->create($request);
         }
+
+        if ($status == 'inactive') {
+            $response ="subscribe is awaiting activation!!";
+        }
+
+        if ($status == 'finished') {
+            $response ="subscribe finished!!";
+        }
+
+        if ($status == 'unaccept') {
+            $response ="subscribe unaccept!!";
+        }
+
         return $this->response($response, self::CREATE);
     }
 
@@ -96,14 +112,14 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/closestOrders",   name="GetClosestOrdersToCaptainAndNoOtherCaptainTookIt", methods={"GET"})
+     * @Route("/closestOrders",   name="GetPendingOrders", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @return                    JsonResponse
      */
     public function closestOrders()
     {
-        $result ="this user inactive!!";
-        $status = $this->userService->userIsActive('captain', $this->getUserId());
+        $result ="this captain inactive!!";
+        $status = $this->userService->captainIsActive($this->getUserId());
         
         if ($status == 'active') {
 
@@ -123,7 +139,7 @@ class OrderController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateRequest::class, (object) $data);
-        $request->setCaptainID($this->getUserId());
+        $request->setOwnerID($this->getUserId());
 
         $response = $this->orderService->update($request);
 
@@ -144,4 +160,43 @@ class OrderController extends BaseController
 
         return $this->response($result, self::DELETE);
     }
+
+     /**
+      * @Route("/countAllOrders",        name="CountAllOrders", methods={"GET"})
+      * @IsGranted("ROLE_ADMIN")
+      * @return                  JsonResponse
+      */
+      public function countAllOrders()
+      {
+          $result = $this->orderService->countAllOrders();
+  
+          return $this->response($result, self::FETCH);
+      }
+
+    /**
+     * @Route("/dashboardOrders", name="dashboardOrders",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function dashboardOrders()
+    {
+        $result = $this->orderService->dashboardOrders();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/ongoingOrders", name="GetActiveOrders",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function ongoingOrders()
+    {
+        $result = $this->orderService->ongoingOrders();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

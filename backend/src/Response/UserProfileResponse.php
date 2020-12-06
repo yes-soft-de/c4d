@@ -6,7 +6,9 @@ class UserProfileResponse
 {
     public $userName;
 
-    public $location;
+    private $city;
+
+    private $location = [];
 
     public $story;
 

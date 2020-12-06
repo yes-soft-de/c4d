@@ -39,8 +39,8 @@ class AcceptedOrderController extends BaseController
      */
     public function create(Request $request)
     {   
-        $response ="this user inactive!!";
-        $status = $this->userService->userIsActive('captain', $this->getUserId());
+        $response ="this captain inactive!!";
+        $status = $this->userService->captainIsActive($this->getUserId());
         
         if ($status == 'active') {
             $data = json_decode($request->getContent(), true);
@@ -112,4 +112,5 @@ class AcceptedOrderController extends BaseController
 
         return $this->response($result, self::UPDATE);
     }
+
 }

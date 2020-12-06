@@ -8,7 +8,7 @@ class AcceptedOrderCreateRequest
     private $captainID;
     private $date;
     private $cost;
-    private $state;
+    private $duration;
 
      /**
      * @param mixed $captainID

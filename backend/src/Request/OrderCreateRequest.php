@@ -12,6 +12,7 @@ class OrderCreateRequest
     private $payment;
     private $recipientName;
     private $recipientPhone;
+    private $state;
 
      /**
      * @param mixed $ownerID

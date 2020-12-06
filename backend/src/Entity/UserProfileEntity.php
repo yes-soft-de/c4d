@@ -28,11 +28,6 @@ class UserProfileEntity
     private $userName;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $location;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $story;
@@ -51,6 +46,16 @@ class UserProfileEntity
      * @ORM\Column(type="string", length=100)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $location = [];
 
     public function getUserID(): ?string
     {
@@ -72,18 +77,6 @@ class UserProfileEntity
     public function setUserName(string $userName): self
     {
         $this->userName = $userName;
-
-        return $this;
-    }
-
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(?string $location): self
-    {
-        $this->location = $location;
 
         return $this;
     }
@@ -132,6 +125,30 @@ class UserProfileEntity
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getLocation(): ?array
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?array $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

@@ -79,7 +79,7 @@ class PackageController extends BaseController
     }
 
     /**
-     * @Route("getpackagesById/{id}", name="getpackagesById", methods={"GET"})
+     * @Route("getpackageById/{id}", name="getpackageById", methods={"GET"})
      * @return JsonResponse
      */
     public function getpackagesById($id)

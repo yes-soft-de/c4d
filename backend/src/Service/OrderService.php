@@ -9,6 +9,7 @@ use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
+use App\Response\ongoingOrdersResponse;
 
 class OrderService
 {
@@ -32,69 +33,50 @@ class OrderService
 
     public function getOrderById($orderId)
     {
-        $result = $this->orderManager->getOrderById($orderId);
-      
-        if ($result && $result['state'] == null) {
-            $result['state'] ="pendings";
-        }
+        $order = $this->orderManager->getOrderById($orderId);
+        $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
-        $response = $this->autoMapping->map('array', OrderResponse::class, $result);
-
+        $response = $this->autoMapping->map('array', OrderResponse::class, $order);
+        $response->acceptedOrder =  $acceptedOrder;
+        
         return $response;
     }
 
     public function getOrdersByOwnerID($userID)
     {
         $response = [];
-        $result = $this->orderManager->getOrdersByOwnerID($userID);
+        $orders = $this->orderManager->getOrdersByOwnerID($userID);
        
-        foreach ($result as $item) {
+        foreach ($orders as $order) {
 
-            if ($item['state'] == null) {
-                $item['state'] ="pendings";
-            }
-            $response[] = $this->autoMapping->map('array', OrderResponse::class, $item);
+            $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
+
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
+
         return $response;
     }
 
     public function orderStatus($userID, $orderId)
     {
-        $result = $this->orderManager->orderStatus($userID, $orderId);
-        
-        if ($result && $result['state'] == null) {
-            $result['state'] ="pendings";
-        }
-        $response = $this->autoMapping->map('array', OrderResponse::class, $result);
+        $order = $this->orderManager->orderStatus($userID, $orderId);
 
+        $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
+
+        $response = $this->autoMapping->map('array', OrderResponse::class, $order);
+        $response->acceptedOrder =  $acceptedOrder;
         return $response;
-    }
-
-    public function searchMyArray($arrays, $key, $search)
-    {
-        $count = 0;
-
-        foreach ($arrays as $object) {
-            if (is_object($object)) {
-                $object = get_object_vars($object);
-            }
-            if (array_key_exists($key, $object) && $object[$key] == $search) {
-                $count++;
-            }
-        }
-        return $count;
     }
 
     public function closestOrders()
     {
         $response = [];
-        $orders = $this->orderManager->closestOrders();
-        $acceptedOrder = $this->acceptedOrderService->closestOrders();
 
-        foreach ($orders as $res) {
-            if (!$this->searchMyArray($acceptedOrder, 'id', $res['id'])) {
-                $response[] = $this->autoMapping->map('array', OrderResponse::class, $res);
-            }
+        $orders = $this->orderManager->closestOrders();
+
+        foreach ($orders as $order) {
+            
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
         return $response;
     }
@@ -114,5 +96,30 @@ class OrderService
             return null;
         }
         return  $this->autoMapping->map(OrderEntity::class, DeleteResponse::class, $result);
+    }
+
+    public function countAllOrders()
+    {
+        return $this->orderManager->countAllOrders();
+    }
+
+    public function dashboardOrders()
+    {
+        $response = [];
+        $response[] = $this->orderManager->countpendingOrders();
+        $response[] = $this->orderManager->countOngoingOrders();
+        $response[] = $this->orderManager->countCancelledOrders();
+
+        return $response;
+    }
+
+    public function ongoingOrders()
+    {
+        $ongoingOrders =  $this->orderManager->ongoingOrders();
+        foreach ( $ongoingOrders as  $ongoingOrder) {
+
+            $response[] = $this->autoMapping->map('array', ongoingOrdersResponse::class, $ongoingOrder);
+       }
+       return $response;
     }
 }

@@ -17,16 +17,20 @@ use App\Response\CaptainProfileCreateResponse;
 use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
 use App\Response\RemainingOrdersResponse;
+use App\Response\CaptainsOngoingResponse;
+use App\Service\AcceptedOrderService;
 
 class UserService
 {
     private $autoMapping;
     private $userManager;
+    private $acceptedOrderService;
 
-    public function __construct(AutoMapping $autoMapping, UserManager $userManager)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
+        $this->acceptedOrderService = $acceptedOrderService;
     }
 
     public function userRegister(UserRegisterRequest $request)
@@ -96,11 +100,36 @@ class UserService
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
 
-    public function getcaptainprofileByID($userID)
+    public function getcaptainprofileByCaptainID($userID)
     {
-        $item = $this->userManager->getcaptainprofileByID($userID);
+        $response=[];
+        $item = $this->userManager->getcaptainprofileByCaptainID($userID);
+        $captaintotalEarn = $this->acceptedOrderService->totalEarn($userID);
+        $countOrdersDeliverd = $this->acceptedOrderService->countOrdersDeliverd($userID);
+   
+        $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
+      
+        $response->captaintotalEarn = $captaintotalEarn;
+        $response->countOrdersDeliverd = $countOrdersDeliverd;
 
-        return $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
+        return $response;
+    }
+
+    public function getCaptainprofileByID($id)
+    {
+        $response=[];
+        $item = $this->userManager->getCaptainprofileByID($id);
+   
+        $captaintotalEarn = $this->acceptedOrderService->totalEarn($item['captainID']);
+        $countOrdersDeliverd = $this->acceptedOrderService->countOrdersDeliverd($item['captainID']);
+   
+    
+        $response =  $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
+
+        $response->captaintotalEarn = $captaintotalEarn;
+        $response->countOrdersDeliverd = $countOrdersDeliverd;
+      
+        return $response;
     }
 
     public function getUserInactive($userType)
@@ -120,14 +149,68 @@ class UserService
         }
      return $response;
     }
-
-    public function userIsActive($userType, $userID)
+    public function getCaptinsActive()
     {
-        $item = $this->userManager->userIsActive($userType, $userID);
+        $response = [];
+        $items = $this->userManager->getCaptinsActive();
+            foreach( $items as  $item ) {
+                $response  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
+            }
+        return $response;
+    }
+
+    public function captainIsActive($captainID)
+    {
+        $item = $this->userManager->captainIsActive($captainID);
         if ($item) {
           return  $item[0]['status'];
         }
 
         return $item ;
      }
+
+    public function ongoingCaptains()
+     {
+         $response = [];
+         $items = $this->userManager->ongoingCaptains();
+       
+         foreach ($items as $item) {
+             $response[] = $this->autoMapping->map('array', CaptainsOngoingResponse::class, $item);
+         }
+         return $response;
+     }
+
+    public function pendingCaptains()
+     {
+         $response = [];
+         $items = $this->userManager->pendingCaptains();
+     
+         foreach ($items as $item) {
+             $response[] = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
+         }
+         return $response;
+     }
+
+    public function dayOfCaptains()
+     {
+         $response = [];
+         $items = $this->userManager->dayOfCaptains();
+       
+         foreach ($items as $item) {
+             $response[] = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
+         }
+         return $response;
+     }
+
+     public function dashboardCaptains()
+     {
+         $response = [];
+
+         $response[] = $this->userManager->countpendingCaptains();
+         $response[] = $this->userManager->countOngoingCaptains();
+         $response[] = $this->userManager->countDayOfCaptains();
+
+         return $response;
+     }
+ 
 }

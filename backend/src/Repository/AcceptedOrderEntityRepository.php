@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\AcceptedOrderEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\CaptainProfileEntity;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method AcceptedOrderEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -48,5 +50,26 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->setParameter('userID', $userID)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function countOrdersDeliverd($userID)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select("count(AcceptedOrderEntity.id) as countOrdersDeliverd ")
+            ->andWhere("AcceptedOrderEntity.state = 'deliverd'")
+            ->andWhere('AcceptedOrderEntity.captainID = :userID')
+            ->setParameter('userID', $userID)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getAcceptedOrderByOrderId($orderId)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.date as acceptedOrderDate', 'AcceptedOrderEntity.cost', 'AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.duration')
+            ->andWhere('AcceptedOrderEntity.orderID = :orderId')
+            ->setParameter('orderId', $orderId)
+            ->getQuery()
+            ->getResult();
     }
 }

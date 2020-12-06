@@ -15,4 +15,6 @@ class SubscriptionResponse
     public $endDate;
 
     public $status;
+
+    public $note;
 }

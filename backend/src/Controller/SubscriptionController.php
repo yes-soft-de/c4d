@@ -61,13 +61,13 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("activeSubscription", name="getActiveSubscribedPackages", methods={"GET"})
+     * @Route("getActiveSubscription", name="getActiveSubscribedPackage", methods={"GET"})
      *  @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
-    public function getCurrentSubscribedPackages()
+    public function activeSubscription()
     {
-        $result = $this->subscriptionService->getCurrentSubscriptions($this->getUserId());
+        $result = $this->subscriptionService->activeSubscription($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
@@ -96,4 +96,41 @@ class SubscriptionController extends BaseController
 
         return $this->response($result, self::UPDATE);
     }
+
+    /**
+     * @Route("getSubscriptionsPending", name="getSubscriptionsPending", methods={"GET"})
+     *  @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function getSubscriptionsPending()
+    {
+        $result = $this->subscriptionService->getSubscriptionsPending();
+
+        return $this->response($result, self::FETCH);
+    }
+    /**
+     * @Route("getSubscriptionById/{id}", name="getSubscriptionById", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getSubscriptionById($id)
+    {
+        $result = $this->subscriptionService->getSubscriptionById($id);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/dashboardContracts", name="dashboardContracts",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function dashboardContracts()
+    {
+        $result = $this->subscriptionService->dashboardContracts();
+
+        return $this->response($result, self::FETCH);
+    }
+
+
 }

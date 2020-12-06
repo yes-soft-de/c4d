@@ -29,7 +29,8 @@ class AcceptedOrderManager
     public function create(AcceptedOrderCreateRequest $request)
     {
         $item = $this->autoMapping->map(AcceptedOrderCreateRequest::class, AcceptedOrderEntity::class, $request);
-
+        $item->setDuration($item->getDuration());
+       
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -45,6 +46,11 @@ class AcceptedOrderManager
     public function totalEarn($userID)
     {
         return $this->repository->totalEarn($userID);
+    }
+
+    public function countOrdersDeliverd($userID)
+    {
+        return $this->repository->countOrdersDeliverd($userID);
     }
 
     public function closestOrders()
@@ -64,5 +70,10 @@ class AcceptedOrderManager
         $this->entityManager->flush();
 
         return $acceptedOrderEntity;
+    }
+
+    public function getAcceptedOrderByOrderId($orderId)
+    {
+        return $this->repository->getAcceptedOrderByOrderId($orderId);
     }
 }

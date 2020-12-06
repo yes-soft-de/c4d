@@ -22,6 +22,8 @@ class CaptainProfileCreateRequest
 
     private $status;
 
+    private $state;
+
     /**
      * Get the value of captainID
      */

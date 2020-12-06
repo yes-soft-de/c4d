@@ -38,12 +38,13 @@ class AcceptedOrderEntity
      * @ORM\Column(type="float")
      */
     private $cost;
-
+    
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $state;
+    private $duration;
 
+  
     public function getId(): ?int
     {
         return $this->id;
@@ -104,15 +105,16 @@ class AcceptedOrderEntity
         return $this;
     }
 
-    public function getState(): ?string
+    public function getDuration()
     {
-        return $this->state;
+        return $this->duration;
     }
 
-    public function setState(string $state): self
+    public function setDuration($duration): self
     {
-        $this->state = $state;
+        $this->duration = new \DateTime($duration);
 
         return $this;
     }
+
 }

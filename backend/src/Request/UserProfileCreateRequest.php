@@ -8,7 +8,9 @@ class UserProfileCreateRequest
 
     private $userName;
 
-    private $location;
+    private $city;
+
+    private $location = [];
 
     private $story;
 

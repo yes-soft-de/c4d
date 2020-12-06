@@ -16,6 +16,8 @@ class SubscriptionUpdateRequest
 
     private $status;
 
+    private $note;
+
     /**
      * @return mixed
      */
