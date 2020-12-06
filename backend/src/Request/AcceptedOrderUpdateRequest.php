@@ -34,4 +34,20 @@ class AcceptedOrderUpdateRequest
         $this->date = new \DateTime($date);
         return $this;
     }
+
+     /**
+     * @param mixed $duration
+     */
+    public function setDuration($duration): void
+    {
+        $this->duration = $duration;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getDuration()
+    {
+        return $this->duration;
+    }
 }

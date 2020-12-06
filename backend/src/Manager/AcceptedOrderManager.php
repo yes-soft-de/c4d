@@ -62,6 +62,7 @@ class AcceptedOrderManager
     {
         $acceptedOrderEntity = $this->repository->find($request->getId());
         $request->setDate($acceptedOrderEntity->getDate());
+        $request->setDuration($acceptedOrderEntity->getDuration());
         if (!$acceptedOrderEntity) {
             return null;
         }

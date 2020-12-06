@@ -9,7 +9,7 @@ use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
-use App\Response\ongoingOrdersResponse;
+use App\Response\OrdersongoingResponse;
 
 class OrderService
 {
@@ -118,7 +118,7 @@ class OrderService
         $ongoingOrders =  $this->orderManager->ongoingOrders();
         foreach ( $ongoingOrders as  $ongoingOrder) {
 
-            $response[] = $this->autoMapping->map('array', ongoingOrdersResponse::class, $ongoingOrder);
+            $response[] = $this->autoMapping->map('array', OrdersongoingResponse::class, $ongoingOrder);
        }
        return $response;
     }

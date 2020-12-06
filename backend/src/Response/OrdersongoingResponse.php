@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ongoingOrdersResponse
+class OrdersongoingResponse
 {
     public $orderID;
     public $source = [];
@@ -19,5 +19,7 @@ class ongoingOrdersResponse
     public $acceptedOrderDate;
     public $captainID;
     public $duration;
+    public $image;
+    public $drivingLicence;
     
 }

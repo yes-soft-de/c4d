@@ -29,4 +29,15 @@ class OrderCreateRequest
     {
         return $this->ownerID;
     }
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
 }

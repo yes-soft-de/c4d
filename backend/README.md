@@ -102,7 +102,6 @@ status value :  active or inactive .
 methods: PUT
 ```
 
-
 ### Subscription
 #### Create Subscription
 ROLE_OWNER
@@ -148,4 +147,107 @@ ROLE_ADMIN
 ```
 /dashboardContracts
 methods: GET
+```
+
+### Order
+#### Create Order
+ROLE_OWNER
+
+```
+/order
+methods: POST
+```
+#### Get Order By ID
+
+```
+/order/orderId
+methods: GET
+```
+#### Get Orders By Owner ID
+
+```
+/orders
+methods: GET
+```
+#### Order status For Owner
+
+```
+/orderStatus/orderId
+methods: GET
+```
+#### Get Pending Orders | orders that no captain has taken yet
+ROLE_CAPTAIN
+```
+/closestOrders
+methods: GET
+```
+
+#### Update Order
+ROLE_OWNER
+
+```
+/order
+methods: PUT
+```
+
+#### Delete Order
+ROLE_OWNER
+
+```
+/order/id
+methods: DELETE
+```
+
+#### Count All Orders
+ROLE_ADMIN
+
+```
+/countAllOrders
+methods: DELETE
+```
+
+#### dashboard Orders
+ROLE_ADMIN
+
+```
+/dashboardOrders
+methods: GET
+```
+
+#### GetActiveOrders
+ROLE_ADMIN
+
+```
+/ongoingOrders
+methods: GET
+```
+
+### AcceptedOrder
+#### Create acceptedOrder
+ROLE_CAPTAIN
+
+```
+/acceptedOrder
+methods: POST
+```
+#### Get order ftatus for captain
+ROLE_CAPTAIN
+
+```
+/acceptedOrder/acceptedOrderId
+methods: GET
+```
+#### Get total Earn for captain
+ROLE_CAPTAIN
+
+```
+/totalEarn
+methods: GET
+```
+#### Update AcceptedOrder
+ROLE_CAPTAIN
+
+```
+/acceptedOrder
+methods: PUT
 ```

@@ -25,4 +25,5 @@ class AcceptedOrderCreateRequest
     {
         return $this->captainID;
     }
+    
 }

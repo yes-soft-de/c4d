@@ -10,4 +10,10 @@ class AcceptedOrderResponse
     public $date;
     public $cost;
     public $duration;
+    public $source;
+    public $destination;
+    public $orderDate;
+    public $orderNote;
+    public $payment;
+    public $state;
 }

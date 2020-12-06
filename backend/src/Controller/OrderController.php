@@ -36,7 +36,7 @@ class OrderController extends BaseController
         $this->subscriptionService = $subscriptionService;
     }
     /**
-     * @Route("/order",         name="createOrder", methods={"POST"})
+     * @Route("order",         name="createOrder", methods={"POST"})
      * @IsGranted("ROLE_OWNER")
      */
     public function create(Request $request)
@@ -48,6 +48,7 @@ class OrderController extends BaseController
 
             $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
             $request->setOwnerID($this->getUserId());
+            $request->setState('pending');
 
             $violations = $this->validator->validate($request);
             if (\count($violations) > 0) {
@@ -87,7 +88,7 @@ class OrderController extends BaseController
     }
 
      /**
-      * @Route("/orders",        name="GetOrdersByOwnerID", methods={"GET"})
+      * @Route("orders",        name="GetOrdersByOwnerID", methods={"GET"})
       * @IsGranted("ROLE_OWNER")
       * @return                  JsonResponse
       */
@@ -131,6 +132,7 @@ class OrderController extends BaseController
 
     /**
      * @Route("/order",         name="orderUpdate", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
      * @param                   Request $request
      * @return                  JsonResponse
      */

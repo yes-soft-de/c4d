@@ -92,3 +92,48 @@ App\Request\UserProfileUpdateeRequest:
       - NotBlank: ~
     userName:
       - NotBlank: ~
+
+App\Request\OrderCreateRequest:
+  properties:
+    source:
+      - NotBlank: ~
+    destination:
+      - NotBlank: ~
+    note:
+      - NotBlank: ~
+    payment:
+      - NotBlank: ~
+   
+
+App\Request\OrderUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    source:
+      - NotBlank: ~
+    destination:
+      - NotBlank: ~
+    note:
+      - NotBlank: ~
+    payment:
+      - NotBlank: ~
+    state:
+      - NotBlank: ~
+
+App\Request\AcceptedOrderCreateRequest:
+  properties:
+    orderID:
+      - NotBlank: ~
+    cost:
+      - NotBlank: ~
+    duration:
+      - NotBlank: ~
+
+App\Request\AcceptedOrderUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    orderID:
+      - NotBlank: ~
+    cost:
+      - NotBlank: ~
