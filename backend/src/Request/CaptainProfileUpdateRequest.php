@@ -4,6 +4,8 @@ namespace App\Request;
 
 class CaptainProfileUpdateRequest
 {
+    private $id;
+
     private $captainID;
 
     private $name;
@@ -24,6 +26,13 @@ class CaptainProfileUpdateRequest
 
     private $state;
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the value of captainID

@@ -73,7 +73,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.userName', 'profile.image', 'profile.story', 'profile.location', 'profile.status')
+            ->select('profile.userName', 'profile.image', 'profile.story', 'profile.location', 'profile.status', 'profile.city', 'profile.branch')
 
             ->andWhere("profile.status = 'inactive' ")
 

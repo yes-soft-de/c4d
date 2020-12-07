@@ -116,11 +116,10 @@ class UserManager
 
     public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
     {
-        $item = $this->captainProRepository->getCaptainprofile($request->getCaptainID());
-
+        $item = $this->captainProRepository->find($request->getId());
+        $request->setCaptainID($item->getCaptainID());
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
-
             $this->entityManager->flush();
             $this->entityManager->clear();
 
@@ -152,24 +151,9 @@ class UserManager
         return $this->captainProRepository->captainIsActive($captainID);
     }
 
-    public function getCaptinsActive()
+    public function getCaptainsState($state)
     {
-        return $this->captainProRepository->getCaptinsActive();
-    }
-
-    public function ongoingCaptains()
-    {
-        return $this->captainProRepository->ongoingCaptains();
-    }
-
-    public function pendingCaptains()
-    {
-        return $this->captainProRepository->pendingCaptains();
-    }
-
-    public function dayOfCaptains()
-    {
-        return $this->captainProRepository->dayOfCaptains();
+        return $this->captainProRepository->getCaptainsState($state);
     }
 
     public function countpendingCaptains()

@@ -149,12 +149,15 @@ class UserService
         }
      return $response;
     }
-    public function getCaptinsActive()
+    public function getCaptainsState($state)
     {
         $response = [];
-        $items = $this->userManager->getCaptinsActive();
-            foreach( $items as  $item ) {
-                $response  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
+        $items = $this->userManager->getCaptainsState($state);
+
+        foreach( $items as  $item ) {
+            $item['captaintotalEarn'] = $this->acceptedOrderService->totalEarn($item['captainID']);
+            $item['countOrdersDeliverd'] = $this->acceptedOrderService->countOrdersDeliverd($item['captainID']);
+            $response[]  = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
             }
         return $response;
     }
@@ -169,39 +172,7 @@ class UserService
         return $item ;
      }
 
-    public function ongoingCaptains()
-     {
-         $response = [];
-         $items = $this->userManager->ongoingCaptains();
-       
-         foreach ($items as $item) {
-             $response[] = $this->autoMapping->map('array', CaptainsOngoingResponse::class, $item);
-         }
-         return $response;
-     }
-
-    public function pendingCaptains()
-     {
-         $response = [];
-         $items = $this->userManager->pendingCaptains();
-     
-         foreach ($items as $item) {
-             $response[] = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
-         }
-         return $response;
-     }
-
-    public function dayOfCaptains()
-     {
-         $response = [];
-         $items = $this->userManager->dayOfCaptains();
-       
-         foreach ($items as $item) {
-             $response[] = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
-         }
-         return $response;
-     }
-
+    
      public function dashboardCaptains()
      {
          $response = [];

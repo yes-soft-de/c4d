@@ -74,6 +74,53 @@ methods: GET
 /captainprofile
 methods: POST
 ```
+#### Update captain profile 
+send value id within the postman body .
+```
+/captainprofile
+methods: PUT
+```
+#### Get captainprofile by captainID 
+
+ROLE_CAPTAIN
+```
+/captainprofile
+methods: GET
+```
+#### Get Captainprofile By ID 
+
+ROLE_ADMIN
+```
+/captainprofile/id
+methods: GET
+```
+#### Get Owner Or Captain Inactive (pending) 
+
+ROLE_ADMIN
+userType: captain or owner.
+
+```
+/getUserInactive/userType
+methods: GET
+```
+
+#### Get captains state
+
+ROLE_ADMIN
+state: vacation or free or ongoing
+```
+/getCaptainsState/{state}
+methods: GET
+```
+
+#### dashboard Captains
+
+ROLE_ADMIN
+
+```
+/dashboardCaptains
+methods: GET
+```
 
 ### Package
 #### Create package

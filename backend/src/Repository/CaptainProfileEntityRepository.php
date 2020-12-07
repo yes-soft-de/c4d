@@ -69,13 +69,13 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getCaptinsActive()
+    public function getCaptainsState($state)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state')
 
-            ->andWhere("captainProfile.status = 'active' ")
-
+            ->andWhere('captainProfile.state =:state')
+            ->setParameter('state', $state)
             ->getQuery()
             ->getResult();
     }
@@ -88,41 +88,6 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->andWhere('captainProfile.captainID = :captainID')
 
             ->setParameter('captainID', $captainID)
-
-            ->getQuery()
-            ->getResult();
-    }
-    
-    public function ongoingCaptains()
-    {
-        return $this->createQueryBuilder('captainProfile')
-            ->select('captainProfile.id', 'captainProfile.name', 'acceptedOrderEntity.duration', 'acceptedOrderEntity.date', 'acceptedOrderEntity.orderID', 'acceptedOrderEntity.captainID')
-
-            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'captainProfile.captainID = acceptedOrderEntity.captainID')
-
-            ->andWhere("acceptedOrderEntity.state = 'ongoing'")
-
-            ->getQuery()
-            ->getResult();
-    }
-    
-    public function pendingCaptains()
-    {
-        return $this->createQueryBuilder('captainProfile')
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state' )
-
-            ->andWhere("captainProfile.status = 'inactive'")
-
-            ->getQuery()
-            ->getResult();
-    }
-    
-    public function dayOfCaptains()
-    {
-        return $this->createQueryBuilder('captainProfile')
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state')
-
-            ->andWhere("captainProfile.state = 'vacation'")
 
             ->getQuery()
             ->getResult();

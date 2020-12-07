@@ -151,7 +151,6 @@ class UserController extends BaseController
 
     /**
      * @Route("/captainprofile", name="captainprofileUpdate", methods={"PUT"})
-     * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
      */
@@ -160,7 +159,6 @@ class UserController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, CaptainProfileUpdateRequest::class, (object)$data);
-        $request->setCaptainID($this->getUserId());
 
         $response = $this->userService->captainprofileUpdate($request);
 
@@ -192,7 +190,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/getUserInactive/{userType}", name="getOwnersOrCaptainsInactive",methods={"GET"})
+     * @Route("/getUserInactive/{userType}", name="getOwnerOrCaptainPending",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
      */
@@ -204,55 +202,15 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/getCaptinsActive", name="getCaptinActive",methods={"GET"})
+     * @Route("/getCaptainsState/{state}", name="getCaptainsState",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
      */
-    public function getCaptinsActive()
+    public function getCaptainsState($state)
     {
-        $response = $this->userService->getCaptinsActive();
+        $response = $this->userService->getCaptainsState($state);
 
         return $this->response($response, self::FETCH);
-    }
-
-    /**
-     * @Route("/ongoingCaptains", name="ongoingCaptains",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function ongoingCaptains()
-    {
-        $result = $this->userService->ongoingCaptains();
-
-        return $this->response($result, self::FETCH);
-    }
-
-    /**
-     * 
-     * @Route("/pendingCaptains", name="pendingCaptains",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function pendingCaptains()
-    {
-        $result = $this->userService->pendingCaptains();
-
-        return $this->response($result, self::FETCH);
-    }
-
-    /**
-     * @Route("/dayOfCaptains", name="dayOfCaptains", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function dayOfCaptains()
-    {
-        $result = $this->userService->dayOfCaptains();
-
-        return $this->response($result, self::FETCH);
     }
 
     /**
