@@ -27,22 +27,22 @@ php bin/console doctrine:migration:migrate
 
 ### Account
 #### Create admin
+
+"roles":["ROLE_ADMIN"]
 ```
 /createAdmin
 methods: POST
 ```
 
 #### Create new user
+
+"roles":["ROLE_OWNER"]
+"roles":["ROLE_CAPTAIN"]
 ```
 /user
 methods: POST
 ```
 
-#### Create new captain
-```
-/captain
-methods: POST
-```
 #### login
 ```
 /login_check
@@ -62,6 +62,17 @@ methods: PUT
 ```
 /userprofile
 methods: GET
+```
+#### Get remaining orders for specific owner
+```
+/remainingOrders
+methods: GET
+```
+``
+#### Create captain profile 
+```
+/captainprofile
+methods: POST
 ```
 
 ### Package

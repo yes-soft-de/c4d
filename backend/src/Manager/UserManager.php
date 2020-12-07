@@ -46,9 +46,6 @@ class UserManager
             $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
         }
 
-        if ($request->getRoles() == null) {
-            $request->setRoles(['user']);
-        }
         $userRegister->setRoles($request->getRoles());
 
         $this->entityManager->persist($userRegister);
@@ -71,7 +68,7 @@ class UserManager
             return $userProfile;
         }
         else {
-            return 1;
+            return true;
         }
     }
 
@@ -89,20 +86,19 @@ class UserManager
         }
     }
 
-    public function getProfileByUserID($userID)
+    public function getUserProfileByUserID($userID)
     {
-        return $this->profileRepository->getProfileByUSerID($userID);
+        return $this->profileRepository->getUserProfileByUserID($userID);
     }
 
     public function getremainingOrders($userID)
     {
-        $date = new \DateTime("Now");
-        return $this->profileRepository->getremainingOrders($userID, $date);
+        return $this->profileRepository->getremainingOrders($userID);
     }
 
     public function captainprofileCreate(CaptainProfileCreateRequest $request)
     {
-        $isCaptainProfile = $this->getcaptainprofileByID($request->getCaptainID());
+        $isCaptainProfile = $this->captainProRepository->getcaptainprofileByCaptainID($request->getCaptainID());
 
         if ($isCaptainProfile == null) {
 
@@ -114,7 +110,7 @@ class UserManager
             return $captainProfile;
         }
         else {
-            return 1;
+            return true;
         }
     }
 

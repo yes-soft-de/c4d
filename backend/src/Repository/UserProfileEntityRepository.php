@@ -24,11 +24,11 @@ class UserProfileEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, UserProfileEntity::class);
     }
 
-    public function getProfileByUSerID($userID)
+    public function getUserProfileByUserID($userID)
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.userName', 'profile.image', 'profile.story', 'profile.location')
+            ->select('profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.location', 'profile.city')
             ->andWhere('profile.userID=:userID')
             ->setParameter('userID', $userID)
 
@@ -47,23 +47,23 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getremainingOrders($userID, $date)
+    public function getremainingOrders($userID)
     {
         return $this->createQueryBuilder('profile')
             ->select('subscriptionEntity.id as subscriptionID', 'subscriptionEntity.status as subscriptionstatus', 'subscriptionEntity.packageID as packageID', 'packageEntity.name as packagename', 'packageEntity.orderCount - count(acceptedOrderEntity.orderID) as remainingOrders', 'subscriptionEntity.startDate as subscriptionStartDate', 'subscriptionEntity.endDate as subscriptionEndDate')
 
             ->leftJoin(SubscriptionEntity::class, 'subscriptionEntity', Join::WITH, 'subscriptionEntity.ownerID = profile.userID')
+
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscriptionEntity.packageID')
+
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = profile.userID')
+
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = orderEntity.id')
 
             ->andWhere('profile.userID=:userID')
-            ->andWhere('subscriptionEntity.endDate > :date')
-            ->andWhere("subscriptionEntity.status ='active'")
-            ->andWhere("acceptedOrderEntity.state ='deliverd'")
+            ->andWhere("orderEntity.state ='deliverd'")
 
             ->setParameter('userID', $userID)
-            ->setParameter('date', $date)
 
             ->getQuery()
             ->getResult();

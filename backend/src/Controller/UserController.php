@@ -18,11 +18,13 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+
 class UserController extends BaseController
 {
     private $autoMapping;
     private $validator;
     private $userService;
+   
 
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, UserService $userService)
     {
@@ -30,6 +32,7 @@ class UserController extends BaseController
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->userService = $userService;
+        
     }
 
     /**
@@ -57,6 +60,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/userprofile", name="userProfileCreate", methods={"POST"})
+     * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
@@ -101,7 +105,7 @@ class UserController extends BaseController
      * @Route("/userprofile", name="getUserProfileByID",methods={"GET"})
      * @return JsonResponse
      */
-    public function getUserProfileByID()
+    public function getUserProfileByUserID()
     {
         $response = $this->userService->getUserProfileByUserID($this->getUserId());
 
@@ -115,9 +119,9 @@ class UserController extends BaseController
      */
     public function getremainingOrders()
     {
-        $result = $this->userService->getremainingOrders($this->getUserId());
+        $response = $this->userService->getremainingOrders($this->getUserId());
 
-        return $this->response($result, self::FETCH);
+        return $this->response($response, self::FETCH);
     }
 
     /**

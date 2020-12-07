@@ -18,7 +18,7 @@ use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
 use App\Response\RemainingOrdersResponse;
 use App\Response\CaptainsOngoingResponse;
-use App\Service\AcceptedOrderService;
+
 
 class UserService
 {
@@ -48,7 +48,7 @@ class UserService
 
             return $this->autoMapping->map(UserProfileEntity::class,UserProfileCreateResponse::class, $userProfile);
        }
-       else if ($userProfile == 1) {
+        if ($userProfile == true) {
           
            return $this->getUserProfileByUserID($request->getUserID());
        }
@@ -63,9 +63,9 @@ class UserService
 
     public function getUserProfileByUserID($userID)
     {
-        $item = $this->userManager->getProfileByUserID($userID);
+        $item = $this->userManager->getUserProfileByUserID($userID);
 
-        return $this->autoMapping->map('array', UserProfileResponse::class, $item);
+        return $this->autoMapping->map('array', UserProfileCreateResponse::class, $item);
     }
 
     public function getremainingOrders($userID)
@@ -86,9 +86,9 @@ class UserService
         if ($captainProfile instanceof captainProfile) {
             return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
         }
-        else if ($captainProfile == 1) {
+        if ($captainProfile == true) {
            
-            return $this->getcaptainprofileByID($request->getCaptainID());
+            return $this->getcaptainprofileByCaptainID($request->getCaptainID());
         }
        
     }

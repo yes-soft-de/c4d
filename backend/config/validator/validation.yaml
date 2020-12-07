@@ -79,18 +79,24 @@ App\Request\UserRegisterRequest:
 
 App\Request\UserProfileCreateRequest:
   properties:
-    userID:
+    location:
       - NotBlank: ~
     userName:
       - NotBlank: ~
+    city:
+      - NotBlank: ~
 
-App\Request\UserProfileUpdateeRequest:
+App\Request\UserProfileUpdateRequest:
   properties:
     id:
       - NotBlank: ~
     userID:
       - NotBlank: ~
     userName:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
+    city:
       - NotBlank: ~
 
 App\Request\OrderCreateRequest:
