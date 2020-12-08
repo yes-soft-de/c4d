@@ -108,6 +108,7 @@ class SubscriptionController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+    
     /**
      * @Route("getSubscriptionById/{id}", name="getSubscriptionById", methods={"GET"})
      * @return JsonResponse

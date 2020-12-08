@@ -76,19 +76,6 @@ class AcceptedOrderController extends BaseController
     }
 
     /**
-     * @Route("/totalEarn",       name="GetTotalEarnForCaptain", methods={"GET"})
-     * @IsGranted("ROLE_CAPTAIN")
-     * @param                     Request $request
-     * @return                    JsonResponse
-     */
-    public function totalEarn()
-    {
-        $result = $this->acceptedOrderService->totalEarn($this->getUserId());
-
-        return $this->response($result, self::FETCH);
-    }
-
-    /**
      * @Route("acceptedOrder", name="updateAcceptedOrder", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request

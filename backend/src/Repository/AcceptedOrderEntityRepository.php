@@ -25,7 +25,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
     public function acceptedOrder($userID, $acceptedOrderId)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
-            ->addSelect('AcceptedOrderEntity.id','AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.orderID', 'AcceptedOrderEntity.date', 'AcceptedOrderEntity.cost', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.date as orderDate', 'orderEntity.note as orderNote', 'orderEntity.payment ', 'orderEntity.state')
+            ->addSelect('AcceptedOrderEntity.id','AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.orderID', 'AcceptedOrderEntity.date', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.date as orderDate', 'orderEntity.note as orderNote', 'orderEntity.payment ', 'orderEntity.state')
           
             ->join(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
 
@@ -45,17 +45,6 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function totalEarn($userID)
-    {
-        return $this->createQueryBuilder('AcceptedOrderEntity')
-            ->select("sum(AcceptedOrderEntity.cost) as CaptaintotalEarn ")
-            ->andWhere("AcceptedOrderEntity.state = 'deliverd'")
-            ->andWhere('AcceptedOrderEntity.captainID = :userID')
-            ->setParameter('userID', $userID)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     public function countOrdersDeliverd($userID)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
@@ -70,7 +59,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
     public function getAcceptedOrderByOrderId($orderId)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
-            ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.date as acceptedOrderDate', 'AcceptedOrderEntity.cost', 'AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.duration', 'captainProfileEntity.name as captainName', 'captainProfileEntity.car',  'captainProfileEntity.image')
+            ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.date as acceptedOrderDate', 'AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.duration', 'captainProfileEntity.name as captainName', 'captainProfileEntity.car',  'captainProfileEntity.image')
 
             ->join(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
 

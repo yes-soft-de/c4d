@@ -7,7 +7,7 @@ use App\Entity\AcceptedOrderEntity;
 use App\Manager\AcceptedOrderManager;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Response\AcceptedOrderResponse;
-use App\Response\CaptaintotalEarnResponse;
+use App\Response\CaptainTotalEarnResponse;
 use App\Response\OrderResponse;
 use App\Response\ongoingCaptainsResponse;
 
@@ -34,15 +34,6 @@ class AcceptedOrderService
         $result = $this->acceptedOrderManager->acceptedOrder($userID, $acceptedOrderId);
 
         $response = $this->autoMapping->map('array', AcceptedOrderResponse::class, $result);
-
-        return $response;
-    }
-
-    public function totalEarn($userID)
-    {
-        $result = $this->acceptedOrderManager->totalEarn($userID);
-
-        $response = $this->autoMapping->map('array', CaptaintotalEarnResponse::class, $result);
 
         return $response;
     }

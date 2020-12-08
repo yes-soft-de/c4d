@@ -26,6 +26,8 @@ class CaptainProfileUpdateRequest
 
     private $state;
 
+    private $bounce;
+
     /**
      * @return mixed
      */
@@ -174,7 +176,7 @@ class CaptainProfileUpdateRequest
         return $this;
     }
     
-     /**
+    /**
      * Get the value of salary
      */
     public function getSalary(): ?float
@@ -182,7 +184,7 @@ class CaptainProfileUpdateRequest
         return $this->salary;
     }
 
-     /**
+    /**
      * Set the value of salary
      *
      * @return  self
@@ -194,7 +196,7 @@ class CaptainProfileUpdateRequest
         return $this;
     }
 
-     /**
+    /**
      * Get the value of status
      */
     public function getStatus(): ?string
@@ -202,7 +204,7 @@ class CaptainProfileUpdateRequest
         return $this->status;
     }
 
-     /**
+    /**
      * Set the value of status
      *
      * @return  self
@@ -210,6 +212,26 @@ class CaptainProfileUpdateRequest
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of bounce
+     */
+    public function getBounce(): ?string
+    {
+        return $this->bounce;
+    }
+
+    /**
+     * Set the value of bounce
+     *
+     * @return  self
+     */
+    public function setBounce(string $bounce): self
+    {
+        $this->bounce = $bounce;
 
         return $this;
     }

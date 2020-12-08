@@ -43,11 +43,6 @@ class AcceptedOrderManager
         return $this->repository->acceptedOrder($userID, $acceptedOrderId);
     }
 
-    public function totalEarn($userID)
-    {
-        return $this->repository->totalEarn($userID);
-    }
-
     public function countOrdersDeliverd($userID)
     {
         return $this->repository->countOrdersDeliverd($userID);

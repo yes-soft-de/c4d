@@ -35,11 +35,6 @@ class AcceptedOrderEntity
     private $date;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $cost;
-    
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $duration;
@@ -94,18 +89,6 @@ class AcceptedOrderEntity
     public function setDate($date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getCost(): ?float
-    {
-        return $this->cost;
-    }
-
-    public function setCost(float $cost): self
-    {
-        $this->cost = $cost;
 
         return $this;
     }

@@ -130,8 +130,6 @@ App\Request\AcceptedOrderCreateRequest:
   properties:
     orderID:
       - NotBlank: ~
-    cost:
-      - NotBlank: ~
     duration:
       - NotBlank: ~
 
@@ -141,5 +139,12 @@ App\Request\AcceptedOrderUpdateRequest:
       - NotBlank: ~
     orderID:
       - NotBlank: ~
-    cost:
+
+App\Request\RatingCreateRequest:
+  properties:
+    captainID:
+      - NotBlank: ~
+    type:
+      - NotBlank: ~
+    orderID:
       - NotBlank: ~

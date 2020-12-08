@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class CaptaintotalEarnResponse
+class CaptainTotalEarnResponse
 {
     public $CaptaintotalEarn;
 }

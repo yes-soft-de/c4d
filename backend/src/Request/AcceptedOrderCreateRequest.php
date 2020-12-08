@@ -7,7 +7,6 @@ class AcceptedOrderCreateRequest
     private $orderID;
     private $captainID;
     private $date;
-    private $cost;
     private $duration;
 
      /**

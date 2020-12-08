@@ -67,6 +67,11 @@ class CaptainProfileEntity
      */
     private $state;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $bounce;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +193,18 @@ class CaptainProfileEntity
     public function setState(?string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getBounce(): ?float
+    {
+        return $this->bounce;
+    }
+
+    public function setBounce(float $bounce): self
+    {
+        $this->bounce = $bounce;
 
         return $this;
     }

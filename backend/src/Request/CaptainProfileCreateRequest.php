@@ -24,6 +24,8 @@ class CaptainProfileCreateRequest
 
     private $state;
 
+    private $bounce;
+
     /**
      * Get the value of captainID
      */
@@ -200,6 +202,26 @@ class CaptainProfileCreateRequest
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+    
+     /**
+     * Get the value of bounce
+     */
+    public function getBounce(): ?string
+    {
+        return $this->bounce;
+    }
+
+     /**
+     * Set the value of bounce
+     *
+     * @return  self
+     */
+    public function setBounce(string $bounce): self
+    {
+        $this->bounce = $bounce;
 
         return $this;
     }

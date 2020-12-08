@@ -25,12 +25,14 @@ class UserService
     private $autoMapping;
     private $userManager;
     private $acceptedOrderService;
+    private $ratingService;
 
-    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService, RatingService $ratingService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
         $this->acceptedOrderService = $acceptedOrderService;
+        $this->ratingService = $ratingService;
     }
 
     public function userRegister(UserRegisterRequest $request)
@@ -122,7 +124,8 @@ class UserService
    
         $captaintotalEarn = $this->acceptedOrderService->totalEarn($item['captainID']);
         $countOrdersDeliverd = $this->acceptedOrderService->countOrdersDeliverd($item['captainID']);
-   
+
+        $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
     
         $response =  $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
 
@@ -155,8 +158,11 @@ class UserService
         $items = $this->userManager->getCaptainsState($state);
 
         foreach( $items as  $item ) {
+           
             $item['captaintotalEarn'] = $this->acceptedOrderService->totalEarn($item['captainID']);
+           
             $item['countOrdersDeliverd'] = $this->acceptedOrderService->countOrdersDeliverd($item['captainID']);
+           
             $response[]  = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
             }
         return $response;

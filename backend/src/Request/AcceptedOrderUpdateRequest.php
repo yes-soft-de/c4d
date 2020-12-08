@@ -7,7 +7,6 @@ class AcceptedOrderUpdateRequest
     private $id;
     private $orderID;
     private $date;
-    private $cost;
     private $duration;
 
      /**

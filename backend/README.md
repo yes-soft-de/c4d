@@ -241,6 +241,7 @@ methods: GET
 ```
 
 #### Update Order
+state: pending or ongoing or deliverd or cancelled.
 ROLE_OWNER
 
 ```
@@ -308,4 +309,13 @@ ROLE_CAPTAIN
 ```
 /acceptedOrder
 methods: PUT
+```
+
+### Rating
+#### Create Rating
+ROLE_OWNER
+
+```
+/rating
+methods: POST
 ```

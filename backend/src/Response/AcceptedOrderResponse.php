@@ -8,7 +8,6 @@ class AcceptedOrderResponse
     public $orderID;
     public $captainID;
     public $date;
-    public $cost;
     public $duration;
     public $source;
     public $destination;

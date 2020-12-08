@@ -28,6 +28,10 @@ class CaptainProfileCreateResponse
 
     public $countOrdersDeliverd;
 
+    public $rating;
+
     public $state;
+    
+    public $bounce;
 
 }
