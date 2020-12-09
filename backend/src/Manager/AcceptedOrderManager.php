@@ -72,4 +72,9 @@ class AcceptedOrderManager
     {
         return $this->repository->getAcceptedOrderByOrderId($orderId);
     }
+
+    public function  countAcceptedOrder($captainId)
+    {
+        return $this->repository-> countAcceptedOrder($captainId);
+    }
 }

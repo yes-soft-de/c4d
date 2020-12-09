@@ -32,27 +32,27 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getcaptainprofileByCaptainID($userID)
+    public function getcaptainprofileByCaptainID($captainID)
     {
         return $this->createQueryBuilder('captainProfile')
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state')
 
-            ->andWhere('captainProfile.captainID=:userID')
+            ->andWhere('captainProfile.captainID=:captainID')
             
-            ->setParameter('userID', $userID)
+            ->setParameter('captainID', $captainID)
 
             ->getQuery()
             ->getOneOrNullResult();
     }
 
-    public function getCaptainprofileByID($id)
+    public function getCaptainprofileByID($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state')
 
-            ->andWhere('captainProfile.id=:id')
+            ->andWhere('captainProfile.id=:captainProfileId')
             
-            ->setParameter('id', $id)
+            ->setParameter('captainProfileId', $captainProfileId)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -122,5 +122,17 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function totalBounceCaptain($id)
+    {
+        return $this->createQueryBuilder('captainProfile')
+
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce')
+
+            ->andWhere('captainProfile.id =:id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
     }
 }

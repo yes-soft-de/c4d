@@ -127,13 +127,13 @@ class UserManager
         }
     }
 
-    public function getcaptainprofileByCaptainID($userID)
+    public function getcaptainprofileByCaptainID($captainID)
     {
-        return $this->captainProRepository->getcaptainprofileByCaptainID($userID);
+        return $this->captainProRepository->getcaptainprofileByCaptainID($captainID);
     }
-    public function getCaptainprofileByID($id)
+    public function getCaptainprofileByID($captainProfileId)
     {
-        return $this->captainProRepository->getCaptainprofileByID($id);
+        return $this->captainProRepository->getCaptainprofileByID($captainProfileId);
     }
 
     public function getUserInactive($userType)
@@ -160,12 +160,19 @@ class UserManager
     {
         return $this->captainProRepository->countpendingCaptains();
     }
+   
     public function countOngoingCaptains()
     {
         return $this->captainProRepository->countOngoingCaptains();
     }
+   
     public function countDayOfCaptains()
     {
         return $this->captainProRepository->countDayOfCaptains();
+    }
+
+    public function totalBounceCaptain($id)
+    {
+        return $this->captainProRepository->totalBounceCaptain($id);
     }
 }

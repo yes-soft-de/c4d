@@ -18,6 +18,7 @@ use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
 use App\Response\RemainingOrdersResponse;
 use App\Response\CaptainsOngoingResponse;
+use App\Response\CaptainTotalBounceResponse;
 
 
 class UserService
@@ -102,34 +103,39 @@ class UserService
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
 
-    public function getcaptainprofileByCaptainID($userID)
+    public function getcaptainprofileByCaptainID($captainID)
     {
         $response=[];
-        $item = $this->userManager->getcaptainprofileByCaptainID($userID);
-        $captaintotalEarn = $this->acceptedOrderService->totalEarn($userID);
-        $countOrdersDeliverd = $this->acceptedOrderService->countOrdersDeliverd($userID);
-   
+
+        $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
+
+        $bounce = $this->totalBounceCaptain($item['id']);
+
+        $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($captainID);
+
+        $item['rating'] = $this->ratingService->getRatingByCaptainID($captainID);
         $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
       
-        $response->captaintotalEarn = $captaintotalEarn;
+        $response->bounce = $bounce;
         $response->countOrdersDeliverd = $countOrdersDeliverd;
 
         return $response;
     }
 
-    public function getCaptainprofileByID($id)
+    public function getCaptainprofileByID($captainProfileId)
     {
         $response=[];
-        $item = $this->userManager->getCaptainprofileByID($id);
+        $item = $this->userManager->getCaptainprofileByID($captainProfileId);
    
-        $captaintotalEarn = $this->acceptedOrderService->totalEarn($item['captainID']);
-        $countOrdersDeliverd = $this->acceptedOrderService->countOrdersDeliverd($item['captainID']);
+        $bounce = $this->totalBounceCaptain($item['id']);
+        
+        $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
         $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
     
         $response =  $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
 
-        $response->captaintotalEarn = $captaintotalEarn;
+        $response->bounce = $bounce;
         $response->countOrdersDeliverd = $countOrdersDeliverd;
       
         return $response;
@@ -159,10 +165,12 @@ class UserService
 
         foreach( $items as  $item ) {
            
-            $item['captaintotalEarn'] = $this->acceptedOrderService->totalEarn($item['captainID']);
+            $item['bounce'] = $this->totalBounceCaptain($item['id']);
            
-            $item['countOrdersDeliverd'] = $this->acceptedOrderService->countOrdersDeliverd($item['captainID']);
+            $item['countOrdersDeliverd'] = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
            
+            $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
+            
             $response[]  = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
             }
         return $response;
@@ -189,5 +197,21 @@ class UserService
 
          return $response;
      }
+
+     public function totalBounceCaptain($captainProfileId)
+    {
+        $response = [];
+        $item = $this->userManager->totalBounceCaptain($captainProfileId);
+        //إذا أردنا الإعتماد على حقل ستيت في جدول الأكسبت أوردر
+        // $item['countOrdersDeliverd'] = $this->acceptedOrderService->countOrdersDeliverd($item[0]['captainID']);
+        if ($item) {
+             $countAcceptedOrder = $this->acceptedOrderService->countAcceptedOrder($item[0]['captainID']);
+
+             $item['bounce'] = $item[0]['bounce'] * $countAcceptedOrder[0]['countOrdersDeliverd'];
+
+             $response  = $this->autoMapping->map('array', CaptainTotalBounceResponse::class,  $item);
+        }
+        return $response;
+    }
  
 }

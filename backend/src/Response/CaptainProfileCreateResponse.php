@@ -23,8 +23,6 @@ class CaptainProfileCreateResponse
     public $salary;
 
     public $status;
-    
-    public $captaintotalEarn;
 
     public $countOrdersDeliverd;
 

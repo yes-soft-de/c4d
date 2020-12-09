@@ -178,13 +178,13 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/captainprofile/{id}", name="getCaptainprofileByID",methods={"GET"})
+     * @Route("/captainprofile/{captainProfileId}", name="getCaptainprofileBycaptainProfileId",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
      */
-    public function getCaptainprofileByID($id)
+    public function getCaptainprofileByID($captainProfileId)
     {
-        $response = $this->userService->getCaptainprofileByID($id);
+        $response = $this->userService->getCaptainprofileByID($captainProfileId);
 
         return $this->response($response, self::FETCH);
     }
@@ -222,6 +222,18 @@ class UserController extends BaseController
     public function dashboardCaptains()
     {
         $result = $this->userService->dashboardCaptains();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/totalBounceCaptain/{captainProfileId}", name="TotalBounceCaptain",methods={"GET"})
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function totalBounceCaptain($captainProfileId)
+    {
+        $result = $this->userService->totalBounceCaptain($captainProfileId);
 
         return $this->response($result, self::FETCH);
     }

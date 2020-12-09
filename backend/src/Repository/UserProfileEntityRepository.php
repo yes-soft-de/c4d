@@ -80,5 +80,4 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
 }
