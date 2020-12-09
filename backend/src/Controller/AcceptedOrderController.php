@@ -63,14 +63,14 @@ class AcceptedOrderController extends BaseController
     }
 
     /**
-     * @Route("/acceptedOrder/{acceptedOrderId}", name="GetOrderStatusForCaptain", methods={"GET"})
+     * @Route("/GetOrderStatusForCaptain/{orderId}", name="GetOrderStatusForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param                                     Request $request
      * @return                                    JsonResponse
      */
-    public function acceptedOrder($acceptedOrderId)
+    public function getOrderStatusForCaptain($orderId)
     {
-        $result = $this->acceptedOrderService->acceptedOrder($this->getUserId(), $acceptedOrderId);
+        $result = $this->acceptedOrderService->getOrderStatusForCaptain($this->getUserId(), $orderId);
 
         return $this->response($result, self::FETCH);
     }

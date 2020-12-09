@@ -12,6 +12,7 @@ class AcceptedOrderResponse
     public $source;
     public $destination;
     public $orderDate;
+    public $orderUpdateDate;
     public $orderNote;
     public $payment;
     public $state;

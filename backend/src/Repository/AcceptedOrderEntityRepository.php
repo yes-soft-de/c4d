@@ -22,17 +22,17 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AcceptedOrderEntity::class);
     }
 
-    public function acceptedOrder($userID, $acceptedOrderId)
+    public function getOrderStatusForCaptain($captainID, $orderId)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
-            ->addSelect('AcceptedOrderEntity.id','AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.orderID', 'AcceptedOrderEntity.date', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.date as orderDate', 'orderEntity.note as orderNote', 'orderEntity.payment ', 'orderEntity.state')
+            ->select('AcceptedOrderEntity.id','AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.orderID', 'AcceptedOrderEntity.date', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.date as orderDate', 'orderEntity.note as orderNote', 'orderEntity.payment ', 'orderEntity.state', 'orderEntity.updateDate as orderUpdateDate')
           
             ->join(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
 
-            ->andWhere('AcceptedOrderEntity.captainID = :userID')
-            ->andWhere('AcceptedOrderEntity.id = :ID')
-            ->setParameter('userID', $userID)
-            ->setParameter('ID', $acceptedOrderId)
+            ->andWhere('AcceptedOrderEntity.captainID = :captainID')
+            ->andWhere('AcceptedOrderEntity.orderID = :orderId')
+            ->setParameter('captainID', $captainID)
+            ->setParameter('orderId', $orderId)
             ->getQuery()
             ->getOneOrNullResult();
     }

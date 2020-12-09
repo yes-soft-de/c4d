@@ -241,11 +241,20 @@ methods: GET
 ```
 
 #### Update Order
-state: pending or ongoing or deliverd or cancelled.
+state: deliverd or cancelled.
 ROLE_OWNER
 
 ```
 /order
+methods: PUT
+```
+
+#### Update order State By Captain
+state: ongoing or deliverd or cancelled.
+ROLE_CAPTAIN
+
+```
+/orderUpdateStateByCaptain
 methods: PUT
 ```
 
@@ -289,11 +298,11 @@ ROLE_CAPTAIN
 /acceptedOrder
 methods: POST
 ```
-#### Get order ftatus for captain
+#### Get order status for captain
 ROLE_CAPTAIN
 
 ```
-/acceptedOrder/acceptedOrderId
+/GetOrderStatusForCaptain/orderId
 methods: GET
 ```
 #### Get total Earn for captain

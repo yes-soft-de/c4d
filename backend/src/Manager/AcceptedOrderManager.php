@@ -38,9 +38,9 @@ class AcceptedOrderManager
         return $item;
     }
 
-    public function acceptedOrder($userID, $acceptedOrderId)
+    public function getOrderStatusForCaptain($captainID, $orderId)
     {
-        return $this->repository->acceptedOrder($userID, $acceptedOrderId);
+        return $this->repository->getOrderStatusForCaptain($captainID, $orderId);
     }
 
     public function countOrdersDeliverd($userID)

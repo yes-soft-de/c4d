@@ -8,6 +8,7 @@ use App\Service\UserService;
 use App\Service\SubscriptionService;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
+use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Request\DeleteRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -144,6 +145,23 @@ class OrderController extends BaseController
         $request->setOwnerID($this->getUserId());
 
         $response = $this->orderService->update($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * @Route("/orderUpdateStateByCaptain",         name="orderUpdateStateByCaptain", methods={"PUT"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @param                   Request $request
+     * @return                  JsonResponse
+     */
+    public function orderUpdateStateByCaptain(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, OrderUpdateStateByCaptainRequest::class, (object) $data);
+
+        $response = $this->orderService->orderUpdateStateByCaptain($request);
 
         return $this->response($response, self::UPDATE);
     }

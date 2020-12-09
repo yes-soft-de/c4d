@@ -7,6 +7,7 @@ use App\Entity\OrderEntity;
 use App\Manager\OrderManager;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
+use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
@@ -84,6 +85,13 @@ class OrderService
     public function update(OrderUpdateRequest $request)
     {
         $item = $this->orderManager->update($request);
+
+        return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+    }
+
+    public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
+    {
+        $item = $this->orderManager->orderUpdateStateByCaptain($request);
 
         return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
     }
