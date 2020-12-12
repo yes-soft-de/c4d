@@ -4,15 +4,19 @@ namespace App\Response;
 
 class UserProfileCreateResponse
 {
+    public $id;
+    
     public $userName;
-
-    public $city;
-
-    public $location = [];
 
     public $story;
 
     public $image;
 
     public $status;
+
+    public $branch;
+    
+    public $free;
+    
+    public $branches;
 }

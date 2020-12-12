@@ -48,14 +48,9 @@ class UserProfileEntity
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $city;
-
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $location = [];
+    private $free;
 
     public function getUserID(): ?string
     {
@@ -129,28 +124,15 @@ class UserProfileEntity
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getFree(): ?bool
     {
-        return $this->city;
+        return $this->free;
     }
 
-    public function setCity(string $city): self
+    public function setFree(?bool $free): self
     {
-        $this->city = $city;
+        $this->free = $free;
 
         return $this;
     }
-
-    public function getLocation(): ?array
-    {
-        return $this->location;
-    }
-
-    public function setLocation(?array $location): self
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
 }

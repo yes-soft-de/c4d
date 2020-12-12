@@ -13,6 +13,7 @@ class OrderCreateRequest
     private $recipientName;
     private $recipientPhone;
     private $state;
+    private $fromBranch;
 
      /**
      * @param mixed $ownerID

@@ -21,9 +21,9 @@ class PackageService
 
     public function create(PackageCreateRequest $request)
     {
-        $carResult = $this->packageManager->create($request);
+        $result = $this->packageManager->create($request);
 
-        return $this->autoMapping->map(PackageEntity::class, PackageResponse::class, $carResult);
+        return $this->autoMapping->map(PackageEntity::class, PackageResponse::class, $result);
     }
 
     public function getPackages($user)

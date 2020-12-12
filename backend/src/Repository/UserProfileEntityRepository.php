@@ -28,9 +28,22 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.location', 'profile.city')
+            ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.branch', 'profile.free', 'profile.status')
             ->andWhere('profile.userID=:userID')
             ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getUserProfileByID($id)
+    {
+        return $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.branch', 'profile.free', 'profile.status')
+
+            ->andWhere('profile.id = :id')
+
+            ->setParameter('id', $id)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -40,7 +53,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->andWhere('profile.userID=:userID')
+            ->andWhere('profile.userID = :userID')
             ->setParameter('userID', $userID)
 
             ->getQuery()
@@ -73,7 +86,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.userName', 'profile.image', 'profile.story', 'profile.location', 'profile.status', 'profile.city', 'profile.branch')
+            ->select('profile.id', 'profile.userName', 'profile.image', 'profile.story', 'profile.status', 'profile.free', 'profile.branch')
 
             ->andWhere("profile.status = 'inactive' ")
 

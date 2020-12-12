@@ -7,6 +7,7 @@ use App\Request\UserProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
 use App\Request\CaptainProfileCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
+use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
 use App\Service\UserService;
 use stdClass;
@@ -86,6 +87,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/userprofile", name="updateUserProfile", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
@@ -102,7 +104,37 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/userprofile", name="getUserProfileByID",methods={"GET"})
+     * @Route("/userProfileUpdateByAdmin", name="userProfileUpdateByAdmin", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function userProfileUpdateByAdmin(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, userProfileUpdateByAdminRequest::class, (object)$data);
+
+        $response = $this->userService->userProfileUpdateByAdmin($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * @Route("/userprofileByID/{id}", name="getUserProfileByID",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function getUserProfileByID($id)
+    {
+        $response = $this->userService->getUserProfileByID($id);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("/userprofile", name="getUserProfileByUserId",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
     public function getUserProfileByUserID()

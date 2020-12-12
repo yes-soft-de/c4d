@@ -15,5 +15,6 @@ class OrderResponse
     public $recipientPhone;
     public $state;
     public $acceptedOrder;
+    public $fromBranch;
     
 }

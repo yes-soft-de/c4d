@@ -13,9 +13,9 @@ class OrderUpdateRequest
     private $recipientName;
     private $recipientPhone;
     private $updateDate;
-    private $state;
+    private $fromBranch;
 
-     /**
+    /**
      * @return mixed
      */
     public function getId()
@@ -39,7 +39,7 @@ class OrderUpdateRequest
         $this->ownerID = $ownerID;
     }
 
-     /**
+    /**
      * @return mixed
      */
     public function getOwnerID()

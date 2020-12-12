@@ -23,7 +23,7 @@ class OrderEntity
     private $ownerID;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=true)
      */
     private $source = [];
 
@@ -66,6 +66,11 @@ class OrderEntity
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $state;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fromBranch;
 
 
     public function getId(): ?int
@@ -196,6 +201,18 @@ class OrderEntity
     public function setState(?string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getFromBranch(): ?string
+    {
+        return $this->fromBranch;
+    }
+
+    public function setFromBranch(?string $fromBranch): self
+    {
+        $this->fromBranch = $fromBranch;
 
         return $this;
     }

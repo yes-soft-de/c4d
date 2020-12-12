@@ -79,11 +79,9 @@ App\Request\UserRegisterRequest:
 
 App\Request\UserProfileCreateRequest:
   properties:
-    location:
-      - NotBlank: ~
     userName:
       - NotBlank: ~
-    city:
+    branch:
       - NotBlank: ~
 
 App\Request\UserProfileUpdateRequest:
@@ -94,36 +92,34 @@ App\Request\UserProfileUpdateRequest:
       - NotBlank: ~
     userName:
       - NotBlank: ~
-    location:
+    branch:
       - NotBlank: ~
-    city:
+
+App\Request\userProfileUpdateByAdminRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    free:
       - NotBlank: ~
 
 App\Request\OrderCreateRequest:
   properties:
-    source:
-      - NotBlank: ~
     destination:
       - NotBlank: ~
-    note:
+    date:
       - NotBlank: ~
     payment:
       - NotBlank: ~
-   
-
+      
 App\Request\OrderUpdateRequest:
   properties:
     id:
       - NotBlank: ~
-    source:
-      - NotBlank: ~
     destination:
       - NotBlank: ~
-    note:
-      - NotBlank: ~
     payment:
-      - NotBlank: ~
-    state:
       - NotBlank: ~
 
 App\Request\AcceptedOrderCreateRequest:

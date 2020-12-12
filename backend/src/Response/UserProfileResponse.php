@@ -4,11 +4,9 @@ namespace App\Response;
 
 class UserProfileResponse
 {
+    public $id;
+    
     public $userName;
-
-    public $city;
-
-    public $location = [];
 
     public $story;
 
@@ -17,4 +15,6 @@ class UserProfileResponse
     public $status;
 
     public $branch;
+    
+    public $free;
 }

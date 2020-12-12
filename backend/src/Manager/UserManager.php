@@ -10,6 +10,7 @@ use App\Repository\UserEntityRepository;
 use App\Repository\UserProfileEntityRepository;
 use App\Repository\CaptainProfileEntityRepository;
 use App\Request\UserProfileCreateRequest;
+use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateRequest;
@@ -57,9 +58,12 @@ class UserManager
 
     public function userProfileCreate(UserProfileCreateRequest $request)
     {
-        $userProfile = $this->getProfileByUserID($request->getUserID());
+        $userProfile = $this->getUserProfileByUserID($request->getUserID());
         if ($userProfile == null) {
             $userProfile = $this->autoMapping->map(UserProfileCreateRequest::class, UserProfileEntity::class, $request);
+
+            $userProfile->setStatus('inactive');
+            $userProfile->setFree(false);
 
             $this->entityManager->persist($userProfile);
             $this->entityManager->flush();
@@ -84,6 +88,25 @@ class UserManager
 
             return $item;
         }
+    }
+
+    public function userProfileUpdateByAdmin(userProfileUpdateByAdminRequest $request)
+    {
+        $item = $this->profileRepository->find($request->getId());
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(userProfileUpdateByAdminRequest::class, UserProfileEntity::class, $request, $item);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function getUserProfileByID($id)
+    {
+        return $this->profileRepository->getUserProfileByID($id);
     }
 
     public function getUserProfileByUserID($userID)

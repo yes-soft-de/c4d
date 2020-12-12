@@ -178,6 +178,7 @@ methods: GET
 
 #### Update Subscription
 ROLE_ADMIN
+
 status value :  active or inactive or finished or unaccept.
 ```
 /subscription
@@ -211,6 +212,8 @@ methods: GET
 #### Create Order
 ROLE_OWNER
 
+must send value for source(map json) or fromBranch(branch name)
+
 ```
 /order
 methods: POST
@@ -241,8 +244,9 @@ methods: GET
 ```
 
 #### Update Order
-state: deliverd or cancelled.
 ROLE_OWNER
+
+state: deliverd or cancelled.
 
 ```
 /order
@@ -250,8 +254,9 @@ methods: PUT
 ```
 
 #### Update order State By Captain
-state: ongoing or deliverd or cancelled.
 ROLE_CAPTAIN
+
+state: ongoing or deliverd .
 
 ```
 /orderUpdateStateByCaptain

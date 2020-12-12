@@ -24,13 +24,13 @@ class RatingManager
 
     public function create(RatingCreateRequest $request)
     {
-        $ratingEntity = $this->autoMapping->map(RatingCreateRequest::class, RatingEntity::class, $request);
+        $entity = $this->autoMapping->map(RatingCreateRequest::class, RatingEntity::class, $request);
 
-        $this->entityManager->persist($ratingEntity);
+        $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();
 
-        return $ratingEntity;
+        return $entity;
     }
 
     public function getRatingByCaptainID($captainID)

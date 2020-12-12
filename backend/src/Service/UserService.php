@@ -9,6 +9,7 @@ use App\Entity\CaptainProfileEntity;
 use App\Manager\UserManager;
 use App\Request\UserProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
+use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
@@ -27,13 +28,15 @@ class UserService
     private $userManager;
     private $acceptedOrderService;
     private $ratingService;
+    private $branchesService;
 
-    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService, RatingService $ratingService)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService, RatingService $ratingService, BranchesService $branchesService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
         $this->acceptedOrderService = $acceptedOrderService;
         $this->ratingService = $ratingService;
+        $this->branchesService = $branchesService;
     }
 
     public function userRegister(UserRegisterRequest $request)
@@ -64,10 +67,24 @@ class UserService
         return $this->autoMapping->map(UserProfileEntity::class, UserProfileResponse::class, $item);
     }
 
+    public function userProfileUpdateByAdmin(userProfileUpdateByAdminRequest $request)
+    {
+        $item = $this->userManager->userProfileUpdateByAdmin($request);
+
+        return $this->autoMapping->map(UserProfileEntity::class, UserProfileResponse::class, $item);
+    }
+
+    public function getUserProfileByID($id)
+    {
+        $item = $this->userManager->getUserProfileByID($id);
+        $item['branches'] = $this->branchesService->branchesByUserId($item['userID']);
+        return $this->autoMapping->map('array', UserProfileCreateResponse::class, $item);
+    }
+
     public function getUserProfileByUserID($userID)
     {
         $item = $this->userManager->getUserProfileByUserID($userID);
-
+        $item['branches'] = $this->branchesService->branchesByUserId($userID);
         return $this->autoMapping->map('array', UserProfileCreateResponse::class, $item);
     }
 
@@ -148,12 +165,12 @@ class UserService
 
         if($userType == "captain") {
             foreach( $items as  $item ) {
-                $response  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
+                $response[]  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
             }
         }
         if($userType == "owner") {
             foreach( $items as  $item ) {
-                $response  = $this->autoMapping->map('array', UserProfileResponse::class, $item);
+                $response[]  = $this->autoMapping->map('array', UserProfileResponse::class, $item);
             }
         }
      return $response;
@@ -202,8 +219,7 @@ class UserService
     {
         $response = [];
         $item = $this->userManager->totalBounceCaptain($captainProfileId);
-        //إذا أردنا الإعتماد على حقل ستيت في جدول الأكسبت أوردر
-        // $item['countOrdersDeliverd'] = $this->acceptedOrderService->countOrdersDeliverd($item[0]['captainID']);
+      
         if ($item) {
              $countAcceptedOrder = $this->acceptedOrderService->countAcceptedOrder($item[0]['captainID']);
 
@@ -211,7 +227,7 @@ class UserService
 
              $response  = $this->autoMapping->map('array', CaptainTotalBounceResponse::class,  $item);
         }
+
         return $response;
     }
- 
 }

@@ -43,7 +43,7 @@ class OrderController extends BaseController
     public function create(Request $request)
     {  
         $status = $this->subscriptionService->subscriptionIsActive($this->getUserId());
-        
+       
         if ($status == 'active') {
             $data = json_decode($request->getContent(), true);
 
@@ -71,6 +71,10 @@ class OrderController extends BaseController
 
         if ($status == 'unaccept') {
             $response ="subscribe unaccept!!";
+        }
+
+        if ($status == null) {
+            $response ="please subscribe!!";
         }
 
         return $this->response($response, self::CREATE);

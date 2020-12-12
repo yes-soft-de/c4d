@@ -49,15 +49,15 @@ class PackageManager
 
     public function update(PackageUpdateRequest $request)
     {
-        $packageEntity = $this->packageRepository->find($request->getId());
+        $entity = $this->packageRepository->find($request->getId());
 
-        if (!$packageEntity) {
+        if (!$entity) {
             return null;
         }
-        $packageEntity = $this->autoMapping->mapToObject(PackageUpdateRequest::class, PackageEntity::class, $request, $packageEntity);
+        $entity = $this->autoMapping->mapToObject(PackageUpdateRequest::class, PackageEntity::class, $request, $entity);
 
         $this->entityManager->flush();
 
-        return $packageEntity;
+        return $entity;
     }
 }

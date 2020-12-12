@@ -8,17 +8,11 @@ class UserProfileCreateRequest
 
     private $userName;
 
-    private $city;
-
-    private $location = [];
-
     private $story;
 
     private $image;
 
     private $branch;
-
-    private $status;
 
     /**
      * @return mixed
@@ -55,22 +49,6 @@ class UserProfileCreateRequest
     /**
      * @return mixed
      */
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    /**
-     * @param mixed $location
-     */
-    public function setLocation($location): void
-    {
-        $this->location = $location;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getStory()
     {
         return $this->story;
@@ -98,25 +76,5 @@ class UserProfileCreateRequest
     public function setImage($image): void
     {
         $this->image = $image;
-    }
-
-     /**
-     * Get the value of status
-     */
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-     /**
-     * Set the value of status
-     *
-     * @return  self
-     */
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
     }
 }
