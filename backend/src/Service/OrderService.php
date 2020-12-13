@@ -117,17 +117,12 @@ class OrderService
         $response[] = $this->orderManager->countpendingOrders();
         $response[] = $this->orderManager->countOngoingOrders();
         $response[] = $this->orderManager->countCancelledOrders();
-
+        $ongoingOrders = $this->orderManager->ongoingOrders();
+      
+        foreach ($ongoingOrders as  $ongoingOrder) {
+         
+           $response[]  = $this->autoMapping->map('array',OrdersongoingResponse::class,  $ongoingOrder);
+        }  
         return $response;
-    }
-
-    public function ongoingOrders()
-    {
-        $ongoingOrders =  $this->orderManager->ongoingOrders();
-        foreach ( $ongoingOrders as  $ongoingOrder) {
-
-            $response[] = $this->autoMapping->map('array', OrdersongoingResponse::class, $ongoingOrder);
-       }
-       return $response;
     }
 }

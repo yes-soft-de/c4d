@@ -86,4 +86,9 @@ class SubscriptionManager
     {
         return $this->subscribeRepository->countCancelledContracts();
     }
+
+    public function getRemainingOrders($ownerID)
+    {
+        return $this->subscribeRepository->getRemainingOrders($ownerID);
+    }
 }

@@ -133,5 +133,17 @@ class SubscriptionController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("/saveFinisheAuto/{ownerID}", name="saveFinisheAuto",methods={"GET"})
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function saveFinisheAuto($ownerID)
+    {
+        $result = $this->subscriptionService->saveFinisheAuto($ownerID);
+
+        return $this->response($result, self::FETCH);
+    }
+
 
 }

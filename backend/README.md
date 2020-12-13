@@ -333,3 +333,147 @@ ROLE_OWNER
 /rating
 methods: POST
 ```
+
+
+
+
+### dashboard
+
+### user
+
+### User profile update by admin
+
+status : active .
+
+```
+/userProfileUpdateByAdmin
+methods: PUT
+```
+
+### Get user profile by ID
+
+```
+/userprofileByID/{id}
+methods: GET
+```
+
+### get captain profile by captainProfileId
+
+```
+/captainprofile/{captainProfileId}
+methods: GET
+```
+
+### get owner or captain pending (inactive)
+
+userType = owner or captain.
+
+```
+/getUserInactive/{userType}
+methods: GET
+```
+
+### Get captains state
+
+state = ongoing or vacation or free
+```
+/getCaptainsState/{state}
+methods: GET
+```
+
+### dashboard Captains
+
+```
+/dashboardCaptains
+methods: GET
+```
+
+### Get day of captains
+
+```
+/getDayOfCaptains
+methods: GET
+```
+
+### total bounce captain
+
+```
+/totalBounceCaptain/{captainProfileId}
+methods: GET
+```
+
+### Package
+
+### Package create 
+
+```
+/package
+methods: POST
+```
+
+### Get all packages 
+
+```
+/getAllpackages
+methods: GET
+```
+
+### Get package by Id
+
+```
+/getpackageById/{id}
+methods: GET
+```
+
+### Package update
+
+```
+/package
+methods: PUT
+```
+
+### Package update
+
+```
+/package
+methods: PUT
+```
+
+
+### Order
+
+### Dashboard orders 
+
+```
+/dashboardOrders
+methods: GET
+```
+
+### Dashboard contracts 
+
+```
+/dashboardContracts
+methods: GET
+```
+
+### Get subscriptions pending 
+
+```
+/getSubscriptionsPending
+methods: GET
+```
+
+### Subscription update
+
+status = active .
+
+```
+/subscription
+methods: PUT
+```
+
+
+
+
+
+

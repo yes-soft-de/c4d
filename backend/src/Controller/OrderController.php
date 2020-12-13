@@ -210,17 +210,4 @@ class OrderController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
-    /**
-     * @Route("/ongoingOrders", name="GetActiveOrders",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function ongoingOrders()
-    {
-        $result = $this->orderService->ongoingOrders();
-
-        return $this->response($result, self::FETCH);
-    }
-
 }

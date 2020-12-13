@@ -259,6 +259,19 @@ class UserController extends BaseController
     }
 
     /**
+     * @Route("/getDayOfCaptains", name="getDayOfCaptains",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function getDayOfCaptains()
+    {
+        $result = $this->userService->getDayOfCaptains();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * @Route("/totalBounceCaptain/{captainProfileId}", name="TotalBounceCaptain",methods={"GET"})
      * @param                                     Request $request
      * @return                                    JsonResponse

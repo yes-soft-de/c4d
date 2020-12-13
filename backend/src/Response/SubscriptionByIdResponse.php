@@ -16,10 +16,6 @@ class SubscriptionByIdResponse
 
     public $userName;
 
-    public $city;
-
-    public $location = [];
-
     public $packageNote;
 
     public $subscriptionNote;

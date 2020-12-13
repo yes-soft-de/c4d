@@ -71,6 +71,17 @@ class SubscriptionService
         return $item ;
      }
 
+    // check subscription , if time is finishe or order count is finishe, change status value to 'finished'
+    // 1- order count
+    public function saveFinisheAuto($ownerID)
+    {
+        $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID);
+        if ($remainingOrdersOfPackage['remainingOrders'] == 0)  {
+            //شغل الأبديت بحيث يكون الأبديت  يتحكم بالفينيش
+        }
+     dd( );
+     }
+
      public function dashboardContracts()
     {
         $response = [];
@@ -79,6 +90,12 @@ class SubscriptionService
         $response[] = $this->subscriptionManager->countDoneContracts();
         $response[] = $this->subscriptionManager->countCancelledContracts();
 
+        $subscriptionsPending = $this->subscriptionManager->getSubscriptionsPending();
+       
+        foreach ($subscriptionsPending as $item) {
+            $response[] = $this->autoMapping->map('array', SubscriptionByIdResponse::class, $item);
+        }
+        
         return $response;
     }
 }

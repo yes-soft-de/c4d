@@ -193,6 +193,11 @@ class UserManager
     {
         return $this->captainProRepository->countDayOfCaptains();
     }
+   
+    public function getDayOfCaptains()
+    {
+        return $this->captainProRepository->getDayOfCaptains();
+    }
 
     public function totalBounceCaptain($id)
     {

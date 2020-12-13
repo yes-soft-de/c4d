@@ -212,6 +212,25 @@ class UserService
          $response[] = $this->userManager->countOngoingCaptains();
          $response[] = $this->userManager->countDayOfCaptains();
 
+         $dayOfCaptains = $this->userManager->getDayOfCaptains();
+      
+         foreach ($dayOfCaptains as $item) {
+          
+            $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $item);
+         }         
+         return $response;
+     }
+
+     public function GetDayOfCaptains()
+     {
+         $response = [];
+
+         $dayOfCaptains = $this->userManager->getDayOfCaptains();
+      
+         foreach ($dayOfCaptains as $item) {
+          
+            $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $item);
+         }         
          return $response;
      }
 

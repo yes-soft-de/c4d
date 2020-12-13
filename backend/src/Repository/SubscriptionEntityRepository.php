@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\SubscriptionEntity;
 use App\Entity\PackageEntity;
+use App\Entity\OrderEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\UserProfileEntity;
@@ -43,9 +44,9 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('subscription')
         
-            ->select('subscription.id','subscription.status',  'packageEntity.name as packageName', 'subscription.startDate','subscription.endDate', 'subscription.note as subscriptionNote', 'userProfileEntity.userName', 'userProfileEntity.location', 'userProfileEntity.city', 'packageEntity.note as packageNote')
+            ->select('subscription.id','subscription.status',  'packageEntity.name as packageName', 'subscription.startDate','subscription.endDate', 'subscription.note as subscriptionNote', 'userProfileEntity.userName', 'packageEntity.note as packageNote')
 
-            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+            ->Join(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
 
             ->join(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
 
@@ -121,6 +122,25 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->select('count (subscription.id) as countCancelledContracts')
 
             ->andWhere("subscription.status = 'unaccept'")
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    
+    public function getRemainingOrders($ownerID)
+    {
+        return $this->createQueryBuilder('subscription')
+
+            ->select('packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'count(orderEntity.id) as countOrderOrder ')
+
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = subscription.ownerID')
+
+            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+
+            ->andWhere('subscription.ownerID=:ownerID')
+            ->andWhere("orderEntity.state ='deliverd'")
+
+            ->setParameter('ownerID', $ownerID)
 
             ->getQuery()
             ->getOneOrNullResult();

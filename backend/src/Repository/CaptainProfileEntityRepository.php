@@ -103,6 +103,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+    
     public function countOngoingCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
@@ -113,6 +114,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+   
     public function countDayOfCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
@@ -122,6 +124,17 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+   
+    public function getDayOfCaptains()
+    {
+        return $this->createQueryBuilder('captainProfile')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state')
+
+            ->andWhere("captainProfile.state = 'vacation'")
+
+            ->getQuery()
+            ->getResult();
     }
 
     public function totalBounceCaptain($id)
