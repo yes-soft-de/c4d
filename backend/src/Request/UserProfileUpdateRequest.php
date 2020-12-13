@@ -4,6 +4,8 @@ namespace App\Request;
 
 class UserProfileUpdateRequest
 {
+    private $id;
+
     private $userID;
 
     private $userName;
@@ -13,6 +15,15 @@ class UserProfileUpdateRequest
     private $image;
 
     private $branch;
+    
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 
     /**
      * @return mixed
