@@ -82,6 +82,19 @@ class OrderService
         return $response;
     }
 
+    public function getPendingOrders()
+    {
+        $response = [];
+
+        $orders = $this->orderManager->getPendingOrders();
+
+        foreach ($orders as $order) {
+            
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
+        }
+        return $response;
+    }
+
     public function update(OrderUpdateRequest $request)
     {
         $item = $this->orderManager->update($request);

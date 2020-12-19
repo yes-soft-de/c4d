@@ -61,6 +61,11 @@ class OrderManager
         return $this->repository->closestOrders();
     }
 
+    public function getPendingOrders()
+    {
+        return $this->repository->closestOrders();
+    }
+
     public function update(OrderUpdateRequest $request)
     {
         $item = $this->repository->find($request->getId());

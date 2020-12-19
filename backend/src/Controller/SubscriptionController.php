@@ -99,7 +99,7 @@ class SubscriptionController extends BaseController
 
     /**
      * @Route("getSubscriptionsPending", name="getSubscriptionsPending", methods={"GET"})
-     *  @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
     public function getSubscriptionsPending()

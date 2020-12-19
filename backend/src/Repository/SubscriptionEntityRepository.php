@@ -61,7 +61,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('subscription')
 
-            ->select('subscription.id','subscription.status',  'packageEntity.name as packageName', 'subscription.startDate','subscription.endDate', 'subscription.note as subscriptionNote', 'userProfileEntity.userName', 'userProfileEntity.location', 'userProfileEntity.city', 'packageEntity.note as packageNote')
+            ->select('subscription.id','subscription.status',  'packageEntity.name as packageName', 'subscription.startDate','subscription.endDate', 'subscription.note as subscriptionNote', 'userProfileEntity.userName', 'packageEntity.note as packageNote')
 
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
 
@@ -131,12 +131,14 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('subscription')
 
-            ->select('packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'count(orderEntity.id) as countOrderOrder ')
+            ->select('subscription.id', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'count(orderEntity.id) as countOrdersDelivered ', 'subscription.startDate', 'subscription.endDate', 'userProfileEntity.userID', 'userProfileEntity.userName')
 
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = subscription.ownerID')
 
-            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
 
+            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+            
             ->andWhere('subscription.ownerID=:ownerID')
             ->andWhere("orderEntity.state ='deliverd'")
 

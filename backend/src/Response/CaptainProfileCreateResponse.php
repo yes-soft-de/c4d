@@ -32,4 +32,6 @@ class CaptainProfileCreateResponse
     
     public $bounce;
 
+    public $totalBounce;
+
 }

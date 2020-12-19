@@ -63,7 +63,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function closestOrders()
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state')
+            ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch')
 
             ->andWhere("OrderEntity.state = 'pending' ")
 

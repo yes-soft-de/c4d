@@ -118,7 +118,7 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/closestOrders",   name="GetPendingOrders", methods={"GET"})
+     * @Route("/closestOrders",   name="GetPendingOrdersForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @return                    JsonResponse
      */
@@ -131,6 +131,18 @@ class OrderController extends BaseController
 
             $result = $this->orderService->closestOrders($this->getUserId());
          }
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/GetPendingOrders",   name="GetPendingOrders", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return                    JsonResponse
+     */
+    public function getPendingOrders()
+    {    
+        $result = $this->orderService->getPendingOrders();
 
         return $this->response($result, self::FETCH);
     }

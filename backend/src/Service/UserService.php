@@ -182,7 +182,7 @@ class UserService
 
         foreach( $items as  $item ) {
            
-            $item['bounce'] = $this->totalBounceCaptain($item['id']);
+            $item['totalBounce'] = $this->totalBounceCaptain($item['id']);
            
             $item['countOrdersDeliverd'] = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
            

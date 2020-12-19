@@ -63,7 +63,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     public function getremainingOrders($userID)
     {
         return $this->createQueryBuilder('profile')
-            ->select('subscriptionEntity.id as subscriptionID', 'subscriptionEntity.status as subscriptionstatus', 'subscriptionEntity.packageID as packageID', 'packageEntity.name as packagename', 'packageEntity.orderCount - count(acceptedOrderEntity.orderID) as remainingOrders', 'subscriptionEntity.startDate as subscriptionStartDate', 'subscriptionEntity.endDate as subscriptionEndDate')
+            ->select('subscriptionEntity.id as subscriptionID', 'subscriptionEntity.status as subscriptionstatus', 'subscriptionEntity.packageID as packageID', 'packageEntity.name as packagename', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'subscriptionEntity.startDate as subscriptionStartDate', 'subscriptionEntity.endDate as subscriptionEndDate')
 
             ->leftJoin(SubscriptionEntity::class, 'subscriptionEntity', Join::WITH, 'subscriptionEntity.ownerID = profile.userID')
 
@@ -71,7 +71,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = profile.userID')
 
-            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = orderEntity.id')
+            // ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = orderEntity.id')
 
             ->andWhere('profile.userID=:userID')
             ->andWhere("orderEntity.state ='deliverd'")

@@ -7,6 +7,7 @@ use App\Entity\SubscriptionEntity;
 use App\Repository\SubscriptionEntityRepository;
 use App\Request\SubscriptionCreateRequest;
 use App\Request\SubscriptionUpdateRequest;
+use App\Request\SubscriptionUpdateFinisheRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class SubscriptionManager
@@ -51,6 +52,23 @@ class SubscriptionManager
         }
 
         $subscribeEntity = $this->autoMapping->mapToObject(SubscriptionUpdateRequest::class, SubscriptionEntity::class, $request, $subscribeEntity);
+
+        $this->entityManager->flush();
+
+        return $subscribeEntity;
+    }
+
+    public function updateFinishe( $id)
+    {
+        $subscribeEntity = $this->subscribeRepository->find($id);
+        
+        $subscribeEntity->setStatus('finished');
+
+        if (!$subscribeEntity) {
+            return null;
+        }
+
+        $subscribeEntity = $this->autoMapping->map(SubscriptionUpdateFinisheRequest::class, SubscriptionEntity::class, $subscribeEntity);
 
         $this->entityManager->flush();
 

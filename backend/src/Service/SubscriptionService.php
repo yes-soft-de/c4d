@@ -8,6 +8,9 @@ use App\Manager\SubscriptionManager;
 use App\Request\SubscriptionCreateRequest;
 use App\Response\SubscriptionResponse;
 use App\Response\SubscriptionByIdResponse;
+use SebastianBergmann\Comparator\DateTimeComparator;
+use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 class SubscriptionService
 {
@@ -35,6 +38,13 @@ class SubscriptionService
     public function update($request)
     {
         $result = $this->subscriptionManager->update($request);
+
+        return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
+    }
+
+    public function updateFinishe($id)
+    {
+        $result = $this->subscriptionManager->updateFinishe($id);
 
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
     }
@@ -72,14 +82,42 @@ class SubscriptionService
      }
 
     // check subscription , if time is finishe or order count is finishe, change status value to 'finished'
-    // 1- order count
+    
     public function saveFinisheAuto($ownerID)
     {
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID);
+       // get subscripe start date after month
+        $startDate1 =date_timestamp_get($remainingOrdersOfPackage['startDate']);
+        
+        $startDate2 = (json_decode($startDate1));
+
+        $startDate = date("Y-m-d h:i:s", $startDate2);
+        
+        $startDateNextMonth = date('Y-m-d h:i:s', strtotime("1 month",strtotime($startDate)));
+        // dd($startDate , $startDateNextMonth);
+
+       // get subscripe end date format normal
+        $endDate1 =date_timestamp_get($remainingOrdersOfPackage['endDate']);
+        
+        $endDate2 = (json_decode($endDate1));
+
+        $endDate = date("Y-m-d h:i:s", $endDate2);
+
         if ($remainingOrdersOfPackage['remainingOrders'] == 0)  {
-            //شغل الأبديت بحيث يكون الأبديت  يتحكم بالفينيش
+      
+            $this->updateFinishe($remainingOrdersOfPackage['id']);
+            $response[] = ["subscripe finished, count Orders finished"];
         }
-     dd( );
+
+        if ($startDateNextMonth == $endDate)  {
+      
+            $this->updateFinishe($remainingOrdersOfPackage['id']);
+            $response[] = ["subscripe finished, finished date"];
+        }
+        
+        $response[] = $remainingOrdersOfPackage;
+        
+        return $response;
      }
 
      public function dashboardContracts()
