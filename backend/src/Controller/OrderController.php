@@ -136,13 +136,14 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/GetPendingOrders",   name="GetPendingOrders", methods={"GET"})
+     * @Route("/getPendingOrders",   name="GetPendingOrders", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @return                    JsonResponse
      */
     public function getPendingOrders()
     {    
-        $result = $this->orderService->getPendingOrders();
+         $result = $this->orderService->getPendingOrders();
+        
 
         return $this->response($result, self::FETCH);
     }
