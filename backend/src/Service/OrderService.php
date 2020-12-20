@@ -38,8 +38,11 @@ class OrderService
         $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
         $response = $this->autoMapping->map('array', OrderResponse::class, $order);
-        $response->acceptedOrder =  $acceptedOrder;
-        
+
+        if ($acceptedOrder) {
+            $response->acceptedOrder =  $acceptedOrder;
+        }
+
         return $response;
     }
 
@@ -65,7 +68,9 @@ class OrderService
         $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
         $response = $this->autoMapping->map('array', OrderResponse::class, $order);
-        $response->acceptedOrder =  $acceptedOrder;
+        if ($acceptedOrder) {
+            $response->acceptedOrder =  $acceptedOrder;
+        }
         return $response;
     }
 
@@ -87,7 +92,7 @@ class OrderService
         $response = [];
 
         $orders = $this->orderManager->getPendingOrders();
-        
+
         foreach ($orders as $order) {
 
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
