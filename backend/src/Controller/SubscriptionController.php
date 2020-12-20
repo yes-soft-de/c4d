@@ -144,6 +144,4 @@ class SubscriptionController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
-
-
 }

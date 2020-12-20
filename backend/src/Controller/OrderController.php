@@ -42,6 +42,8 @@ class OrderController extends BaseController
      */
     public function create(Request $request)
     {  
+        $response = "please subscribe!!";
+        
         $status = $this->subscriptionService->subscriptionIsActive($this->getUserId());
        
         if ($status == 'active') {
@@ -64,16 +66,16 @@ class OrderController extends BaseController
             $response ="subscribe is awaiting activation!!";
         }
 
-        if ($status == 'finished') {
-            $response ="subscribe finished!!";
+        if ($status == 'orders finished') {
+            $response ="subscripe finished, count orders is finished!!";
+        }
+
+        if ($status == 'date finished') {
+            $response ="subscripe finished, date is finished!!";
         }
 
         if ($status == 'unaccept') {
             $response ="subscribe unaccept!!";
-        }
-
-        if ($status == null) {
-            $response ="please subscribe!!";
         }
 
         return $this->response($response, self::CREATE);

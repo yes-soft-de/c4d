@@ -42,9 +42,9 @@ class SubscriptionService
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
     }
 
-    public function updateFinishe($id)
+    public function updateFinishe($id, $status)
     {
-        $result = $this->subscriptionManager->updateFinishe($id);
+        $result = $this->subscriptionManager->updateFinishe($id, $status);
 
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
     }
@@ -86,6 +86,7 @@ class SubscriptionService
     public function saveFinisheAuto($ownerID)
     {
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID);
+        if ($remainingOrdersOfPackage) {
        // get subscripe start date after month
         $startDate1 =date_timestamp_get($remainingOrdersOfPackage['startDate']);
         
@@ -105,22 +106,22 @@ class SubscriptionService
 
         if ($remainingOrdersOfPackage['remainingOrders'] == 0)  {
       
-            $this->updateFinishe($remainingOrdersOfPackage['id']);
-            $response[] = ["subscripe finished, count Orders finished"];
+            $this->updateFinishe($remainingOrdersOfPackage['id'], 'orders finished');
+            $response[] = ["subscripe finished, count Orders is finished"];
         }
 
         if ($startDateNextMonth == $endDate)  {
       
-            $this->updateFinishe($remainingOrdersOfPackage['id']);
-            $response[] = ["subscripe finished, finished date"];
+            $this->updateFinishe($remainingOrdersOfPackage['id'], 'date finished');
+            $response[] = ["subscripe finished, date is finished"];
         }
-        
+    }
         $response[] = $remainingOrdersOfPackage;
         
         return $response;
      }
 
-     public function dashboardContracts()
+    public function dashboardContracts()
     {
         $response = [];
 

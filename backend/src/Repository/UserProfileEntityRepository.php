@@ -70,9 +70,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscriptionEntity.packageID')
 
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = profile.userID')
-
-            // ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = orderEntity.id')
-
+            
             ->andWhere('profile.userID=:userID')
             ->andWhere("orderEntity.state ='deliverd'")
 
