@@ -49,7 +49,6 @@ class OrderController extends BaseController
 
             $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
             $request->setOwnerID($this->getUserId());
-            $request->setState('pending');
 
             $violations = $this->validator->validate($request);
             if (\count($violations) > 0) {
@@ -167,11 +166,12 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/orderUpdateStateByCaptain",         name="orderUpdateStateByCaptain", methods={"PUT"})
+     * @Route("/orderUpdateStateByCaptain",         name="iGotProduct2", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param                   Request $request
      * @return                  JsonResponse
      */
+     ///////////////////////////////////////state = ongoing or deliverd
     public function orderUpdateStateByCaptain(Request $request)
     {
         $data = json_decode($request->getContent(), true);

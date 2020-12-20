@@ -9,7 +9,7 @@ class AcceptedOrderUpdateRequest
     private $date;
     private $duration;
 
-     /**
+    /**
      * @return mixed
      */
     public function getId()
@@ -17,7 +17,7 @@ class AcceptedOrderUpdateRequest
         return $this->id;
     }
    
-     /**
+    /**
      * @param mixed $date
      */
     public function setDate($date): void
@@ -25,7 +25,7 @@ class AcceptedOrderUpdateRequest
         $this->date = $date;
     }
 
-     /**
+    /**
      * @return mixed
      */
     public function getDate()
@@ -34,7 +34,7 @@ class AcceptedOrderUpdateRequest
         return $this;
     }
 
-     /**
+    /**
      * @param mixed $duration
      */
     public function setDuration($duration): void
@@ -42,7 +42,7 @@ class AcceptedOrderUpdateRequest
         $this->duration = $duration;
     }
 
-     /**
+    /**
      * @return mixed
      */
     public function getDuration()

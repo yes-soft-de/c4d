@@ -33,7 +33,7 @@ class OrderManager
         $item = $this->autoMapping->map(OrderCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDate($item->getDate());
-
+        $item->setState('pending');
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -63,7 +63,7 @@ class OrderManager
 
     public function getPendingOrders()
     {
-        return $this->repository->closestOrders();
+        return $this->repository->getPendingOrders();
     }
 
     public function update(OrderUpdateRequest $request)

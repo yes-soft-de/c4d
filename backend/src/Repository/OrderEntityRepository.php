@@ -71,6 +71,16 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getPendingOrders()
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch')
+
+            ->andWhere("OrderEntity.state = 'pending' ")
+
+            ->getQuery()
+            ->getResult();
+    }
     public function countAllOrders()
     {
         return $this->createQueryBuilder('OrderEntity')

@@ -87,9 +87,10 @@ class OrderService
         $response = [];
 
         $orders = $this->orderManager->getPendingOrders();
-
+        
         foreach ($orders as $order) {
-            
+
+            $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
         return $response;
@@ -105,8 +106,10 @@ class OrderService
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
     {
         $item = $this->orderManager->orderUpdateStateByCaptain($request);
-
-        return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+        $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($item->getId());
+        $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+        $response->acceptedOrder =  $acceptedOrder;
+        return $response;
     }
 
     public function delete($result)

@@ -8,7 +8,6 @@ use App\Manager\AcceptedOrderManager;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Response\AcceptedOrderResponse;
 use App\Response\CaptainTotalEarnResponse;
-use App\Response\OrderResponse;
 use App\Response\ongoingCaptainsResponse;
 
 class AcceptedOrderService
@@ -53,6 +52,15 @@ class AcceptedOrderService
         $result = $this->acceptedOrderManager->update($request);
 
         return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $result);
+    }
+
+    public function acceptedOrderUpdateStateByCaptain($request)
+    {
+        $result = $this->acceptedOrderManager->acceptedOrderUpdateStateByCaptain($request);
+
+        $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $result);
+        return $response;
+
     }
 
     public function getAcceptedOrderByOrderId($orderId)

@@ -59,7 +59,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
     public function getAcceptedOrderByOrderId($orderId)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
-            ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.date as acceptedOrderDate', 'AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.duration', 'captainProfileEntity.name as captainName', 'captainProfileEntity.car',  'captainProfileEntity.image')
+            ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.date as acceptedOrderDate', 'AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.duration', 'AcceptedOrderEntity.state', 'captainProfileEntity.name as captainName', 'captainProfileEntity.car',  'captainProfileEntity.image')
 
             ->join(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
 
@@ -83,5 +83,15 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->setParameter('captainId', $captainId)
             ->getQuery()
             ->getResult();
+    }
+
+    public function getByOrderId($orderId)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+
+            ->andWhere('AcceptedOrderEntity.orderID = :orderId')
+            ->setParameter('orderId', $orderId)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

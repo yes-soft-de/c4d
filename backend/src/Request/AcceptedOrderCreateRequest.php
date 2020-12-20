@@ -8,8 +8,9 @@ class AcceptedOrderCreateRequest
     private $captainID;
     private $date;
     private $duration;
+    private $state;
 
-     /**
+    /**
      * @param mixed $captainID
      */
     public function setCaptainID($captainID): void
@@ -17,7 +18,7 @@ class AcceptedOrderCreateRequest
         $this->captainID = $captainID;
     }
 
-     /**
+    /**
      * @return mixed
      */
     public function getCaptainID()
@@ -25,4 +26,21 @@ class AcceptedOrderCreateRequest
         return $this->captainID;
     }
     
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+   /**
+     * @param mixed $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
 }

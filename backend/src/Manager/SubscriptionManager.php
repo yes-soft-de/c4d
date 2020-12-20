@@ -58,7 +58,7 @@ class SubscriptionManager
         return $subscribeEntity;
     }
 
-    public function updateFinishe( $id)
+    public function updateFinishe($id)
     {
         $subscribeEntity = $this->subscribeRepository->find($id);
         

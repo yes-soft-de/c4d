@@ -7,6 +7,7 @@ use App\Service\AcceptedOrderService;
 use App\Service\UserService;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Request\AcceptedOrderUpdateRequest;
+use App\Request\AcceptedOrderUpdateStateByCaptainRequest;
 use App\Request\GetByIdRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,6 +97,33 @@ class AcceptedOrderController extends BaseController
         }
 
         $result = $this->acceptedOrderService->update($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
+     * @Route("acceptedOrderUpdateStateByCaptain", name="iGotProduct1", methods={"PUT"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    ///////////////////////////////////////state = ongoing or deliverd
+    ///////////////////////////////////////send orderId in body postman
+    public function acceptedOrderUpdateStateByCaptain(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(\stdClass::class, AcceptedOrderUpdateStateByCaptainRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->acceptedOrderService->acceptedOrderUpdateStateByCaptain($request);
 
         return $this->response($result, self::UPDATE);
     }

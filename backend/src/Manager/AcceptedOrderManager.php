@@ -7,6 +7,7 @@ use App\Entity\AcceptedOrderEntity;
 use App\Repository\AcceptedOrderEntityRepository;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Request\AcceptedOrderUpdateRequest;
+use App\Request\AcceptedOrderUpdateStateByCaptainRequest;
 use App\Request\GetByIdRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -30,6 +31,7 @@ class AcceptedOrderManager
     {
         $item = $this->autoMapping->map(AcceptedOrderCreateRequest::class, AcceptedOrderEntity::class, $request);
         $item->setDuration($item->getDuration());
+        $item->setState('on way to pick order');
        
         $this->entityManager->persist($item);
         $this->entityManager->flush();
@@ -62,6 +64,21 @@ class AcceptedOrderManager
             return null;
         }
         $acceptedOrderEntity = $this->autoMapping->mapToObject(AcceptedOrderUpdateRequest::class, AcceptedOrderEntity::class, $request, $acceptedOrderEntity);
+
+        $this->entityManager->flush();
+
+        return $acceptedOrderEntity;
+    }
+
+    public function acceptedOrderUpdateStateByCaptain(AcceptedOrderUpdateStateByCaptainRequest $request)
+    {
+        $acceptedOrderEntity = $this->repository->getByOrderId($request->getOrderId());
+
+        if (!$acceptedOrderEntity) {
+            return null;
+        }
+
+        $acceptedOrderEntity = $this->autoMapping->mapToObject(AcceptedOrderUpdateStateByCaptainRequest::class, AcceptedOrderEntity::class, $request, $acceptedOrderEntity);
 
         $this->entityManager->flush();
 
