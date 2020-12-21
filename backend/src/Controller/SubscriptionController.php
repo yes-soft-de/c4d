@@ -74,7 +74,7 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("SubscriptionUpdateState", name="SubscriptionUpdateState", methods={"PUT"})
+     * @Route("subscriptionUpdateState", name="SubscriptionUpdateState", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
