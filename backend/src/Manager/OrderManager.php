@@ -34,6 +34,7 @@ class OrderManager
 
         $item->setDate($item->getDate());
         $item->setState('pending');
+        
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();

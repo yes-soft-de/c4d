@@ -35,9 +35,9 @@ class SubscriptionService
         return $this->subscriptionManager->activeSubscription($userId);
     }
 
-    public function update($request)
+    public function subscriptionUpdateState($request)
     {
-        $result = $this->subscriptionManager->update($request);
+        $result = $this->subscriptionManager->subscriptionUpdateState($request);
 
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
     }

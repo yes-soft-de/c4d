@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\SubscriptionCreateRequest;
 use App\Request\SubscriptionUpdateRequest;
+use App\Request\SubscriptionUpdateStateRequest;
 use App\Service\SubscriptionService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -73,16 +74,16 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("subscription", name="updateSubscription", methods={"PUT"})
+     * @Route("SubscriptionUpdateState", name="SubscriptionUpdateState", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      * @param Request $request
      * @return JsonResponse
      */
-    public function update(Request $request)
+    public function subscriptionUpdateState(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(\stdClass::class, SubscriptionUpdateRequest::class, (object) $data);
+        $request = $this->autoMapping->map(\stdClass::class, SubscriptionUpdateStateRequest::class, (object) $data);
 
         $violations = $this->validator->validate($request);
 
@@ -92,7 +93,7 @@ class SubscriptionController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->subscriptionService->update($request);
+        $result = $this->subscriptionService->subscriptionUpdateState($request);
 
         return $this->response($result, self::UPDATE);
     }

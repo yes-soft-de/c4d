@@ -7,6 +7,7 @@ use App\Entity\SubscriptionEntity;
 use App\Repository\SubscriptionEntityRepository;
 use App\Request\SubscriptionCreateRequest;
 use App\Request\SubscriptionUpdateRequest;
+use App\Request\SubscriptionUpdateStateRequest;
 use App\Request\SubscriptionUpdateFinisheRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -39,19 +40,19 @@ class SubscriptionManager
         return $this->subscribeRepository->activeSubscription($userId);
     }
 
-    public function update(SubscriptionUpdateRequest $request)
+    public function subscriptionUpdateState(SubscriptionUpdateStateRequest $request)
     {
         $subscribeEntity = $this->subscribeRepository->find($request->getId());
         
-        $request->setOwnerID($subscribeEntity->getOwnerID());
-        $request->setStartDate($subscribeEntity->getStartDate());
+        // $request->setOwnerID($subscribeEntity->getOwnerID());
+        // $request->setStartDate($subscribeEntity->getStartDate());
         $request->setEndDate($request->getEndDate());
 
         if (!$subscribeEntity) {
             return null;
         }
 
-        $subscribeEntity = $this->autoMapping->mapToObject(SubscriptionUpdateRequest::class, SubscriptionEntity::class, $request, $subscribeEntity);
+        $subscribeEntity = $this->autoMapping->mapToObject(SubscriptionUpdateStateRequest::class, SubscriptionEntity::class, $request, $subscribeEntity);
 
         $this->entityManager->flush();
 

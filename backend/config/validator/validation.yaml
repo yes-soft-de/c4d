@@ -70,6 +70,15 @@ App\Request\SubscriptionUpdateRequest:
     endDate:
       - NotBlank: ~
 
+App\Request\SubscriptionUpdateStateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    endDate:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+
 App\Request\UserRegisterRequest:
   properties:
     userID:
