@@ -465,10 +465,10 @@ methods: GET
 
 ### Subscription update
 
-status = active .
+status = active or inactive.
 
 ```
-/subscription
+/SubscriptionUpdateState
 methods: PUT
 ```
 
