@@ -7,7 +7,7 @@ use App\Entity\AcceptedOrderEntity;
 use App\Repository\AcceptedOrderEntityRepository;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Request\AcceptedOrderUpdateRequest;
-use App\Request\AcceptedOrderUpdateStateByCaptainRequest;
+use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Request\GetByIdRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -70,15 +70,17 @@ class AcceptedOrderManager
         return $acceptedOrderEntity;
     }
 
-    public function acceptedOrderUpdateStateByCaptain(AcceptedOrderUpdateStateByCaptainRequest $request)
+    public function acceptedOrderUpdateStateByCaptain($orderId, $state)
     {
-        $acceptedOrderEntity = $this->repository->getByOrderId($request->getOrderId());
+        $acceptedOrderEntity = $this->repository->getByOrderId($orderId);
 
         if (!$acceptedOrderEntity) {
             return null;
         }
 
-        $acceptedOrderEntity = $this->autoMapping->mapToObject(AcceptedOrderUpdateStateByCaptainRequest::class, AcceptedOrderEntity::class, $request, $acceptedOrderEntity);
+        $acceptedOrderEntity->setState($state);
+
+        $acceptedOrderEntity = $this->autoMapping->mapToObject(OrderUpdateStateByCaptainRequest::class, AcceptedOrderEntity::class, $acceptedOrderEntity, $acceptedOrderEntity);
 
         $this->entityManager->flush();
 

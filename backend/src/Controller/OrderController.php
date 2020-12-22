@@ -168,12 +168,11 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/orderUpdateStateByCaptain",         name="iGotProduct2", methods={"PUT"})
+     * @Route("/orderUpdateState",         name="orderUpdateStateByCaptain", methods={"PUT"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param                   Request $request
      * @return                  JsonResponse
      */
-     ///////////////////////////////////////state = ongoing or deliverd
     public function orderUpdateStateByCaptain(Request $request)
     {
         $data = json_decode($request->getContent(), true);
@@ -181,7 +180,7 @@ class OrderController extends BaseController
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateStateByCaptainRequest::class, (object) $data);
 
         $response = $this->orderService->orderUpdateStateByCaptain($request);
-
+      
         return $this->response($response, self::UPDATE);
     }
 

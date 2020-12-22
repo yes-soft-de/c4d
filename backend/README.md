@@ -87,77 +87,21 @@ ROLE_CAPTAIN
 /captainprofile
 methods: GET
 ```
-#### Get Captainprofile By ID 
-
-ROLE_ADMIN
-```
-/captainprofile/id
-methods: GET
-```
-#### Get Owner Or Captain Inactive (pending) 
-
-ROLE_ADMIN
-userType: captain or owner.
-
-```
-/getUserInactive/userType
-methods: GET
-```
-
-#### Get captains state
-
-ROLE_ADMIN
-state: vacation or free or ongoing
-```
-/getCaptainsState/{state}
-methods: GET
-```
-
-#### dashboard Captains
-
-ROLE_ADMIN
-
-```
-/dashboardCaptains
-methods: GET
-```
 
 ### Package
-#### Create package
-ROLE_ADMIN
 
-status value :  active or inactive .
-
-```
-/package
-methods: POST
-```
 #### get Packages User Compatible
 ROLE_OWNER
 ```
 /packages
 methods: GET
 ```
-#### get All Packages
-ROLE_ADMIN
-```
-/getAllpackages
-methods: GET
-```
+
 #### get package By Id
 
 ```
 /getpackageById/id
 methods: GET
-```
-#### Update package
-ROLE_ADMIN
-
-status value :  active or inactive .
-
-```
-/package
-methods: PUT
 ```
 
 ### Subscription
@@ -176,35 +120,10 @@ ROLE_OWNER
 methods: GET
 ```
 
-#### Update Subscription
-ROLE_ADMIN
-
-status value :  active or inactive or finished or unaccept.
-```
-/subscription
-methods: PUT
-```
-
-#### Get subscriptions pending
-ROLE_ADMIN
-
-```
-/getSubscriptionsPending
-methods: GET
-```
-
 #### Get subscription by Id
 
 ```
 /getSubscriptionById/id
-methods: GET
-```
-
-#### Dashboard Contracts
-ROLE_ADMIN
-
-```
-/dashboardContracts
 methods: GET
 ```
 
@@ -256,10 +175,10 @@ methods: PUT
 #### Update order State By Captain
 ROLE_CAPTAIN
 
-state: ongoing or deliverd .
+state: picked or ongoing or deliverd .
 
 ```
-/orderUpdateStateByCaptain
+/orderUpdateState
 methods: PUT
 ```
 
@@ -269,30 +188,6 @@ ROLE_OWNER
 ```
 /order/id
 methods: DELETE
-```
-
-#### Count All Orders
-ROLE_ADMIN
-
-```
-/countAllOrders
-methods: DELETE
-```
-
-#### dashboard Orders
-ROLE_ADMIN
-
-```
-/dashboardOrders
-methods: GET
-```
-
-#### GetActiveOrders
-ROLE_ADMIN
-
-```
-/ongoingOrders
-methods: GET
 ```
 
 ### AcceptedOrder
@@ -335,6 +230,8 @@ methods: POST
 ```
 
 
+
+# ` dashboard `
 
 
 ### dashboard
@@ -442,6 +339,13 @@ methods: PUT
 
 ### Order
 
+#### Count All Orders
+
+```
+/countAllOrders
+methods: GET
+```
+
 ### Dashboard orders 
 
 ```
@@ -468,7 +372,7 @@ methods: GET
 status = active or inactive.
 
 ```
-/SubscriptionUpdateState
+/subscriptionUpdateState
 methods: PUT
 ```
 

@@ -54,13 +54,9 @@ class AcceptedOrderService
         return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $result);
     }
 
-    public function acceptedOrderUpdateStateByCaptain($request)
+    public function acceptedOrderUpdateStateByCaptain($orderId, $state)
     {
-        $result = $this->acceptedOrderManager->acceptedOrderUpdateStateByCaptain($request);
-
-        $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $result);
-        return $response;
-
+        return $this->acceptedOrderManager->acceptedOrderUpdateStateByCaptain($orderId, $state);
     }
 
     public function getAcceptedOrderByOrderId($orderId)

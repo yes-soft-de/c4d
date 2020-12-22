@@ -10,7 +10,7 @@ class OrderUpdateStateByCaptainRequest
 
     private $updateDate;
 
-     /**
+    /**
      * @return mixed
      */
     public function getId()
@@ -24,5 +24,13 @@ class OrderUpdateStateByCaptainRequest
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */ 
+    public function getState()
+    {
+        return $this->state;
     }
 }

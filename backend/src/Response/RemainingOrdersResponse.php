@@ -8,6 +8,7 @@ class RemainingOrdersResponse
     public $packagename;
     public $subscriptionID;
     public $remainingOrders;
+    public $totalOrder;
     public $subscriptionstatus;
     public $subscriptionStartDate;
     public $subscriptionEndDate;

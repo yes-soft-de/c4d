@@ -111,8 +111,13 @@ class OrderService
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
     {
         $item = $this->orderManager->orderUpdateStateByCaptain($request);
+      
+        $acceptedOrderUpdateState = $this->acceptedOrderService->acceptedOrderUpdateStateByCaptain($item->getId(), $request->getState());
+
         $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($item->getId());
+
         $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+
         $response->acceptedOrder =  $acceptedOrder;
         return $response;
     }
