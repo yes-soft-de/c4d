@@ -151,12 +151,16 @@ methods: GET
 ```
 #### Order status For Owner
 
+ROLE_OWNER
+
 ```
 /orderStatus/orderId
 methods: GET
 ```
 #### Get Pending Orders | orders that no captain has taken yet
+
 ROLE_CAPTAIN
+
 ```
 /closestOrders
 methods: GET
@@ -231,7 +235,7 @@ methods: POST
 
 
 
-# ` dashboard `
+# dashboard 
 
 
 ### dashboard

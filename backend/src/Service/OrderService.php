@@ -96,6 +96,11 @@ class OrderService
         foreach ($orders as $order) {
 
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
+// if ($order['acceptedOrder']) {
+//             if ($order['state'] == 'pending' & $order['acceptedOrder']['state'] == 'on way to pick order' ) {
+//                 $order['state'] == 'on way to pick order';
+//             }
+//         }
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
         return $response;
