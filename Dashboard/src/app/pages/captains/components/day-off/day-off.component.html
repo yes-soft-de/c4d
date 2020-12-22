@@ -1,0 +1,75 @@
+<div class="day-off" *ngIf="dayOffCaptains">
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">Day Off Captains</h1>
+    <div *ngIf="dayOffCaptains.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#ID</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Bounce</th>
+                                <th scope="col">Captain ID</th>
+                                <th scope="col">Car</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Rating</th>
+                                <th scope="col">Salary</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dayOffCaptain of dayOffCaptainsList | paginate: config">
+                                <th scope="row">{{dayOffCaptain.id}}</th>
+                                <th><img src="{{dayOffCaptain?.image}}" (error)="dayOffCaptain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{dayOffCaptain.name}} Image" class="img-thumbnail img-custom"></th>
+                                <th scope="row">{{dayOffCaptain.name ? dayOffCaptain.name : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.age ? dayOffCaptain.age : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.bounce ? dayOffCaptain.bounce : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.captainID ? dayOffCaptain.captainID : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.car ? dayOffCaptain.car : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.location ? dayOffCaptain.location : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.rating ? dayOffCaptain.rating : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.salary ? dayOffCaptain.salary : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.state ? dayOffCaptain.state : '-'}}</th>
+                                <th scope="row">{{dayOffCaptain.status ? dayOffCaptain.status : '-'}}</th>
+                                <th scrope="row">
+                                    <a routerLink="/captains/view/{{dayOffCaptain.id}}" class="text-success">View</a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="Prev"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="dayOffCaptains.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">There Isn't Day Off Captains To Show</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="dayOffCaptains == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

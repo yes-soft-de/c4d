@@ -1,0 +1,37 @@
+<div class="col-8 col-lg-6 mx-auto my-5">
+  <h1 class="text-center text-muted mb-3">Login Page</h1>
+  <div class="card">
+    <div class="cord-header"></div>
+    <div class="card-body">
+      <div class="alert alert-danger mb-0 my-2" [hidden]="!error">
+        {{ error }}
+      </div>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
+          <div class="col-sm-10">
+            <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="Username" [(ngModel)]="form.username" required>
+            <div class="alert alert-danger mb-0 mt-2" [hidden]="!errors['username']">
+              {{ errors['username'] }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" [(ngModel)]="form.password" required>
+            <div class="alert alert-danger mb-0 mt-2" [hidden]="!errors['password']">
+              {{ errors['password'] }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+            <small class="text-success m-2" *ngIf="process">Procressing ....</small>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

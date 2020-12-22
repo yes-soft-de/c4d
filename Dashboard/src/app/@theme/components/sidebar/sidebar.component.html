@@ -1,0 +1,55 @@
+
+        <!-- <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="/operations" class="nav-link waves-light" mdbWavesEffect>Swap Operations</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a *ngIf="loggedIn" class="nav-link waves-light" (click)="logout()">Logout</a>
+        </li> -->
+
+
+<div class="main-sidebar bg-light-blue" *ngIf="loggedIn">
+  <div class="sidebar-search p-3">
+    <form class="form-inline">
+      <label class="sr-only" for="inlineFormInputGroupUsername2">Search</label>
+      <div class="w-100 input-group mb-2 mr-sm-2">
+        <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Search">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-search fa-fw text-muted" aria-hidden="true"></i></div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="sidebar-menu py-5">
+    <div class="container">
+      <div id="accordion">
+        <div class="card" *ngFor="let menu of menus; let i = index">
+            <div class="card-header" id="{{menu.id + '-' + i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link {{ i != 0 ? 'collapsed' : ''}}" data-toggle="collapse" [attr.data-target]="'#' + menu.id"  aria-expanded="true" [attr.aria-controls]="menu.id">
+                  {{menu.title}}
+                  <i class="fa fa-angle-down fa-lg fa-fw"></i>
+                  <i class="fa fa-angle-up fa-lg fa-fw"></i>
+                </button>
+              </h5>
+            </div>
+            <div id="{{menu.id}}" class="collapse bg-light-blue text-white {{ i == 0 ? 'show' : ''}}" [attr.aria-labelledby]="menu.id + '-' + i" data-parent="#accordion">
+              <div class="card-body">
+                <p *ngFor="let item of menu.children">
+                  <a (click)="clicked(item.value)" routerLink="{{item.link}}">{{item.title}}</a>
+                </p>
+              </div>
+            </div>
+        </div><!--.card-->        
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <button class="btn btn-link" (click)="logout()">
+                Logout
+              </button>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div><!--.container-->
+  </div><!--.sidebar-menu-->
+</div>        

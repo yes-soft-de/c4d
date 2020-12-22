@@ -1,0 +1,67 @@
+<div class="pending-contracts" *ngIf="pendingContracts">
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">Pending Contracts</h1>
+    <div *ngIf="pendingContracts.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#ID</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Package Name</th>
+                            <th scope="col">Package Note</th>
+                            <th scope="col">Subscription Note</th>
+                            <th scope="col">Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pendingContract of pendingContractsList | paginate: config">
+                                <th scope="row">{{pendingContract.id}}</th>
+                                <th scope="row">{{pendingContract.userName ? pendingContract.userName : '-'}}</th>
+                                <th scope="row">{{pendingContract.status ? pendingContract.status : '-'}}</th>
+                                <th scope="row">{{pendingContract.startDate ? (pendingContract.startDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <th scope="row">{{pendingContract.endDate ? (pendingContract.endDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <th scope="row">{{pendingContract.packageName ? pendingContract.packageName : '-'}}</th>
+                                <th scope="row">{{pendingContract.packageNote ? pendingContract.packageNote : '-'}}</th>
+                                <th scope="row">{{pendingContract.subscriptionNote ? pendingContract.subscriptionNote : '-'}}</th>
+                                <th scrope="row">
+                                    <a routerLink="/contracts/view/{{pendingContract.id}}" class="text-success">View</a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="Prev"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="pendingContracts.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">There Isn't Pending Contracts To Show</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="pendingContracts == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

@@ -1,0 +1,33 @@
+<div class="contract-details mb-5" *ngIf="contractDetails">
+    <div class="container-fluid">
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">Contract Details</h1>    
+        <div class="row w-100 mx-auto mb-1">
+            <div class="col-12 col-md-8 align-self-center">
+                <p class="mb-0">User Name <span>{{contractDetails.userName}}</span></p>
+            </div>
+            <div class="col-12 col-md-4 align-self-center text-center">
+                <div class="order-chat mx-auto p-1">
+                    <span>Accept:</span>
+                    <button *ngIf="contractDetails.status == 'inactive'" (click)="acceptContract('active', contractDetails.id)" class="ml-sm-2 ml-md-4 btn bg-light-blue text-white w-25 py-0 font-weight-bold" [disabled]="!active">
+                        Yes     
+                    </button>
+                    <button *ngIf="contractDetails.status == 'active'" (click)="acceptContract('inactive', contractDetails.id)" class="ml-sm-2 ml-md-4 btn bg-light-blue text-white w-25 py-0 font-weight-bold" [disabled]="!active">
+                        No     
+                    </button>
+                </div>
+            </div>
+        </div><!--.row-->
+        <p class="ml-sm-2 ml-md-4 mb-1">Status : <span>{{contractDetails?.status}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Package Name : <span>{{contractDetails?.packageName}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Package Note : <span>{{contractDetails?.packageNote}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Start Date : <span>{{contractDetails?.startDate ? (contractDetails?.startDate.timestamp * 1000 | date:  'yyyy-MM-dd') : '-'}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">End Date : <span>{{contractDetails?.endDate ? (contractDetails?.endDate.timestamp * 1000 | date:  'yyyy-MM-dd') : '-'}}</span></p>
+        <div>
+            <p class="ml-sm-2 ml-md-4 mb-1">Note: </p>    
+            <textarea #textarea class="col-11 ml-sm-2 ml-md-4 mb-1 form-control">{{contractDetails?.subscriptionNote}}</textarea>
+        </div>
+    </div><!--.container-fluid-->
+</div>
+<div *ngIf="contractDetails == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

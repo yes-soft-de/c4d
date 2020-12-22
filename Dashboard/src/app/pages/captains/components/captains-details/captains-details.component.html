@@ -1,0 +1,40 @@
+<div class="captain-details mb-5" *ngIf="captainDetails">
+    <div class="container-fluid">
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">Captain Details</h1>
+        <div class="row w-100 mx-auto mb-3">
+            <div class="col-12 col-md-8">
+                <div class="captain-details-image">
+                    <div class="row w-100 mx-auto">
+                        <div class="col-5">
+                            <div class="captain-image mx-auto">
+                                <img class="img-responsive rounded-circle" src="{{captainDetails?.image}}" (error)="captainDetails.image = '../../../../../assets/default-avatar.jpg'" alt="captain image">
+                            </div>
+                        </div>
+                        <div class="col-7 align-self-center">
+                            <p class="text-light-blue">{{captainDetails?.name}}</p>
+                        </div>
+                    </div>
+                </div><!--.captain-details-image-->
+            </div>
+            <div class="col-12 col-md-4 align-self-center text-center">
+                <div class="captain-chat mx-auto p-1">
+                    <i class="fa fa-commenting fa-fw fa-lg text-grey-blue"></i>
+                    <a class="font-weight-bold" routerLink="">Chat With Captain</a>
+                </div>
+            </div>
+        </div><!--.row-->
+        <p class="ml-sm-2 ml-md-4 mb-1">Driving Licence ID : <span>{{captainDetails?.drivingLicence}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Captain ID : <span>{{captainDetails?.captainID}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Age : <span>{{captainDetails?.age}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Car : <span>{{captainDetails?.car}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1"><strong>Salary: </strong> <span class="salary border border-dark rounded px-2">{{captainDetails?.salary}} $</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1"><strong>Bounce: </strong> <span class="bounce border border-dark rounded px-2">{{captainDetails?.bounce.bounce}} $</span></p>
+        <button class="mt-2 ml-sm-2 ml-md-4 btn bg-light-blue text-white w-25 py-0 font-weight-bold">
+            <i class="fa fa-dot-circle-o fa-fw fa-lg"></i>
+            tracking
+        </button>
+    </div><!--.container-fluid-->
+</div>
+<div *ngIf="captainDetails == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

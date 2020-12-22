@@ -1,0 +1,18 @@
+.captain-details {
+    .captain-details-image {
+        .captain-image {
+            width: 180px;
+            border-radius: 50%;
+            height: 180px;
+            padding: 4px;
+            border: 13px solid #21a5b8;
+            img { border: 5px solid #076370; }
+        }
+        p { font-size: 2rem; }
+    }
+    .captain-chat { width: max-content; border: 2px solid #21a5b8; border-radius: 5px;
+        a { color: #000; }
+    }
+    .salary, .bounce { display: inline-block; width: 160px; }
+    button { letter-spacing: .05rem; }
+}

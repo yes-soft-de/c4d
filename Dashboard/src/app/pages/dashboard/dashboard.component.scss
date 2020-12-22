@@ -1,0 +1,13 @@
+.dashboard {
+  .dashboard-titles {
+    .nav-tabs { border: none; }
+    .nav-item {
+      width: 25%;
+      text-align: center;
+      align-self: center;
+      .nav-link { font-size: 1.8rem; background-color: #dbdbdb; border: none; 
+        &:hover, &.active { color: #fff; background-color: #21a5b8; }
+      }
+    }
+  }
+}

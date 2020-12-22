@@ -1,0 +1,85 @@
+
+      <div class="orders-dashboard mb-5">
+        <div class="row">
+            <div class="col-12 col-md-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+                <div class="card-number text-light-blue">{{countpendingOrders}}</div>
+                <span class="text-white">Pending</span>
+              </div>
+            </div>  
+            <div class="col-12 col-md-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+                <div class="card-number text-light-blue">{{countOngoingOrders}}</div>
+                <span class="text-white">Ongoing</span>
+              </div>
+            </div>  
+            <div class="col-12 col-md-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+                <div class="card-number text-light-blue">{{countCancelledOrders}}</div>
+                <span class="text-white">Cancelled</span>
+              </div>
+            </div>      
+          </div>
+        <div class="dashboard-table mt-5">
+          <div class="card border-0 text-white">
+            <div class="card-header bg-light-blue py-2">
+              Active Orders
+            </div>
+            <div class="card-body table-responsive bg-light-blue text-center">
+              <table class="table" *ngIf="orders.length != 0">
+                <thead>
+                  <tr>
+                    <th scope="col">#ID</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">AcceptedOrderDate</th>
+                    <th scope="col">CaptainID</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">DrivingLicence</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">OrderDate</th>
+                    <th scope="col">OwnerID</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">RecipientName</th>
+                    <th scope="col">RecipientPhone</th>
+                    <th scope="col">Source</th>
+                    <th scope="col">State</th>
+                    <th scope="col">UpdateOrderDate</th>
+                    <th scope="col">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let order of orders.reverse(); let i = index">
+                        <ng-container *ngIf="i < latestOrdersNumber">
+                            <tr>
+                                <th scope="row">{{order.orderID}}</th>
+                                <th><img src="{{order?.image}}" (error)="order.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{order.name}} Image" class="img-thumbnail img-custom"></th>                              
+                                <th scope="row">{{order.name ? order.name : '-'}}</th>
+                                <th scope="row">{{order.acceptedOrderDate ? (order.acceptedOrderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <th scope="row">{{order.captainID ? order.captainID : '-'}}</th>
+                                <th scope="row">{{order.destination ? order.destination : '-'}}</th>
+                                <th scope="row">{{order.drivingLicence ? order.drivingLicence : '-'}}</th>
+                                <!-- <th scope="row">{{order.duration ? order.duration : '-'}}</th> -->
+                                <th scope="row">{{order.duration ? (order.duration.timestamp * 1000 | date: 'H:mm:ss':'UTC') : '-'}}</th>
+                                <th scope="row">{{order.orderDate ? (order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <th scope="row">{{order.ownerID ? order.ownerID : '-'}}</th>
+                                <th scope="row">{{order.payment ? order.payment : '-'}}</th>
+                                <th scope="row">{{order.recipientName ? order.recipientName : '-'}}</th>
+                                <th scope="row">{{order.recipientPhone ? order.recipientPhone : '-'}}</th>
+                                <th scope="row">{{order.source ? order.source : '-'}}</th>
+                                <th scope="row">{{order.state ? order.state : '-'}}</th>
+                                <!-- <th scope="row">{{order.updateOrderDate ? order.updateOrderDate : '-'}}</th> -->
+                                <td>{{order.updateOrderDate ? (order.updateOrderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</td>
+                                <th scope="row">{{order.note ? order.note : '-'}}</th>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+              </table>
+                <div class="text-center" *ngIf="orders.length == 0">
+                    <p scope="row">There isn't any Active orders To Show.</p>
+                </div >
+            </div>
+          </div><!--.card-->
+        </div>
+      </div>

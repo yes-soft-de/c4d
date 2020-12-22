@@ -1,0 +1,44 @@
+<div class="dashboard">
+  <div class="container-fluid">
+    <h1 id="header" class="text-grey-blue font-weight-bold pt-3 mb-5">Dashboard</h1>
+    <div class="dashboard-titles mb-5">
+      <ul class="nav nav-tabs">
+        <li class="nav-item mx-auto bg-grey">
+            <a id="captain" class="nav-link text-light-blue active" data-toggle="tab" href="#captains-dashboard">Captains</a>
+        </li>
+        <li class="nav-item mx-auto bg-grey">
+            <a id="order" class="nav-link text-light-blue" data-toggle="tab" href="#orders-dashboard">Orders</a>
+        </li>
+        <li class="nav-item mx-auto bg-grey">
+          <a id="contract" class="nav-link text-light-blue" data-toggle="tab" href="#contracts-dashboard">Contracts</a>
+        </li>
+      </ul>
+    </div><!--.dashboard-titles-->
+    <div class="dashboard-title-content mb-5 tab-content">
+      <div id="captains-dashboard" class="tab-pane active"><br>
+        <app-captains-dashboard></app-captains-dashboard>
+      </div>
+      <div id="orders-dashboard" class="tab-pane fade"><br>
+        <app-orders-dashboard></app-orders-dashboard>
+      </div>
+      <div id="contracts-dashboard" class="tab-pane fade"><br>
+        <app-contracts-dashboard></app-contracts-dashboard>
+      </div>
+    </div><!--.dashboard-title-content-->
+  </div>
+</div>
+<!-- <div *ngIf="users == null">
+  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div> -->
+
+<!--<div *ngIf="artists == null || paintings == null" class="w-100">-->
+<!--  &lt;!&ndash;  <h3 class="text-center text-primary">Loading Stats!</h3>&ndash;&gt;-->
+<!--  <div class="lds-ring">-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--    <div></div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!-- <app-footer></app-footer> -->

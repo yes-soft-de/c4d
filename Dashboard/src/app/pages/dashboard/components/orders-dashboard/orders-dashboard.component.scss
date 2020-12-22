@@ -1,0 +1,26 @@
+// .dashboard-title-content {
+    .card {
+        .card-number {
+          margin: 2rem 2rem 0;
+          background: #fff;
+          border-radius: 50%;
+          width: 150px;
+          height: 150px;
+          font-size: 3rem;
+          font-weight: bolder;
+          line-height: 150px;
+          align-self: center;
+          overflow: hidden;
+        }
+        span { font-size: 1.8rem; }
+      }
+  //   }
+    .dashboard-title-content,
+    .dashboard-table {
+      .card {
+        box-shadow: 1px 1px 12px rgba(0,0,0,.1), 
+                    -1px -1px 12px rgba(0,0,0,.1);
+        border-radius: 15px;
+        .table td, .table th { border: none; padding: .3rem; }
+      }
+    }

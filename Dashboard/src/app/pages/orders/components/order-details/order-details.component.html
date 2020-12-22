@@ -1,0 +1,28 @@
+<div class="order-details mb-5" *ngIf="orderDetails">
+    <div class="container-fluid">
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">Order Details</h1>    
+        <p class="ml-sm-2 ml-md-4 mb-1">Recipient Name : <span>{{orderDetails?.recipientName}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Recipient Phone : <span>{{orderDetails?.recipientPhone}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">From Branch : <span>{{orderDetails?.fromBranch}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Source : <span>{{orderDetails?.source}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">State : <span>{{orderDetails?.state}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Payment Method : <span>{{orderDetails?.payment}}</span></p>
+        <p class="ml-sm-2 ml-md-4 my-2">Destination : <span class="mr-2 border rounded px-1" *ngFor="let destinate of orderDetails.destination">{{destinate}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">Update Date : <span>{{orderDetails.updateDate ? (orderDetails.updateDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</span></p>
+        <p class="ml-sm-2 ml-md-4 my-3"><strong>Note : </strong> <span>{{orderDetails?.note}}</span></p>        
+        <div class="row w-100 mx-auto mb-3">
+            <div class="col-12 col-md-8">
+                <p>Picked Up The Order Since <span>{{orderDetails.date ? (orderDetails.date.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</span></p>
+            </div>
+            <div class="col-12 col-md-4 align-self-center text-center">
+                <div class="order-chat mx-auto p-1">
+                    <i class="fa fa-commenting fa-fw fa-lg text-grey-blue"></i>
+                    <a class="font-weight-bold" routerLink="">Chat With Order</a>
+                </div>
+            </div>
+        </div><!--.row-->
+    </div><!--.container-fluid-->
+</div>
+<div *ngIf="orderDetails == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

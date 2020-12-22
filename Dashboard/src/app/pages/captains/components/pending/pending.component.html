@@ -1,0 +1,75 @@
+<div class="pending-captains" *ngIf="pendingCaptains">
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">Pending Captains</h1>
+    <div *ngIf="pendingCaptains.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#ID</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Bounce</th>
+                            <!-- <th scope="col">Captain ID</th> -->
+                            <th scope="col">Car</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Salary</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pendingCaptain of pendingCaptainsList | paginate: config">
+                                <th scope="row">{{pendingCaptain.id}}</th>
+                                <th><img src="{{pendingCaptain?.image}}" (error)="pendingCaptain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{pendingCaptain.name}} Image" class="img-thumbnail img-custom"></th>
+                                <th scope="row">{{pendingCaptain.name ? pendingCaptain.name : '-'}}</th>
+                                <th scope="row">{{pendingCaptain.age ? pendingCaptain.age : '-'}}</th>
+                                <th scope="row">{{pendingCaptain.bounce ? pendingCaptain.bounce : '-'}}</th>
+                                <!-- <th scope="row">{{pendingCaptain.captainID ? pendingCaptain.captainID : '-'}}</th> -->
+                                <th scope="row">{{pendingCaptain.car ? pendingCaptain.car : '-'}}</th>
+                                <th scope="row">{{pendingCaptain.location ? pendingCaptain.location : '-'}}</th>
+                                <th scope="row">{{pendingCaptain.rating ? pendingCaptain.rating : '-'}}</th>
+                                <th scope="row">{{pendingCaptain.salary ? pendingCaptain.salary : '-'}}</th>
+                                <th scope="row">{{pendingCaptain.state ? pendingCaptain.state : '-'}}</th>
+                                <th scope="row">{{pendingCaptain.status ? pendingCaptain.status : '-'}}</th>
+                                <th scrope="row">
+                                    <a routerLink="/captains/view/{{pendingCaptain.id}}" class="text-success">View</a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="Prev"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="pendingCaptains.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">There Isn't Pending Captains To Show</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="pendingCaptains == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

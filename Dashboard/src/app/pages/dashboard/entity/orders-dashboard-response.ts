@@ -1,0 +1,10 @@
+import { OrdersDashboard } from "./order-dashboard";
+
+export interface OrdersDashboardResponse {
+    Data: [
+        { countpendingOrders: number; },
+        { countOngoingOrders: number; },
+        { countCancelledOrders: number; },
+        OrdersDashboard
+    ];
+}
