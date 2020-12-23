@@ -124,6 +124,10 @@
               "devServerTarget": "c4d-dashboard:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
