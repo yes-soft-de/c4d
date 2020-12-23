@@ -145,4 +145,17 @@ class SubscriptionController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * @Route("subscripeNewUsers/{year}/{month}", name="getCountSubscripeNewUsersInThisMonth",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function subscripeNewUsers($year, $month)
+    {
+        $result = $this->subscriptionService->subscripeNewUsers($year, $month);
+
+        return $this->response($result, self::FETCH);
+    }
 }

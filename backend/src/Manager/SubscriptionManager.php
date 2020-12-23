@@ -110,4 +110,9 @@ class SubscriptionManager
     {
         return $this->subscribeRepository->getRemainingOrders($ownerID);
     }
+
+    public function subscripeNewUsers($fromDate, $toDate)
+    {
+        return $this->subscribeRepository->subscripeNewUsers($fromDate, $toDate);
+    }
 }

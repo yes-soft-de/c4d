@@ -121,6 +121,18 @@ class SubscriptionService
         return $response;
      }
 
+    public function subscripeNewUsers($year, $month)
+    {
+       
+        $fromDate =new \DateTime($year . '-' . $month . '-01'); 
+        $toDate = new \DateTime($fromDate->format('Y-m-d') . ' 1 month');
+
+        $newUsres = $this->subscriptionManager->subscripeNewUsers($fromDate, $toDate);
+       
+        return $this->autoMapping->map('array', SubscriptionResponse::class, $newUsres);
+       
+     }
+
     public function dashboardContracts()
     {
         $response = [];

@@ -380,6 +380,16 @@ status = active or inactive.
 methods: PUT
 ```
 
+### Get Count Subscripe New Users In This Month
+
+year = 2020 .
+month = 05.
+
+```
+subscripeNewUsers/{year}/{month}
+methods: GET
+```
+
 
 
 

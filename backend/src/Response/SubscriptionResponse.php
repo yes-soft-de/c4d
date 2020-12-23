@@ -17,4 +17,6 @@ class SubscriptionResponse
     public $status;
 
     public $note;
+
+    public $NewUsersThisMonth;
 }

@@ -147,4 +147,20 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+    
+    public function subscripeNewUsers($fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('subscription')
+
+            ->select('count(subscription.id) as NewUsersThisMonth')
+
+            ->where('subscription.startDate >= :fromDate')
+            ->andWhere('subscription.startDate < :toDate')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
