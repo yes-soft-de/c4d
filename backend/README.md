@@ -64,6 +64,9 @@ methods: PUT
 methods: GET
 ```
 #### Get remaining orders for specific owner
+
+ROLE_OWNER
+
 ```
 /remainingOrders
 methods: GET
@@ -75,7 +78,7 @@ methods: GET
 methods: POST
 ```
 #### Update captain profile 
-send value id within the postman body .
+
 ```
 /captainprofile
 methods: PUT
@@ -256,6 +259,13 @@ methods: PUT
 ```
 /userprofileByID/{id}
 methods: GET
+```
+
+### captain profile Update By Admin
+
+```
+/captainprofileUpdateByAdmin
+methods: PUT
 ```
 
 ### get captain profile by captainProfileId

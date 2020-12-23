@@ -7,6 +7,7 @@ use App\Request\UserProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
 use App\Request\CaptainProfileCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
+use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
 use App\Service\UserService;
@@ -158,6 +159,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/captainprofile", name="captainprofileCreate", methods={"POST"})
+     * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
      */
@@ -183,6 +185,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/captainprofile", name="captainprofileUpdate", methods={"PUT"})
+     * @IsGranted("ROLE_CAPTAIN")
      * @param Request $request
      * @return JsonResponse
      */
@@ -192,7 +195,40 @@ class UserController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, CaptainProfileUpdateRequest::class, (object)$data);
 
-        $response = $this->userService->captainprofileUpdate($request);
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->userService->captainprofileUpdate($request, $this->getUserId());
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * @Route("/captainprofileUpdateByAdmin", name="captainprofileUpdateByAdmin", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function captainprofileUpdateByAdmin(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, CaptainProfileUpdateByAdminRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->userService->captainprofileUpdateByAdmin($request);
 
         return $this->response($response, self::UPDATE);
     }

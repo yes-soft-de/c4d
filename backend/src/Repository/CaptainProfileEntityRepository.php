@@ -45,6 +45,16 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getByCaptainIDForUpdate($captainID)
+    {
+        return $this->createQueryBuilder('captainProfile')
+
+            ->andWhere('captainProfile.captainID = :captainID')
+            ->setParameter('captainID', $captainID)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getCaptainprofileByID($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')

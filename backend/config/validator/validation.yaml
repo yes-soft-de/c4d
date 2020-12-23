@@ -113,6 +113,34 @@ App\Request\userProfileUpdateByAdminRequest:
     free:
       - NotBlank: ~
 
+App\Request\CaptainProfileUpdateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
+    age:
+      - NotBlank: ~
+    car:
+      - NotBlank: ~
+    drivingLicence:
+      - NotBlank: ~
+    state:
+      - NotBlank: ~
+
+App\Request\CaptainProfileUpdateByAdminRequest:
+  properties:
+    captainID:
+      - NotBlank: ~
+    salary:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    bounce:
+      - NotBlank: ~
+
 App\Request\OrderCreateRequest:
   properties:
     destination:

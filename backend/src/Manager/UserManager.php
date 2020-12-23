@@ -13,6 +13,7 @@ use App\Request\UserProfileCreateRequest;
 use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
+use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -137,12 +138,23 @@ class UserManager
         }
     }
 
-    public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
+    public function captainprofileUpdate(CaptainProfileUpdateRequest $request, $captainID)
     {
-        $item = $this->captainProRepository->find($request->getId());
-        $request->setCaptainID($item->getCaptainID());
+        $item = $this->captainProRepository->getByCaptainIDForUpdate($captainID);
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function captainprofileUpdateByAdmin(CaptainProfileUpdateByAdminRequest $request)
+    {
+        $item = $this->captainProRepository->getByCaptainIDForUpdate($request->getCaptainID());
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(CaptainProfileUpdateByAdminRequest::class, CaptainProfileEntity::class, $request, $item);
             $this->entityManager->flush();
             $this->entityManager->clear();
 

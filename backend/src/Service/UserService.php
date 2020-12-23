@@ -12,6 +12,7 @@ use App\Request\UserProfileUpdateRequest;
 use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
+use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
 use App\Response\UserProfileCreateResponse;
 use App\Response\CaptainProfileCreateResponse;
@@ -113,9 +114,16 @@ class UserService
        
     }
 
-    public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
+    public function captainprofileUpdate(CaptainProfileUpdateRequest $request, $captainID)
     {
-        $item = $this->userManager->captainprofileUpdate($request);
+        $item = $this->userManager->captainprofileUpdate($request, $captainID);
+
+        return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
+    }
+
+    public function captainprofileUpdateByAdmin(CaptainProfileUpdateByAdminRequest $request)
+    {
+        $item = $this->userManager->captainprofileUpdateByAdmin($request);
 
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
