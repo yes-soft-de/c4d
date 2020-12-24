@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "yes-soft-6866a": {
+      "hosting": {
+        "c4d-dashboard": [
+          "yes-soft-6866a"
+        ]
+      }
+    }
+  }
+}
