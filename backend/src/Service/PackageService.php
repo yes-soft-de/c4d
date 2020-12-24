@@ -13,10 +13,10 @@ class PackageService
     private $autoMapping;
     private $packageManager;
 
-    public function __construct(AutoMapping $autoMapping, PackageManager $carManager)
+    public function __construct(AutoMapping $autoMapping, PackageManager $packageManager)
     {
         $this->autoMapping = $autoMapping;
-        $this->packageManager = $carManager;
+        $this->packageManager = $packageManager;
     }
 
     public function create(PackageCreateRequest $request)
