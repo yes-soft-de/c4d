@@ -1,0 +1,9 @@
+
+app_identifier("de.yes-soft.c4d") # The bundle identifier of your app
+apple_id("hamoudassan@gmail.com") # Your Apple email address
+
+itc_team_id("121815669") # App Store Connect Team ID
+team_id("T2W84AMYWD") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

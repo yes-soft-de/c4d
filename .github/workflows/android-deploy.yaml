@@ -1,0 +1,83 @@
+name: Android Deploy
+
+on:
+  push:
+    branches: 
+      - 'release-v*'
+
+jobs:
+  deploy-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "1.22.4"
+          channel: "stable"
+
+      - name: Install NDK
+        run: echo "y" | sudo /usr/local/lib/android/sdk/tools/bin/sdkmanager --install "ndk;21.0.6113669" --sdk_root=${ANDROID_SDK_ROOT}
+
+      - name: Configure Keystore
+        run: |
+          cd ./swaptime_flutter/android
+          echo "$ANDROID_KEYSTORE_FILE" > key.jks.b64
+          base64 -d -i key.jks.b64 > ../key.jks
+          echo "storeFile=../../key.jks" > key.properties
+          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
+          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
+          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+          ls
+        env:
+          ANDROID_KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+
+      - name: Firebase Key
+        run: |
+          cd ./swaptime_flutter/android
+          echo "$FIREBASE_CONFIG" > firebase.json.b64
+          base64 -d -i firebase.json.b64 > app/google-services.json
+        env:
+          FIREBASE_CONFIG: ${{secrets.FIREBASE_CONFIG}}
+
+      - name: Get Flutter Packages tools
+        run: |
+          cd ./swaptime_flutter
+          flutter pub upgrade
+
+      - name: Install bundle
+        run: |
+          cd ./swaptime_flutter/android
+          gem install bundler
+          bundle update --bundler
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Distribute app to Alpha track 🚀
+        run: |
+          cd swaptime_flutter/android
+          bundle exec fastlane alpha
+
+      - name: Create release and upload apk
+        uses: underwindfall/create-release-with-debugapk@v2.0.0
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          asset_path: swaptime_flutter/build/app/outputs/flutter-apk/app-release.apk
+          asset_name: Swap.apk
+          asset_content_type: application/zip
+          tag_name: ${{ github.ref }}
