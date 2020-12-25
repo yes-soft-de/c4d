@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: php-apache
-        image: gcr.io/yescloud/galaxyback
+        image: gcr.io/pc-api-6479467557629758909-343/c4d
         ports:
         - containerPort: 80
         volumeMounts:
