@@ -21,7 +21,7 @@ spec:
         app: apache
     spec:
       containers:
-        - image: gcr.io/pc-api-6479467557629758909-343/github_yes-soft-de_c4d
+        - image: gcr.io/pc-api-6479467557629758909-343/github.com/yes-soft-de/c4d
           imagePullPolicy: Always
           name: php-apache
           ports:
