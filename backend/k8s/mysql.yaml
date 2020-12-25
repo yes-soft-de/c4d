@@ -1,0 +1,67 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: galaxy
+spec:
+  selector:
+    matchLabels:
+      app: mysql8
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql8
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: sweetpwd.
+        - name: MYSQL_DATABASE
+          value: my_db
+        - name: MYSQL_USER
+          value: db_user
+        - name: MYSQL_PASSWORD
+          value: mypwd
+        args: ["--default-authentication-plugin=mysql_native_password"]
+        ports:
+        - containerPort: 3306
+          name: mysql8
+        volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: galaxy
+  labels:
+    app: mysql8
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi #5 GB
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql8-service
+  namespace: galaxy
+  labels:
+    app: mysql8
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+  selector:
+    app: mysql8
