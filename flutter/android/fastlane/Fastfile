@@ -1,0 +1,21 @@
+default_platform(:android)
+platform :android do
+  desc "Submit a new build to alpha Track on Play"
+  lane :alpha do
+    gradle(
+      gradle_path: "/usr/bin/gradle",
+      task: "assemble",
+      build_type: 'Debug'
+    )
+    gradle(
+      gradle_path: "/usr/bin/gradle",
+      task: "assemble",
+      build_type: 'Profile'
+    )
+    gradle(
+      gradle_path: "/usr/bin/gradle",
+      task: "assemble",
+      build_type: 'Release'
+    )
+  end
+end
