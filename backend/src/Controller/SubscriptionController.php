@@ -112,6 +112,7 @@ class SubscriptionController extends BaseController
     
     /**
      * @Route("getSubscriptionById/{id}", name="getSubscriptionById", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
     public function getSubscriptionById($id)

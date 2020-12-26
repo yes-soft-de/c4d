@@ -123,13 +123,6 @@ ROLE_OWNER
 methods: GET
 ```
 
-#### Get subscription by Id
-
-```
-/getSubscriptionById/id
-methods: GET
-```
-
 ### Order
 #### Create Order
 ROLE_OWNER
@@ -387,6 +380,15 @@ methods: GET
 /getSubscriptionsPending
 methods: GET
 ```
+
+
+#### Get subscription by Id
+
+```
+/getSubscriptionById/id
+methods: GET
+```
+
 
 ### Subscription update
 
