@@ -2,7 +2,9 @@ import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_scre
 import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:inject/inject.dart';
 
+@provide
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();

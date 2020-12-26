@@ -1,10 +1,11 @@
 
 import 'package:c4d/module_orders/ui/screens/map/map_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
-import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:inject/inject.dart';
 
+@provide
 class OrderStatusForCaptainScreen extends StatefulWidget {
   @override
   _OrderStatusForCaptainScreenState createState() => _OrderStatusForCaptainScreenState();

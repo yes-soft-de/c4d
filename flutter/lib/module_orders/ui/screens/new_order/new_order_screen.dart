@@ -2,8 +2,10 @@ import 'package:c4d/module_orders/ui/screens/owner_orders/owner_orders_screen.da
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:inject/inject.dart';
 
 
+@provide
 class NewOrderScreen extends StatefulWidget {
   @override
   _NewOrderScreenState createState() => _NewOrderScreenState();

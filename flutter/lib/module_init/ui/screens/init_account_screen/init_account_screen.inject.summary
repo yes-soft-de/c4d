@@ -1,0 +1,26 @@
+{
+  "asset": "asset:c4d/lib/module_init/ui/screens/init_account_screen/init_account_screen.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "InitAccountScreen",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:c4d/lib/module_init/ui/screens/init_account_screen/init_account_screen.dart#InitAccountScreen",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": []
+        }
+      }
+    ]
+  }
+}

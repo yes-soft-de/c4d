@@ -4,7 +4,9 @@ import 'package:c4d/module_orders/ui/screens/order_status_for_owner/order_status
 import 'package:c4d/module_orders/ui/widgets/owner_order_card/owner_order_card.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:inject/inject.dart';
 
+@provide
 class OwnerOrdersScreen extends StatefulWidget {
   @override
   _OwnerOrdersScreenState createState() => _OwnerOrdersScreenState();

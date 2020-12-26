@@ -1,0 +1,26 @@
+{
+  "asset": "asset:c4d/lib/module_orders/ui/screens/owner_orders/owner_orders_screen.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "OwnerOrdersScreen",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:c4d/lib/module_orders/ui/screens/owner_orders/owner_orders_screen.dart#OwnerOrdersScreen",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": []
+        }
+      }
+    ]
+  }
+}

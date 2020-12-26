@@ -1,8 +1,9 @@
 
-import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:inject/inject.dart';
 
+@provide
 class MapScreen extends StatefulWidget {
   @override
   _MapScreenState createState() => _MapScreenState();

@@ -1,5 +1,5 @@
 {
-  "asset": "asset:anime_galaxy/lib/di/components/app.component.dart",
+  "asset": "asset:c4d/lib/di/components/app.component.dart",
   "summary": {
     "injector": [
       {
@@ -10,7 +10,7 @@
             "kind": "getter",
             "injectedType": {
               "lookupKey": {
-                "root": "asset:anime_galaxy/lib/main.dart#MyApp",
+                "root": "asset:c4d/lib/main.dart#MyApp",
                 "qualifier": null
               },
               "isProvider": false
