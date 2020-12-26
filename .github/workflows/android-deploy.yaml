@@ -78,6 +78,6 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           asset_path: flutter/build/app/outputs/flutter-apk/app-release.apk
-          asset_name: Swap.apk
+          asset_name: C4D.apk
           asset_content_type: application/zip
           tag_name: ${{ github.ref }}
