@@ -2,7 +2,9 @@
 import 'package:c4d/module_orders/ui/screens/order_status_for_captain/order_status_for_captain_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
 import 'package:flutter/material.dart';
+import 'package:inject/inject.dart';
 
+@provide
 class OrdersScreen extends StatefulWidget {
   @override
   _OrdersScreenState createState() => _OrdersScreenState();

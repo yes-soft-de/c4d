@@ -3,7 +3,9 @@ import 'package:c4d/module_orders/ui/screens/owner_orders/owner_orders_screen.da
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:inject/inject.dart';
 
+@provide
 class InitAccountScreen extends StatefulWidget {
   @override
   _InitAccountScreenState createState() => _InitAccountScreenState();

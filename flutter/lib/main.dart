@@ -1,5 +1,7 @@
-import 'dart:io';
 
+import 'package:c4d/module_authorization/authoriazation_module.dart';
+import 'package:c4d/module_init/init_account_module.dart';
+import 'package:c4d/module_orders/orders_module.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,12 +13,13 @@ import 'package:inject/inject.dart';
 
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
+import 'module_authorization/authorization_routes.dart';
 
 typedef Provider<T> = T Function();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+//  await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) async {
@@ -27,42 +30,14 @@ void main() async {
 
 @provide
 class MyApp extends StatefulWidget {
-//  final ChatModule _chatModule;
-//  final CameraModule _cameraModule;
-//  final AuthModule _authModule;
-//  final AuthService _authService;
-//  final ProfileModule _profileModule;
-//  final LocalizationService _localizationService;
-//  final SwapThemeDataService _swapThemeService;
-//  final HomeModule _homeModule;
-//  final AnimeModule _animeModule;
-//  final NotificationModule _notificationModule;
-//  final AccountModule _accountModule;
-//  final MainScreenModule _mainScreenModule;
-//  final SettingModule _settingModule;
-//  final ExploreModule _exploreModule;
-//  final EpisodeModule _episodeModule;
-//  final ErrorModule _errorModule;
-//  final SearchModule _searchModule;
+  final InitAccountModule _initAccountModule;
+  final AuthorizationModule _authorizationModule;
+  final OrdersModule _ordersModule;
 
   MyApp(
-//      this._chatModule,
-//      this._cameraModule,
-//      this._authModule,
-//      this._errorModule,
-//      this._profileModule,
-//      this._localizationService,
-//      this._swapThemeService,
-//      this._authService,
-//      this._homeModule,
-//      this._animeModule,
-//      this._notificationModule,
-//      this._accountModule,
-//      this._mainScreenModule,
-//      this._settingModule,
-//      this._exploreModule,
-//      this._episodeModule,
-//      this._searchModule,
+      this._ordersModule,
+      this._authorizationModule,
+      this._initAccountModule,
       );
 
   @override
@@ -70,9 +45,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+//  static FirebaseAnalytics analytics = FirebaseAnalytics();
+//  static FirebaseAnalyticsObserver observer =
+//  FirebaseAnalyticsObserver(analytics: analytics);
 
   String lang;
   bool isDarkMode;
@@ -97,21 +72,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Map<String, WidgetBuilder> fullRoutesList = {};
 
-//    fullRoutesList.addAll(widget._chatModule.getRoutes());
-//    fullRoutesList.addAll(widget._authModule.getRoutes());
-//    fullRoutesList.addAll(widget._cameraModule.getRoutes());
-//    fullRoutesList.addAll(widget._profileModule.getRoutes());
-//    fullRoutesList.addAll(widget._homeModule.getRoutes());
-//    fullRoutesList.addAll(widget._animeModule.getRoutes());
-//    fullRoutesList.addAll(widget._notificationModule.getRoutes());
-//    fullRoutesList.addAll(widget._accountModule.getRoutes());
-//    fullRoutesList.addAll(widget._mainScreenModule.getRoutes());
-//    fullRoutesList.addAll(widget._settingModule.getRoutes());
-//    fullRoutesList.addAll(widget._exploreModule.getRoutes());
-//    fullRoutesList.addAll(widget._episodeModule.getRoutes());
-//    fullRoutesList.addAll(widget._errorModule.getRoutes());
-//    fullRoutesList.addAll(widget._searchModule.getRoutes());
-//
+    fullRoutesList.addAll(widget._initAccountModule.getRoutes());
+    fullRoutesList.addAll(widget._authorizationModule.getRoutes());
+    fullRoutesList.addAll(widget._ordersModule.getRoutes());
+
+
 //    widget._swapThemeService.isDarkMode().then((value) {
 //      isDarkMode  = value ?? false;
 //    });
@@ -127,13 +92,13 @@ class _MyAppState extends State<MyApp> {
 
   Future<Widget> getConfiguratedApp(
       Map<String, WidgetBuilder> fullRoutesList) async {
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+//    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
 
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      navigatorObservers: <NavigatorObserver>[observer],
+//      navigatorObservers: <NavigatorObserver>[observer],
       locale: Locale.fromSubtags(
         languageCode: 'ar',
       ),
@@ -155,9 +120,9 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'RB'
       ),
       supportedLocales: S.delegate.supportedLocales,
-      title: 'Anime Galaxy',
+      title: 'c4d',
       routes: fullRoutesList,
-//      initialRoute: MainScreenRoute.MAIN_SCREEN_ROUTE,
+      initialRoute: AuthorizationRoutes.AUTHORIZATION_SCREEN,
     );
   }
 }
