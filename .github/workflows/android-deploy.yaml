@@ -32,7 +32,7 @@ jobs:
 
       - name: Configure Keystore
         run: |
-          cd ./swaptime_flutter/android
+          cd ./flutter/android
           echo "$ANDROID_KEYSTORE_FILE" > key.jks.b64
           base64 -d -i key.jks.b64 > ../key.jks
           echo "storeFile=../../key.jks" > key.properties
@@ -48,7 +48,7 @@ jobs:
 
       - name: Firebase Key
         run: |
-          cd ./swaptime_flutter/android
+          cd ./flutter/android
           echo "$FIREBASE_CONFIG" > firebase.json.b64
           base64 -d -i firebase.json.b64 > app/google-services.json
         env:
@@ -56,12 +56,12 @@ jobs:
 
       - name: Get Flutter Packages tools
         run: |
-          cd ./swaptime_flutter
+          cd ./flutter
           flutter pub upgrade
 
       - name: Install bundle
         run: |
-          cd ./swaptime_flutter/android
+          cd ./flutter/android
           gem install bundler
           bundle update --bundler
           bundle config path vendor/bundle
@@ -69,7 +69,7 @@ jobs:
 
       - name: Distribute app to Alpha track 🚀
         run: |
-          cd swaptime_flutter/android
+          cd flutter/android
           bundle exec fastlane alpha
 
       - name: Create release and upload apk
@@ -77,7 +77,7 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          asset_path: swaptime_flutter/build/app/outputs/flutter-apk/app-release.apk
+          asset_path: flutter/build/app/outputs/flutter-apk/app-release.apk
           asset_name: Swap.apk
           asset_content_type: application/zip
           tag_name: ${{ github.ref }}
