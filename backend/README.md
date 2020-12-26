@@ -388,7 +388,6 @@ methods: GET
 /getSubscriptionById/id
 methods: GET
 ```
-//////
 
 ### Subscription update
 
