@@ -152,7 +152,7 @@ class UserService
         $response=[];
         $item = $this->userManager->getCaptainprofileByID($captainProfileId);
    
-        $bounce = $this->totalBounceCaptain($item['id']);
+        $totalBounce = $this->totalBounceCaptain($item['id']);
         
         $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
@@ -160,7 +160,7 @@ class UserService
     
         $response =  $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
 
-        $response->bounce = $bounce;
+        $response->totalBounce = $totalBounce;
         $response->countOrdersDeliverd = $countOrdersDeliverd;
       
         return $response;

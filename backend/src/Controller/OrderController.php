@@ -82,13 +82,27 @@ class OrderController extends BaseController
     }
 
      /**
-      * @Route("/order/{orderId}", name="GetOrderByID", methods={"GET"})
+      * @Route("/order/{orderId}", name="GetOrderByIDForAdmin", methods={"GET"})
+      * @IsGranted("ROLE_ADMIN")
       * @param                     Request $request
       * @return                    JsonResponse
       */
     public function getOrderById($orderId)
     {
         $result = $this->orderService->getOrderById($orderId);
+
+        return $this->response($result, self::FETCH);
+    }
+
+     /**
+      * @Route("/orderById/{orderId}", name="GetOrderByID", methods={"GET"})
+      * @IsGranted("ROLE_OWNER")
+      * @param                     Request $request
+      * @return                    JsonResponse
+      */
+    public function orderById($orderId)
+    {
+        $result = $this->orderService->orderById($orderId);
 
         return $this->response($result, self::FETCH);
     }

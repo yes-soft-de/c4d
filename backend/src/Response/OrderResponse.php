@@ -16,6 +16,7 @@ class OrderResponse
     public $state;
     public $fromBranch;
     public $acceptedOrder;
+    public $record;
     
     
 }

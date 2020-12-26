@@ -47,6 +47,11 @@ class OrderManager
         return $this->repository->getOrderById($orderId);
     }
 
+    public function orderById($orderId)
+    {
+        return $this->repository->getOrderById($orderId);
+    }
+
     public function getOrdersByOwnerID($userID)
     {
         return $this->repository->getOrdersByOwnerID($userID);

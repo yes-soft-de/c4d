@@ -9,22 +9,27 @@ use App\Request\AcceptedOrderCreateRequest;
 use App\Response\AcceptedOrderResponse;
 use App\Response\CaptainTotalEarnResponse;
 use App\Response\ongoingCaptainsResponse;
+use App\Service\RecordService;
 
 class AcceptedOrderService
 {
     private $autoMapping;
     private $acceptedOrderManager;
+    private $recordService;
 
-    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager)
+    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager, RecordService $recordService)
     {
         $this->autoMapping = $autoMapping;
         $this->acceptedOrderManager = $acceptedOrderManager;
+        $this->recordService = $recordService;
     }
 
     public function create(AcceptedOrderCreateRequest $request)
     {
         $item = $this->acceptedOrderManager->create($request);
-
+        if ($item) {
+            $this->recordService->create($item->getOrderID(), $item->getState());
+        }
         return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
     }
 
@@ -56,7 +61,8 @@ class AcceptedOrderService
 
     public function acceptedOrderUpdateStateByCaptain($orderId, $state)
     {
-        return $this->acceptedOrderManager->acceptedOrderUpdateStateByCaptain($orderId, $state);
+        $item = $this->acceptedOrderManager->acceptedOrderUpdateStateByCaptain($orderId, $state);
+        $this->recordService->create($orderId, $state);
     }
 
     public function getAcceptedOrderByOrderId($orderId)

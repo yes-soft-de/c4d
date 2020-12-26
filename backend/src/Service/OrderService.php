@@ -17,30 +17,55 @@ class OrderService
     private $autoMapping;
     private $orderManager;
     private $acceptedOrderService;
+    private $recordService;
 
-    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService)
+    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService)
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
         $this->acceptedOrderService = $acceptedOrderService;
+        $this->recordService = $recordService;
     }
 
     public function create(OrderCreateRequest $request)
     {
         $item = $this->orderManager->create($request);
-
+        if ($item) {
+            $this->recordService->create($item->getId(), $item->getState());
+        }
         return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
     }
 
     public function getOrderById($orderId)
     {
+        $acceptedOrder=[];
         $order = $this->orderManager->getOrderById($orderId);
-        $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
+        if ($order){
+            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId)[0];
+            $record = $this->recordService->getRecordByOrderId($orderId);
+        }
+        $response = $this->autoMapping->map('array', OrderResponse::class, $order);
+
+        if ($acceptedOrder) {
+            $response->acceptedOrder =  $acceptedOrder;
+            $response->record =  $record;
+        }
+
+        return $response;
+    }
+
+    public function orderById($orderId)
+    {
+        $order = $this->orderManager->orderById($orderId);
+
+        $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId)[0];
+        $record = $this->recordService->getRecordByOrderId($orderId);
 
         $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
         if ($acceptedOrder) {
             $response->acceptedOrder =  $acceptedOrder;
+            $response->record =  $record;
         }
 
         return $response;
@@ -94,16 +119,18 @@ class OrderService
         $orders = $this->orderManager->getPendingOrders();
 
         foreach ($orders as $order) {
-
+            
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
-           
             if ($order['acceptedOrder'] == true) {
+                $order['record'] = $this->recordService->create($order['id'], $order['state']);
+            }
+            // if ($order['acceptedOrder'] == true) {
 
-                    if ($order['state'] == 'pending' && $order['acceptedOrder'][0]['state'] == 'on way to pick order' ) {
-                            $order['state'] = 'on way to pick order';
-                        }
-                    }
-                    $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
+            //         if ($order['state'] == 'pending' && $order['acceptedOrder'][0]['state'] == 'on way to pick order' ) {
+            //                 $order['state'] = 'on way to pick order';
+            //             }
+            //         }
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
         return $response;
     }
