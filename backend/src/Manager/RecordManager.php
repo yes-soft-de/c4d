@@ -30,4 +30,9 @@ class RecordManager
 
         return $recordEntity;
     }
+
+    public function getRecordByOrderId($orderId)
+    {
+        return $this->repository->getRecordByOrderId($orderId);
+    }
 }

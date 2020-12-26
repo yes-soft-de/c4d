@@ -28,4 +28,9 @@ class RecordService
 
         return $this->autoMapping->map(RecordEntity::class, RecordResponse::class, $result);
     }
+    
+    public function getrecordByOrderId($orderId)
+    {
+        return $this->recordManager->getrecordByOrderId($orderId);
+    }
 }

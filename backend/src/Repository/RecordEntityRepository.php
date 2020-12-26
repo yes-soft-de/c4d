@@ -19,32 +19,17 @@ class RecordEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, RecordEntity::class);
     }
 
-    // /**
-    //  * @return RecordEntity[] Returns an array of RecordEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getRecordByOrderId($orderId)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('RecordEntity')
+            ->select('RecordEntity.id, RecordEntity.orderID, RecordEntity.state, RecordEntity.startTime')
+            
+            ->andWhere("RecordEntity.orderID =:orderId")
+            ->setParameter('orderId', $orderId)
+            ->setMaxResults(1)
+            ->addOrderBy('RecordEntity.id','DESC')
+            ->groupBy('RecordEntity.id')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?RecordEntity
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

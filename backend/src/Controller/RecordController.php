@@ -14,11 +14,24 @@ use Symfony\Component\Serializer\SerializerInterface;
 class RecordController extends BaseController
 {
     private $autoMapping;
+    private $recordService;
 
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, RecordService $recordService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->recordService = $recordService;
-    }    
+    } 
+    
+    /**
+      * @Route("/record/{orderId}", name="GetOrderStateAndTimeByOrderId", methods={"GET"})
+      * @param                     Request $request
+      * @return                    JsonResponse
+      */
+      public function getRecordByOrderId($orderId)
+      {
+          $result = $this->recordService->getRecordByOrderId($orderId);
+  
+          return $this->response($result, self::FETCH);
+      }
 }

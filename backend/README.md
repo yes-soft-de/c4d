@@ -353,6 +353,13 @@ methods: PUT
 
 ### Order
 
+#### Get Order By ID
+
+```
+/order/orderId
+methods: GET
+```
+
 #### Count All Orders
 
 ```
