@@ -53,7 +53,7 @@ class CaptainProfileEntity
     private $drivingLicence;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $salary;
 
@@ -68,7 +68,7 @@ class CaptainProfileEntity
     private $state;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $bounce;
 

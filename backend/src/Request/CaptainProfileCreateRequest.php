@@ -18,13 +18,13 @@ class CaptainProfileCreateRequest
 
     private $drivingLicence;
 
-    private $salary;
+    // private $salary;
 
     private $status;
 
-    private $state;
+    // private $state;
 
-    private $bounce;
+    // private $bounce;
 
     /**
      * Get the value of captainID
@@ -166,25 +166,25 @@ class CaptainProfileCreateRequest
         return $this;
     }
 
-     /**
-     * Get the value of salary
-     */
-    public function getSalary(): ?float
-    {
-        return $this->salary;
-    }
+    //  /**
+    //  * Get the value of salary
+    //  */
+    // public function getSalary(): ?float
+    // {
+    //     return $this->salary;
+    // }
 
-     /**
-     * Set the value of salary
-     *
-     * @return  self
-     */
-    public function setSalary(float $salary): self
-    {
-        $this->salary = $salary;
+    //  /**
+    //  * Set the value of salary
+    //  *
+    //  * @return  self
+    //  */
+    // public function setSalary(float $salary): self
+    // {
+    //     $this->salary = $salary;
 
-        return $this;
-    }
+    //     return $this;
+    // }
      
      /**
      * Get the value of status
@@ -206,23 +206,23 @@ class CaptainProfileCreateRequest
         return $this;
     }
     
-     /**
-     * Get the value of bounce
-     */
-    public function getBounce(): ?string
-    {
-        return $this->bounce;
-    }
+    //  /**
+    //  * Get the value of bounce
+    //  */
+    // public function getBounce(): ?string
+    // {
+    //     return $this->bounce;
+    // }
 
-     /**
-     * Set the value of bounce
-     *
-     * @return  self
-     */
-    public function setBounce(string $bounce): self
-    {
-        $this->bounce = $bounce;
+    //  /**
+    //  * Set the value of bounce
+    //  *
+    //  * @return  self
+    //  */
+    // public function setBounce(string $bounce): self
+    // {
+    //     $this->bounce = $bounce;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
