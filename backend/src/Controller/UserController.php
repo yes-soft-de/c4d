@@ -207,7 +207,7 @@ class UserController extends BaseController
 
         return $this->response($response, self::UPDATE);
     }
-
+  
     /**
      * @Route("/captainprofileUpdateByAdmin", name="captainprofileUpdateByAdmin", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")

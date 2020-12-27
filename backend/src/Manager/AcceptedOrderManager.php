@@ -58,8 +58,10 @@ class AcceptedOrderManager
     public function update(AcceptedOrderUpdateRequest $request)
     {
         $acceptedOrderEntity = $this->repository->find($request->getId());
-        $request->setDate($acceptedOrderEntity->getDate());
-        $request->setDuration($acceptedOrderEntity->getDuration());
+        if ($acceptedOrderEntity) {
+            $request->setDate($acceptedOrderEntity->getDate());
+            $request->setDuration($acceptedOrderEntity->getDuration());
+        }
         if (!$acceptedOrderEntity) {
             return null;
         }

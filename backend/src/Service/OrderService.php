@@ -147,12 +147,16 @@ class OrderService
         $item = $this->orderManager->orderUpdateStateByCaptain($request);
       
         $acceptedOrderUpdateState = $this->acceptedOrderService->acceptedOrderUpdateStateByCaptain($item->getId(), $request->getState());
-
+      
         $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($item->getId());
+
+        $record = $this->recordService->getRecordByOrderId($item->getId());
 
         $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
 
         $response->acceptedOrder =  $acceptedOrder;
+        $response->record =  $record;
+       
         return $response;
     }
 
