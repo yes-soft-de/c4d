@@ -1,5 +1,5 @@
 {
-  "asset": "asset:c4d/lib/module_orders/manager/orders.manager.dart",
+  "asset": "asset:c4d/lib/module_orders/manager/orders/orders.manager.dart",
   "summary": {
     "injector": [],
     "module": [],
@@ -11,7 +11,7 @@
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/manager/orders.manager.dart#OrdersManager",
+              "root": "asset:c4d/lib/module_orders/manager/orders/orders.manager.dart#OrdersManager",
               "qualifier": null
             },
             "isProvider": false

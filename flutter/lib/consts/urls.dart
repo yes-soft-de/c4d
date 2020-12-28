@@ -5,5 +5,6 @@ class Urls {
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
   static const CREATE_CAPTAIN_ACCOUNT = BASE_API + '/captainprofile';
   static const NEARBY_ORDERS =BASE_API + '/closestOrders';
+  static const OWNER_ORDERS =BASE_API + '/orders/';
 
 }

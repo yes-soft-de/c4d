@@ -1,21 +1,78 @@
 
+import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/state/owner_orders/owner_orders.state.dart';
+import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_orders/ui/screens/order_status_for_owner/order_status_for_owner.dart';
 import 'package:c4d/module_orders/ui/widgets/owner_order_card/owner_order_card.dart';
+import 'package:c4d/utils/error_ui/error_ui.dart';
+import 'package:c4d/utils/loading_indicator/loading_indicator.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
 @provide
 class OwnerOrdersScreen extends StatefulWidget {
+  final OwnerOrdersStateManager _stateManager;
+
+  OwnerOrdersScreen(
+      this._stateManager,
+      );
+
   @override
   _OwnerOrdersScreenState createState() => _OwnerOrdersScreenState();
 }
 
 class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
+  List<OrderModel> myOrders =[];
+  OwnerOrdersState currentState = OwnerOrdersInitState();
+  bool loading = true;
+  bool error = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget._stateManager.stateStream.listen((event) {
+      currentState = event;
+      processEvent();
+    });
+  }
+
+  void processEvent(){
+    if(currentState is OwnerOrdersFetchingDataSuccessState){
+      OwnerOrdersFetchingDataSuccessState state = currentState;
+      myOrders = state.data;
+      loading = false;
+      error = false;
+    }
+    if(currentState is OwnerOrdersFetchingDataErrorState){
+      loading = false;
+      error = true;
+    }
+    if (this.mounted) {
+      setState(() {});
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return screenUi();
+    if (currentState is OwnerOrdersInitState) {
+      widget._stateManager.getNearbyOrders();
+      if (this.mounted) {
+        setState(() {});
+      }
+    }
+
+    return error
+        ? ErrorUi(onRetry: () {
+      widget._stateManager.getNearbyOrders();
+      loading = true;
+      error = false;
+    })
+        : loading
+        ? LoadingIndicatorWidget()
+        : screenUi() ;
   }
 
   Widget screenUi(){

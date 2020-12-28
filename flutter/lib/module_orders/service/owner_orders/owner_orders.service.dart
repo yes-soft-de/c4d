@@ -1,21 +1,22 @@
 
 
-import 'package:c4d/module_orders/manager/orders/orders.manager.dart';
+
+import 'package:c4d/module_orders/manager/owner_orders/owner_orders.manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
-import 'package:c4d/module_orders/response/orders/orders_response.dart';
+import 'package:c4d/module_orders/response/owner_orders/owner_orders_response.dart';
 import 'package:inject/inject.dart';
 import 'package:intl/intl.dart';
 
 @provide
-class OrdersService{
-  final OrdersManager _manager;
+class OwnerOrdersService{
+  final OwnerOrdersManager _manager;
 
-  OrdersService(
+  OwnerOrdersService(
       this._manager,
       );
 
   Future<List<OrderModel>> getNearbyOrders()async {
-    OrdersResponse response = await _manager.getNearbyOrders();
+    OwnerOrdersResponse response = await _manager.getNearbyOrders();
     if(response == null ) return null;
 
     List<OrderModel> orders = [];

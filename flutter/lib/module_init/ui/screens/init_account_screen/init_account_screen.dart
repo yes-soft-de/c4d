@@ -1,4 +1,5 @@
 import 'package:c4d/module_init/ui/widget/package_card/package_card.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/owner_orders/owner_orders_screen.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
@@ -207,10 +208,10 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                   ),
                   color:  ProjectColors.THEME_COLOR  ,
                   onPressed: (){
-                    Navigator.pushReplacement(
+                    Navigator.pushReplacementNamed(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => OwnerOrdersScreen()),
+                     OrdersRoutes.OWNER_ORDERS_SCREEN
+
                     );
                   },
                   child: Text(

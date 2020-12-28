@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/ui/screens/owner_orders/owner_orders_screen.dart",
+  "asset": "asset:c4d/lib/module_orders/manager/owner_orders/owner_orders.manager.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "OwnerOrdersScreen",
+        "name": "OwnerOrdersManager",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/ui/screens/owner_orders/owner_orders_screen.dart#OwnerOrdersScreen",
+              "root": "asset:c4d/lib/module_orders/manager/owner_orders/owner_orders.manager.dart#OwnerOrdersManager",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart#OwnerOrdersStateManager",
+                "root": "asset:c4d/lib/module_orders/repository/owner_orders/owner_orders.repository.dart#OwnerOrdersRepository",
                 "qualifier": null
               },
               "isProvider": false

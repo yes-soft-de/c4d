@@ -1,3 +1,4 @@
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/owner_orders/owner_orders_screen.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -315,10 +316,9 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                        ),
                        color:  ProjectColors.THEME_COLOR  ,
                        onPressed: (){
-                         Navigator.pushReplacement(
+                         Navigator.pushReplacementNamed(
                            context,
-                           MaterialPageRoute(
-                               builder: (context) => OwnerOrdersScreen()),
+                           OrdersRoutes.OWNER_ORDERS_SCREEN
                          );
                        },
                        child: Text(
