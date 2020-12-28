@@ -1,4 +1,5 @@
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      width: 100,
+                      width: 115,
                       child: FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Container(
-                      width: 100,
+                      width: 115,
                       child: FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)
@@ -203,10 +204,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     color:  ProjectColors.THEME_COLOR  ,
                     onPressed: (){
                       isCaptain ?
-                      Navigator.pushReplacement(
+                      Navigator.pushReplacementNamed(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => OrdersScreen()),
+                        OrdersRoutes.ORDERS_SCREEN 
                       ):
                       Navigator.pushReplacement(
                         context,

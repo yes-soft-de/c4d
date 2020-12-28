@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/ui/screens/orders/orders_screen.dart",
+  "asset": "asset:c4d/lib/module_orders/manager/orders.manager.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "OrdersScreen",
+        "name": "OrdersManager",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/ui/screens/orders/orders_screen.dart#OrdersScreen",
+              "root": "asset:c4d/lib/module_orders/manager/orders.manager.dart#OrdersManager",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/state_manager/orders/orders.state_manager.dart#OrdersStateManager",
+                "root": "asset:c4d/lib/module_orders/repository/orders/orders.repository.dart#OrdersRepository",
                 "qualifier": null
               },
               "isProvider": false
