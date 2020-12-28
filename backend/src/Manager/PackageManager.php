@@ -6,7 +6,7 @@ use App\AutoMapping;
 use App\Entity\PackageEntity;
 use App\Repository\PackageEntityRepository;
 use App\Request\PackageCreateRequest;
-use App\Request\PackageUpdateRequest;
+use App\Request\PackageUpdateStateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class PackageManager
@@ -47,14 +47,14 @@ class PackageManager
         return $this->packageRepository->getpackagesById($id);
     }
 
-    public function update(PackageUpdateRequest $request)
+    public function update(PackageUpdateStateRequest $request)
     {
         $entity = $this->packageRepository->find($request->getId());
 
         if (!$entity) {
             return null;
         }
-        $entity = $this->autoMapping->mapToObject(PackageUpdateRequest::class, PackageEntity::class, $request, $entity);
+        $entity = $this->autoMapping->mapToObject(PackageUpdateStateRequest::class, PackageEntity::class, $request, $entity);
 
         $this->entityManager->flush();
 

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\PackageCreateRequest;
-use App\Request\PackageUpdateRequest;
+use App\Request\PackageUpdateStateRequest;
 use App\Service\PackageService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -99,7 +99,7 @@ class PackageController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(\stdClass::class, PackageUpdateRequest::class, (object) $data);
+        $request = $this->autoMapping->map(\stdClass::class, PackageUpdateStateRequest::class, (object) $data);
 
         $violations = $this->validator->validate($request);
 

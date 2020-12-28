@@ -331,6 +331,7 @@ methods: GET
 
 ### Package update
 
+status :  active or inactive .
 ```
 /package
 methods: PUT

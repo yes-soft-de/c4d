@@ -41,19 +41,7 @@ App\Request\PackageUpdateRequest:
   properties:
     id:
       - NotBlank: ~
-    name:
-      - NotBlank: ~
-    cost:
-      - NotBlank: ~
-    carCount:
-      - NotBlank: ~
-    orderCount:
-      - NotBlank: ~
-    city:
-      - NotBlank: ~
     status:
-      - NotBlank: ~
-    branch:
       - NotBlank: ~
 
 App\Request\SubscriptionCreateRequest:
