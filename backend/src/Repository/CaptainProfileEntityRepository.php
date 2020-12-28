@@ -81,10 +81,14 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
     public function getCaptainsState($state)
     {
-        return $this->createQueryBuilder('captainProfile')
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.bounce')
+        return  $this->createQueryBuilder('captainProfile')
+         
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce')
 
-            ->andWhere('captainProfile.state =:state')
+            ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
+            ->join(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
+
+            ->andWhere('acceptedOrderEntity.state =:state')
             ->setParameter('state', $state)
             ->getQuery()
             ->getResult();
@@ -117,9 +121,11 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function countOngoingCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
-            ->select('count (captainProfile.id) as countOngoingCaptains')
+            ->select('count (acceptedOrderEntity.captainID) as countOngoingCaptains')
 
-            ->andWhere("captainProfile.state = 'ongoing'")
+            ->join(AcceptedOrderEntity::class, 'acceptedOrderEntity')
+
+            ->andWhere("acceptedOrderEntity.state = 'ongoing'")
 
             ->getQuery()
             ->getOneOrNullResult();

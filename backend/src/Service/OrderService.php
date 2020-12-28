@@ -56,11 +56,12 @@ class OrderService
 
     public function orderById($orderId)
     {
+        $acceptedOrder = [];
         $order = $this->orderManager->orderById($orderId);
-
-        $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId)[0];
-        $record = $this->recordService->getRecordByOrderId($orderId);
-
+        if ($order) {
+            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId)[0];
+            $record = $this->recordService->getRecordByOrderId($orderId);
+        }
         $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
         if ($acceptedOrder) {

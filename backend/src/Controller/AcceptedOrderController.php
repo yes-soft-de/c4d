@@ -64,7 +64,7 @@ class AcceptedOrderController extends BaseController
     }
 
     /**
-     * @Route("/GetOrderStatusForCaptain/{orderId}", name="GetOrderStatusForCaptain", methods={"GET"})
+     * @Route("/getOrderStatusForCaptain/{orderId}", name="GetOrderStatusForCaptain", methods={"GET"})
      * @IsGranted("ROLE_CAPTAIN")
      * @param                                     Request $request
      * @return                                    JsonResponse

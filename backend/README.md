@@ -202,7 +202,7 @@ methods: POST
 ROLE_CAPTAIN
 
 ```
-/GetOrderStatusForCaptain/orderId
+/getOrderStatusForCaptain/orderId
 methods: GET
 ```
 #### Get total Earn for captain
