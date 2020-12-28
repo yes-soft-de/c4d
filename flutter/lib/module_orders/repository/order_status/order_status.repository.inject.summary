@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/ui/screens/order_status_for_owner/order_status_for_owner.dart",
+  "asset": "asset:c4d/lib/module_orders/repository/order_status/order_status.repository.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "OrderStatusForOwnerScreen",
+        "name": "OrderStatusRepository",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/ui/screens/order_status_for_owner/order_status_for_owner.dart#OrderStatusForOwnerScreen",
+              "root": "asset:c4d/lib/module_orders/repository/order_status/order_status.repository.dart#OrderStatusRepository",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/state_manager/order_status/order_status.state_manager.dart#OrderStatusStateManager",
+                "root": "asset:c4d/lib/module_network/http_client/http_client.dart#ApiClient",
                 "qualifier": null
               },
               "isProvider": false

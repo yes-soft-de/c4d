@@ -1,9 +1,9 @@
 
 import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state/owner_orders/owner_orders.state.dart';
 import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
-import 'package:c4d/module_orders/ui/screens/order_status_for_owner/order_status_for_owner.dart';
 import 'package:c4d/module_orders/ui/widgets/owner_order_card/owner_order_card.dart';
 import 'package:c4d/utils/error_ui/error_ui.dart';
 import 'package:c4d/utils/loading_indicator/loading_indicator.dart';
@@ -29,7 +29,7 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
   bool loading = true;
   bool error = false;
 
-  @override
+   @override
   void initState() {
     super.initState();
     widget._stateManager.stateStream.listen((event) {
@@ -93,23 +93,22 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
       ),
       body:
       ListView.builder(
-        itemCount: 5,
+        itemCount: myOrders.length,
         itemBuilder: (BuildContext context , int index){
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: GestureDetector(
               onTap: (){
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => OrderStatusForOwnerScreen()
-                  )
+                   OrdersRoutes.ORDER_STATUS_FOR_OWNER_SCREEN,
+                  arguments: myOrders[index].id
                 );
               },
               child: OwnerOrderCard(
-                to: '365 East Ave.',
-                from: '4.1 mi via Washinton BivdArrival',
-                time: '9:56 AM',
+                to: myOrders[index].to,
+                from:  myOrders[index].from,
+                time: myOrders[index].creationTime,
                 index : index
               ),
             ),

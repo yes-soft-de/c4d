@@ -28,6 +28,8 @@ class OrdersService{
           to: element.destination[0],
           from: element.source[0],
           creationTime: df.format(date).toString()??'',
+          paymentMethod: element.payment,
+          id: element.id,
         )
       );
     });
