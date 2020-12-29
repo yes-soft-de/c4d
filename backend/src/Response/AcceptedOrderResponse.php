@@ -16,4 +16,5 @@ class AcceptedOrderResponse
     public $orderNote;
     public $payment;
     public $state;
+    public $record;
 }

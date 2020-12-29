@@ -35,10 +35,12 @@ class AcceptedOrderService
 
     public function getOrderStatusForCaptain($captainID, $orderId)
     {
-        $result = $this->acceptedOrderManager->getOrderStatusForCaptain($captainID, $orderId);
-
-        $response = $this->autoMapping->map('array', AcceptedOrderResponse::class, $result);
-
+        $item = $this->acceptedOrderManager->getOrderStatusForCaptain($captainID, $orderId);
+        if ($item) {
+            $record = $this->recordService->getRecordByOrderId($orderId);
+        }
+        $response = $this->autoMapping->map('array', AcceptedOrderResponse::class, $item);
+        $response->record =  $record;
         return $response;
     }
 
