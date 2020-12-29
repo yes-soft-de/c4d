@@ -127,19 +127,19 @@ class SubscriptionService
         $fromDate =new \DateTime($year . '-' . $month . '-01'); 
         $toDate = new \DateTime($fromDate->format('Y-m-d') . ' 1 month');
 
-        $newUsres = $this->subscriptionManager->subscripeNewUsers($fromDate, $toDate);
+        return $this->subscriptionManager->subscripeNewUsers($fromDate, $toDate);
        
-        return $this->autoMapping->map('array', SubscriptionResponse::class, $newUsres);
+        // return $this->autoMapping->map('array', SubscriptionResponse::class, $newUsres);
        
      }
 
-    public function dashboardContracts()
+    public function dashboardContracts($year, $month)
     {
         $response = [];
 
         $response[] = $this->subscriptionManager->countpendingContracts();
         $response[] = $this->subscriptionManager->countDoneContracts();
-        $response[] = $this->subscriptionManager->countCancelledContracts();
+        $response[] = $this->subscripeNewUsers($year, $month);
 
         $subscriptionsPending = $this->subscriptionManager->getSubscriptionsPending();
        

@@ -28,8 +28,9 @@ class OrderManager
         $this->repository = $repository;
     }
 
-    public function create(OrderCreateRequest $request)
+    public function create(OrderCreateRequest $request, $uuid)
     {
+        $request->setUuid($uuid);
         $item = $this->autoMapping->map(OrderCreateRequest::class, OrderEntity::class, $request);
 
         $item->setDate($item->getDate());

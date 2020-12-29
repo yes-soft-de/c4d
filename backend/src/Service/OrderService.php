@@ -29,7 +29,9 @@ class OrderService
 
     public function create(OrderCreateRequest $request)
     {
-        $item = $this->orderManager->create($request);
+        $uuid = $this->recordService->uuid();
+       
+        $item = $this->orderManager->create($request, $uuid);
         if ($item) {
             $this->recordService->create($item->getId(), $item->getState());
         }
@@ -181,7 +183,7 @@ class OrderService
         $response = [];
         $response[] = $this->orderManager->countpendingOrders();
         $response[] = $this->orderManager->countOngoingOrders();
-        $response[] = $this->orderManager->countCancelledOrders();
+        $response[] = $this->countAllOrders();
         $ongoingOrders = $this->orderManager->ongoingOrders();
       
         foreach ($ongoingOrders as  $ongoingOrder) {

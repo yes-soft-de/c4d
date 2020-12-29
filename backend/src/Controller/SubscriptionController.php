@@ -123,14 +123,14 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("/dashboardContracts", name="dashboardContracts",methods={"GET"})
+     * @Route("/dashboardContracts/{year}/{month}", name="dashboardContracts",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param                                     Request $request
      * @return                                    JsonResponse
      */
-    public function dashboardContracts()
+    public function dashboardContracts($year, $month)
     {
-        $result = $this->subscriptionService->dashboardContracts();
+        $result = $this->subscriptionService->dashboardContracts($year, $month);
 
         return $this->response($result, self::FETCH);
     }
@@ -147,16 +147,16 @@ class SubscriptionController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
-    /**
-     * @Route("subscripeNewUsers/{year}/{month}", name="getCountSubscripeNewUsersInThisMonth",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function subscripeNewUsers($year, $month)
-    {
-        $result = $this->subscriptionService->subscripeNewUsers($year, $month);
+    // /**
+    //  * @Route("subscripeNewUsers/{year}/{month}", name="getCountSubscripeNewUsersInThisMonth",methods={"GET"})
+    //  * @IsGranted("ROLE_ADMIN")
+    //  * @param                                     Request $request
+    //  * @return                                    JsonResponse
+    //  */
+    // public function subscripeNewUsers($year, $month)
+    // {
+    //     $result = $this->subscriptionService->subscripeNewUsers($year, $month);
 
-        return $this->response($result, self::FETCH);
-    }
+    //     return $this->response($result, self::FETCH);
+    // }
 }

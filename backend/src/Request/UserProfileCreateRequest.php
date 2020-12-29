@@ -14,6 +14,8 @@ class UserProfileCreateRequest
 
     private $branch;
 
+    private $uuid;
+
     /**
      * @return mixed
      */
@@ -76,5 +78,17 @@ class UserProfileCreateRequest
     public function setImage($image): void
     {
         $this->image = $image;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 }

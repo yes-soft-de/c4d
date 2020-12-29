@@ -30,14 +30,16 @@ class UserService
     private $acceptedOrderService;
     private $ratingService;
     private $branchesService;
+    private $recordService;
 
-    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService, RatingService $ratingService, BranchesService $branchesService)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService, RatingService $ratingService, BranchesService $branchesService, RecordService $recordService)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
         $this->acceptedOrderService = $acceptedOrderService;
         $this->ratingService = $ratingService;
         $this->branchesService = $branchesService;
+        $this->recordService = $recordService;
     }
 
     public function userRegister(UserRegisterRequest $request)
@@ -49,7 +51,8 @@ class UserService
 
     public function userProfileCreate(UserProfileCreateRequest $request)
     {
-        $userProfile = $this->userManager->userProfileCreate($request);
+        $uuid = $this->recordService->uuid();
+        $userProfile = $this->userManager->userProfileCreate($request, $uuid);
 
         if ($userProfile instanceof UserProfile) {
 
@@ -102,7 +105,8 @@ class UserService
 
     public function captainprofileCreate(CaptainProfileCreateRequest $request)
     {
-        $captainProfile = $this->userManager->captainprofileCreate($request);
+        $uuid = $this->recordService->uuid();
+        $captainProfile = $this->userManager->captainprofileCreate($request, $uuid);
        
         if ($captainProfile instanceof captainProfile) {
             return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
@@ -219,7 +223,8 @@ class UserService
          $response[] = $this->userManager->countpendingCaptains();
          $response[] = $this->userManager->countOngoingCaptains();
          $response[] = $this->userManager->countDayOfCaptains();
-
+//
+// replace this to top 5 captain
          $dayOfCaptains = $this->userManager->getDayOfCaptains();
       
          foreach ($dayOfCaptains as $item) {

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\OrderEntity;
 use App\Entity\AcceptedOrderEntity;
 use App\Entity\CaptainProfileEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -85,6 +86,9 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
             ->select('count(OrderEntity.id) as ordersCount') 
+           
+            ->andWhere("OrderEntity.state = 'pending' or OrderEntity.state = 'ongoing' or OrderEntity.state = 'picked'")
+           
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -124,11 +128,13 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function ongoingOrders()
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->addSelect('OrderEntity.id as orderID', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'captainProfileEntity.name', 'acceptedOrderEntity.date as acceptedOrderDate', 'acceptedOrderEntity.captainID', 'acceptedOrderEntity.duration', 'captainProfileEntity.car', 'captainProfileEntity.drivingLicence', 'captainProfileEntity.image') 
+            ->addSelect('OrderEntity.id as orderID', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'captainProfileEntity.name', 'acceptedOrderEntity.date as acceptedOrderDate', 'acceptedOrderEntity.captainID', 'acceptedOrderEntity.duration', 'captainProfileEntity.car', 'captainProfileEntity.drivingLicence', 'captainProfileEntity.image', 'userProfileEntity.userName as ownerName') 
             
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
 
             ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfileEntity.captainID')
+
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = OrderEntity.ownerID')
 
             ->andWhere("OrderEntity.state = 'ongoing' ") 
             ->getQuery()

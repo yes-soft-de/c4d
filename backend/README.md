@@ -337,14 +337,6 @@ status :  active or inactive .
 methods: PUT
 ```
 
-### Package update
-
-```
-/package
-methods: PUT
-```
-
-
 ### Order
 
 #### Get Order By ID
@@ -371,7 +363,7 @@ methods: GET
 ### Dashboard contracts 
 
 ```
-/dashboardContracts
+/dashboardContracts/{year}/{month}
 methods: GET
 ```
 
@@ -397,16 +389,6 @@ status = active or inactive.
 ```
 /subscriptionUpdateState
 methods: PUT
-```
-
-### Get Count Subscripe New Users In This Month
-
-year = 2020 .
-month = 05.
-
-```
-subscripeNewUsers/{year}/{month}
-methods: GET
 ```
 
 

@@ -18,13 +18,9 @@ class CaptainProfileCreateRequest
 
     private $drivingLicence;
 
-    // private $salary;
-
     private $status;
 
-    // private $state;
-
-    // private $bounce;
+    private $uuid;
 
     /**
      * Get the value of captainID
@@ -166,26 +162,6 @@ class CaptainProfileCreateRequest
         return $this;
     }
 
-    //  /**
-    //  * Get the value of salary
-    //  */
-    // public function getSalary(): ?float
-    // {
-    //     return $this->salary;
-    // }
-
-    //  /**
-    //  * Set the value of salary
-    //  *
-    //  * @return  self
-    //  */
-    // public function setSalary(float $salary): self
-    // {
-    //     $this->salary = $salary;
-
-    //     return $this;
-    // }
-     
      /**
      * Get the value of status
      */
@@ -206,23 +182,15 @@ class CaptainProfileCreateRequest
         return $this;
     }
     
-    //  /**
-    //  * Get the value of bounce
-    //  */
-    // public function getBounce(): ?string
-    // {
-    //     return $this->bounce;
-    // }
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
 
-    //  /**
-    //  * Set the value of bounce
-    //  *
-    //  * @return  self
-    //  */
-    // public function setBounce(string $bounce): self
-    // {
-    //     $this->bounce = $bounce;
+    public function setUuid(?string $uuid): self
+    {
+        $this->uuid = $uuid;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 }

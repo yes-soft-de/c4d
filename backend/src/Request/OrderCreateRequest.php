@@ -14,6 +14,7 @@ class OrderCreateRequest
     private $recipientPhone;
     private $state;
     private $fromBranch;
+    private $uuid;
 
      /**
      * @param mixed $ownerID
@@ -38,6 +39,18 @@ class OrderCreateRequest
     public function setState(?string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

@@ -8,6 +8,7 @@ class OrdersongoingResponse
     public $source = [];
     public $destination = [];
     public $ownerID;
+    public $ownerName;
     public $orderDate;
     public $updateOrderDate;
     public $note;

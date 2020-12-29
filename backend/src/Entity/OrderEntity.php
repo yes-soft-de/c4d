@@ -72,6 +72,11 @@ class OrderEntity
      */
     private $fromBranch;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $uuid;
+
 
     public function getId(): ?int
     {
@@ -213,6 +218,18 @@ class OrderEntity
     public function setFromBranch(?string $fromBranch): self
     {
         $this->fromBranch = $fromBranch;
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

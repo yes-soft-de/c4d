@@ -57,8 +57,9 @@ class UserManager
         return $userRegister;
     }
 
-    public function userProfileCreate(UserProfileCreateRequest $request)
+    public function userProfileCreate(UserProfileCreateRequest $request, $uuid)
     {
+        $request->setUuid($uuid);
         $userProfile = $this->getUserProfileByUserID($request->getUserID());
         if ($userProfile == null) {
             $userProfile = $this->autoMapping->map(UserProfileCreateRequest::class, UserProfileEntity::class, $request);
@@ -120,8 +121,9 @@ class UserManager
         return $this->profileRepository->getremainingOrders($userID);
     }
 
-    public function captainprofileCreate(CaptainProfileCreateRequest $request)
+    public function captainprofileCreate(CaptainProfileCreateRequest $request, $uuid)
     {
+        $request->setUuid($uuid);
         $isCaptainProfile = $this->captainProRepository->getcaptainprofileByCaptainID($request->getCaptainID());
 
         if ($isCaptainProfile == null) {

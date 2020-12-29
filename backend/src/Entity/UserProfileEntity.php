@@ -52,6 +52,11 @@ class UserProfileEntity
      */
     private $free;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $uuid;
+
     public function getUserID(): ?string
     {
         return $this->userID;
@@ -132,6 +137,18 @@ class UserProfileEntity
     public function setFree(?bool $free): self
     {
         $this->free = $free;
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

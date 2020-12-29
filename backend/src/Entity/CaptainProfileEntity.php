@@ -72,6 +72,11 @@ class CaptainProfileEntity
      */
     private $bounce;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $uuid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -205,6 +210,18 @@ class CaptainProfileEntity
     public function setBounce(float $bounce): self
     {
         $this->bounce = $bounce;
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }
