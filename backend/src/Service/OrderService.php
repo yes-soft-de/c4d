@@ -43,12 +43,12 @@ class OrderService
         $acceptedOrder=[];
         $order = $this->orderManager->getOrderById($orderId);
         if ($order){
-            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId)[0];
+            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
             $record = $this->recordService->getRecordByOrderId($orderId);
         }
         $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
-        if ($acceptedOrder) {
+        if ($order) {
             $response->acceptedOrder =  $acceptedOrder;
             $response->record =  $record;
         }

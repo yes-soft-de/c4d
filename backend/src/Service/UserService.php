@@ -154,19 +154,21 @@ class UserService
     public function getCaptainprofileByID($captainProfileId)
     {
         $response=[];
+        $totalBounce=[];
+        $countOrdersDeliverd=[];
         $item = $this->userManager->getCaptainprofileByID($captainProfileId);
-   
-        $totalBounce = $this->totalBounceCaptain($item['id']);
-        
-        $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
+        if($item) {
+            $totalBounce = $this->totalBounceCaptain($item['id']);
+            
+            $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
-        $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
-    
+            $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
+        }
         $response =  $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
-
-        $response->totalBounce = $totalBounce;
-        $response->countOrdersDeliverd = $countOrdersDeliverd;
-      
+        if($item) {
+            $response->totalBounce = $totalBounce;
+            $response->countOrdersDeliverd = $countOrdersDeliverd;
+        }
         return $response;
     }
 

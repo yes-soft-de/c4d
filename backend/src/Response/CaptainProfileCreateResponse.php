@@ -34,4 +34,6 @@ class CaptainProfileCreateResponse
 
     public $totalBounce;
 
+    public $uuid;
+
 }

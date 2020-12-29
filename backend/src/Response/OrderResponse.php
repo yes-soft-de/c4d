@@ -17,6 +17,7 @@ class OrderResponse
     public $fromBranch;
     public $acceptedOrder;
     public $record;
+    public $uuid;
     
     
 }
