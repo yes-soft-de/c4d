@@ -15,6 +15,8 @@ class UserProfileUpdateRequest
     private $image;
 
     private $branch;
+
+    private $city;
     
     /**
      * @return mixed

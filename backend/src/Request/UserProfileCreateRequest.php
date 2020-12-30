@@ -13,6 +13,8 @@ class UserProfileCreateRequest
     private $image;
 
     private $branch;
+    
+    private $city;
 
     private $uuid;
 

@@ -17,4 +17,6 @@ class UserProfileResponse
     public $branch;
     
     public $free;
+
+    public $city;
 }

@@ -19,4 +19,6 @@ class UserProfileCreateResponse
     public $free;
     
     public $branches;
+    
+    public $city;
 }
