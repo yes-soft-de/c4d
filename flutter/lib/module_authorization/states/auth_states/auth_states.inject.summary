@@ -1,0 +1,8 @@
+{
+  "asset": "asset:c4d/lib/module_authorization/states/auth_states/auth_states.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": []
+  }
+}

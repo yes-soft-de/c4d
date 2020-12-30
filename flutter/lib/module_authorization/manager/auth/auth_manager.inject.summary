@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/repository/orders/orders.repository.dart",
+  "asset": "asset:c4d/lib/module_authorization/manager/auth/auth_manager.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "OrdersRepository",
+        "name": "AuthManager",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/repository/orders/orders.repository.dart#OrdersRepository",
+              "root": "asset:c4d/lib/module_authorization/manager/auth/auth_manager.dart#AuthManager",
               "qualifier": null
             },
             "isProvider": false
@@ -21,14 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_network/http_client/http_client.dart#ApiClient",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:c4d/lib/module_authorization/service/auth_service/auth_service.dart#AuthService",
+                "root": "asset:c4d/lib/module_authorization/repository/auth/auth_repository.dart#AuthRepository",
                 "qualifier": null
               },
               "isProvider": false

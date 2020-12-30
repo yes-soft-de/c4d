@@ -3,7 +3,7 @@ class OrderStatusResponse {
   List<String> source;
   List<String> destination;
   Date date;
-//  Null updateDate;
+  Date updateDate;
   String note;
   String payment;
   String recipientName;
@@ -12,13 +12,14 @@ class OrderStatusResponse {
 //  Null fromBranch;
   List<AcceptedOrder> acceptedOrder;
   List<Record> record;
+//  Null uuid;
 
   OrderStatusResponse(
       {this.id,
         this.source,
         this.destination,
         this.date,
-//        this.updateDate,
+        this.updateDate,
         this.note,
         this.payment,
         this.recipientName,
@@ -26,14 +27,18 @@ class OrderStatusResponse {
         this.state,
 //        this.fromBranch,
         this.acceptedOrder,
-        this.record});
+        this.record,
+//        this.uuid
+        });
 
   OrderStatusResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     source = json['source'].cast<String>();
     destination = json['destination'].cast<String>();
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
-//    updateDate = json['updateDate'];
+    updateDate = json['updateDate'] != null
+        ? new Date.fromJson(json['updateDate'])
+        : null;
     note = json['note'];
     payment = json['payment'];
     recipientName = json['recipientName'];
@@ -52,6 +57,7 @@ class OrderStatusResponse {
         record.add(new Record.fromJson(v));
       });
     }
+//    uuid = json['uuid'];
   }
 
   Map<String, dynamic> toJson() {
@@ -62,7 +68,9 @@ class OrderStatusResponse {
     if (this.date != null) {
       data['date'] = this.date.toJson();
     }
-//    data['updateDate'] = this.updateDate;
+    if (this.updateDate != null) {
+      data['updateDate'] = this.updateDate.toJson();
+    }
     data['note'] = this.note;
     data['payment'] = this.payment;
     data['recipientName'] = this.recipientName;
@@ -76,6 +84,7 @@ class OrderStatusResponse {
     if (this.record != null) {
       data['record'] = this.record.map((v) => v.toJson()).toList();
     }
+//    data['uuid'] = this.uuid;
     return data;
   }
 }

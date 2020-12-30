@@ -26,50 +26,51 @@ class Data {
   List<String> source;
   List<String> destination;
   Date date;
-  Null updateDate;
+//  Null updateDate;
   String note;
   String payment;
   String recipientName;
   String recipientPhone;
   String state;
-  Null fromBranch;
+//  Null fromBranch;
 //  List<Null> acceptedOrder;
-  Null record;
+//  Null record;
 
   Data(
       {this.id,
         this.source,
         this.destination,
         this.date,
-        this.updateDate,
+//        this.updateDate,
         this.note,
         this.payment,
         this.recipientName,
         this.recipientPhone,
         this.state,
-        this.fromBranch,
+//        this.fromBranch,
 //        this.acceptedOrder,
-        this.record});
+//        this.record
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     source = json['source'].cast<String>();
     destination = json['destination'].cast<String>();
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
-    updateDate = json['updateDate'];
+//    updateDate = json['updateDate'];
     note = json['note'];
     payment = json['payment'];
     recipientName = json['recipientName'];
     recipientPhone = json['recipientPhone'];
     state = json['state'];
-    fromBranch = json['fromBranch'];
+//    fromBranch = json['fromBranch'];
 //    if (json['acceptedOrder'] != null) {
 //      acceptedOrder = new List<Null>();
 //      json['acceptedOrder'].forEach((v) {
 //        acceptedOrder.add(new Null.fromJson(v));
 //      });
 //    }
-    record = json['record'];
+//    record = json['record'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,18 +81,18 @@ class Data {
     if (this.date != null) {
       data['date'] = this.date.toJson();
     }
-    data['updateDate'] = this.updateDate;
+//    data['updateDate'] = this.updateDate;
     data['note'] = this.note;
     data['payment'] = this.payment;
     data['recipientName'] = this.recipientName;
     data['recipientPhone'] = this.recipientPhone;
     data['state'] = this.state;
-    data['fromBranch'] = this.fromBranch;
+//    data['fromBranch'] = this.fromBranch;
 //    if (this.acceptedOrder != null) {
 //      data['acceptedOrder'] =
 //          this.acceptedOrder.map((v) => v.toJson()).toList();
 //    }
-    data['record'] = this.record;
+//    data['record'] = this.record;
     return data;
   }
 }

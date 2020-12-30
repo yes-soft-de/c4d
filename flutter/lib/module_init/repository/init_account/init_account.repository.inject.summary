@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/repository/owner_orders/owner_orders.repository.dart",
+  "asset": "asset:c4d/lib/module_init/repository/init_account/init_account.repository.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "OwnerOrdersRepository",
+        "name": "InitAccountRepository",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/repository/owner_orders/owner_orders.repository.dart#OwnerOrdersRepository",
+              "root": "asset:c4d/lib/module_init/repository/init_account/init_account.repository.dart#InitAccountRepository",
               "qualifier": null
             },
             "isProvider": false
