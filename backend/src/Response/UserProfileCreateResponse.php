@@ -6,11 +6,11 @@ class UserProfileCreateResponse
 {
     public $id;
     
-    public $userName;
+    // public $userName;
 
-    public $story;
+    // public $story;
 
-    public $image;
+    // public $image;
 
     public $status;
 

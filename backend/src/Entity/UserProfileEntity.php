@@ -23,7 +23,7 @@ class UserProfileEntity
     private $userID;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $userName;
 

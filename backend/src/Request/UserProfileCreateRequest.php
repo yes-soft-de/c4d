@@ -6,11 +6,11 @@ class UserProfileCreateRequest
 {
     private $userID;
 
-    private $userName;
+    // private $userName;
 
-    private $story;
+    // private $story;
 
-    private $image;
+    // private $image;
 
     private $branch;
     
@@ -34,53 +34,53 @@ class UserProfileCreateRequest
         $this->userID = $userID;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserName()
-    {
-        return $this->userName;
-    }
+    // /**
+    //  * @return mixed
+    //  */
+    // public function getUserName()
+    // {
+    //     return $this->userName;
+    // }
 
-    /**
-     * @param mixed $userName
-     */
-    public function setUserName($userName): void
-    {
-        $this->userName = $userName;
-    }
+    // /**
+    //  * @param mixed $userName
+    //  */
+    // public function setUserName($userName): void
+    // {
+    //     $this->userName = $userName;
+    // }
 
-    /**
-     * @return mixed
-     */
-    public function getStory()
-    {
-        return $this->story;
-    }
+    // /**
+    //  * @return mixed
+    //  */
+    // public function getStory()
+    // {
+    //     return $this->story;
+    // }
 
-    /**
-     * @param mixed $story
-     */
-    public function setStory($story): void
-    {
-        $this->story = $story;
-    }
+    // /**
+    //  * @param mixed $story
+    //  */
+    // public function setStory($story): void
+    // {
+    //     $this->story = $story;
+    // }
 
-    /**
-     * @return mixed
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
+    // /**
+    //  * @return mixed
+    //  */
+    // public function getImage()
+    // {
+    //     return $this->image;
+    // }
 
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image): void
-    {
-        $this->image = $image;
-    }
+    // /**
+    //  * @param mixed $image
+    //  */
+    // public function setImage($image): void
+    // {
+    //     $this->image = $image;
+    // }
 
     public function getUuid(): ?string
     {

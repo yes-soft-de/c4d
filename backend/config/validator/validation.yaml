@@ -76,8 +76,6 @@ App\Request\UserRegisterRequest:
 
 App\Request\UserProfileCreateRequest:
   properties:
-    userName:
-      - NotBlank: ~
     branch:
       - NotBlank: ~
     city:
@@ -88,8 +86,6 @@ App\Request\UserProfileUpdateRequest:
     id:
       - NotBlank: ~
     userID:
-      - NotBlank: ~
-    userName:
       - NotBlank: ~
     branch:
       - NotBlank: ~
