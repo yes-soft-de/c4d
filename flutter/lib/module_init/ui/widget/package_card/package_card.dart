@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class PackageCard extends StatelessWidget {
   final int index;
-  final int packageNumber;
-  final int ordersNumber;
-  final int carsNumber;
-  final int price;
+  final String packageNumber;
+  final String ordersNumber;
+  final String carsNumber;
+  final String price;
 
   PackageCard({
     this.ordersNumber,

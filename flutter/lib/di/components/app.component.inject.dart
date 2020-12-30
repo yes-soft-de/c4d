@@ -48,6 +48,14 @@ import '../../module_authorization/state_manager/auth_state_manager/auth_state_m
 import '../../module_init/init_account_module.dart' as _i32;
 import '../../module_init/ui/screens/init_account_screen/init_account_screen.dart'
     as _i33;
+import '../../module_init/state_manager/init_account/init_account.state_manager.dart'
+    as _i34;
+import '../../module_init/service/init_account/init_account.service.dart'
+    as _i35;
+import '../../module_init/manager/init_account/init_account.manager.dart'
+    as _i36;
+import '../../module_init/repository/init_account/init_account.repository.dart'
+    as _i37;
 
 class AppComponent$Injector implements _i1.AppComponent {
   AppComponent$Injector._();
@@ -120,7 +128,16 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i31.AuthStateManager(_createAuthService());
   _i32.InitAccountModule _createInitAccountModule() =>
       _i32.InitAccountModule(_createInitAccountScreen());
-  _i33.InitAccountScreen _createInitAccountScreen() => _i33.InitAccountScreen();
+  _i33.InitAccountScreen _createInitAccountScreen() =>
+      _i33.InitAccountScreen(_createInitAccountStateManager());
+  _i34.InitAccountStateManager _createInitAccountStateManager() =>
+      _i34.InitAccountStateManager(_createInitAccountService());
+  _i35.InitAccountService _createInitAccountService() =>
+      _i35.InitAccountService(_createInitAccountManager());
+  _i36.InitAccountManager _createInitAccountManager() =>
+      _i36.InitAccountManager(_createInitAccountRepository());
+  _i37.InitAccountRepository _createInitAccountRepository() =>
+      _i37.InitAccountRepository(_createApiClient(), _createAuthService());
   @override
   _i4.MyApp get app => _createMyApp();
 }

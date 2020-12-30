@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_init/ui/screens/init_account_screen/init_account_screen.dart",
+  "asset": "asset:c4d/lib/module_init/state_manager/init_account/init_account.state_manager.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "InitAccountScreen",
+        "name": "InitAccountStateManager",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_init/ui/screens/init_account_screen/init_account_screen.dart#InitAccountScreen",
+              "root": "asset:c4d/lib/module_init/state_manager/init_account/init_account.state_manager.dart#InitAccountStateManager",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_init/state_manager/init_account/init_account.state_manager.dart#InitAccountStateManager",
+                "root": "asset:c4d/lib/module_init/service/init_account/init_account.service.dart#InitAccountService",
                 "qualifier": null
               },
               "isProvider": false
