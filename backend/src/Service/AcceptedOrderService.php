@@ -49,11 +49,6 @@ class AcceptedOrderService
         return $this->acceptedOrderManager->countOrdersDeliverd($userID);
     }
 
-    public function closestOrders()
-    {
-        return $this->acceptedOrderManager->closestOrders();
-    }
-
     public function update($request)
     {
         $result = $this->acceptedOrderManager->update($request);
@@ -76,4 +71,9 @@ class AcceptedOrderService
     {
         return $this->acceptedOrderManager->countAcceptedOrder($captainId);
     }
+
+    public function getTop5Captains()
+     {
+         return $this->acceptedOrderManager->getTop5Captains();
+     }
 }

@@ -50,11 +50,6 @@ class AcceptedOrderManager
         return $this->repository->countOrdersDeliverd($userID);
     }
 
-    public function closestOrders()
-    {
-        return $this->repository->closestOrders();
-    }
-
     public function update(AcceptedOrderUpdateRequest $request)
     {
         $acceptedOrderEntity = $this->repository->find($request->getId());
@@ -96,6 +91,11 @@ class AcceptedOrderManager
 
     public function  countAcceptedOrder($captainId)
     {
-        return $this->repository-> countAcceptedOrder($captainId);
+        return $this->repository->countAcceptedOrder($captainId);
+    }
+
+    public function getTop5Captains()
+    {
+        return $this->repository->getTop5Captains();
     }
 }

@@ -63,7 +63,7 @@ class SubscriptionController extends BaseController
 
     /**
      * @Route("getActiveSubscription", name="getActiveSubscribedPackage", methods={"GET"})
-     *  @IsGranted("ROLE_OWNER")
+     * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
     public function activeSubscription()
@@ -136,13 +136,14 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("/saveFinisheAuto/{ownerID}", name="saveFinisheAuto",methods={"GET"})
+     * @Route("/saveFinisheAuto", name="saveFinisheAuto",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
      * @param                                     Request $request
      * @return                                    JsonResponse
      */
-    public function saveFinisheAuto($ownerID)
+    public function saveFinisheAuto()
     {
-        $result = $this->subscriptionService->saveFinisheAuto($ownerID);
+        $result = $this->subscriptionService->saveFinisheAuto($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

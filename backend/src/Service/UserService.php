@@ -217,7 +217,6 @@ class UserService
         return $item ;
      }
 
-    
      public function dashboardCaptains()
      {
          $response = [];
@@ -225,11 +224,10 @@ class UserService
          $response[] = $this->userManager->countpendingCaptains();
          $response[] = $this->userManager->countOngoingCaptains();
          $response[] = $this->userManager->countDayOfCaptains();
-//
-// replace this to top 5 captain
-         $dayOfCaptains = $this->userManager->getDayOfCaptains();
+
+         $top5Captains = $this->acceptedOrderService->getTop5Captains();
       
-         foreach ($dayOfCaptains as $item) {
+         foreach ($top5Captains as $item) {
           
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $item);
          }         

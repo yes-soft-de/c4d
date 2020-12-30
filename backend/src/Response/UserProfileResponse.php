@@ -12,7 +12,7 @@ class UserProfileResponse
 
     // public $image;
 
-    public $status;
+    // public $status;
 
     public $branch;
     

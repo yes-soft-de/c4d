@@ -100,4 +100,17 @@ class AcceptedOrderController extends BaseController
 
         return $this->response($result, self::UPDATE);
     }
+    
+    /**
+     * @Route("/getTop5Captains", name="GetTop5Captains",methods={"GET"})
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function getTop5Captains()
+    {
+        $result = $this->acceptedOrderService->getTop5Captains();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

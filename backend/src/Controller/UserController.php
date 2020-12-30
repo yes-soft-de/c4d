@@ -318,5 +318,4 @@ class UserController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
-
 }

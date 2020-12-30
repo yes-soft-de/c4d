@@ -8,6 +8,7 @@ use App\Manager\SubscriptionManager;
 use App\Request\SubscriptionCreateRequest;
 use App\Response\SubscriptionResponse;
 use App\Response\SubscriptionByIdResponse;
+use App\Response\RemainingOrdersResponse;
 use SebastianBergmann\Comparator\DateTimeComparator;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
@@ -88,7 +89,7 @@ class SubscriptionService
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID);
         if ($remainingOrdersOfPackage) {
        // get subscripe start date after month
-        $startDate1 =date_timestamp_get($remainingOrdersOfPackage['startDate']);
+        $startDate1 =date_timestamp_get($remainingOrdersOfPackage['subscriptionStartDate']);
         
         $startDate2 = (json_decode($startDate1));
 
@@ -98,7 +99,7 @@ class SubscriptionService
         // dd($startDate , $startDateNextMonth);
 
        // get subscripe end date format normal
-        $endDate1 =date_timestamp_get($remainingOrdersOfPackage['endDate']);
+        $endDate1 =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
         
         $endDate2 = (json_decode($endDate1));
 
@@ -116,7 +117,9 @@ class SubscriptionService
             $response[] = ["subscripe finished, date is finished"];
         }
     }
-        $response[] = $remainingOrdersOfPackage;
+        $response = $this->autoMapping->map('array', RemainingOrdersResponse::class, $remainingOrdersOfPackage);
+
+        $response->subscriptionstatus = $this->subscriptionIsActive($ownerID);
         
         return $response;
      }
@@ -127,10 +130,7 @@ class SubscriptionService
         $fromDate =new \DateTime($year . '-' . $month . '-01'); 
         $toDate = new \DateTime($fromDate->format('Y-m-d') . ' 1 month');
 
-        return $this->subscriptionManager->subscripeNewUsers($fromDate, $toDate);
-       
-        // return $this->autoMapping->map('array', SubscriptionResponse::class, $newUsres);
-       
+        return $this->subscriptionManager->subscripeNewUsers($fromDate, $toDate);       
      }
 
     public function dashboardContracts($year, $month)

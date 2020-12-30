@@ -68,7 +68,7 @@ methods: GET
 ROLE_OWNER
 
 ```
-/remainingOrders
+/saveFinisheAuto
 methods: GET
 ```
 ``
