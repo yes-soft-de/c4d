@@ -57,6 +57,11 @@ class UserProfileEntity
      */
     private $uuid;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
     public function getUserID(): ?string
     {
         return $this->userID;
@@ -149,6 +154,18 @@ class UserProfileEntity
     public function setUuid(?string $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
