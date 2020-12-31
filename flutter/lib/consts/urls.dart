@@ -10,5 +10,6 @@ class Urls {
   static const OWNER_ORDERS = BASE_API + '/orders/';
   static const ORDER_STATUS = BASE_API + '/orderById/';
   static const PACKAGES = BASE_API + '/packages';
+  static const PROFILE = BASE_API + '/userprofile';
 
 }

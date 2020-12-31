@@ -26,6 +26,26 @@ class AuthPrefsHelper {
     return preferencesHelper.getString('username');
   }
 
+  Future<void> setEmail(String email) async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    return preferencesHelper.setString('email', email);
+  }
+
+  Future<String> getEmail() async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    return preferencesHelper.getString('email');
+  }
+
+  Future<void> setPassword(String password) async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    return preferencesHelper.setString('password', password);
+  }
+
+  Future<String> getPassword() async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    return preferencesHelper.getString('password');
+  }
+
   Future<bool> isSignedIn() async {
     String uid = await getToken();
     return uid != null;

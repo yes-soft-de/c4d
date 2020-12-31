@@ -76,7 +76,12 @@ class ApiClient {
   }
 
   Future<Map<String, dynamic>> post(
-      String url, Map<String, dynamic> payLoad) async {
+      String url, Map<String, dynamic> payLoad,{ String token}) async {
+    if (token != null){
+      print('token :$token');
+      _client.options.headers.putIfAbsent('Authorization', () => 'Bearer $token');
+    }
+
     try {
       _logger.info(tag, 'Requesting Post to: ' + url);
       _logger.info(tag, 'POST: ' + jsonEncode(payLoad));

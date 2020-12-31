@@ -2,29 +2,27 @@
 
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/module_authorization/service/auth_service/auth_service.dart';
-import 'package:c4d/module_init/response/packages/packages_response.dart';
 import 'package:c4d/module_network/http_client/http_client.dart';
+import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:inject/inject.dart';
 
 @provide
-class InitAccountRepository{
+class ProfileRepository{
   final ApiClient _apiClient;
   final AuthService _authService;
 
-  InitAccountRepository(
+  ProfileRepository(
       this._apiClient,
-      this._authService
+      this._authService,
       );
 
-  Future<PackagesResponse> getPackages()async{
+  Future<bool> createProfile(ProfileRequest profileRequest)async{
     String token = await _authService.getToken();
-    print('tokotoko: $token');
+    dynamic response = await _apiClient.post(Urls.PROFILE, profileRequest.toJson(),token: token);
 
-    dynamic response = await _apiClient.get(Urls.PACKAGES,token: token);
-    if(response == null ) return null;
+    if(response['status_code']=='201') return true;
 
-    return PackagesResponse.fromJson(response);
-
+    return false;
 
   }
 }

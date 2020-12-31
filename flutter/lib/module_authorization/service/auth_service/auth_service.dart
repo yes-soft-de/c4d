@@ -86,7 +86,7 @@ class AuthService {
 
     try {
       String role = isCaptain?'ROLE_CAPTAIN':'ROLE_OWNER';
-      if (!userExists) await _authManager.createUserWithoutFirebase(email, password,role);
+      if (!userExists) await _authManager.createUserWithoutFirebase(email, password, role);
 
     } catch (e) {
       Logger().info('AuthService', 'User Already Exists');
@@ -103,14 +103,18 @@ class AuthService {
 //    await _prefsHelper.setUserId(uid);
     await _prefsHelper.setIsCaptain(isCaptain);
     await _prefsHelper.setUsername(username);
+    await _prefsHelper.setEmail(email);
+    await _prefsHelper.setPassword(password);
 //    await _prefsHelper.setAuthSource(authSource);
+
+
     if(! userExists ) await refreshToken();
 
     return isCaptain
-        ? 'captain'
-        : userExists
-        ?'registeredOwner'
-        :'notRegisteredOwner';
+              ? 'captain'
+              : userExists
+                  ?'registeredOwner'
+                  :'notRegisteredOwner';
 
 
   }
@@ -137,8 +141,14 @@ class AuthService {
     return null;
   }
   Future<void> refreshToken() async {
-    String uid = await _prefsHelper.getUserId();
-    String token = await _authManager.getToken(uid, uid);
+//    String uid = await _prefsHelper.getUserId();
+//    String token = await _authManager.getToken(uid, uid);
+  //TODO: change it to uid when fix firebase auth
+    String email = await _prefsHelper.getEmail();
+    String password = await _prefsHelper.getPassword();
+
+    String token = await _authManager.getToken(email, password);
+
     await _prefsHelper.setToken(token);
   }
 
@@ -149,10 +159,11 @@ class AuthService {
   }
 
   Future<bool> get isLoggedIn async {
-    var user = await _firebaseAuth.currentUser;
+    //TODO : uncomment this
+//    var user = await _firebaseAuth.currentUser;
     var savedLogin = await _prefsHelper.isSignedIn();
 
-    return user != null && savedLogin;
+    return /*user != null &&*/ savedLogin;
   }
 
   Future<bool> get isCaptain async {
