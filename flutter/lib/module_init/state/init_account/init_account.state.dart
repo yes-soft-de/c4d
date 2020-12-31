@@ -18,3 +18,13 @@ class InitAccountFetchingDataSuccessState extends InitAccountState{
 }
 
 class InitAccountFetchingDataErrorState extends InitAccountState{}
+///-------------------------------------------------------------------------
+
+class InitAccountCreateProfileSuccessState extends InitAccountState{}
+
+class InitAccountCreateProfileErrorState extends InitAccountState{}
+///-------------------------------------------------------------------------
+
+class InitAccountSubscribeSuccessState extends InitAccountState{}
+
+class InitAccountSubscribeErrorState extends InitAccountState{}

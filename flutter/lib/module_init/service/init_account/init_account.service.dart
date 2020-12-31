@@ -38,4 +38,6 @@ class InitAccountService{
    return packages;
   }
 
+  Future<bool> subscribePackage(int packageId)async => await _manager.subscribePackage(packageId);
+
 }

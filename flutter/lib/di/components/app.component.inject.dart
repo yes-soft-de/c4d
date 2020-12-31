@@ -56,6 +56,10 @@ import '../../module_init/manager/init_account/init_account.manager.dart'
     as _i36;
 import '../../module_init/repository/init_account/init_account.repository.dart'
     as _i37;
+import '../../module_profile/service/profile/profile.service.dart' as _i38;
+import '../../module_profile/manager/profile/profile.manager.dart' as _i39;
+import '../../module_profile/repository/profile/profile.repository.dart'
+    as _i40;
 
 class AppComponent$Injector implements _i1.AppComponent {
   AppComponent$Injector._();
@@ -131,13 +135,20 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i33.InitAccountScreen _createInitAccountScreen() =>
       _i33.InitAccountScreen(_createInitAccountStateManager());
   _i34.InitAccountStateManager _createInitAccountStateManager() =>
-      _i34.InitAccountStateManager(_createInitAccountService());
+      _i34.InitAccountStateManager(
+          _createInitAccountService(), _createProfileService());
   _i35.InitAccountService _createInitAccountService() =>
       _i35.InitAccountService(_createInitAccountManager());
   _i36.InitAccountManager _createInitAccountManager() =>
       _i36.InitAccountManager(_createInitAccountRepository());
   _i37.InitAccountRepository _createInitAccountRepository() =>
       _i37.InitAccountRepository(_createApiClient(), _createAuthService());
+  _i38.ProfileService _createProfileService() =>
+      _i38.ProfileService(_createProfileManager());
+  _i39.ProfileManager _createProfileManager() =>
+      _i39.ProfileManager(_createProfileRepository());
+  _i40.ProfileRepository _createProfileRepository() =>
+      _i40.ProfileRepository(_createApiClient(), _createAuthService());
   @override
   _i4.MyApp get app => _createMyApp();
 }

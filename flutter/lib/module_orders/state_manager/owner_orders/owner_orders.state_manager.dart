@@ -21,13 +21,13 @@ class OwnerOrdersStateManager{
     _stateSubject.add(OwnerOrdersFetchingDataState());
 
     _ordersService.getNearbyOrders().then((value) {
-      if(value == null ){
+      /*if(value == null ){
         Fluttertoast.showToast(msg: S.current.errorLoadingData);
         _stateSubject.add(OwnerOrdersFetchingDataErrorState());
-      }
-      else{
+      }*/
+//      else{
         _stateSubject.add(OwnerOrdersFetchingDataSuccessState(value));
-      }
+//      }
     });
 
   }

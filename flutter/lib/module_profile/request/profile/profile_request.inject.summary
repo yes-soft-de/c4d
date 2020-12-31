@@ -1,0 +1,8 @@
+{
+  "asset": "asset:c4d/lib/module_profile/request/profile/profile_request.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": []
+  }
+}

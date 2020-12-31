@@ -11,5 +11,6 @@ class Urls {
   static const ORDER_STATUS = BASE_API + '/orderById/';
   static const PACKAGES = BASE_API + '/packages';
   static const PROFILE = BASE_API + '/userprofile';
+  static const SUBSCRIPTION = BASE_API + '/subscription';
 
 }

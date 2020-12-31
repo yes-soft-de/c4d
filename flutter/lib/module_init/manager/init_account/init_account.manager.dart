@@ -12,4 +12,6 @@ class InitAccountManager{
       );
 
   Future<PackagesResponse> getPackages() async => await _repository.getPackages();
+
+  Future<bool> subscribePackage(int packageId)async => await _repository.subscribePackage(packageId);
 }

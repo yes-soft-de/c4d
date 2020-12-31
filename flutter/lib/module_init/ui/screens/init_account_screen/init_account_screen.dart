@@ -26,8 +26,23 @@ class InitAccountScreen extends StatefulWidget {
 class _InitAccountScreenState extends State<InitAccountScreen> {
   List<PackageModel> _packages =[];
   InitAccountState currentState = InitAccountInitState();
-  bool loading = true;
+  bool loading = false;
   bool error = false;
+  int _selectedPackageId = -1;
+
+  List<ListItem> _cities = [
+    ListItem(1, "daraa"),
+
+  ];
+  List<ListItem> _sizes = [
+    ListItem(1, "1"),
+  ];
+
+
+
+  ListItem _selectedCity;
+  ListItem _selectedSize;
+
 
   @override
   void initState() {
@@ -39,45 +54,43 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
   }
 
   void processEvent(){
+    if(currentState is InitAccountCreateProfileSuccessState){
+      widget._stateManager.getPackages();
+      loading = true;
+      error = false;
+    }
     if(currentState is InitAccountFetchingDataSuccessState){
       InitAccountFetchingDataSuccessState state = currentState;
       _packages = state.data;
       loading = false;
       error = false;
     }
-    if(currentState is InitAccountFetchingDataErrorState){
-      loading = false;
-      error = true;
+    if(currentState is InitAccountSubscribeSuccessState){
+      Navigator.pushReplacementNamed(
+          context,
+          OrdersRoutes.OWNER_ORDERS_SCREEN
+      );
     }
+
+
+//    if(currentState is InitAccountFetchingDataErrorState){
+//      loading = false;
+//      error = true;
+//    }
     if (this.mounted) {
       setState(() {});
     }
 
   }
 
-  List<ListItem> _cities = [
-    ListItem(1, "daraa"),
-
-  ];
-  List<ListItem> _sizes = [
-    ListItem(1, "1"), 
-  ];
-
-
-
-  ListItem _selectedCity;
-  ListItem _selectedSize;
-
-
-
   @override
   Widget build(BuildContext context) {
-    if (currentState is InitAccountInitState) {
-      widget._stateManager.getPackages();
-      if (this.mounted) {
-        setState(() {});
-      }
-    }
+//    if (currentState is InitAccountInitState) {
+//      widget._stateManager.getPackages();
+//      if (this.mounted) {
+//        setState(() {});
+//      }
+//    }
 
     return error
         ? ErrorUi(onRetry: () {
@@ -157,7 +170,15 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                           onChanged: (value) {
 
                             setState(() {
+
                               _selectedCity =_cities.firstWhere((element) => element.value.toString() == value) ;
+
+                              if(_selectedSize != null ){
+                                widget._stateManager.createProfile(
+                                    _selectedCity.name,
+                                    _selectedSize.value
+                                );
+                              }
                             });
                           }),
                     )
@@ -215,8 +236,14 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
 
                             setState(() {
                               _selectedSize =_sizes.firstWhere((element) => element.value.toString() == value) ;
-                              _selectedSize =_sizes.firstWhere((element) => element.value.toString() == value) ;
                             });
+
+                            if(_selectedCity != null ){
+                              widget._stateManager.createProfile(
+                                  _selectedCity.name,
+                                  _selectedSize.value
+                              );
+                            }
                           }),
                     )
 
@@ -224,24 +251,47 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                 ),
               ),
               //package
-              Container(
-                height: 275,
+              (_packages.isNotEmpty)
+                        ? Container(
+                            height: 275,
+                            width: MediaQuery.of(context).size.width*0.9,
+                            margin: EdgeInsets.only(top:20),
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _packages.length,
+                                itemBuilder: (BuildContext context, int index){
+                                  return GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _selectedPackageId = _packages[index].id;
+
+                                      });
+                                    },
+                                    child: Opacity(
+                                      opacity: _selectedPackageId == _packages[index].id
+                                          ? 0.5
+                                          : 1.0,
+                                      child: PackageCard(
+                                        index: index,
+                                        carsNumber: _packages[index].carCount ,
+                                        ordersNumber: _packages[index].orderCount,
+                                        packageNumber: _packages[index].id.toString(),
+                                        price: _packages[index].cost,
+                                        ),
+                                    ),
+                                  );
+                                }
+                            ),
+                       )
+                  :Container(
+                height: 50,
                 width: MediaQuery.of(context).size.width*0.9,
                 margin: EdgeInsets.only(top:20),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _packages.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return PackageCard(
-                        index: index,
-                        carsNumber: _packages[index].carCount ,
-                        ordersNumber: _packages[index].orderCount,
-                        packageNumber: _packages[index].id.toString(),
-                        price: _packages[index].cost,
-                        );
-                    }
-                ),
+                child: Text(
+                  'الرجاء قم باختيار مدينة وعدد الأفرع'
+                )
               ),
+
               Container(
                 width: MediaQuery.of(context).size.width*0.9,
                 margin: EdgeInsets.only(top: 30),
@@ -251,13 +301,17 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                       borderRadius: BorderRadius.circular(15)
                   ),
                   color:  ProjectColors.THEME_COLOR  ,
-                  onPressed: (){
-                    Navigator.pushReplacementNamed(
-                      context,
-                     OrdersRoutes.OWNER_ORDERS_SCREEN
+                  onPressed: (_selectedPackageId == null)
+                      ? null
+                      :() {
+                   setState(() {
+                     loading = true;
+                     widget._stateManager.subscribePackage(_selectedPackageId);
+                   });
+                  }
 
-                    );
-                  },
+
+ ,
                   child: Text(
                     'CONTINUE',
                     style: TextStyle(

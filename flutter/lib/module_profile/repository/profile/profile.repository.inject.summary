@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_init/state_manager/init_account/init_account.state_manager.dart",
+  "asset": "asset:c4d/lib/module_profile/repository/profile/profile.repository.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "InitAccountStateManager",
+        "name": "ProfileRepository",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_init/state_manager/init_account/init_account.state_manager.dart#InitAccountStateManager",
+              "root": "asset:c4d/lib/module_profile/repository/profile/profile.repository.dart#ProfileRepository",
               "qualifier": null
             },
             "isProvider": false
@@ -21,14 +21,14 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_init/service/init_account/init_account.service.dart#InitAccountService",
+                "root": "asset:c4d/lib/module_network/http_client/http_client.dart#ApiClient",
                 "qualifier": null
               },
               "isProvider": false
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_profile/service/profile/profile.service.dart#ProfileService",
+                "root": "asset:c4d/lib/module_authorization/service/auth_service/auth_service.dart#AuthService",
                 "qualifier": null
               },
               "isProvider": false

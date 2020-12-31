@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
      signedInUseIsACaptain = await widget._stateManager.isCaptain();
   }
 
+
   void processEvent(){
     if (_currentState is AuthStateCaptainSuccess) {
       redirectTo = OrdersRoutes.ORDERS_SCREEN;
@@ -66,7 +67,9 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
 
-    setState(() {});
+    if (this.mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -75,15 +78,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
    if(isUserSignedIn){
      if(signedInUseIsACaptain){
-       Navigator.pushNamed(
-           context,
-           OrdersRoutes.ORDERS_SCREEN
-       );
+       Future((){
+         Navigator.pushNamed(
+             context,
+             OrdersRoutes.ORDERS_SCREEN
+         );
+       });
      }else{
-       Navigator.pushNamed(
-           context,
-           OrdersRoutes.OWNER_ORDERS_SCREEN
-       );
+       Future((){
+         Navigator.pushNamed(
+             context,
+             OrdersRoutes.OWNER_ORDERS_SCREEN
+         );
+       });
      }
    }
 
@@ -91,9 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
 //     if (value) Navigator.of(context).pushReplacementNamed(redirectTo);
 //   });
 
-    return screenUi(
-
-    );
+    return screenUi(     );
   }
 
   Widget screenUi(){

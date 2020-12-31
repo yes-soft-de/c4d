@@ -18,13 +18,23 @@ class InitAccountRepository{
 
   Future<PackagesResponse> getPackages()async{
     String token = await _authService.getToken();
-    print('tokotoko: $token');
-
     dynamic response = await _apiClient.get(Urls.PACKAGES,token: token);
     if(response == null ) return null;
 
     return PackagesResponse.fromJson(response);
 
+  }
+  Future<bool> subscribePackage(int packageId)async{
+    String token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+        Urls.SUBSCRIPTION,{
+      "packageID":"$packageId"
+    },
+        token: token
+    );
 
+    if(response['status_code']=='201') return true;
+
+    return false;
   }
 }

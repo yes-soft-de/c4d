@@ -91,29 +91,37 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
 
 
       ),
-      body:
-      ListView.builder(
-        itemCount: myOrders.length,
-        itemBuilder: (BuildContext context , int index){
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(
-                  context,
-                   OrdersRoutes.ORDER_STATUS_FOR_OWNER_SCREEN,
-                  arguments: myOrders[index].id
-                );
-              },
-              child: OwnerOrderCard(
-                to: myOrders[index].to,
-                from:  myOrders[index].from,
-                time: myOrders[index].creationTime,
-                index : index
+      body:myOrders != null
+          ? ListView.builder(
+          itemCount: myOrders.length,
+          itemBuilder: (BuildContext context , int index){
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pushNamed(
+                      context,
+                      OrdersRoutes.ORDER_STATUS_FOR_OWNER_SCREEN,
+                      arguments: myOrders[index].id
+                  );
+                },
+                child: OwnerOrderCard(
+                    to: myOrders[index].to,
+                    from:  myOrders[index].from,
+                    time: myOrders[index].creationTime,
+                    index : index
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          })
+          :Container(
+           child: Center(
+             child: Text(
+               'لم تقم بإرسال أي بضائع بعد'
+             ),
+           ),
+      )
+     ,
       bottomNavigationBar: GestureDetector(
         onTap: (){
           Navigator.push(
