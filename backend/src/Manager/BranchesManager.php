@@ -56,4 +56,9 @@ class BranchesManager
     {
         return $this->branchesRepository->branchesByUserId($userId);
     }
+
+    public function getBrancheById($Id)
+    {
+        return $this->branchesRepository->find($Id);
+    }
 }

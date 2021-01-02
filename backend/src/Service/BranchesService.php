@@ -47,4 +47,9 @@ class BranchesService
     {
         return $this->branchesManager->branchesByUserId($userId);
     }
+
+    public function getBrancheById($Id)
+    {
+        return $this->branchesManager->getBrancheById($Id);
+    }
 }

@@ -37,7 +37,7 @@ App\Request\PackageCreateRequest:
     branch:
       - NotBlank: ~
 
-App\Request\PackageUpdateRequest:
+App\Request\PackageUpdateStateRequest:
   properties:
     id:
       - NotBlank: ~

@@ -18,13 +18,15 @@ class OrderService
     private $orderManager;
     private $acceptedOrderService;
     private $recordService;
+    private $branchesService;
 
-    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService)
+    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService, BranchesService $branchesService)
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
         $this->acceptedOrderService = $acceptedOrderService;
         $this->recordService = $recordService;
+        $this->branchesService = $branchesService;
     }
 
     public function create(OrderCreateRequest $request)
@@ -107,9 +109,11 @@ class OrderService
         $response = [];
 
         $orders = $this->orderManager->closestOrders();
-
+   
         foreach ($orders as $order) {
-            
+            if ($order['fromBranch']){
+            $order['fromBranch'] = $this->branchesService->getBrancheById($orders[0]['fromBranch']);
+            }
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
         return $response;
