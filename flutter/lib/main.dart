@@ -56,7 +56,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
 //    widget._localizationService.localizationStream.listen((event) {
 //      setState(() {});
 //    });

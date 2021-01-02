@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/ui/screens/new_order/new_order_screen.dart",
+  "asset": "asset:c4d/lib/module_orders/manager/new_order/new_order.manager.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "NewOrderScreen",
+        "name": "NewOrderManager",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/ui/screens/new_order/new_order_screen.dart#NewOrderScreen",
+              "root": "asset:c4d/lib/module_orders/manager/new_order/new_order.manager.dart#NewOrderManager",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/state_manager/new_order/new_order.state_manager.dart#NewOrderStateManager",
+                "root": "asset:c4d/lib/module_orders/repository/new_order/new_order.repository.dart#NewOrderRepository",
                 "qualifier": null
               },
               "isProvider": false

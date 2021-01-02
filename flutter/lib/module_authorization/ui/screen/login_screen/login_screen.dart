@@ -2,7 +2,6 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_authorization/state_manager/auth_state_manager/auth_state_manager.dart';
 import 'package:c4d/module_authorization/states/auth_states/auth_states.dart';
 import 'package:c4d/module_init/init_routes.dart';
-import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   AuthState _currentState;
 
-  bool isUserSignedIn ;
-  bool signedInUseIsACaptain ;
+  bool isUserSignedIn = false;
+  bool signedInUseIsACaptain = false ;
 
   String redirectTo;
 
@@ -98,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
 //     if (value) Navigator.of(context).pushReplacementNamed(redirectTo);
 //   });
 
-    return screenUi(     );
+    return screenUi();
   }
 
   Widget screenUi(){

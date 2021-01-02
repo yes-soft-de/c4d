@@ -8,6 +8,7 @@ class Urls {
   static const CREATE_CAPTAIN_ACCOUNT = BASE_API + '/captainprofile';
   static const NEARBY_ORDERS = BASE_API + '/closestOrders';
   static const OWNER_ORDERS = BASE_API + '/orders/';
+  static const NEW_ORDER = BASE_API +'/order';
   static const ORDER_STATUS = BASE_API + '/orderById/';
   static const PACKAGES = BASE_API + '/packages';
   static const PROFILE = BASE_API + '/userprofile';
