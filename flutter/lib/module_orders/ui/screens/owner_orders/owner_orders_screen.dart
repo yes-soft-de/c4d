@@ -124,6 +124,7 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
      ,
       bottomNavigationBar: GestureDetector(
         onTap: (){
+          Navigator.pop(context);
           Navigator.pushNamed(
             context,
             OrdersRoutes.NEW_ORDER_SCREEN

@@ -41,7 +41,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
     super.initState();
 
     _controller2 = TextEditingController(text: DateTime.now().toString());
-    _controller2.text = '2001-10-21 15:31';
+    _controller2.text = DateTime.now().toString();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       processEvent();
@@ -233,16 +233,16 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                            type: DateTimePickerType.dateTimeSeparate,
                            dateMask: 'dd/MM/yyyy',
                            initialValue: DateTime.now().toString(),
-                           firstDate: DateTime(2000),
+                             firstDate: DateTime.now(),
                            lastDate: DateTime(2100),
 //                         icon: Icon(Icons.event),
                            dateLabelText: 'Date',
                            timeLabelText: "Hour",
                            selectableDayPredicate: (date) {
                              // Disable weekend days to select from the calendar
-                             if (date.weekday == 6 || date.weekday == 7) {
-                               return false;
-                             }
+//                             if (date.weekday == 6 || date.weekday == 7) {
+//                               return false;
+//                             }
 
                              return true;
                            },
@@ -309,8 +309,9 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                          ),
                          color:  Colors.grey[100] ,
                          onPressed: (){
-                           Navigator.pop(
-                             context,
+                           Navigator.pushNamed(
+                               context,
+                               OrdersRoutes.OWNER_ORDERS_SCREEN
                            );
                          },
                          child: Text(

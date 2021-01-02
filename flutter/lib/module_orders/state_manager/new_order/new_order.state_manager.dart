@@ -31,7 +31,7 @@ class NewOrderStateManager{
       }
       else{
         Fluttertoast.showToast(msg: S.current.errorHappened);
-        _stateSubject.add(NewOrderStateSuccessState());
+        _stateSubject.add(NewOrderStateErrorState());
       }
     });
   }

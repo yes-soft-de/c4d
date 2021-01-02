@@ -32,7 +32,7 @@ class Data {
   String recipientName;
   String recipientPhone;
   String state;
-  Null fromBranch;
+  String fromBranch;
   Null acceptedOrder;
   Null record;
 

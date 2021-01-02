@@ -25,8 +25,8 @@ class OrdersService{
       var date = new DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000);
       orders.add(
         new OrderModel(
-          to: element.destination[0],
-          from: element.source[0],
+          to: element.destination.isNotEmpty? element.destination.elementAt(0): '',
+          from: element.source.isNotEmpty? element.source.elementAt(0): '',
           creationTime: df.format(date).toString()??'',
           paymentMethod: element.payment,
           id: element.id,

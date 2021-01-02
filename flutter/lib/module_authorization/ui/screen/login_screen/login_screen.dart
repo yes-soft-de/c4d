@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_authorization/state_manager/auth_state_manager/auth_state_manager.dart';
 import 'package:c4d/module_authorization/states/auth_states/auth_states.dart';
@@ -29,7 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
   AuthState _currentState;
 
   bool isUserSignedIn = false;
-  bool signedInUseIsACaptain = false ;
+  bool signedInUseIsACaptain   ;
+
+  bool loading = false;
 
   String redirectTo;
 
@@ -303,9 +307,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(15)
                       ),
                       color:  ProjectColors.THEME_COLOR  ,
-                      onPressed: (){
+                      onPressed:loading
+                          ?null
+                          : (){
                         if (_formKey.currentState.validate()) {
-                            setState(() {});
+                            setState(() {
+                              loading = true;
+                            });
                             widget._stateManager.loginWithoutFirebase(
                               _emailController.text.trim(),
                               _passwordController.text.trim(),

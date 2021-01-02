@@ -32,6 +32,7 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
 
   List<ListItem> _cities = [
     ListItem(1, "daraa"),
+    ListItem(2, "homs"),
 
   ];
   List<ListItem> _sizes = [

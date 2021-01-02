@@ -18,7 +18,19 @@ class NewOrderRepository{
 
   Future<bool> addNewOrder(OrderRequest orderRequest)async{
     String token = await _authService.getToken();
-    dynamic response = await _apiClient.post(Urls.NEW_ORDER, orderRequest.toJson(),token: token);
+//    dynamic response = await _apiClient.post(Urls.NEW_ORDER, orderRequest.toJson(),token: token);
+    dynamic response = await _apiClient.post(
+        Urls.NEW_ORDER,
+        {
+          "fromBranch": orderRequest.fromBranch,
+          "destination":[orderRequest.destination],
+          "note":orderRequest.note,
+          "payment":orderRequest.paymentMethod,
+          "recipientName":orderRequest.recipientName,
+          "recipientPhone":orderRequest.recipientPhone,
+          "date":orderRequest.date
+        }
+        ,token: token);
     if(response == null ) return false;
 
     return response['status_code']=='201' ? true : false;
