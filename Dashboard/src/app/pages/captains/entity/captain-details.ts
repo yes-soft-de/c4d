@@ -2,7 +2,7 @@ export interface CaptainDetails {
     id: number;
     name: string;
     age: number;
-    bounce: {bounce: number}
+    bounce: number;
     captainID: string;
     car: string;
     countOrdersDeliverd: [{countOrdersDeliverd: number}];
@@ -13,4 +13,6 @@ export interface CaptainDetails {
     salary: number;
     state: string;
     status: string;
+    uuid: string;
+    totalBounce: {bounce: number}
 }

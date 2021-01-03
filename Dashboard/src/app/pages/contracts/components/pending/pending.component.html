@@ -7,16 +7,16 @@
                 <div class="card-body table-responsive bg-white text-center">
                     <table class="table">
                         <thead>
-                            <tr>
-                            <th scope="col">#ID</th>
-                            <th scope="col">User Name</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">End Date</th>
-                            <th scope="col">Package Name</th>
-                            <th scope="col">Package Note</th>
-                            <th scope="col">Subscription Note</th>
-                            <th scope="col">Control</th>
+                            <tr style="white-space: nowrap;">
+                                <th scope="col">#ID</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Package Name</th>
+                                <th scope="col">Package Note</th>
+                                <th scope="col">Subscription Note</th>
+                                <th scope="col">Control</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,9 +26,9 @@
                                 <th scope="row">{{pendingContract.status ? pendingContract.status : '-'}}</th>
                                 <th scope="row">{{pendingContract.startDate ? (pendingContract.startDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
                                 <th scope="row">{{pendingContract.endDate ? (pendingContract.endDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <th scope="row" class="td-custom mr-2">{{pendingContract.packageNote ? pendingContract.packageNote : '-'}}</th>
                                 <th scope="row">{{pendingContract.packageName ? pendingContract.packageName : '-'}}</th>
-                                <th scope="row">{{pendingContract.packageNote ? pendingContract.packageNote : '-'}}</th>
-                                <th scope="row">{{pendingContract.subscriptionNote ? pendingContract.subscriptionNote : '-'}}</th>
+                                <th scope="row" class="td-custom">{{pendingContract.subscriptionNote ? pendingContract.subscriptionNote : '-'}}</th>
                                 <th scrope="row">
                                     <a routerLink="/contracts/view/{{pendingContract.id}}" class="text-success">View</a>
                                 </th>

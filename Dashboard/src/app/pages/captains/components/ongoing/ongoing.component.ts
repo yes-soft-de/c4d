@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Captains } from '../../entity/captains';
@@ -15,7 +17,10 @@ export class OngoingComponent implements OnInit, OnDestroy {
   ongoingCaptainsList: Captains[] = [];
   config: any;
 
-  constructor(private captainsService: CaptainsService) { }
+  constructor(
+          private captainsService: CaptainsService,
+          private router: Router,
+          private toaster: ToastrService) { }
 
   ngOnInit(): void {
     this.captainsService.allOngoingCaptains('ongoing')
@@ -28,7 +33,15 @@ export class OngoingComponent implements OnInit, OnDestroy {
             console.log(ongingCaptains);
           }
         },
-        error => console.log('Error : ', error)
+        error => {
+          console.log(error);
+          if (error.error.status_code == 404) {
+            this.toaster.error(error.error.msg);
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 2000);
+          }
+        }
       );
 
       this.config = {

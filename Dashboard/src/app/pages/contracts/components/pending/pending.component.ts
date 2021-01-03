@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Contracts } from '../../entity/contracts';
@@ -16,7 +18,9 @@ export class PendingComponent implements OnInit, OnDestroy {
   config: any;
 
   constructor(
-    private captainService: ContractsService
+    private captainService: ContractsService,
+    private router: Router,
+    private toaster: ToastrService
 ) { }
 
   ngOnInit() {
@@ -30,7 +34,15 @@ export class PendingComponent implements OnInit, OnDestroy {
           }
           console.log(pendingContracts);
         },
-        error => console.log('Error : ', error)
+        error => {
+          console.log(error);
+          if (error.error.status_code == 404) {
+            this.toaster.error(error.error.msg);
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 2000);
+          }
+        }
       );
       this.config = {
         itemsPerPage: 5,

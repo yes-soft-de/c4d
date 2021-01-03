@@ -14,7 +14,7 @@ export class OrdersDashboardComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   countpendingOrders: number;
   countOngoingOrders: number;
-  countCancelledOrders: number;
+  ordersCount: number;
   orders: any[] = [];
   latestOrdersNumber = 5;
   constructor(private dashboardService: DashboardService) { }
@@ -27,7 +27,7 @@ export class OrdersDashboardComponent implements OnInit, OnDestroy {
         console.log('ordersResponse', ordersResponse);
         this.countpendingOrders = ordersResponse.Data[0].countpendingOrders;
         this.countOngoingOrders = ordersResponse.Data[1].countOngoingOrders;
-        this.countCancelledOrders = ordersResponse.Data[2].countCancelledOrders;
+        this.ordersCount = ordersResponse.Data[2].ordersCount;
         ordersResponse.Data.map((captians, index) => {          
           if (index >= 3) {
             this.orders.push(captians);

@@ -47,4 +47,13 @@ export class CaptainsService {
       this.tokenService.httpOptions()
     ).pipe(catchError(CaptainsService.errorHandle));
   }
+
+  updateCaptainSalaryBounce(data: any): Observable<any> {
+    return this.httpClient.put(
+      AdminConfig.captainSalaryBounceAPI,
+      JSON.stringify(data),
+      this.tokenService.httpOptions()
+    ).pipe(catchError(CaptainsService.errorHandle));
+  }
+  
 }

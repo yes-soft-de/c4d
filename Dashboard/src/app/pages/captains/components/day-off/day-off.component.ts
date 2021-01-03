@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Captains } from '../../entity/captains';
@@ -16,7 +18,9 @@ export class DayOffComponent implements OnInit, OnDestroy {
   config: any;
 
   constructor(
-        private captainService: CaptainsService
+        private captainService: CaptainsService,
+        private router: Router,
+        private toaster: ToastrService
   ) { }
 
   ngOnInit() {
@@ -29,7 +33,15 @@ export class DayOffComponent implements OnInit, OnDestroy {
             this.dayOffCaptainsList = dayOffResponse.Data;
           }
         },
-        error => console.log('Errors : ', error)
+        error => {
+          console.log(error);
+          if (error.error.status_code == 404) {
+            this.toaster.error(error.error.msg);
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 2000);
+          }
+        }
       );
       this.config = {
         itemsPerPage: 5,

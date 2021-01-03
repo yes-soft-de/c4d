@@ -7,10 +7,12 @@
                 <div class="card-body table-responsive bg-white text-center">
                     <table class="table">
                         <thead>
-                            <tr>
+                            <tr style="white-space: nowrap;">
                             <th scope="col">#ID</th>
                             <th scope="col">Recipient Name</th>
                             <th scope="col">Recipient Phone</th>
+                            <th scope="col">Tracking Status</th>
+                            <th scope="col">Elapsed Time</th>
                             <th scope="col">State</th>
                             <th scope="col">Date</th>
                             <th scope="col">From Branch</th>
@@ -25,12 +27,14 @@
                                 <th scope="row">{{pendingOrder.id}}</th>
                                 <th scope="row">{{pendingOrder.recipientName ? pendingOrder.recipientName : '-'}}</th>
                                 <th scope="row">{{pendingOrder.recipientPhone ? pendingOrder.recipientPhone : '-'}}</th>
+                                <th scope="row">{{pendingOrder.record ? pendingOrder.record.state : '-'}}</th>
+                                <th scope="row">{{pendingOrder.record?.startTime ? (pendingOrder.record?.startTime?.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
                                 <th scope="row">{{pendingOrder.state ? pendingOrder.state : '-'}}</th>
                                 <th scope="row">{{pendingOrder.date ? (pendingOrder.date.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
                                 <th scope="row">{{pendingOrder.fromBranch ? pendingOrder.fromBranch : '-'}}</th>
                                 <th scope="row">{{pendingOrder.payment ? pendingOrder.payment : '-'}}</th>
                                 <th scope="row">{{pendingOrder.updateDate ? (pendingOrder.updateDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
-                                <th scope="row">{{pendingOrder.note ? pendingOrder.note : '-'}}</th>
+                                <th scope="row" class="td-custom">{{pendingOrder.note ? pendingOrder.note : '-'}}</th>
                                 <th scrope="row">
                                     <a routerLink="/orders/view/{{pendingOrder.id}}" class="text-success">View</a>
                                 </th>

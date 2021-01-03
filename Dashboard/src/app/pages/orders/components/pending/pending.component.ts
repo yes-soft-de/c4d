@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OrderDetails } from '../../entity/order-details';
@@ -17,7 +19,9 @@ export class PendingComponent implements OnInit {
   config: any;
 
   constructor(
-    private orderService: OrdersService
+    private orderService: OrdersService,
+    private router: Router,
+    private toaster: ToastrService
 ) { }
 
   ngOnInit() {
@@ -31,7 +35,15 @@ export class PendingComponent implements OnInit {
           }
           console.log(pendingOrders);
         },
-        error => console.log('Error : ', error)
+        error => {
+          console.log(error);
+          if (error.error.status_code == 404) {
+            this.toaster.error(error.error.msg);
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 2000);
+          }
+        }
       );
       this.config = {
         itemsPerPage: 5,

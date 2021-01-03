@@ -4,7 +4,7 @@ export interface OrdersDashboardResponse {
     Data: [
         { countpendingOrders: number; },
         { countOngoingOrders: number; },
-        { countCancelledOrders: number; },
+        { ordersCount: number; },
         OrdersDashboard
     ];
 }

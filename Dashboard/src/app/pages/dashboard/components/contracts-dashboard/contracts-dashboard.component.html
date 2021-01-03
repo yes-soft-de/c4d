@@ -15,8 +15,8 @@
             </div>  
             <div class="col-12 col-md-4">
               <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
-                <div class="card-number text-light-blue">{{countCancelledContracts}}</div>
-                <span class="text-white">Cancelled</span>
+                <div class="card-number text-light-blue">{{NewUsersThisMonth}}</div>
+                <span class="text-white">Users This Month</span>
               </div>
             </div>      
           </div>
@@ -33,33 +33,46 @@
                     <th scope="col">UserName</th>
                     <th scope="col">Status</th>
                     <th scope="col">StartDate</th>
-                    <th scope="col">EndDate</th>
+                    <!-- <th scope="col">EndDate</th> -->
                     <th scope="col">PackageName</th>
                     <th scope="col">PackageNote</th>
-                    <th scope="col">Subscription Note</th>
+                    <!-- <th scope="col">Subscription Note</th> -->
                   </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let contract of contracts.reverse(); let i = index">
-                        <ng-container *ngIf="i < latestcontractsNumber">
-                            <tr>
+                    <!-- <ng-container *ngFor="let contract of contracts.reverse(); let i = index"> -->
+                        <!-- <ng-container *ngIf="i < latestcontractsNumber"> -->
+                            <tr *ngFor="let contract of contracts | paginate: config">
                                 <th scope="row">{{contract.id}}</th>
                                 <th scope="row">{{contract.userName ? contract.userName : '-'}}</th>
                                 <th scope="row">{{contract.status ? contract.status : '-'}}</th>
                                 <th scope="row">{{contract.startDate ? (contract.startDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
-                                <th scope="row">{{contract.endDate ? (contract.endDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <!-- <th scope="row">{{contract.endDate ? (contract.endDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th> -->
                                 <th scope="row">{{contract.packageName ? contract.packageName : '-'}}</th>
-                                <th scope="row">{{contract.packageNote ? contract.packageNote : '-'}}</th>
-                                <th scope="row">{{contract.subscriptionNote ? contract.subscriptionNote : '-'}}</th>
+                                <th scope="row" class="td-custom mr-1">{{contract.packageNote ? contract.packageNote : '-'}}</th>
+                                <!-- <th scope="row" class="td-custom">{{contract.subscriptionNote ? contract.subscriptionNote : '-'}}</th> -->
                             </tr>
-                        </ng-container>
-                    </ng-container>
+                        <!-- </ng-container> -->
+                    <!-- </ng-container> -->
                 </tbody>
               </table>
                 <div class="text-center" *ngIf="contracts.length == 0">
                     <p scope="row">There isn't any Requested Contracts To Show.</p>
                 </div >
             </div>
+            <div class="mt-3 text-center">
+              <pagination-controls class="my-pagination"
+                      (pageChange)="pageChanged($event)"
+                      autoHide="true"
+                      maxSize="5"
+                      responsive="true"
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+              </pagination-controls>
+          </div>
           </div><!--.card-->
         </div>
       </div>

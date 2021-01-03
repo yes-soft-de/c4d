@@ -4,30 +4,37 @@ import { takeUntil } from 'rxjs/operators';
 import { DashboardService } from '../../services/dashboard.service';
 import { ContractsDashboardResponse } from '../../entity/contracts-dashboard-response';
 import { ContractsDashboard } from '../../entity/contracts-dashboard';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contracts-dashboard',
   templateUrl: './contracts-dashboard.component.html',
-  styleUrls: ['./contracts-dashboard.component.scss']
+  styleUrls: ['./contracts-dashboard.component.scss'],
+  providers: [DatePipe]
 })
 export class ContractsDashboardComponent implements OnInit {
   private destroy$: Subject<void> = new Subject<void>();
   countPendingContracts: number;
   countDoneContracts: number;
-  countCancelledContracts: number;
+  NewUsersThisMonth: number;
   contracts: any[] = [];
   latestcontractsNumber = 5;
-  constructor(private dashboardService: DashboardService) { }
+  config: any;
 
-  ngOnInit(): void {
-    this.dashboardService.contractsDashboard()
+  constructor(private dashboardService: DashboardService, private datePipe: DatePipe) { }
+
+  ngOnInit() {
+    let year = new Date().getUTCFullYear().toString(),
+        month = (new Date().getUTCMonth() + 1).toString();
+        console.log('Y-M : ', year, month);
+    this.dashboardService.contractsDashboard(year, month)
     .pipe(takeUntil(this.destroy$))
     .subscribe((contractsResponse: ContractsDashboardResponse) => {
       if (contractsResponse) {
-        console.log(contractsResponse);
+        console.log('contractsResponse', contractsResponse);
         this.countPendingContracts = contractsResponse.Data[0].countPendingContracts;
         this.countDoneContracts = contractsResponse.Data[1].countDoneContracts;
-        this.countCancelledContracts = contractsResponse.Data[2].countCancelledContracts;
+        this.NewUsersThisMonth = contractsResponse.Data[2].NewUsersThisMonth;
         contractsResponse.Data.map((contracts, index) => {          
           if (index >= 3) {
             this.contracts.push(contracts);
@@ -35,6 +42,17 @@ export class ContractsDashboardComponent implements OnInit {
         });
       }      
     });
+
+    this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.contracts.length 
+    };
+  }
+
+  // Fetch The Page Number On Page Change
+  pageChanged(event) {
+    this.config.currentPage = event;
   }
 
   ngOnDestroy() {

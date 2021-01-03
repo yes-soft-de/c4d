@@ -24,7 +24,9 @@ export class MessagesService {
 
   // This Listens to messages changes in the chat room
   getMessagesObservable(chatRoomId: string): Observable<Action<DocumentSnapshot<any>>> {
-    return this.firestore.collection('chat_rooms')
-      .doc(chatRoomId).snapshotChanges();
+    if (chatRoomId) {      
+      return this.firestore.collection('chat_rooms')
+        .doc(chatRoomId).snapshotChanges();
+    }
   }
 }

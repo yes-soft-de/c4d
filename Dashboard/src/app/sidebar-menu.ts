@@ -71,5 +71,20 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
                 link: '/contracts/pending',
             },
         ]
-    }
+    },
+    {
+        title: 'Package',
+        id: 'package',
+        // link: '/pages/iot-dashboard',
+        children: [
+            {
+                title: 'Add Package',
+                link: '/packages/add',
+            },
+            {
+                title: 'Packages',
+                link: '/packages',
+            },
+        ]
+    },
 ];

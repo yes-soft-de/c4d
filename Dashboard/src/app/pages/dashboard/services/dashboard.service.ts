@@ -35,9 +35,9 @@ export class DashboardService {
     ).pipe(catchError(DashboardService.errorHandle));
   }
 
-  contractsDashboard(): Observable<ContractsDashboardResponse> {
+  contractsDashboard(year: string, month: string): Observable<ContractsDashboardResponse> {
     return this.httpClient.get<ContractsDashboardResponse>(
-      AdminConfig.contractsDashboardAPI,
+      `${AdminConfig.contractsDashboardAPI}/${year}/${month}`,
       this.tokenServcie.httpOptions()
     ).pipe(catchError(DashboardService.errorHandle));
   }

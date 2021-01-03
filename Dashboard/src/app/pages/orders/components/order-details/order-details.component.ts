@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { share, takeUntil } from 'rxjs/operators';
 import { OrderDetails } from '../../entity/order-details';
 import { OrderDetailsResponse } from '../../entity/order-details-response';
 import { OrdersService } from '../../services/orders.service';
@@ -21,18 +21,22 @@ export class OrderDetailsComponent implements OnInit {
               private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log('detail', Number(this.activateRoute.snapshot.paramMap.get('id')));
-    this.orderService.orderDetails(Number(this.activateRoute.snapshot.paramMap.get('id')))
+    this.activateRoute.paramMap.subscribe((params: ParamMap) => {
+      let id = parseInt(params.get('id'));
+      console.log(params);
+      this.orderService.orderDetails(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         (orderDetail: OrderDetailsResponse) => {
           if (orderDetail) {
-            console.log('ORder Details: ', orderDetail);
+            console.log('Order Details: ', orderDetail);
             this.orderDetails = orderDetail.Data;
           }
         },
         error => console.log('Error : ', error)
       );
+    });
+
   }
 
 

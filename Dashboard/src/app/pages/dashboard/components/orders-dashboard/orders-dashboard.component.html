@@ -15,8 +15,8 @@
             </div>  
             <div class="col-12 col-md-4">
               <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
-                <div class="card-number text-light-blue">{{countCancelledOrders}}</div>
-                <span class="text-white">Cancelled</span>
+                <div class="card-number text-light-blue">{{ordersCount}}</div>
+                <span class="text-white">Orders Count</span>
               </div>
             </div>      
           </div>
@@ -69,8 +69,8 @@
                                 <th scope="row">{{order.source ? order.source : '-'}}</th>
                                 <th scope="row">{{order.state ? order.state : '-'}}</th>
                                 <!-- <th scope="row">{{order.updateOrderDate ? order.updateOrderDate : '-'}}</th> -->
-                                <td>{{order.updateOrderDate ? (order.updateOrderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</td>
-                                <th scope="row">{{order.note ? order.note : '-'}}</th>
+                                <th scope="row">{{order.updateOrderDate ? (order.updateOrderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <th scope="row" class="td-custom mr-1">{{order.note ? order.note : '-'}}</th>
                             </tr>
                         </ng-container>
                     </ng-container>

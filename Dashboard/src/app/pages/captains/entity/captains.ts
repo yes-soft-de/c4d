@@ -1,7 +1,7 @@
 export interface Captains {
     id?: number;
     age?: number;
-    bounce?: { bounce: number };
+    bounce?: number;
     captainID?: string;
     car?: string;
     countOrdersDeliverd?: number;
@@ -13,4 +13,5 @@ export interface Captains {
     salary?: number;
     state?: string;
     status?: string;
+    totalBounce: { bounce: number }
 }

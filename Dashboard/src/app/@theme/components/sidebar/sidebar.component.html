@@ -12,7 +12,13 @@
     <form class="form-inline">
       <label class="sr-only" for="inlineFormInputGroupUsername2">Search</label>
       <div class="w-100 input-group mb-2 mr-sm-2">
-        <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Search">
+        <input type="text" 
+               class="form-control" 
+               id="inlineFormInputGroupUsername2" 
+               name="search"
+               [(ngModel)]="name"
+               (keyup)="applyFilter()"
+               placeholder="Search for ID number or date ex: 2020-12-22">
         <div class="input-group-prepend">
           <div class="input-group-text"><i class="fa fa-search fa-fw text-muted" aria-hidden="true"></i></div>
         </div>
@@ -52,4 +58,36 @@
       </div>
     </div><!--.container-->
   </div><!--.sidebar-menu-->
-</div>        
+</div><!--.main-sidebar-->
+<div class="search-result bg-white py-5" *ngIf="disabled">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 mb-3" *ngFor="let order of ordersListFilter">
+        <a *ngIf="order.id" (click)="select(order.id)" style="cursor: pointer;">
+          <div class="card w-100 text-dark" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">#ID : <span class="text-info">{{order.id}}</span></h5>
+              <!-- <h5 class="card-title" *ngIf="order.orderID">#ID : <span class="text-info">{{order.orderID}}</span></h5> -->
+              <h5 class="card-desc mb-0">Recipient Name : <span class="text-info">{{order.recipientName}}</span></h5>
+              <p class="card-desc mb-0">State : <span class="text-info">{{order.state}}</span></p>
+              <p class="card-desc mb-0">Date : <span class="text-info">{{order.date.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
+              <!-- <p class="card-desc mb-0" *ngIf="order.orderDate">Date : <span class="text-info">{{order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p> -->
+            </div>
+          </div><!--.card-->
+        </a>
+        <a *ngIf="order.orderID" (click)="select(order.orderID)" style="cursor: pointer;">
+          <div class="card w-100 text-dark" style="width: 18rem;">
+            <div class="card-body">
+              <!-- <h5 class="card-title" *ngIf="order.id">#ID : <span class="text-info">{{order.id}}</span></h5> -->
+              <h5 class="card-title">#ID : <span class="text-info">{{order.orderID}}</span></h5>
+              <h5 class="card-desc mb-0">Recipient Name : <span class="text-info">{{order.recipientName}}</span></h5>
+              <p class="card-desc mb-0">State : <span class="text-info">{{order.state}}</span></p>
+              <!-- <p class="card-desc mb-0" *ngIf="order.date">Date : <span class="text-info">{{order.date.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p> -->
+              <p class="card-desc mb-0">Date : <span class="text-info">{{order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
+            </div>
+          </div><!--.card-->
+        </a>
+      </div><!--.col-12-->
+    </div><!--.row-->
+  </div><!--.container-->
+</div>
