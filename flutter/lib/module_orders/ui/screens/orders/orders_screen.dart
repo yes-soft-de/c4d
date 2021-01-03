@@ -1,5 +1,6 @@
 
 import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state/orders/orders.state.dart';
 import 'package:c4d/module_orders/state_manager/orders/orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/screens/order_status_for_captain/order_status_for_captain_screen.dart';
@@ -94,12 +95,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
             margin: EdgeInsets.all(10),
             child: GestureDetector(
               onTap: (){
-                Navigator.push(
+                Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => OrderStatusForCaptainScreen()
-                    )
-                );
+                    OrdersRoutes.ORDER_STATUS_FOR_CAPTAIN_SCREEN,
+                  arguments: orders[index].id
+                )
+                ;
               },
               child: OrderCard(
                 to: orders[index].to,

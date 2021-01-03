@@ -22,7 +22,7 @@ class OrderStatusForOwnerScreen extends StatefulWidget {
 }
 
 class _OrderStatusForOwnerScreenState extends State<OrderStatusForOwnerScreen> {
-  OrderModel Order  ;
+  OrderModel order  ;
   OrderStatusState currentState = OrderStatusInitState();
   bool loading = true;
   bool error = false;
@@ -40,7 +40,7 @@ class _OrderStatusForOwnerScreenState extends State<OrderStatusForOwnerScreen> {
   void processEvent(){
     if(currentState is OrderStatusFetchingDataSuccessState){
       OrderStatusFetchingDataSuccessState state = currentState;
-      Order = state.data;
+      order = state.data;
       loading = false;
       error = false;
     }
@@ -104,7 +104,7 @@ class _OrderStatusForOwnerScreenState extends State<OrderStatusForOwnerScreen> {
             child: Column(
               children: [
                 Text(
-                    'Payment : ${Order.paymentMethod}',
+                    'Payment : ${order.paymentMethod}',
                   style: TextStyle(
                     fontSize: 10
                   ),
@@ -135,13 +135,13 @@ class _OrderStatusForOwnerScreenState extends State<OrderStatusForOwnerScreen> {
                      mainAxisAlignment: MainAxisAlignment.center,
                      children: [
                        Text(
-                         'Order Time :  ${Order.creationTime}',
+                         'Order Time :  ${order.creationTime}',
                           style: TextStyle(
                             color: Colors.white,
                           ),
                        ),
                        Text(
-                         'Order ID : ${Order.id}',
+                         'Order ID : ${order.id}',
                          style: TextStyle(
                            color: Colors.white,
                          ),

@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/ui/screens/order_status_for_captain/order_status_for_captain_screen.dart",
+  "asset": "asset:c4d/lib/module_orders/service/order_status_for_captain/order_status_for_captain.service.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "OrderStatusForCaptainScreen",
+        "name": "OrderStatusForCaptainService",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/ui/screens/order_status_for_captain/order_status_for_captain_screen.dart#OrderStatusForCaptainScreen",
+              "root": "asset:c4d/lib/module_orders/service/order_status_for_captain/order_status_for_captain.service.dart#OrderStatusForCaptainService",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/state_manager/order_status_for_captain/order_status_for_captain.state_manager.dart#OrderStatusForCaptainStateManager",
+                "root": "asset:c4d/lib/module_orders/manager/order_status_for_captain/order_status_for_captain.manager.dart#OrderStatusForCaptainManager",
                 "qualifier": null
               },
               "isProvider": false

@@ -1,0 +1,8 @@
+{
+  "asset": "asset:c4d/lib/module_orders/state/order_status_for_captain/order_status_for_captain.state.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": []
+  }
+}
