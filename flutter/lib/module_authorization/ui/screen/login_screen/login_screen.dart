@@ -20,10 +20,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
+  final TextEditingController _registerNameController = TextEditingController();
+  final TextEditingController _registerEmailController = TextEditingController();
+  final TextEditingController _registerPasswordController = TextEditingController();
+
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  final TextEditingController _loginEmailController = TextEditingController();
+  final TextEditingController _loginPasswordController = TextEditingController();
+
+  bool loginMode = false;
 
   bool isCaptain = false;
   bool _autoValidate = false;
@@ -47,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
       processEvent();
     });
 
-    isUserLoggedIn();
   }
 
   Future<void> isUserLoggedIn()async{
@@ -77,34 +82,37 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    isUserLoggedIn().then((value) {
+      print('is captain : $signedInUseIsACaptain');
+      if(isUserSignedIn){
+        if(signedInUseIsACaptain){
+          Future((){
+            Navigator.pushNamed(
+                context,
+                OrdersRoutes.ORDERS_SCREEN
+            );
+          });
+        }else{
+          Future((){
+            Navigator.pushNamed(
+                context,
+                OrdersRoutes.OWNER_ORDERS_SCREEN
+            );
+          });
+        }
+      }
+    });
 
 
-   if(isUserSignedIn){
-     if(signedInUseIsACaptain){
-       Future((){
-         Navigator.pushNamed(
-             context,
-             OrdersRoutes.ORDERS_SCREEN
-         );
-       });
-     }else{
-       Future((){
-         Navigator.pushNamed(
-             context,
-             OrdersRoutes.OWNER_ORDERS_SCREEN
-         );
-       });
-     }
-   }
 
 //   widget._stateManager.isSignedIn().then((value) {
 //     if (value) Navigator.of(context).pushReplacementNamed(redirectTo);
 //   });
 
-    return screenUi();
+    return loginMode ? loginUi() : registerUi();
   }
 
-  Widget screenUi(){
+  Widget registerUi(){
     final node = FocusScope.of(context);
 
     return Scaffold(
@@ -113,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SafeArea(
 
           child: Form(
-            key: _formKey,
+            key: _registerFormKey,
             autovalidate: _autoValidate,
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -190,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
                       child: TextFormField(
-                        controller: _nameController,
+                        controller: _registerNameController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -234,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
                       child: TextFormField(
-                        controller: _emailController,
+                        controller: _registerEmailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -278,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
                       child: TextFormField(
-                        controller: _passwordController,
+                        controller: _registerPasswordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -298,6 +306,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top:20.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        loginMode = true;
+                        setState(() {});
+                      },
+                      child: Text(loading
+                          ? S.of(context).loading
+                          : S.of(context).iHaveAnAccount),
+                    ),
+                  ),
+
                   Container(
                     width: MediaQuery.of(context).size.width*0.9,
                     margin: EdgeInsets.only(top: 30),
@@ -310,32 +332,228 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed:loading
                           ?null
                           : (){
-                        if (_formKey.currentState.validate()) {
+                        if (_registerFormKey.currentState.validate()) {
                             setState(() {
                               loading = true;
                             });
-                            widget._stateManager.loginWithoutFirebase(
-                              _emailController.text.trim(),
-                              _passwordController.text.trim(),
-                              _nameController.text.trim(),
+                            widget._stateManager.registerWithoutFirebase(
+                              _registerEmailController.text.trim(),
+                              _registerPasswordController.text.trim(),
+                              _registerNameController.text.trim(),
                               isCaptain
                             );
 
                         }
-//                      isCaptain ?
-//                      Navigator.pushReplacementNamed(
-//                        context,
-//                        OrdersRoutes.ORDERS_SCREEN
-//                      ):
-//                      Navigator.pushReplacement(
-//                        context,
-//                        MaterialPageRoute(
-//                            builder: (context) => InitAccountScreen()),
-//                      )
-//                      ;
+
                       },
                       child: Text(
                           'CONTINUE',
+                        style: TextStyle(
+                          color: Colors.white  ,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget loginUi(){
+    final node = FocusScope.of(context);
+
+    return Scaffold(
+      resizeToAvoidBottomPadding:false,
+      body: SingleChildScrollView(
+        child: SafeArea(
+
+          child: Form(
+            key: _loginFormKey,
+            autovalidate: _autoValidate,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(top: 20),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 115,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)
+                          ),
+                          color: isCaptain? ProjectColors.SECONDARY_COLOR : Colors.white,
+                          onPressed: (){
+                            setState(() {
+                              isCaptain = true;
+                            });
+                          },
+                          child: Text(
+                            'Captain',
+                            style: TextStyle(
+                              color: isCaptain? Colors.white : ProjectColors.SECONDARY_COLOR ,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 115,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)
+                          ),
+                          color: isCaptain? Colors.white : ProjectColors.SECONDARY_COLOR ,
+                          onPressed: (){
+                            setState(() {
+                              isCaptain = false;
+                            });
+                          },
+                          child: Text(
+                            'Store',
+                            style: TextStyle(
+                              color: isCaptain? ProjectColors.SECONDARY_COLOR : Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.9,
+                    margin: EdgeInsets.only(top: 30),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[100],
+                            blurRadius: 2.0, // has the effect of softening the shadow
+                            spreadRadius: 2.0, // has the effect of extending the shadow
+                            offset: Offset(
+                              5.0, // horizontal, move right 10
+                              5.0, // vertical, move down 10
+                            ),
+                          )
+                        ]
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+
+                      child: TextFormField(
+                        controller: _loginEmailController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+
+                          ),
+                          labelText: 'Email',
+                        ),
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: () => node.nextFocus(), // Move focus to next
+                        validator: (result) {
+                          if (result.isEmpty) {
+                            return 'الرجاء ادخال الإيميل الخاص بك';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.9,
+                    margin: EdgeInsets.only(top: 30),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[100],
+                            blurRadius: 2.0, // has the effect of softening the shadow
+                            spreadRadius: 2.0, // has the effect of extending the shadow
+                            offset: Offset(
+                              5.0, // horizontal, move right 10
+                              5.0, // vertical, move down 10
+                            ),
+                          )
+                        ]
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+
+                      child: TextFormField(
+                        controller: _loginPasswordController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          labelText: 'Password',
+                        ),
+                        validator: (result) {
+                          if (result.length <5) {
+                            return 'كلمة المرور يجب ان تكون من 5 محارف على الأقل';
+                          }
+                          return null;
+                        },
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) => node.unfocus(), // Submit and hide keyboard
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top:20.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        loginMode = false;
+                        setState(() {});
+                      },
+                      child: Text(loading
+                          ? S.of(context).loading
+                          : 'انشاء حساب جديد'
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width*0.9,
+                    margin: EdgeInsets.only(top: 30),
+                    height: 70,
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)
+                      ),
+                      color:  ProjectColors.THEME_COLOR  ,
+                      onPressed:loading
+                          ?null
+                          : (){
+                        if (_loginFormKey.currentState.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
+                          widget._stateManager.loginWithoutFirebase(
+                              _loginEmailController.text.trim(),
+                              _loginPasswordController.text.trim(),
+                              isCaptain
+                          );
+
+                        }
+//
+                      },
+                      child: Text(
+                        'CONTINUE',
                         style: TextStyle(
                           color: Colors.white  ,
                         ),

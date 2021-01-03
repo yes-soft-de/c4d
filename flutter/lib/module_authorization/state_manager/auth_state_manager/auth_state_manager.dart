@@ -158,10 +158,9 @@ class AuthStateManager {
     _stateSubject.add(AuthStateError('Error logging in'));
   }
 
-  Future<void> loginWithoutFirebase(String email, String password, String username ,bool isCaptain ) async {
+  Future<void> loginWithoutFirebase(String email, String password  ,bool isCaptain ) async {
 
       String loginSuccessType = await _authService.loginWithoutFirebase(
-        username,
         email,
         password,
         isCaptain
@@ -169,10 +168,24 @@ class AuthStateManager {
       ( loginSuccessType == 'captain' )
           ?_stateSubject.add(AuthStateCaptainSuccess())
           :  ( loginSuccessType == 'registeredOwner' )
-          ?_stateSubject.add(AuthStateOwnerSuccess())
-          :  ( loginSuccessType == 'notRegisteredOwner' )
-                ? _stateSubject.add(AuthStateNotRegisteredOwner())
-                :_stateSubject.add(AuthStateError('error'));
+             ?_stateSubject.add(AuthStateOwnerSuccess())
+             :_stateSubject.add(AuthStateError('error'));
+
+
+  }
+  Future<void> registerWithoutFirebase(String email, String password, String username ,bool isCaptain ) async {
+
+    String loginSuccessType = await _authService.registerWithoutFirebase(
+        username,
+        email,
+        password,
+        isCaptain
+    );
+    ( loginSuccessType == 'captain' )
+        ?_stateSubject.add(AuthStateCaptainSuccess())
+        :   ( loginSuccessType == 'notRegisteredOwner' )
+        ? _stateSubject.add(AuthStateNotRegisteredOwner())
+        :_stateSubject.add(AuthStateError('error'));
 
 
   }

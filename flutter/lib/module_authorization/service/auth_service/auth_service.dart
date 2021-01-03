@@ -70,8 +70,40 @@ class AuthService {
 
   }
 
-  Future<String> loginWithoutFirebase(
+  Future<String> registerWithoutFirebase(
       String username, String email, String password,bool isCaptain,  ) async {
+    authServiceStateSubject.add('User is Verified, Creating a user in our DB');
+
+
+    try {
+      String role = isCaptain?'ROLE_CAPTAIN':'ROLE_OWNER';
+  await _authManager.createUserWithoutFirebase(email, password, role);
+
+    } catch (e) {
+      Logger().info('AuthService', 'User Already Exists');
+    }
+
+
+//    await _prefsHelper.setUserId(uid);
+    await _prefsHelper.setIsCaptain(isCaptain);
+    await _prefsHelper.setUsername(username);
+    await _prefsHelper.setEmail(email);
+    await _prefsHelper.setPassword(password);
+//    await _prefsHelper.setAuthSource(authSource);
+
+
+     await refreshToken();
+
+    return isCaptain
+        ? 'captain'
+        :'notRegisteredOwner';
+
+
+  }
+
+
+  Future<String> loginWithoutFirebase(
+       String email, String password,bool isCaptain,  ) async {
     authServiceStateSubject.add('User is Verified, Creating a user in our DB');
     var userExists = false;
 
@@ -84,37 +116,19 @@ class AuthService {
       Logger().info('Auth Service', e);
     }
 
-    try {
-      String role = isCaptain?'ROLE_CAPTAIN':'ROLE_OWNER';
-      if (!userExists) await _authManager.createUserWithoutFirebase(email, password, role);
 
-    } catch (e) {
-      Logger().info('AuthService', 'User Already Exists');
-    }
-    if(userExists){
-//      ProfileResponse response = await _myProfileManager.getBasicProfileInfo(uid);
-//      await _preferencesHelper.setUserImage(response.image);
-//      await _preferencesHelper.setUserName(response.userName);
-//      await _preferencesHelper.setUserStory(response.story);
-//      await _preferencesHelper.setUserCover(response.cover);
-
-    }
 
 //    await _prefsHelper.setUserId(uid);
     await _prefsHelper.setIsCaptain(isCaptain);
-    await _prefsHelper.setUsername(username);
     await _prefsHelper.setEmail(email);
     await _prefsHelper.setPassword(password);
 //    await _prefsHelper.setAuthSource(authSource);
 
 
-    if(! userExists ) await refreshToken();
 
     return isCaptain
-              ? 'captain'
-              : userExists
-                  ?'registeredOwner'
-                  :'notRegisteredOwner';
+        ? 'captain'
+        : 'registeredOwner' ;
 
 
   }
@@ -167,10 +181,11 @@ class AuthService {
   }
 
   Future<bool> get isCaptain async {
-    var user = await _firebaseAuth.currentUser;
+    //TODO : uncomment this later
+//    var user = await _firebaseAuth.currentUser;
     var isCaptain = await _prefsHelper.getIsCaptain();
 
-    return user != null && isCaptain;
+    return /*user != null &&*/ isCaptain;
   }
 
   Future<String> get userID => _prefsHelper.getUserId();
