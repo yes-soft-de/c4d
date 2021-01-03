@@ -22,7 +22,7 @@ platform :ios do
     )
 
     increment_build_number(
-	    build_number: "6"
+	    build_number: ENV["GITHUB_RUN_NUMBER"]
     )
 
     build_app(
