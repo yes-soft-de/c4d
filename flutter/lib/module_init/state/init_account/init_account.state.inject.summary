@@ -1,0 +1,8 @@
+{
+  "asset": "asset:c4d/lib/module_init/state/init_account/init_account.state.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": []
+  }
+}

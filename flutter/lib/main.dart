@@ -5,7 +5,7 @@ import 'package:c4d/module_orders/orders_module.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+//import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,7 +19,7 @@ typedef Provider<T> = T Function();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-//  await Firebase.initializeApp();
+   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) async {
@@ -45,9 +45,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-//  static FirebaseAnalytics analytics = FirebaseAnalytics();
-//  static FirebaseAnalyticsObserver observer =
-//  FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+  FirebaseAnalyticsObserver(analytics: analytics);
 
   String lang;
   bool isDarkMode;
@@ -56,7 +56,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
 //    widget._localizationService.localizationStream.listen((event) {
 //      setState(() {});
 //    });
@@ -85,22 +84,22 @@ class _MyAppState extends State<MyApp> {
       future: getConfiguratedApp(fullRoutesList),
       builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
         if (snapshot.hasData) return snapshot.data;
-        return Scaffold();
+        return Container();
       },
     );
   }
 
   Future<Widget> getConfiguratedApp(
       Map<String, WidgetBuilder> fullRoutesList) async {
-//    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+//     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
 
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-//      navigatorObservers: <NavigatorObserver>[observer],
+       navigatorObservers: <NavigatorObserver>[observer],
       locale: Locale.fromSubtags(
-        languageCode: 'ar',
+        languageCode: 'en',
       ),
       localizationsDelegates: [
         S.delegate,
@@ -123,6 +122,7 @@ class _MyAppState extends State<MyApp> {
       title: 'c4d',
       routes: fullRoutesList,
       initialRoute: AuthorizationRoutes.AUTHORIZATION_SCREEN,
+
     );
   }
 }

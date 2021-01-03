@@ -1,0 +1,41 @@
+{
+  "asset": "asset:c4d/lib/module_orders/repository/new_order/new_order.repository.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "NewOrderRepository",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:c4d/lib/module_orders/repository/new_order/new_order.repository.dart#NewOrderRepository",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": [
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_network/http_client/http_client.dart#ApiClient",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_authorization/service/auth_service/auth_service.dart#AuthService",
+                "qualifier": null
+              },
+              "isProvider": false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "asset": "asset:c4d/lib/module_orders/service/owner_orders/owner_orders.service.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "OwnerOrdersService",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:c4d/lib/module_orders/service/owner_orders/owner_orders.service.dart#OwnerOrdersService",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": [
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_orders/manager/owner_orders/owner_orders.manager.dart#OwnerOrdersManager",
+                "qualifier": null
+              },
+              "isProvider": false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

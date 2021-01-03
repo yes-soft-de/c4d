@@ -1,5 +1,11 @@
+import 'package:c4d/module_init/model/package/packages.model.dart';
+import 'package:c4d/module_init/state/init_account/init_account.state.dart';
+import 'package:c4d/module_init/state_manager/init_account/init_account.state_manager.dart';
 import 'package:c4d/module_init/ui/widget/package_card/package_card.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/owner_orders/owner_orders_screen.dart';
+import 'package:c4d/utils/error_ui/error_ui.dart';
+import 'package:c4d/utils/loading_indicator/loading_indicator.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -7,42 +13,95 @@ import 'package:inject/inject.dart';
 
 @provide
 class InitAccountScreen extends StatefulWidget {
+  final InitAccountStateManager _stateManager;
+
+  InitAccountScreen(
+      this._stateManager,
+      );
+
   @override
   _InitAccountScreenState createState() => _InitAccountScreenState();
 }
 
 class _InitAccountScreenState extends State<InitAccountScreen> {
+  List<PackageModel> _packages =[];
+  InitAccountState currentState = InitAccountInitState();
+  bool loading = false;
+  bool error = false;
+  int _selectedPackageId = -1;
+
   List<ListItem> _cities = [
-    ListItem(1, "Damascus"),
-    ListItem(2, "Lattakia"),
-    ListItem(3, "Allepo"),
-    ListItem(4, "Homs")
+    ListItem(1, "daraa"),
+    ListItem(2, "homs"),
+
   ];
   List<ListItem> _sizes = [
     ListItem(1, "1"),
-    ListItem(2, "2"),
-    ListItem(3, "3"),
-    ListItem(4, "4")
   ];
-  List<Package> _packages = [
-    Package(price: 15000,carsNumber: 1,packageNumber:1 ,ordersNumber: 100),
-    Package(price:20000 ,carsNumber: 3,packageNumber:2 ,ordersNumber:150 ),
-    Package(price: 30000,carsNumber: 4,packageNumber:3,ordersNumber:300 ),
-    Package(price: 40000,carsNumber: 6,packageNumber:4 ,ordersNumber: 500),
-  ];
+
 
 
   ListItem _selectedCity;
   ListItem _selectedSize;
 
+
+  @override
   void initState() {
     super.initState();
+    widget._stateManager.stateStream.listen((event) {
+      currentState = event;
+      processEvent();
+    });
   }
 
+  void processEvent(){
+    if(currentState is InitAccountCreateProfileSuccessState){
+      widget._stateManager.getPackages();
+      loading = true;
+      error = false;
+    }
+    if(currentState is InitAccountFetchingDataSuccessState){
+      InitAccountFetchingDataSuccessState state = currentState;
+      _packages = state.data;
+      loading = false;
+      error = false;
+    }
+    if(currentState is InitAccountSubscribeSuccessState){
+      Navigator.pushReplacementNamed(
+          context,
+          OrdersRoutes.OWNER_ORDERS_SCREEN
+      );
+    }
+
+
+//    if(currentState is InitAccountFetchingDataErrorState){
+//      loading = false;
+//      error = true;
+//    }
+    if (this.mounted) {
+      setState(() {});
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return screenUi();
+//    if (currentState is InitAccountInitState) {
+//      widget._stateManager.getPackages();
+//      if (this.mounted) {
+//        setState(() {});
+//      }
+//    }
+
+    return error
+        ? ErrorUi(onRetry: () {
+      widget._stateManager.getPackages();
+      loading = true;
+      error = false;
+    })
+        : loading
+        ? LoadingIndicatorWidget()
+        : screenUi() ;
   }
 
   Widget screenUi() {
@@ -112,7 +171,15 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                           onChanged: (value) {
 
                             setState(() {
+
                               _selectedCity =_cities.firstWhere((element) => element.value.toString() == value) ;
+
+                              if(_selectedSize != null ){
+                                widget._stateManager.createProfile(
+                                    _selectedCity.name,
+                                    _selectedSize.value
+                                );
+                              }
                             });
                           }),
                     )
@@ -170,8 +237,14 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
 
                             setState(() {
                               _selectedSize =_sizes.firstWhere((element) => element.value.toString() == value) ;
-                              _selectedSize =_sizes.firstWhere((element) => element.value.toString() == value) ;
                             });
+
+                            if(_selectedCity != null ){
+                              widget._stateManager.createProfile(
+                                  _selectedCity.name,
+                                  _selectedSize.value
+                              );
+                            }
                           }),
                     )
 
@@ -179,24 +252,47 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                 ),
               ),
               //package
-              Container(
-                height: 275,
+              (_packages.isNotEmpty)
+                        ? Container(
+                            height: 275,
+                            width: MediaQuery.of(context).size.width*0.9,
+                            margin: EdgeInsets.only(top:20),
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _packages.length,
+                                itemBuilder: (BuildContext context, int index){
+                                  return GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _selectedPackageId = _packages[index].id;
+
+                                      });
+                                    },
+                                    child: Opacity(
+                                      opacity: _selectedPackageId == _packages[index].id
+                                          ? 0.5
+                                          : 1.0,
+                                      child: PackageCard(
+                                        index: index,
+                                        carsNumber: _packages[index].carCount ,
+                                        ordersNumber: _packages[index].orderCount,
+                                        packageNumber: _packages[index].id.toString(),
+                                        price: _packages[index].cost,
+                                        ),
+                                    ),
+                                  );
+                                }
+                            ),
+                       )
+                  :Container(
+                height: 50,
                 width: MediaQuery.of(context).size.width*0.9,
                 margin: EdgeInsets.only(top:20),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _packages.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return PackageCard(
-                        index: index,
-                        carsNumber: _packages[index].carsNumber,
-                        ordersNumber: _packages[index].ordersNumber,
-                        packageNumber: _packages[index].packageNumber,
-                        price: _packages[index].price,
-                        );
-                    }
-                ),
+                child: Text(
+                  'الرجاء قم باختيار مدينة وعدد الأفرع'
+                )
               ),
+
               Container(
                 width: MediaQuery.of(context).size.width*0.9,
                 margin: EdgeInsets.only(top: 30),
@@ -206,13 +302,17 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                       borderRadius: BorderRadius.circular(15)
                   ),
                   color:  ProjectColors.THEME_COLOR  ,
-                  onPressed: (){
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OwnerOrdersScreen()),
-                    );
-                  },
+                  onPressed: (_selectedPackageId == null)
+                      ? null
+                      :() {
+                   setState(() {
+                     loading = true;
+                     widget._stateManager.subscribePackage(_selectedPackageId);
+                   });
+                  }
+
+
+ ,
                   child: Text(
                     'CONTINUE',
                     style: TextStyle(
@@ -236,16 +336,4 @@ class ListItem {
   ListItem(this.value, this.name);
 }
 
-class Package {
-  int packageNumber;
-  int ordersNumber;
-  int carsNumber;
-  int price;
 
-  Package({
-    this.packageNumber,
-    this.price,
-    this.carsNumber,
-    this.ordersNumber,
-});
-}

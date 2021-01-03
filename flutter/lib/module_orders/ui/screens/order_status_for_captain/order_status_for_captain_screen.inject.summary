@@ -18,7 +18,15 @@
           },
           "singleton": false,
           "asynchronous": false,
-          "dependencies": []
+          "dependencies": [
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_orders/state_manager/order_status_for_captain/order_status_for_captain.state_manager.dart#OrderStatusForCaptainStateManager",
+                "qualifier": null
+              },
+              "isProvider": false
+            }
+          ]
         }
       }
     ]

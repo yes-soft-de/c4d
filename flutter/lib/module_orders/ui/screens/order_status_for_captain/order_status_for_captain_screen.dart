@@ -1,24 +1,81 @@
 
+import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/state/order_status_for_captain/order_status_for_captain.state.dart';
+import 'package:c4d/module_orders/state_manager/order_status_for_captain/order_status_for_captain.state_manager.dart';
 import 'package:c4d/module_orders/ui/screens/map/map_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
+import 'package:c4d/utils/error_ui/error_ui.dart';
+import 'package:c4d/utils/loading_indicator/loading_indicator.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
 @provide
 class OrderStatusForCaptainScreen extends StatefulWidget {
+  final OrderStatusForCaptainStateManager _stateManager;
+
+  OrderStatusForCaptainScreen(
+      this._stateManager,
+      );
+
   @override
   _OrderStatusForCaptainScreenState createState() => _OrderStatusForCaptainScreenState();
 }
 
 class _OrderStatusForCaptainScreenState extends State<OrderStatusForCaptainScreen> {
-  String paymentMethod = 'Online';
-  String time = '00 : 17';
+  OrderModel order  ;
+  OrderStatusForCaptainState currentState = OrderStatusForCaptainState();
+  bool loading = true;
+  bool error = false;
+  int oderId;
+  @override
+  void initState() {
+    super.initState();
+    widget._stateManager.stateStream.listen((event) {
+      currentState = event;
+      processEvent();
+    });
+  }
+
+  void processEvent(){
+    if(currentState is OrderStatusForCaptainFetchingDataSuccessState){
+      OrderStatusForCaptainFetchingDataSuccessState state = currentState;
+      order = state.data;
+      loading = false;
+      error = false;
+    }
+    if(currentState is OrderStatusForCaptainFetchingDataErrorState){
+      loading = false;
+      error = true;
+    }
+    if (this.mounted) {
+      setState(() {});
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return screenUi();
+    oderId = ModalRoute.of(context).settings.arguments;
+
+    if (currentState is  OrderStatusForCaptainInitState) {
+      widget._stateManager.getOrderDetails(oderId);
+      if (this.mounted) {
+        setState(() {});
+      }
+    }
+
+    return error
+        ? ErrorUi(onRetry: () {
+      widget._stateManager.getOrderDetails(oderId);
+      loading = true;
+      error = false;
+    })
+        : loading
+        ? LoadingIndicatorWidget()
+        : screenUi() ;
   }
+
 
   Widget screenUi(){
     return Scaffold(
@@ -55,7 +112,7 @@ class _OrderStatusForCaptainScreenState extends State<OrderStatusForCaptainScree
                  width: 150,
               ),
               Text(
-                'Payment : $paymentMethod'
+                'Payment : ${order.paymentMethod}'
               ),
               Image(
                 image: AssetImage(
@@ -65,7 +122,7 @@ class _OrderStatusForCaptainScreenState extends State<OrderStatusForCaptainScree
                 width: MediaQuery.of(context).size.width*0.8,
               ),
               Text(
-                  '$time',
+                  '${order.creationTime}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 50
