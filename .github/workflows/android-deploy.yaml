@@ -34,8 +34,8 @@ jobs:
         run: |
           cd ./flutter/android
           echo "$ANDROID_KEYSTORE_FILE" > key.jks.b64
-          base64 -d -i key.jks.b64 > ../key.jks
-          echo "storeFile=../../key.jks" > key.properties
+          base64 -d -i key.jks.b64 > app/key.jks
+          echo "storeFile=key.jks" > key.properties
           echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
           echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
           echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
@@ -72,12 +72,8 @@ jobs:
           cd flutter/android
           bundle exec fastlane alpha
 
-      - name: Create release and upload apk
-        uses: underwindfall/create-release-with-debugapk@v2.0.0
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact to Github
+        uses: actions/upload-artifact@v1
         with:
-          asset_path: flutter/build/app/outputs/flutter-apk/app-release.apk
-          asset_name: C4D.apk
-          asset_content_type: application/zip
-          tag_name: ${{ github.ref }}
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
