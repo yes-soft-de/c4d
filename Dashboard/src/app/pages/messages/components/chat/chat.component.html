@@ -6,20 +6,16 @@
                 <!-- <p class="recieved-message bg-warning text-white p-1 rounded" *ngFor="let message of messages$ | async">{{message}}</p> -->
                 <!-- <p class="recieved-message bg-info text-white p-1 rounded" >lets Start Second message</p> -->
             </div>
+            <div>
+                <div *ngFor="let m of messages">{{m.sender}} : {{m.msg}}</div>
+            </div>
             <form [formGroup]="messageForm" class="" (ngSubmit)="onSubmit()">
                 <div class="input-group mb-3">
-                    <input 
-                        type="text" 
-                        class="form-control"
-                        name="message"
-                        formControlName="message"
-                        placeholder="Type here" 
-                        aria-label="Type here" 
-                        aria-describedby="basic-addon2">
+                    <input type="text" class="form-control" name="message" formControlName="message" placeholder="Type here" aria-label="Type here" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="submit">Send</button>
+                        <button class="btn btn-primary" type="submit">Send</button>
                     </div>
-                  </div>
+                </div>
             </form>
         </div>
     </div>

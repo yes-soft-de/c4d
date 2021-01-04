@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, AngularFirestore, DocumentSnapshot } from '@angular/fire/firestore';
+import { Action, AngularFirestore, DocumentChangeAction, DocumentChangeType, DocumentSnapshot, QuerySnapshot } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { MessageModel } from '../model/message-model';
 
@@ -23,10 +23,10 @@ export class MessagesService {
   }
 
   // This Listens to messages changes in the chat room
-  getMessagesObservable(chatRoomId: string): Observable<Action<DocumentSnapshot<any>>> {
-    if (chatRoomId) {      
+  getMessagesObservable(chatRoomId: string): Observable<QuerySnapshot<any>> {
+    if (chatRoomId) {
       return this.firestore.collection('chat_rooms')
-        .doc(chatRoomId).snapshotChanges();
+        .doc(chatRoomId).collection('messages').get();
     }
   }
 }
