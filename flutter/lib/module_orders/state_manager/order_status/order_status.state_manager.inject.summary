@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/service/order_status/order_status.service.dart#OrderStatusService",
+                "root": "asset:c4d/lib/module_orders/service/orders/orders.service.dart#OrdersService",
                 "qualifier": null
               },
               "isProvider": false

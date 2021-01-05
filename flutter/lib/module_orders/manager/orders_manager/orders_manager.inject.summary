@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/state_manager/new_order/new_order.state_manager.dart",
+  "asset": "asset:c4d/lib/module_orders/manager/orders_manager/orders_manager.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "NewOrderStateManager",
+        "name": "OrdersManager",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/state_manager/new_order/new_order.state_manager.dart#NewOrderStateManager",
+              "root": "asset:c4d/lib/module_orders/manager/orders_manager/orders_manager.dart#OrdersManager",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/service/orders/orders.service.dart#OrdersService",
+                "root": "asset:c4d/lib/module_orders/repository/order_repository/order_repository.dart#OrderRepository",
                 "qualifier": null
               },
               "isProvider": false

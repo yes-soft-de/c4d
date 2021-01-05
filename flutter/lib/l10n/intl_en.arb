@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "loading": "Loading",
+  "pleaseEnterYourEmail": "Please Enter Your Email",
+  "iHaveAnAccount": "I have an account",
+  "errorHappened": "Error Happened",
+  "errorLoadingData": "Error Loading Data",
+  "emailAddressIsRequired": "Email Address is Required",
+  "captain": "Captain",
+  "storeOwner": "Store Owner"
+}
