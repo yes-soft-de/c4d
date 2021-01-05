@@ -21,20 +21,6 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/order_status_for_owner/order_status_for_owner.dart#OrderStatusForOwnerScreen",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/order_status_for_captain/order_status_for_captain_screen.dart#OrderStatusForCaptainScreen",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
                 "root": "asset:c4d/lib/module_orders/ui/screens/new_order/new_order_screen.dart#NewOrderScreen",
                 "qualifier": null
               },
@@ -42,7 +28,7 @@
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/owner_orders/owner_orders_screen.dart#OwnerOrdersScreen",
+                "root": "asset:c4d/lib/module_orders/ui/screens/order_status/order_status_screen.dart#OrderStatusScreen",
                 "qualifier": null
               },
               "isProvider": false
@@ -50,13 +36,6 @@
             {
               "lookupKey": {
                 "root": "asset:c4d/lib/module_orders/ui/screens/orders/orders_screen.dart#OrdersScreen",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/map/map_screen.dart#MapScreen",
                 "qualifier": null
               },
               "isProvider": false

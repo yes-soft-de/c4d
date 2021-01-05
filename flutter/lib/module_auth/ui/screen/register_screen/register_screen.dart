@@ -6,6 +6,7 @@ import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -30,7 +31,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   AuthState _currentState = AuthStateInit();
   bool loading = false;
   String redirectTo;
-  USER_TYPE userType;
+  USER_TYPE userType = USER_TYPE.ROLE_CAPTAIN;
 
   @override
   void initState() {
@@ -56,14 +57,6 @@ class RegisterScreenState extends State<RegisterScreen> {
       redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
-
-    widget._stateManager.isSignedIn().then((value) {
-      if (value == true) {
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          Navigator.pushNamed(context, OrdersRoutes.ORDERS_SCREEN);
-        });
-      }
-    });
   }
 
   @override
@@ -103,6 +96,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       return Text(
         x.errorMsg,
         textAlign: TextAlign.center,
+        maxLines: 2,
       );
     } else {
       return Container();
@@ -289,10 +283,13 @@ class RegisterScreenState extends State<RegisterScreen> {
                             loading = true;
                           });
                           widget._stateManager.registerWithEmailAndPassword(
-                              _registerEmailController.text.trim(),
-                              _registerPasswordController.text.trim(),
-                              _registerNameController.text.trim(),
-                              userType.toString());
+                            _registerEmailController.text.trim(),
+                            _registerPasswordController.text.trim(),
+                            _registerNameController.text.trim(),
+                            userType == USER_TYPE.ROLE_CAPTAIN
+                                ? 'ROLE_CAPTAIN'
+                                : 'ROLE_OWNER',
+                          );
                         }
                       },
                       child: Text(
@@ -319,7 +316,7 @@ class RegisterScreenState extends State<RegisterScreen> {
               width: 300,
               child: AnimatedAlign(
                   duration: Duration(milliseconds: 300),
-                  alignment: userType == USER_TYPE.CAPTAIN
+                  alignment: userType == USER_TYPE.ROLE_CAPTAIN
                       ? Alignment.centerLeft
                       : Alignment.centerRight,
                   child: Container(
@@ -348,13 +345,13 @@ class RegisterScreenState extends State<RegisterScreen> {
                     child: FlatButton(
                       onPressed: () {
                         setState(() {
-                          userType = USER_TYPE.CAPTAIN;
+                          userType = USER_TYPE.ROLE_CAPTAIN;
                         });
                       },
                       child: Text(
                         S.of(context).captain,
                         style: TextStyle(
-                          color: userType == USER_TYPE.CAPTAIN
+                          color: userType == USER_TYPE.ROLE_CAPTAIN
                               ? Colors.white
                               : Colors.black87,
                         ),
@@ -366,13 +363,13 @@ class RegisterScreenState extends State<RegisterScreen> {
                     child: FlatButton(
                       onPressed: () {
                         setState(() {
-                          userType = USER_TYPE.STORE_OWNER;
+                          userType = USER_TYPE.ROLE_OWNER;
                         });
                       },
                       child: Text(
                         S.of(context).storeOwner,
                         style: TextStyle(
-                          color: userType != USER_TYPE.CAPTAIN
+                          color: userType != USER_TYPE.ROLE_CAPTAIN
                               ? Colors.white
                               : Colors.black87,
                         ),

@@ -3,6 +3,7 @@ import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state/orders/orders.state.dart';
 import 'package:c4d/module_orders/state_manager/orders/orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
+import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -10,7 +11,9 @@ import 'package:inject/inject.dart';
 class OrdersScreen extends StatefulWidget {
   final OrdersStateManager _stateManager;
 
-  OrdersScreen(this._stateManager,);
+  OrdersScreen(
+    this._stateManager,
+  );
 
   @override
   _OrdersScreenState createState() => _OrdersScreenState();
@@ -26,9 +29,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
   void initState() {
     super.initState();
     widget._stateManager.stateStream.listen((event) {
-      currentState = event;
-      processEvent();
+      setState(() {
+        currentState = event;
+        processEvent();
+      });
     });
+    widget._stateManager.getMyOrders();
   }
 
   void processEvent() {
@@ -49,52 +55,91 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (currentState is OrdersInitState) {
-      widget._stateManager.getNearbyOrders();
-      if (this.mounted) {
-        setState(() {});
-      }
+    if (currentState is OrdersFetchingDataState) {
+      return getLoadingScreen();
+    } else if (currentState is OrdersFetchingDataSuccessState) {
+      return getSuccessUI();
+    } else {
+      return getErrorScreen();
     }
-
-    return Text('error');
   }
 
-  Widget screenUi() {
+  Widget getLoadingScreen() {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text(
-            'Orders',
-            style: TextStyle(
-                color: Colors.black
-            ),
-          ),
+        body: Center(
+      child: CircularProgressIndicator(),
+    ));
+  }
+
+  Widget getErrorScreen() {
+    return Scaffold(
+        body: Center(
+      child: RaisedButton(
+        onPressed: () {
+          widget._stateManager.getMyOrders();
+        },
+        child: Text('Retry'),
+      ),
+    ));
+  }
+
+  Widget getSuccessUI() {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text(
+          'Orders',
+          style: TextStyle(color: Colors.black),
         ),
-        body:
-        ListView.builder(
-            itemCount: orders.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin: EdgeInsets.all(10),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context,
-                        OrdersRoutes.ORDER_STATUS_FOR_CAPTAIN_SCREEN,
-                        arguments: orders[index].id
-                    )
-                    ;
-                  },
-                  child: OrderCard(
-                    to: orders[index].to,
-                    from: orders[index].from,
-                    time: orders[index].creationTime,
-                    index: index,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: ListView.builder(
+                itemCount: orders.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          OrdersRoutes.ORDER_STATUS,
+                          arguments: orders[index].id,
+                        );
+                      },
+                      child: OrderCard(
+                        to: orders[index].to,
+                        from: orders[index].from,
+                        time: orders[index].creationTime,
+                        index: index,
+                      ),
+                    ),
+                  );
+                }),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
+            },
+            child: Container(
+              color: ProjectColors.THEME_COLOR,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Create new order',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20
                   ),
                 ),
-              );
-            })
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

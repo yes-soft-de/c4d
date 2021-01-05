@@ -1,13 +1,13 @@
 class OrdersResponse {
-  List<Data> data;
+  List<Order> data;
 
   OrdersResponse({this.data});
 
   OrdersResponse.fromJson(Map<String, dynamic> json) {
     if (json['Data'] != null) {
-      data = new List<Data>();
+      data = new List<Order>();
       json['Data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data.add(new Order.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class OrdersResponse {
   }
 }
 
-class Data {
+class Order {
   int id;
   List<String> source;
   List<String> destination;
@@ -36,7 +36,7 @@ class Data {
   Null acceptedOrder;
   Null record;
 
-  Data(
+  Order(
       {this.id,
         this.source,
         this.destination,
@@ -51,7 +51,7 @@ class Data {
         this.acceptedOrder,
         this.record});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     source = json['source'].cast<String>();
     destination = json['destination'].cast<String>();

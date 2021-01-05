@@ -54,6 +54,15 @@ class OrderRepository {
     return OrdersResponse.fromJson(response);
   }
 
+  Future<List<Order>> getMyOrders() async {
+    String token = await _authService.getToken();
+
+    dynamic response = await _apiClient.get(Urls.OWNER_ORDERS, token: token);
+    if (response == null) return null;
+
+    return OrdersResponse.fromJson(response).data;
+  }
+
   Future<OwnerOrdersResponse> getOwnerOrders() async {
     String token = await _authService.getToken();
 

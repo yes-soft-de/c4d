@@ -1,7 +1,7 @@
 class RegisterRequest {
   String userID;
   String password;
-  String roles;
+  List<String> roles;
 
   RegisterRequest({this.userID, this.password, this.roles});
 

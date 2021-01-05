@@ -19,4 +19,6 @@ class OrdersManager {
       _repository.getOrderDetails(oderId);
 
   Future<OrdersResponse> getNearbyOrders() => _repository.getNearbyOrders();
+
+  Future<List<Order>> getMyOrders() => _repository.getMyOrders();
 }

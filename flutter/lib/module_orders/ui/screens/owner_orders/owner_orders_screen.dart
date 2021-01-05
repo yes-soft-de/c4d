@@ -82,9 +82,10 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(
-                          context, OrdersRoutes.ORDER_STATUS_FOR_OWNER_SCREEN,
-                          arguments: myOrders[index].id);
+                      Navigator.of(context).pushNamed(
+                        OrdersRoutes.ORDER_STATUS,
+                        arguments: myOrders[index].id,
+                      );
                     },
                     child: OwnerOrderCard(
                         to: myOrders[index].to,

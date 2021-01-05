@@ -1,28 +1,30 @@
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/state/order_status/order_status.state.dart';
-import 'package:c4d/module_orders/state_manager/order_status/order_status.state_manager.dart';
+import 'package:c4d/module_orders/state_manager/order_status_for_captain/order_status_for_captain.state_manager.dart';
+import 'package:c4d/module_orders/ui/screens/map/map_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
 @provide
-class OrderStatusForOwnerScreen extends StatefulWidget {
-  final OrderStatusStateManager _stateManager;
+class OrderStatusScreen extends StatefulWidget {
+  final OrderStatusForCaptainStateManager _stateManager;
 
-  OrderStatusForOwnerScreen(
+  OrderStatusScreen(
     this._stateManager,
   );
 
   @override
-  _OrderStatusForOwnerScreenState createState() =>
-      _OrderStatusForOwnerScreenState();
+  _OrderStatusScreenState createState() =>
+      _OrderStatusScreenState();
 }
 
-class _OrderStatusForOwnerScreenState extends State<OrderStatusForOwnerScreen> {
+class _OrderStatusScreenState
+    extends State<OrderStatusScreen> {
   OrderModel order;
 
-  OrderStatusState currentState = OrderStatusInitState();
+  var currentState = OrderStatusState();
   bool loading = true;
   bool error = false;
   int oderId;
@@ -63,7 +65,7 @@ class _OrderStatusForOwnerScreenState extends State<OrderStatusForOwnerScreen> {
       }
     }
 
-    return Text('error');
+    return Text('Error');
   }
 
   Widget screenUi() {
@@ -89,65 +91,87 @@ class _OrderStatusForOwnerScreenState extends State<OrderStatusForOwnerScreen> {
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
             child: Column(
               children: [
-                Text(
-                  'Payment : ${order.paymentMethod}',
-                  style: TextStyle(fontSize: 10),
-                ),
                 Image(
                   image: AssetImage('assets/images/track.png'),
                   height: 150,
                   width: 150,
                 ),
+                Text('Payment : ${order.paymentMethod}'),
                 Image(
-                  image: AssetImage('assets/images/Group 181.png'),
+                  image: AssetImage('assets/images/Group 152.png'),
                   height: 100,
                   width: MediaQuery.of(context).size.width * 0.8,
                 ),
-                Container(
-                    height: 100,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: ProjectColors.THEME_COLOR,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Order Time :  ${order.creationTime}',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          'Order ID : ${order.id}',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )),
+                Text(
+                  '${order.creationTime}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
+                ),
                 SizedBox(
-                  height: 40,
+                  height: 30,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color(0xffBE1E2D),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'I Got the Product',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 CommunicationCard(
-                  text: 'Whatsapp with Captain',
-                  image: 'assets/images/whatsapp2.png',
-                  textColor: ProjectColors.THEME_COLOR,
+                  text: 'Whatsapp with Store Owner',
+                  image: 'assets/images/whatsapp.png',
                 ),
                 CommunicationCard(
                   text: 'Whatsapp with User',
-                  image: 'assets/images/whatsapp2.png',
-                  textColor: ProjectColors.THEME_COLOR,
+                  image: 'assets/images/whatsapp.png',
                 ),
                 CommunicationCard(
-                  text: 'Chat with Captain',
+                  text: 'Chat with Store Owner',
                   image: 'assets/images/bi_chat-dots.png',
-                  textColor: Colors.white,
-                  color: ProjectColors.THEME_COLOR,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) => MapScreen())));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image(
+                          image: AssetImage('assets/images/map.png'),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Center(
+                          child: Text(
+                            'Get Directions',
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

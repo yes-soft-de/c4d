@@ -37,7 +37,11 @@ class AuthService {
     AUTH_SOURCE authSource,
   ) async {
     try {
-      await _authManager.register(RegisterRequest(userID: uid, password: uid));
+      await _authManager.register(RegisterRequest(
+        userID: uid,
+        password: uid,
+        roles: [role],
+      ));
     } catch (e) {
       Logger().info('AuthService', 'User Already Exists');
     }

@@ -60,7 +60,7 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
       error = false;
     }
     if (currentState is InitAccountSubscribeSuccessState) {
-      Navigator.pushReplacementNamed(context, OrdersRoutes.OWNER_ORDERS_SCREEN);
+      Navigator.pushReplacementNamed(context, OrdersRoutes.ORDER_STATUS);
     }
 
 //    if(currentState is InitAccountFetchingDataErrorState){

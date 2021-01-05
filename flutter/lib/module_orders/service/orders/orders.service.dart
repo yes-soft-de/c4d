@@ -14,14 +14,14 @@ class OrdersService {
     this._manager,
   );
 
-  Future<List<OrderModel>> getNearbyOrders() async {
-    OrdersResponse response = await _manager.getNearbyOrders();
+  Future<List<OrderModel>> getMyOrders() async {
+    List<Order> response = await _manager.getMyOrders();
     if (response == null) return null;
 
     List<OrderModel> orders = [];
     var df = new DateFormat('hh:mm');
 
-    response.data.forEach((element) {
+    response.forEach((element) {
       var date = new DateTime.fromMillisecondsSinceEpoch(
           element.date.timestamp * 1000);
       orders.add(new OrderModel(
@@ -56,14 +56,14 @@ class OrdersService {
     return order;
   }
 
-  Future<List<OrderModel>> getNearByOrders() async {
-    OrdersResponse response = await _manager.getNearbyOrders();
+  Future<List<OrderModel>> getNearbyOrders() async {
+    List<Order> response = await _manager.getMyOrders();
     if (response == null) return null;
 
     List<OrderModel> orders = [];
     var df = new DateFormat('hh:mm');
 
-    response.data.forEach((element) {
+    response.forEach((element) {
       var date = new DateTime.fromMillisecondsSinceEpoch(
           element.date.timestamp * 1000);
       orders.add(new OrderModel(

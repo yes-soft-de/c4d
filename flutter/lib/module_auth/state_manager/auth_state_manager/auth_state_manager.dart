@@ -115,13 +115,11 @@ class AuthStateManager {
   Future<void> registerWithEmailAndPassword(
       String email, String password, String name, String role) async {
     try {
-      var registerResult = await _auth.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      var loginResult =
-          await _auth.signInWithCredential(registerResult.credential);
-      await _loginUser(loginResult, role);
+      await signInWithEmailAndPassword(email, password, role);
     } catch (e) {
       if (e is FirebaseAuthException) {
         FirebaseAuthException x = e;
@@ -139,9 +137,9 @@ class AuthStateManager {
       bool loginSuccess = await _authService.loginUser(
         result.user.uid,
         result.user.uid,
-        result.user.displayName,
         result.user.email,
-        AUTH_SOURCE.APPLE,
+        role,
+        AUTH_SOURCE.EMAIL,
       );
       if (loginSuccess) {
         _stateSubject.add(AuthStateAuthSuccess());
