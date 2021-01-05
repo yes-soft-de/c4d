@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _loginPasswordController =
       TextEditingController();
 
-  AuthState _currentState;
+  AuthState _currentState = AuthStateInit();
   bool loading = false;
   String redirectTo;
   USER_TYPE userType;
@@ -35,9 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     widget._stateManager.stateStream.listen((event) {
-      print('Login Status: ' + event.runtimeType.toString());
-      _currentState = event;
-      // processEvent();
+      loading = false;
+      if (this.mounted) {
+        setState(() {
+          _currentState = event;
+        });
+      }
+      processEvent();
     });
   }
 
@@ -58,10 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-
-    if (this.mounted) {
-      setState(() {});
-    }
   }
 
   @override
@@ -70,175 +70,153 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget loginUi() {
-    final node = FocusScope.of(context);
-
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Form(
-            key: _loginFormKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(top: 20),
-              child: Column(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: 96,
+              child: _getHeaderRow(),
+            ),
+            Expanded(child: _getLoginForm()),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _getErrorMessages(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _getLoginForm() {
+    final node = FocusScope.of(context);
+    return Form(
+      key: _loginFormKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Flex(
+              direction: Axis.vertical,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: EdgeInsets.only(top: 30),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[100],
+                          blurRadius: 2.0,
+                          // has the effect of softening the shadow
+                          spreadRadius: 2.0,
+                          // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0, // vertical, move down 10
+                          ),
+                        )
+                      ]),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: TextFormField(
+                      controller: _loginEmailController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        labelText: 'Email',
+                      ),
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () => node.nextFocus(),
+                      // Move focus to next
+                      validator: (result) {
+                        if (result.isEmpty) {
+                          return 'الرجاء ادخال الإيميل الخاص بك';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: EdgeInsets.only(top: 30),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[100],
+                          blurRadius: 2.0,
+                          // has the effect of softening the shadow
+                          spreadRadius: 2.0,
+                          // has the effect of extending the shadow
+                          offset: Offset(
+                            5.0, // horizontal, move right 10
+                            5.0, // vertical, move down 10
+                          ),
+                        )
+                      ]),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: TextFormField(
+                      controller: _loginPasswordController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        labelText: 'Password',
+                      ),
+                      validator: (result) {
+                        if (result.length < 5) {
+                          return 'كلمة المرور يجب ان تكون من 5 محارف على الأقل';
+                        }
+                        return null;
+                      },
+                      obscureText: true,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) =>
+                          node.unfocus(), // Submit and hide keyboard
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Flex(
+                direction: Axis.vertical,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 115,
-                        child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          color: userType == USER_TYPE.CAPTAIN
-                              ? ProjectColors.SECONDARY_COLOR
-                              : Colors.white,
-                          onPressed: () {
-                            setState(() {
-                              userType = USER_TYPE.CAPTAIN;
-                            });
-                          },
-                          child: Text(
-                            S.of(context).captain,
-                            style: TextStyle(
-                              color: userType == USER_TYPE.CAPTAIN
-                                  ? Colors.white
-                                  : ProjectColors.SECONDARY_COLOR,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 115,
-                        child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          color: userType == USER_TYPE.CAPTAIN
-                              ? Colors.white
-                              : ProjectColors.SECONDARY_COLOR,
-                          onPressed: () {
-                            setState(() {
-                              userType == USER_TYPE.STORE_OWNER;
-                            });
-                          },
-                          child: Text(
-                            S.of(context).storeOwner,
-                            style: TextStyle(
-                              color: userType == USER_TYPE.CAPTAIN
-                                  ? ProjectColors.SECONDARY_COLOR
-                                  : Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    margin: EdgeInsets.only(top: 30),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[100],
-                            blurRadius: 2.0,
-                            // has the effect of softening the shadow
-                            spreadRadius: 2.0,
-                            // has the effect of extending the shadow
-                            offset: Offset(
-                              5.0, // horizontal, move right 10
-                              5.0, // vertical, move down 10
-                            ),
-                          )
-                        ]),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: TextFormField(
-                        controller: _loginEmailController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          labelText: 'Email',
-                        ),
-                        textInputAction: TextInputAction.next,
-                        onEditingComplete: () => node.nextFocus(),
-                        // Move focus to next
-                        validator: (result) {
-                          if (result.isEmpty) {
-                            return 'الرجاء ادخال الإيميل الخاص بك';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    margin: EdgeInsets.only(top: 30),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[100],
-                            blurRadius: 2.0,
-                            // has the effect of softening the shadow
-                            spreadRadius: 2.0,
-                            // has the effect of extending the shadow
-                            offset: Offset(
-                              5.0, // horizontal, move right 10
-                              5.0, // vertical, move down 10
-                            ),
-                          )
-                        ]),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: TextFormField(
-                        controller: _loginPasswordController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          labelText: 'Password',
-                        ),
-                        validator: (result) {
-                          if (result.length < 5) {
-                            return 'كلمة المرور يجب ان تكون من 5 محارف على الأقل';
-                          }
-                          return null;
-                        },
-                        obscureText: true,
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) =>
-                            node.unfocus(), // Submit and hide keyboard
-                      ),
-                    ),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context)
                             .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
                         setState(() {});
                       },
-                      child: Text(loading ? 'Loading' : 'Register'),
+                      child: Text(
+                        loading ? 'Loading' : 'Register',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    margin: EdgeInsets.only(top: 30),
-                    height: 70,
+                    height: 16,
+                  ),
+                  Container(
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
@@ -248,6 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           : () {
                               if (_loginFormKey.currentState.validate()) {
                                 setState(() {
+                                  _currentState = AuthStateInit();
                                   loading = true;
                                 });
                                 widget._stateManager.signInWithEmailAndPassword(
@@ -257,10 +236,91 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               }
                             },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'CONTINUE',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _getHeaderRow() {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Center(
+            child: Container(
+              width: 300,
+              child: AnimatedAlign(
+                  duration: Duration(milliseconds: 300),
+                  alignment: userType == USER_TYPE.CAPTAIN
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
+                  child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: ProjectColors.SECONDARY_COLOR,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(' '),
+                    ), // For Sizing
+                  )),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: Center(
+            child: Container(
+              width: 300,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: 150,
+                    child: FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          userType = USER_TYPE.CAPTAIN;
+                        });
+                      },
                       child: Text(
-                        'CONTINUE',
+                        S.of(context).captain,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: userType == USER_TYPE.CAPTAIN
+                              ? Colors.white
+                              : Colors.black87,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 150,
+                    child: FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          userType = USER_TYPE.STORE_OWNER;
+                        });
+                      },
+                      child: Text(
+                        S.of(context).storeOwner,
+                        style: TextStyle(
+                          color: userType != USER_TYPE.CAPTAIN
+                              ? Colors.white
+                              : Colors.black87,
                         ),
                       ),
                     ),
@@ -270,7 +330,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      ),
+      ],
     );
+  }
+
+  Widget _getErrorMessages() {
+    if (_currentState is AuthStateError) {
+      AuthStateError state = _currentState;
+      return Text(state.errorMsg);
+    } else {
+      return Container();
+    }
   }
 }

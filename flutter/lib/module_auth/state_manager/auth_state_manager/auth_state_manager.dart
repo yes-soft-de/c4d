@@ -97,20 +97,41 @@ class AuthStateManager {
 
   Future<void> signInWithEmailAndPassword(
       String email, String password, String role) async {
-    var loginResult = await _auth.signInWithEmailAndPassword(
-        email: email, password: password);
-    await _loginUser(loginResult, role);
+    try {
+      var loginResult = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      await _loginUser(loginResult, role);
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        FirebaseAuthException x = e;
+        _stateSubject.add(AuthStateError('Error: ' + x.message));
+        return;
+      }
+      _stateSubject.add(AuthStateError(e.toString()));
+      return;
+    }
   }
 
   Future<void> registerWithEmailAndPassword(
       String email, String password, String name, String role) async {
-    var registerResult = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    var loginResult =
-        await _auth.signInWithCredential(registerResult.credential);
-    await _loginUser(loginResult, role);
+    try {
+      var registerResult = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      var loginResult =
+          await _auth.signInWithCredential(registerResult.credential);
+      await _loginUser(loginResult, role);
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        FirebaseAuthException x = e;
+        _stateSubject.add(AuthStateError(x.message));
+        return;
+      } else {
+        _stateSubject.add(AuthStateError(e.toString()));
+        return;
+      }
+    }
   }
 
   Future<void> _loginUser(UserCredential result, String role) async {
