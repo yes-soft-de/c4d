@@ -170,9 +170,15 @@ class UserManager
     {
         return $this->captainProRepository->getcaptainprofileByCaptainID($captainID);
     }
+    
     public function getCaptainprofileByID($captainProfileId)
     {
         return $this->captainProRepository->getCaptainprofileByID($captainProfileId);
+    }
+
+    public function getCaptainprofileByIDStateDayOff($captainProfileId)
+    {
+        return $this->captainProRepository->getCaptainprofileByIDStateDayOff($captainProfileId);
     }
 
     public function getUserInactive($userType)

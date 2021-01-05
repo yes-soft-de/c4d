@@ -279,7 +279,7 @@ methods: GET
 
 ### Get captains state
 
-state = ongoing or vacation or free
+state = ongoing or deliverd
 ```
 /getCaptainsState/{state}
 methods: GET

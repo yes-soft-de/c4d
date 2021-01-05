@@ -129,7 +129,7 @@ class OrderService
             
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
             if ($order['acceptedOrder'] == true) {
-                $order['record'] = $this->recordService->create($order['id'], $order['state']);
+                $order['record'] = $this->recordService->getrecordByOrderId($order['id']);
             }
             // if ($order['acceptedOrder'] == true) {
 

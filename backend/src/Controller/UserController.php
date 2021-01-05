@@ -258,6 +258,18 @@ class UserController extends BaseController
     }
 
     /**
+     * @Route("/captainprofileStateDayOff/{captainProfileId}", name="getCaptainprofileBycaptainProfileIdStateDayOff",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     *  @return JsonResponse
+     */
+    public function getCaptainprofileByIDStateDayOff($captainProfileId)
+    {
+        $response = $this->userService->getCaptainprofileByIDStateDayOff($captainProfileId);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
      * @Route("/getUserInactive/{userType}", name="getOwnerOrCaptainPending",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse

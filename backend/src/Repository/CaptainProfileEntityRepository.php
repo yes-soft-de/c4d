@@ -58,6 +58,23 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainprofileByID($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'acceptedOrderEntity.state', 'captainProfile.bounce', 'captainProfile.uuid')
+
+            
+            ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
+            ->join(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
+
+            ->andWhere('captainProfile.id=:captainProfileId')
+            
+            ->setParameter('captainProfileId', $captainProfileId)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getCaptainprofileByIDStateDayOff($captainProfileId)
+    {
+        return $this->createQueryBuilder('captainProfile')
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.bounce', 'captainProfile.uuid')
 
             ->andWhere('captainProfile.id=:captainProfileId')

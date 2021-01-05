@@ -172,6 +172,27 @@ class UserService
         return $response;
     }
 
+    public function getCaptainprofileByIDStateDayOff($captainProfileId)
+    {
+        $response=[];
+        $totalBounce=[];
+        $countOrdersDeliverd=[];
+        $item = $this->userManager->getCaptainprofileByIDStateDayOff($captainProfileId);
+        if($item) {
+            $totalBounce = $this->totalBounceCaptain($item['id']);
+            
+            $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
+
+            $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
+        }
+        $response =  $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
+        if($item) {
+            $response->totalBounce = $totalBounce;
+            $response->countOrdersDeliverd = $countOrdersDeliverd;
+        }
+        return $response;
+    }
+
     public function getUserInactive($userType)
     {
         $response = [];
