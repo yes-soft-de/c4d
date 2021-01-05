@@ -2,7 +2,6 @@ import 'package:c4d/module_orders/repository/order_repository/order_repository.d
 import 'package:c4d/module_orders/request/order/order_request.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
-import 'package:c4d/module_orders/response/owner_orders/owner_orders_response.dart';
 import 'package:inject/inject.dart';
 
 @provide

@@ -1,4 +1,4 @@
-package com.example.c4d
+package de.yes_soft.c4d
 
 import io.flutter.embedding.android.FlutterActivity
 
