@@ -1,0 +1,4 @@
+enum USER_TYPE {
+  CAPTAIN,
+  STORE_OWNER
+}
