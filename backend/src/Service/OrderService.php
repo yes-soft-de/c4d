@@ -128,9 +128,9 @@ class OrderService
         foreach ($orders as $order) {
             
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
-            if ($order['acceptedOrder'] == true) {
-                $order['record'] = $this->recordService->getrecordByOrderId($order['id']);
-            }
+          
+            $order['record'] = $this->recordService->getrecordByOrderId($order['id']);
+            
             // if ($order['acceptedOrder'] == true) {
 
             //         if ($order['state'] == 'pending' && $order['acceptedOrder'][0]['state'] == 'on way to pick order' ) {
