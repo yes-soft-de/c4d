@@ -39,25 +39,27 @@ import '../../module_auth/authoriazation_module.dart' as _i27;
 import '../../module_auth/ui/screen/login_screen/login_screen.dart' as _i28;
 import '../../module_auth/state_manager/auth_state_manager/auth_state_manager.dart'
     as _i29;
-import '../../module_init/init_account_module.dart' as _i30;
+import '../../module_auth/ui/screen/register_screen/register_screen.dart'
+    as _i30;
+import '../../module_init/init_account_module.dart' as _i31;
 import '../../module_init/ui/screens/init_account_screen/init_account_screen.dart'
-    as _i31;
-import '../../module_init/state_manager/init_account/init_account.state_manager.dart'
     as _i32;
-import '../../module_init/service/init_account/init_account.service.dart'
+import '../../module_init/state_manager/init_account/init_account.state_manager.dart'
     as _i33;
-import '../../module_init/manager/init_account/init_account.manager.dart'
+import '../../module_init/service/init_account/init_account.service.dart'
     as _i34;
-import '../../module_init/repository/init_account/init_account.repository.dart'
+import '../../module_init/manager/init_account/init_account.manager.dart'
     as _i35;
-import '../../module_profile/service/profile/profile.service.dart' as _i36;
-import '../../module_profile/manager/profile/profile.manager.dart' as _i37;
+import '../../module_init/repository/init_account/init_account.repository.dart'
+    as _i36;
+import '../../module_profile/service/profile/profile.service.dart' as _i37;
+import '../../module_profile/manager/profile/profile.manager.dart' as _i38;
 import '../../module_profile/repository/profile/profile.repository.dart'
-    as _i38;
-import '../../module_theme/service/theme_service/theme_service.dart' as _i39;
-import '../../module_theme/pressistance/theme_preferences_helper.dart' as _i40;
+    as _i39;
+import '../../module_theme/service/theme_service/theme_service.dart' as _i40;
+import '../../module_theme/pressistance/theme_preferences_helper.dart' as _i41;
 import '../../module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart'
-    as _i41;
+    as _i42;
 
 class AppComponent$Injector implements _i1.AppComponent {
   AppComponent$Injector._();
@@ -128,39 +130,41 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i25.OrdersStateManager(_createOrdersService());
   _i26.MapScreen _createMapScreen() => _i26.MapScreen();
   _i27.AuthorizationModule _createAuthorizationModule() =>
-      _i27.AuthorizationModule(_createLoginScreen());
+      _i27.AuthorizationModule(_createLoginScreen(), _createRegisterScreen());
   _i28.LoginScreen _createLoginScreen() =>
       _i28.LoginScreen(_createAuthStateManager());
   _i29.AuthStateManager _createAuthStateManager() =>
       _i29.AuthStateManager(_createAuthService());
-  _i30.InitAccountModule _createInitAccountModule() =>
-      _i30.InitAccountModule(_createInitAccountScreen());
-  _i31.InitAccountScreen _createInitAccountScreen() =>
-      _i31.InitAccountScreen(_createInitAccountStateManager());
-  _i32.InitAccountStateManager _createInitAccountStateManager() =>
-      _i32.InitAccountStateManager(
+  _i30.RegisterScreen _createRegisterScreen() =>
+      _i30.RegisterScreen(_createAuthStateManager());
+  _i31.InitAccountModule _createInitAccountModule() =>
+      _i31.InitAccountModule(_createInitAccountScreen());
+  _i32.InitAccountScreen _createInitAccountScreen() =>
+      _i32.InitAccountScreen(_createInitAccountStateManager());
+  _i33.InitAccountStateManager _createInitAccountStateManager() =>
+      _i33.InitAccountStateManager(
           _createInitAccountService(), _createProfileService());
-  _i33.InitAccountService _createInitAccountService() =>
-      _i33.InitAccountService(_createInitAccountManager());
-  _i34.InitAccountManager _createInitAccountManager() =>
-      _i34.InitAccountManager(_createInitAccountRepository());
-  _i35.InitAccountRepository _createInitAccountRepository() =>
-      _i35.InitAccountRepository(_createApiClient(), _createAuthService());
-  _i36.ProfileService _createProfileService() =>
-      _i36.ProfileService(_createProfileManager());
-  _i37.ProfileManager _createProfileManager() =>
-      _i37.ProfileManager(_createProfileRepository());
-  _i38.ProfileRepository _createProfileRepository() =>
-      _i38.ProfileRepository(_createApiClient(), _createAuthService());
-  _i39.AppThemeDataService _createAppThemeDataService() =>
-      _i39.AppThemeDataService(_createThemePreferencesHelper());
-  _i40.ThemePreferencesHelper _createThemePreferencesHelper() =>
-      _i40.ThemePreferencesHelper();
+  _i34.InitAccountService _createInitAccountService() =>
+      _i34.InitAccountService(_createInitAccountManager());
+  _i35.InitAccountManager _createInitAccountManager() =>
+      _i35.InitAccountManager(_createInitAccountRepository());
+  _i36.InitAccountRepository _createInitAccountRepository() =>
+      _i36.InitAccountRepository(_createApiClient(), _createAuthService());
+  _i37.ProfileService _createProfileService() =>
+      _i37.ProfileService(_createProfileManager());
+  _i38.ProfileManager _createProfileManager() =>
+      _i38.ProfileManager(_createProfileRepository());
+  _i39.ProfileRepository _createProfileRepository() =>
+      _i39.ProfileRepository(_createApiClient(), _createAuthService());
+  _i40.AppThemeDataService _createAppThemeDataService() =>
+      _i40.AppThemeDataService(_createThemePreferencesHelper());
+  _i41.ThemePreferencesHelper _createThemePreferencesHelper() =>
+      _i41.ThemePreferencesHelper();
   _i3.LocalizationService _createLocalizationService() =>
       _singletonLocalizationService ??=
           _i3.LocalizationService(_createLocalizationPreferencesHelper());
-  _i41.LocalizationPreferencesHelper _createLocalizationPreferencesHelper() =>
-      _i41.LocalizationPreferencesHelper();
+  _i42.LocalizationPreferencesHelper _createLocalizationPreferencesHelper() =>
+      _i42.LocalizationPreferencesHelper();
   @override
   _i5.MyApp get app => _createMyApp();
 }

@@ -35,9 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     widget._stateManager.stateStream.listen((event) {
-      print(event.runtimeType.toString());
+      print('Login Status: ' + event.runtimeType.toString());
       _currentState = event;
-      processEvent();
+      // processEvent();
     });
   }
 
@@ -51,6 +51,14 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
 
+    widget._stateManager.isSignedIn().then((value) {
+      if (value == true) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          Navigator.pushNamed(context, OrdersRoutes.ORDERS_SCREEN);
+        });
+      }
+    });
+
     if (this.mounted) {
       setState(() {});
     }
@@ -58,12 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    widget._stateManager.isSignedIn().then((value) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Navigator.pushNamed(context, OrdersRoutes.ORDERS_SCREEN);
-      });
-    });
-
     return loginUi();
   }
 
