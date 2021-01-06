@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
     if (_currentState is AuthStateNotRegisteredOwner) {
-      redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
+      redirectTo = OrdersRoutes.ORDERS_SCREEN;
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
 
@@ -232,7 +232,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 widget._stateManager.signInWithEmailAndPassword(
                                   _loginEmailController.text.trim(),
                                   _loginPasswordController.text.trim(),
-                                  userType == USER_TYPE.ROLE_CAPTAIN ? 'ROLE_CAPTAIN' : 'ROLE_OWNER',
+                                  userType == USER_TYPE.ROLE_CAPTAIN
+                                      ? 'ROLE_CAPTAIN'
+                                      : 'ROLE_OWNER',
                                 );
                               }
                             },
@@ -337,7 +339,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _getErrorMessages() {
     if (_currentState is AuthStateError) {
       AuthStateError state = _currentState;
-      return Text(state.errorMsg, maxLines: 2,);
+      return Text(
+        state.errorMsg,
+        maxLines: 2,
+      );
     } else {
       return Container();
     }

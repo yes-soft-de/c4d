@@ -12,7 +12,7 @@ class OrderCard extends StatelessWidget {
     this.from,
     this.to,
     this.index,
-});
+  });
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,35 +32,30 @@ class OrderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'to $to',
-                  style: TextStyle(
-                      color: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10
-                  ),
-                ),
-                Text(
                   '$from',
                   style: TextStyle(
-                      color: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
-                      fontSize: 10
+                    color:
+                        index == 0 ? Colors.white : ProjectColors.THEME_COLOR,
+                    fontSize: 20,
                   ),
                 ),
                 Text(
                   'time: $time',
                   style: TextStyle(
-                      color: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
-                      fontSize: 10
+                    color:
+                        index == 0 ? Colors.white : ProjectColors.THEME_COLOR,
+                    fontSize: 12,
                   ),
                 ),
               ],
             ),
             Center(
               child: CircleAvatar(
-                backgroundColor: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
+                backgroundColor:
+                    index == 0 ? Colors.white : ProjectColors.THEME_COLOR,
                 child: Icon(
                   Icons.arrow_forward,
-                  color: index == 0 ? ProjectColors.THEME_COLOR : Colors.white ,
+                  color: index == 0 ? ProjectColors.THEME_COLOR : Colors.white,
                 ),
               ),
             )

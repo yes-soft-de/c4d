@@ -25,18 +25,10 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
   InitAccountState currentState = InitAccountInitState();
   bool loading = false;
   bool error = false;
+
   int _selectedPackageId = -1;
-
-  final List<ListItem> _cities = [
-    ListItem(1, "daraa"),
-    ListItem(2, "homs"),
-  ];
-  final List<ListItem> _sizes = [
-    ListItem(1, "1"),
-  ];
-
-  ListItem _selectedCity;
-  ListItem _selectedSize;
+  String _selectedCity;
+  String _selectedSize;
 
   @override
   void initState() {
@@ -45,14 +37,10 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
       currentState = event;
       processEvent();
     });
+    widget._stateManager.getPackages();
   }
 
   void processEvent() {
-    if (currentState is InitAccountCreateProfileSuccessState) {
-      widget._stateManager.getPackages();
-      loading = true;
-      error = false;
-    }
     if (currentState is InitAccountFetchingDataSuccessState) {
       InitAccountFetchingDataSuccessState state = currentState;
       _packages = state.data;
@@ -63,10 +51,6 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
       Navigator.pushReplacementNamed(context, OrdersRoutes.ORDER_STATUS);
     }
 
-//    if(currentState is InitAccountFetchingDataErrorState){
-//      loading = false;
-//      error = true;
-//    }
     if (this.mounted) {
       setState(() {});
     }
@@ -74,14 +58,26 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-//    if (currentState is InitAccountInitState) {
-//      widget._stateManager.getPackages();
-//      if (this.mounted) {
-//        setState(() {});
-//      }
-//    }
+    if (currentState is InitAccountInitState) {
+      return loadingUI();
+    } else if (currentState is InitAccountSubscribeSuccessState) {
+      return screenUi();
+    } else {
+      return Scaffold(
+        body: Center(child: Text('Error: State ${currentState.runtimeType}')),
+      );
+    }
+  }
 
-    return Text('error');
+  Widget loadingUI() {
+    return Scaffold(
+        body: Center(
+      child: GestureDetector(
+          onTap: () {
+            widget._stateManager.getPackages();
+          },
+          child: CircularProgressIndicator()),
+    ));
   }
 
   Widget screenUi() {
@@ -128,37 +124,14 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                       color: Colors.white,
                     ),
                     child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                          hint: _selectedCity == null
-                              ? Text(
-                                  'Choose Your City',
-                                  style: TextStyle(color: Colors.grey),
-                                )
-                              : Text(
-                                  '${_selectedCity.name}',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                          items: _cities.map((ListItem lang) {
-                            return new DropdownMenuItem<String>(
-                              value: lang.value.toString(),
-                              child: new Text(lang.name),
-                            );
-                          }).toList(),
+                      child: DropdownButtonFormField(
+                          decoration:
+                              InputDecoration(hintText: 'Choose Your City'),
+                          items: _getCities(),
                           onChanged: (value) {
-                            setState(() {
-                              _selectedCity = _cities.firstWhere((element) =>
-                                  element.value.toString() == value);
-
-                              if (_selectedSize != null) {
-                                widget._stateManager.createProfile(
-                                    _selectedCity.name, _selectedSize.value);
-                              }
-                            });
+                            _selectedCity = value;
                           }),
-                    )
-
-//
-                    ),
+                    )),
               ),
               //size
               Container(
@@ -186,37 +159,15 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
                       color: Colors.white,
                     ),
                     child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                          hint: _selectedSize == null
-                              ? Text(
-                                  'Choose Your Size',
-                                  style: TextStyle(color: Colors.grey),
-                                )
-                              : Text(
-                                  '${_selectedSize.name}',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                          items: _sizes.map((ListItem lang) {
-                            return new DropdownMenuItem<String>(
-                              value: lang.value.toString(),
-                              child: new Text(lang.name),
-                            );
-                          }).toList(),
+                      child: DropdownButtonFormField(
+                          value: _selectedSize,
+                          decoration:
+                              InputDecoration(hintText: 'Choose Your Size'),
+                          items: _getSizes(),
                           onChanged: (value) {
-                            setState(() {
-                              _selectedSize = _sizes.firstWhere((element) =>
-                                  element.value.toString() == value);
-                            });
-
-                            if (_selectedCity != null) {
-                              widget._stateManager.createProfile(
-                                  _selectedCity.name, _selectedSize.value);
-                            }
+                            _selectedCity = value;
                           }),
-                    )
-
-//
-                    ),
+                    )),
               ),
               //package
               (_packages.isNotEmpty)
@@ -287,11 +238,38 @@ class _InitAccountScreenState extends State<InitAccountScreen> {
       ),
     );
   }
-}
 
-class ListItem {
-  int value;
-  String name;
+  List<DropdownMenuItem> _getCities() {
+    var cityNames = <String>[];
+    _packages.forEach((element) {
+      cityNames.add('${element.city}');
+    });
 
-  ListItem(this.value, this.name);
+    var cityDropDown = <Widget>[];
+    cityNames.forEach((element) {
+      cityDropDown.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    });
+
+    return cityDropDown;
+  }
+
+  List<DropdownMenuItem> _getSizes() {
+    var sizeStrings = <String>[];
+    _packages.forEach((element) {
+      sizeStrings.add('${element.city}');
+    });
+
+    var sizeDropdowns = <DropdownMenuItem>[];
+    sizeStrings.forEach((element) {
+      sizeDropdowns.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    });
+
+    return sizeDropdowns;
+  }
 }

@@ -59,7 +59,7 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
       }
     }
 
-    return Text('error');
+    return Scaffold(body: Text('error'));
   }
 
   Widget screenUi() {

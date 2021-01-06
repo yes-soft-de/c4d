@@ -1,35 +1,40 @@
-
-
-
-class OrderRequest{
+class CreateOrderRequest {
   String fromBranch;
-  String destination;
+  List<String> destination;
   String note;
-  String paymentMethod;
+  String payment;
   String recipientName;
   String recipientPhone;
   String date;
-  
-  OrderRequest({
-    this.note,
-    this.paymentMethod,
-    this.destination,
-    this.date,
-    this.fromBranch,
-    this.recipientName,
-    this.recipientPhone,
-});
-  
-  Map<String,dynamic> toJson(){
-    final Map<String,dynamic> data = new Map<String,dynamic>();
-    data['recipientPhone'] = this.recipientPhone;
+
+  CreateOrderRequest(
+      {this.fromBranch,
+      this.destination,
+      this.note,
+      this.payment,
+      this.recipientName,
+      this.recipientPhone,
+      this.date});
+
+  CreateOrderRequest.fromJson(Map<String, dynamic> json) {
+    fromBranch = json['fromBranch'];
+    destination = json['destination'].cast<String>();
+    note = json['note'];
+    payment = json['payment'];
+    recipientName = json['recipientName'];
+    recipientPhone = json['recipientPhone'];
+    date = json['date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['fromBranch'] = this.fromBranch;
     data['destination'] = this.destination;
     data['note'] = this.note;
-    data['paymentMethod'] = this.paymentMethod;
+    data['payment'] = this.payment;
     data['recipientName'] = this.recipientName;
+    data['recipientPhone'] = this.recipientPhone;
     data['date'] = this.date;
-    
     return data;
   }
 }

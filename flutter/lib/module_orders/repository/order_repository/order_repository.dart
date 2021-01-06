@@ -17,21 +17,14 @@ class OrderRepository {
     this._authService,
   );
 
-  Future<bool> addNewOrder(OrderRequest orderRequest) async {
+  Future<bool> addNewOrder(CreateOrderRequest orderRequest) async {
     String token = await _authService.getToken();
-//    dynamic response = await _apiClient.post(Urls.NEW_ORDER, orderRequest.toJson(),token: token);
     dynamic response = await _apiClient.post(
-        Urls.NEW_ORDER,
-        {
-          'fromBranch': orderRequest.fromBranch,
-          'destination': [orderRequest.destination],
-          'note': orderRequest.note,
-          'payment': orderRequest.paymentMethod,
-          'recipientName': orderRequest.recipientName,
-          'recipientPhone': orderRequest.recipientPhone,
-          'date': orderRequest.date
-        },
-        token: token);
+      Urls.NEW_ORDER,
+      orderRequest.toJson(),
+      headers: {'Authorization': 'Bearer ${token}'},
+    );
+
     if (response == null) return false;
 
     return response['status_code'] == '201' ? true : false;
@@ -39,8 +32,12 @@ class OrderRepository {
 
   Future<OrderStatusResponse> getOrderDetails(int oderId) async {
     String token = await _authService.getToken();
-    dynamic response =
-        await _apiClient.get(Urls.ORDER_STATUS + '$oderId', token: token);
+    dynamic response = await _apiClient.get(
+      Urls.ORDER_STATUS + '$oderId',
+      headers: {
+        'Authorization': 'Bearer ${token}',
+      },
+    );
     if (response == null) return null;
     return OrderStatusResponse.fromJson(response['Data']);
   }
@@ -48,7 +45,12 @@ class OrderRepository {
   Future<OrdersResponse> getNearbyOrders() async {
     String token = await _authService.getToken();
 
-    dynamic response = await _apiClient.get(Urls.NEARBY_ORDERS, token: token);
+    dynamic response = await _apiClient.get(
+      Urls.NEARBY_ORDERS,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+      },
+    );
     if (response == null) return null;
 
     return OrdersResponse.fromJson(response);
@@ -57,7 +59,12 @@ class OrderRepository {
   Future<List<Order>> getMyOrders() async {
     String token = await _authService.getToken();
 
-    dynamic response = await _apiClient.get(Urls.OWNER_ORDERS, token: token);
+    dynamic response = await _apiClient.get(
+      Urls.OWNER_ORDERS,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+      },
+    );
     if (response == null) return null;
 
     return OrdersResponse.fromJson(response).data;
@@ -66,7 +73,12 @@ class OrderRepository {
   Future<OwnerOrdersResponse> getOwnerOrders() async {
     String token = await _authService.getToken();
 
-    dynamic response = await _apiClient.get(Urls.OWNER_ORDERS, token: token);
+    dynamic response = await _apiClient.get(
+      Urls.OWNER_ORDERS,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+      },
+    );
     if (response == null) return null;
 
     return OwnerOrdersResponse.fromJson(response);

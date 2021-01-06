@@ -1,123 +1,144 @@
 import 'dart:convert';
-import 'package:c4d/utils/logger/logger.dart';
+
 import 'package:dio/dio.dart';
-import 'package:dio_firebase_performance/dio_firebase_performance.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:inject/inject.dart';
+import 'package:c4d/utils/logger/logger.dart';
 
 @provide
 class ApiClient {
-  final Dio _client = Dio(BaseOptions());
+  String token;
   final Logger _logger;
-  final performanceInterceptor = DioFirebasePerformanceInterceptor();
-
   final String tag = 'ApiClient';
 
-  ApiClient(this._logger) {
-    _client.interceptors.add(DioCacheManager(CacheConfig()).interceptor);
-    _client.interceptors.add(performanceInterceptor);
-  }
+  ApiClient(this._logger);
 
-  Future<Map<String, dynamic>> get(String url,
-      {Map<String, String> queryParams, String token}) async {
-    if (token != null){
-      print('token :$token');
-      _client.options.headers.putIfAbsent('Authorization', () => 'Bearer $token');
-    }
-
-    _logger.info(tag, 'GET $url');
+  Future<Map<String, dynamic>> get(
+    String url, {
+    Map<String, String> queryParams,
+    Map<String, String> headers,
+  }) async {
     try {
-      Response  response = await _client.get(
+      _logger.info(tag, 'Requesting GET to: ' + url);
+      _logger.info(tag, 'Headers: ' + headers.toString());
+      _logger.info(tag, 'Query: ' + queryParams.toString());
+      Dio client = Dio(BaseOptions(
+        sendTimeout: 60000,
+        receiveTimeout: 60000,
+        connectTimeout: 60000,
+      ));
+      if (headers != null) {
+        if (headers['Authorization'] != null) {
+          _logger.info(tag, 'Adding Auth Header');
+          client.options.headers['Authorization'] = headers['Authorization'];
+        }
+      }
+      var response = await client.get(
         url,
         queryParameters: queryParams,
-        options: buildCacheOptions(Duration(seconds: 15)),
       );
-
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        _logger.info(tag, response.data.toString());
-        return response.data;
-      } else if (response.statusCode == 404) {
-        _logger.warn(tag, 'Get ' + url + '\t' + response.statusCode.toString());
-        return null;
-      } else {
-        _logger.error(
-            tag, 'Get ' + url + ' \t ' + response.statusCode.toString());
-        return null;
-      }
+      return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, 'Get ' + url + ' \t ' + e.toString());
-      return null;
-    }
-  }
-
-  Future<Map<String, dynamic>> delete(String url,
-      {Map<String, String> queryParams}) async {
-    _logger.info(tag, 'DELETE $url');
-    try {
-      Response response = await _client.delete(
-        url,
-        queryParameters: queryParams,
-        options: buildCacheOptions(Duration(seconds: 15)),
-      );
-
-      if (response.statusCode >= 200 && response.statusCode < 500) {
-        _logger.info(tag, response.data.toString());
-        return response.data;
-      } else {
-        _logger.error(
-            tag, url + response.statusCode.toString() + ' for link ' + url);
-
-        return null;
-      }
-    } catch (e) {
-      _logger.error(tag, url + e.toString());
+      _logger.error(tag, e.toString() + ' ' + url);
       return null;
     }
   }
 
   Future<Map<String, dynamic>> post(
-      String url, Map<String, dynamic> payLoad,{ String token}) async {
-    if (token != null){
-      print('token :$token');
-      _client.options.headers.putIfAbsent('Authorization', () => 'Bearer $token');
-    }
-
+    String url,
+    Map<String, dynamic> payLoad, {
+    Map<String, String> queryParams,
+    Map<String, String> headers,
+  }) async {
+    Dio client = Dio(BaseOptions(
+      sendTimeout: 60000,
+      receiveTimeout: 60000,
+      connectTimeout: 60000,
+    ));
     try {
       _logger.info(tag, 'Requesting Post to: ' + url);
       _logger.info(tag, 'POST: ' + jsonEncode(payLoad));
-      Response response = await _client.post(url, data: json.encode(payLoad));
-
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        _logger.info(tag, response.data.toString());
-        return response.data;
-      } else {
-        _logger.error(tag,
-            url + response.statusCode.toString() + '\n' + payLoad.toString());
-        _logger.error(tag, url + response.data.toString());
-        return null;
+      _logger.info(tag, 'Headers: ' + jsonEncode(headers));
+      if (headers != null) {
+        if (headers['Authorization'] != null) {
+          _logger.info(tag, 'Adding Auth Header');
+          client.options.headers['Authorization'] = headers['Authorization'];
+        }
       }
+      var response = await client.post(
+        url,
+        queryParameters: queryParams,
+        data: json.encode(payLoad),
+      );
+      return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, url + e.toString());
+      _logger.error(tag, e.toString() + url);
       return null;
     }
   }
 
   Future<Map<String, dynamic>> put(
-      String url, Map<String, dynamic> payLoad) async {
+    String url,
+    Map<String, dynamic> payLoad, {
+    Map<String, String> queryParams,
+    Map<String, String> headers,
+  }) async {
     try {
-      _logger.info(tag, 'Requesting Put to: ' + url);
+      _logger.info(tag, 'Requesting PUT to: ' + url);
       _logger.info(tag, 'PUT: ' + jsonEncode(payLoad));
-      var response = await _client.put(url, data: json.encode(payLoad));
-
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        _logger.info(tag, response.data.toString());
-        return response.data;
-      } else {
-        _logger.error(tag, url + response.statusCode.toString());
-        return null;
-      }
+      Dio client = Dio(BaseOptions(
+        sendTimeout: 60000,
+        receiveTimeout: 60000,
+        connectTimeout: 60000,
+      ));
+      var response = await client.put(
+        url,
+        queryParameters: queryParams,
+        data: json.encode(payLoad),
+      );
+      return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, url + e.toString());
+      _logger.error(tag, e.toString() + url);
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>> delete(
+    String url, {
+    Map<String, String> queryParams,
+    Map<String, String> headers,
+  }) async {
+    try {
+      _logger.info(tag, 'Requesting DELETE to: ' + url);
+      _logger.info(tag, 'Headers: ' + headers.toString());
+      _logger.info(tag, 'Query: ' + queryParams.toString());
+      Dio client = Dio(BaseOptions(
+        sendTimeout: 60000,
+        receiveTimeout: 60000,
+        connectTimeout: 60000,
+      ));
+      if (headers != null) {
+        if (headers['Authorization'] != null) {
+          _logger.info(tag, 'Adding Auth Header');
+          client.options.headers['Authorization'] = headers['Authorization'];
+        }
+      }
+      var response = await client.delete(
+        url,
+        queryParameters: queryParams,
+      );
+      return _processResponse(response);
+    } catch (e) {
+      _logger.error(tag, e.toString() + ' ' + url);
+      return null;
+    }
+  }
+
+  Map<String, dynamic> _processResponse(Response response) {
+    if (response.statusCode >= 200 && response.statusCode < 400) {
+      _logger.info(tag, response.data.toString());
+      return response.data;
+    } else {
+      _logger.error(tag, response.statusCode.toString());
       return null;
     }
   }

@@ -16,12 +16,10 @@ class OrderStatusScreen extends StatefulWidget {
   );
 
   @override
-  _OrderStatusScreenState createState() =>
-      _OrderStatusScreenState();
+  _OrderStatusScreenState createState() => _OrderStatusScreenState();
 }
 
-class _OrderStatusScreenState
-    extends State<OrderStatusScreen> {
+class _OrderStatusScreenState extends State<OrderStatusScreen> {
   OrderModel order;
 
   var currentState = OrderStatusState();
@@ -65,7 +63,7 @@ class _OrderStatusScreenState
       }
     }
 
-    return Text('Error');
+    return Scaffold(body: Text('Error'));
   }
 
   Widget screenUi() {

@@ -12,7 +12,7 @@ class OrdersManager {
     this._repository,
   );
 
-  Future<bool> addNewOrder(OrderRequest orderRequest) =>
+  Future<bool> addNewOrder(CreateOrderRequest orderRequest) =>
       _repository.addNewOrder(orderRequest);
 
   Future<OrderStatusResponse> getOrderDetails(int oderId) =>

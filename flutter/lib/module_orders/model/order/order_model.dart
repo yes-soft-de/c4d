@@ -1,7 +1,4 @@
-
-
-
-class OrderModel{
+class OrderModel {
   int id;
   String to;
   String from;
@@ -15,4 +12,13 @@ class OrderModel{
     this.from,
     this.paymentMethod,
   });
+
+  OrderModel.fromJson(Map<String, dynamic> json) {
+    creationTime = json['date'];
+    // if (json['destination'] != null) {
+    //   to = json['destination'].cast<String>();
+    // }
+    from = json['fromBranch'];
+    paymentMethod = json['payment'];
+  }
 }

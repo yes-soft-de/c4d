@@ -19,7 +19,13 @@ class AuthStateManager {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final AuthService _authService;
 
-  AuthStateManager(this._authService);
+  AuthStateManager(this._authService) {
+    _authService.isLoggedIn.then((value) {
+      if (value == true) {
+        _stateSubject.add(AuthStateAuthSuccess());
+      }
+    });
+  }
 
   final PublishSubject<AuthState> _stateSubject = PublishSubject();
 

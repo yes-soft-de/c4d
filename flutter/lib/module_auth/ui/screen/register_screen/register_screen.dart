@@ -54,7 +54,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
     if (_currentState is AuthStateNotRegisteredOwner) {
-      redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
+      redirectTo = OrdersRoutes.ORDERS_SCREEN;
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
   }

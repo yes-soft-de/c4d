@@ -67,7 +67,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget getLoadingScreen() {
     return Scaffold(
         body: Center(
-      child: CircularProgressIndicator(),
+      child: GestureDetector(
+          onTap: () {
+            widget._stateManager.getMyOrders();
+          },
+          child: CircularProgressIndicator()),
     ));
   }
 
@@ -97,27 +101,33 @@ class _OrdersScreenState extends State<OrdersScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: ListView.builder(
-                itemCount: orders.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          OrdersRoutes.ORDER_STATUS,
-                          arguments: orders[index].id,
-                        );
-                      },
-                      child: OrderCard(
-                        to: orders[index].to,
-                        from: orders[index].from,
-                        time: orders[index].creationTime,
-                        index: index,
+            child: RefreshIndicator(
+              onRefresh: () {
+                widget._stateManager.getMyOrders();
+                return null;
+              },
+              child: ListView.builder(
+                  itemCount: orders.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.all(10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            OrdersRoutes.ORDER_STATUS,
+                            arguments: orders[index].id,
+                          );
+                        },
+                        child: OrderCard(
+                          to: orders[index].to,
+                          from: orders[index].from,
+                          time: orders[index].creationTime,
+                          index: index,
+                        ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            ),
           ),
           GestureDetector(
             onTap: () {
@@ -130,10 +140,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 child: Text(
                   'Create new order',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),
