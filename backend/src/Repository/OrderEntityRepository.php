@@ -128,7 +128,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function ongoingOrders()
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->addSelect('OrderEntity.id as orderID', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'captainProfileEntity.name', 'acceptedOrderEntity.date as acceptedOrderDate', 'acceptedOrderEntity.captainID', 'acceptedOrderEntity.duration', 'captainProfileEntity.car', 'captainProfileEntity.drivingLicence', 'captainProfileEntity.image', 'userProfileEntity.userName as ownerName') 
+            ->addSelect('OrderEntity.id as orderID', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'captainProfileEntity.name', 'acceptedOrderEntity.date as acceptedOrderDate', 'acceptedOrderEntity.captainID', 'acceptedOrderEntity.duration', 'captainProfileEntity.car', 'captainProfileEntity.drivingLicence', 'captainProfileEntity.image', 'userProfileEntity.userName as ownerName', 'OrderEntity.fromBranch') 
             
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
 

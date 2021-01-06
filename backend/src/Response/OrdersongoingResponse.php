@@ -22,5 +22,6 @@ class OrdersongoingResponse
     public $duration;
     public $image;
     public $drivingLicence;
+    public $fromBranch;
     
 }
