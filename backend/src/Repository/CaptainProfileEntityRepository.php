@@ -62,7 +62,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             
             ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
-            ->join(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
+            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
 
             ->andWhere('captainProfile.id=:captainProfileId')
             
