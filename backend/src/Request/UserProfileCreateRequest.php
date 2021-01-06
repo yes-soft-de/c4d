@@ -6,7 +6,7 @@ class UserProfileCreateRequest
 {
     private $userID;
 
-    // private $userName;
+    private $userName;
 
     // private $story;
 
@@ -34,21 +34,21 @@ class UserProfileCreateRequest
         $this->userID = $userID;
     }
 
-    // /**
-    //  * @return mixed
-    //  */
-    // public function getUserName()
-    // {
-    //     return $this->userName;
-    // }
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
 
-    // /**
-    //  * @param mixed $userName
-    //  */
-    // public function setUserName($userName): void
-    // {
-    //     $this->userName = $userName;
-    // }
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName): void
+    {
+        $this->userName = $userName;
+    }
 
     // /**
     //  * @return mixed
