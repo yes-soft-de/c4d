@@ -24,12 +24,11 @@ class OrdersService {
         .get();
 
     print('Got ${ordersSnapshot.size} elements');
-    var ordersList = <OrderModel>[];
+    List<OrderModel> ordersList = [];
     ordersSnapshot.docs.forEach((element) {
-      ordersList.add(
-        OrderModel.fromJson(element.data()),
-      );
-      print('adding an element');
+      var model = OrderModel.fromJson(element.data());
+      model.id = element.id;
+      ordersList.add(model);
     });
     return ordersList;
 
@@ -54,13 +53,15 @@ class OrdersService {
     // });
   }
 
-  Future<OrderModel> getOrderDetails(int orderId) async {
+  Future<OrderModel> getOrderDetails(String orderId) async {
     var ordersSnapshot = await FirebaseFirestore.instance
         .collection('c4d')
         .doc('data')
         .collection('orders')
         .doc('${orderId}')
         .get();
+
+    ordersSnapshot.data()['id'] = orderId;
 
     return OrderModel.fromJson(ordersSnapshot.data());
     // OrderStatusResponse response = await _manager.getOrderDetails(orderId);

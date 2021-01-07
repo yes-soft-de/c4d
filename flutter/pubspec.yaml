@@ -98,6 +98,9 @@ dependencies:
   # UUID
   uuid: ^2.2.2
 
+  # ProgressBar
+  step_progress_indicator: ^0.2.5+8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

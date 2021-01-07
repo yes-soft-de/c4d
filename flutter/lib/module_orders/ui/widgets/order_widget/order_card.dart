@@ -1,5 +1,6 @@
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class OrderCard extends StatelessWidget {
   final String from;
@@ -40,7 +41,7 @@ class OrderCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'time: $time',
+                  timeago.format(DateTime.parse(time)),
                   style: TextStyle(
                     color:
                         index == 0 ? Colors.white : ProjectColors.THEME_COLOR,

@@ -5,7 +5,10 @@ import 'package:c4d/module_orders/ui/screens/map/map_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inject/inject.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 @provide
 class OrderStatusScreen extends StatefulWidget {
@@ -22,10 +25,10 @@ class OrderStatusScreen extends StatefulWidget {
 class _OrderStatusScreenState extends State<OrderStatusScreen> {
   OrderModel order;
 
-  var currentState = OrderStatusState();
+  OrderStatusState currentState = OrderStatusInitState();
   bool loading = true;
   bool error = false;
-  int oderId;
+  String orderId;
 
   @override
   void initState() {
@@ -54,16 +57,65 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
 
   @override
   Widget build(BuildContext context) {
-    oderId = ModalRoute.of(context).settings.arguments;
+    orderId = ModalRoute.of(context).settings.arguments;
 
-    if (currentState is OrderStatusInitState) {
-      widget._stateManager.getOrderDetails(oderId);
+    if (currentState is OrderStatusInitState ||
+        currentState is OrderStatusFetchingDataState) {
+      widget._stateManager.getOrderDetails(orderId);
       if (this.mounted) {
         setState(() {});
       }
+      return loadingUi();
     }
 
-    return Scaffold(body: Text('Error'));
+    if (currentState is OrderStatusFetchingDataSuccessState) {
+      return screenUi();
+    }
+
+    return Scaffold(
+        appBar: AppBar(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'Error',
+              textAlign: TextAlign.center,
+            ),
+            RaisedButton(
+                child: Text('Retry'),
+                onPressed: () {
+                  widget._stateManager.getOrderDetails(orderId);
+                }),
+          ],
+        ));
+  }
+
+  Widget errorUi() {
+    return Scaffold(
+        body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text('Error'),
+          RaisedButton(
+            child: Text('Retry'),
+            onPressed: () {
+              widget._stateManager.getOrderDetails(orderId);
+            },
+          )
+        ],
+      ),
+    ));
+  }
+
+  Widget loadingUi() {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 
   Widget screenUi() {
@@ -88,45 +140,40 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            width: MediaQuery.of(context).size.width,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Image(
-                  image: AssetImage('assets/images/track.png'),
-                  height: 150,
-                  width: 150,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SvgPicture.asset(
+                    'assets/images/searching.svg',
+                    height: 150,
+                  ),
                 ),
-                Text('Payment : ${order.paymentMethod}'),
-                Image(
-                  image: AssetImage('assets/images/Group 152.png'),
-                  height: 100,
-                  width: MediaQuery.of(context).size.width * 0.8,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Searching for a captain',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: StepProgressIndicator(
+                    totalSteps: 5,
+                    currentStep: 0,
+                  ),
                 ),
                 Text(
-                  '${order.creationTime}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
+                  timeago.format(DateTime.parse(order.creationTime)),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
                 ),
                 SizedBox(
                   height: 30,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Color(0xffBE1E2D),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'I Got the Product',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -143,37 +190,30 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
                   text: 'Chat with Store Owner',
                   image: 'assets/images/bi_chat-dots.png',
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => MapScreen())));
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 50,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image(
-                          image: AssetImage('assets/images/map.png'),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Center(
-                          child: Text(
-                            'Get Directions',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                CommunicationCard(
+                  text: 'Get Direction',
+                  image: 'assets/images/map.png',
                 ),
               ],
             ),
           ),
         ));
+  }
+
+  Widget getPendingCaptainUi() {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Flex(
+        direction: Axis.horizontal,
+        children: [
+          Flexible(
+            child: SvgPicture.asset(
+              'assets/images/searching.svg',
+              height: 150,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

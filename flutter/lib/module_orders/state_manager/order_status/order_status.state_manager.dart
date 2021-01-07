@@ -16,10 +16,10 @@ class OrderStatusStateManager {
     this._orderStatusService,
   );
 
-  void getOrderDetails(int oderId) {
+  void getOrderDetails(String orderId) {
     _stateSubject.add(OrderStatusFetchingDataState());
 
-    _orderStatusService.getOrderDetails(oderId).then((value) {
+    _orderStatusService.getOrderDetails(orderId).then((value) {
       if (value == null) {
         Fluttertoast.showToast(msg: S.current.errorLoadingData);
         _stateSubject.add(OrderStatusFetchingDataErrorState());

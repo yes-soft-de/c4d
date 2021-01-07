@@ -22,7 +22,7 @@ class OrdersResponse {
 }
 
 class Order {
-  int id;
+  String id;
   List<String> source;
   List<String> destination;
   Date date;
@@ -38,18 +38,18 @@ class Order {
 
   Order(
       {this.id,
-        this.source,
-        this.destination,
-        this.date,
-        this.updateDate,
-        this.note,
-        this.payment,
-        this.recipientName,
-        this.recipientPhone,
-        this.state,
-        this.fromBranch,
-        this.acceptedOrder,
-        this.record});
+      this.source,
+      this.destination,
+      this.date,
+      this.updateDate,
+      this.note,
+      this.payment,
+      this.recipientName,
+      this.recipientPhone,
+      this.state,
+      this.fromBranch,
+      this.acceptedOrder,
+      this.record});
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
