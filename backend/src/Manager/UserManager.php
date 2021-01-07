@@ -40,6 +40,9 @@ class UserManager
 
     public function userRegister(UserRegisterRequest $request)
     {
+        $userProfile = $this->getUserByUserID($request->getUserID());
+        if ($userProfile == null) {
+
         $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
 
         $user = new UserEntity($request->getUserID());
@@ -55,6 +58,15 @@ class UserManager
         $this->entityManager->clear();
 
         return $userRegister;
+    }
+    else {
+        return true;
+    }
+    }
+
+    public function getUserByUserID($userID)
+    {
+        return $this->userRepository->getUserByUserID($userID);
     }
 
     public function userProfileCreate(UserProfileCreateRequest $request, $uuid)

@@ -35,4 +35,16 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    public function getUserByUserID($userID)
+    {
+        return $this->createQueryBuilder('user')
+
+            ->select('user.id', 'user.userID','user.email')
+            ->andWhere('user.userID=:userID')
+            ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

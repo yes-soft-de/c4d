@@ -45,6 +45,7 @@ class UserController extends BaseController
     public function userRegister(Request $request)
     {
         $data = json_decode($request->getContent(), true);
+        
 
         $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
 
@@ -56,7 +57,7 @@ class UserController extends BaseController
         }
 
         $response = $this->userService->userRegister($request);
-
+       
         return $this->response($response, self::CREATE);
     }
 
@@ -329,5 +330,24 @@ class UserController extends BaseController
         $result = $this->userService->totalBounceCaptain($captainProfileId);
 
         return $this->response($result, self::FETCH);
+    }
+
+
+
+    /**
+     * @Route("/test", name="test",methods={"GET"})
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function test()
+    {
+        if( $this->isGranted('ROLE_OWNER') ){
+            // here to owner ...
+        }
+
+        if( $this->isGranted('ROLE_CAPTAIN') ){
+            // here to captain ...
+        }
+        
     }
 }
