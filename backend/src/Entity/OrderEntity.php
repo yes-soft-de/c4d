@@ -68,7 +68,7 @@ class OrderEntity
     private $state;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $fromBranch;
 
@@ -210,12 +210,12 @@ class OrderEntity
         return $this;
     }
 
-    public function getFromBranch(): ?string
+    public function getFromBranch(): ?int
     {
         return $this->fromBranch;
     }
 
-    public function setFromBranch(?string $fromBranch): self
+    public function setFromBranch(string $fromBranch): self
     {
         $this->fromBranch = $fromBranch;
 
