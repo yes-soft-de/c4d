@@ -33,16 +33,16 @@ class AcceptedOrderService
         return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
     }
 
-    public function getOrderStatusForCaptain($captainID, $orderId)
-    {
-        $item = $this->acceptedOrderManager->getOrderStatusForCaptain($captainID, $orderId);
-        if ($item) {
-            $record = $this->recordService->getRecordByOrderId($orderId);
-        }
-        $response = $this->autoMapping->map('array', AcceptedOrderResponse::class, $item);
-        $response->record =  $record;
-        return $response;
-    }
+    // public function getOrderStatusForCaptain($captainID, $orderId)
+    // {
+    //     $item = $this->acceptedOrderManager->getOrderStatusForCaptain($captainID, $orderId);
+    //     if ($item) {
+    //         $record = $this->recordService->getRecordByOrderId($orderId);
+    //     }
+    //     $response = $this->autoMapping->map('array', AcceptedOrderResponse::class, $item);
+    //     $response->record =  $record;
+    //     return $response;
+    // }
 
     public function countOrdersDeliverd($userID)
     {

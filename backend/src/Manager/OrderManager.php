@@ -63,6 +63,11 @@ class OrderManager
         return $this->repository->orderStatus($userID, $orderId);
     }
 
+    public function orderStatusForCaptain($userID, $orderId)
+    {
+        return $this->repository->orderStatusForCaptain($userID, $orderId);
+    }
+
     public function closestOrders()
     {
         return $this->repository->closestOrders();

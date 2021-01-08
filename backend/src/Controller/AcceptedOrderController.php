@@ -63,18 +63,18 @@ class AcceptedOrderController extends BaseController
         return $this->response($response, self::CREATE);
     }
 
-    /**
-     * @Route("/getOrderStatusForCaptain/{orderId}", name="GetOrderStatusForCaptain", methods={"GET"})
-     * @IsGranted("ROLE_CAPTAIN")
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function getOrderStatusForCaptain($orderId)
-    {
-        $result = $this->acceptedOrderService->getOrderStatusForCaptain($this->getUserId(), $orderId);
+    // /**
+    //  * @Route("/getOrderStatusForCaptain/{orderId}", name="GetOrderStatusForCaptain", methods={"GET"})
+    //  * @IsGranted("ROLE_CAPTAIN")
+    //  * @param                                     Request $request
+    //  * @return                                    JsonResponse
+    //  */
+    // public function getOrderStatusForCaptain($orderId)
+    // {
+    //     $result = $this->acceptedOrderService->getOrderStatusForCaptain($this->getUserId(), $orderId);
 
-        return $this->response($result, self::FETCH);
-    }
+    //     return $this->response($result, self::FETCH);
+    // }
 
     /**
      * @Route("acceptedOrder", name="updateAcceptedOrder", methods={"PUT"})

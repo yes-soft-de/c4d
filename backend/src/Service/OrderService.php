@@ -91,15 +91,41 @@ class OrderService
         return $response;
     }
 
-    public function orderStatus($userID, $orderId)
+    public function orderStatus($userID, $orderId, $userType)
     {
-        $order = $this->orderManager->orderStatus($userID, $orderId);
+        if($userType == 'ROLE_OWNER') {
+            $order = $this->orderManager->orderStatus($userID, $orderId);
+            if ($order['fromBranch']){
+                $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+            }
+            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
-        $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
+            $record = $this->recordService->getrecordByOrderId($orderId);
 
-        $response = $this->autoMapping->map('array', OrderResponse::class, $order);
-        if ($acceptedOrder) {
-            $response->acceptedOrder =  $acceptedOrder;
+            $response = $this->autoMapping->map('array', OrderResponse::class, $order);
+
+            if ($acceptedOrder) {
+                $response->acceptedOrder =  $acceptedOrder;
+            }
+
+            $response->record =  $record;
+        }
+        if($userType == 'ROLE_CAPTAIN') {
+            $order = $this->orderManager->orderStatusForCaptain($userID, $orderId);
+           
+            if ($order['fromBranch']){
+                $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+            }
+            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
+
+            $record = $this->recordService->getrecordByOrderId($orderId);
+
+            $response = $this->autoMapping->map('array', OrderResponse::class, $order);
+
+            if ($acceptedOrder) {
+                $response->acceptedOrder =  $acceptedOrder;
+                $response->record =  $record;
+            }
         }
         return $response;
     }
@@ -126,7 +152,9 @@ class OrderService
         $orders = $this->orderManager->getPendingOrders();
 
         foreach ($orders as $order) {
-            
+            if ($order['fromBranch']){
+                $order['fromBranch'] = $this->branchesService->getBrancheById($orders[0]['fromBranch']);
+                }
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
           
             $order['record'] = $this->recordService->getrecordByOrderId($order['id']);

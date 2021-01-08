@@ -22,20 +22,20 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AcceptedOrderEntity::class);
     }
 
-    public function getOrderStatusForCaptain($captainID, $orderId)
-    {
-        return $this->createQueryBuilder('AcceptedOrderEntity')
-            ->select('AcceptedOrderEntity.id','AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.orderID', 'AcceptedOrderEntity.date', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.date as orderDate', 'orderEntity.note as orderNote', 'orderEntity.payment ', 'orderEntity.state', 'orderEntity.updateDate as orderUpdateDate')
+    // public function getOrderStatusForCaptain($captainID, $orderId)
+    // {
+    //     return $this->createQueryBuilder('AcceptedOrderEntity')
+    //         ->select('AcceptedOrderEntity.id','AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.orderID', 'AcceptedOrderEntity.date', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.date as orderDate', 'orderEntity.note as orderNote', 'orderEntity.payment ', 'orderEntity.state', 'orderEntity.updateDate as orderUpdateDate')
           
-            ->join(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
+    //         ->join(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
 
-            ->andWhere('AcceptedOrderEntity.captainID = :captainID')
-            ->andWhere('AcceptedOrderEntity.orderID = :orderId')
-            ->setParameter('captainID', $captainID)
-            ->setParameter('orderId', $orderId)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
+    //         ->andWhere('AcceptedOrderEntity.captainID = :captainID')
+    //         ->andWhere('AcceptedOrderEntity.orderID = :orderId')
+    //         ->setParameter('captainID', $captainID)
+    //         ->setParameter('orderId', $orderId)
+    //         ->getQuery()
+    //         ->getOneOrNullResult();
+    // }
 
     public function countOrdersDeliverd($captainID)
     {

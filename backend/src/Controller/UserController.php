@@ -331,23 +331,4 @@ class UserController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
-
-
-
-    /**
-     * @Route("/test", name="test",methods={"GET"})
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function test()
-    {
-        if( $this->isGranted('ROLE_OWNER') ){
-            // here to owner ...
-        }
-
-        if( $this->isGranted('ROLE_CAPTAIN') ){
-            // here to captain ...
-        }
-        
-    }
 }

@@ -61,6 +61,21 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function orderStatusForCaptain($userID, $orderId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch')
+
+            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
+
+            ->andWhere('acceptedOrderEntity.captainID = :userID')
+            ->andWhere('acceptedOrderEntity.orderID = :ID')
+            ->setParameter('userID', $userID)
+            ->setParameter('ID', $orderId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function closestOrders()
     {
         return $this->createQueryBuilder('OrderEntity')

@@ -121,14 +121,19 @@ class OrderController extends BaseController
 
     /**
      * @Route("/orderStatus/{orderId}", name="orderStatusForOwner", methods={"GET"})
-     * @IsGranted("ROLE_OWNER")
      * @param                           Request $request
      * @return                          JsonResponse
      */
     public function orderStatus($orderId)
     {
-        $result = $this->orderService->orderStatus($this->getUserId(), $orderId);
 
+        if( $this->isGranted('ROLE_OWNER') ) {
+            $result = $this->orderService->orderStatus($this->getUserId(), $orderId, 'ROLE_OWNER');
+        }
+
+        if( $this->isGranted('ROLE_CAPTAIN') ) {
+            $result = $this->orderService->orderStatus($this->getUserId(), $orderId, 'ROLE_CAPTAIN');
+        }
         return $this->response($result, self::FETCH);
     }
 
