@@ -147,4 +147,14 @@ class OrderManager
     {
         return $this->repository->ongoingOrders();
     }
+
+    public function getRecords($user)
+    {
+        return $this->repository->getRecords($user);
+    }
+
+    public function getRecordsForCaptain($user)
+    {
+        return $this->repository->getRecordsForCaptain($user);
+    }
 }

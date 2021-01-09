@@ -224,4 +224,33 @@ class OrderService
         }  
         return $response;
     }
+
+    public function getRecords($userId, $userType)
+    {
+        $response = [];
+        if($userType == 'ROLE_OWNER') {
+            $items = $this->orderManager->getRecords($userId);
+        
+            foreach ($items as $item) {
+                
+                $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);
+                $item['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($item['id']);
+
+                $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
+            }
+        }
+
+        if($userType == 'ROLE_CAPTAIN') {
+            $items = $this->orderManager->getRecordsForCaptain($userId);
+        
+            foreach ($items as $item) {
+                
+                $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);
+                $item['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($item['id']);
+
+                $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
+            }
+        }
+        return $response;
+    }
 }

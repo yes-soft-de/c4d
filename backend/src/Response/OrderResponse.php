@@ -15,6 +15,9 @@ class OrderResponse
     public $recipientPhone;
     public $state;
     public $fromBranch;
+    public $location;
+    public $brancheName;
+    public $branchCity;
     public $acceptedOrder;
     public $record;
     public $uuid;

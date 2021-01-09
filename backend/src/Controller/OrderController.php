@@ -243,4 +243,21 @@ class OrderController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("/getRecords",   name="getRecords", methods={"GET"})
+     * @return                    JsonResponse
+     */
+    public function getRecords()
+    {    
+        if( $this->isGranted('ROLE_OWNER') ) {
+         $result = $this->orderService->getRecords($this->getUserId(), 'ROLE_OWNER');
+        }
+
+        if( $this->isGranted('ROLE_CAPTAIN') ) {
+         $result = $this->orderService->getRecords($this->getUserId(), 'ROLE_CAPTAIN');
+        }
+        
+        return $this->response($result, self::FETCH);
+    }
+
 }

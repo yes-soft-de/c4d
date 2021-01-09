@@ -23,7 +23,8 @@ class RecordManager
     public function create($record)
     {
         $recordEntity = $this->autoMapping->map('array', RecordEntity::class, $record);
-
+        $recordEntity->setDate($recordEntity->getDate());
+        
         $this->entityManager->persist($recordEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -34,5 +35,10 @@ class RecordManager
     public function getRecordByOrderId($orderId)
     {
         return $this->repository->getRecordByOrderId($orderId);
+    }
+
+    public function getRecordsByOrderId($orderId)
+    {
+        return $this->repository->getRecordsByOrderId($orderId);
     }
 }

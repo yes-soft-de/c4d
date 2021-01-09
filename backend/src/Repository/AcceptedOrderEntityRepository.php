@@ -61,6 +61,17 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
+    public function getAcceptedOrderByCaptainId($captainID)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.date as acceptedOrderDate', 'AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.duration', 'AcceptedOrderEntity.state',  'AcceptedOrderEntity.orderID')
+
+            ->andWhere('AcceptedOrderEntity.captainID = :captainID')
+            ->setParameter('captainID', $captainID)
+            ->getQuery()
+            ->getResult();
+    }
 
     public function countAcceptedOrder($captainId)
     {

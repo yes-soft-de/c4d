@@ -67,6 +67,11 @@ class AcceptedOrderService
         return $this->acceptedOrderManager->getAcceptedOrderByOrderId($orderId);
     }
 
+    public function getAcceptedOrderByCaptainId($captainId)
+    {
+        return $this->acceptedOrderManager->getAcceptedOrderByCaptainId($captainId);
+    }
+
     public function countAcceptedOrder($captainId)
     {
         return $this->acceptedOrderManager->countAcceptedOrder($captainId);

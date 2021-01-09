@@ -6,6 +6,7 @@ use App\Entity\OrderEntity;
 use App\Entity\AcceptedOrderEntity;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\UserProfileEntity;
+use App\Entity\BranchesEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -152,6 +153,34 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = OrderEntity.ownerID')
 
             ->andWhere("OrderEntity.state = 'ongoing' ") 
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getRecords($ownerID)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+            ->addSelect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity') 
+
+            ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'branchesEntity.id = OrderEntity.fromBranch')
+
+            ->andWhere("OrderEntity.ownerID = :ownerID ")
+            ->setParameter('ownerID', $ownerID) 
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getRecordsForCaptain($CaptainId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+             ->addSelect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity') 
+
+            ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'branchesEntity.id = OrderEntity.fromBranch')
+            ->join(AcceptedOrderEntity::class, 'acceptedOrderEntity')
+
+            ->andWhere("acceptedOrderEntity.captainID = :CaptainId ")
+            ->setParameter('CaptainId', $CaptainId)  
             ->getQuery()
             ->getResult();
     }

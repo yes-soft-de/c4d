@@ -34,6 +34,12 @@ class RecordEntity
      */
     private $startTime;
 
+     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +77,18 @@ class RecordEntity
     public function setStartTime($startTime): self
     {
         $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function setDate($date): self
+    {
+        $this->date = new \DateTime($date);
 
         return $this;
     }

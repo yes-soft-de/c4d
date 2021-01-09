@@ -32,4 +32,15 @@ class RecordEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getRecordsByOrderId($orderId)
+    {
+        return $this->createQueryBuilder('RecordEntity')
+            ->select('RecordEntity.id, RecordEntity.orderID, RecordEntity.state, RecordEntity.date')
+            
+            ->andWhere("RecordEntity.orderID =:orderId")
+            ->setParameter('orderId', $orderId)
+            ->getQuery()
+            ->getResult();
+    }
 }

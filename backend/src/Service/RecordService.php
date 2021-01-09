@@ -33,6 +33,11 @@ class RecordService
     {
         return $this->recordManager->getrecordByOrderId($orderId);
     }
+
+    public function getRecordsByOrderId($orderId)
+    {
+        return $this->recordManager->getRecordsByOrderId($orderId);
+    }
     
     // for generate uuid
     public function uuid()
