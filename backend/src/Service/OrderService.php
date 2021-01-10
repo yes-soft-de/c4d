@@ -44,6 +44,9 @@ class OrderService
     {
         $acceptedOrder=[];
         $order = $this->orderManager->getOrderById($orderId);
+        if ($order['fromBranch']){
+            $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+            }
         if ($order){
             $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
             $record = $this->recordService->getRecordByOrderId($orderId);
@@ -221,7 +224,10 @@ class OrderService
         $ongoingOrders = $this->orderManager->ongoingOrders();
       
         foreach ($ongoingOrders as  $ongoingOrder) {
-         
+
+            if ($ongoingOrder['fromBranch']){
+                $ongoingOrder['fromBranch'] = $this->branchesService->getBrancheById($ongoingOrder['fromBranch']);
+                }
            $response[]  = $this->autoMapping->map('array',OrdersongoingResponse::class,  $ongoingOrder);
         }  
         return $response;
