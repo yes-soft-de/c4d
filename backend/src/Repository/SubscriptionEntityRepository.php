@@ -23,14 +23,14 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, SubscriptionEntity::class);
     }
 
-    public function activeSubscription($userId)
+    public function getSubscriptionForOwner($userId)
     {
         return $this->createQueryBuilder('subscription')
             ->select('subscription.id', 'subscription.packageID', 'packageEntity.name', 'subscription.startDate', 'subscription.endDate', 'subscription.status', 'subscription.note')
 
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
 
-            ->andWhere("subscription.status = 'active'")
+            // ->andWhere("subscription.status = 'active'")
             ->andWhere("subscription.ownerID = :userId")
 
             ->setParameter('userId', $userId)

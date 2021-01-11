@@ -62,13 +62,13 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("getActiveSubscription", name="getActiveSubscribedPackage", methods={"GET"})
+     * @Route("getSubscriptionForOwner", name="getSubscriptionForOwner", methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
-    public function activeSubscription()
+    public function getSubscriptionForOwner()
     {
-        $result = $this->subscriptionService->activeSubscription($this->getUserId());
+        $result = $this->subscriptionService->getSubscriptionForOwner($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

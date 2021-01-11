@@ -115,11 +115,11 @@ ROLE_OWNER
 /package
 methods: POST
 ```
-#### Get active subscribed package
+#### Get subscribed for owner
 ROLE_OWNER
 
 ```
-/getActiveSubscription
+/getSubscriptionForOwner
 methods: GET
 ```
 

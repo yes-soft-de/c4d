@@ -35,9 +35,9 @@ class SubscriptionManager
         return $subscriptionEntity;
     }
 
-    public function activeSubscription($userId)
+    public function getSubscriptionForOwner($userId)
     {
-        return $this->subscribeRepository->activeSubscription($userId);
+        return $this->subscribeRepository->getSubscriptionForOwner($userId);
     }
 
     public function subscriptionUpdateState(SubscriptionUpdateStateRequest $request)
