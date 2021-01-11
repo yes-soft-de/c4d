@@ -1,9 +1,8 @@
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/state/order_status/order_status.state.dart';
 import 'package:c4d/module_orders/state_manager/order_status_for_captain/order_status_for_captain.state_manager.dart';
-import 'package:c4d/module_orders/ui/screens/map/map_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
-import 'package:c4d/utils/project_colors/project_colors.dart';
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:inject/inject.dart';
@@ -130,11 +129,11 @@ class _OrderStatusScreenState extends State<OrderStatusScreen> {
           actions: [
             Icon(
               Icons.flag,
-              color: ProjectColors.THEME_COLOR,
+              color: AppThemeDataService.PrimaryColor,
             ),
             Icon(
               Icons.notifications,
-              color: ProjectColors.THEME_COLOR,
+              color: AppThemeDataService.PrimaryColor,
             )
           ],
         ),

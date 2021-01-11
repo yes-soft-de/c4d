@@ -3,6 +3,7 @@ import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state/orders/orders.state.dart';
 import 'package:c4d/module_orders/state_manager/orders/orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
@@ -134,7 +135,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
             },
             child: Container(
-              color: ProjectColors.THEME_COLOR,
+              color: AppThemeDataService.PrimaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(

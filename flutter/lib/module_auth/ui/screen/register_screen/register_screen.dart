@@ -273,7 +273,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       padding: const EdgeInsets.all(16.0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      color: ProjectColors.THEME_COLOR,
+                      color: AppThemeDataService.PrimaryColor,
                       onPressed: () {
                         if (loading) {
                           return;
@@ -323,7 +323,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     width: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: ProjectColors.SECONDARY_COLOR,
+                      color: AppThemeDataService.PrimaryDarker,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

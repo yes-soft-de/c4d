@@ -1,3 +1,4 @@
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -21,7 +22,7 @@ class OrderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       elevation: 6,
-      color: index == 0 ? ProjectColors.THEME_COLOR : Colors.white,
+      color: index == 0 ? AppThemeDataService.PrimaryColor : Colors.white,
       child: Container(
         padding: EdgeInsets.all(10),
         height: 115,
@@ -35,16 +36,18 @@ class OrderCard extends StatelessWidget {
                 Text(
                   '$from',
                   style: TextStyle(
-                    color:
-                        index == 0 ? Colors.white : ProjectColors.THEME_COLOR,
+                    color: index == 0
+                        ? Colors.white
+                        : AppThemeDataService.PrimaryColor,
                     fontSize: 20,
                   ),
                 ),
                 Text(
                   timeago.format(DateTime.parse(time)),
                   style: TextStyle(
-                    color:
-                        index == 0 ? Colors.white : ProjectColors.THEME_COLOR,
+                    color: index == 0
+                        ? Colors.white
+                        : AppThemeDataService.PrimaryColor,
                     fontSize: 12,
                   ),
                 ),
@@ -52,11 +55,14 @@ class OrderCard extends StatelessWidget {
             ),
             Center(
               child: CircleAvatar(
-                backgroundColor:
-                    index == 0 ? Colors.white : ProjectColors.THEME_COLOR,
+                backgroundColor: index == 0
+                    ? Colors.white
+                    : AppThemeDataService.PrimaryColor,
                 child: Icon(
                   Icons.arrow_forward,
-                  color: index == 0 ? ProjectColors.THEME_COLOR : Colors.white,
+                  color: index == 0
+                      ? AppThemeDataService.PrimaryColor
+                      : Colors.white,
                 ),
               ),
             )

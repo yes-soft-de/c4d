@@ -1,4 +1,5 @@
 import 'package:c4d/module_init/model/package/packages.model.dart';
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class PackageCard extends StatelessWidget {
         width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: active ? ProjectColors.THEME_COLOR : Colors.white,
+          color: active ? AppThemeDataService.PrimaryColor : Colors.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

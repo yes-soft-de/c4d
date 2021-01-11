@@ -14,27 +14,38 @@ class AppThemeDataService {
 
   AppThemeDataService(this._preferencesHelper);
 
-  static Color getPrimary() {
-    return Color(0xFF2699FB);
+  static Color get PrimaryColor {
+    return Colors.white;
   }
 
-  static Color getAccent() {
-    return Color(0xFFD31640);
+  static Color get PrimaryDarker {
+    return Color(0xff665EFF);
+  }
+
+  static Color get AccentColor {
+    return Colors.redAccent;
   }
 
   Future<ThemeData> getActiveTheme() async {
     var dark = await _preferencesHelper.isDarkMode();
     if (dark == true) {
       return ThemeData(
-        fontFamily: 'R8',
         brightness: Brightness.dark,
-      );
-    } else {
-      return ThemeData(
-        fontFamily: 'RB',
-        brightness: Brightness.light,
+        primaryColor: PrimaryColor,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          color: Colors.black,
+        ),
       );
     }
+    return ThemeData(
+      brightness: Brightness.light,
+      primaryColor: PrimaryColor,
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        color: Colors.white,
+      ),
+    );
   }
 
   Future<void> switchDarkMode(bool darkMode) async {

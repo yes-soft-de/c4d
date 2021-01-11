@@ -7,6 +7,7 @@ import 'package:c4d/module_auth/states/auth_states/auth_states.dart';
 import 'package:c4d/module_auth/state_manager/auth_state_manager/auth_state_manager.dart';
 import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
@@ -218,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      color: ProjectColors.THEME_COLOR,
+                      color: AppThemeDataService.PrimaryColor,
                       onPressed: loading
                           ? null
                           : () {
@@ -272,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: ProjectColors.SECONDARY_COLOR,
+                      color: AppThemeDataService.PrimaryColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

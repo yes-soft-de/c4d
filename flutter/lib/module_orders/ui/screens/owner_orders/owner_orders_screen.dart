@@ -3,6 +3,7 @@ import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state/owner_orders/owner_orders.state.dart';
 import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/widgets/owner_order_card/owner_order_card.dart';
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
@@ -70,7 +71,7 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
           onPressed: () {},
           icon: Icon(
             Icons.arrow_back,
-            color: ProjectColors.THEME_COLOR,
+            color: AppThemeDataService.PrimaryColor,
           ),
         ),
       ),
@@ -107,7 +108,7 @@ class _OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
         },
         child: Container(
           height: 45,
-          color: ProjectColors.SECONDARY_COLOR,
+          color: AppThemeDataService.PrimaryDarker,
           child: Center(
             child: Text(
               'Request New Delivery',

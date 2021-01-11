@@ -1,6 +1,7 @@
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state/new_order/new_order.state.dart';
 import 'package:c4d/module_orders/state_manager/new_order/new_order.state_manager.dart';
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -249,7 +250,7 @@ class _NewOrderScreenState extends State<NewOrderScreen> {
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      color: ProjectColors.THEME_COLOR,
+                      color: AppThemeDataService.PrimaryColor,
                       onPressed: () {
                         widget._stateManager.addNewOrder(
                             'Default Branch',

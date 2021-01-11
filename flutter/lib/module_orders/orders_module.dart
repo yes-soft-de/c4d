@@ -1,6 +1,5 @@
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
-import 'package:c4d/module_orders/ui/screens/map/map_screen.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';

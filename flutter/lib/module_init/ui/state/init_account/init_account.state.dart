@@ -1,6 +1,7 @@
 import 'package:c4d/module_init/model/package/packages.model.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:c4d/module_init/ui/widget/package_card/package_card.dart';
+import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -113,7 +114,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                   ),
                   //package
                   AnimatedContainer(
-                    duration: Duration(seconds: 1),
+                    duration: Duration(microseconds: 500),
                     height: _selectedCity == null ? 0 : 275,
                     margin: EdgeInsets.only(top: 20),
                     child: ListView(
@@ -124,13 +125,13 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
 
                   // Submit Package
                   AnimatedContainer(
-                    duration: Duration(seconds: 1),
+                    duration: Duration(microseconds: 500),
                     margin: EdgeInsets.only(top: 30),
                     height: _selectedPackageId == null ? 0 : 64,
                     child: FlatButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
-                      color: ProjectColors.THEME_COLOR,
+                      color: AppThemeDataService.PrimaryColor,
                       onPressed: () {
                         screen.subscribeToPackage(_selectedPackageId);
                       },
