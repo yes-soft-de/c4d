@@ -50,11 +50,11 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   void processEvent() {
     if (_currentState is AuthStateAuthSuccess) {
-      redirectTo = OrdersRoutes.ORDERS_SCREEN;
+      redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
     if (_currentState is AuthStateNotRegisteredOwner) {
-      redirectTo = OrdersRoutes.ORDERS_SCREEN;
+      redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
   }

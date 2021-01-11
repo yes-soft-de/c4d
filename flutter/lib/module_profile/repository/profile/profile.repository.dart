@@ -15,13 +15,11 @@ class ProfileRepository {
   );
 
   Future<bool> createProfile(ProfileRequest profileRequest) async {
-    String token = await _authService.getToken();
+    var token = await _authService.getAuthHeaderMap();
     dynamic response = await _apiClient.post(
       Urls.PROFILE,
       profileRequest.toJson(),
-      headers: {
-        'Authorization': 'Bearer ${token}',
-      },
+      headers: token,
     );
 
     if (response['status_code'] == '201') return true;

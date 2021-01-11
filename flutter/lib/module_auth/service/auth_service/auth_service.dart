@@ -84,6 +84,11 @@ class AuthService {
     return null;
   }
 
+  Future<Map<String, String>> getAuthHeaderMap() async {
+    var token = await getToken();
+    return {'Authorization': 'Bearer ' + token};
+  }
+
   Future<void> refreshToken() async {
     String uid = await _prefsHelper.getUserId();
     LoginResponse loginResponse = await _authManager.login(LoginRequest(

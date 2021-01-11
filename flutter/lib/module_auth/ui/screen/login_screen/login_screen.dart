@@ -46,26 +46,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void processEvent() {
+    redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
     if (_currentState is AuthStateAuthSuccess) {
-      redirectTo = OrdersRoutes.ORDERS_SCREEN;
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
     if (_currentState is AuthStateNotRegisteredOwner) {
-      redirectTo = OrdersRoutes.ORDERS_SCREEN;
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
-
-    widget._stateManager.isSignedIn().then((value) {
-      if (value == true) {
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          Navigator.pushNamed(context, OrdersRoutes.ORDERS_SCREEN);
-        });
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    widget._stateManager.checkLoggedIn();
     return loginUi();
   }
 

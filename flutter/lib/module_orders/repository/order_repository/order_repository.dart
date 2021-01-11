@@ -18,11 +18,11 @@ class OrderRepository {
   );
 
   Future<bool> addNewOrder(CreateOrderRequest orderRequest) async {
-    String token = await _authService.getToken();
+    var token = await _authService.getAuthHeaderMap();
     dynamic response = await _apiClient.post(
       Urls.NEW_ORDER,
       orderRequest.toJson(),
-      headers: {'Authorization': 'Bearer ${token}'},
+      headers: token,
     );
 
     if (response == null) return false;
@@ -31,25 +31,21 @@ class OrderRepository {
   }
 
   Future<OrderStatusResponse> getOrderDetails(int oderId) async {
-    String token = await _authService.getToken();
+    var token = await _authService.getAuthHeaderMap();
     dynamic response = await _apiClient.get(
       Urls.ORDER_STATUS + '$oderId',
-      headers: {
-        'Authorization': 'Bearer ${token}',
-      },
+      headers: token,
     );
     if (response == null) return null;
     return OrderStatusResponse.fromJson(response['Data']);
   }
 
   Future<OrdersResponse> getNearbyOrders() async {
-    String token = await _authService.getToken();
+    var token = await _authService.getAuthHeaderMap();
 
     dynamic response = await _apiClient.get(
       Urls.NEARBY_ORDERS,
-      headers: {
-        'Authorization': 'Bearer ${token}',
-      },
+      headers: token,
     );
     if (response == null) return null;
 
@@ -57,13 +53,11 @@ class OrderRepository {
   }
 
   Future<List<Order>> getMyOrders() async {
-    String token = await _authService.getToken();
+    var token = await _authService.getAuthHeaderMap();
 
     dynamic response = await _apiClient.get(
       Urls.OWNER_ORDERS,
-      headers: {
-        'Authorization': 'Bearer ${token}',
-      },
+      headers: token,
     );
     if (response == null) return null;
 
@@ -71,13 +65,11 @@ class OrderRepository {
   }
 
   Future<OwnerOrdersResponse> getOwnerOrders() async {
-    String token = await _authService.getToken();
+    var token = await _authService.getAuthHeaderMap();
 
     dynamic response = await _apiClient.get(
       Urls.OWNER_ORDERS,
-      headers: {
-        'Authorization': 'Bearer ${token}',
-      },
+      headers: token,
     );
     if (response == null) return null;
 

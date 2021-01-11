@@ -19,19 +19,21 @@ class AuthStateManager {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final AuthService _authService;
 
-  AuthStateManager(this._authService) {
-    _authService.isLoggedIn.then((value) {
-      if (value == true) {
-        _stateSubject.add(AuthStateAuthSuccess());
-      }
-    });
-  }
+  AuthStateManager(this._authService) {}
 
   final PublishSubject<AuthState> _stateSubject = PublishSubject();
 
   Stream<AuthState> get stateStream => _stateSubject.stream;
 
   String _verificationId;
+
+  void checkLoggedIn() {
+    _authService.isLoggedIn.then((value) {
+      if (value == true) {
+        _stateSubject.add(AuthStateAuthSuccess());
+      }
+    });
+  }
 
   void SignInWithPhone(String phone) {
     _auth
