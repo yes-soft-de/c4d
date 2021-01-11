@@ -11,7 +11,8 @@ import 'package:rxdart/rxdart.dart';
 class InitAccountStateManager {
   final InitAccountService _initAccountService;
   final ProfileService _profileService;
-  final PublishSubject<InitAccountState> _stateSubject = PublishSubject();
+  final PublishSubject<InitAccountState> _stateSubject =
+      PublishSubject<InitAccountState>();
 
   Stream<InitAccountState> get stateStream => _stateSubject.stream;
 
@@ -20,7 +21,10 @@ class InitAccountStateManager {
     this._profileService,
   );
 
-  void subscribePackage(int packageId, InitAccountScreen screen) {
+  void subscribePackage(int packageId, InitAccountScreenState screen) {
+    _stateSubject.add(
+      InitAccountStateLoading(screen),
+    );
     _initAccountService.subscribePackage(packageId).then((value) {
       if (value) {
         _stateSubject.add(
@@ -35,8 +39,7 @@ class InitAccountStateManager {
     });
   }
 
-  void getPackages(InitAccountScreen screen) {
-    print('Requesting Packages');
+  void getPackages(InitAccountScreenState screen) {
     _stateSubject.add(InitAccountStateLoading(screen));
 
     _initAccountService.getPackages().then((value) {

@@ -1,19 +1,14 @@
+import 'package:c4d/module_init/model/package/packages.model.dart';
 import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 
 class PackageCard extends StatelessWidget {
-  final int index;
-  final String packageNumber;
-  final String ordersNumber;
-  final String carsNumber;
-  final String price;
+  final PackageModel package;
+  final bool active;
 
   PackageCard({
-    this.ordersNumber,
-    this.index,
-    this.carsNumber,
-    this.price,
-    this.packageNumber,
+    @required this.package,
+    this.active = false,
   });
 
   @override
@@ -23,26 +18,27 @@ class PackageCard extends StatelessWidget {
         height: 250,
         width: 200,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: index == 0 ? ProjectColors.THEME_COLOR : Colors.white),
+          borderRadius: BorderRadius.circular(5),
+          color: active ? ProjectColors.THEME_COLOR : Colors.white,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Package #$packageNumber',
-              style: TextStyle(color: index == 0 ? Colors.white : Colors.black),
+              'Package ${package.id}',
+              style: TextStyle(color: active ? Colors.white : Colors.black),
             ),
             Text(
-              '$ordersNumber Order/Month',
-              style: TextStyle(color: index == 0 ? Colors.white : Colors.black),
+              '${package.orderCount} Order/Month',
+              style: TextStyle(color: active ? Colors.white : Colors.black),
             ),
             Text(
-              '$carsNumber Car',
-              style: TextStyle(color: index == 0 ? Colors.white : Colors.black),
+              '${package.carCount} Car',
+              style: TextStyle(color: active ? Colors.white : Colors.black),
             ),
             Text(
-              '$price',
-              style: TextStyle(color: index == 0 ? Colors.white : Colors.black),
+              '${package.cost}',
+              style: TextStyle(color: active ? Colors.white : Colors.black),
             ),
           ],
         ),

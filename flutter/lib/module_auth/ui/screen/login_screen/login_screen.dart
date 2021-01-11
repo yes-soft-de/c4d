@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
@@ -30,11 +32,13 @@ class _LoginScreenState extends State<LoginScreen> {
   String redirectTo;
   USER_TYPE userType = USER_TYPE.ROLE_CAPTAIN;
 
+  StreamSubscription _stateSubscribtion;
+
   @override
   void initState() {
     super.initState();
 
-    widget._stateManager.stateStream.listen((event) {
+    _stateSubscribtion = widget._stateManager.stateStream.listen((event) {
       loading = false;
       if (this.mounted) {
         setState(() {
@@ -48,9 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void processEvent() {
     redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
     if (_currentState is AuthStateAuthSuccess) {
+      _stateSubscribtion.cancel();
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
     if (_currentState is AuthStateNotRegisteredOwner) {
+      _stateSubscribtion.cancel();
       Navigator.of(context).pushReplacementNamed(redirectTo);
     }
   }
@@ -338,5 +344,11 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       return Container();
     }
+  }
+
+  @override
+  void dispose() {
+    _stateSubscribtion.cancel();
+    super.dispose();
   }
 }
