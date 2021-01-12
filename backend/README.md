@@ -390,7 +390,28 @@ status = active or inactive.
 /subscriptionUpdateState
 methods: PUT
 ```
+### Records for Admin
 
+## get orders
+```
+/getOrders
+methods: GET
+```
+## get users (owners OR captains)
+
+userType = owner OR captain .
+
+```
+/getUsers/userType
+methods: GET
+```
+
+## get Records By OrderId
+
+```
+/records/orderId
+methods: GET
+```
 
 
 

@@ -261,4 +261,23 @@ class OrderService
         }
         return $response;
     }
+
+    public function getOrders()
+    {
+        $response = [];
+        $orders = $this->orderManager->getOrders();
+       
+        foreach ($orders as $order) {
+
+            if ($order['fromBranch']){
+                $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+                }
+
+            $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
+
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
+        }
+
+        return $response;
+    }
 }

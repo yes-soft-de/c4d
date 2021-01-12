@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\Entity\UserProfileEntity;
 use App\Entity\SubscriptionEntity;
 use App\Entity\PackageEntity;
+use App\Entity\BranchesEntity;
 use App\Entity\OrderEntity;
+use App\Entity\CaptainProfileEntity;
 use App\Entity\AcceptedOrderEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -87,6 +89,25 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->select('profile.id', 'profile.userName', 'profile.image', 'profile.story', 'profile.status', 'profile.free', 'profile.branch')
 
             ->andWhere("profile.status = 'inactive' ")
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getOwners()
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->select('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.story', 'profile.free', 'profile.branch as branchcount')
+            ->addSelect('orderEntity.id as orderID', 'orderEntity.date', 'orderEntity.source', 'orderEntity.fromBranch', 'orderEntity.payment', 'orderEntity.destination','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity', 'acceptedOrderEntity.captainID','captainProfileEntity.name as captainName')
+       
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'profile.userID = orderEntity.ownerID')
+
+            ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'orderEntity.fromBranch = branchesEntity.id')
+
+            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'orderEntity.id = acceptedOrderEntity.orderID')
+
+            ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfileEntity.captainID')
 
             ->getQuery()
             ->getResult();

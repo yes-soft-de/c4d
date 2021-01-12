@@ -5,6 +5,7 @@ namespace App\Response;
 class OrderResponse
 {
     public $id;
+    public $ownerID;
     public $source = [];
     public $destination = [];
     public $date;

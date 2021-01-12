@@ -157,4 +157,9 @@ class OrderManager
     {
         return $this->repository->getRecordsForCaptain($user);
     }
+
+    public function getOrders()
+    {
+        return $this->repository->getOrders();
+    }
 }

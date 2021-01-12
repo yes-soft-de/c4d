@@ -4,6 +4,9 @@ namespace App\Repository;
 
 use App\Entity\CaptainProfileEntity;
 use App\Entity\AcceptedOrderEntity;
+use App\Entity\UserProfileEntity;
+use App\Entity\OrderEntity;
+use App\Entity\BranchesEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -178,6 +181,31 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
 
             ->andWhere('captainProfile.id =:id')
             ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getCaptains()
+    {
+        return $this->createQueryBuilder('captainProfile')
+
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name as captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce')
+
+            ->addSelect('acceptedOrderEntity.captainID')
+
+            ->addSelect('orderEntity.id as orderID', 'orderEntity.date', 'orderEntity.source', 'orderEntity.fromBranch', 'orderEntity.payment', 'orderEntity.destination','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity','orderEntity.ownerID')
+
+            ->addSelect('userProfileEntity.id', 'userProfileEntity.userID', 'userProfileEntity.userName', 'userProfileEntity.image', 'userProfileEntity.story', 'userProfileEntity.free', 'userProfileEntity.branch as branchcount')
+       
+            
+            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'captainProfile.captainID = acceptedOrderEntity.captainID')
+
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'acceptedOrderEntity.orderID  = orderEntity.id')
+
+            ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'orderEntity.fromBranch = branchesEntity.id')
+
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'orderEntity.ownerID = userProfileEntity.userID')
+
             ->getQuery()
             ->getResult();
     }

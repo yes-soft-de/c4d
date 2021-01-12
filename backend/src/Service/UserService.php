@@ -18,6 +18,7 @@ use App\Response\UserProfileCreateResponse;
 use App\Response\CaptainProfileCreateResponse;
 use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
+use App\Response\AllUsersResponse;
 use App\Response\RemainingOrdersResponse;
 use App\Response\CaptainsOngoingResponse;
 use App\Response\CaptainTotalBounceResponse;
@@ -291,5 +292,25 @@ class UserService
         }
 
         return $response;
+    }
+
+    public function getUsers($userType)
+    {
+        $respons = [];
+        if ($userType == "owner") {
+            $items = $this->userManager->getOwners();
+
+            foreach ($items as $item) {
+                $respons[] = $this->autoMapping->map('array', AllUsersResponse::class, $item);
+            }
+        }
+        if ($userType == "captain") {
+            $items = $this->userManager->getCaptains($userType);
+
+            foreach ($items as $item) {
+                $respons[] = $this->autoMapping->map('array', AllUsersResponse::class, $item);
+            }
+        }
+        return $respons;
     }
 }

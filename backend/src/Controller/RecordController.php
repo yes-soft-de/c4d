@@ -24,13 +24,25 @@ class RecordController extends BaseController
     } 
     
     /**
-      * @Route("/record/{orderId}", name="GetOrderStateAndTimeByOrderId", methods={"GET"})
+      * @Route("/record/{orderId}", name="GetRecordByOrderId", methods={"GET"})
       * @param                     Request $request
       * @return                    JsonResponse
       */
       public function getRecordByOrderId($orderId)
       {
           $result = $this->recordService->getRecordByOrderId($orderId);
+  
+          return $this->response($result, self::FETCH);
+      }
+
+    /**
+      * @Route("/records/{orderId}", name="GetRecordsByOrderId", methods={"GET"})
+      * @param                     Request $request
+      * @return                    JsonResponse
+      */
+      public function getRecordsByOrderId($orderId)
+      {
+          $result = $this->recordService->getRecordsByOrderId($orderId);
   
           return $this->response($result, self::FETCH);
       }

@@ -237,4 +237,14 @@ class UserManager
     {
         return $this->captainProRepository->totalBounceCaptain($id);
     }
+
+    public function getOwners()
+    {
+        return $this->profileRepository->getOwners();
+    }
+
+    public function getCaptains($userID)
+    {
+        return $this->captainProRepository->getCaptains($userID);
+    }
 }
