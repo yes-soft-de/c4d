@@ -101,6 +101,17 @@ dependencies:
   # ProgressBar
   step_progress_indicator: ^0.2.5+8
 
+  # Maps and Locations
+  flutter_map: ^0.10.1+1
+  latlong: ^0.6.1
+  location: ^3.0.0
+
+  # Charts and Digrams
+  charts_flutter: ^0.9.0
+
+  # Credit Card and Payment
+  flutter_credit_card: ^0.1.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

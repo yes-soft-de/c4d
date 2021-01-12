@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:c4d/module_init/state_manager/init_account/init_account.state_manager.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
-import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
