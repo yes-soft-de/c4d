@@ -4,6 +4,7 @@ import 'package:c4d/module_init/state_manager/init_account/init_account.state_ma
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
+import 'package:latlong/latlong.dart';
 
 @provide
 class InitAccountScreen extends StatefulWidget {
@@ -39,6 +40,10 @@ class InitAccountScreenState extends State<InitAccountScreen> {
 
   void getPackages() {
     widget._stateManager.getPackages(this);
+  }
+
+  void saveBranch(LatLng location) {
+    widget._stateManager.saveBranch(location, this);
   }
 
   @override

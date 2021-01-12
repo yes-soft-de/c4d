@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   AuthState _currentState = AuthStateInit();
   bool loading = false;
   String redirectTo;
-  USER_TYPE userType = USER_TYPE.ROLE_CAPTAIN;
+  USER_TYPE userType = USER_TYPE.ROLE_OWNER;
 
   StreamSubscription _stateSubscribtion;
 
@@ -273,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 150,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: AppThemeDataService.PrimaryColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

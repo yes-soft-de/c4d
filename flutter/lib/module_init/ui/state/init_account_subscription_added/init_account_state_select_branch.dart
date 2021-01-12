@@ -4,22 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 
-class InitAccountSubscriptionAdded extends InitAccountState {
+class InitAccountStateSelectBranch extends InitAccountState {
   LatLng branchLocation;
+  final _mapController = MapController();
 
-  InitAccountSubscriptionAdded(InitAccountScreenState screen) : super(screen);
+  InitAccountStateSelectBranch(InitAccountScreenState screen) : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
             child: FlutterMap(
+          mapController: _mapController,
           options: MapOptions(
-            center: LatLng(51.5, -0.09),
-            zoom: 13.0,
+            center: LatLng(21.5429423, 39.1690945),
+            zoom: 15.0,
             onTap: (newPos) {
+              print('New Location' + newPos.toString());
               branchLocation = newPos;
+              screen.setState(() {});
             },
           ),
           layers: [
@@ -28,25 +33,27 @@ class InitAccountSubscriptionAdded extends InitAccountState {
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 subdomains: ['a', 'b', 'c']),
             MarkerLayerOptions(
-              markers: [
-                Marker(
-                  width: 80.0,
-                  height: 80.0,
-                  point: LatLng(51.5, -0.09),
-                  builder: (ctx) => Container(
-                    child: FlutterLogo(),
-                  ),
-                ),
-              ],
+              markers: branchLocation == null
+                  ? []
+                  : [
+                      Marker(
+                        point: branchLocation,
+                        builder: (ctx) => Container(
+                          child: Icon(Icons.my_location),
+                        ),
+                      ),
+                    ],
             ),
           ],
         )),
         RaisedButton(
+          color: Theme.of(context).primaryColor,
+          textColor: Colors.white,
           child: Text('Save Location as Branch 01'),
           onPressed: branchLocation == null
               ? null
               : () {
-                  // TODO Add Branch and Move to Payment
+                  screen.saveBranch(branchLocation);
                 },
         ),
       ],

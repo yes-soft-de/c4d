@@ -1,10 +1,10 @@
 class Urls {
-  static const String DOMAIN = 'http://192.168.1.12:8000';
-  static const String BASE_API = DOMAIN;
+  static const String DOMAIN = 'http://34.121.141.34/';
+  static const String BASE_API = DOMAIN + 'html/public';
 
   static const API_SIGN_UP = BASE_API + '/user';
   static const PROFILE = BASE_API + '/userprofile';
-  static const BRANCH = BASE_API + '/branch';
+  static const BRANCH = BASE_API + '/branches';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
 
   static const CREATE_CAPTAIN_ACCOUNT = BASE_API + '/captainprofile';

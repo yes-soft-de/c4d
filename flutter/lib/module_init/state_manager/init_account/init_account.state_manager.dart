@@ -2,8 +2,9 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/service/init_account/init_account.service.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
-import 'package:c4d/module_init/ui/state/init_account_branch_saved/init_account_branch_saved.dart';
+import 'package:c4d/module_init/ui/state/init_account_branch_saved/init_account_state_payment.dart';
 import 'package:c4d/module_init/ui/state/init_account_packages_loaded/init_account_packages_loaded.dart';
+import 'package:c4d/module_init/ui/state/init_account_subscription_added/init_account_state_select_branch.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:inject/inject.dart';
@@ -31,7 +32,7 @@ class InitAccountStateManager {
     _initAccountService.subscribePackage(packageId).then((value) {
       if (value) {
         _stateSubject.add(
-          InitAccountStateSubscribeSuccess(screen),
+          InitAccountStateSelectBranch(screen),
         );
       } else {
         Fluttertoast.showToast(msg: S.current.errorHappened);
