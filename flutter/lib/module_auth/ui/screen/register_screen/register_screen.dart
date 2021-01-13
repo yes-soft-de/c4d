@@ -286,9 +286,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             _registerEmailController.text.trim(),
                             _registerPasswordController.text.trim(),
                             _registerNameController.text.trim(),
-                            userType == USER_TYPE.ROLE_CAPTAIN
-                                ? 'ROLE_CAPTAIN'
-                                : 'ROLE_OWNER',
+                            userType,
                           );
                         }
                       },

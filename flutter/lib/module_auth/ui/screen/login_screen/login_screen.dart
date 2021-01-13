@@ -231,9 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 widget._stateManager.signInWithEmailAndPassword(
                                   _loginEmailController.text.trim(),
                                   _loginPasswordController.text.trim(),
-                                  userType == USER_TYPE.ROLE_CAPTAIN
-                                      ? 'ROLE_CAPTAIN'
-                                      : 'ROLE_OWNER',
+                                  userType,
                                 );
                               }
                             },

@@ -1,4 +1,5 @@
 import 'package:c4d/module_auth/enums/auth_source.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:inject/inject.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -101,10 +102,16 @@ class AuthPrefsHelper {
     await preferencesHelper.clear();
   }
 
-  Future<void> setIsCaptain(bool isCaptain) async {
+  Future<void> setCurrentRole(USER_TYPE user_type) async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
-    await preferencesHelper.setBool('is_captain', isCaptain);
+    await preferencesHelper.setInt('role', user_type.index);
     return;
+  }
+
+  Future<USER_TYPE> getCurrentRole() async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    var type = await  preferencesHelper.getInt('role');
+    return type as USER_TYPE;
   }
 
   Future<bool> getIsCaptain() async {

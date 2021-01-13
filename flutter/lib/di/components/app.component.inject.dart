@@ -21,7 +21,7 @@ import '../../module_notifications/service/fire_notification_service/fire_notifi
     as _i17;
 import '../../module_orders/ui/screens/order_status/order_status_screen.dart'
     as _i18;
-import '../../module_orders/state_manager/order_status_for_captain/order_status_for_captain.state_manager.dart'
+import '../../module_orders/state_manager/order_status/order_status.state_manager.dart'
     as _i19;
 import '../../module_orders/ui/screens/orders/orders_screen.dart' as _i20;
 import '../../module_orders/state_manager/orders/orders.state_manager.dart'
@@ -99,10 +99,10 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i17.FireNotificationService _createFireNotificationService() =>
       _i17.FireNotificationService();
   _i18.OrderStatusScreen _createOrderStatusScreen() =>
-      _i18.OrderStatusScreen(_createOrderStatusForCaptainStateManager());
-  _i19.OrderStatusForCaptainStateManager
-      _createOrderStatusForCaptainStateManager() =>
-          _i19.OrderStatusForCaptainStateManager(_createOrdersService());
+      _i18.OrderStatusScreen(_createOrderStatusStateManager());
+  _i19.OrderStatusStateManager _createOrderStatusStateManager() =>
+      _i19.OrderStatusStateManager(
+          _createOrdersService(), _createAuthService());
   _i20.OrdersScreen _createOrdersScreen() =>
       _i20.OrdersScreen(_createOrdersStateManager());
   _i21.OrdersStateManager _createOrdersStateManager() =>

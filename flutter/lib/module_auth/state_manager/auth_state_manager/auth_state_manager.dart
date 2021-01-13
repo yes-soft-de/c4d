@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:c4d/module_auth/enums/auth_source.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_auth/states/auth_states/auth_states.dart';
 import 'package:c4d/utils/logger/logger.dart';
@@ -68,7 +69,7 @@ class AuthStateManager {
     });
   }
 
-  Future<void> authWithGoogle(String role) async {
+  Future<void> authWithGoogle(USER_TYPE role) async {
     // Trigger the authentication flow
     try {
       final GoogleSignInAccount googleUser = await GoogleSignIn(
@@ -96,7 +97,7 @@ class AuthStateManager {
     }
   }
 
-  Future<void> signInWithApple(String role) async {
+  Future<void> signInWithApple(USER_TYPE role) async {
     var oauthCred = await _createAppleOAuthCred();
     UserCredential result =
         await FirebaseAuth.instance.signInWithCredential(oauthCred);
@@ -104,7 +105,7 @@ class AuthStateManager {
   }
 
   Future<void> signInWithEmailAndPassword(
-      String email, String password, String role) async {
+      String email, String password, USER_TYPE role) async {
     try {
       var loginResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -121,7 +122,7 @@ class AuthStateManager {
   }
 
   Future<void> registerWithEmailAndPassword(
-      String email, String password, String name, String role) async {
+      String email, String password, String name, USER_TYPE role) async {
     try {
       await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -140,7 +141,7 @@ class AuthStateManager {
     }
   }
 
-  Future<void> _loginUser(UserCredential result, String role) async {
+  Future<void> _loginUser(UserCredential result, USER_TYPE role) async {
     if (result != null) {
       bool loginSuccess = await _authService.loginUser(
         result.user.uid,
@@ -156,7 +157,7 @@ class AuthStateManager {
     _stateSubject.add(AuthStateError('Can\'t Sign in!'));
   }
 
-  void confirmWithCode(String code, String role) {
+  void confirmWithCode(String code, USER_TYPE role) {
     AuthCredential credential = PhoneAuthProvider.credential(
       verificationId: _verificationId,
       smsCode: code,

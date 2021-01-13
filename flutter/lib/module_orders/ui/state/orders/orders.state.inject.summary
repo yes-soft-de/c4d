@@ -1,5 +1,5 @@
 {
-  "asset": "asset:c4d/lib/module_orders/state/new_order/new_order.state.dart",
+  "asset": "asset:c4d/lib/module_orders/ui/state/orders/orders.state.dart",
   "summary": {
     "injector": [],
     "module": [],

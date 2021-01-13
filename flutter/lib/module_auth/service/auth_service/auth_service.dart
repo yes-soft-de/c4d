@@ -1,4 +1,5 @@
 import 'package:c4d/module_auth/enums/auth_source.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/manager/auth_manager/auth_manager.dart';
 import 'package:c4d/module_auth/presistance/auth_prefs_helper.dart';
 import 'package:c4d/module_auth/request/login_request/login_request.dart';
@@ -7,7 +8,6 @@ import 'package:c4d/module_auth/response/login_response/login_response.dart';
 import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:c4d/utils/logger/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -20,7 +20,6 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   final PublishSubject _authSubject = PublishSubject();
-
   Stream get onAuthorized => _authSubject.stream;
 
   AuthService(
@@ -33,21 +32,23 @@ class AuthService {
     String uid,
     String password,
     String email,
-    String role,
+    USER_TYPE role,
     AUTH_SOURCE authSource,
   ) async {
     try {
       await _authManager.register(RegisterRequest(
         userID: uid,
         password: uid,
-        roles: [role],
+        roles: [role.toString().split('.')[1]],
       ));
     } catch (e) {
       Logger().info('AuthService', 'User Already Exists');
     }
 
-    LoginResponse loginResult =
-        await _authManager.login(LoginRequest(username: uid, password: uid));
+    LoginResponse loginResult = await _authManager.login(LoginRequest(
+      username: uid,
+      password: uid,
+    ));
 
     if (loginResult == null) {
       return false;
@@ -57,10 +58,15 @@ class AuthService {
       _prefsHelper.setUserId(uid),
       _prefsHelper.setAuthSource(authSource),
       _prefsHelper.setToken(loginResult.token),
+      _prefsHelper.setCurrentRole(role),
     ]);
 
     await _fireNotificationService.refreshNotificationToken(loginResult.token);
     return true;
+  }
+
+  Future<USER_TYPE> get userRole {
+    return _prefsHelper.getCurrentRole();
   }
 
   Future<String> getToken() async {

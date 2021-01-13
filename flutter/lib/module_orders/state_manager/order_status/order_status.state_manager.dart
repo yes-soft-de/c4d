@@ -1,31 +1,43 @@
-import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
-import 'package:c4d/module_orders/state/order_status/order_status.state.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
+import 'package:c4d/module_orders/ui/state/order_status/order_details_state_captain_order_loaded.dart';
+import 'package:c4d/module_orders/ui/state/order_status/order_details_state_owner_order_loaded.dart';
+import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
 @provide
 class OrderStatusStateManager {
-  final OrdersService _orderStatusService;
-  final PublishSubject<OrderStatusState> _stateSubject = PublishSubject();
+  final OrdersService _ordersService;
+  final AuthService _authService;
 
-  Stream<OrderStatusState> get stateStream => _stateSubject.stream;
+  final PublishSubject<OrderDetailsState> _stateSubject = new PublishSubject();
 
-  OrderStatusStateManager(
-    this._orderStatusService,
-  );
+  Stream<OrderDetailsState> get stateStream => _stateSubject.stream;
 
-  void getOrderDetails(String orderId) {
-    _stateSubject.add(OrderStatusFetchingDataState());
+  OrderStatusStateManager(this._ordersService,
+      this._authService);
 
-    _orderStatusService.getOrderDetails(orderId).then((value) {
-      if (value == null) {
-        Fluttertoast.showToast(msg: S.current.errorLoadingData);
-        _stateSubject.add(OrderStatusFetchingDataErrorState());
+  Future<void> getOrderDetails(String orderId,
+      OrderStatusScreenState screenState) async {
+    _stateSubject.add(OrderDetailsStateLoading(screenState));
+
+    var order = await _ordersService.getOrderDetails(orderId);
+    if (order == null) {
+      _stateSubject.add(OrderDetailsStateError(
+          'Error Loading Data from the Server', screenState));
+      return;
+    } else {
+      var role = await _authService.userRole;
+      if (role == USER_TYPE.ROLE_CAPTAIN) {
+        _stateSubject.add(OrderDetailsStateCaptainOrderLoaded(order, screenState));
+      } else if (role == USER_TYPE.ROLE_OWNER) {
+        _stateSubject.add(OrderDetailsStateOwnerOrderLoaded(order, screenState));
       } else {
-        _stateSubject.add(OrderStatusFetchingDataSuccessState(value));
+        _stateSubject.add(OrderDetailsStateError('Error Defining Login Type', screenState));
       }
-    });
+    }
   }
 }
