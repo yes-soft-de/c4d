@@ -1,7 +1,6 @@
-import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
-import 'package:c4d/module_orders/state/new_order/new_order.state.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
+import 'package:c4d/module_orders/ui/state/new_order/new_order.state.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -24,16 +23,24 @@ class NewOrderStateManager {
     String recipientName,
     String recipientPhone,
     String date,
+    NewOrderScreenState screenState,
   ) {
     _service
-        .addNewOrder(fromBranch, destination, note, paymentMethod,
-            recipientName, recipientPhone, date)
+        .addNewOrder(
+      fromBranch,
+      destination,
+      note,
+      paymentMethod,
+      recipientName,
+      recipientPhone,
+      date,
+    )
         .then((value) {
       if (value) {
-        _stateSubject.add(NewOrderStateSuccessState());
+        _stateSubject.add(NewOrderStateSuccessState(screenState));
       } else {
-        Fluttertoast.showToast(msg: S.current.errorHappened);
-        _stateSubject.add(NewOrderStateErrorState());
+        _stateSubject
+            .add(NewOrderStateErrorState('Error Creating Order', screenState));
       }
     });
   }

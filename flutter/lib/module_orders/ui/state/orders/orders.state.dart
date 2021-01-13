@@ -2,7 +2,10 @@ import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
+
 import 'package:flutter/material.dart';
+import 'package:latlong/latlong.dart';
+import 'package:location/location.dart';
 
 abstract class OrdersListState {
   final OrdersScreenState screenState;
@@ -93,6 +96,36 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
         )
       ],
     );
+  }
+
+  Future<List<OrderModel>> sortLocations() async {
+
+    Location location = new Location();
+
+    bool _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return orders;
+      }
+    }
+
+    var _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      return orders;
+    }
+
+    final Distance distance = Distance();
+
+    var myLocation = await Location.instance.getLocation();
+    LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
+    orders.sort((a, b) {
+      LatLng pos1 = LatLng(a.toOnMap['lat'], a.toOnMap['lon']);
+      LatLng pos2 = LatLng(b.toOnMap['lat'], b.toOnMap['lon']);
+      return distance.as(LengthUnit.Kilometer, pos1, myPos) -
+          distance.as(LengthUnit.Kilometer, pos2, myPos);
+    });
+    return orders;
   }
 }
 

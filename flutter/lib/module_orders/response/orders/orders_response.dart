@@ -26,15 +26,15 @@ class Order {
   List<String> source;
   List<String> destination;
   Date date;
-  Null updateDate;
+  Date updateDate;
   String note;
   String payment;
   String recipientName;
   String recipientPhone;
   String state;
   String fromBranch;
-  Null acceptedOrder;
-  Null record;
+  String acceptedOrder;
+  String record;
 
   Order(
       {this.id,
@@ -56,7 +56,9 @@ class Order {
     source = json['source'].cast<String>();
     destination = json['destination'].cast<String>();
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
-    updateDate = json['updateDate'];
+    updateDate = json['updateDate'] != null
+        ? new Date.fromJson(json['updateDate'])
+        : null;
     note = json['note'];
     payment = json['payment'];
     recipientName = json['recipientName'];

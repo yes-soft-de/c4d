@@ -7,7 +7,9 @@ import 'package:inject/inject.dart';
 class OrdersScreen extends StatefulWidget {
   final OrdersStateManager _stateManager;
 
-  OrdersScreen(this._stateManager,);
+  OrdersScreen(
+    this._stateManager,
+  );
 
   @override
   OrdersScreenState createState() => OrdersScreenState();
@@ -23,10 +25,10 @@ class OrdersScreenState extends State<OrdersScreen> {
   @override
   void initState() {
     super.initState();
+    _currentState = OrdersListStateInit(this);
     widget._stateManager.stateStream.listen((event) {
       if (mounted) {
-        setState(() {
-        });
+        setState(() {});
       }
     });
     widget._stateManager.getMyOrders(this);

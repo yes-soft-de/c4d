@@ -106,7 +106,10 @@ dependencies:
   latlong: ^0.6.1
   location: ^3.1.0
 
-  # Charts and Digrams
+  # Deep Linking, for quick send
+  uni_links: ^0.4.0
+
+  # Charts and Diagrams
   charts_flutter: ^0.9.0
 
   # Credit Card and Payment

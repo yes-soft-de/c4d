@@ -30,10 +30,13 @@ class OrderRepository {
     return response['status_code'] == '201' ? true : false;
   }
 
-  Future<OrderStatusResponse> getOrderDetails(int oderId) async {
+  Future<OrderStatusResponse> getOrderDetails(int orderId) async {
+    if (orderId == null) {
+      return null;
+    }
     var token = await _authService.getAuthHeaderMap();
     dynamic response = await _apiClient.get(
-      Urls.ORDER_STATUS + '$oderId',
+      Urls.ORDER_STATUS + '$orderId',
       headers: token,
     );
     if (response == null) return null;

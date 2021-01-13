@@ -1,6 +1,7 @@
 class OrderModel {
   String id;
   String to;
+  Map<String, dynamic> toOnMap;
   String from;
   String creationTime;
   String paymentMethod;
@@ -11,6 +12,7 @@ class OrderModel {
     this.creationTime,
     this.from,
     this.paymentMethod,
+    this.toOnMap,
   });
 
   OrderModel.fromJson(Map<String, dynamic> json) {

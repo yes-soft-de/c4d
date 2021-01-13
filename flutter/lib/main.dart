@@ -1,6 +1,9 @@
+import 'dart:wasm';
+
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -10,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inject/inject.dart';
+import 'package:latlong/latlong.dart';
+import 'package:uni_links/uni_links.dart';
 
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';

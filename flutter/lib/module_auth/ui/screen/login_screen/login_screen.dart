@@ -5,10 +5,10 @@ import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/states/auth_states/auth_states.dart';
 import 'package:c4d/module_auth/state_manager/auth_state_manager/auth_state_manager.dart';
+import 'package:c4d/module_deep_links/service/deep_links_service.dart';
 import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
-import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   USER_TYPE userType = USER_TYPE.ROLE_OWNER;
 
   StreamSubscription _stateSubscribtion;
+  bool deepLinkChecked = false;
 
   @override
   void initState() {
@@ -65,6 +66,17 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     widget._stateManager.checkLoggedIn();
+    if (!deepLinkChecked) {
+      deepLinkChecked = true;
+      DeepLinksService.checkForGeoLink().then((value) {
+        if (value != null) {
+          Navigator.of(context).pushNamed(
+            OrdersRoutes.NEW_ORDER_SCREEN,
+            arguments: value,
+          );
+        }
+      });
+    }
     return loginUi();
   }
 

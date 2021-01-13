@@ -20,7 +20,7 @@ class AuthStateManager {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final AuthService _authService;
 
-  AuthStateManager(this._authService) {}
+  AuthStateManager(this._authService);
 
   final PublishSubject<AuthState> _stateSubject = PublishSubject();
 
