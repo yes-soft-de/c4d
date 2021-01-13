@@ -25,7 +25,9 @@ class SubscriptionManager
     }
 
     public function create(SubscriptionCreateRequest $request)
-    {
+    { 
+        // NOTE: change active to inactive 
+        $request->setStatus('active');
         $subscriptionEntity = $this->autoMapping->map(SubscriptionCreateRequest::class, SubscriptionEntity::class, $request);
 
         $this->entityManager->persist($subscriptionEntity);

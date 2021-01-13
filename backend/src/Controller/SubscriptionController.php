@@ -44,10 +44,6 @@ class SubscriptionController extends BaseController
 
         $request->setOwnerID($this->getUserId());
 
-        if (!$request->getStatus()) {
-            $request->setStatus('inactive');
-            }
-
         $violations = $this->validator->validate($request);
 
         if (\count($violations) > 0) {

@@ -49,6 +49,12 @@ class SubscriptionEntity
      */
     private $note;
 
+    // /**
+    //  * @ORM\Column(type="boolean", nullable=true)
+    //  */
+    // private $pay;
+
+
     public function getId(): ?int
     {
         return $this->id;
