@@ -1,10 +1,18 @@
+import 'package:c4d/consts/order_status.dart';
+import 'package:latlong/latlong.dart';
+
 class OrderModel {
   String id;
   String to;
-  Map<String, dynamic> toOnMap;
+  LatLng toOnMap;
   String from;
   String creationTime;
   String paymentMethod;
+  OrderStatus status;
+  String ownerPhone;
+  String captainPhone;
+  String clientPhone;
+  String chatRoomId;
 
   OrderModel({
     this.id,
@@ -13,6 +21,7 @@ class OrderModel {
     this.from,
     this.paymentMethod,
     this.toOnMap,
+    this.status,
   });
 
   OrderModel.fromJson(Map<String, dynamic> json) {

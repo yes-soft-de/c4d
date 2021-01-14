@@ -1,6 +1,7 @@
 class Urls {
-  static const String DOMAIN = 'http://34.121.141.34/';
-  static const String BASE_API = DOMAIN + 'html/public';
+  static const String DOMAIN = 'http://34.121.141.34';
+  static const String BASE_API = DOMAIN + '/html/public';
+  static const String IMAGES_ROOT = DOMAIN + '/upload';
 
   static const API_SIGN_UP = BASE_API + '/user';
   static const PROFILE = BASE_API + '/userprofile';
@@ -15,6 +16,8 @@ class Urls {
   static const ORDER_STATUS = BASE_API + '/orderById/';
   static const ORDER_STATUS_FOR_CAPTAIN =
       BASE_API + '/getOrderStatusForCaptain/';
+
+  static const API_UPLOAD = BASE_API + '/upload';
 
   static const PACKAGES = BASE_API + '/packages';
   static const SUBSCRIPTION = BASE_API + '/subscription';

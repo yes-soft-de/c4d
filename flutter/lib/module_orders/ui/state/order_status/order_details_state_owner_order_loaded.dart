@@ -1,13 +1,15 @@
+import 'package:c4d/module_chat/chat_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
+import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
-
+import 'package:url_launcher/url_launcher.dart';
 
 class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
   OrderModel currentOrder;
@@ -23,15 +25,13 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: SvgPicture.asset(
-            'assets/images/searching.svg',
-            height: 150,
-          ),
+          child: OrderProgressionHelper.getStatusIcon(currentOrder.status),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Searching for a captain',
+            OrderProgressionHelper.getCurrentStageHelper(
+                currentOrder.status, context),
             textAlign: TextAlign.center,
           ),
         ),
@@ -39,7 +39,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
           padding: const EdgeInsets.all(8.0),
           child: StepProgressIndicator(
             totalSteps: 5,
-            currentStep: 0,
+            currentStep: currentOrder.status.index,
           ),
         ),
         Text(
@@ -51,26 +51,33 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 40,
         ),
-        SizedBox(
-          height: 10,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              ChatRoutes.chatRoute,
+              arguments: currentOrder.chatRoomId,
+            );
+          },
+          child: CommunicationCard(
+            text: 'WhatsApp with Captain',
+            image: 'assets/images/WhatsApp.png',
+          ),
         ),
-        CommunicationCard(
-          text: 'Whatsapp with Store Owner',
-          image: 'assets/images/whatsapp.png',
-        ),
-        CommunicationCard(
-          text: 'Whatsapp with User',
-          image: 'assets/images/whatsapp.png',
-        ),
-        CommunicationCard(
-          text: 'Chat with Store Owner',
-          image: 'assets/images/bi_chat-dots.png',
-        ),
-        CommunicationCard(
-          text: 'Get Direction',
-          image: 'assets/images/map.png',
+        GestureDetector(
+          onTap: () async {
+            var url = 'https://wa.me/${currentOrder.ownerPhone}';
+            if (await canLaunch(url)) {
+            await launch(url);
+            } else {
+            throw 'Could not launch $url';
+            }
+          },
+          child: CommunicationCard(
+            text: 'WhatsApp with Client',
+            image: 'assets/images/whatsapp.png',
+          ),
         ),
       ],
     );

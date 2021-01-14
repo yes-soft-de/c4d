@@ -99,7 +99,6 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
   }
 
   Future<List<OrderModel>> sortLocations() async {
-
     Location location = new Location();
 
     bool _serviceEnabled = await location.serviceEnabled();
@@ -120,10 +119,8 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
     var myLocation = await Location.instance.getLocation();
     LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
     orders.sort((a, b) {
-      LatLng pos1 = LatLng(a.toOnMap['lat'], a.toOnMap['lon']);
-      LatLng pos2 = LatLng(b.toOnMap['lat'], b.toOnMap['lon']);
-      return distance.as(LengthUnit.Kilometer, pos1, myPos) -
-          distance.as(LengthUnit.Kilometer, pos2, myPos);
+      return distance.as(LengthUnit.Kilometer, a.toOnMap, myPos) -
+          distance.as(LengthUnit.Kilometer, b.toOnMap, myPos);
     });
     return orders;
   }

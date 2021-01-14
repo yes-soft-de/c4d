@@ -114,6 +114,146 @@ class S {
       args: [],
     );
   }
+
+  /// `Chat Room`
+  String get chatRoom {
+    return Intl.message(
+      'Chat Room',
+      name: 'chatRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Writing`
+  String get startWriting {
+    return Intl.message(
+      'Start Writing',
+      name: 'startWriting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept Order`
+  String get acceptOrder {
+    return Intl.message(
+      'Accept Order',
+      name: 'acceptOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Arrived at the Store`
+  String get iArrivedAtTheStore {
+    return Intl.message(
+      'I Arrived at the Store',
+      name: 'iArrivedAtTheStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Got the Package`
+  String get iGotThePackage {
+    return Intl.message(
+      'I Got the Package',
+      name: 'iGotThePackage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Got the Cash`
+  String get iGotTheCash {
+    return Intl.message(
+      'I Got the Cash',
+      name: 'iGotTheCash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Finished Delivering`
+  String get iFinishedDelivering {
+    return Intl.message(
+      'I Finished Delivering',
+      name: 'iFinishedDelivering',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order is in undefined State`
+  String get orderIsInUndefinedState {
+    return Intl.message(
+      'Order is in undefined State',
+      name: 'orderIsInUndefinedState',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Searching for Captain`
+  String get searchingForCaptain {
+    return Intl.message(
+      'Searching for Captain',
+      name: 'searchingForCaptain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain is in the way`
+  String get captainIsInTheWay {
+    return Intl.message(
+      'Captain is in the way',
+      name: 'captainIsInTheWay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain is in store`
+  String get captainIsInStore {
+    return Intl.message(
+      'Captain is in store',
+      name: 'captainIsInStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain is Delivering`
+  String get captainIsDelivering {
+    return Intl.message(
+      'Captain is Delivering',
+      name: 'captainIsDelivering',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain got the cash`
+  String get captainGotTheCash {
+    return Intl.message(
+      'Captain got the cash',
+      name: 'captainGotTheCash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order is done!`
+  String get orderIsDone {
+    return Intl.message(
+      'Order is done!',
+      name: 'orderIsDone',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

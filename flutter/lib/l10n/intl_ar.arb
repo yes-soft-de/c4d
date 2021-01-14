@@ -7,5 +7,19 @@
   "errorLoadingData": "Error Loading Data",
   "emailAddressIsRequired": "Email Address is Required",
   "captain": "Captain",
-  "storeOwner": "Store Owner"
+  "storeOwner": "Store Owner",
+  "chatRoom": "Chat Room",
+  "startWriting": "Start Writing",
+  "acceptOrder": "Accept Order",
+  "iArrivedAtTheStore": "I Arrived at the Store",
+  "iGotThePackage": "I Got the Package",
+  "iGotTheCash": "I Got the Cash",
+  "iFinishedDelivering": "I Finished Delivering",
+  "orderIsInUndefinedState": "Order is in undefined State",
+  "searchingForCaptain": "Searching for Captain",
+  "captainIsInTheWay": "Captain is in the way",
+  "captainIsInStore": "Captain is in store",
+  "captainIsDelivering": "Captain is Delivering",
+  "captainGotTheCash": "Captain got the cash",
+  "orderIsDone": "Order is done!"
 }
