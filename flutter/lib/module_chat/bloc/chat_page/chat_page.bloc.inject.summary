@@ -1,5 +1,5 @@
 {
-  "asset": "asset:swaptime_flutter/lib/module_chat/bloc/chat_page/chat_page.bloc.dart",
+  "asset": "asset:c4d/lib/module_chat/bloc/chat_page/chat_page.bloc.dart",
   "summary": {
     "injector": [],
     "module": [],
@@ -11,7 +11,7 @@
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:swaptime_flutter/lib/module_chat/bloc/chat_page/chat_page.bloc.dart#ChatPageBloc",
+              "root": "asset:c4d/lib/module_chat/bloc/chat_page/chat_page.bloc.dart#ChatPageBloc",
               "qualifier": null
             },
             "isProvider": false
@@ -21,21 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_chat/service/chat/char_service.dart#ChatService",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_swap/service/swap_service/swap_service.dart#SwapService",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_notifications/service/notification_service/notification_service.dart#NotificationService",
+                "root": "asset:c4d/lib/module_chat/service/chat/char_service.dart#ChatService",
                 "qualifier": null
               },
               "isProvider": false

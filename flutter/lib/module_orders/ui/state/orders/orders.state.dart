@@ -1,3 +1,4 @@
+import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';
@@ -16,7 +17,7 @@ abstract class OrdersListState {
 }
 
 class OrdersListStateInit extends OrdersListState {
-  OrdersListStateInit(State<StatefulWidget> screenState) : super(screenState);
+  OrdersListStateInit(OrdersScreenState screenState) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -27,7 +28,7 @@ class OrdersListStateInit extends OrdersListState {
 }
 
 class OrdersListStateLoading extends OrdersListState {
-  OrdersListStateLoading(State<StatefulWidget> screenState)
+  OrdersListStateLoading(OrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -38,10 +39,25 @@ class OrdersListStateLoading extends OrdersListState {
   }
 }
 
+class OrdersListStateUnauthorized extends OrdersListState {
+  OrdersListStateUnauthorized(OrdersScreenState screenState)
+      : super(screenState);
+
+  @override
+  Widget getUI(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
+      Navigator.of(context).pushNamedAndRemoveUntil(AuthorizationRoutes.LOGIN_SCREEN, (r) => false);
+    });
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
 class OrdersListStateOrdersLoaded extends OrdersListState {
   final List<OrderModel> orders;
 
-  OrdersListStateOrdersLoaded(this.orders, State<StatefulWidget> screenState)
+  OrdersListStateOrdersLoaded(this.orders, OrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -129,7 +145,7 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
 class OrdersListStateError extends OrdersListState {
   final String errorMsg;
 
-  OrdersListStateError(this.errorMsg, State<StatefulWidget> screenState)
+  OrdersListStateError(this.errorMsg, OrdersScreenState screenState)
       : super(screenState);
 
   @override

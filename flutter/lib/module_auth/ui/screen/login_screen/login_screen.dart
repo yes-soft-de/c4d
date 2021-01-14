@@ -5,8 +5,6 @@ import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/states/auth_states/auth_states.dart';
 import 'package:c4d/module_auth/state_manager/auth_state_manager/auth_state_manager.dart';
-import 'package:c4d/module_deep_links/service/deep_links_service.dart';
-import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:flutter/material.dart';
@@ -33,14 +31,14 @@ class _LoginScreenState extends State<LoginScreen> {
   String redirectTo;
   USER_TYPE userType = USER_TYPE.ROLE_OWNER;
 
-  StreamSubscription _stateSubscribtion;
+  StreamSubscription _stateSubscription;
   bool deepLinkChecked = false;
 
   @override
   void initState() {
     super.initState();
 
-    _stateSubscribtion = widget._stateManager.stateStream.listen((event) {
+    _stateSubscription = widget._stateManager.stateStream.listen((event) {
       loading = false;
       if (this.mounted) {
         setState(() {
@@ -52,31 +50,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void processEvent() {
-    redirectTo = InitAccountRoutes.INIT_ACCOUNT_SCREEN;
+    redirectTo = OrdersRoutes.ORDERS_SCREEN;
     if (_currentState is AuthStateAuthSuccess) {
-      _stateSubscribtion.cancel();
-      Navigator.of(context).pushReplacementNamed(redirectTo);
+      _stateSubscription.cancel();
+      Navigator.of(context).pushNamedAndRemoveUntil(redirectTo, (r) => false);
     }
     if (_currentState is AuthStateNotRegisteredOwner) {
-      _stateSubscribtion.cancel();
-      Navigator.of(context).pushReplacementNamed(redirectTo);
+      _stateSubscription.cancel();
+      Navigator.of(context).pushNamedAndRemoveUntil(redirectTo, (r) => false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     widget._stateManager.checkLoggedIn();
-    if (!deepLinkChecked) {
-      deepLinkChecked = true;
-      DeepLinksService.checkForGeoLink().then((value) {
-        if (value != null) {
-          Navigator.of(context).pushNamed(
-            OrdersRoutes.NEW_ORDER_SCREEN,
-            arguments: value,
-          );
-        }
-      });
-    }
     return loginUi();
   }
 
@@ -359,7 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _stateSubscribtion.cancel();
+    _stateSubscription.cancel();
     super.dispose();
   }
 }

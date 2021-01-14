@@ -28,6 +28,7 @@ class OrdersService {
         to: element.destination.isNotEmpty
             ? element.destination.elementAt(0)
             : '',
+        clientPhone: element.recipientPhone,
         from: element.source.isNotEmpty ? element.source.elementAt(0) : '',
         creationTime: df.format(date).toString() ?? '',
         paymentMethod: element.payment,
@@ -58,7 +59,7 @@ class OrdersService {
   }
 
   Future<List<OrderModel>> getNearbyOrders() async {
-    List<Order> response = await _manager.getMyOrders();
+    List<Order> response = await _manager.getNearbyOrders();
     if (response == null) return null;
 
     List<OrderModel> orders = [];

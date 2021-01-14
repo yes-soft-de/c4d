@@ -1,5 +1,5 @@
 {
-  "asset": "asset:swaptime_flutter/lib/module_chat/ui/screens/chat_page/chat_page.dart",
+  "asset": "asset:c4d/lib/module_chat/ui/screens/chat_page/chat_page.dart",
   "summary": {
     "injector": [],
     "module": [],
@@ -11,7 +11,7 @@
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:swaptime_flutter/lib/module_chat/ui/screens/chat_page/chat_page.dart#ChatPage",
+              "root": "asset:c4d/lib/module_chat/ui/screens/chat_page/chat_page.dart#ChatPage",
               "qualifier": null
             },
             "isProvider": false
@@ -21,35 +21,21 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_chat/bloc/chat_page/chat_page.bloc.dart#ChatPageBloc",
+                "root": "asset:c4d/lib/module_chat/bloc/chat_page/chat_page.bloc.dart#ChatPageBloc",
                 "qualifier": null
               },
               "isProvider": false
             },
             {
               "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
+                "root": "asset:c4d/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
                 "qualifier": null
               },
               "isProvider": false
             },
             {
               "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/games_module/service/games_list_service/games_list_service.dart#GamesListService",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_swap/service/swap_service/swap_service.dart#SwapService",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_upload/service/image_upload/image_upload_service.dart#ImageUploadService",
+                "root": "asset:c4d/lib/module_upload/service/image_upload/image_upload_service.dart#ImageUploadService",
                 "qualifier": null
               },
               "isProvider": false

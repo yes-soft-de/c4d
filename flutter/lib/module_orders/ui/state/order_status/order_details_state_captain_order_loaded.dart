@@ -15,8 +15,9 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
   OrderModel currentOrder;
 
   OrderDetailsStateCaptainOrderLoaded(
-      this.currentOrder, OrderStatusScreenState screenState)
-      : super(screenState);
+    this.currentOrder,
+    OrderStatusScreenState screenState,
+  ) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {

@@ -1,5 +1,5 @@
 {
-  "asset": "asset:swaptime_flutter/lib/module_chat/service/chat/char_service.dart",
+  "asset": "asset:c4d/lib/module_chat/service/chat/char_service.dart",
   "summary": {
     "injector": [],
     "module": [],
@@ -11,7 +11,7 @@
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:swaptime_flutter/lib/module_chat/service/chat/char_service.dart#ChatService",
+              "root": "asset:c4d/lib/module_chat/service/chat/char_service.dart#ChatService",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_chat/manager/chat/chat_manager.dart#ChatManager",
+                "root": "asset:c4d/lib/module_chat/manager/chat/chat_manager.dart#ChatManager",
                 "qualifier": null
               },
               "isProvider": false

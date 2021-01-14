@@ -43,7 +43,7 @@ class OrderRepository {
     return OrderStatusResponse.fromJson(response['Data']);
   }
 
-  Future<OrdersResponse> getNearbyOrders() async {
+  Future<List<Order>> getNearbyOrders() async {
     var token = await _authService.getAuthHeaderMap();
 
     dynamic response = await _apiClient.get(
@@ -52,7 +52,7 @@ class OrderRepository {
     );
     if (response == null) return null;
 
-    return OrdersResponse.fromJson(response);
+    return OrdersResponse.fromJson(response).data;
   }
 
   Future<List<Order>> getMyOrders() async {
@@ -62,20 +62,9 @@ class OrderRepository {
       Urls.OWNER_ORDERS,
       headers: token,
     );
-    if (response == null) return null;
+    if (response == null) return [];
 
     return OrdersResponse.fromJson(response).data;
   }
 
-  Future<OwnerOrdersResponse> getOwnerOrders() async {
-    var token = await _authService.getAuthHeaderMap();
-
-    dynamic response = await _apiClient.get(
-      Urls.OWNER_ORDERS,
-      headers: token,
-    );
-    if (response == null) return null;
-
-    return OwnerOrdersResponse.fromJson(response);
-  }
 }

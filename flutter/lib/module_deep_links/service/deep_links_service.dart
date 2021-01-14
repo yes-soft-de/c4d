@@ -15,6 +15,7 @@ class DeepLinksService {
     if (uri.queryParameters['q'] == null) {
       return null;
     }
+
     return LatLng(
       double.parse(uri.queryParameters['q'].split(',')[0]),
       double.parse(uri.queryParameters['q'].split(',')[1]),

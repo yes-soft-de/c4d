@@ -1,5 +1,5 @@
 {
-  "asset": "asset:c4d/lib/module_chat/model/chat/chat_model.dart",
+  "asset": "asset:c4d/lib/module_deep_links/service/deep_links_service.dart",
   "summary": {
     "injector": [],
     "module": [],

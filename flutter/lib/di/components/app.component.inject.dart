@@ -106,7 +106,7 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i20.OrdersScreen _createOrdersScreen() =>
       _i20.OrdersScreen(_createOrdersStateManager());
   _i21.OrdersStateManager _createOrdersStateManager() =>
-      _i21.OrdersStateManager(_createOrdersService());
+      _i21.OrdersStateManager(_createOrdersService(), _createAuthService());
   _i22.AuthorizationModule _createAuthorizationModule() =>
       _i22.AuthorizationModule(_createLoginScreen(), _createRegisterScreen());
   _i23.LoginScreen _createLoginScreen() =>

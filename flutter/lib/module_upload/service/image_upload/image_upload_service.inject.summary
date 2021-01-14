@@ -1,5 +1,5 @@
 {
-  "asset": "asset:swaptime_flutter/lib/module_upload/service/image_upload/image_upload_service.dart",
+  "asset": "asset:c4d/lib/module_upload/service/image_upload/image_upload_service.dart",
   "summary": {
     "injector": [],
     "module": [],
@@ -11,7 +11,7 @@
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:swaptime_flutter/lib/module_upload/service/image_upload/image_upload_service.dart#ImageUploadService",
+              "root": "asset:c4d/lib/module_upload/service/image_upload/image_upload_service.dart#ImageUploadService",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:swaptime_flutter/lib/module_upload/manager/upload_manager/upload_manager.dart#UploadManager",
+                "root": "asset:c4d/lib/module_upload/manager/upload_manager/upload_manager.dart#UploadManager",
                 "qualifier": null
               },
               "isProvider": false

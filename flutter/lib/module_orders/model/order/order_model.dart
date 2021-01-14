@@ -3,6 +3,21 @@ import 'package:latlong/latlong.dart';
 
 class OrderModel {
   String id;
+
+  OrderModel({
+    this.id,
+    this.to,
+    this.toOnMap,
+    this.from,
+    this.creationTime,
+    this.paymentMethod,
+    this.status,
+    this.ownerPhone,
+    this.captainPhone,
+    this.clientPhone,
+    this.chatRoomId,
+  });
+
   String to;
   LatLng toOnMap;
   String from;
@@ -13,16 +28,6 @@ class OrderModel {
   String captainPhone;
   String clientPhone;
   String chatRoomId;
-
-  OrderModel({
-    this.id,
-    this.to,
-    this.creationTime,
-    this.from,
-    this.paymentMethod,
-    this.toOnMap,
-    this.status,
-  });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     if (json == null) {

@@ -15,15 +15,15 @@ class AppThemeDataService {
   AppThemeDataService(this._preferencesHelper);
 
   static Color get PrimaryColor {
-    return Colors.cyan;
+    return Color(0xFF3ACCE1);
   }
 
   static Color get PrimaryDarker {
-    return Color(0xff665EFF);
+    return Color(0xFF665EFF);
   }
 
   static Color get AccentColor {
-    return Colors.redAccent;
+    return Color(0xFFBE1E2D);
   }
 
   Future<ThemeData> getActiveTheme() async {
