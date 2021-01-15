@@ -254,6 +254,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Please input phone number`
+  String get pleaseInputPhoneNumber {
+    return Intl.message(
+      'Please input phone number',
+      name: 'pleaseInputPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Code`
+  String get confirmCode {
+    return Intl.message(
+      'Confirm Code',
+      name: 'confirmCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend Code`
+  String get resendCode {
+    return Intl.message(
+      'Resend Code',
+      name: 'resendCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saudi Arabia`
+  String get saudiArabia {
+    return Intl.message(
+      'Saudi Arabia',
+      name: 'saudiArabia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lebanon`
+  String get lebanon {
+    return Intl.message(
+      'Lebanon',
+      name: 'lebanon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Syria`
+  String get syria {
+    return Intl.message(
+      'Syria',
+      name: 'syria',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get phoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send me code`
+  String get sendMeCode {
+    return Intl.message(
+      'Send me code',
+      name: 'sendMeCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

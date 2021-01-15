@@ -26,17 +26,10 @@ class NewOrderStateManager {
     NewOrderScreenState screenState,
   ) {
     _service
-        .addNewOrder(
-      fromBranch,
-      destination,
-      note,
-      paymentMethod,
-      recipientName,
-      recipientPhone,
-      date,
-    )
-        .then((value) {
-      if (value) {
+        .addNewOrder(fromBranch, destination, note, paymentMethod,
+            recipientName, recipientPhone, date)
+        .then((newOrder) {
+      if (newOrder) {
         _stateSubject.add(NewOrderStateSuccessState(screenState));
       } else {
         _stateSubject

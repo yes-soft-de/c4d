@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:c4d/generated/l10n.dart';
-import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/states/auth_states/auth_states.dart';
 import 'package:c4d/module_auth/state_manager/auth_state_manager/auth_state_manager.dart';
+import 'package:c4d/module_auth/ui/widget/email_password_login/email_password_login.dart';
+import 'package:c4d/module_auth/ui/widget/phone_login/phone_login.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
-import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -21,15 +21,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
-  final TextEditingController _loginEmailController = TextEditingController();
-  final TextEditingController _loginPasswordController =
-      TextEditingController();
-
   AuthState _currentState = AuthStateInit();
   bool loading = false;
   String redirectTo;
   USER_TYPE userType = USER_TYPE.ROLE_OWNER;
+  final loginTypeController =
+      PageController(initialPage: USER_TYPE.ROLE_OWNER.index);
 
   StreamSubscription _stateSubscription;
   bool deepLinkChecked = false;
@@ -50,7 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void processEvent() {
-    redirectTo = OrdersRoutes.ORDERS_SCREEN;
+    redirectTo = userType == USER_TYPE.ROLE_OWNER
+        ? OrdersRoutes.OWNER_ORDERS_SCREEN
+        : OrdersRoutes.CAPTAIN_ORDERS_SCREEN;
     if (_currentState is AuthStateAuthSuccess) {
       _stateSubscription.cancel();
       Navigator.of(context).pushNamedAndRemoveUntil(redirectTo, (r) => false);
@@ -77,176 +76,45 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 96,
               child: _getHeaderRow(),
             ),
-            Expanded(child: _getLoginForm()),
+            Expanded(
+                child: PageView(
+              controller: loginTypeController,
+              onPageChanged: (pos) {
+                userType = USER_TYPE.values[pos];
+                setState(() {});
+              },
+              children: [
+                PhoneLoginWidget(
+                  codeSent: _currentState is AuthStateCodeSent,
+                  loading: loading,
+                  onLoginRequested: (phone) {
+                    loading = true;
+                    widget._stateManager.signInWithPhone(phone);
+                  },
+                  onRetry: () {
+                    _currentState = AuthStateInit();
+                    loading = false;
+                    setState(() {});
+                  },
+                  onConfirm: (confirmCode) {
+                    widget._stateManager.confirmWithCode(confirmCode, userType);
+                  },
+                ),
+                EmailPasswordForm(
+                  loading: loading,
+                  onLoginRequest: (email, password) {
+                    widget._stateManager.signInWithEmailAndPassword(
+                      email,
+                      password,
+                      userType,
+                    );
+                  },
+                ),
+              ],
+            )),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: _getErrorMessages(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _getLoginForm() {
-    final node = FocusScope.of(context);
-    return Form(
-      key: _loginFormKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Flex(
-              direction: Axis.vertical,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  margin: EdgeInsets.only(top: 30),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[100],
-                          blurRadius: 2.0,
-                          // has the effect of softening the shadow
-                          spreadRadius: 2.0,
-                          // has the effect of extending the shadow
-                          offset: Offset(
-                            5.0, // horizontal, move right 10
-                            5.0, // vertical, move down 10
-                          ),
-                        )
-                      ]),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                    ),
-                    child: TextFormField(
-                      controller: _loginEmailController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        labelText: 'Email',
-                      ),
-                      textInputAction: TextInputAction.next,
-                      onEditingComplete: () => node.nextFocus(),
-                      // Move focus to next
-                      validator: (result) {
-                        if (result.isEmpty) {
-                          return 'الرجاء ادخال الإيميل الخاص بك';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  margin: EdgeInsets.only(top: 30),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[100],
-                          blurRadius: 2.0,
-                          // has the effect of softening the shadow
-                          spreadRadius: 2.0,
-                          // has the effect of extending the shadow
-                          offset: Offset(
-                            5.0, // horizontal, move right 10
-                            5.0, // vertical, move down 10
-                          ),
-                        )
-                      ]),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                    ),
-                    child: TextFormField(
-                      controller: _loginPasswordController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        labelText: 'Password',
-                      ),
-                      validator: (result) {
-                        if (result.length < 5) {
-                          return 'كلمة المرور يجب ان تكون من 5 محارف على الأقل';
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) =>
-                          node.unfocus(), // Submit and hide keyboard
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Flex(
-                direction: Axis.vertical,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
-                        setState(() {});
-                      },
-                      child: Text(
-                        loading ? 'Loading' : 'Register',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 16,
-                  ),
-                  Container(
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      color: AppThemeDataService.PrimaryColor,
-                      onPressed: loading
-                          ? null
-                          : () {
-                              if (_loginFormKey.currentState.validate()) {
-                                setState(() {
-                                  _currentState = AuthStateInit();
-                                  loading = true;
-                                });
-                                widget._stateManager.signInWithEmailAndPassword(
-                                  _loginEmailController.text.trim(),
-                                  _loginPasswordController.text.trim(),
-                                  userType,
-                                );
-                              }
-                            },
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'CONTINUE',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
           ],
         ),
@@ -293,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         setState(() {
                           userType = USER_TYPE.ROLE_CAPTAIN;
+                          loginTypeController.jumpToPage(userType.index);
                         });
                       },
                       child: Text(
@@ -311,6 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         setState(() {
                           userType = USER_TYPE.ROLE_OWNER;
+                          loginTypeController.jumpToPage(userType.index);
                         });
                       },
                       child: Text(

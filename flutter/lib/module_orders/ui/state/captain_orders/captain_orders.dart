@@ -1,23 +1,23 @@
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
-import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';
+import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 
-abstract class OrdersListState {
-  final OrdersScreenState screenState;
 
-  OrdersListState(this.screenState);
+abstract class CaptainOrdersListState {
+  CaptainOrdersScreenState screenState;
+  CaptainOrdersListState(this.screenState);
 
   Widget getUI(BuildContext context);
 }
 
-class OrdersListStateInit extends OrdersListState {
-  OrdersListStateInit(OrdersScreenState screenState) : super(screenState);
+class OrdersListStateInit extends CaptainOrdersListState {
+  OrdersListStateInit(CaptainOrdersScreenState screenState) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -27,8 +27,8 @@ class OrdersListStateInit extends OrdersListState {
   }
 }
 
-class OrdersListStateLoading extends OrdersListState {
-  OrdersListStateLoading(OrdersScreenState screenState)
+class CaptainOrdersListStateLoading extends CaptainOrdersListState {
+  CaptainOrdersListStateLoading(CaptainOrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -39,13 +39,13 @@ class OrdersListStateLoading extends OrdersListState {
   }
 }
 
-class OrdersListStateUnauthorized extends OrdersListState {
-  OrdersListStateUnauthorized(OrdersScreenState screenState)
+class CaptainOrdersListStateUnauthorized extends CaptainOrdersListState {
+  CaptainOrdersListStateUnauthorized(CaptainOrdersScreenState screenState)
       : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.of(context).pushNamedAndRemoveUntil(AuthorizationRoutes.LOGIN_SCREEN, (r) => false);
     });
     return Center(
@@ -54,10 +54,10 @@ class OrdersListStateUnauthorized extends OrdersListState {
   }
 }
 
-class OrdersListStateOrdersLoaded extends OrdersListState {
+class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   final List<OrderModel> orders;
 
-  OrdersListStateOrdersLoaded(this.orders, OrdersScreenState screenState)
+  CaptainOrdersListStateOrdersLoaded(this.orders, CaptainOrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -79,7 +79,7 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).pushNamed(
-                          OrdersRoutes.ORDER_STATUS,
+                          OrdersRoutes.ORDER_STATUS_SCREEN,
                           arguments: orders[index].id,
                         );
                       },
@@ -94,22 +94,6 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
                 }),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
-          },
-          child: Container(
-            color: Theme.of(context).primaryColor,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Create new order',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
-          ),
-        )
       ],
     );
   }
@@ -142,10 +126,10 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
   }
 }
 
-class OrdersListStateError extends OrdersListState {
+class CaptainOrdersListStateError extends CaptainOrdersListState {
   final String errorMsg;
 
-  OrdersListStateError(this.errorMsg, OrdersScreenState screenState)
+  CaptainOrdersListStateError(this.errorMsg, CaptainOrdersScreenState screenState)
       : super(screenState);
 
   @override

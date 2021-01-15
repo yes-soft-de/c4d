@@ -251,7 +251,7 @@ class NewOrderStateSuccessState extends NewOrderState {
   @override
   Widget getUI(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).pushNamed(OrdersRoutes.ORDERS_SCREEN);
+      Navigator.of(context).pushNamed(OrdersRoutes.OWNER_ORDERS_SCREEN);
     });
     return Center(
       child: Text('Create Order Success'),

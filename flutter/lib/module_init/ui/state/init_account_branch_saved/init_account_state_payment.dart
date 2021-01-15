@@ -41,7 +41,7 @@ class InitAccountStatePayment extends InitAccountState {
               textColor: Colors.white,
               child: Text('Pay Subscription'),
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(OrdersRoutes.ORDERS_SCREEN, (r) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
               })
         ],
       ),

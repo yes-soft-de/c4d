@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "captainIsInStore" : MessageLookupByLibrary.simpleMessage("Captain is in store"),
     "captainIsInTheWay" : MessageLookupByLibrary.simpleMessage("Captain is in the way"),
     "chatRoom" : MessageLookupByLibrary.simpleMessage("Chat Room"),
+    "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
+    "confirmCode" : MessageLookupByLibrary.simpleMessage("Confirm Code"),
     "emailAddressIsRequired" : MessageLookupByLibrary.simpleMessage("Email Address is Required"),
     "errorHappened" : MessageLookupByLibrary.simpleMessage("Error Happened"),
     "errorLoadingData" : MessageLookupByLibrary.simpleMessage("Error Loading Data"),
@@ -36,12 +38,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "iGotTheCash" : MessageLookupByLibrary.simpleMessage("I Got the Cash"),
     "iGotThePackage" : MessageLookupByLibrary.simpleMessage("I Got the Package"),
     "iHaveAnAccount" : MessageLookupByLibrary.simpleMessage("I have an account"),
+    "lebanon" : MessageLookupByLibrary.simpleMessage("Lebanon"),
     "loading" : MessageLookupByLibrary.simpleMessage("Loading"),
     "orderIsDone" : MessageLookupByLibrary.simpleMessage("Order is done!"),
     "orderIsInUndefinedState" : MessageLookupByLibrary.simpleMessage("Order is in undefined State"),
+    "phoneNumber" : MessageLookupByLibrary.simpleMessage("Phone Number"),
     "pleaseEnterYourEmail" : MessageLookupByLibrary.simpleMessage("Please Enter Your Email"),
+    "pleaseInputPhoneNumber" : MessageLookupByLibrary.simpleMessage("Please input phone number"),
+    "resendCode" : MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "saudiArabia" : MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("Searching for Captain"),
+    "sendMeCode" : MessageLookupByLibrary.simpleMessage("Send me code"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("Start Writing"),
-    "storeOwner" : MessageLookupByLibrary.simpleMessage("Store Owner")
+    "storeOwner" : MessageLookupByLibrary.simpleMessage("Store Owner"),
+    "syria" : MessageLookupByLibrary.simpleMessage("Syria")
   };
 }

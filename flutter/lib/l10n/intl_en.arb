@@ -21,5 +21,14 @@
   "captainIsInStore": "Captain is in store",
   "captainIsDelivering": "Captain is Delivering",
   "captainGotTheCash": "Captain got the cash",
-  "orderIsDone": "Order is done!"
+  "orderIsDone": "Order is done!",
+  "pleaseInputPhoneNumber": "Please input phone number",
+  "confirmCode": "Confirm Code",
+  "resendCode": "Resend Code",
+  "confirm": "Confirm",
+  "saudiArabia": "Saudi Arabia",
+  "lebanon": "Lebanon",
+  "syria": "Syria",
+  "phoneNumber": "Phone Number",
+  "sendMeCode": "Send me code"
 }

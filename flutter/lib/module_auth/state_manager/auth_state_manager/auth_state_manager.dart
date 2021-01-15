@@ -36,7 +36,7 @@ class AuthStateManager {
     });
   }
 
-  void SignInWithPhone(String phone) {
+  void signInWithPhone(String phone) {
     _auth
         .verifyPhoneNumber(
             phoneNumber: phone,

@@ -1,5 +1,5 @@
 {
-  "asset": "asset:c4d/lib/module_orders/ui/state/orders/orders.state.dart",
+  "asset": "asset:c4d/lib/module_auth/ui/widget/phone_login/phone_login.dart",
   "summary": {
     "injector": [],
     "module": [],

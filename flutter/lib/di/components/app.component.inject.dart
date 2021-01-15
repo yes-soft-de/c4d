@@ -26,31 +26,35 @@ import '../../module_orders/state_manager/order_status/order_status.state_manage
 import '../../module_orders/ui/screens/orders/orders_screen.dart' as _i20;
 import '../../module_orders/state_manager/orders/orders.state_manager.dart'
     as _i21;
-import '../../module_auth/authoriazation_module.dart' as _i22;
-import '../../module_auth/ui/screen/login_screen/login_screen.dart' as _i23;
+import '../../module_orders/ui/screens/captain_orders/captain_orders.dart'
+    as _i22;
+import '../../module_orders/state_manager/captain_orders/captain_orders.dart'
+    as _i23;
+import '../../module_auth/authoriazation_module.dart' as _i24;
+import '../../module_auth/ui/screen/login_screen/login_screen.dart' as _i25;
 import '../../module_auth/state_manager/auth_state_manager/auth_state_manager.dart'
-    as _i24;
+    as _i26;
 import '../../module_auth/ui/screen/register_screen/register_screen.dart'
-    as _i25;
-import '../../module_init/init_account_module.dart' as _i26;
-import '../../module_init/ui/screens/init_account_screen/init_account_screen.dart'
     as _i27;
-import '../../module_init/state_manager/init_account/init_account.state_manager.dart'
-    as _i28;
-import '../../module_init/service/init_account/init_account.service.dart'
+import '../../module_init/init_account_module.dart' as _i28;
+import '../../module_init/ui/screens/init_account_screen/init_account_screen.dart'
     as _i29;
-import '../../module_init/manager/init_account/init_account.manager.dart'
+import '../../module_init/state_manager/init_account/init_account.state_manager.dart'
     as _i30;
-import '../../module_init/repository/init_account/init_account.repository.dart'
+import '../../module_init/service/init_account/init_account.service.dart'
     as _i31;
-import '../../module_profile/service/profile/profile.service.dart' as _i32;
-import '../../module_profile/manager/profile/profile.manager.dart' as _i33;
+import '../../module_init/manager/init_account/init_account.manager.dart'
+    as _i32;
+import '../../module_init/repository/init_account/init_account.repository.dart'
+    as _i33;
+import '../../module_profile/service/profile/profile.service.dart' as _i34;
+import '../../module_profile/manager/profile/profile.manager.dart' as _i35;
 import '../../module_profile/repository/profile/profile.repository.dart'
-    as _i34;
-import '../../module_theme/service/theme_service/theme_service.dart' as _i35;
-import '../../module_theme/pressistance/theme_preferences_helper.dart' as _i36;
+    as _i36;
+import '../../module_theme/service/theme_service/theme_service.dart' as _i37;
+import '../../module_theme/pressistance/theme_preferences_helper.dart' as _i38;
 import '../../module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart'
-    as _i37;
+    as _i39;
 
 class AppComponent$Injector implements _i1.AppComponent {
   AppComponent$Injector._();
@@ -74,7 +78,8 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i6.OrdersModule _createOrdersModule() => _i6.OrdersModule(
       _createNewOrderScreen(),
       _createOrderStatusScreen(),
-      _createOrdersScreen());
+      _createOrdersScreen(),
+      _createCaptainOrdersScreen());
   _i7.NewOrderScreen _createNewOrderScreen() =>
       _i7.NewOrderScreen(_createNewOrderStateManager());
   _i8.NewOrderStateManager _createNewOrderStateManager() =>
@@ -107,42 +112,47 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i20.OrdersScreen(_createOrdersStateManager());
   _i21.OrdersStateManager _createOrdersStateManager() =>
       _i21.OrdersStateManager(_createOrdersService(), _createAuthService());
-  _i22.AuthorizationModule _createAuthorizationModule() =>
-      _i22.AuthorizationModule(_createLoginScreen(), _createRegisterScreen());
-  _i23.LoginScreen _createLoginScreen() =>
-      _i23.LoginScreen(_createAuthStateManager());
-  _i24.AuthStateManager _createAuthStateManager() =>
-      _i24.AuthStateManager(_createAuthService());
-  _i25.RegisterScreen _createRegisterScreen() =>
-      _i25.RegisterScreen(_createAuthStateManager());
-  _i26.InitAccountModule _createInitAccountModule() =>
-      _i26.InitAccountModule(_createInitAccountScreen());
-  _i27.InitAccountScreen _createInitAccountScreen() =>
-      _i27.InitAccountScreen(_createInitAccountStateManager());
-  _i28.InitAccountStateManager _createInitAccountStateManager() =>
-      _i28.InitAccountStateManager(
+  _i22.CaptainOrdersScreen _createCaptainOrdersScreen() =>
+      _i22.CaptainOrdersScreen(_createCaptainOrdersListStateManager());
+  _i23.CaptainOrdersListStateManager _createCaptainOrdersListStateManager() =>
+      _i23.CaptainOrdersListStateManager(
+          _createOrdersService(), _createAuthService());
+  _i24.AuthorizationModule _createAuthorizationModule() =>
+      _i24.AuthorizationModule(_createLoginScreen(), _createRegisterScreen());
+  _i25.LoginScreen _createLoginScreen() =>
+      _i25.LoginScreen(_createAuthStateManager());
+  _i26.AuthStateManager _createAuthStateManager() =>
+      _i26.AuthStateManager(_createAuthService());
+  _i27.RegisterScreen _createRegisterScreen() =>
+      _i27.RegisterScreen(_createAuthStateManager());
+  _i28.InitAccountModule _createInitAccountModule() =>
+      _i28.InitAccountModule(_createInitAccountScreen());
+  _i29.InitAccountScreen _createInitAccountScreen() =>
+      _i29.InitAccountScreen(_createInitAccountStateManager());
+  _i30.InitAccountStateManager _createInitAccountStateManager() =>
+      _i30.InitAccountStateManager(
           _createInitAccountService(), _createProfileService());
-  _i29.InitAccountService _createInitAccountService() =>
-      _i29.InitAccountService(_createInitAccountManager());
-  _i30.InitAccountManager _createInitAccountManager() =>
-      _i30.InitAccountManager(_createInitAccountRepository());
-  _i31.InitAccountRepository _createInitAccountRepository() =>
-      _i31.InitAccountRepository(_createApiClient(), _createAuthService());
-  _i32.ProfileService _createProfileService() =>
-      _i32.ProfileService(_createProfileManager());
-  _i33.ProfileManager _createProfileManager() =>
-      _i33.ProfileManager(_createProfileRepository());
-  _i34.ProfileRepository _createProfileRepository() =>
-      _i34.ProfileRepository(_createApiClient(), _createAuthService());
-  _i35.AppThemeDataService _createAppThemeDataService() =>
-      _i35.AppThemeDataService(_createThemePreferencesHelper());
-  _i36.ThemePreferencesHelper _createThemePreferencesHelper() =>
-      _i36.ThemePreferencesHelper();
+  _i31.InitAccountService _createInitAccountService() =>
+      _i31.InitAccountService(_createInitAccountManager());
+  _i32.InitAccountManager _createInitAccountManager() =>
+      _i32.InitAccountManager(_createInitAccountRepository());
+  _i33.InitAccountRepository _createInitAccountRepository() =>
+      _i33.InitAccountRepository(_createApiClient(), _createAuthService());
+  _i34.ProfileService _createProfileService() =>
+      _i34.ProfileService(_createProfileManager());
+  _i35.ProfileManager _createProfileManager() =>
+      _i35.ProfileManager(_createProfileRepository());
+  _i36.ProfileRepository _createProfileRepository() =>
+      _i36.ProfileRepository(_createApiClient(), _createAuthService());
+  _i37.AppThemeDataService _createAppThemeDataService() =>
+      _i37.AppThemeDataService(_createThemePreferencesHelper());
+  _i38.ThemePreferencesHelper _createThemePreferencesHelper() =>
+      _i38.ThemePreferencesHelper();
   _i3.LocalizationService _createLocalizationService() =>
       _singletonLocalizationService ??=
           _i3.LocalizationService(_createLocalizationPreferencesHelper());
-  _i37.LocalizationPreferencesHelper _createLocalizationPreferencesHelper() =>
-      _i37.LocalizationPreferencesHelper();
+  _i39.LocalizationPreferencesHelper _createLocalizationPreferencesHelper() =>
+      _i39.LocalizationPreferencesHelper();
   @override
   _i5.MyApp get app => _createMyApp();
 }

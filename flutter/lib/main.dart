@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       title: 'C4D Client',
       routes: fullRoutesList,
-      initialRoute: OrdersRoutes.ORDERS_SCREEN,
+      initialRoute: OrdersRoutes.OWNER_ORDERS_SCREEN,
     );
   }
 }
