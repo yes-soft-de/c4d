@@ -2,7 +2,7 @@ import 'package:c4d/consts/order_status.dart';
 import 'package:latlong/latlong.dart';
 
 class OrderModel {
-  String id;
+  int id;
 
   OrderModel({
     this.id,
@@ -21,7 +21,7 @@ class OrderModel {
   String to;
   LatLng toOnMap;
   String from;
-  String creationTime;
+  DateTime creationTime;
   String paymentMethod;
   OrderStatus status;
   String ownerPhone;

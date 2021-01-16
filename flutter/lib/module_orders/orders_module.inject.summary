@@ -16,7 +16,7 @@
             },
             "isProvider": false
           },
-          "singleton": false,
+          "singleton": true,
           "asynchronous": false,
           "dependencies": [
             {

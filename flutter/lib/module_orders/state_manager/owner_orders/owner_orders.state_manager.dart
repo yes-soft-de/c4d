@@ -22,7 +22,6 @@ class OwnerOrdersStateManager {
     _authService.isLoggedIn.then((value) {
       if (value) {
         _stateSubject.add(OrdersListStateLoading(screenState));
-        _ordersService.getNearbyOrders();
         _ordersService.getMyOrders().then((value) {
           if (value == null) {
             _stateSubject

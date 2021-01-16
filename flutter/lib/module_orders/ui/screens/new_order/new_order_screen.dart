@@ -42,8 +42,6 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   @override
   void initState() {
     super.initState();
-    LatLng linkFromWhatsapp = ModalRoute.of(context).settings.arguments;
-    currentState = NewOrderStateInit(linkFromWhatsapp, this);
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       setState(() {});

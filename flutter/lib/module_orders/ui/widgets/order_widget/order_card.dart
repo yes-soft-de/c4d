@@ -15,6 +15,7 @@ class OrderCard extends StatelessWidget {
     this.to,
     this.index,
   });
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -43,7 +44,7 @@ class OrderCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  timeago.format(DateTime.parse(time)),
+                  time,
                   style: TextStyle(
                     color: index == 0
                         ? Colors.white

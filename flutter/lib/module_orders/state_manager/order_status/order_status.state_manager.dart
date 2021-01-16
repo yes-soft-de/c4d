@@ -21,7 +21,7 @@ class OrderStatusStateManager {
   OrderStatusStateManager(this._ordersService,
       this._authService);
 
-  Future<void> getOrderDetails(String orderId,
+  Future<void> getOrderDetails(int orderId,
       OrderStatusScreenState screenState) async {
     _stateSubject.add(OrderDetailsStateLoading(screenState));
 

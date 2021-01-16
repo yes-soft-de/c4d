@@ -24,6 +24,6 @@ class OrdersManager {
   Future<List<Order>> getMyOrders() => _repository.getMyOrders();
 
   Future<OrderDetailsResponse> updateOrder(
-          String orderId, CreateOrderRequest orderRequest) =>
+          int orderId, CreateOrderRequest orderRequest) =>
       _repository.updateOrder(orderId, orderRequest);
 }

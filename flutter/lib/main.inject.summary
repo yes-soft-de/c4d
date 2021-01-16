@@ -21,6 +21,20 @@
           "dependencies": [
             {
               "lookupKey": {
+                "root": "asset:c4d/lib/module_theme/service/theme_service/theme_service.dart#AppThemeDataService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_localization/service/localization_service/localization_service.dart#LocalizationService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
                 "root": "asset:c4d/lib/module_orders/orders_module.dart#OrdersModule",
                 "qualifier": null
               },
@@ -28,7 +42,7 @@
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_auth/authoriazation_module.dart#AuthorizationModule",
+                "root": "asset:c4d/lib/module_chat/chat_module.dart#ChatModule",
                 "qualifier": null
               },
               "isProvider": false
@@ -42,14 +56,14 @@
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_theme/service/theme_service/theme_service.dart#AppThemeDataService",
+                "root": "asset:c4d/lib/module_settings/settings_module.dart#SettingsModule",
                 "qualifier": null
               },
               "isProvider": false
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_localization/service/localization_service/localization_service.dart#LocalizationService",
+                "root": "asset:c4d/lib/module_auth/authoriazation_module.dart#AuthorizationModule",
                 "qualifier": null
               },
               "isProvider": false

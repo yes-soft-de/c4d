@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
 @provide
+@singleton
 class OrdersModule extends YesModule {
   final OwnerOrdersScreen _ordersScreen;
   final NewOrderScreen _newOrderScreen;

@@ -1,6 +1,7 @@
 import 'dart:wasm';
 
 import 'package:c4d/abstracts/module/yes_module.dart';
+import 'package:c4d/module_chat/chat_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
@@ -18,6 +19,7 @@ import 'package:inject/inject.dart';
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
 import 'module_auth/authoriazation_module.dart';
+import 'module_settings/settings_module.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,18 +35,22 @@ void main() async {
 
 @provide
 class MyApp extends StatefulWidget {
-  final InitAccountModule _initAccountModule;
-  final AuthorizationModule _authorizationModule;
-  final OrdersModule _ordersModule;
   final AppThemeDataService _themeDataService;
   final LocalizationService _localizationService;
+  final OrdersModule _ordersModule;
+  final ChatModule _chatModule;
+  final InitAccountModule _initAccountModule;
+  final SettingsModule _settingsModule;
+  final AuthorizationModule _authorizationModule;
 
   MyApp(
-    this._ordersModule,
-    this._authorizationModule,
-    this._initAccountModule,
     this._themeDataService,
     this._localizationService,
+    this._ordersModule,
+    this._chatModule,
+    this._initAccountModule,
+    this._settingsModule,
+    this._authorizationModule,
   );
 
   @override
@@ -75,7 +81,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder(
       initialData: ThemeData.light(),
       future: widget._themeDataService.getActiveTheme(),

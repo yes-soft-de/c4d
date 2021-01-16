@@ -36,7 +36,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
           ),
         ),
         Text(
-          timeago.format(DateTime.parse(currentOrder.creationTime)),
+          timeago.format(currentOrder.creationTime),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,

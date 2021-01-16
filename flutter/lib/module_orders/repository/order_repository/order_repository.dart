@@ -69,7 +69,7 @@ class OrderRepository {
   }
 
   Future<OrderDetailsResponse> updateOrder(
-      String orderId, CreateOrderRequest orderRequest) async {
+      int orderId, CreateOrderRequest orderRequest) async {
     var token = await _authService.getAuthHeaderMap();
     dynamic response = await _apiClient.put(
       '${Urls.NEW_ORDER}/$orderId',

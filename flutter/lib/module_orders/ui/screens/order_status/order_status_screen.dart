@@ -18,7 +18,7 @@ class OrderStatusScreen extends StatefulWidget {
 }
 
 class OrderStatusScreenState extends State<OrderStatusScreen> {
-  String orderId;
+  int orderId;
   OrderDetailsState currentState;
 
   @override

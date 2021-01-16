@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 
+import 'package:timeago/timeago.dart' as timeago;
+
 abstract class OwnerOrdersListState {
   final OwnerOrdersScreenState screenState;
 
@@ -86,7 +88,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                       child: OrderCard(
                         to: orders[index].to,
                         from: orders[index].from,
-                        time: orders[index].creationTime,
+                        time: timeago.format(orders[index].creationTime),
                         index: index,
                       ),
                     ),

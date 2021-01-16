@@ -15,7 +15,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
   OrderModel currentOrder;
 
   OrderDetailsStateOwnerOrderLoaded(
-      this.currentOrder, OrderStatusScreenState screenState)
+      this.currentOrder, OrderStatusScreenState screenState,)
       : super(screenState);
 
   @override
@@ -43,7 +43,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
           ),
         ),
         Text(
-          timeago.format(DateTime.parse(currentOrder.creationTime)),
+          timeago.format(currentOrder.creationTime),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,

@@ -31,7 +31,7 @@ class OrdersService {
             : '',
         clientPhone: element.recipientPhone,
         from: element.source.isNotEmpty ? element.source.elementAt(0) : '',
-        creationTime: df.format(date).toString() ?? '',
+        creationTime: DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
         paymentMethod: element.payment,
         id: element.id,
       ));
@@ -40,20 +40,19 @@ class OrdersService {
     return orders;
   }
 
-  Future<OrderModel> getOrderDetails(String orderId) async {
+  Future<OrderModel> getOrderDetails(int orderId) async {
     OrderStatusResponse response =
-        await _manager.getOrderDetails(int.tryParse(orderId));
+        await _manager.getOrderDetails(orderId);
     if (response == null) return null;
 
-    var df = DateFormat('hh:mm');
     var date =
-        DateTime.fromMicrosecondsSinceEpoch(response.date.timestamp * 1000);
+        DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000);
 
     OrderModel order = new OrderModel(
       paymentMethod: response.payment,
       from: response.source[0],
       to: response.destination[0],
-      creationTime: df.format(date).toString() ?? '',
+      creationTime: date,
       id: orderId,
     );
 
@@ -68,14 +67,14 @@ class OrdersService {
     var df = new DateFormat('hh:m');
 
     response.forEach((element) {
-      var date = new DateTime.fromMicrosecondsSinceEpoch(
+      var date = new DateTime.fromMillisecondsSinceEpoch(
           element.date.timestamp * 1000);
       orders.add(new OrderModel(
         to: element.destination.isNotEmpty
             ? element.destination.elementAt(0)
             : '',
         from: element.source.isNotEmpty ? element.source.elementAt(0) : '',
-        creationTime: df.format(date).toString() ?? '',
+        creationTime: DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
         paymentMethod: element.payment,
         id: element.id,
       ));
@@ -104,7 +103,7 @@ class OrdersService {
     return _manager.addNewOrder(orderRequest);
   }
 
-  Future<OrderDetailsResponse> updateOrder(String orderId, OrderModel order) {
+  Future<OrderDetailsResponse> updateOrder(int orderId, OrderModel order) {
     return _manager.updateOrder(
         orderId,
         CreateOrderRequest(
