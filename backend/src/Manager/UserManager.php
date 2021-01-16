@@ -141,7 +141,9 @@ class UserManager
         if ($isCaptainProfile == null) {
 
             $captainProfile = $this->autoMapping->map(CaptainProfileCreateRequest::class, CaptainProfileEntity::class, $request);
-            $captainProfile->setStatus('inactive');
+            
+            //change this to inactive
+            $captainProfile->setStatus('active');
             
             $this->entityManager->persist($captainProfile);
             $this->entityManager->flush();

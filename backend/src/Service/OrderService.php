@@ -86,8 +86,11 @@ class OrderService
        
         foreach ($orders as $order) {
 
+            if ($order['fromBranch'] == true){
+                $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+            }
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
-
+            $order['record'] = $this->recordService->getrecordByOrderId($order['id']);
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
 
