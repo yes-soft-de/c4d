@@ -1,9 +1,11 @@
+import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/request/order/order_request.dart';
 import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
+import 'package:c4d/module_orders/utils/status_helper/status_helper.dart';
 import 'package:inject/inject.dart';
 import 'package:intl/intl.dart';
 
@@ -41,7 +43,7 @@ class OrdersService {
   }
 
   Future<OrderModel> getOrderDetails(int orderId) async {
-    OrderStatusResponse response =
+    OrderDetailsData response =
         await _manager.getOrderDetails(orderId);
     if (response == null) return null;
 
@@ -50,9 +52,10 @@ class OrdersService {
 
     OrderModel order = new OrderModel(
       paymentMethod: response.payment,
-      from: response.source[0],
-      to: response.destination[0],
+      from: 'Store',
+      to: 'Destination',
       creationTime: date,
+      status: StatusHelper.getStatus(response.state),
       id: orderId,
     );
 

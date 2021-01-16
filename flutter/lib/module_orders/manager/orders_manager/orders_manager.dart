@@ -16,7 +16,7 @@ class OrdersManager {
   Future<bool> addNewOrder(CreateOrderRequest orderRequest) =>
       _repository.addNewOrder(orderRequest);
 
-  Future<OrderStatusResponse> getOrderDetails(int orderId) =>
+  Future<OrderDetailsData> getOrderDetails(int orderId) =>
       _repository.getOrderDetails(orderId);
 
   Future<List<Order>> getNearbyOrders() => _repository.getNearbyOrders();

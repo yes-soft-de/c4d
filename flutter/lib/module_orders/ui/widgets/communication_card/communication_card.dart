@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CommunicationCard extends StatelessWidget {
   final String text;
-  final String image;
+  final Widget image;
   final Color textColor;
   final Color color;
 
@@ -30,9 +30,7 @@ class CommunicationCard extends StatelessWidget {
             Flexible(
               flex: 1,
               fit: FlexFit.tight,
-              child: Image(
-                image: AssetImage('$image'),
-              ),
+              child: image,
             ),
             Flexible(
               flex: 3,

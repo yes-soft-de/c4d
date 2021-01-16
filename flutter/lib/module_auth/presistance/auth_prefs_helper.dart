@@ -111,7 +111,7 @@ class AuthPrefsHelper {
   Future<USER_TYPE> getCurrentRole() async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     var type = await  preferencesHelper.getInt('role');
-    return type as USER_TYPE;
+    return USER_TYPE.values[type];
   }
 
   Future<bool> getIsCaptain() async {

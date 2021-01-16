@@ -25,11 +25,13 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
   void initState() {
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
-    });
+      if (mounted) {
+        setState(() {
 
+      });
+      }
+    });
     super.initState();
-    orderId = ModalRoute.of(context).settings.arguments;
-    widget._stateManager.getOrderDetails(orderId, this);
   }
 
   void requestOrderProgress(OrderModel currentOrder) {
@@ -60,6 +62,11 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (currentState == null) {
+      orderId = ModalRoute.of(context).settings.arguments;
+      widget._stateManager.getOrderDetails(orderId, this);
+      currentState = OrderDetailsStateInit(this);
+    }
     return Scaffold(
       body: currentState.getUI(context),
     );

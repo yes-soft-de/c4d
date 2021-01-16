@@ -20,6 +20,7 @@ dependencies:
 
   # Fonts
   google_fonts: ^1.1.1
+  font_awesome_flutter: ^8.11.0
 
   # DI
   provider: ^4.3.2+2

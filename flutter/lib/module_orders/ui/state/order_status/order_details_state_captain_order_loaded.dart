@@ -4,12 +4,15 @@ import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.da
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:url_launcher/url_launcher.dart';
 
 class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
   OrderModel currentOrder;
@@ -57,7 +60,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               context,
             ),
             color: Theme.of(context).accentColor,
-            image: 'assets/images/whatsapp.png',
+            image: FaIcon(FontAwesomeIcons.whatsapp),
           ),
         ),
         // To Chat with Store owner in app
@@ -70,7 +73,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
           },
           child: CommunicationCard(
             text: 'Chat with Store Owner',
-            image: 'assets/images/WhatsApp.png',
+            image: Icon(Icons.chat_rounded),
           ),
         ),
         // To WhatsApp with store owner
@@ -85,7 +88,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
           },
           child: CommunicationCard(
             text: 'WhatsApp with Store Owner',
-            image: 'assets/images/whatsapp.png',
+            image: FaIcon(FontAwesomeIcons.whatsapp),
           ),
         ),
         // To WhatsApp with client
@@ -100,7 +103,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
           },
           child: CommunicationCard(
             text: 'WhatsApp with Client',
-            image: 'assets/images/whatsapp.png',
+            image: FaIcon(FontAwesomeIcons.whatsapp),
           ),
         ),
         // To Open Maps
@@ -116,7 +119,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
           },
           child: CommunicationCard(
             text: 'Get Direction',
-            image: 'assets/images/map.png',
+            image: FaIcon(FontAwesomeIcons.mapSigns),
           ),
         ),
       ],

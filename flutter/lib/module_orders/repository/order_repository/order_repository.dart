@@ -5,7 +5,6 @@ import 'package:c4d/module_orders/request/order/order_request.dart';
 import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
-import 'package:c4d/module_orders/response/owner_orders/owner_orders_response.dart';
 import 'package:inject/inject.dart';
 
 @provide
@@ -31,7 +30,7 @@ class OrderRepository {
     return response['status_code'] == '201' ? true : false;
   }
 
-  Future<OrderStatusResponse> getOrderDetails(int orderId) async {
+  Future<OrderDetailsData> getOrderDetails(int orderId) async {
     if (orderId == null) {
       return null;
     }
@@ -41,7 +40,7 @@ class OrderRepository {
       headers: token,
     );
     if (response == null) return null;
-    return OrderStatusResponse.fromJson(response['Data']);
+    return OrderStatusResponse.fromJson(response).data;
   }
 
   Future<List<Order>> getNearbyOrders() async {
