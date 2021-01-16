@@ -33,5 +33,6 @@
   "sendMeCode": "Send me code",
   "language": "Language",
   "signOut": "Sign out",
-  "login": "Login"
+  "login": "Login",
+  "orderDetails": "Order Details"
 }

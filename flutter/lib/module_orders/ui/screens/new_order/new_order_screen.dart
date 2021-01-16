@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/state_manager/new_order/new_order.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/new_order/new_order.state.dart';
 import 'package:flutter/material.dart';
@@ -51,8 +52,8 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   @override
   Widget build(BuildContext context) {
     if (currentState == null) {
-      LatLng linkFromWhatsapp = ModalRoute.of(context).settings.arguments;
-      currentState = NewOrderStateInit(linkFromWhatsapp, this);
+      LatLng linkFromWhatsApp = ModalRoute.of(context).settings.arguments;
+      currentState = NewOrderStateInit(linkFromWhatsApp, this);
     }
     return SafeArea(
       child: Scaffold(

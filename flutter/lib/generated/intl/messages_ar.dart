@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lebanon" : MessageLookupByLibrary.simpleMessage("Lebanon"),
     "loading" : MessageLookupByLibrary.simpleMessage("Loading"),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
+    "orderDetails" : MessageLookupByLibrary.simpleMessage("Order Details"),
     "orderIsDone" : MessageLookupByLibrary.simpleMessage("Order is done!"),
     "orderIsInUndefinedState" : MessageLookupByLibrary.simpleMessage("Order is in undefined State"),
     "phoneNumber" : MessageLookupByLibrary.simpleMessage("Phone Number"),

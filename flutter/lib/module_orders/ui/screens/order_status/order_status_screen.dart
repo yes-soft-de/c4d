@@ -1,4 +1,5 @@
 import 'package:c4d/consts/order_status.dart';
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/state_manager/order_status/order_status.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
@@ -68,6 +69,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       currentState = OrderDetailsStateInit(this);
     }
     return Scaffold(
+      appBar: AppBar(title: Text(S.of(context).orderDetails),),
       body: currentState.getUI(context),
     );
   }

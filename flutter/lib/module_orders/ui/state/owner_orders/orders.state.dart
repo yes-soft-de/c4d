@@ -87,7 +87,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                       },
                       child: OrderCard(
                         to: orders[index].to,
-                        from: orders[index].from,
+                        from: 'Default Branch',
                         time: timeago.format(orders[index].creationTime),
                         index: index,
                       ),
@@ -112,6 +112,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
             ),
           ),
         )
+
       ],
     );
   }

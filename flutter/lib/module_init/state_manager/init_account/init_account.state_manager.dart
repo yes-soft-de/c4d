@@ -1,3 +1,4 @@
+import 'package:c4d/consts/branch.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/service/init_account/init_account.service.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
@@ -18,6 +19,7 @@ class InitAccountStateManager {
 
   final PublishSubject<InitAccountState> _stateSubject =
       PublishSubject<InitAccountState>();
+
   Stream<InitAccountState> get stateStream => _stateSubject.stream;
 
   InitAccountStateManager(
@@ -60,8 +62,11 @@ class InitAccountStateManager {
     _stateSubject.add(InitAccountStateLoading(screen));
 
     _profileService
-        .saveBranch(position.latitude.toString(), position.longitude.toString(),
-            'Default Branch')
+        .saveBranch(
+      position.latitude.toString(),
+      position.longitude.toString(),
+      BranchName.DefaultBranch,
+    )
         .then((value) {
       if (value == null) {
         _stateSubject.add(InitAccountStateError(

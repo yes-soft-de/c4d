@@ -1,3 +1,4 @@
+import 'package:c4d/consts/branch.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ abstract class NewOrderState {
 }
 
 class NewOrderStateInit extends NewOrderState {
-  final List<String> _paymentMethods = ['online', 'cash', 'credit card'];
+  final List<String> _paymentMethods = ['online', 'cash'];
   String _selectedPaymentMethod;
   DateTime orderDate = DateTime.now();
 
@@ -41,7 +42,10 @@ class NewOrderStateInit extends NewOrderState {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'New Order',
-                style: TextStyle(fontSize: 30, color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.grey,
+                ),
               ),
             ),
             Card(
@@ -101,23 +105,36 @@ class NewOrderStateInit extends NewOrderState {
                     ),
                     //payment method
                     Container(
-                      padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
                         color: Color(0xff454F63),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: DropdownButtonFormField(
-                          items: _paymentMethods.map((String place) {
-                            return new DropdownMenuItem<String>(
-                              value: place.toString(),
-                              child: new Text(place),
-                            );
-                          }).toList(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButtonFormField(
+                          decoration: InputDecoration(
+                            hintText: 'Payment Method',
+                            hintStyle: TextStyle(color: Colors.white),
+                            fillColor: Color(0xff454F63),
+                            labelStyle: TextStyle(color: Colors.white),
+                          ),
+                          dropdownColor: Color(0xff454F63),
+                          items: _paymentMethods
+                              .map((String method) => DropdownMenuItem(
+                                    value: method.toString(),
+                                    child: Text(
+                                      method,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ))
+                              .toList(),
                           onChanged: (value) {
                             _selectedPaymentMethod = _paymentMethods.firstWhere(
                                 (element) => element.toString() == value);
                             screenState.setState(() {});
-                          }),
+                          },
+                        ),
+                      ),
                     ),
 
                     Container(
@@ -211,13 +228,14 @@ class NewOrderStateInit extends NewOrderState {
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
                       screenState.addNewOrder(
-                          'Default Branch',
-                          _toController.text.trim(),
-                          _infoController.text.trim(),
-                          _selectedPaymentMethod.trim(),
-                          'recipent name',
-                          'reciepent phone',
-                          ' ');
+                        BranchName.DefaultBranch,
+                        _toController.text.trim(),
+                        _infoController.text.trim(),
+                        _selectedPaymentMethod.trim(),
+                        null,
+                        null,
+                        orderDate.toIso8601String(),
+                      );
                     },
                     child: Text(
                       'APPLY',

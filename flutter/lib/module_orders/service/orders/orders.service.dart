@@ -52,7 +52,7 @@ class OrdersService {
 
     OrderModel order = new OrderModel(
       paymentMethod: response.payment,
-      from: 'Store',
+      from: response.fromBranch.toString(),
       to: 'Destination',
       creationTime: date,
       status: StatusHelper.getStatus(response.state),

@@ -5,12 +5,10 @@ import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart'
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
 
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -29,7 +27,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: OrderProgressionHelper.getStatusIcon(currentOrder.status),
+          child: OrderProgressionHelper.getStatusIcon(
+              currentOrder.status, context),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -59,8 +58,10 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               currentOrder.status,
               context,
             ),
-            color: Theme.of(context).accentColor,
-            image: FaIcon(FontAwesomeIcons.whatsapp),
+            image: FaIcon(
+              FontAwesomeIcons.whatsapp,
+              color: Theme.of(context).accentColor,
+            ),
           ),
         ),
         // To Chat with Store owner in app

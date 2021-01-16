@@ -13,10 +13,8 @@ class OwnerOrdersStateManager {
 
   Stream<OwnerOrdersListState> get stateStream => _stateSubject.stream;
 
-  OwnerOrdersStateManager(
-    this._ordersService,
-    this._authService,
-  );
+  OwnerOrdersStateManager(this._ordersService,
+      this._authService,);
 
   void getMyOrders(OwnerOrdersScreenState screenState) {
     _authService.isLoggedIn.then((value) {

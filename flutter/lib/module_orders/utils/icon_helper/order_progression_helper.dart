@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OrderProgressionHelper {
-  static Widget getStatusIcon(OrderStatus status) {
+  static Widget getStatusIcon(OrderStatus status, BuildContext context) {
     if (status == null) {
       return SvgPicture.asset(
         'assets/images/searching.svg',
+        color: Theme.of(context).primaryColor,
         height: 150,
       );
     }
@@ -15,42 +16,49 @@ class OrderProgressionHelper {
       case OrderStatus.INIT:
         return SvgPicture.asset(
           'assets/images/searching.svg',
+          color: Theme.of(context).primaryColor,
           height: 150,
         );
         break;
       case OrderStatus.GOT_CAPTAIN:
         return SvgPicture.asset(
           'assets/images/got_captain.svg',
+          color: Theme.of(context).primaryColor,
           height: 150,
         );
         break;
       case OrderStatus.IN_STORE:
         return SvgPicture.asset(
           'assets/images/in_store.svg',
+          color: Theme.of(context).primaryColor,
           height: 150,
         );
         break;
       case OrderStatus.DELIVERING:
         return SvgPicture.asset(
           'assets/images/got_package.svg',
+          color: Theme.of(context).primaryColor,
           height: 150,
         );
         break;
       case OrderStatus.GOT_CASH:
         return SvgPicture.asset(
           'assets/images/got_cash.svg',
+          color: Theme.of(context).primaryColor,
           height: 150,
         );
         break;
       case OrderStatus.FINISHED:
         return SvgPicture.asset(
           'assets/images/finished.svg',
+          color: Theme.of(context).primaryColor,
           height: 150,
         );
         break;
       default:
         return Icon(
           Icons.error_outline,
+          color: Theme.of(context).primaryColor,
           size: 150,
         );
     }

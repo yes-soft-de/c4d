@@ -5,7 +5,6 @@ import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart'
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -16,8 +15,9 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
   OrderModel currentOrder;
 
   OrderDetailsStateOwnerOrderLoaded(
-      this.currentOrder, OrderStatusScreenState screenState,)
-      : super(screenState);
+    this.currentOrder,
+    OrderStatusScreenState screenState,
+  ) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -30,7 +30,8 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: OrderProgressionHelper.getStatusIcon(currentOrder.status),
+              child: OrderProgressionHelper.getStatusIcon(
+                  currentOrder.status, context),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -69,7 +70,10 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               },
               child: CommunicationCard(
                 text: 'WhatsApp with Captain',
-                image: FaIcon(FontAwesomeIcons.whatsapp),
+                image: FaIcon(
+                  FontAwesomeIcons.whatsapp,
+                  color: Colors.green,
+                ),
               ),
             ),
             GestureDetector(
@@ -83,7 +87,10 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               },
               child: CommunicationCard(
                 text: 'WhatsApp with Client',
-                image: FaIcon(FontAwesomeIcons.whatsapp),
+                image: FaIcon(
+                  FontAwesomeIcons.whatsapp,
+                  color: Colors.green,
+                ),
               ),
             ),
           ],
