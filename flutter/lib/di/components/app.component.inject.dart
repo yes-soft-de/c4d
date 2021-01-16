@@ -23,8 +23,8 @@ import '../../module_orders/ui/screens/order_status/order_status_screen.dart'
     as _i18;
 import '../../module_orders/state_manager/order_status/order_status.state_manager.dart'
     as _i19;
-import '../../module_orders/ui/screens/orders/orders_screen.dart' as _i20;
-import '../../module_orders/state_manager/orders/orders.state_manager.dart'
+import '../../module_orders/ui/screens/orders/owner_orders_screen.dart' as _i20;
+import '../../module_orders/state_manager/owner_orders/owner_orders.state_manager.dart'
     as _i21;
 import '../../module_orders/ui/screens/captain_orders/captain_orders.dart'
     as _i22;
@@ -78,7 +78,7 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i6.OrdersModule _createOrdersModule() => _i6.OrdersModule(
       _createNewOrderScreen(),
       _createOrderStatusScreen(),
-      _createOrdersScreen(),
+      _createOwnerOrdersScreen(),
       _createCaptainOrdersScreen());
   _i7.NewOrderScreen _createNewOrderScreen() =>
       _i7.NewOrderScreen(_createNewOrderStateManager());
@@ -108,10 +108,11 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i19.OrderStatusStateManager _createOrderStatusStateManager() =>
       _i19.OrderStatusStateManager(
           _createOrdersService(), _createAuthService());
-  _i20.OrdersScreen _createOrdersScreen() =>
-      _i20.OrdersScreen(_createOrdersStateManager());
-  _i21.OrdersStateManager _createOrdersStateManager() =>
-      _i21.OrdersStateManager(_createOrdersService(), _createAuthService());
+  _i20.OwnerOrdersScreen _createOwnerOrdersScreen() =>
+      _i20.OwnerOrdersScreen(_createOwnerOrdersStateManager());
+  _i21.OwnerOrdersStateManager _createOwnerOrdersStateManager() =>
+      _i21.OwnerOrdersStateManager(
+          _createOrdersService(), _createAuthService());
   _i22.CaptainOrdersScreen _createCaptainOrdersScreen() =>
       _i22.CaptainOrdersScreen(_createCaptainOrdersListStateManager());
   _i23.CaptainOrdersListStateManager _createCaptainOrdersListStateManager() =>

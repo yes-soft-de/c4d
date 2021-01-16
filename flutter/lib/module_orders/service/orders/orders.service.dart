@@ -1,6 +1,7 @@
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/request/order/order_request.dart';
+import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:inject/inject.dart';
@@ -43,6 +44,7 @@ class OrdersService {
     OrderStatusResponse response =
         await _manager.getOrderDetails(int.tryParse(orderId));
     if (response == null) return null;
+
     var df = DateFormat('hh:mm');
     var date =
         DateTime.fromMicrosecondsSinceEpoch(response.date.timestamp * 1000);
@@ -63,10 +65,10 @@ class OrdersService {
     if (response == null) return null;
 
     List<OrderModel> orders = [];
-    var df = new DateFormat('hh:mm');
+    var df = new DateFormat('hh:m');
 
     response.forEach((element) {
-      var date = new DateTime.fromMillisecondsSinceEpoch(
+      var date = new DateTime.fromMicrosecondsSinceEpoch(
           element.date.timestamp * 1000);
       orders.add(new OrderModel(
         to: element.destination.isNotEmpty
@@ -83,22 +85,34 @@ class OrdersService {
   }
 
   Future<bool> addNewOrder(
-    String fromBranch,
-    String destination,
-    String note,
-    String paymentMethod,
-    String recipientName,
-    String recipientPhone,
-    String date,
-  ) async {
+      String fromBranch,
+      String destination,
+      String note,
+      String paymentMethod,
+      String recipientName,
+      String recipientPhone,
+      String date) async {
     var orderRequest = new CreateOrderRequest(
-        note: note,
-        date: date,
-        payment: paymentMethod,
-        fromBranch: fromBranch,
-        recipientName: recipientName,
-        recipientPhone: recipientPhone,
-        destination: [destination]);
+      note: note,
+      date: date,
+      payment: paymentMethod,
+      fromBranch: fromBranch,
+      recipientName: recipientName,
+      recipientPhone: recipientPhone,
+      destination: [destination],
+    );
     return _manager.addNewOrder(orderRequest);
+  }
+
+  Future<OrderDetailsResponse> updateOrder(String orderId, OrderModel order) {
+    return _manager.updateOrder(
+        orderId,
+        CreateOrderRequest(
+          fromBranch: order.from,
+          destination: [order.to],
+          note: ' ',
+          payment: order.paymentMethod,
+          recipientPhone: order.clientPhone,
+        ));
   }
 }

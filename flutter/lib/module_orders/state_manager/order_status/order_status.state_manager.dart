@@ -1,5 +1,6 @@
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
+import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_details_state_captain_order_loaded.dart';
@@ -39,5 +40,9 @@ class OrderStatusStateManager {
         _stateSubject.add(OrderDetailsStateError('Error Defining Login Type', screenState));
       }
     }
+  }
+
+  Future<void> updateOrder(OrderModel model) {
+    _ordersService.updateOrder(model.id, model);
   }
 }

@@ -38,8 +38,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "iGotTheCash" : MessageLookupByLibrary.simpleMessage("I Got the Cash"),
     "iGotThePackage" : MessageLookupByLibrary.simpleMessage("I Got the Package"),
     "iHaveAnAccount" : MessageLookupByLibrary.simpleMessage("I have an account"),
+    "language" : MessageLookupByLibrary.simpleMessage("Language"),
     "lebanon" : MessageLookupByLibrary.simpleMessage("Lebanon"),
     "loading" : MessageLookupByLibrary.simpleMessage("Loading"),
+    "login" : MessageLookupByLibrary.simpleMessage("Login"),
     "orderIsDone" : MessageLookupByLibrary.simpleMessage("Order is done!"),
     "orderIsInUndefinedState" : MessageLookupByLibrary.simpleMessage("Order is in undefined State"),
     "phoneNumber" : MessageLookupByLibrary.simpleMessage("Phone Number"),
@@ -49,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "saudiArabia" : MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("Searching for Captain"),
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("Send me code"),
+    "signOut" : MessageLookupByLibrary.simpleMessage("Sign out"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("Start Writing"),
     "storeOwner" : MessageLookupByLibrary.simpleMessage("Store Owner"),
     "syria" : MessageLookupByLibrary.simpleMessage("Syria")

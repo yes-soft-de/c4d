@@ -8,11 +8,10 @@ import 'package:inject/inject.dart';
 class InitAccountModule extends YesModule {
   final InitAccountScreen _initAccountScreen;
 
-  InitAccountModule(
-    this._initAccountScreen,
-  );
+  InitAccountModule(this._initAccountScreen) {
+    YesModule.RoutesMap.addAll(getRoutes());
+  }
 
-  @override
   Map<String, WidgetBuilder> getRoutes() {
     return {
       InitAccountRoutes.INIT_ACCOUNT_SCREEN: (context) => _initAccountScreen,

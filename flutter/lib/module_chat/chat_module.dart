@@ -11,9 +11,11 @@ class ChatModule extends YesModule {
   final ChatPage _chatPage;
   final AuthService _authService;
 
-  ChatModule(this._chatPage, this._authService);
+  ChatModule(this._chatPage, this._authService) {
+    YesModule.RoutesMap.addAll(getRoutes());
+  }
 
-  @override
+
   Map<String, WidgetBuilder> getRoutes() {
     return {
       ChatRoutes.chatRoute: (context) => FutureBuilder(

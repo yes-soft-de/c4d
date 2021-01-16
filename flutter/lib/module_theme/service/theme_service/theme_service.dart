@@ -32,6 +32,8 @@ class AppThemeDataService {
       return ThemeData(
         brightness: Brightness.dark,
         primaryColor: PrimaryColor,
+        primaryColorDark: PrimaryDarker,
+        accentColor: AccentColor,
         appBarTheme: AppBarTheme(
           centerTitle: true,
           color: Colors.black,
@@ -41,6 +43,8 @@ class AppThemeDataService {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: PrimaryColor,
+      primaryColorDark: PrimaryDarker,
+      accentColor: AccentColor,
       appBarTheme: AppBarTheme(
         centerTitle: true,
         color: Colors.white,

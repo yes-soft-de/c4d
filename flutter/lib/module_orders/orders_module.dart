@@ -3,13 +3,13 @@ import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
-import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';
+import 'package:c4d/module_orders/ui/screens/orders/owner_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
 @provide
 class OrdersModule extends YesModule {
-  final OrdersScreen _ordersScreen;
+  final OwnerOrdersScreen _ordersScreen;
   final NewOrderScreen _newOrderScreen;
   final OrderStatusScreen _orderStatus;
   final CaptainOrdersScreen _captainOrdersScreen;
@@ -19,9 +19,10 @@ class OrdersModule extends YesModule {
     this._orderStatus,
     this._ordersScreen,
     this._captainOrdersScreen,
-  );
+  ) {
+    YesModule.RoutesMap.addAll(getRoutes());
+  }
 
-  @override
   Map<String, WidgetBuilder> getRoutes() {
     return {
       OrdersRoutes.NEW_ORDER_SCREEN: (context) => _newOrderScreen,

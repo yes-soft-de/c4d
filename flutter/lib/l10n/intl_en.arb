@@ -30,5 +30,8 @@
   "lebanon": "Lebanon",
   "syria": "Syria",
   "phoneNumber": "Phone Number",
-  "sendMeCode": "Send me code"
+  "sendMeCode": "Send me code",
+  "language": "Language",
+  "signOut": "Sign out",
+  "login": "Login"
 }

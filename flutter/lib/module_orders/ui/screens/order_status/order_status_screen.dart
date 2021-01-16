@@ -1,3 +1,5 @@
+import 'package:c4d/consts/order_status.dart';
+import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/state_manager/order_status/order_status.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,32 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     super.initState();
     orderId = ModalRoute.of(context).settings.arguments;
     widget._stateManager.getOrderDetails(orderId, this);
+  }
+
+  void requestOrderProgress(OrderModel currentOrder) {
+    OrderStatus newStatus;
+    switch (currentOrder.status) {
+      case OrderStatus.INIT:
+        newStatus = OrderStatus.GOT_CAPTAIN;
+        break;
+      case OrderStatus.GOT_CAPTAIN:
+        newStatus = OrderStatus.IN_STORE;
+        break;
+      case OrderStatus.IN_STORE:
+        newStatus = OrderStatus.DELIVERING;
+        break;
+      case OrderStatus.DELIVERING:
+        newStatus = currentOrder.paymentMethod == 'CASH' ? OrderStatus.GOT_CAPTAIN : OrderStatus.FINISHED;
+        break;
+      case OrderStatus.GOT_CASH:
+        newStatus = OrderStatus.FINISHED;
+        break;
+      case OrderStatus.FINISHED:
+        break;
+    }
+
+    currentOrder.status = newStatus;
+    widget._stateManager.updateOrder(currentOrder);
   }
 
   @override

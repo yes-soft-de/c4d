@@ -1,5 +1,6 @@
 import 'dart:wasm';
 
+import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
@@ -13,13 +14,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inject/inject.dart';
-import 'package:latlong/latlong.dart';
-import 'package:uni_links/uni_links.dart';
 
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
 import 'module_auth/authoriazation_module.dart';
-import 'module_auth/authorization_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,11 +75,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, WidgetBuilder> fullRoutesList = {};
-
-    fullRoutesList.addAll(widget._initAccountModule.getRoutes());
-    fullRoutesList.addAll(widget._authorizationModule.getRoutes());
-    fullRoutesList.addAll(widget._ordersModule.getRoutes());
 
     return FutureBuilder(
       initialData: ThemeData.light(),
@@ -93,7 +86,7 @@ class _MyAppState extends State<MyApp> {
             builder:
                 (BuildContext context, AsyncSnapshot<String> langSnapshot) {
               return getConfiguratedApp(
-                fullRoutesList,
+                YesModule.RoutesMap,
                 themeSnapshot.data,
                 langSnapshot.data,
               );

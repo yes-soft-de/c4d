@@ -49,10 +49,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
         // To Progress the Order
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(
-              ChatRoutes.chatRoute,
-              arguments: currentOrder.chatRoomId,
-            );
+            screenState.requestOrderProgress(currentOrder);
           },
           child: CommunicationCard(
             text: OrderProgressionHelper.getNextStageHelper(

@@ -56,7 +56,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                   ),
                   //package
                   AnimatedContainer(
-                    duration: Duration(microseconds: 500),
+                    duration: Duration(seconds: 1),
                     height: _selectedCity == null ? 0 : 275,
                     margin: EdgeInsets.only(top: 20),
                     child: ListView(
@@ -67,7 +67,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
 
                   // Submit Package
                   AnimatedContainer(
-                    duration: Duration(microseconds: 500),
+                    duration: Duration(seconds: 1),
                     margin: EdgeInsets.only(top: 30),
                     height: _selectedPackageId == null ? 0 : 64,
                     child: FlatButton(

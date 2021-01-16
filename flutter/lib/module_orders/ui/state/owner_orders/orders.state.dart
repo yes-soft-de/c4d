@@ -1,23 +1,23 @@
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
-import 'package:c4d/module_orders/ui/screens/orders/orders_screen.dart';
+import 'package:c4d/module_orders/ui/screens/orders/owner_orders_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 
-abstract class OrdersListState {
-  final OrdersScreenState screenState;
+abstract class OwnerOrdersListState {
+  final OwnerOrdersScreenState screenState;
 
-  OrdersListState(this.screenState);
+  OwnerOrdersListState(this.screenState);
 
   Widget getUI(BuildContext context);
 }
 
-class OrdersListStateInit extends OrdersListState {
-  OrdersListStateInit(OrdersScreenState screenState) : super(screenState);
+class OrdersListStateInit extends OwnerOrdersListState {
+  OrdersListStateInit(OwnerOrdersScreenState screenState) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -27,8 +27,8 @@ class OrdersListStateInit extends OrdersListState {
   }
 }
 
-class OrdersListStateLoading extends OrdersListState {
-  OrdersListStateLoading(OrdersScreenState screenState)
+class OrdersListStateLoading extends OwnerOrdersListState {
+  OrdersListStateLoading(OwnerOrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -39,8 +39,8 @@ class OrdersListStateLoading extends OrdersListState {
   }
 }
 
-class OrdersListStateUnauthorized extends OrdersListState {
-  OrdersListStateUnauthorized(OrdersScreenState screenState)
+class OrdersListStateUnauthorized extends OwnerOrdersListState {
+  OrdersListStateUnauthorized(OwnerOrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -54,10 +54,10 @@ class OrdersListStateUnauthorized extends OrdersListState {
   }
 }
 
-class OrdersListStateOrdersLoaded extends OrdersListState {
+class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
   final List<OrderModel> orders;
 
-  OrdersListStateOrdersLoaded(this.orders, OrdersScreenState screenState)
+  OrdersListStateOrdersLoaded(this.orders, OwnerOrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -142,10 +142,10 @@ class OrdersListStateOrdersLoaded extends OrdersListState {
   }
 }
 
-class OrdersListStateError extends OrdersListState {
+class OrdersListStateError extends OwnerOrdersListState {
   final String errorMsg;
 
-  OrdersListStateError(this.errorMsg, OrdersScreenState screenState)
+  OrdersListStateError(this.errorMsg, OwnerOrdersScreenState screenState)
       : super(screenState);
 
   @override

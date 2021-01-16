@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_orders/orders_module.dart",
+  "asset": "asset:c4d/lib/module_settings/ui/settings_page/settings_page.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "OrdersModule",
+        "name": "SettingsScreen",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_orders/orders_module.dart#OrdersModule",
+              "root": "asset:c4d/lib/module_settings/ui/settings_page/settings_page.dart#SettingsScreen",
               "qualifier": null
             },
             "isProvider": false
@@ -21,28 +21,21 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/new_order/new_order_screen.dart#NewOrderScreen",
+                "root": "asset:c4d/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
                 "qualifier": null
               },
               "isProvider": false
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/order_status/order_status_screen.dart#OrderStatusScreen",
+                "root": "asset:c4d/lib/module_localization/service/localization_service/localization_service.dart#LocalizationService",
                 "qualifier": null
               },
               "isProvider": false
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/orders/owner_orders_screen.dart#OwnerOrdersScreen",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/ui/screens/captain_orders/captain_orders.dart#CaptainOrdersScreen",
+                "root": "asset:c4d/lib/module_theme/service/theme_service/theme_service.dart#AppThemeDataService",
                 "qualifier": null
               },
               "isProvider": false

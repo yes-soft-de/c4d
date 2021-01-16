@@ -2,6 +2,7 @@ import 'package:c4d/consts/urls.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_network/http_client/http_client.dart';
 import 'package:c4d/module_orders/request/order/order_request.dart';
+import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/response/owner_orders/owner_orders_response.dart';
@@ -67,4 +68,17 @@ class OrderRepository {
     return OrdersResponse.fromJson(response).data;
   }
 
+  Future<OrderDetailsResponse> updateOrder(
+      String orderId, CreateOrderRequest orderRequest) async {
+    var token = await _authService.getAuthHeaderMap();
+    dynamic response = await _apiClient.put(
+      '${Urls.NEW_ORDER}/$orderId',
+      orderRequest.toJson(),
+      headers: token,
+    );
+
+    if (response == null) return null;
+
+    return OrderDetailsResponse.fromJson(response);
+  }
 }

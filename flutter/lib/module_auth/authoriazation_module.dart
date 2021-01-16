@@ -11,9 +11,9 @@ class AuthorizationModule extends YesModule {
   final LoginScreen _loginScreen;
   final RegisterScreen _registerScreen;
 
-  AuthorizationModule(this._loginScreen, this._registerScreen);
-
-  @override
+  AuthorizationModule(this._loginScreen, this._registerScreen) {
+    YesModule.RoutesMap.addAll(getRoutes());
+  }
   Map<String, WidgetBuilder> getRoutes() {
     return {
       AuthorizationRoutes.LOGIN_SCREEN: (context) => _loginScreen,
