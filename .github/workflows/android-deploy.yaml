@@ -83,7 +83,7 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ GITHUB_RUN_NUMBER }}
+          tag_name: ${{ github.run_number }}
           asset_path: flutter/build/app/outputs/flutter-apk/app-release.apk
           asset_name: release.apk
           asset_content_type: application/zip
