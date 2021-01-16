@@ -77,3 +77,13 @@ jobs:
         with:
           name: release-apk
           path: flutter/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Create release and upload apk
+        uses: underwindfall/create-release-with-debugapk@v2.0.0
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ GITHUB_RUN_NUMBER }}
+          asset_path: flutter/build/app/outputs/flutter-apk/app-release.apk
+          asset_name: release.apk
+          asset_content_type: application/zip
