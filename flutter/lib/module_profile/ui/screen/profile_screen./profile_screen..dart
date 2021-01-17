@@ -7,28 +7,45 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SparkBar.withSampleData(),
-          ListTile(
-            title: Text('Event Happened'),
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Container(
+                height: 200,
+                child: SparkBar.withSampleData(),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.timelapse),
+                  title: Text('Event Happened'),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.timelapse),
+                  title: Text('Event Happened'),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.timelapse),
+                  title: Text('Event Happened'),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.timelapse),
+                  title: Text('Event Happened'),
+                ),
+              ),
+            ],
           ),
-          ListTile(
-            title: Text('Event Happened'),
-          ),
-          ListTile(
-            title: Text('Event Happened'),
-          ),
-          ListTile(
-            title: Text('Event Happened'),
-          ),
-          ListTile(
-            title: Text('Event Happened'),
-          ),
-          ListTile(
-            title: Text('Event Happened'),
-          ),
-        ],
+        ),
       ),
     );
   }
