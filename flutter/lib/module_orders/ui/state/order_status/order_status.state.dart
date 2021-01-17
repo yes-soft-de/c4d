@@ -1,4 +1,3 @@
-import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:flutter/material.dart';
 

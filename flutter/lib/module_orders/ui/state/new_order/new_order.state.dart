@@ -92,7 +92,7 @@ class NewOrderStateInit extends NewOrderState {
                             onPressed: () {
                               getClipBoardData().then((value) {
                                 _toController.text = value;
-                                screenState.setState(() {});
+                                screenState.refresh();
                               });
                             },
                             icon: Icon(
@@ -131,7 +131,7 @@ class NewOrderStateInit extends NewOrderState {
                           onChanged: (value) {
                             _selectedPaymentMethod = _paymentMethods.firstWhere(
                                 (element) => element.toString() == value);
-                            screenState.setState(() {});
+                            screenState.refresh();
                           },
                         ),
                       ),

@@ -1,5 +1,3 @@
-import 'dart:wasm';
-
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';

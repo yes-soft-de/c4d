@@ -27,7 +27,7 @@ class CreateOrderRequest {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['fromBranch'] = this.fromBranch;
     data['destination'] = this.destination;
     data['note'] = this.note;

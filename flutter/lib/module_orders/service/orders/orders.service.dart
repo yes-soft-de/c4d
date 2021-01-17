@@ -1,4 +1,3 @@
-import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/request/order/order_request.dart';
@@ -7,7 +6,6 @@ import 'package:c4d/module_orders/response/order_status/order_status_response.da
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/utils/status_helper/status_helper.dart';
 import 'package:inject/inject.dart';
-import 'package:intl/intl.dart';
 
 @provide
 class OrdersService {
@@ -22,11 +20,8 @@ class OrdersService {
     if (response == null) return null;
 
     List<OrderModel> orders = [];
-    var df = new DateFormat('hh:mm');
 
     response.forEach((element) {
-      var date = new DateTime.fromMillisecondsSinceEpoch(
-          element.date.timestamp * 1000);
       orders.add(new OrderModel(
         to: element.destination.isNotEmpty
             ? element.destination.elementAt(0)
@@ -67,11 +62,8 @@ class OrdersService {
     if (response == null) return null;
 
     List<OrderModel> orders = [];
-    var df = new DateFormat('hh:m');
 
     response.forEach((element) {
-      var date = new DateTime.fromMillisecondsSinceEpoch(
-          element.date.timestamp * 1000);
       orders.add(new OrderModel(
         to: element.destination.isNotEmpty
             ? element.destination.elementAt(0)

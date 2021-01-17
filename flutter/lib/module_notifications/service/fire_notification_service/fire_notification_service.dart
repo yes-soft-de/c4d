@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:c4d/consts/urls.dart';
-import 'package:c4d/module_network/http_client/http_client.dart';
 import 'package:c4d/utils/logger/logger.dart';
 
 @provide

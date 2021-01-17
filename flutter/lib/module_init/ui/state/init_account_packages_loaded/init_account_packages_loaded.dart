@@ -40,7 +40,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                         items: _getCities(),
                         onChanged: (value) {
                           _selectedCity = value;
-                          screen.setState(() {});
+                          screen.refresh();
                         }),
                   ),
                   //size
@@ -109,7 +109,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
       return GestureDetector(
         onTap: () {
           _selectedPackageId = element.id;
-          screen.setState(() {});
+          screen.refresh();
         },
         child: Opacity(
           opacity: _selectedPackageId == element.id ? 0.5 : 1.0,

@@ -24,7 +24,7 @@ class InitAccountStateSelectBranch extends InitAccountState {
             onTap: (newPos) {
               print('New Location' + newPos.toString());
               branchLocation = newPos;
-              screen.setState(() {});
+              screen.refresh();
             },
           ),
           layers: [

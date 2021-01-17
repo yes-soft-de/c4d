@@ -34,6 +34,10 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     super.initState();
   }
 
+  void refresh() {
+    setState(() {});
+  }
+
   void subscribeToPackage(int packageId) {
     widget._stateManager.subscribePackage(packageId, this);
   }

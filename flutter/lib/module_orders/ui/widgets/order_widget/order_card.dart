@@ -1,7 +1,5 @@
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
-import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class OrderCard extends StatelessWidget {
   final String from;

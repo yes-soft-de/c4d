@@ -1,10 +1,5 @@
-import 'package:c4d/module_init/model/package/packages.model.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
-import 'package:c4d/module_init/ui/widget/package_card/package_card.dart';
-import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
-import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 abstract class InitAccountState {
   final InitAccountScreenState screen;

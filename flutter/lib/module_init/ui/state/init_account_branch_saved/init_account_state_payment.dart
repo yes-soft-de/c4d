@@ -55,6 +55,6 @@ class InitAccountStatePayment extends InitAccountState {
     cvvCode = creditCardModel.cvvCode;
     isCvvFocused = creditCardModel.isCvvFocused;
 
-    screen.setState(() {});
+    screen.refresh();
   }
 }

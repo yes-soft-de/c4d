@@ -1,4 +1,3 @@
-import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/state_manager/new_order/new_order.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/new_order/new_order.state.dart';
 import 'package:flutter/material.dart';
@@ -28,16 +27,12 @@ class NewOrderScreenState extends State<NewOrderScreen> {
       String recipientName,
       String recipientPhone,
       String date) {
-    widget._stateManager.addNewOrder(
-      fromBranch,
-      destination,
-      note,
-      paymentMethod,
-      recipientName,
-      recipientPhone,
-      date,
-      this,
-    );
+    widget._stateManager.addNewOrder(fromBranch, destination, note,
+        paymentMethod, recipientName, recipientPhone, date, this);
+  }
+
+  void refresh() {
+    setState(() {});
   }
 
   @override
