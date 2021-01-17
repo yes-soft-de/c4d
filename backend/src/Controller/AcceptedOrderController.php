@@ -40,10 +40,10 @@ class AcceptedOrderController extends BaseController
      */
     public function create(Request $request)
     {   
-        $response ="this captain inactive!!";
-        $status = $this->userService->captainIsActive($this->getUserId());
+        // $response ="this captain inactive!!";
+        // $status = $this->userService->captainIsActive($this->getUserId());
         
-        if ($status == 'active') {
+        // if ($status == 'active') {
             $data = json_decode($request->getContent(), true);
 
             $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
@@ -58,7 +58,7 @@ class AcceptedOrderController extends BaseController
             }
 
             $response = $this->acceptedOrderService->create($request);
-        }
+        // }
 
         return $this->response($response, self::CREATE);
     }
