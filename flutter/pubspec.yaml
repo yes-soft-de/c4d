@@ -121,10 +121,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # For Testing
+  flutter_driver:
+    sdk: flutter
+  test: ^1.15.5
+  flutter_gherkin: ^1.1.9
+
+  # For DI
   build_runner: ^1.10.1
 
-  test: ^1.15.5
-
+  # DI Framework
   inject_generator:
     git:
       url: https://github.com/yes-soft-de/inject.dart.git

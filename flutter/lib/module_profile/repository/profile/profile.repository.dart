@@ -16,11 +16,13 @@ class ProfileRepository {
   );
 
   Future<bool> createProfile(ProfileRequest profileRequest) async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.PROFILE,
       profileRequest.toJson(),
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
 
     if (response['status_code'] == '201') return true;
@@ -29,11 +31,13 @@ class ProfileRepository {
   }
 
   Future<bool> createBranch(CreateBranchRequest createBranch) async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.BRANCH,
       createBranch.toJson(),
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer $token'
+      },
     );
 
     if (response['status_code'] == '201') return true;

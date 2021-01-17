@@ -1,4 +1,4 @@
-enum USER_TYPE {
+enum UserRole {
   ROLE_CAPTAIN,
   ROLE_OWNER
 }

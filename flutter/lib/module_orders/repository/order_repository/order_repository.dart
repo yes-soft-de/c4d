@@ -18,11 +18,13 @@ class OrderRepository {
   );
 
   Future<bool> addNewOrder(CreateOrderRequest orderRequest) async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.NEW_ORDER,
       orderRequest.toJson(),
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
 
     if (response == null) return false;
@@ -34,21 +36,25 @@ class OrderRepository {
     if (orderId == null) {
       return null;
     }
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.ORDER_STATUS + '$orderId',
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
     if (response == null) return null;
     return OrderStatusResponse.fromJson(response).data;
   }
 
   Future<List<Order>> getNearbyOrders() async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
 
     dynamic response = await _apiClient.get(
       Urls.NEARBY_ORDERS,
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
     if (response == null) return null;
 
@@ -56,11 +62,13 @@ class OrderRepository {
   }
 
   Future<List<Order>> getMyOrders() async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
 
     dynamic response = await _apiClient.get(
       Urls.OWNER_ORDERS,
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
     if (response == null) return [];
 
@@ -69,11 +77,13 @@ class OrderRepository {
 
   Future<OrderDetailsResponse> updateOrder(
       int orderId, CreateOrderRequest orderRequest) async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.put(
       '${Urls.NEW_ORDER}/$orderId',
       orderRequest.toJson(),
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
 
     if (response == null) return null;

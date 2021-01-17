@@ -12,10 +12,12 @@ class InitAccountRepository {
   InitAccountRepository(this._apiClient, this._authService);
 
   Future<PackagesResponse> getPackages() async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.PACKAGES,
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
     if (response == null) return null;
 
@@ -23,11 +25,13 @@ class InitAccountRepository {
   }
 
   Future<bool> subscribePackage(int packageId) async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.SUBSCRIPTION,
       {'packageID': '$packageId'},
-      headers: token,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
     );
 
     if (response['status_code'] == '201') return true;

@@ -32,9 +32,9 @@ class OrderStatusStateManager {
       return;
     } else {
       var role = await _authService.userRole;
-      if (role == USER_TYPE.ROLE_CAPTAIN) {
+      if (role == UserRole.ROLE_CAPTAIN) {
         _stateSubject.add(OrderDetailsStateCaptainOrderLoaded(order, screenState));
-      } else if (role == USER_TYPE.ROLE_OWNER) {
+      } else if (role == UserRole.ROLE_OWNER) {
         _stateSubject.add(OrderDetailsStateOwnerOrderLoaded(order, screenState));
       } else {
         _stateSubject.add(OrderDetailsStateError('Error Defining Login Type', screenState));
@@ -42,7 +42,7 @@ class OrderStatusStateManager {
     }
   }
 
-  Future<void> updateOrder(OrderModel model) {
-    _ordersService.updateOrder(model.id, model);
+  Future<void> updateOrder(OrderModel model) async {
+    await _ordersService.updateOrder(model.id, model);
   }
 }

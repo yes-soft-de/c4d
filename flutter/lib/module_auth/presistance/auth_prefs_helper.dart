@@ -1,5 +1,6 @@
 import 'package:c4d/module_auth/enums/auth_source.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/exceptions/auth_exception.dart';
 import 'package:inject/inject.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,12 +52,13 @@ class AuthPrefsHelper {
     return uid != null;
   }
 
-  Future<AUTH_SOURCE> getAuthSource() async {
+  Future<AuthSource> getAuthSource() async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
-    return preferencesHelper.getInt('auth_source') as AUTH_SOURCE;
+    var index = preferencesHelper.getInt('auth_source');
+    return AuthSource.values[index];
   }
 
-  Future<void> setAuthSource(AUTH_SOURCE authSource) async {
+  Future<void> setAuthSource(AuthSource authSource) async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     return preferencesHelper.setInt(
       'auth_source',
@@ -64,6 +66,8 @@ class AuthPrefsHelper {
     );
   }
 
+  /// @Function saves token string
+  /// @returns void
   Future<void> setToken(String token) async {
     if (token == null) {
       return;
@@ -74,48 +78,53 @@ class AuthPrefsHelper {
       token,
     );
     await preferencesHelper.setString(
-        'token_date', DateTime.now().toIso8601String());
+      'token_date',
+      DateTime.now().toIso8601String(),
+    );
   }
 
+  Future<void> deleteToken() async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    await preferencesHelper.remove('token');
+    await preferencesHelper.remove('token_date');
+  }
+
+  /// @return String Token String
+  /// @throw Unauthorized Exception when token is null
   Future<String> getToken() async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
-    var tokenDateString = preferencesHelper.getString('token_date');
-    if (tokenDateString == null) {
-      return null;
+    var token = await preferencesHelper.getString('token');
+    if (token == null) {
+      throw UnauthorizedException('Token not found');
     }
-    if (DateTime.parse(tokenDateString).difference(DateTime.now()) >
-        Duration(minutes: 55)) {
-      await preferencesHelper.remove('token');
-      await preferencesHelper.remove('token_date');
-      return null;
+    return token;
+  }
+
+  /// @return DateTime tokenDate
+  /// @throw UnauthorizedException when token date not found
+  Future<DateTime> getTokenDate() async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    var dateStr = await preferencesHelper.getString('token_date');
+    if (dateStr == null) {
+      throw UnauthorizedException('Token date not found');
     }
-    return preferencesHelper.getString('token');
+    return DateTime.parse(dateStr);
   }
 
-  Future<String> getTokenDate() async {
-    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
-    return preferencesHelper.get('token_date');
-  }
-
-  Future<void> clearPrefs() async {
-    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
-    await preferencesHelper.clear();
-  }
-
-  Future<void> setCurrentRole(USER_TYPE user_type) async {
+  /// @return void
+  Future<void> setCurrentRole(UserRole user_type) async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     await preferencesHelper.setInt('role', user_type.index);
-    return;
   }
 
-  Future<USER_TYPE> getCurrentRole() async {
+  /// @return UserType
+  /// @throw UnauthorizedException when no role is set
+  Future<UserRole> getCurrentRole() async {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
-    var type = await  preferencesHelper.getInt('role');
-    return USER_TYPE.values[type];
-  }
-
-  Future<bool> getIsCaptain() async {
-    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
-    return preferencesHelper.getBool('is_captain');
+    var type = await preferencesHelper.getInt('role');
+    if (type == null) {
+      throw UnauthorizedException('User Role not found');
+    }
+    return UserRole.values[type];
   }
 }

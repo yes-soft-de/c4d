@@ -29,99 +29,10 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
   final TextEditingController _phoneController = TextEditingController();
   String countryCode = '+963';
 
-  final GlobalKey _confirmCodeKey = GlobalKey<FormState>();
-  final TextEditingController _confirmationController = TextEditingController();
   bool retryEnabled = false;
 
   @override
   Widget build(BuildContext context) {
-    return _getUI();
-  }
-
-  Widget _getUI() {
-    if (widget.codeSent) {
-      Future.delayed(Duration(seconds: 30), () {
-        retryEnabled = true;
-        setState(() {});
-      });
-      return _getCodeSetter();
-    } else {
-      return _getPhoneSetter();
-    }
-  }
-
-  Widget _getCodeSetter() {
-    return Form(
-      key: _confirmCodeKey,
-      child: Flex(
-        direction: Axis.vertical,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Flex(
-            direction: Axis.vertical,
-            children: [
-              MediaQuery.of(context).viewInsets.bottom == 0
-                  ? SvgPicture.asset('assets/images/logo.svg')
-                  : Container(),
-              Text(_phoneController.text.trim()),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextFormField(
-                controller: _confirmationController,
-                decoration: InputDecoration(
-                  labelText: S.of(context).confirmCode,
-                  hintText: '12345',
-                ),
-                keyboardType: TextInputType.number,
-                validator: (v) {
-                  if (v.isEmpty) {
-                    return S.of(context).pleaseInputPhoneNumber;
-                  }
-                  return null;
-                }),
-          ),
-          _errorMsg != null ? Text(_errorMsg) : Container(),
-          OutlinedButton(
-            onPressed: retryEnabled
-                ? () {
-                    setState(() {});
-                  }
-                : null,
-            child: Text(S.of(context).resendCode),
-          ),
-          Container(
-            decoration: BoxDecoration(color: Theme.of(context).accentColor),
-            child: GestureDetector(
-              onTap: () {
-                widget.onConfirm(_confirmationController.text);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      S.of(context).confirm,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _getPhoneSetter() {
     return Form(
       key: _signUpFormKey,
       child: Flex(
@@ -135,8 +46,8 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
             children: [
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Container(
-                      height: 144,
-                      child: SvgPicture.asset('assets/images/logo.svg'))
+                  height: 144,
+                  child: SvgPicture.asset('assets/images/logo.svg'))
                   : Container(),
               Padding(
                 padding: const EdgeInsets.all(16.0),
