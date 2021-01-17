@@ -7,6 +7,7 @@ import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -35,7 +36,7 @@ class CaptainOrdersListStateLoading extends CaptainOrdersListState {
   @override
   Widget getUI(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(),
+      child: Lottie.network('https://assets4.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json'),
     );
   }
 }

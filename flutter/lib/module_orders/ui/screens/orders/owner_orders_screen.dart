@@ -2,6 +2,7 @@ import 'package:c4d/module_deep_links/service/deep_links_service.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/owner_orders/orders.state.dart';
+import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
@@ -63,6 +64,13 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Orders'),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () {
+                Navigator.of(context).pushNamed(ProfileRoutes.PROFILE_SCREEN);
+              }),
+        ],
       ),
       drawer: Container(
         color: Theme.of(context).primaryColor,
@@ -93,7 +101,8 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(SettingRoutes.ROUTE_SETTINGS);
+                    Navigator.of(context)
+                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
                   },
                   child: Text(
                     'Settings',

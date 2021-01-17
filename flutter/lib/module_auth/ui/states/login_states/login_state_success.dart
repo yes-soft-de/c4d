@@ -9,7 +9,7 @@ class LoginStateSuccess extends LoginState {
   @override
   Widget getUI(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pushNamed(OrdersRoutes.OWNER_ORDERS_SCREEN);
+      screen.moveToNext();
     });
     return Column(
       children: [
