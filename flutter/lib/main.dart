@@ -3,7 +3,7 @@ import 'package:c4d/module_chat/chat_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
-import 'package:c4d/module_orders/orders_routes.dart';
+import 'package:c4d/module_profile/module_profile.dart';
 import 'package:c4d/module_splash/splash_module.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -43,6 +43,7 @@ class MyApp extends StatefulWidget {
   final SettingsModule _settingsModule;
   final AuthorizationModule _authorizationModule;
   final SplashModule _splashModule;
+  final ProfileModule _profileModule;
 
   MyApp(
     this._themeDataService,
@@ -53,6 +54,7 @@ class MyApp extends StatefulWidget {
     this._initAccountModule,
     this._settingsModule,
     this._authorizationModule,
+    this._profileModule,
   );
 
   @override

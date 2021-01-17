@@ -24,6 +24,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
   void initState() {
     super.initState();
     currentState = CaptainOrdersListStateLoading(this);
+    widget._stateManager.getMyOrders(this);
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {

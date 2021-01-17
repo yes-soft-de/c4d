@@ -117,8 +117,9 @@ dependencies:
   flutter_credit_card: ^0.1.3
   stripe_payment : ^1.0.9
 
-  # Lottie
+  # Lottie and Flare for animations
   lottie: ^0.7.0+1
+  flare_flutter: ^2.0.6
 
 dev_dependencies:
   flutter_test:

@@ -384,6 +384,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Order Created, Return to Orders`
+  String get orderCreatedReturnToOrders {
+    return Intl.message(
+      'Order Created, Return to Orders',
+      name: 'orderCreatedReturnToOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Order`
+  String get newOrder {
+    return Intl.message(
+      'New Order',
+      name: 'newOrder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

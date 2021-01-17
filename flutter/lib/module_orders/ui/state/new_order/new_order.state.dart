@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:latlong/latlong.dart';
+import 'package:c4d/generated/l10n.dart';
 
 abstract class NewOrderState {
   NewOrderScreenState screenState;
@@ -41,7 +42,7 @@ class NewOrderStateInit extends NewOrderState {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'New Order',
+                S.of(context).newOrder,
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.grey,
@@ -268,11 +269,27 @@ class NewOrderStateSuccessState extends NewOrderState {
 
   @override
   Widget getUI(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).pushNamed(OrdersRoutes.OWNER_ORDERS_SCREEN);
-    });
-    return Center(
-      child: Text('Create Order Success'),
+    return Container(
+      height: 600,
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Image.asset(
+              'assets/images/track.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
+              },
+              child: Text(S.of(context).orderCreatedReturnToOrders))
+        ],
+      ),
     );
   }
 }

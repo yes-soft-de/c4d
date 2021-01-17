@@ -22,8 +22,7 @@ class CaptainOrdersListStateManager {
     _authService.isLoggedIn.then((value) {
       if (value) {
         _stateSubject.add(CaptainOrdersListStateUnauthorized(screenState));
-        _ordersService.getNearbyOrders();
-        _ordersService.getMyOrders().then((value) {
+        _ordersService.getNearbyOrders().then((value) {
           if (value == null) {
             _stateSubject
                 .add(CaptainOrdersListStateError('Error Finding Data', screenState));

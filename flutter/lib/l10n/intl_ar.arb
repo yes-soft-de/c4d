@@ -34,5 +34,7 @@
   "language": "Language",
   "signOut": "Sign out",
   "login": "Login",
-  "orderDetails": "Order Details"
+  "orderDetails": "Order Details",
+  "orderCreatedReturnToOrders": "Order Created, Return to Orders",
+  "newOrder": "New Order"
 }

@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "lebanon" : MessageLookupByLibrary.simpleMessage("Lebanon"),
     "loading" : MessageLookupByLibrary.simpleMessage("Loading"),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
+    "newOrder" : MessageLookupByLibrary.simpleMessage("New Order"),
+    "orderCreatedReturnToOrders" : MessageLookupByLibrary.simpleMessage("Order Created, Return to Orders"),
     "orderDetails" : MessageLookupByLibrary.simpleMessage("Order Details"),
     "orderIsDone" : MessageLookupByLibrary.simpleMessage("Order is done!"),
     "orderIsInUndefinedState" : MessageLookupByLibrary.simpleMessage("Order is in undefined State"),
