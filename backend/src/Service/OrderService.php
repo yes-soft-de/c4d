@@ -11,6 +11,7 @@ use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
+use App\Service\SubscriptionService;
 
 class OrderService
 {
@@ -19,25 +20,60 @@ class OrderService
     private $acceptedOrderService;
     private $recordService;
     private $branchesService;
+    private $subscriptionService;
+    private $userService;
 
-    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService, BranchesService $branchesService)
+    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService, UserService $userService)
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
         $this->acceptedOrderService = $acceptedOrderService;
         $this->recordService = $recordService;
         $this->branchesService = $branchesService;
+        $this->subscriptionService = $subscriptionService;
+        $this->userService = $userService;
     }
 
-    public function create(OrderCreateRequest $request)
-    {
-        $uuid = $this->recordService->uuid();
+    // public function create(OrderCreateRequest $request)
+    // {
+    //     $uuid = $this->recordService->uuid();
        
-        $item = $this->orderManager->create($request, $uuid);
-        if ($item) {
-            $this->recordService->create($item->getId(), $item->getState());
+    //     $item = $this->orderManager->create($request, $uuid);
+    //     if ($item) {
+    //         $this->recordService->create($item->getId(), $item->getState());
+    //     }
+    //     return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+    // }
+    public function create(OrderCreateRequest $request)
+    {  
+        $response = "please subscribe!!";
+        $status = $this->subscriptionService->subscriptionIsActive($request->getOwnerID());
+       
+        if ($status == 'active') {
+            $uuid = $this->recordService->uuid();
+        
+            $item = $this->orderManager->create($request, $uuid);
+            if ($item) {
+                $this->recordService->create($item->getId(), $item->getState());
+            }
+            $response =$this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
         }
-        return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+        
+        if ($status == 'inactive') {
+            $response ="subscribe is awaiting activation!!";
+        }
+        if ($status == 'orders finished') {
+            $response ="subscripe finished, count orders is finished!!";
+        }
+
+        if ($status == 'date finished') {
+            $response ="subscripe finished, date is finished!!";
+        }
+
+        if ($status == 'unaccept') {
+            $response ="subscribe unaccept!!";
+        }
+        return $response;
     }
 
     public function getOrderById($orderId)
@@ -136,17 +172,20 @@ class OrderService
         return $response;
     }
 
-    public function closestOrders()
+    public function closestOrders($userId)
     {
-        $response = [];
-
-        $orders = $this->orderManager->closestOrders();
-   
-        foreach ($orders as $order) {
-            if ($order['fromBranch'] == true){
-            $order['fromBranch'] = $this->branchesService->getBrancheById($orders[0]['fromBranch']);
+        $response ="this captain inactive!!";
+        $status = $this->userService->captainIsActive($userId);
+        if ($status == 'active') {
+            $response = [];
+            $orders = $this->orderManager->closestOrders();
+    
+            foreach ($orders as $order) {
+                if ($order['fromBranch'] == true){
+                $order['fromBranch'] = $this->branchesService->getBrancheById($orders[0]['fromBranch']);
+                }
+                $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
             }
-            $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
         return $response;
     }

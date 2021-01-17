@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Service\OrderService;
-use App\Service\UserService;
-use App\Service\SubscriptionService;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
@@ -24,17 +22,14 @@ class OrderController extends BaseController
     private $autoMapping;
     private $validator;
     private $orderService;
-    private $userService;
-    private $subscriptionService;
+   
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, OrderService $orderService, UserService $userService, SubscriptionService $subscriptionService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, OrderService $orderService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->orderService = $orderService;
-        $this->userService = $userService;
-        $this->subscriptionService = $subscriptionService;
     }
     /**
      * @Route("order",         name="createOrder", methods={"POST"})
@@ -42,40 +37,21 @@ class OrderController extends BaseController
      */
     public function create(Request $request)
     {  
-        $response = "please subscribe!!";
-        
-        $status = $this->subscriptionService->subscriptionIsActive($this->getUserId());
-       
-        if ($status == 'active') {
-            $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
 
-            $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
-            $request->setOwnerID($this->getUserId());
+        $request = $this->autoMapping->map(stdClass::class, OrderCreateRequest::class, (object)$data);
+        $request->setOwnerID($this->getUserId());
 
-            $violations = $this->validator->validate($request);
-            if (\count($violations) > 0) {
-                $violationsString = (string) $violations;
-
-                return new JsonResponse($violationsString, Response::HTTP_OK);
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+            return new JsonResponse($violationsString, Response::HTTP_OK);
             }
 
             $response = $this->orderService->create($request);
-        }
-
-        if ($status == 'inactive') {
-            $response ="subscribe is awaiting activation!!";
-        }
-
-        if ($status == 'orders finished') {
-            $response ="subscripe finished, count orders is finished!!";
-        }
-
-        if ($status == 'date finished') {
-            $response ="subscripe finished, date is finished!!";
-        }
-
-        if ($status == 'unaccept') {
-            $response ="subscribe unaccept!!";
+      
+        if (is_string($response)) {
+            return $this->response($response, self::SUBSCRIBE_ERROR);
         }
 
         return $this->response($response, self::CREATE);
@@ -144,15 +120,12 @@ class OrderController extends BaseController
      */
     public function closestOrders()
     {
-        $result ="this captain inactive!!";
-        $status = $this->userService->captainIsActive($this->getUserId());
-        
-        if ($status == 'active') {
+        $response = $this->orderService->closestOrders($this->getUserId());
+        if (is_string($response)) {
+            return $this->response($response, self::SUBSCRIBE_ERROR);
+        }
 
-            $result = $this->orderService->closestOrders($this->getUserId());
-         }
-
-        return $this->response($result, self::FETCH);
+        return $this->response($response, self::FETCH);
     }
 
     /**

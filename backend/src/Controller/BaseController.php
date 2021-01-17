@@ -26,6 +26,7 @@ class BaseController extends AbstractController
     const UPDATE = ["updated","204"];
     const DELETE = ["deleted","401"];
     const FETCH = ["fetched","200"];
+    const SUBSCRIBE_ERROR = ["subscribe_error","421"];
 
 
     public function getUserId()

@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\RatingCreateRequest;
-// use App\Request\RatingUpdateRequest;
 use App\Service\RatingService;
-use App\Service\SubscriptionService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +19,13 @@ class RatingController extends BaseController
     private $autoMapping;
     private $validator;
     private $ratingService;
-    private $subscriptionService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, RatingService $ratingService, SubscriptionService $subscriptionService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, RatingService $ratingService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->ratingService = $ratingService;
-        $this->subscriptionService = $subscriptionService;
     }
 
     /**
@@ -40,9 +36,6 @@ class RatingController extends BaseController
      */
     public function create(Request $request)
     {
-        $status = $this->subscriptionService->subscriptionIsActive($this->getUserId());
-        
-        if ($status == 'active') {
             $data = json_decode($request->getContent(), true);
 
             $request = $this->autoMapping->map(stdClass::class, RatingCreateRequest::class, (object)$data);
@@ -57,7 +50,6 @@ class RatingController extends BaseController
                 return new JsonResponse($violationsString, Response::HTTP_OK);
             }
             $result = $this->ratingService->create($request);
-         }
 
         return $this->response($result, self::CREATE);
     }
