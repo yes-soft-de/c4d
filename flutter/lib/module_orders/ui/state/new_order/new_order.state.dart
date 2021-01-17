@@ -16,7 +16,7 @@ abstract class NewOrderState {
 
 class NewOrderStateInit extends NewOrderState {
   final List<String> _paymentMethods = ['online', 'cash'];
-  String _selectedPaymentMethod;
+  String _selectedPaymentMethod = 'online';
   DateTime orderDate = DateTime.now();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -26,7 +26,7 @@ class NewOrderStateInit extends NewOrderState {
   NewOrderStateInit(LatLng location, NewOrderScreenState screenState)
       : super(screenState) {
     if (location != null) {
-      _toController.text = 'From Whatsapp';
+      _toController.text = 'From WhatsApp';
     }
   }
 
@@ -231,7 +231,7 @@ class NewOrderStateInit extends NewOrderState {
                         BranchName.DefaultBranch,
                         _toController.text.trim(),
                         _infoController.text.trim(),
-                        _selectedPaymentMethod.trim(),
+                        _selectedPaymentMethod ?? _selectedPaymentMethod.trim(),
                         null,
                         null,
                         orderDate.toIso8601String(),

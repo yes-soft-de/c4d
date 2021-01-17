@@ -13,7 +13,12 @@ class LoginStateError extends LoginState {
       PageController(initialPage: UserRole.ROLE_OWNER.index);
   bool loading = false;
 
-  LoginStateError(LoginScreenState screen, this.errorMsg) : super(screen);
+  String email;
+  String password;
+
+  LoginStateError(
+      LoginScreenState screen, this.errorMsg, this.email, this.password)
+      : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
@@ -32,36 +37,36 @@ class LoginStateError extends LoginState {
         ),
         Expanded(
             child: PageView(
-          controller: loginTypeController,
-          onPageChanged: (pos) {
-            userType = UserRole.values[pos];
-            // screen.refresh();
-          },
-          children: [
-            PhoneLoginWidget(
-              codeSent: false,
-              loading: loading,
-              onLoginRequested: (phone) {
-                loading = true;
-                screen.loginCaptain(phone);
+              controller: loginTypeController,
+              onPageChanged: (pos) {
+                userType = UserRole.values[pos];
               },
-              onRetry: () {},
-              onConfirm: (confirmCode) {
-                screen.confirmCaptainSMS(confirmCode);
-              },
-            ),
-            EmailPasswordForm(
-              loading: loading,
-              onLoginRequest: (email, password) {
-                screen.loginOwner(
-                  email,
-                  email,
-                  password,
-                );
-              },
-            ),
-          ],
-        )),
+              children: [
+                PhoneLoginWidget(
+                  codeSent: false,
+                  loading: loading,
+                  onLoginRequested: (phone) {
+                    loading = true;
+                    screen.loginCaptain(phone);
+                  },
+                  onRetry: () {},
+                  onConfirm: (confirmCode) {
+                    screen.confirmCaptainSMS(confirmCode);
+                  },
+                ),
+                EmailPasswordForm(
+                  loading: loading,
+                  onLoginRequest: (email, password) {
+                    loading = true;
+                    screen.refresh();
+                    screen.loginOwner(
+                      email,
+                      password,
+                    );
+                  },
+                ),
+              ],
+            )),
         Container(
           alignment: Alignment.center,
           child: Padding(

@@ -25,7 +25,7 @@ class AuthService {
   final AuthPrefsHelper _prefsHelper;
   final AuthManager _authManager;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final PublishSubject<AuthStatus> _authSubject = PublishSubject();
+  final PublishSubject<AuthStatus> _authSubject = PublishSubject<AuthStatus>();
 
   String _verificationCode;
 
@@ -59,6 +59,8 @@ class AuthService {
       _prefsHelper.setToken(loginResult.token),
       _prefsHelper.setCurrentRole(user.userRole),
     ]);
+
+    _authSubject.add(AuthStatus.AUTHORIZED);
   }
 
   Future<void> _registerApiUser(AppUser user) async {
@@ -119,7 +121,7 @@ class AuthService {
       // Once signed in, return the UserCredential
       var userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      await _loginApiUser(AppUser(userCredential, AuthSource.PHONE, role));
+      await _registerApiUser(AppUser(userCredential, AuthSource.PHONE, role));
     } catch (e) {
       Logger().error('AuthStateManager', e.toString());
     }
@@ -129,7 +131,7 @@ class AuthService {
     var oauthCred = await _createAppleOAuthCred();
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(oauthCred);
-    await _loginApiUser(AppUser(userCredential, AuthSource.APPLE, role));
+    await _registerApiUser(AppUser(userCredential, AuthSource.APPLE, role));
   }
 
   Future<void> signInWithEmailAndPassword(
@@ -137,19 +139,20 @@ class AuthService {
     try {
       var userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      await _loginApiUser(AppUser(userCredential, AuthSource.EMAIL, role));
+      await _registerApiUser(AppUser(userCredential, AuthSource.EMAIL, role));
     } catch (e) {
       if (e is FirebaseAuthException) {
         FirebaseAuthException x = e;
+        Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
         _authSubject.addError(x.message);
+      } else {
+        print(e.toString());
+        _authSubject.addError(e.toString());
       }
-      _authSubject.addError(e.toString());
-      return;
     }
   }
 
   /// This helps create new accounts with email and password
-  /// @throw UnauthorizedException
   /// 1. Create a Firebase User
   /// 2. Create an API User
   void registerWithEmailAndPassword(
@@ -161,9 +164,10 @@ class AuthService {
     }).catchError((err) {
       if (err is FirebaseAuthException) {
         FirebaseAuthException x = err;
-        throw UnauthorizedException(x.message);
+        Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
+        _authSubject.addError(UnauthorizedException(x.message));
       } else {
-        throw UnauthorizedException('Error Registering with Auth Provider');
+        _authSubject.addError(UnauthorizedException('Error: ${err.toString()}'));
       }
     });
   }
@@ -192,12 +196,20 @@ class AuthService {
   /// @throw UnauthorizedException
   /// @throw TokenExpiredException
   Future<String> getToken() async {
-    var tokenDate = await this._prefsHelper.getTokenDate();
-    var diff = DateTime.now().difference(tokenDate).inMinutes;
-    if (diff.abs() < 55) {
-      throw TokenExpiredException('Token is created ${diff} minutes ago');
+    try {
+      var tokenDate = await this._prefsHelper.getTokenDate();
+      var diff = DateTime.now().difference(tokenDate).inMinutes;
+      if (diff.abs() > 55) {
+        throw TokenExpiredException('Token is created ${diff} minutes ago');
+      }
+      return this._prefsHelper.getToken();
+    } on UnauthorizedException {
+      await _prefsHelper.deleteToken();
+      return null;
+    } catch (e) {
+      print(e.toString());
+      return null;
     }
-    return this._prefsHelper.getToken();
   }
 
   /// refresh API token, this is done using Firebase Token Refresh

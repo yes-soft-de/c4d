@@ -1,5 +1,6 @@
 import 'package:c4d/module_auth/enums/auth_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/exceptions/auth_exception.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
@@ -13,51 +14,53 @@ import 'package:rxdart/rxdart.dart';
 @provide
 class RegisterStateManager {
   final AuthService _authService;
-  final PublishSubject<RegisterState> _loginStateSubject =
-  PublishSubject<RegisterState>();
-  final RegisterScreenState _registerScreenState;
+  final PublishSubject<RegisterState> _registerStateSubject =
+      PublishSubject<RegisterState>();
 
-  RegisterStateManager(this._authService, this._registerScreenState);
+  RegisterStateManager(this._authService);
 
-  Stream<RegisterState> get stateStream => _loginStateSubject.stream;
+  Stream<RegisterState> get stateStream => _registerStateSubject.stream;
 
-  void registerCaptain(String phoneNumber) {
+  void registerCaptain(
+      String phoneNumber, RegisterScreenState _registerScreenState) {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          _loginStateSubject.add(RegisterStateSuccess(_registerScreenState));
+          _registerStateSubject.add(RegisterStateSuccess(_registerScreenState));
           break;
         case AuthStatus.CODE_SENT:
-          _loginStateSubject.add(RegisterStatePhoneCodeSent(_registerScreenState));
+          _registerStateSubject
+              .add(RegisterStatePhoneCodeSent(_registerScreenState));
           break;
         case AuthStatus.CODE_TIMEOUT:
-          _loginStateSubject
+          _registerStateSubject
               .add(RegisterStateError(_registerScreenState, 'Code Timeout'));
           break;
         default:
-          _loginStateSubject.add(RegisterStateInit(_registerScreenState));
+          _registerStateSubject.add(RegisterStateInit(_registerScreenState));
           break;
       }
     }).onError((err) {
-      _loginStateSubject
+      _registerStateSubject
           .add(RegisterStateError(_registerScreenState, err.toString()));
     });
 
     _authService.verifyWithPhone(phoneNumber, UserRole.ROLE_CAPTAIN);
   }
 
-  void registerOwner(String email, String name, String password) {
+  void registerOwner(String email, String name, String password,
+      RegisterScreenState _registerScreenState) {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          _loginStateSubject.add(RegisterStateSuccess(_registerScreenState));
+          _registerStateSubject.add(RegisterStateSuccess(_registerScreenState));
           break;
         default:
-          _loginStateSubject.add(RegisterStateInit(_registerScreenState));
+          _registerStateSubject.add(RegisterStateInit(_registerScreenState));
           break;
       }
     }).onError((err) {
-      _loginStateSubject
+      _registerStateSubject
           .add(RegisterStateError(_registerScreenState, err.toString()));
     });
 

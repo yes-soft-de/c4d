@@ -40,7 +40,9 @@ class NewOrderScreenState extends State<NewOrderScreen> {
     super.initState();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 

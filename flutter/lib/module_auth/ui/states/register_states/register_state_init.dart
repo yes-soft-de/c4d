@@ -2,14 +2,15 @@ import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
 import 'package:c4d/module_auth/ui/widget/email_password_login/email_password_login.dart';
+import 'package:c4d/module_auth/ui/widget/email_password_register/email_password_register.dart';
 import 'package:c4d/module_auth/ui/widget/phone_login/phone_login.dart';
 import 'package:c4d/module_auth/ui/widget/user_type_selector/user_type_selector.dart';
 import 'package:flutter/material.dart';
 
 class RegisterStateInit extends RegisterState {
   UserRole userType = UserRole.ROLE_OWNER;
-  final loginTypeController =
-  PageController(initialPage: UserRole.ROLE_OWNER.index);
+  final registerTypeController =
+      PageController(initialPage: UserRole.ROLE_OWNER.index);
   bool loading = false;
 
   RegisterStateInit(RegisterScreenState screen) : super(screen);
@@ -24,17 +25,15 @@ class RegisterStateInit extends RegisterState {
             currentUserType: userType,
             onUserChange: (newType) {
               userType = newType;
-              loginTypeController.jumpToPage(userType.index);
-              // screen.refresh();
+              registerTypeController.jumpToPage(userType.index);
             },
           ),
         ),
         Expanded(
             child: PageView(
-              controller: loginTypeController,
+              controller: registerTypeController,
               onPageChanged: (pos) {
                 userType = UserRole.values[pos];
-                // screen.refresh();
               },
               children: [
                 PhoneLoginWidget(
@@ -48,9 +47,9 @@ class RegisterStateInit extends RegisterState {
                     screen.confirmCaptainSMS(confirmCode);
                   },
                 ),
-                EmailPasswordForm(
+                EmailPasswordRegisterForm(
                   loading: loading,
-                  onLoginRequest: (email, password) {
+                  onRegisterRequest: (email, password, name) {
                     screen.registerOwner(
                       email,
                       email,

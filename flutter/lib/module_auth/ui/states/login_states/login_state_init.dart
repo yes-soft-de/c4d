@@ -16,54 +16,57 @@ class LoginStateInit extends LoginState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 96,
-          child: UserTypeSelector(
-            currentUserType: userType,
-            onUserChange: (newType) {
-              userType = newType;
-              loginTypeController.jumpToPage(userType.index);
-              // screen.refresh();
-            },
-          ),
-        ),
-        Expanded(
-            child: PageView(
-          controller: loginTypeController,
-          onPageChanged: (pos) {
-            userType = UserRole.values[pos];
-            screen.refresh();
-          },
-          children: [
-            PhoneLoginWidget(
-              codeSent: false,
-              loading: loading,
-              onLoginRequested: (phone) {
-                loading = true;
-                screen.loginCaptain(phone);
-              },
-              onRetry: () {
-
-              },
-              onConfirm: (confirmCode) {
-                screen.confirmCaptainSMS(confirmCode);
-              },
-            ),
-            EmailPasswordForm(
-              loading: loading,
-              onLoginRequest: (email, password) {
-                screen.loginOwner(
-                  email,
-                  email,
-                  password,
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            height: 36,
+            child: UserTypeSelector(
+              currentUserType: userType,
+              onUserChange: (newType) {
+                userType = newType;
+                loginTypeController.animateToPage(
+                  userType.index,
+                  duration: Duration(seconds: 1),
+                  curve: Curves.linear,
                 );
               },
             ),
-          ],
-        )),
-      ],
+          ),
+          Expanded(
+              child: PageView(
+            controller: loginTypeController,
+            onPageChanged: (pos) {
+              userType = UserRole.values[pos];
+              screen.refresh();
+            },
+            children: [
+              PhoneLoginWidget(
+                codeSent: false,
+                loading: loading,
+                onLoginRequested: (phone) {
+                  loading = true;
+                  screen.loginCaptain(phone);
+                },
+                onRetry: () {},
+                onConfirm: (confirmCode) {
+                  screen.confirmCaptainSMS(confirmCode);
+                },
+              ),
+              EmailPasswordForm(
+                loading: loading,
+                onLoginRequest: (email, password) {
+                  screen.loginOwner(
+                    email,
+                    password,
+                  );
+                },
+              ),
+            ],
+          )),
+        ],
+      ),
     );
   }
 }

@@ -15,13 +15,15 @@ class LoginStateManager {
   final AuthService _authService;
   final PublishSubject<LoginState> _loginStateSubject =
       PublishSubject<LoginState>();
-  final LoginScreenState _loginScreenState;
 
-  LoginStateManager(this._authService, this._loginScreenState);
+  String _email;
+  String _password;
+
+  LoginStateManager(this._authService);
 
   Stream<LoginState> get stateStream => _loginStateSubject.stream;
 
-  void loginCaptain(String phoneNumber) {
+  void loginCaptain(String phoneNumber, LoginScreenState _loginScreenState) {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
@@ -31,8 +33,8 @@ class LoginStateManager {
           _loginStateSubject.add(LoginStateCodeSent(_loginScreenState));
           break;
         case AuthStatus.CODE_TIMEOUT:
-          _loginStateSubject
-              .add(LoginStateError(_loginScreenState, 'Code Timeout'));
+          _loginStateSubject.add(
+              LoginStateError(_loginScreenState, 'Code Timeout', _email, _password));
           break;
         default:
           _loginStateSubject.add(LoginStateInit(_loginScreenState));
@@ -40,13 +42,15 @@ class LoginStateManager {
       }
     }).onError((err) {
       _loginStateSubject
-          .add(LoginStateError(_loginScreenState, err.toString()));
+          .add(LoginStateError(_loginScreenState, err.toString(), _email, _password));
     });
 
     _authService.verifyWithPhone(phoneNumber, UserRole.ROLE_CAPTAIN);
   }
 
-  void loginOwner(String email, String name, String password) {
+  void loginOwner(String email, String password, LoginScreenState _loginScreenState) {
+    _email = email;
+    _password = password;
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
@@ -57,12 +61,12 @@ class LoginStateManager {
           break;
       }
     }).onError((err) {
-      _loginStateSubject
-          .add(LoginStateError(_loginScreenState, err.toString()));
+      _loginStateSubject.add(
+          LoginStateError(_loginScreenState, err.toString(), _email, _password));
     });
 
-    _authService.registerWithEmailAndPassword(
-        email, password, name, UserRole.ROLE_OWNER);
+    _authService.signInWithEmailAndPassword(
+        email, password, UserRole.ROLE_OWNER);
   }
 
   void confirmCaptainCode(String smsCode) {

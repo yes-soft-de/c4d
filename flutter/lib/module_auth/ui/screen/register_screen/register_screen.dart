@@ -2,6 +2,8 @@ import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/state_manager/register_state_manager/register_state_manager.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state_init.dart';
+import 'package:c4d/module_init/init_routes.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -16,7 +18,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class RegisterScreenState extends State<RegisterScreen> {
-
   RegisterState _currentState;
   UserRole currentUserRole;
 
@@ -24,6 +25,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   void initState() {
     super.initState();
 
+    _currentState = RegisterStateInit(this);
     widget._stateManager.stateStream.listen((event) {
       if (this.mounted) {
         setState(() {
@@ -43,20 +45,29 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   void registerCaptain(String phoneNumber) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.registerCaptain(phoneNumber);
+    widget._stateManager.registerCaptain(phoneNumber, this);
   }
 
   void registerOwner(String email, String username, String password) {
-    currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.registerOwner(email, username, password);
+    currentUserRole = UserRole.ROLE_OWNER;
+    widget._stateManager.registerOwner(email, username, password, this);
   }
 
   void confirmCaptainSMS(String smsCode) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.registerCaptain(smsCode);
+    widget._stateManager.registerCaptain(smsCode, this);
   }
 
   void retryPhone() {
+    currentUserRole = UserRole.ROLE_CAPTAIN;
     _currentState = RegisterStateInit(this);
+  }
+
+  void moveToNext() {
+    if (currentUserRole == UserRole.ROLE_OWNER) {
+      Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (r) => false);
+    } else if (currentUserRole == UserRole.ROLE_CAPTAIN) {
+      Navigator.of(context).pushNamedAndRemoveUntil(OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (r) => false);
+    }
   }
 }

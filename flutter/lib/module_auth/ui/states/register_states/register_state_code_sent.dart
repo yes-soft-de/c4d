@@ -41,8 +41,8 @@ class RegisterStatePhoneCodeSent extends RegisterState {
           OutlinedButton(
             onPressed: retryEnabled
                 ? () {
-              screen.retryPhone();
-            }
+                    screen.retryPhone();
+                  }
                 : null,
             child: Text(S.of(context).resendCode),
           ),

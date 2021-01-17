@@ -47,7 +47,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
               MediaQuery.of(context).viewInsets.bottom == 0
                   ? Container(
                   height: 144,
-                  child: SvgPicture.asset('assets/images/logo.svg'))
+                  child: Image.asset('assets/images/track.png'))
                   : Container(),
               Padding(
                 padding: const EdgeInsets.all(16.0),

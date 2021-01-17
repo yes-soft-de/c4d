@@ -64,56 +64,62 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: RefreshIndicator(
-            onRefresh: () {
-              screenState.getMyOrders();
-              return null;
-            },
-            child: ListView.builder(
-                itemCount: orders.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          OrdersRoutes.ORDER_STATUS_SCREEN,
-                          arguments: orders[index].id,
-                        );
-                      },
-                      child: OrderCard(
-                        to: orders[index].to,
-                        from: 'Default Branch',
-                        time: timeago.format(orders[index].creationTime),
-                        index: index,
+    return RefreshIndicator(
+      onRefresh: () {
+        screenState.getMyOrders();
+        return Future.delayed(Duration(seconds: 3));
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () {
+                screenState.getMyOrders();
+                return null;
+              },
+              child: ListView.builder(
+                  itemCount: orders.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.all(10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            OrdersRoutes.ORDER_STATUS_SCREEN,
+                            arguments: orders[index].id,
+                          );
+                        },
+                        child: OrderCard(
+                          to: orders[index].to,
+                          from: 'Default Branch',
+                          time: timeago.format(orders[index].creationTime),
+                          index: index,
+                        ),
                       ),
-                    ),
-                  );
-                }),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
-          },
-          child: Container(
-            color: Theme.of(context).primaryColor,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Create new order',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+                    );
+                  }),
             ),
           ),
-        )
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
+            },
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Create new order',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ),
+          )
 
-      ],
+        ],
+      ),
     );
   }
 

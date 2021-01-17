@@ -20,7 +20,7 @@ class UserTypeSelector extends StatelessWidget {
             child: Container(
               width: 300,
               child: AnimatedAlign(
-                  duration: Duration(milliseconds: 300),
+                  duration: Duration(seconds: 1),
                   alignment: currentUserType == UserRole.ROLE_CAPTAIN
                       ? Alignment.centerLeft
                       : Alignment.centerRight,
@@ -65,7 +65,7 @@ class UserTypeSelector extends StatelessWidget {
                     width: 150,
                     child: FlatButton(
                       onPressed: () {
-                        onUserChange(currentUserType);
+                        onUserChange(UserRole.ROLE_OWNER);
                       },
                       child: Text(
                         S.of(context).storeOwner,

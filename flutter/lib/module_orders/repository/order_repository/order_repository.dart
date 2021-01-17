@@ -67,7 +67,7 @@ class OrderRepository {
     dynamic response = await _apiClient.get(
       Urls.OWNER_ORDERS,
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ${token}'
       },
     );
     if (response == null) return [];

@@ -48,8 +48,12 @@ class AuthPrefsHelper {
   }
 
   Future<bool> isSignedIn() async {
-    String uid = await getToken();
-    return uid != null;
+    try {
+      String uid = await getToken();
+      return uid != null;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<AuthSource> getAuthSource() async {
@@ -69,9 +73,6 @@ class AuthPrefsHelper {
   /// @Function saves token string
   /// @returns void
   Future<void> setToken(String token) async {
-    if (token == null) {
-      return;
-    }
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     await preferencesHelper.setString(
       'token',

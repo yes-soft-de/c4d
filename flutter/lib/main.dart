@@ -4,6 +4,7 @@ import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
+import 'package:c4d/module_splash/splash_module.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -18,6 +19,7 @@ import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
 import 'module_auth/authoriazation_module.dart';
 import 'module_settings/settings_module.dart';
+import 'module_splash/splash_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,12 +42,14 @@ class MyApp extends StatefulWidget {
   final InitAccountModule _initAccountModule;
   final SettingsModule _settingsModule;
   final AuthorizationModule _authorizationModule;
+  final SplashModule _splashModule;
 
   MyApp(
     this._themeDataService,
     this._localizationService,
     this._ordersModule,
     this._chatModule,
+    this._splashModule,
     this._initAccountModule,
     this._settingsModule,
     this._authorizationModule,
@@ -119,7 +123,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       title: 'C4D Client',
       routes: fullRoutesList,
-      initialRoute: OrdersRoutes.OWNER_ORDERS_SCREEN,
+      initialRoute: SplashRoutes.SPLASH_SCREEN,
     );
   }
 }

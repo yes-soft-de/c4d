@@ -18,7 +18,6 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 
-@provide
 class LoginScreenState extends State<LoginScreen> {
   UserRole currentUserRole;
 
@@ -35,10 +34,12 @@ class LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     _currentState = LoginStateInit(this);
-    widget._stateManager.stateStream.listen((event) {
-      setState(() {
-        _currentState = event;
-      });
+    _stateSubscription = widget._stateManager.stateStream.listen((event) {
+      if (mounted) {
+        setState(() {
+          _currentState = event;
+        });
+      }
     });
   }
 
@@ -57,25 +58,28 @@ class LoginScreenState extends State<LoginScreen> {
 
   void navigateToOrders() {
     if (currentUserRole == UserRole.ROLE_CAPTAIN) {
-      Navigator.of(context).pushNamed(OrdersRoutes.CAPTAIN_ORDERS_SCREEN);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (r) => false);
     } else if (currentUserRole == UserRole.ROLE_OWNER) {
-      Navigator.of(context).pushNamed(OrdersRoutes.CAPTAIN_ORDERS_SCREEN);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (r) => false);
     }
   }
 
   void loginCaptain(String phoneNumber) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.loginCaptain(phoneNumber);
+    widget._stateManager.loginCaptain(phoneNumber, this);
   }
 
-  void loginOwner(String email, String username, String password) {
+  void loginOwner(String email, String password) {
+    print('Requesting Owner Login');
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.loginOwner(email, username, password);
+    widget._stateManager.loginOwner(email, password, this);
   }
 
   void confirmCaptainSMS(String smsCode) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.loginCaptain(smsCode);
+    widget._stateManager.loginCaptain(smsCode, this);
   }
 
   void retryPhone() {
