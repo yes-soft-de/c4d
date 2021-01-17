@@ -58,6 +58,7 @@ jobs:
         run: |
           cd ./flutter
           flutter pub upgrade
+          flutter packages pub run build_runner build
 
       - name: Install bundle
         run: |

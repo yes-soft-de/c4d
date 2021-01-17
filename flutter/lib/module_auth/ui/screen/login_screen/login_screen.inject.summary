@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_auth/state_manager/auth_state_manager/auth_state_manager.dart#AuthStateManager",
+                "root": "asset:c4d/lib/module_auth/state_manager/login_state_manager/login_state_manager.dart#LoginStateManager",
                 "qualifier": null
               },
               "isProvider": false

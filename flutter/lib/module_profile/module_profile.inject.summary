@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_auth/state_manager/auth_state_manager/auth_state_manager.dart",
+  "asset": "asset:c4d/lib/module_profile/module_profile.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "AuthStateManager",
+        "name": "ProfileModule",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_auth/state_manager/auth_state_manager/auth_state_manager.dart#AuthStateManager",
+              "root": "asset:c4d/lib/module_profile/module_profile.dart#ProfileModule",
               "qualifier": null
             },
             "isProvider": false
@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
+                "root": "asset:c4d/lib/module_profile/ui/screen/profile_screen/profile_screen..dart#ProfileScreen",
                 "qualifier": null
               },
               "isProvider": false

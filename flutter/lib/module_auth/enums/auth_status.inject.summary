@@ -1,5 +1,5 @@
 {
-  "asset": "asset:c4d/lib/module_auth/states/auth_states/auth_states.dart",
+  "asset": "asset:c4d/lib/module_auth/enums/auth_status.dart",
   "summary": {
     "injector": [],
     "module": [],

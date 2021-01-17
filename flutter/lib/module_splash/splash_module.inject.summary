@@ -1,17 +1,17 @@
 {
-  "asset": "asset:c4d/lib/module_auth/service/auth_service/auth_service.dart",
+  "asset": "asset:c4d/lib/module_splash/splash_module.dart",
   "summary": {
     "injector": [],
     "module": [],
     "injectable": [
       {
-        "name": "AuthService",
+        "name": "SplashModule",
         "constructor": {
           "name": "",
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
+              "root": "asset:c4d/lib/module_splash/splash_module.dart#SplashModule",
               "qualifier": null
             },
             "isProvider": false
@@ -21,14 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_auth/presistance/auth_prefs_helper.dart#AuthPrefsHelper",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:c4d/lib/module_auth/manager/auth_manager/auth_manager.dart#AuthManager",
+                "root": "asset:c4d/lib/module_splash/ui/screen/splash_screen.dart#SplashScreen",
                 "qualifier": null
               },
               "isProvider": false
