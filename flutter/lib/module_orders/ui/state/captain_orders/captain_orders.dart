@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -13,13 +15,15 @@ import 'package:timeago/timeago.dart' as timeago;
 
 abstract class CaptainOrdersListState {
   CaptainOrdersScreenState screenState;
+
   CaptainOrdersListState(this.screenState);
 
   Widget getUI(BuildContext context);
 }
 
 class OrdersListStateInit extends CaptainOrdersListState {
-  OrdersListStateInit(CaptainOrdersScreenState screenState) : super(screenState);
+  OrdersListStateInit(CaptainOrdersScreenState screenState)
+      : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -35,8 +39,19 @@ class CaptainOrdersListStateLoading extends CaptainOrdersListState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Center(
-      child: Lottie.network('https://assets4.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json'),
+    return RefreshIndicator(
+      onRefresh: () {
+        screenState.getMyOrders();
+        return Future.delayed(Duration(seconds: 3));
+      },
+      child: Center(
+        child: GestureDetector(
+            onTap: () {
+              screenState.getMyOrders();
+            },
+            child: Lottie.network(
+                'https://assets4.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json')),
+      ),
     );
   }
 }
@@ -48,7 +63,8 @@ class CaptainOrdersListStateUnauthorized extends CaptainOrdersListState {
   @override
   Widget getUI(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).pushNamedAndRemoveUntil(AuthorizationRoutes.LOGIN_SCREEN, (r) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          AuthorizationRoutes.LOGIN_SCREEN, (r) => false);
     });
     return Center(
       child: CircularProgressIndicator(),
@@ -59,7 +75,8 @@ class CaptainOrdersListStateUnauthorized extends CaptainOrdersListState {
 class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   final List<OrderModel> orders;
 
-  CaptainOrdersListStateOrdersLoaded(this.orders, CaptainOrdersScreenState screenState)
+  CaptainOrdersListStateOrdersLoaded(
+      this.orders, CaptainOrdersScreenState screenState)
       : super(screenState);
 
   @override
@@ -71,7 +88,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
           child: RefreshIndicator(
             onRefresh: () {
               screenState.getMyOrders();
-              return null;
+              return Future.delayed(Duration(seconds: 3));
             },
             child: ListView.builder(
                 itemCount: orders.length,
@@ -131,7 +148,8 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
 class CaptainOrdersListStateError extends CaptainOrdersListState {
   final String errorMsg;
 
-  CaptainOrdersListStateError(this.errorMsg, CaptainOrdersScreenState screenState)
+  CaptainOrdersListStateError(
+      this.errorMsg, CaptainOrdersScreenState screenState)
       : super(screenState);
 
   @override

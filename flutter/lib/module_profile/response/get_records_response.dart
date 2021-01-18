@@ -1,3 +1,5 @@
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
+
 class GetRecordsResponse {
   String statusCode;
   String msg;
@@ -32,7 +34,7 @@ class ActivityRecord {
   String ownerID;
   Null userName;
   List<Null> source;
-  List<String> destination;
+  GeoJson destination;
   Null date;
   Null updateDate;
   String note;
@@ -42,8 +44,8 @@ class ActivityRecord {
   String state;
   int fromBranch;
   Location location;
-  Null brancheName;
-  Null branchCity;
+  String brancheName;
+  String branchCity;
   List<Null> acceptedOrder;
   List<Record> record;
   Null uuid;
@@ -73,7 +75,7 @@ class ActivityRecord {
     id = json['id'];
     ownerID = json['ownerID'];
     userName = json['userName'];
-    destination = json['destination'].cast<String>();
+    destination = GeoJson.fromJson(json['destination']);
     date = json['date'];
     updateDate = json['updateDate'];
     note = json['note'];

@@ -1,5 +1,3 @@
-import 'package:c4d/module_auth/enums/user_type.dart';
-import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders.dart';
@@ -18,9 +16,9 @@ class CaptainOrdersListStateManager {
   void getMyOrders(CaptainOrdersScreenState screenState) {
     CaptainOrdersListStateLoading(screenState);
     _ordersService.getNearbyOrders().then((value) {
-      CaptainOrdersListStateOrdersLoaded(value, screenState);
+      _stateSubject.add(CaptainOrdersListStateOrdersLoaded(value, screenState));
     }).catchError((e) {
-      CaptainOrdersListStateError(e.toString(), screenState);
+      _stateSubject.add(CaptainOrdersListStateError(e.toString(), screenState));
     });
   }
 }

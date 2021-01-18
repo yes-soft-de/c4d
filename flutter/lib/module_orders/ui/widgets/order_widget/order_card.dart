@@ -1,9 +1,10 @@
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:flutter/material.dart';
 
 class OrderCard extends StatelessWidget {
   final String from;
-  final String to;
+  final GeoJson to;
   final String time;
   final int index;
 

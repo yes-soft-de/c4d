@@ -22,9 +22,7 @@ class OrderRepository {
     dynamic response = await _apiClient.post(
       Urls.NEW_ORDER,
       orderRequest.toJson(),
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
+      headers: {'Authorization': 'Bearer ' + token},
     );
 
     if (response == null) return false;
@@ -39,9 +37,7 @@ class OrderRepository {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.ORDER_STATUS + '$orderId',
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
+      headers: {'Authorization': 'Bearer ' + token},
     );
     if (response == null) return null;
     return OrderStatusResponse.fromJson(response).data;
@@ -52,13 +48,12 @@ class OrderRepository {
 
     dynamic response = await _apiClient.get(
       Urls.NEARBY_ORDERS,
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
+      headers: {'Authorization': 'Bearer ' + token},
     );
     if (response == null) return null;
 
-    return OrdersResponse.fromJson(response).data;
+    var list = OrdersResponse.fromJson(response).data;
+    return list;
   }
 
   Future<List<Order>> getMyOrders() async {
@@ -66,9 +61,7 @@ class OrderRepository {
 
     dynamic response = await _apiClient.get(
       Urls.OWNER_ORDERS,
-      headers: {
-        'Authorization': 'Bearer ${token}'
-      },
+      headers: {'Authorization': 'Bearer ${token}'},
     );
     if (response == null) return [];
 
@@ -81,9 +74,7 @@ class OrderRepository {
     dynamic response = await _apiClient.put(
       '${Urls.NEW_ORDER}/$orderId',
       orderRequest.toJson(),
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
+      headers: {'Authorization': 'Bearer ' + token},
     );
 
     if (response == null) return null;

@@ -14,7 +14,7 @@ class Urls {
   static const NEARBY_ORDERS = BASE_API + '/closestOrders';
   static const OWNER_ORDERS = BASE_API + '/orders/';
   static const NEW_ORDER = BASE_API + '/order';
-  static const ORDER_STATUS = BASE_API + '/orderById/';
+  static const ORDER_STATUS = BASE_API + '/orderStatus/';
   static const ORDER_STATUS_FOR_CAPTAIN =
       BASE_API + '/getOrderStatusForCaptain/';
 

@@ -1,3 +1,4 @@
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_orders/ui/state/new_order/new_order.state.dart';
@@ -15,7 +16,7 @@ class NewOrderStateManager {
 
   void addNewOrder(
       String fromBranch,
-      String destination,
+      GeoJson destination,
       String note,
       String paymentMethod,
       String recipientName,

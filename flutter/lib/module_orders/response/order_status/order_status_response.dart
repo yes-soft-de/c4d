@@ -1,3 +1,5 @@
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
+
 class OrderStatusResponse {
   String statusCode;
   String msg;
@@ -26,7 +28,7 @@ class OrderDetailsData {
   int id;
   String ownerID;
   List<String> source;
-  List<String> destination;
+  GeoJson destination;
   Date date;
   Date updateDate;
   String note;
@@ -34,12 +36,12 @@ class OrderDetailsData {
   String recipientName;
   String recipientPhone;
   String state;
-  int fromBranch;
-  String location;
+  GeoJson fromBranch;
+  GeoJson location;
   String brancheName;
   String branchCity;
   String acceptedOrder;
-  String record;
+  List<dynamic> record;
   String uuid;
 
   OrderDetailsData(
@@ -66,7 +68,7 @@ class OrderDetailsData {
     id = json['id'];
     ownerID = json['ownerID'];
     source = json['source'].cast<String>();
-    destination = json['destination'].cast<String>();
+    destination = GeoJson.fromJson(json['destination']);
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
     updateDate = json['updateDate'] != null
         ? new Date.fromJson(json['updateDate'])
@@ -76,8 +78,8 @@ class OrderDetailsData {
     recipientName = json['recipientName'];
     recipientPhone = json['recipientPhone'];
     state = json['state'];
-    fromBranch = json['fromBranch'];
-    location = json['location'];
+    fromBranch = GeoJson.fromJson(json['fromBranch']);
+    location = GeoJson.fromJson(json['location']);
     brancheName = json['brancheName'];
     branchCity = json['branchCity'];
     acceptedOrder = json['acceptedOrder'];

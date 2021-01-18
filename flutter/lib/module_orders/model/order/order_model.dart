@@ -1,4 +1,5 @@
 import 'package:c4d/consts/order_status.dart';
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:latlong/latlong.dart';
 
 class OrderModel {
@@ -18,7 +19,7 @@ class OrderModel {
     this.chatRoomId,
   });
 
-  String to;
+  GeoJson to;
   LatLng toOnMap;
   String from;
   DateTime creationTime;

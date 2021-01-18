@@ -1,6 +1,8 @@
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
+
 class CreateOrderRequest {
   String fromBranch;
-  List<String> destination;
+  GeoJson destination;
   String note;
   String payment;
   String recipientName;
@@ -18,7 +20,7 @@ class CreateOrderRequest {
 
   CreateOrderRequest.fromJson(Map<String, dynamic> json) {
     fromBranch = json['fromBranch'];
-    destination = json['destination'].cast<String>();
+    destination = GeoJson.fromJson(json['destination']);
     note = json['note'];
     payment = json['payment'];
     recipientName = json['recipientName'];
@@ -29,7 +31,7 @@ class CreateOrderRequest {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['fromBranch'] = this.fromBranch;
-    data['destination'] = this.destination;
+    data['destination'] = this.destination.toJson();
     data['note'] = this.note;
     data['payment'] = this.payment;
     data['recipientName'] = this.recipientName;

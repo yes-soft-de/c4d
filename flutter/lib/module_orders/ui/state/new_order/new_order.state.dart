@@ -1,5 +1,6 @@
 import 'package:c4d/consts/branch.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -230,7 +231,7 @@ class NewOrderStateInit extends NewOrderState {
                     onPressed: () {
                       screenState.addNewOrder(
                         BranchName.DefaultBranch,
-                        _toController.text.trim(),
+                        GeoJson(null, null),
                         _infoController.text.trim(),
                         _selectedPaymentMethod ?? _selectedPaymentMethod.trim(),
                         null,
