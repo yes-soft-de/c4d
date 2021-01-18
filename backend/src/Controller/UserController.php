@@ -334,7 +334,6 @@ class UserController extends BaseController
 
      /**
      * @Route("/getUsers/{userType}", name="getUsers",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
      *  @return JsonResponse
      */
     public function getUsers($userType)

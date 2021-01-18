@@ -179,9 +179,9 @@ class OrderService
         // if ($status == 'active') {
             $response = [];
             $orders = $this->orderManager->closestOrders();
-    
+  
             foreach ($orders as $order) {
-                if ($order['fromBranch'] == true){
+                if ($order['fromBranch']){
                 $order['fromBranch'] = $this->branchesService->getBrancheById($orders[0]['fromBranch']);
                 }
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);

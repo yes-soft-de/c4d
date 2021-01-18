@@ -23,6 +23,8 @@ class OrderResponse
     public $acceptedOrder;
     public $record;
     public $uuid;
+    // public $uuidCaptain;
+    // public $uuidOwner;
     
     
 }
