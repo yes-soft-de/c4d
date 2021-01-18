@@ -151,8 +151,6 @@ App\Request\AcceptedOrderCreateRequest:
   properties:
     orderID:
       - NotBlank: ~
-    duration:
-      - NotBlank: ~
 
 App\Request\AcceptedOrderUpdateRequest:
   properties:
