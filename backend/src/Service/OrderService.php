@@ -174,9 +174,9 @@ class OrderService
 
     public function closestOrders($userId)
     {
-        $response ="this captain inactive!!";
-        $status = $this->userService->captainIsActive($userId);
-        if ($status == 'active') {
+        // $response ="this captain inactive!!";
+        // $status = $this->userService->captainIsActive($userId);
+        // if ($status == 'active') {
             $response = [];
             $orders = $this->orderManager->closestOrders();
     
@@ -186,7 +186,7 @@ class OrderService
                 }
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
             }
-        }
+        // }
         return $response;
     }
 
