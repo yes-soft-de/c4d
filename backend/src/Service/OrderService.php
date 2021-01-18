@@ -142,18 +142,18 @@ class OrderService
                if ($order['fromBranch'] == true){
                     $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                }
+            
+            $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
+
+            $order['record'] = $this->recordService->getrecordByOrderId($orderId);
             }
-            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
-
-            $record = $this->recordService->getrecordByOrderId($orderId);
-
             $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
-            if ($acceptedOrder) {
-                $response->acceptedOrder =  $acceptedOrder;
-            }
+            // if ($acceptedOrder) {
+            //     $response->acceptedOrder =  $acceptedOrder;
+            // }
 
-            $response->record =  $record;
+            // $response->record =  $record;
         }
         if($userType == 'ROLE_CAPTAIN') {
             $order = $this->orderManager->orderStatusForCaptain($userID, $orderId);
@@ -161,17 +161,17 @@ class OrderService
                 if ($order['fromBranch']){
                     $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                 }
-          }
-            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
+          
+          $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
-            $record = $this->recordService->getrecordByOrderId($orderId);
-
+          $order['record'] = $this->recordService->getrecordByOrderId($orderId);
+            }
             $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
-            if ($acceptedOrder) {
-                $response->acceptedOrder =  $acceptedOrder;
-                $response->record =  $record;
-            }
+            // if ($acceptedOrder) {
+            //     $response->acceptedOrder =  $acceptedOrder;
+            //     $response->record =  $record;
+            // }
         }
         return $response;
     }

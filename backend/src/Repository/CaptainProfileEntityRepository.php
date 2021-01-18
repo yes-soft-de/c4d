@@ -104,8 +104,8 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
         return  $this->createQueryBuilder('captainProfile')
          
             ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce')
-
             ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
+            
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
 
             ->andWhere('acceptedOrderEntity.state =:state')
