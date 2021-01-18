@@ -135,10 +135,13 @@ class OrderService
 
     public function orderStatus($userID, $orderId, $userType)
     {
+        
         if($userType == 'ROLE_OWNER') {
             $order = $this->orderManager->orderStatus($userID, $orderId);
-            if ($order['fromBranch'] == true){
-                $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+            if ($order){
+               if ($order['fromBranch'] == true){
+                    $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+               }
             }
             $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
@@ -154,10 +157,11 @@ class OrderService
         }
         if($userType == 'ROLE_CAPTAIN') {
             $order = $this->orderManager->orderStatusForCaptain($userID, $orderId);
-           
-            if ($order['fromBranch'] == true){
-                $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
-            }
+            if ($order){
+                if ($order['fromBranch']){
+                    $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+                }
+          }
             $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
             $record = $this->recordService->getrecordByOrderId($orderId);
