@@ -404,6 +404,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Renew Subscription`
+  String get renewSubscription {
+    return Intl.message(
+      'Renew Subscription',
+      name: 'renewSubscription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

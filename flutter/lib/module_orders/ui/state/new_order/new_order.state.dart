@@ -276,18 +276,23 @@ class NewOrderStateSuccessState extends NewOrderState {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Image.asset(
-              'assets/images/track.png',
-              fit: BoxFit.cover,
-            ),
+          Image.asset(
+            'assets/images/track.png',
+            fit: BoxFit.cover,
+            height: 300,
+            width: 300,
           ),
           RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
-              },
-              child: Text(S.of(context).orderCreatedReturnToOrders))
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                OrdersRoutes.OWNER_ORDERS_SCREEN,
+                (r) => false,
+              );
+            },
+            child: Text(
+              S.of(context).orderCreatedReturnToOrders,
+            ),
+          ),
         ],
       ),
     );

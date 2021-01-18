@@ -9,7 +9,7 @@ class CreateBranchRequest {
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
+      'brancheName': name,
       'location': location,
     };
   }

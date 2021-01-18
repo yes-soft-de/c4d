@@ -36,5 +36,6 @@
   "login": "Login",
   "orderDetails": "Order Details",
   "orderCreatedReturnToOrders": "Order Created, Return to Orders",
-  "newOrder": "New Order"
+  "newOrder": "New Order",
+  "renewSubscription": "Renew Subscription"
 }

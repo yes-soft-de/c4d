@@ -1,52 +1,44 @@
+import 'package:c4d/module_profile/state_manager/profile_state_manager.dart';
+import 'package:c4d/module_profile/ui/states/profile_state/profile_state.dart';
+import 'package:c4d/module_profile/ui/states/profile_state_loading/profile_state_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:inject/inject.dart';
 
 @provide
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  final ProfileStateManager _profileStateManager;
+
+  ProfileScreen(this._profileStateManager);
+
+  @override
+  State<StatefulWidget> createState() => ProfileScreenState();
+}
+
+class ProfileScreenState extends State<ProfileScreen> {
+
+  ProfileState _currentState;
+
+  @override
+  void initState() {
+    _currentState = ProfileStateLoading(this);
+    widget._profileStateManager.getMyProfile(this);
+    widget._profileStateManager.stateStream.listen((event) {
+      _currentState = event;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Container(
-                height: 200,
-                child: SparkBar.withSampleData(),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.timelapse),
-                  title: Text('Event Happened'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.timelapse),
-                  title: Text('Event Happened'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.timelapse),
-                  title: Text('Event Happened'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.timelapse),
-                  title: Text('Event Happened'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: _currentState.getUI(context),
     );
   }
 }
@@ -72,10 +64,10 @@ class SparkBar extends StatelessWidget {
       animate: animate,
 
       primaryMeasureAxis:
-          new charts.NumericAxisSpec(renderSpec: new charts.NoneRenderSpec()),
+      new charts.NumericAxisSpec(renderSpec: new charts.NoneRenderSpec()),
 
       domainAxis: new charts.OrdinalAxisSpec(
-          // Make sure that we draw the domain axis line.
+        // Make sure that we draw the domain axis line.
           showAxisLine: true,
           // But don't draw anything else.
           renderSpec: new charts.NoneRenderSpec()),

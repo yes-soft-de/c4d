@@ -30,19 +30,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //city
-                  Container(
-                    child: DropdownButtonFormField(
-                        // value: _selectedCity,
-                        decoration: InputDecoration(
-                          hintText: 'Choose Your City',
-                        ),
-                        items: _getCities(),
-                        onChanged: (value) {
-                          _selectedCity = value;
-                          screen.refresh();
-                        }),
-                  ),
+
                   //size
                   DropdownButtonHideUnderline(
                     child: DropdownButtonFormField(
@@ -52,6 +40,19 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                         items: _getSizes(),
                         onChanged: (value) {
                           _selectedCity = value;
+                        }),
+                  ),
+                  //city
+                  Container(
+                    child: DropdownButtonFormField(
+                      // value: _selectedCity,
+                        decoration: InputDecoration(
+                          hintText: 'Choose Your City',
+                        ),
+                        items: _getCities(),
+                        onChanged: (value) {
+                          _selectedCity = value;
+                          screen.refresh();
                         }),
                   ),
                   //package

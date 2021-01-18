@@ -11,20 +11,17 @@ class NewOrderStateManager {
 
   Stream<NewOrderState> get stateStream => _stateSubject.stream;
 
-  NewOrderStateManager(
-    this._service,
-  );
+  NewOrderStateManager(this._service);
 
   void addNewOrder(
-    String fromBranch,
-    String destination,
-    String note,
-    String paymentMethod,
-    String recipientName,
-    String recipientPhone,
-    String date,
-    NewOrderScreenState screenState,
-  ) {
+      String fromBranch,
+      String destination,
+      String note,
+      String paymentMethod,
+      String recipientName,
+      String recipientPhone,
+      String date,
+      NewOrderScreenState screenState) {
     _service
         .addNewOrder(fromBranch, destination, note, paymentMethod,
             recipientName, recipientPhone, date)

@@ -7,6 +7,7 @@ class Urls {
   static const PROFILE = BASE_API + '/userprofile';
   static const BRANCH = BASE_API + '/branches';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
+  static const LOG_API = BASE_API + '/getRecords';
 
   static const CREATE_CAPTAIN_ACCOUNT = BASE_API + '/captainprofile';
 

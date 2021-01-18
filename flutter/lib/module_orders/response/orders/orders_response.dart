@@ -29,7 +29,7 @@ class Order {
   String recipientName;
   String recipientPhone;
   String state;
-  int fromBranch;
+  Map<String, dynamic> fromBranch;
   String location;
   String brancheName;
   String branchCity;

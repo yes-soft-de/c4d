@@ -37,7 +37,7 @@ class RegisterStateError extends RegisterState {
               controller: registerTypeController,
               onPageChanged: (pos) {
                 userType = UserRole.values[pos];
-                // screen.refresh();
+                screen.refresh();
               },
               children: [
                 PhoneLoginWidget(
@@ -68,7 +68,7 @@ class RegisterStateError extends RegisterState {
           alignment: Alignment.center,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(errorMsg),
+            child: Text(errorMsg, maxLines: 3,),
           ),
         ) : Container(),
       ],

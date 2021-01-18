@@ -42,6 +42,9 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  void refresh() {
+    setState(() {});
+  }
 
   void registerCaptain(String phoneNumber) {
     currentUserRole = UserRole.ROLE_CAPTAIN;

@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "phoneNumber" : MessageLookupByLibrary.simpleMessage("Phone Number"),
     "pleaseEnterYourEmail" : MessageLookupByLibrary.simpleMessage("Please Enter Your Email"),
     "pleaseInputPhoneNumber" : MessageLookupByLibrary.simpleMessage("Please input phone number"),
+    "renewSubscription" : MessageLookupByLibrary.simpleMessage("Renew Subscription"),
     "resendCode" : MessageLookupByLibrary.simpleMessage("Resend Code"),
     "saudiArabia" : MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("Searching for Captain"),

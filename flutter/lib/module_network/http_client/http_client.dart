@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:dio_firebase_performance/dio_firebase_performance.dart';
 import 'package:inject/inject.dart';
 import 'package:c4d/utils/logger/logger.dart';
 
@@ -9,6 +10,8 @@ class ApiClient {
   String token;
   final Logger _logger;
   final String tag = 'ApiClient';
+
+  final performanceInterceptor = DioFirebasePerformanceInterceptor();
 
   ApiClient(this._logger);
 
@@ -26,6 +29,8 @@ class ApiClient {
         receiveTimeout: 60000,
         connectTimeout: 60000,
       ));
+      client.interceptors.add(performanceInterceptor);
+
       if (headers != null) {
         if (headers['Authorization'] != null) {
           _logger.info(tag, 'Adding Auth Header');
@@ -64,6 +69,7 @@ class ApiClient {
           client.options.headers['Authorization'] = headers['Authorization'];
         }
       }
+      client.interceptors.add(performanceInterceptor);
       var response = await client.post(
         url,
         queryParameters: queryParams,
@@ -90,6 +96,7 @@ class ApiClient {
         receiveTimeout: 60000,
         connectTimeout: 60000,
       ));
+      client.interceptors.add(performanceInterceptor);
       var response = await client.put(
         url,
         queryParameters: queryParams,
@@ -116,6 +123,7 @@ class ApiClient {
         receiveTimeout: 60000,
         connectTimeout: 60000,
       ));
+      client.interceptors.add(performanceInterceptor);
       if (headers != null) {
         if (headers['Authorization'] != null) {
           _logger.info(tag, 'Adding Auth Header');

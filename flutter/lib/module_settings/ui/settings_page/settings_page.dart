@@ -1,4 +1,5 @@
 import 'package:c4d/module_auth/authorization_routes.dart';
+import 'package:c4d/module_init/init_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 import 'package:c4d/generated/l10n.dart';
@@ -53,6 +54,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               .switchDarkMode(mode)
                               .then((value) {});
                         })
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                color: Colors.black12,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Flex(
+                  direction: Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(S.of(context).renewSubscription),
+                    IconButton(icon: Icon(Icons.autorenew_sharp), onPressed: () {
+                      Navigator.of(context).pushNamed(InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                    }),
                   ],
                 ),
               ),
