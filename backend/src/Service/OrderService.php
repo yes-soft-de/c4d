@@ -173,11 +173,12 @@ class OrderService
         // if ($status == 'active') {
             $response = [];
             $orders = $this->orderManager->closestOrders();
-  
+
             foreach ($orders as $order) {
                 if ($order['fromBranch'] == true){
                     $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                 }
+                $order['record'] = $this->recordService->getrecordByOrderId($order['id']);
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
             }
         // }

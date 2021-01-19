@@ -112,6 +112,23 @@ class OrderManager
         }
     }
 
+    public function test($orderID)
+    {
+        $item = $this->repository->find($orderID);
+       
+
+        if ($item) {
+            // $item = $this->autoMapping->mapToObject(OrderUpdateStateByCaptainRequest::class, OrderEntity::class, $request, $item);
+            $item->setState('on way to pick order');
+            $item->setUpdateDate($item->getUpdateDate());
+            
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
     public function delete(DeleteRequest $request)
     {
         $entity = $this->repository->find($request->getId());

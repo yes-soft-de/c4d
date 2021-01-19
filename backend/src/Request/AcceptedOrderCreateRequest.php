@@ -43,4 +43,12 @@ class AcceptedOrderCreateRequest
 
         return $this;
     }
+
+     /**
+     * @return mixed
+     */
+    public function getOrderID()
+    {
+        return $this->orderID;
+    }
 }

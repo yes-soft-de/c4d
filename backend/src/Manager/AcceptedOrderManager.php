@@ -4,6 +4,7 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Entity\AcceptedOrderEntity;
+use App\Manager\OrderManager;
 use App\Repository\AcceptedOrderEntityRepository;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Request\AcceptedOrderUpdateRequest;
@@ -18,13 +19,15 @@ class AcceptedOrderManager
     private $entityManager;
     private $encoder;
     private $repository;
+    private $orderManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, AcceptedOrderEntityRepository $repository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, AcceptedOrderEntityRepository $repository,OrderManager $orderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->encoder = $encoder;
         $this->repository = $repository;
+        $this->orderManager = $orderManager;
     }
 
     public function create(AcceptedOrderCreateRequest $request)
@@ -36,7 +39,8 @@ class AcceptedOrderManager
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();
-
+        //////////////////////////test
+$this->orderManager->test($request->getOrderID());
         return $item;
     }
 
