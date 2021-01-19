@@ -47,37 +47,39 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function orderStatus($userID, $orderId)
+    public function orderStatus($orderId)
     {
         return $this->createQueryBuilder('OrderEntity')
             ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'OrderEntity.uuid')
 
-            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
+            // ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
 
-            ->andWhere('OrderEntity.ownerID = :userID')
+            // ->andWhere('OrderEntity.ownerID = :userID')
             ->andWhere('OrderEntity.id = :ID')
-            ->setParameter('userID', $userID)
+            // ->setParameter('userID', $userID)
             ->setParameter('ID', $orderId)
             ->getQuery()
             ->getOneOrNullResult();
     }
+    
+    //for delete
+    // public function orderStatusForCaptain($userID, $orderId)
+    // {
+    //     return $this->createQueryBuilder('OrderEntity')
+    //         ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch')
 
-    public function orderStatusForCaptain($userID, $orderId)
-    {
-        return $this->createQueryBuilder('OrderEntity')
-            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch')
+    //         ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
 
-            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
+    //         // ->join(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = acceptedOrderEntity.captainID')
 
-            // ->join(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = acceptedOrderEntity.captainID')
-
-            ->andWhere('acceptedOrderEntity.captainID = :userID')
-            ->andWhere('acceptedOrderEntity.orderID = :ID')
-            ->setParameter('userID', $userID)
-            ->setParameter('ID', $orderId)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
+    //         // ->andWhere('acceptedOrderEntity.captainID = :userID')
+    //         // ->andWhere('acceptedOrderEntity.orderID = :ID')
+    //         ->andWhere('OrderEntity.id = :ID')
+    //         // ->setParameter('userID', $userID)
+    //         ->setParameter('ID', $orderId)
+    //         ->getQuery()
+    //         ->getOneOrNullResult();
+    // }
 
     public function closestOrders()
     {

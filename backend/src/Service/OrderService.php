@@ -133,11 +133,11 @@ class OrderService
         return $response;
     }
 
-    public function orderStatus($userID, $orderId, $userType)
+    public function orderStatus($orderId)
     {
         
-        if($userType == 'ROLE_OWNER') {
-            $order = $this->orderManager->orderStatus($userID, $orderId);
+        // if($userType == 'ROLE_OWNER') {
+            $order = $this->orderManager->orderStatus( $orderId);
             if ($order){
                if ($order['fromBranch'] == true){
                     $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
@@ -149,30 +149,20 @@ class OrderService
             }
             $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
-            // if ($acceptedOrder) {
-            //     $response->acceptedOrder =  $acceptedOrder;
-            // }
-
-            // $response->record =  $record;
-        }
-        if($userType == 'ROLE_CAPTAIN') {
-            $order = $this->orderManager->orderStatusForCaptain($userID, $orderId);
-            if ($order){
-                if ($order['fromBranch']){
-                    $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
-                }
+        // }
+        // if($userType == 'ROLE_CAPTAIN') {
+        //     $order = $this->orderManager->orderStatusForCaptain($userID, $orderId);
+        //     if ($order){
+        //         if ($order['fromBranch']){
+        //             $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+        //         }
           
-          $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
+        //   $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
-          $order['record'] = $this->recordService->getrecordByOrderId($orderId);
-            }
-            $response = $this->autoMapping->map('array', OrderResponse::class, $order);
-
-            // if ($acceptedOrder) {
-            //     $response->acceptedOrder =  $acceptedOrder;
-            //     $response->record =  $record;
-            // }
-        }
+        //   $order['record'] = $this->recordService->getrecordByOrderId($orderId);
+        //     }
+        //     $response = $this->autoMapping->map('array', OrderResponse::class, $order);
+        // }
         return $response;
     }
 

@@ -58,15 +58,15 @@ class OrderManager
         return $this->repository->getOrdersByOwnerID($userID);
     }
 
-    public function orderStatus($userID, $orderId)
+    public function orderStatus($orderId)
     {
-        return $this->repository->orderStatus($userID, $orderId);
+        return $this->repository->orderStatus($orderId);
     }
-
-    public function orderStatusForCaptain($userID, $orderId)
-    {
-        return $this->repository->orderStatusForCaptain($userID, $orderId);
-    }
+//for delete
+    // public function orderStatusForCaptain($userID, $orderId)
+    // {
+    //     return $this->repository->orderStatusForCaptain($userID, $orderId);
+    // }
 
     public function closestOrders()
     {
