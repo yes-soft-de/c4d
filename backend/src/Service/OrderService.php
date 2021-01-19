@@ -175,8 +175,8 @@ class OrderService
             $orders = $this->orderManager->closestOrders();
   
             foreach ($orders as $order) {
-                if ($order['fromBranch']){
-                $order['fromBranch'] = $this->branchesService->getBrancheById($orders[0]['fromBranch']);
+                if ($order['fromBranch'] == true){
+                    $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                 }
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
             }
