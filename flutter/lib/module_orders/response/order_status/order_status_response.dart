@@ -68,7 +68,7 @@ class OrderDetailsData {
     id = json['id'];
     ownerID = json['ownerID'];
     source = json['source'].cast<String>();
-    destination = GeoJson.fromJson(json['destination']);
+    // destination = GeoJson.fromJson(json['destination']);
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
     updateDate = json['updateDate'] != null
         ? new Date.fromJson(json['updateDate'])

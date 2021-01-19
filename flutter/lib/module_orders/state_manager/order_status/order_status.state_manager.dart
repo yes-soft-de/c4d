@@ -19,31 +19,37 @@ class OrderStatusStateManager {
 
   Stream<OrderDetailsState> get stateStream => _stateSubject.stream;
 
-  OrderStatusStateManager(this._ordersService,
-      this._authService);
+  OrderStatusStateManager(this._ordersService, this._authService);
 
-  Future<void> getOrderDetails(int orderId,
-      OrderStatusScreenState screenState) async {
+  void getOrderDetails(
+      int orderId, OrderStatusScreenState screenState) {
     _stateSubject.add(OrderDetailsStateLoading(screenState));
 
-    var order = await _ordersService.getOrderDetails(orderId);
-    if (order == null) {
-      _stateSubject.add(OrderDetailsStateError(
-          'Error Loading Data from the Server', screenState));
-      return;
-    } else {
-      var role = await _authService.userRole;
-      if (role == UserRole.ROLE_CAPTAIN) {
-        _stateSubject.add(OrderDetailsStateCaptainOrderLoaded(order, screenState));
-      } else if (role == UserRole.ROLE_OWNER) {
-        _stateSubject.add(OrderDetailsStateOwnerOrderLoaded(order, screenState));
+    _ordersService.getOrderDetails(orderId).then((order) {
+      if (order == null) {
+        _stateSubject.add(OrderDetailsStateError(
+            'Error Loading Data from the Server', screenState));
+        return;
       } else {
-        _stateSubject.add(OrderDetailsStateError('Error Defining Login Type', screenState));
+        _authService.userRole.then((role) {
+          if (role == UserRole.ROLE_CAPTAIN) {
+            _stateSubject
+                .add(OrderDetailsStateCaptainOrderLoaded(order, screenState));
+          } else if (role == UserRole.ROLE_OWNER) {
+            _stateSubject
+                .add(OrderDetailsStateOwnerOrderLoaded(order, screenState));
+          } else {
+            _stateSubject.add(OrderDetailsStateError(
+                'Error Defining Login Type', screenState));
+          }
+        });
       }
-    }
+    });
   }
 
-  Future<void> updateOrder(OrderModel model) async {
-    await _ordersService.updateOrder(model.id, model);
+  void updateOrder(OrderModel model, OrderStatusScreenState screenState) {
+    _ordersService.updateOrder(model.id, model).then((value) {
+      getOrderDetails(model.id, screenState);
+    });
   }
 }

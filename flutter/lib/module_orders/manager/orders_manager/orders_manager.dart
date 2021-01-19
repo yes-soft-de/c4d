@@ -25,7 +25,13 @@ class OrdersManager {
 
   Future<List<Order>> getMyOrders() => _repository.getMyOrders();
 
-  Future<OrderDetailsResponse> acceptOrder(AcceptOrderRequest acceptOrderRequest) => _repository.acceptOrder(acceptOrderRequest);
+  Future<List<Order>> getCaptainOrders() => _repository.getCaptainOrders();
 
-  Future<OrderDetailsResponse> updateOrder(UpdateOrderRequest acceptOrderRequest) => _repository.updateOrder(acceptOrderRequest);
+  Future<OrderDetailsResponse> acceptOrder(
+          AcceptOrderRequest acceptOrderRequest) =>
+      _repository.acceptOrder(acceptOrderRequest);
+
+  Future<OrderDetailsResponse> updateOrder(
+          UpdateOrderRequest acceptOrderRequest) =>
+      _repository.updateOrder(acceptOrderRequest);
 }

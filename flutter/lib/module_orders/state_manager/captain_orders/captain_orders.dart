@@ -16,13 +16,17 @@ class CaptainOrdersListStateManager {
 
   void getMyOrders(CaptainOrdersScreenState screenState) {
     CaptainOrdersListStateLoading(screenState);
-    _ordersService.getNearbyOrders().then((value) {
-      _stateSubject.add(CaptainOrdersListStateOrdersLoaded(value, screenState));
+    Future.wait(
+            [_ordersService.getNearbyOrders(), _ordersService.getCaptainOrders()])
+        .then((value) {
+      _stateSubject.add(
+          CaptainOrdersListStateOrdersLoaded(screenState, value[0], value[1]));
     }).catchError((e) {
       if (e is UnauthorizedException) {
         _stateSubject.add(CaptainOrdersListStateUnauthorized(screenState));
-      }else {
-        _stateSubject.add(CaptainOrdersListStateError(e.toString(), screenState));
+      } else {
+        _stateSubject
+            .add(CaptainOrdersListStateError(e.toString(), screenState));
       }
     });
   }

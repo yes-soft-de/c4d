@@ -13,7 +13,9 @@ class Urls {
 
   static const NEARBY_ORDERS = BASE_API + '/closestOrders';
   static const OWNER_ORDERS = BASE_API + '/orders/';
+  static const CAPTAIN_ACCEPTED_ORDERS = BASE_API + '/getAcceptedOrder/';
   static const NEW_ORDER = BASE_API + '/order';
+  static const CAPTAIN_ORDER_UPDATE_API = BASE_API + '/orderUpdateState';
   static const ACCEPT_ORDER = BASE_API + '/acceptedOrder';
   static const ORDER_STATUS = BASE_API + '/orderStatus/';
   static const ORDER_STATUS_FOR_CAPTAIN =

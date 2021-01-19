@@ -34,8 +34,8 @@ class OrderDetailsResponse {
     captainID = json['captainID'];
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
     duration = json['duration'];
-    source = json['source'].cast<String>();
-    destination = json['destination'].cast<String>();
+    // source = json['source'].cast<String>();
+    // destination = json['destination'].cast<String>();
     orderDate =
     json['orderDate'] != null ? new Date.fromJson(json['orderDate']) : null;
     orderUpdateDate = json['orderUpdateDate'];

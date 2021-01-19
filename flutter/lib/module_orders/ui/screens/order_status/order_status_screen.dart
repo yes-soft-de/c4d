@@ -58,7 +58,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     }
 
     currentOrder.status = newStatus;
-    widget._stateManager.updateOrder(currentOrder);
+    widget._stateManager.updateOrder(currentOrder, this);
   }
 
   @override

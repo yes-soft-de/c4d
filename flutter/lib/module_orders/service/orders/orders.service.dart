@@ -65,12 +65,10 @@ class OrdersService {
   Future<List<OrderModel>> getNearbyOrders() async {
     List<Order> response = await _ordersManager.getNearbyOrders();
     if (response == null) {
-      print('Null Response');
       return null;
     }
 
     if (response.isEmpty) {
-      print('Empty Response');
       return null;
     }
 
@@ -85,8 +83,8 @@ class OrdersService {
           paymentMethod: element.payment,
           id: element.id,
         ));
-      } catch (e) {
-        print(e.toString());
+      } catch (e, stack) {
+        print(e.toString() + stack.toString());
       }
     });
 
@@ -120,37 +118,50 @@ class OrdersService {
     switch (order.status) {
       case OrderStatus.GOT_CAPTAIN:
         var request = AcceptOrderRequest(
-            orderID: orderId.toString(),
-            duration: DateTime.now().toIso8601String());
+            orderID: orderId.toString());
         return _ordersManager.acceptOrder(request);
         break;
       case OrderStatus.IN_STORE:
-        var request = UpdateOrderRequest(
-            id: orderId,
-            state: 'ongoing');
+        var request = UpdateOrderRequest(id: orderId, state: 'ongoing');
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.DELIVERING:
-        var request = UpdateOrderRequest(
-            id: orderId,
-            state: 'picked');
+        var request = UpdateOrderRequest(id: orderId, state: 'ongoing');
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.GOT_CASH:
-        var request = UpdateOrderRequest(
-            id: orderId,
-            state: 'picked');
+        var request = UpdateOrderRequest(id: orderId, state: 'got_cash');
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.FINISHED:
-        var request = UpdateOrderRequest(
-            id: orderId,
-            state: 'deliverd');
+        var request = UpdateOrderRequest(id: orderId, state: 'delivered');
         return _ordersManager.updateOrder(request);
         break;
       default:
         print('Unknown Package State');
         return null;
     }
+  }
+
+  Future<List<OrderModel>> getCaptainOrders() async {
+    List<Order> response = await _ordersManager.getCaptainOrders();
+    print('Orders ${response.length}');
+    if (response == null) return null;
+
+    List<OrderModel> orders = [];
+
+    response.forEach((element) {
+      orders.add(new OrderModel(
+        to: element.location,
+        clientPhone: element.recipientPhone,
+        from: '',
+        creationTime:
+        DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
+        paymentMethod: element.payment,
+        id: element.id,
+      ));
+    });
+
+    return orders;
   }
 }

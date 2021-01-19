@@ -10,14 +10,18 @@ class OrdersResponse {
     msg = json['msg'];
     if (json['Data'] != null) {
       data = <Order>[];
-      json['Data'].forEach((v) {
-        data.add(new Order.fromJson(v));
-      });
+      try {
+        json['Data'].forEach((v) {
+          data.add(new Order.fromJson(v));
+        });
+      } catch (e, stack) {
+        print(e.toString() + stack.toString());
+      }
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status_code'] = this.statusCode;
     data['msg'] = this.msg;
     if (this.data != null) {
@@ -31,7 +35,7 @@ class Order {
   int id;
   String ownerID;
   Null userName;
-  List<dynamic> source;
+  dynamic source;
   Destination destination;
   Date date;
   Date updateDate;
@@ -79,9 +83,9 @@ class Order {
         source.add(v);
       });
     }
-    destination = json['destination'] != null
-        ? new Destination.fromJson(json['destination'])
-        : null;
+    // destination = json['destination'] != null
+    //     ? new Destination.fromJson(json['destination'])
+    //     : null;
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
     updateDate = json['updateDate'] != null
         ? new Date.fromJson(json['updateDate'])
@@ -211,9 +215,20 @@ class GeoJson {
 
   GeoJson({this.lat, this.lon});
 
-  GeoJson.fromJson(Map<String, dynamic> json) {
-    lat = double.tryParse(json['lat'].toString());
-    lon = double.tryParse(json['lon'].toString());
+  GeoJson.fromJson(dynamic data) {
+    var json = <String, dynamic>{};
+    if (data == null) {
+      return;
+    }
+    if (data is List) {
+      json = data.last;
+    }
+    if (data != null) {
+      if (data is Map) {
+        lat = double.tryParse(json['lat'].toString());
+        lon = double.tryParse(json['lon'].toString());
+      }
+    }
   }
 
   Map<String, dynamic> toJson() {

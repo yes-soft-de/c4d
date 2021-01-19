@@ -22,108 +22,110 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: OrderProgressionHelper.getStatusIcon(
-              currentOrder.status, context),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: StepProgressIndicator(
-            totalSteps: 5,
-            currentStep: currentOrder.status.index,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: OrderProgressionHelper.getStatusIcon(
+                currentOrder.status, context),
           ),
-        ),
-        Text(
-          timeago.format(currentOrder.creationTime),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 26,
-          ),
-        ),
-        SizedBox(
-          height: 56,
-        ),
-        // To Progress the Order
-        GestureDetector(
-          onTap: () {
-            screenState.requestOrderProgress(currentOrder);
-          },
-          child: CommunicationCard(
-            text: OrderProgressionHelper.getNextStageHelper(
-              currentOrder.status,
-              context,
-            ),
-            image: FaIcon(
-              FontAwesomeIcons.whatsapp,
-              color: Theme.of(context).accentColor,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: StepProgressIndicator(
+              totalSteps: 5,
+              currentStep: currentOrder.status.index,
             ),
           ),
-        ),
-        // To Chat with Store owner in app
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(
-              ChatRoutes.chatRoute,
-              arguments: currentOrder.chatRoomId,
-            );
-          },
-          child: CommunicationCard(
-            text: 'Chat with Store Owner',
-            image: Icon(Icons.chat_rounded),
+          Text(
+            timeago.format(currentOrder.creationTime),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 26,
+            ),
           ),
-        ),
-        // To WhatsApp with store owner
-        GestureDetector(
-          onTap: () async {
-            var url = 'https://wa.me/${currentOrder.ownerPhone}';
-            if (await canLaunch(url)) {
-              await launch(url);
-            } else {
-              throw 'Could not launch $url';
-            }
-          },
-          child: CommunicationCard(
-            text: 'WhatsApp with Store Owner',
-            image: FaIcon(FontAwesomeIcons.whatsapp),
+          SizedBox(
+            height: 56,
           ),
-        ),
-        // To WhatsApp with client
-        GestureDetector(
-          onTap: () async {
-            var url = 'https://wa.me/${currentOrder.ownerPhone}';
-            if (await canLaunch(url)) {
-              await launch(url);
-            } else {
-              throw 'Could not launch $url';
-            }
-          },
-          child: CommunicationCard(
-            text: 'WhatsApp with Client',
-            image: FaIcon(FontAwesomeIcons.whatsapp),
+          // To Progress the Order
+          GestureDetector(
+            onTap: () {
+              screenState.requestOrderProgress(currentOrder);
+            },
+            child: CommunicationCard(
+              text: OrderProgressionHelper.getNextStageHelper(
+                currentOrder.status,
+                context,
+              ),
+              image: FaIcon(
+                FontAwesomeIcons.whatsapp,
+                color: Theme.of(context).accentColor,
+              ),
+            ),
           ),
-        ),
-        // To Open Maps
-        GestureDetector(
-          onTap: () {
-            var url =
-                'https://www.google.com/maps/dir/?api=1&destination=${currentOrder.toOnMap.latitude},${currentOrder.toOnMap.longitude}';
-            canLaunch(url).then((value) {
-              if (value) {
-                launch(url);
+          // To Chat with Store owner in app
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                ChatRoutes.chatRoute,
+                arguments: currentOrder.chatRoomId,
+              );
+            },
+            child: CommunicationCard(
+              text: 'Chat with Store Owner',
+              image: Icon(Icons.chat_rounded),
+            ),
+          ),
+          // To WhatsApp with store owner
+          GestureDetector(
+            onTap: () async {
+              var url = 'https://wa.me/${currentOrder.ownerPhone}';
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
               }
-            });
-          },
-          child: CommunicationCard(
-            text: 'Get Direction',
-            image: FaIcon(FontAwesomeIcons.mapSigns),
+            },
+            child: CommunicationCard(
+              text: 'WhatsApp with Store Owner',
+              image: FaIcon(FontAwesomeIcons.whatsapp),
+            ),
           ),
-        ),
-      ],
+          // To WhatsApp with client
+          GestureDetector(
+            onTap: () async {
+              var url = 'https://wa.me/${currentOrder.ownerPhone}';
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            },
+            child: CommunicationCard(
+              text: 'WhatsApp with Client',
+              image: FaIcon(FontAwesomeIcons.whatsapp),
+            ),
+          ),
+          // To Open Maps
+          GestureDetector(
+            onTap: () {
+              var url =
+                  'https://www.google.com/maps/dir/?api=1&destination=${currentOrder.to.lat},${currentOrder.to.lon}';
+              canLaunch(url).then((value) {
+                if (value) {
+                  launch(url);
+                }
+              });
+            },
+            child: CommunicationCard(
+              text: 'Get Direction',
+              image: FaIcon(FontAwesomeIcons.mapSigns),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

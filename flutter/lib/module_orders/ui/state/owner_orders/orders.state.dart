@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -93,10 +94,10 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                           );
                         },
                         child: OrderCard(
-                          to: orders[index].to,
-                          from: 'Default Branch',
+                          subTitle: timeago.format(orders[index].creationTime),
+                          title: 'Default Branch',
                           time: timeago.format(orders[index].creationTime),
-                          index: index,
+                          active: orders[index].status != OrderStatus.INIT,
                         ),
                       ),
                     );

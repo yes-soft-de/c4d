@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -73,10 +71,11 @@ class CaptainOrdersListStateUnauthorized extends CaptainOrdersListState {
 }
 
 class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
+  final List<OrderModel> myOrders;
   final List<OrderModel> orders;
 
   CaptainOrdersListStateOrdersLoaded(
-      this.orders, CaptainOrdersScreenState screenState)
+      CaptainOrdersScreenState screenState, this.myOrders, this.orders)
       : super(screenState);
 
   @override
@@ -91,40 +90,85 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
               return Future.delayed(Duration(seconds: 3));
             },
             child: FutureBuilder(
-              future: sortLocations(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<OrderModel>> snapshot) {
+              future: getMyOrdersList(context),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<List<Widget>> snapshot,
+              ) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.all(10),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              OrdersRoutes.ORDER_STATUS_SCREEN,
-                              arguments: snapshot.data[index].id,
-                            );
-                          },
-                          child: OrderCard(
-                            to: snapshot.data[index].to,
-                            from: 'Order #${snapshot.data[index].id}',
-                            time: timeago
-                                .format(snapshot.data[index].creationTime),
-                            index: index,
-                          ),
-                        ),
-                      );
-                    });
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: snapshot.data,
+                    ),
+                  );
                 }
-                return Container();
+                return Column(
+                  children: [
+                    Center(
+                      child: Text('Empty Stuff'),
+                    ),
+                  ],
+                );
               },
             ),
           ),
         ),
       ],
     );
+  }
+
+  Future<List<Widget>> getMyOrdersList(BuildContext context) async {
+    var availableOrders = await sortLocations();
+    print('Locations Sorted: ${availableOrders.length}');
+    var uiList = <Widget>[];
+
+    uiList.add(Text('My Orders'));
+    availableOrders.forEach((element) {
+      uiList.add(Container(
+        margin: EdgeInsets.all(10),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              OrdersRoutes.ORDER_STATUS_SCREEN,
+              arguments: element.id,
+            );
+          },
+          child: OrderCard(
+            title: 'Order #${element.id}',
+            subTitle: ' ',
+            time: timeago.format(element.creationTime),
+          ),
+        ),
+      ));
+    });
+    print('Stage 01 Total Items ${uiList.length}');
+
+    uiList.add(Text('Available Orders'));
+    myOrders.forEach((element) {
+      try {
+        uiList.add(Container(
+          margin: EdgeInsets.all(10),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                OrdersRoutes.ORDER_STATUS_SCREEN,
+                arguments: element.id,
+              );
+            },
+            child: OrderCard(
+              title: 'Order #${element.id}',
+              subTitle: ' ',
+              time: '${timeago.format(element.creationTime)}',
+            ),
+          ),
+        ));
+      } catch (e, s) {
+        print(e.toString() + s.toString());
+      }
+    });
+
+    print('Total Items ${uiList.length}');
+    return uiList;
   }
 
   Future<List<OrderModel>> sortLocations() async {
@@ -157,7 +201,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
             distance.as(LengthUnit.Kilometer, pos2, myPos);
         print('Distance $straightDistance');
         return straightDistance;
-      } catch(e) {
+      } catch (e) {
         return 1;
       }
     });

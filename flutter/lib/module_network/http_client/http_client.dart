@@ -91,16 +91,26 @@ class ApiClient {
     try {
       _logger.info(tag, 'Requesting PUT to: ' + url);
       _logger.info(tag, 'PUT: ' + jsonEncode(payLoad));
+
       Dio client = Dio(BaseOptions(
         sendTimeout: 60000,
         receiveTimeout: 60000,
         connectTimeout: 60000,
       ));
+
+      if (headers != null) {
+        if (headers['Authorization'] != null) {
+          _logger.info(tag, 'Adding Auth Header');
+          client.options.headers['Authorization'] = headers['Authorization'];
+        }
+      }
+
       client.interceptors.add(performanceInterceptor);
       var response = await client.put(
         url,
         queryParameters: queryParams,
         data: json.encode(payLoad),
+        options: Options(headers: headers),
       );
       return _processResponse(response);
     } catch (e) {

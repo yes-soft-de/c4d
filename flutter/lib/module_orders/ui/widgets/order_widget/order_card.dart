@@ -1,18 +1,16 @@
-import 'package:c4d/module_orders/response/orders/orders_response.dart';
-import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:flutter/material.dart';
 
 class OrderCard extends StatelessWidget {
-  final String from;
-  final GeoJson to;
+  final String title;
+  final String subTitle;
   final String time;
-  final int index;
+  final bool active;
 
   OrderCard({
     this.time,
-    this.from,
-    this.to,
-    this.index,
+    this.title,
+    this.subTitle,
+    this.active,
   });
 
   @override
@@ -22,7 +20,7 @@ class OrderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       elevation: 6,
-      color: index == 0 ? AppThemeDataService.PrimaryColor : Colors.white,
+      color: active == true ? Theme.of(context).primaryColor : Colors.white,
       child: Container(
         padding: EdgeInsets.all(10),
         height: 115,
@@ -34,20 +32,20 @@ class OrderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '$from',
+                  '$title',
                   style: TextStyle(
-                    color: index == 0
+                    color: active == true
                         ? Colors.white
-                        : AppThemeDataService.PrimaryColor,
+                        : Theme.of(context).primaryColor,
                     fontSize: 20,
                   ),
                 ),
                 Text(
-                  time,
+                  '$time',
                   style: TextStyle(
-                    color: index == 0
+                    color: active == true
                         ? Colors.white
-                        : AppThemeDataService.PrimaryColor,
+                        : Theme.of(context).primaryColor,
                     fontSize: 12,
                   ),
                 ),
@@ -55,13 +53,13 @@ class OrderCard extends StatelessWidget {
             ),
             Center(
               child: CircleAvatar(
-                backgroundColor: index == 0
+                backgroundColor: active == true
                     ? Colors.white
-                    : AppThemeDataService.PrimaryColor,
+                    : Theme.of(context).primaryColor,
                 child: Icon(
                   Icons.arrow_forward,
-                  color: index == 0
-                      ? AppThemeDataService.PrimaryColor
+                  color: active == true
+                      ? Theme.of(context).primaryColor
                       : Colors.white,
                 ),
               ),
