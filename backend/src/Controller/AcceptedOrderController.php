@@ -100,6 +100,18 @@ class AcceptedOrderController extends BaseController
 
         return $this->response($result, self::UPDATE);
     }
+
+       /**
+      * @Route("/getAcceptedOrder",        name="getAcceptedOrderByCaptainId", methods={"GET"})
+      * @IsGranted("ROLE_CAPTAIN")
+      * @return                  JsonResponse
+      */
+      public function getAcceptedOrderByCaptainId()
+      {
+          $result = $this->acceptedOrderService->getAcceptedOrderByCaptainId($this->getUserId());
+  
+          return $this->response($result, self::FETCH);
+      }
     
     /**
      * @Route("/getTop5Captains", name="GetTop5Captains",methods={"GET"})
@@ -112,5 +124,4 @@ class AcceptedOrderController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
-
 }

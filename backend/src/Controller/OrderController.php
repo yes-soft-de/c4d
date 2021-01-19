@@ -243,5 +243,4 @@ class OrderController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
-
 }

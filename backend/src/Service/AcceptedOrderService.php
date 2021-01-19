@@ -7,6 +7,7 @@ use App\Entity\AcceptedOrderEntity;
 use App\Manager\AcceptedOrderManager;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Response\AcceptedOrderResponse;
+use App\Response\AcceptedOrdersResponse;
 use App\Response\CaptainTotalEarnResponse;
 use App\Response\ongoingCaptainsResponse;
 use App\Service\RecordService;
@@ -69,7 +70,13 @@ class AcceptedOrderService
 
     public function getAcceptedOrderByCaptainId($captainId)
     {
-        return $this->acceptedOrderManager->getAcceptedOrderByCaptainId($captainId);
+        $orders = $this->acceptedOrderManager->getAcceptedOrderByCaptainId($captainId);
+        foreach ($orders as $order){
+            $order['record'] = $this->recordService->getrecordByOrderId($order['orderID']);
+            $response[] = $this->autoMapping->map('array', AcceptedOrdersResponse::class, $order);
+        }
+    
+    return $response;
     }
 
     public function countAcceptedOrder($captainId)

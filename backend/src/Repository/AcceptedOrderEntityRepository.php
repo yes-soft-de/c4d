@@ -7,6 +7,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\CaptainProfileEntity;
 use App\Entity\OrderEntity;
+use App\Entity\BranchesEntity;
+use App\Entity\UserProfileEntity;
+use App\Entity\RecordEntity;
 use Doctrine\ORM\Query\Expr\Join;
 
 /**
@@ -66,6 +69,15 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
             ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.date as acceptedOrderDate', 'AcceptedOrderEntity.captainID', 'AcceptedOrderEntity.duration', 'AcceptedOrderEntity.state',  'AcceptedOrderEntity.orderID')
+            ->addSelect('captainProfileEntity.name as captainName', 'captainProfileEntity.car',  'captainProfileEntity.image')
+            ->addSelect('orderEntity.id', 'orderEntity.ownerID', 'orderEntity.source', 'orderEntity.destination', 'orderEntity.date', 'orderEntity.updateDate', 'orderEntity.note', 'orderEntity.payment', 'orderEntity.recipientName', 'orderEntity.recipientPhone', 'orderEntity.state', 'orderEntity.fromBranch', 'orderEntity.uuid')
+            ->addSelect('userProfileEntity.userName as ownerName')
+            ->addSelect('branchesEntity.brancheName', 'branchesEntity.location as brancheLocation')
+
+            ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = orderEntity.ownerID')
+            ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'branchesEntity.id = orderEntity.fromBranch')
 
             ->andWhere('AcceptedOrderEntity.captainID = :captainID')
             ->setParameter('captainID', $captainID)
