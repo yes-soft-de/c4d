@@ -90,27 +90,37 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
               screenState.getMyOrders();
               return Future.delayed(Duration(seconds: 3));
             },
-            child: ListView.builder(
-                itemCount: orders.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          OrdersRoutes.ORDER_STATUS_SCREEN,
-                          arguments: orders[index].id,
-                        );
-                      },
-                      child: OrderCard(
-                        to: orders[index].to,
-                        from: orders[index].from,
-                        time: timeago.format(orders[index].creationTime),
-                        index: index,
-                      ),
-                    ),
-                  );
-                }),
+            child: FutureBuilder(
+              future: sortLocations(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<OrderModel>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.all(10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              OrdersRoutes.ORDER_STATUS_SCREEN,
+                              arguments: snapshot.data[index].id,
+                            );
+                          },
+                          child: OrderCard(
+                            to: snapshot.data[index].to,
+                            from: 'Order #${snapshot.data[index].id}',
+                            time: timeago
+                                .format(snapshot.data[index].creationTime),
+                            index: index,
+                          ),
+                        ),
+                      );
+                    });
+                }
+                return Container();
+              },
+            ),
           ),
         ),
       ],
@@ -121,14 +131,12 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     Location location = new Location();
 
     bool _serviceEnabled = await location.serviceEnabled();
+    print('Service Enabled $_serviceEnabled');
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return orders;
-      }
     }
 
-    var _permissionGranted = await location.hasPermission();
+    var _permissionGranted = await location.requestPermission();
     if (_permissionGranted == PermissionStatus.denied) {
       return orders;
     }
@@ -136,12 +144,24 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     final Distance distance = Distance();
 
     var myLocation = await Location.instance.getLocation();
+    print('My Location: ' + myLocation.toString());
     LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
     orders.sort((a, b) {
-      return distance.as(LengthUnit.Kilometer, a.toOnMap, myPos) -
-          distance.as(LengthUnit.Kilometer, b.toOnMap, myPos);
+      try {
+        var pos1 = LatLng(a.to.lat, a.to.lon);
+        print(pos1);
+        var pos2 = LatLng(b.to.lat, b.to.lon);
+        print(pos2);
+
+        var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
+            distance.as(LengthUnit.Kilometer, pos2, myPos);
+        print('Distance $straightDistance');
+        return straightDistance;
+      } catch(e) {
+        return 1;
+      }
     });
-    return orders;
+    return orders.toList();
   }
 }
 
@@ -155,7 +175,7 @@ class CaptainOrdersListStateError extends CaptainOrdersListState {
   @override
   Widget getUI(BuildContext context) {
     return Center(
-      child: Text('${errorMsg}'),
+      child: Text('Error ${errorMsg}'),
     );
   }
 }

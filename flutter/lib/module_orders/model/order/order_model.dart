@@ -8,7 +8,6 @@ class OrderModel {
   OrderModel({
     this.id,
     this.to,
-    this.toOnMap,
     this.from,
     this.creationTime,
     this.paymentMethod,

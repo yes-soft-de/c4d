@@ -1,3 +1,4 @@
+import 'package:c4d/module_auth/exceptions/auth_exception.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders.dart';
@@ -18,7 +19,11 @@ class CaptainOrdersListStateManager {
     _ordersService.getNearbyOrders().then((value) {
       _stateSubject.add(CaptainOrdersListStateOrdersLoaded(value, screenState));
     }).catchError((e) {
-      _stateSubject.add(CaptainOrdersListStateError(e.toString(), screenState));
+      if (e is UnauthorizedException) {
+        _stateSubject.add(CaptainOrdersListStateUnauthorized(screenState));
+      }else {
+        _stateSubject.add(CaptainOrdersListStateError(e.toString(), screenState));
+      }
     });
   }
 }

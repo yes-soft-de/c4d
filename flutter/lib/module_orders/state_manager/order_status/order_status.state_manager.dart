@@ -1,3 +1,4 @@
+import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';

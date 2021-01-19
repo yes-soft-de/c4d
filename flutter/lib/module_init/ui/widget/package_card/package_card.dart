@@ -19,7 +19,7 @@ class PackageCard extends StatelessWidget {
         width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: active ? AppThemeDataService.PrimaryColor : Colors.white,
+          color: active ? Theme.of(context).primaryColor : Colors.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

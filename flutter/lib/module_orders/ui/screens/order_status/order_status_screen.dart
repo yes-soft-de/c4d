@@ -27,9 +27,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
-        setState(() {
-
-      });
+        setState(() {});
       }
     });
     super.initState();
@@ -48,7 +46,9 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
         newStatus = OrderStatus.DELIVERING;
         break;
       case OrderStatus.DELIVERING:
-        newStatus = currentOrder.paymentMethod == 'CASH' ? OrderStatus.GOT_CAPTAIN : OrderStatus.FINISHED;
+        newStatus = currentOrder.paymentMethod == 'CASH'
+            ? OrderStatus.GOT_CAPTAIN
+            : OrderStatus.FINISHED;
         break;
       case OrderStatus.GOT_CASH:
         newStatus = OrderStatus.FINISHED;
@@ -69,7 +69,9 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       currentState = OrderDetailsStateInit(this);
     }
     return Scaffold(
-      appBar: AppBar(title: Text(S.of(context).orderDetails),),
+      appBar: AppBar(
+        title: Text(S.of(context).orderDetails),
+      ),
       body: currentState.getUI(context),
     );
   }

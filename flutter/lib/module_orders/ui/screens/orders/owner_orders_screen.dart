@@ -63,7 +63,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Orders'),
+        title: Text('Home'),
         actions: [
           IconButton(
               icon: Icon(Icons.person),

@@ -82,7 +82,7 @@ class OrderDetailsData {
     location = GeoJson.fromJson(json['location']);
     brancheName = json['brancheName'];
     branchCity = json['branchCity'];
-    acceptedOrder = json['acceptedOrder'];
+    // acceptedOrder = json['acceptedOrder'];
     record = json['record'];
     uuid = json['uuid'];
   }

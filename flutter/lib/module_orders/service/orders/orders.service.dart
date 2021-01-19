@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/request/accept_order_request/accept_order_request.dart';
 import 'package:c4d/module_orders/request/order/order_request.dart';
+import 'package:c4d/module_orders/request/update_order_request/update_order_request.dart';
 import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
@@ -101,7 +104,7 @@ class OrdersService {
       String recipientPhone,
       String date) async {
     var branchId = await _profileService.getMyBranches();
-    var orderRequest = new CreateOrderRequest(
+    var orderRequest = CreateOrderRequest(
       note: note,
       date: date,
       payment: paymentMethod,
@@ -114,14 +117,40 @@ class OrdersService {
   }
 
   Future<OrderDetailsResponse> updateOrder(int orderId, OrderModel order) {
-    return _ordersManager.updateOrder(
-        orderId,
-        CreateOrderRequest(
-          fromBranch: order.from,
-          destination: order.to,
-          note: ' ',
-          payment: order.paymentMethod,
-          recipientPhone: order.clientPhone,
-        ));
+    switch (order.status) {
+      case OrderStatus.GOT_CAPTAIN:
+        var request = AcceptOrderRequest(
+            orderID: orderId.toString(),
+            duration: DateTime.now().toIso8601String());
+        return _ordersManager.acceptOrder(request);
+        break;
+      case OrderStatus.IN_STORE:
+        var request = UpdateOrderRequest(
+            id: orderId,
+            state: 'ongoing');
+        return _ordersManager.updateOrder(request);
+        break;
+      case OrderStatus.DELIVERING:
+        var request = UpdateOrderRequest(
+            id: orderId,
+            state: 'picked');
+        return _ordersManager.updateOrder(request);
+        break;
+      case OrderStatus.GOT_CASH:
+        var request = UpdateOrderRequest(
+            id: orderId,
+            state: 'picked');
+        return _ordersManager.updateOrder(request);
+        break;
+      case OrderStatus.FINISHED:
+        var request = UpdateOrderRequest(
+            id: orderId,
+            state: 'deliverd');
+        return _ordersManager.updateOrder(request);
+        break;
+      default:
+        print('Unknown Package State');
+        return null;
+    }
   }
 }

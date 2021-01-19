@@ -53,9 +53,9 @@ class NewOrderScreenState extends State<NewOrderScreen> {
       LatLng linkFromWhatsApp = ModalRoute.of(context).settings.arguments;
       currentState = NewOrderStateInit(linkFromWhatsApp, this);
     }
-    return SafeArea(
-      child: Scaffold(
-        body: currentState.getUI(context),
+    return Scaffold(
+      body: SafeArea(
+        child: currentState.getUI(context),
       ),
     );
   }

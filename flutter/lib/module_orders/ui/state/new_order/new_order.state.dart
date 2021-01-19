@@ -34,6 +34,8 @@ class NewOrderStateInit extends NewOrderState {
 
   @override
   Widget getUI(context) {
+    orderDate ??= DateTime.now();
+
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -121,6 +123,7 @@ class NewOrderStateInit extends NewOrderState {
                             labelStyle: TextStyle(color: Colors.white),
                           ),
                           dropdownColor: Color(0xff454F63),
+                          value: _selectedPaymentMethod ?? 'cash',
                           items: _paymentMethods
                               .map((String method) => DropdownMenuItem(
                                     value: method.toString(),
@@ -146,11 +149,11 @@ class NewOrderStateInit extends NewOrderState {
                       ),
                       child: GestureDetector(
                           onTap: () {
-                            DatePicker.showDatePicker(
+                            DatePicker.showTimePicker(
                               context,
-                              minTime: DateTime.now(),
                             ).then((value) {
                               orderDate = value;
+                              screenState.refresh();
                             });
                           },
                           child: Row(
@@ -231,7 +234,7 @@ class NewOrderStateInit extends NewOrderState {
                     onPressed: () {
                       screenState.addNewOrder(
                         BranchName.DefaultBranch,
-                        GeoJson(null, null),
+                        GeoJson(lat: 0, lon: 0),
                         _infoController.text.trim(),
                         _selectedPaymentMethod ?? _selectedPaymentMethod.trim(),
                         null,
@@ -275,7 +278,7 @@ class NewOrderStateSuccessState extends NewOrderState {
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
             'assets/images/track.png',
