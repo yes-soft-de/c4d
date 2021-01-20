@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class CommunicationCard extends StatelessWidget {
@@ -21,30 +22,11 @@ class CommunicationCard extends StatelessWidget {
       ),
       elevation: 4,
       child: Container(
-        padding: EdgeInsets.all(10),
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: 50,
-        child: Flex(
-          direction: Axis.horizontal,
-          children: [
-            Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: image,
-            ),
-            Flexible(
-              flex: 3,
-              fit: FlexFit.tight,
-              child: Text(
-                '$text',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: textColor,
-                ),
-              ),
-            )
-          ],
-        ),
+        padding: EdgeInsets.all(8),
+        child: ListTile(
+          title: Text(text),
+          leading: image,
+        )
       ),
     );
   }

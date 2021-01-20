@@ -25,40 +25,43 @@ class RegisterStateInit extends RegisterState {
             currentUserType: userType,
             onUserChange: (newType) {
               userType = newType;
-              registerTypeController.jumpToPage(userType.index);
+              screen.refresh();
+              registerTypeController.animateToPage(
+                userType.index,
+                curve: Curves.linear,
+                duration: Duration(seconds: 1),
+              );
             },
           ),
         ),
         Expanded(
             child: PageView(
-              controller: registerTypeController,
-              onPageChanged: (pos) {
-                userType = UserRole.values[pos];
+          controller: registerTypeController,
+          onPageChanged: (pos) {
+            userType = UserRole.values[pos];
+          },
+          children: [
+            PhoneLoginWidget(
+              codeSent: false,
+              onLoginRequested: (phone) {
+                loading = true;
+                screen.registerCaptain(phone);
               },
-              children: [
-                PhoneLoginWidget(
-                  codeSent: false,
-                  loading: loading,
-                  onLoginRequested: (phone) {
-                    loading = true;
-                    screen.registerCaptain(phone);
-                  },
-                  onConfirm: (confirmCode) {
-                    screen.confirmCaptainSMS(confirmCode);
-                  },
-                ),
-                EmailPasswordRegisterForm(
-                  loading: loading,
-                  onRegisterRequest: (email, password, name) {
-                    screen.registerOwner(
-                      email,
-                      email,
-                      password,
-                    );
-                  },
-                ),
-              ],
-            )),
+              onConfirm: (confirmCode) {
+                screen.confirmCaptainSMS(confirmCode);
+              },
+            ),
+            EmailPasswordRegisterForm(
+              onRegisterRequest: (email, password, name) {
+                screen.registerOwner(
+                  email,
+                  email,
+                  password,
+                );
+              },
+            ),
+          ],
+        )),
       ],
     );
   }

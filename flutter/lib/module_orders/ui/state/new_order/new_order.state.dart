@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:latlong/latlong.dart';
 import 'package:c4d/generated/l10n.dart';
+import 'package:lottie/lottie.dart';
 
 abstract class NewOrderState {
   NewOrderScreenState screenState;
@@ -273,32 +274,80 @@ class NewOrderStateSuccessState extends NewOrderState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Container(
-      height: 600,
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/track.png',
-            fit: BoxFit.cover,
-            height: 300,
-            width: 300,
-          ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                OrdersRoutes.OWNER_ORDERS_SCREEN,
-                (r) => false,
-              );
-            },
-            child: Text(
-              S.of(context).orderCreatedReturnToOrders,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(child: Lottie.asset('assets/animations/on-way.json')),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Form(
+            child: Flex(
+              direction: Axis.vertical,
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Mohammad',
+                    labelText: 'Deliver To',
+                  ),
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Phone Number',
+                    labelText: '123 456 789',
+                  ),
+                  keyboardType: TextInputType.phone,
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Flex(
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 1,
+                child: FlatButton(
+                  padding: EdgeInsets.all(24),
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      OrdersRoutes.OWNER_ORDERS_SCREEN,
+                      (r) => false,
+                    );
+                  },
+                  child: Text(
+                    'Skip',
+                  ),
+                ),
+              ),
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 1,
+                child: RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.all(24),
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      OrdersRoutes.OWNER_ORDERS_SCREEN,
+                      (r) => false,
+                    );
+                  },
+                  child: Expanded(
+                    child: Text(
+                      'Save',
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

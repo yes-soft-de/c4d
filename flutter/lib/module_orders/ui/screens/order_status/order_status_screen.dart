@@ -69,6 +69,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       currentState = OrderDetailsStateInit(this);
     }
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(S.of(context).orderDetails),
       ),

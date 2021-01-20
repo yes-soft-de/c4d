@@ -150,6 +150,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/animations/
 
 flutter_intl:
   enabled: true

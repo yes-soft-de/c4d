@@ -35,8 +35,8 @@ class ActivityRecord {
   Null userName;
   List<Null> source;
   GeoJson destination;
-  Null date;
-  Null updateDate;
+  Date date;
+  Date updateDate;
   String note;
   String payment;
   Null recipientName;

@@ -136,12 +136,11 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
           child: OrderCard(
             title: 'Order #${element.id}',
             subTitle: ' ',
-            time: timeago.format(element.creationTime),
+            time: timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode),
           ),
         ),
       ));
     });
-    print('Stage 01 Total Items ${uiList.length}');
 
     uiList.add(Text('Available Orders'));
     myOrders.forEach((element) {
@@ -158,7 +157,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
             child: OrderCard(
               title: 'Order #${element.id}',
               subTitle: ' ',
-              time: '${timeago.format(element.creationTime)}',
+              time: '${timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode)}',
             ),
           ),
         ));
@@ -167,7 +166,6 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
       }
     });
 
-    print('Total Items ${uiList.length}');
     return uiList;
   }
 

@@ -30,8 +30,8 @@ class LoginStateError extends LoginState {
             currentUserType: userType,
             onUserChange: (newType) {
               userType = newType;
+              screen.refresh();
               loginTypeController.jumpToPage(userType.index);
-              // screen.refresh();
             },
           ),
         ),
@@ -44,7 +44,6 @@ class LoginStateError extends LoginState {
               children: [
                 PhoneLoginWidget(
                   codeSent: false,
-                  loading: loading,
                   onLoginRequested: (phone) {
                     loading = true;
                     screen.loginCaptain(phone);
@@ -55,7 +54,6 @@ class LoginStateError extends LoginState {
                   },
                 ),
                 EmailPasswordForm(
-                  loading: loading,
                   onLoginRequest: (email, password) {
                     loading = true;
                     screen.refresh();

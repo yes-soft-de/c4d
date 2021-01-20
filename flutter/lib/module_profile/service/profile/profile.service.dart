@@ -1,4 +1,5 @@
 import 'package:c4d/module_profile/manager/profile/profile.manager.dart';
+import 'package:c4d/module_profile/model/activity_model/activity_model.dart';
 import 'package:c4d/module_profile/prefs_helper/profile_prefs_helper.dart';
 import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
@@ -12,7 +13,7 @@ class ProfileService {
 
   ProfileService(
     this._manager,
-      this._preferencesHelper,
+    this._preferencesHelper,
   );
 
   Future<bool> createProfile(String city, int branch) async {
@@ -55,11 +56,17 @@ class ProfileService {
     return branch.id;
   }
 
-  Future<List<String>> getActivity() async {
+  Future<List<ActivityModel>> getActivity() async {
     var records = await _manager.getMyLog();
+    var activity = <ActivityModel>[];
+    records.forEach((e) {
+      activity.add(ActivityModel(
+        e.date != null ? DateTime.fromMillisecondsSinceEpoch(e.date.timestamp * 1000) : DateTime.now(),
+        'Order #${e.id} is ${e.state}',
+        e.state.contains('pending'),
+      ));
+    });
 
-    return records.map((e) {
-      return 'Order ${e.id} is ${e.state}';
-    }).toList();
+    return activity;
   }
 }

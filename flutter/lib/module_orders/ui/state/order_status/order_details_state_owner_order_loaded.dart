@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
@@ -49,7 +50,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               ),
             ),
             Text(
-              timeago.format(currentOrder.creationTime),
+              timeago.format(currentOrder.creationTime, locale: Localizations.localeOf(context).languageCode),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -61,6 +62,18 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
         Flex(
           direction: Axis.vertical,
           children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  ChatRoutes.chatRoute,
+                  arguments: currentOrder.chatRoomId,
+                );
+              },
+              child: CommunicationCard(
+                text: 'Open Chat Room',
+                image: Icon(Icons.chat_rounded),
+              ),
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed(

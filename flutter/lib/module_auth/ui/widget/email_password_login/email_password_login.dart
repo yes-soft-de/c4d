@@ -1,30 +1,34 @@
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
 
-class EmailPasswordForm extends StatelessWidget {
-  final bool loading;
+class EmailPasswordForm extends StatefulWidget {
   final Function(String, String) onLoginRequest;
-  final String email;
-  final String password;
-  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
-  final TextEditingController _loginEmailController = TextEditingController();
-  final TextEditingController _loginPasswordController =
-  TextEditingController();
+  String email;
+  String password;
 
   EmailPasswordForm({
-    this.loading,
     this.onLoginRequest,
     this.email,
     this.password,
   });
 
   @override
+  State<StatefulWidget> createState() => _EmailPasswordLoginState();
+}
+
+class _EmailPasswordLoginState extends State<EmailPasswordForm> {
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  final TextEditingController _loginEmailController = TextEditingController();
+  final TextEditingController _loginPasswordController =
+      TextEditingController();
+
+  bool loading = false;
+
+  @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-
-    print('${email} : ${password}');
-    _loginEmailController.text = email;
-    _loginPasswordController.text = password;
+    _loginEmailController.text = widget.email;
+    _loginPasswordController.text = widget.password;
 
     return Form(
       key: _loginFormKey,
@@ -159,13 +163,15 @@ class EmailPasswordForm extends StatelessWidget {
                     onPressed: loading == true
                         ? null
                         : () {
-                      if (_loginFormKey.currentState.validate()) {
-                        onLoginRequest(
-                          _loginEmailController.text,
-                          _loginPasswordController.text,
-                        );
-                      }
-                    },
+                            if (_loginFormKey.currentState.validate()) {
+                              loading = true;
+                              setState(() {});
+                              widget.onLoginRequest(
+                                _loginEmailController.text,
+                                _loginPasswordController.text,
+                              );
+                            }
+                          },
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
@@ -185,4 +191,3 @@ class EmailPasswordForm extends StatelessWidget {
     );
   }
 }
-

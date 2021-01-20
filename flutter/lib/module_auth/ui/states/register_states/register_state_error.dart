@@ -27,50 +27,57 @@ class RegisterStateError extends RegisterState {
             currentUserType: userType,
             onUserChange: (newType) {
               userType = newType;
-              registerTypeController.jumpToPage(userType.index);
-              // screen.refresh();
+              screen.refresh();
+              registerTypeController.animateToPage(
+                userType.index,
+                curve: Curves.linear,
+                duration: Duration(seconds: 1),
+              );
             },
           ),
         ),
         Expanded(
             child: PageView(
-              controller: registerTypeController,
-              onPageChanged: (pos) {
-                userType = UserRole.values[pos];
-                screen.refresh();
+          controller: registerTypeController,
+          onPageChanged: (pos) {
+            userType = UserRole.values[pos];
+            screen.refresh();
+          },
+          children: [
+            PhoneLoginWidget(
+              codeSent: false,
+              onLoginRequested: (phone) {
+                loading = true;
+                screen.registerCaptain(phone);
               },
-              children: [
-                PhoneLoginWidget(
-                  codeSent: false,
-                  loading: loading,
-                  onLoginRequested: (phone) {
-                    loading = true;
-                    screen.registerCaptain(phone);
-                  },
-                  onRetry: () {},
-                  onConfirm: (confirmCode) {
-                    screen.confirmCaptainSMS(confirmCode);
-                  },
+              onRetry: () {},
+              onConfirm: (confirmCode) {
+                screen.confirmCaptainSMS(confirmCode);
+              },
+            ),
+            EmailPasswordRegisterForm(
+              onRegisterRequest: (email, name, password) {
+                screen.registerOwner(
+                  email,
+                  email,
+                  password,
+                );
+              },
+            ),
+          ],
+        )),
+        MediaQuery.of(context).viewInsets.bottom == 0
+            ? Container(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    errorMsg,
+                    maxLines: 3,
+                  ),
                 ),
-                EmailPasswordRegisterForm(
-                  loading: loading,
-                  onRegisterRequest: (email, name, password) {
-                    screen.registerOwner(
-                      email,
-                      email,
-                      password,
-                    );
-                  },
-                ),
-              ],
-            )),
-        MediaQuery.of(context).viewInsets.bottom == 0 ? Container(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(errorMsg, maxLines: 3,),
-          ),
-        ) : Container(),
+              )
+            : Container(),
       ],
     );
   }

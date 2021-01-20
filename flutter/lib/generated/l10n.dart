@@ -414,6 +414,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Register Success, Setup my profile`
+  String get registerSuccessSetupMyProfile {
+    return Intl.message(
+      'Register Success, Setup my profile',
+      name: 'registerSuccessSetupMyProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Your Size`
+  String get chooseYourSize {
+    return Intl.message(
+      'Choose Your Size',
+      name: 'chooseYourSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 - 20 Employee`
+  String get smallLessThan20Employee {
+    return Intl.message(
+      '1 - 20 Employee',
+      name: 'smallLessThan20Employee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `21 - 100 Employees`
+  String get mediumMoreThan20EmployeesLessThan100 {
+    return Intl.message(
+      '21 - 100 Employees',
+      name: 'mediumMoreThan20EmployeesLessThan100',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+100 Employees`
+  String get largeMoreThan100Employees {
+    return Intl.message(
+      '+100 Employees',
+      name: 'largeMoreThan100Employees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Chat Room`
+  String get openChatRoom {
+    return Intl.message(
+      'Open Chat Room',
+      name: 'openChatRoom',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

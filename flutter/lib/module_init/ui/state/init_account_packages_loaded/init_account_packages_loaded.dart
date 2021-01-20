@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/model/package/packages.model.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
@@ -15,6 +16,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
     this.packages,
     InitAccountScreenState screen,
   ) : super(screen);
+
   @override
   Widget getUI(BuildContext context) {
     return Padding(
@@ -30,14 +32,16 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   //size
                   DropdownButtonHideUnderline(
                     child: DropdownButtonFormField(
                         value: _selectedSize,
-                        decoration:
-                            InputDecoration(hintText: 'Choose Your Size'),
-                        items: _getSizes(),
+                        decoration: InputDecoration(
+                          hintText: S.of(context).chooseYourSize,
+                          hintMaxLines: 2,
+                          helperMaxLines: 2,
+                        ),
+                        items: _getSizes(context),
                         onChanged: (value) {
                           _selectedCity = value;
                         }),
@@ -45,7 +49,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                   //city
                   Container(
                     child: DropdownButtonFormField(
-                      // value: _selectedCity,
+                        // value: _selectedCity,
                         decoration: InputDecoration(
                           hintText: 'Choose Your City',
                         ),
@@ -140,18 +144,18 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
     return cityDropDown;
   }
 
-  List<DropdownMenuItem> _getSizes() {
+  List<DropdownMenuItem> _getSizes(BuildContext context) {
     var sizeDropdowns = <DropdownMenuItem>[];
     sizeDropdowns.add(DropdownMenuItem(
-      child: Text('Small'),
+      child: Text(S.of(context).smallLessThan20Employee),
       value: 'sm',
     ));
     sizeDropdowns.add(DropdownMenuItem(
-      child: Text('Medium'),
+      child: Text(S.of(context).mediumMoreThan20EmployeesLessThan100),
       value: 'md',
     ));
     sizeDropdowns.add(DropdownMenuItem(
-      child: Text('Large'),
+      child: Text(S.of(context).largeMoreThan100Employees),
       value: 'lg',
     ));
 

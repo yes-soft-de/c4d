@@ -53,28 +53,37 @@ class InitAccountStateSelectBranch extends InitAccountState {
             Positioned(
               bottom: 0,
               right: 0,
-              child: IconButton(
-                icon: Icon(Icons.my_location),
-                onPressed: () async {
-                  Location location = new Location();
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.my_location, color: Colors.white,),
+                    onPressed: () async {
+                      Location location = new Location();
 
-                  bool _serviceEnabled = await location.serviceEnabled();
-                  print('Service Enabled $_serviceEnabled');
-                  if (!_serviceEnabled) {
-                    _serviceEnabled = await location.requestService();
-                  }
+                      bool _serviceEnabled = await location.serviceEnabled();
+                      print('Service Enabled $_serviceEnabled');
+                      if (!_serviceEnabled) {
+                        _serviceEnabled = await location.requestService();
+                      }
 
-                  var _permissionGranted = await location.requestPermission();
-                  if (_permissionGranted == PermissionStatus.denied) {
-                    return;
-                  }
+                      var _permissionGranted = await location.requestPermission();
+                      if (_permissionGranted == PermissionStatus.denied) {
+                        return;
+                      }
 
-                  var myLocation = await Location.instance.getLocation();
-                  LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
-                  _mapController.move(myPos, 15);
-                  branchLocation = myPos;
-                  screen.refresh();
-                },
+                      var myLocation = await Location.instance.getLocation();
+                      LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
+                      _mapController.move(myPos, 15);
+                      branchLocation = myPos;
+                      screen.refresh();
+                    },
+                  ),
+                ),
               ),
             )
           ],

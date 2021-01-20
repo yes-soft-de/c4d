@@ -10,7 +10,6 @@ class LoginStateInit extends LoginState {
   UserRole userType = UserRole.ROLE_OWNER;
   final loginTypeController =
       PageController(initialPage: UserRole.ROLE_OWNER.index);
-  bool loading = false;
 
   LoginStateInit(LoginScreenState screen) : super(screen);
 
@@ -26,6 +25,7 @@ class LoginStateInit extends LoginState {
               currentUserType: userType,
               onUserChange: (newType) {
                 userType = newType;
+                screen.refresh();
                 loginTypeController.animateToPage(
                   userType.index,
                   duration: Duration(seconds: 1),
@@ -44,9 +44,8 @@ class LoginStateInit extends LoginState {
             children: [
               PhoneLoginWidget(
                 codeSent: false,
-                loading: loading,
                 onLoginRequested: (phone) {
-                  loading = true;
+                  screen.refresh();
                   screen.loginCaptain(phone);
                 },
                 onRetry: () {},
@@ -55,8 +54,8 @@ class LoginStateInit extends LoginState {
                 },
               ),
               EmailPasswordForm(
-                loading: loading,
                 onLoginRequest: (email, password) {
+                  screen.refresh();
                   screen.loginOwner(
                     email,
                     password,
