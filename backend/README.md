@@ -175,7 +175,9 @@ methods: PUT
 #### Update order State By Captain
 ROLE_CAPTAIN
 
-state: picked or ongoing or deliverd .
+<!-- state: picked or ongoing or deliverd . -->
+<!-- next was  adopted -->
+state: in store or picked or ongoing or cash or deliverd
 
 ```
 /orderUpdateState
