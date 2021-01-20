@@ -112,15 +112,13 @@ class OrderManager
         }
     }
 
-    public function test($orderID)
+    public function orderUpdateStateByCaptain2($orderID)
     {
         $item = $this->repository->find($orderID);
        
 
         if ($item) {
-            // $item = $this->autoMapping->mapToObject(OrderUpdateStateByCaptainRequest::class, OrderEntity::class, $request, $item);
             $item->setState('on way to pick order');
-            // $item->setUpdateDate($item->getUpdateDate());
             
             $this->entityManager->flush();
             $this->entityManager->clear();

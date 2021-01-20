@@ -39,8 +39,8 @@ class AcceptedOrderManager
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();
-        //////////////////////////test
-$this->orderManager->test($request->getOrderID());
+        ///////////////update state in orderEntity
+        $this->orderManager->orderUpdateStateByCaptain2($request->getOrderID());
         return $item;
     }
 
