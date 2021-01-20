@@ -71,7 +71,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   void loginOwner(String email, String password) {
     print('Requesting Owner Login');
-    currentUserRole = UserRole.ROLE_CAPTAIN;
+    currentUserRole = UserRole.ROLE_OWNER;
     widget._stateManager.loginOwner(email, password, this);
   }
 
