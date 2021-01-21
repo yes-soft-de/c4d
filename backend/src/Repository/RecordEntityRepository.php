@@ -43,4 +43,30 @@ class RecordEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
+    public function getFirstDate($orderId)
+    {
+        return $this->createQueryBuilder('RecordEntity')
+            ->select('RecordEntity.id, RecordEntity.state, RecordEntity.date')
+            
+            ->andWhere("RecordEntity.orderID =:orderId")
+            ->setParameter('orderId', $orderId)
+            ->setMaxResults(1)
+            ->addOrderBy('RecordEntity.id','ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getLastDate($orderId)
+    {
+        return $this->createQueryBuilder('RecordEntity')
+            ->select('RecordEntity.id, RecordEntity.state, RecordEntity.date')
+            
+            ->andWhere("RecordEntity.orderID =:orderId")
+            ->setParameter('orderId', $orderId)
+            ->setMaxResults(1)
+            ->addOrderBy('RecordEntity.id','DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

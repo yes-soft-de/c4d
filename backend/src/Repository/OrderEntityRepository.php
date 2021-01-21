@@ -31,7 +31,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.id = :id')
             ->setParameter('id', $orderId)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
     }
 
     public function getOrdersByOwnerID($userID)
@@ -198,5 +198,43 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function countOrdersInMonthForOwner($fromDate, $toDate, $ownerId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+            ->select('count(OrderEntity.id) as countOrdersInMonth')
+
+            ->where('OrderEntity.date >= :fromDate')
+            ->andWhere('OrderEntity.date < :toDate')
+            ->andWhere('OrderEntity.ownerID = :ownerId')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+            ->setParameter('ownerId', $ownerId)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getAllOrders($fromDate, $toDate, $ownerId)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+          ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'OrderEntity.uuid', 'userProfileEntity.userName as userName')
+
+          ->where('OrderEntity.date >= :fromDate')
+          ->andWhere('OrderEntity.date < :toDate')
+          ->andWhere('OrderEntity.ownerID = :ownerId')
+
+          ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = :ownerId')
+        
+          ->setParameter('fromDate', $fromDate)
+          ->setParameter('toDate', $toDate)
+          ->setParameter('ownerId', $ownerId)
+          ->getQuery()
+          ->getResult();
+       
     }
 }

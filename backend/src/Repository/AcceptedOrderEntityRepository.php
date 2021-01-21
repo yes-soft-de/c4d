@@ -135,4 +135,40 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function countOrdersInMonthForCaptin($fromDate, $toDate, $captainId)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+
+            ->select('count(AcceptedOrderEntity.id) as countOrdersInMonth')
+       
+
+            ->where('AcceptedOrderEntity.date >= :fromDate')
+            ->andWhere('AcceptedOrderEntity.date < :toDate')
+            ->andWhere('AcceptedOrderEntity.captainID = :captainId')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+            ->setParameter('captainId', $captainId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+
+            ->select('AcceptedOrderEntity.orderID')
+
+            ->where('AcceptedOrderEntity.date >= :fromDate')
+            ->andWhere('AcceptedOrderEntity.date < :toDate')
+            ->andWhere('AcceptedOrderEntity.captainID = :captainId')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+            ->setParameter('captainId', $captainId)
+
+            ->getQuery()
+            ->getResult();
+    }
 }

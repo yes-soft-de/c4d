@@ -94,4 +94,14 @@ class AcceptedOrderService
      {
          return $this->acceptedOrderManager->getTop5Captains();
      }
+
+    public function countOrdersInMonthForCaptin($fromDate, $toDate, $captainId)
+     {
+         return $this->acceptedOrderManager->countOrdersInMonthForCaptin($fromDate, $toDate, $captainId);
+     }
+
+    public function getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId)
+     {
+         return $this->acceptedOrderManager->getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId);
+     }
 }

@@ -46,8 +46,6 @@ class SubscriptionManager
     {
         $subscribeEntity = $this->subscribeRepository->find($request->getId());
         
-        // $request->setOwnerID($subscribeEntity->getOwnerID());
-        // $request->setStartDate($subscribeEntity->getStartDate());
         $request->setEndDate($request->getEndDate());
 
         if (!$subscribeEntity) {

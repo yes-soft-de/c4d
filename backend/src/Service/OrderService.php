@@ -12,6 +12,7 @@ use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
 use App\Service\SubscriptionService;
+use DateTime;
 
 class OrderService
 {
@@ -301,4 +302,84 @@ class OrderService
 
         return $response;
     }
+
+    public function returnDate($year, $month)
+    {
+        $fromDate =new \DateTime($year . '-' . $month . '-01'); 
+        $toDate = new \DateTime($fromDate->format('Y-m-d') . ' 1 month');
+        return [$fromDate,  $toDate];
+     }
+
+     public function getAllOrdersAndCount($year, $month, $userId, $userType)
+     {
+         $response = [];
+         $date = $this->returnDate($year, $month);
+         
+    if ($userType == "owner") {
+        $response[] = $this->orderManager->countOrdersInMonthForOwner($date[0], $date[1], $userId);
+         $ordersInMonth = $this->orderManager->getAllOrders($date[0], $date[1], $userId);
+         
+         foreach ($ordersInMonth as $order) {
+ 
+             if ($order['fromBranch']){
+                 $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+                 }
+ 
+             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
+             $order['record'] = $this->recordService->getrecordByOrderId($order['id']); 
+             $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
+         }
+     }
+
+    if ($userType == "captain") {
+       
+        $response[] =$this->acceptedOrderService->countOrdersInMonthForCaptin($date[0], $date[1], $userId);
+
+        $acceptedInMonth = $this->acceptedOrderService->getAcceptedOrderByCaptainIdInMonth($date[0], $date[1], $userId);
+         
+        foreach ($acceptedInMonth as $item){
+            $ordersInMonth =  $this->orderManager->getOrderById($item['orderID']);  
+          
+        
+            foreach ($ordersInMonth as $order) {
+    
+                if ($order['fromBranch']){
+                    $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+                    }
+
+                $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
+                $order['record'] = $this->recordService->getrecordByOrderId($order['id']); 
+           
+                $firstDate = $this->recordService->getFirstDate($order['id']); 
+                $lastDate = $this->recordService->getLastDate($order['id']); 
+                $order['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
+                
+                $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
+            }
+        }
+     }
+         return $response;
+    }
+
+    function format_interval($interval) {
+        $result = "";
+        if ($interval->y) { $result .= $interval->format("%y years "); }
+        if ($interval->m) { $result .= $interval->format("%m months "); }
+        if ($interval->d) { $result .= $interval->format("%d days "); }
+        if ($interval->h) { $result .= $interval->format("%h hours "); }
+        if ($interval->i) { $result .= $interval->format("%i minutes "); }
+        if ($interval->s) { $result .= $interval->format("%s seconds "); }
+    
+        return $result;
+    } 
+    function subtractTowDates($firstDate, $lastDate) {
+        // $firstDate = new DateTime("2012-11-30 17:03:30");
+        // $lastDate = new DateTime("2012-12-21 00:00:00");
+        
+        $difference = $firstDate->diff($lastDate);
+        
+        return $this->format_interval($difference);
+    }
+    
+   
 }

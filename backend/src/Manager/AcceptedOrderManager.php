@@ -109,4 +109,14 @@ class AcceptedOrderManager
     {
         return $this->repository->getTop5Captains();
     }
+
+    public function countOrdersInMonthForCaptin($fromDate, $toDate, $captainId)
+    {
+        return $this->repository->countOrdersInMonthForCaptin($fromDate, $toDate, $captainId);
+    }
+
+    public function getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId)
+    {
+        return $this->repository->getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId);
+    }
 }

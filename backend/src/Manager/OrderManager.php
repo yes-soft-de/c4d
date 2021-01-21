@@ -177,4 +177,14 @@ class OrderManager
     {
         return $this->repository->getOrders();
     }
+
+    public function countOrdersInMonthForOwner($fromDate, $toDate, $ownerId)
+    {
+        return $this->repository->countOrdersInMonthForOwner($fromDate, $toDate, $ownerId);
+    }
+
+    public function getAllOrders($fromDate, $toDate, $ownerId)
+    {
+        return $this->repository->getAllOrders($fromDate, $toDate, $ownerId);
+    }
 }

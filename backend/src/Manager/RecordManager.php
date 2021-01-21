@@ -41,4 +41,14 @@ class RecordManager
     {
         return $this->repository->getRecordsByOrderId($orderId);
     }
+
+    public function getFirstDate($orderId)
+    {
+        return $this->repository->getFirstDate($orderId);
+    }
+    
+    public function getLastDate($orderId)
+    {
+        return $this->repository->getLastDate($orderId);
+    }
 }

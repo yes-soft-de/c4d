@@ -39,6 +39,16 @@ class RecordService
         return $this->recordManager->getRecordsByOrderId($orderId);
     }
     
+    public function getFirstDate($orderId)
+    {
+        return $this->recordManager->getFirstDate($orderId);
+    }
+
+    public function getLastDate($orderId)
+    {
+        return $this->recordManager->getLastDate($orderId);
+    }
+    
     // for generate uuid
     public function uuid()
     {

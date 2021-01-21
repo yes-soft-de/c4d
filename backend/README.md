@@ -355,6 +355,15 @@ methods: GET
 methods: GET
 ```
 
+#### Get (All Orders And Count ) in mounth by ownerId
+
+
+```
+/getAllOrdersAndCount/{year}/{month}/{ownerId}
+methods: GET
+```
+
+
 ### Dashboard orders 
 
 ```

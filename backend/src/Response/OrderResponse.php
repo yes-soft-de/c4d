@@ -22,9 +22,8 @@ class OrderResponse
     public $branchCity;
     public $acceptedOrder;
     public $record;
+    public $completionTime;
     public $uuid;
-    // public $uuidCaptain;
-    // public $uuidOwner;
     
     
 }
