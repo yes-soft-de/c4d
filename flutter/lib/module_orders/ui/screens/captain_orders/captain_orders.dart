@@ -1,5 +1,8 @@
+import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/state_manager/captain_orders/captain_orders.dart';
-import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders.dart';
+import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
+import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_loading.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,15 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
     widget._stateManager.getMyOrders(this);
   }
 
+  void requestAuthorization() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AuthorizationRoutes.LOGIN_SCREEN,
+        (r) => false,
+      );
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +51,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Orders'),
+        title: Text(S.of(context).orders),
         actions: [
           IconButton(
               icon: Icon(Icons.person),
@@ -77,7 +89,8 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(SettingRoutes.ROUTE_SETTINGS);
+                    Navigator.of(context)
+                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
                   },
                   child: Text(
                     'Settings',

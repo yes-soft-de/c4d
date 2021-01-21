@@ -1,7 +1,11 @@
 import 'package:c4d/module_auth/exceptions/auth_exception.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
-import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders.dart';
+import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
+import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_error.dart';
+import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_loading.dart';
+import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_unauthorized.dart';
+import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_orders_loaded.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 

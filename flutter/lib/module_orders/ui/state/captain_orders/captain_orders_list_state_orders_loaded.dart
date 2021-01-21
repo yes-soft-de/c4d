@@ -1,4 +1,3 @@
-import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
@@ -7,68 +6,9 @@ import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
-import 'package:lottie/lottie.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
-
-abstract class CaptainOrdersListState {
-  CaptainOrdersScreenState screenState;
-
-  CaptainOrdersListState(this.screenState);
-
-  Widget getUI(BuildContext context);
-}
-
-class OrdersListStateInit extends CaptainOrdersListState {
-  OrdersListStateInit(CaptainOrdersScreenState screenState)
-      : super(screenState);
-
-  @override
-  Widget getUI(BuildContext context) {
-    return Center(
-      child: Text('Welcome to Orders Screen'),
-    );
-  }
-}
-
-class CaptainOrdersListStateLoading extends CaptainOrdersListState {
-  CaptainOrdersListStateLoading(CaptainOrdersScreenState screenState)
-      : super(screenState);
-
-  @override
-  Widget getUI(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () {
-        screenState.getMyOrders();
-        return Future.delayed(Duration(seconds: 3));
-      },
-      child: Center(
-        child: GestureDetector(
-            onTap: () {
-              screenState.getMyOrders();
-            },
-            child: Lottie.network(
-                'https://assets4.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json')),
-      ),
-    );
-  }
-}
-
-class CaptainOrdersListStateUnauthorized extends CaptainOrdersListState {
-  CaptainOrdersListStateUnauthorized(CaptainOrdersScreenState screenState)
-      : super(screenState);
-
-  @override
-  Widget getUI(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          AuthorizationRoutes.LOGIN_SCREEN, (r) => false);
-    });
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-}
+import 'captain_orders_list_state.dart';
 
 class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   final List<OrderModel> myOrders;
@@ -119,7 +59,6 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
 
   Future<List<Widget>> getMyOrdersList(BuildContext context) async {
     var availableOrders = await sortLocations();
-    print('Locations Sorted: ${availableOrders.length}');
     var uiList = <Widget>[];
 
     uiList.add(Text('My Orders'));
@@ -136,7 +75,8 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
           child: OrderCard(
             title: 'Order #${element.id}',
             subTitle: ' ',
-            time: timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode),
+            time: timeago.format(element.creationTime,
+                locale: Localizations.localeOf(context).languageCode),
           ),
         ),
       ));
@@ -157,7 +97,8 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
             child: OrderCard(
               title: 'Order #${element.id}',
               subTitle: ' ',
-              time: '${timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode)}',
+              time:
+                  '${timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode)}',
             ),
           ),
         ));
@@ -204,20 +145,5 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
       }
     });
     return orders.toList();
-  }
-}
-
-class CaptainOrdersListStateError extends CaptainOrdersListState {
-  final String errorMsg;
-
-  CaptainOrdersListStateError(
-      this.errorMsg, CaptainOrdersScreenState screenState)
-      : super(screenState);
-
-  @override
-  Widget getUI(BuildContext context) {
-    return Center(
-      child: Text('Error ${errorMsg}'),
-    );
   }
 }

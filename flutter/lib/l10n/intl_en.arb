@@ -43,5 +43,6 @@
   "smallLessThan20Employee": "1 - 20 Employee",
   "mediumMoreThan20EmployeesLessThan100": "21 - 100 Employees",
   "largeMoreThan100Employees": "+100 Employees",
-  "openChatRoom": "Open Chat Room"
+  "openChatRoom": "Open Chat Room",
+  "orders": "Orders"
 }

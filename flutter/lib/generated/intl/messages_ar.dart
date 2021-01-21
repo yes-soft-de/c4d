@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderDetails" : MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
     "orderIsDone" : MessageLookupByLibrary.simpleMessage("انتهى الطلب!"),
     "orderIsInUndefinedState" : MessageLookupByLibrary.simpleMessage("الطلب في مرحلة غير معروفة"),
+    "orders" : MessageLookupByLibrary.simpleMessage("Orders"),
     "phoneNumber" : MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "pleaseEnterYourEmail" : MessageLookupByLibrary.simpleMessage("الرجاء ادخال البريد الالكتروني"),
     "pleaseInputPhoneNumber" : MessageLookupByLibrary.simpleMessage("الرجاء ادخال رقم الهاتف"),
