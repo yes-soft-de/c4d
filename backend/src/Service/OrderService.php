@@ -34,16 +34,6 @@ class OrderService
         $this->userService = $userService;
     }
 
-    // public function create(OrderCreateRequest $request)
-    // {
-    //     $uuid = $this->recordService->uuid();
-       
-    //     $item = $this->orderManager->create($request, $uuid);
-    //     if ($item) {
-    //         $this->recordService->create($item->getId(), $item->getState());
-    //     }
-    //     return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
-    // }
     public function create(OrderCreateRequest $request)
     {  
         $response = "please subscribe!!";
@@ -201,12 +191,6 @@ class OrderService
           
             $order['record'] = $this->recordService->getrecordByOrderId($order['id']);
             
-            // if ($order['acceptedOrder'] == true) {
-
-            //         if ($order['state'] == 'pending' && $order['acceptedOrder'][0]['state'] == 'on way to pick order' ) {
-            //                 $order['state'] = 'on way to pick order';
-            //             }
-            //         }
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
         }
         return $response;

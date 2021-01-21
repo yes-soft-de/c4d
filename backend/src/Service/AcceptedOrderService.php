@@ -26,12 +26,18 @@ class AcceptedOrderService
     }
 
     public function create(AcceptedOrderCreateRequest $request)
-    {
-        $item = $this->acceptedOrderManager->create($request);
-        if ($item) {
-            $this->recordService->create($item->getOrderID(), $item->getState());
+    {   
+        $response ="This order was received by another captain";
+        $acceptedOrder = $this->getAcceptedOrderByOrderId($request->getOrderID());
+        if (!$acceptedOrder) {
+            $item = $this->acceptedOrderManager->create($request);
+            if ($item) {
+                $this->recordService->create($item->getOrderID(), $item->getState());
+            }
+            $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
         }
-        return $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
+       
+        return $response;
     }
 
     // public function getOrderStatusForCaptain($captainID, $orderId)

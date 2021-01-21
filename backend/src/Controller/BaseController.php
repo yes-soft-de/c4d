@@ -28,6 +28,7 @@ class BaseController extends AbstractController
     const FETCH = ["fetched","200"];
     const SUBSCRIBE_ERROR = ["subscribe_error","421"];
     // const CAPTAIN_INACTIVE = ["captain_inactive","422"];
+    const ACCEPTED_ERROR = ["accepted_error","423"];
 
 
     public function getUserId()

@@ -40,7 +40,9 @@ class AcceptedOrderManager
         $this->entityManager->flush();
         $this->entityManager->clear();
         ///////////////update state in orderEntity
+        if ($item) {
         $this->orderManager->orderUpdateStateByCaptain2($request->getOrderID());
+        }
         return $item;
     }
 
