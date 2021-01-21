@@ -484,6 +484,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Current Orders`
+  String get currentOrders {
+    return Intl.message(
+      'Current Orders',
+      name: 'currentOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nearby Orders`
+  String get nearbyOrders {
+    return Intl.message(
+      'Nearby Orders',
+      name: 'nearbyOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat with Store Owner`
+  String get chatWithStoreOwner {
+    return Intl.message(
+      'Chat with Store Owner',
+      name: 'chatWithStoreOwner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WhatsApp with Store Owner`
+  String get whatsappWithStoreOwner {
+    return Intl.message(
+      'WhatsApp with Store Owner',
+      name: 'whatsappWithStoreOwner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WhatsApp with Client`
+  String get whatsappWithClient {
+    return Intl.message(
+      'WhatsApp with Client',
+      name: 'whatsappWithClient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Direction`
+  String get getDirection {
+    return Intl.message(
+      'Get Direction',
+      name: 'getDirection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

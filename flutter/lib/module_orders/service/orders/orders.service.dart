@@ -122,7 +122,7 @@ class OrdersService {
         return _ordersManager.acceptOrder(request);
         break;
       case OrderStatus.IN_STORE:
-        var request = UpdateOrderRequest(id: orderId, state: 'ongoing');
+        var request = UpdateOrderRequest(id: orderId, state: 'in store');
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.DELIVERING:
@@ -130,7 +130,7 @@ class OrdersService {
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.GOT_CASH:
-        var request = UpdateOrderRequest(id: orderId, state: 'got_cash');
+        var request = UpdateOrderRequest(id: orderId, state: 'got cash');
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.FINISHED:

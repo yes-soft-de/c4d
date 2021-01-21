@@ -24,7 +24,7 @@ class CommunicationCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8),
         child: ListTile(
-          title: Text(text),
+          title: Text(text, style: TextStyle(color: textColor),),
           leading: image,
         )
       ),

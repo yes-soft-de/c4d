@@ -1,5 +1,6 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
+import 'package:c4d/module_navigation/ui/widget/drawer_widget/drawer_widget.dart';
 import 'package:c4d/module_orders/state_manager/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_loading.dart';
@@ -23,6 +24,12 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
 
   void getMyOrders() {
     widget._stateManager.getMyOrders(this);
+  }
+
+  void refresh() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void requestAuthorization() {
@@ -60,50 +67,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
               }),
         ],
       ),
-      drawer: Container(
-        color: Theme.of(context).primaryColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(36.0),
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Flex(
-              direction: Axis.vertical,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
-                  },
-                  child: Text(
-                    'Settings',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-            Container(),
-          ],
-        ),
-      ),
+      drawer: DrawerWidget(),
       body: currentState.getUI(context),
     );
   }

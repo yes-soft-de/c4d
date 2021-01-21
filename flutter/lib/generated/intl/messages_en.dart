@@ -28,12 +28,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "captainIsInStore" : MessageLookupByLibrary.simpleMessage("Captain is in store"),
     "captainIsInTheWay" : MessageLookupByLibrary.simpleMessage("Captain is in the way"),
     "chatRoom" : MessageLookupByLibrary.simpleMessage("Chat Room"),
+    "chatWithStoreOwner" : MessageLookupByLibrary.simpleMessage("Chat with Store Owner"),
     "chooseYourSize" : MessageLookupByLibrary.simpleMessage("Choose Your Size"),
     "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmCode" : MessageLookupByLibrary.simpleMessage("Confirm Code"),
+    "currentOrders" : MessageLookupByLibrary.simpleMessage("Current Orders"),
     "emailAddressIsRequired" : MessageLookupByLibrary.simpleMessage("Email Address is Required"),
     "errorHappened" : MessageLookupByLibrary.simpleMessage("Error Happened"),
     "errorLoadingData" : MessageLookupByLibrary.simpleMessage("Error Loading Data"),
+    "getDirection" : MessageLookupByLibrary.simpleMessage("Get Direction"),
     "iArrivedAtTheStore" : MessageLookupByLibrary.simpleMessage("I Arrived at the Store"),
     "iFinishedDelivering" : MessageLookupByLibrary.simpleMessage("I Finished Delivering"),
     "iGotTheCash" : MessageLookupByLibrary.simpleMessage("I Got the Cash"),
@@ -45,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "loading" : MessageLookupByLibrary.simpleMessage("Loading"),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
     "mediumMoreThan20EmployeesLessThan100" : MessageLookupByLibrary.simpleMessage("21 - 100 Employees"),
+    "nearbyOrders" : MessageLookupByLibrary.simpleMessage("Nearby Orders"),
     "newOrder" : MessageLookupByLibrary.simpleMessage("New Order"),
     "openChatRoom" : MessageLookupByLibrary.simpleMessage("Open Chat Room"),
     "orderCreatedReturnToOrders" : MessageLookupByLibrary.simpleMessage("Order Created, Return to Orders"),
@@ -61,10 +65,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "saudiArabia" : MessageLookupByLibrary.simpleMessage("Saudi Arabia"),
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("Searching for Captain"),
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("Send me code"),
+    "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "signOut" : MessageLookupByLibrary.simpleMessage("Sign out"),
     "smallLessThan20Employee" : MessageLookupByLibrary.simpleMessage("1 - 20 Employee"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("Start Writing"),
     "storeOwner" : MessageLookupByLibrary.simpleMessage("Store Owner"),
-    "syria" : MessageLookupByLibrary.simpleMessage("Syria")
+    "syria" : MessageLookupByLibrary.simpleMessage("Syria"),
+    "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("WhatsApp with Client"),
+    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("WhatsApp with Store Owner")
   };
 }

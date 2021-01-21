@@ -1,3 +1,5 @@
+import 'package:c4d/consts/order_status.dart';
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
@@ -22,6 +24,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   @override
   Widget getUI(BuildContext context) {
+    print(currentOrder.id.toString());
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -50,19 +53,19 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             height: 56,
           ),
           // To Progress the Order
-          GestureDetector(
+          currentOrder.status == OrderStatus.FINISHED ? Container() : GestureDetector(
             onTap: () {
               screenState.requestOrderProgress(currentOrder);
             },
             child: CommunicationCard(
               text: OrderProgressionHelper.getNextStageHelper(
                 currentOrder.status,
+                currentOrder.paymentMethod.toLowerCase().contains('ca'),
                 context,
               ),
-              image: FaIcon(
-                FontAwesomeIcons.whatsapp,
-                color: Theme.of(context).accentColor,
-              ),
+              color: Theme.of(context).accentColor,
+              textColor: Colors.white,
+              image: Icon(Icons.navigate_next_sharp, color: Colors.white,),
             ),
           ),
           // To Chat with Store owner in app
@@ -74,7 +77,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               );
             },
             child: CommunicationCard(
-              text: 'Chat with Store Owner',
+              text: S.of(context).chatWithStoreOwner,
               image: Icon(Icons.chat_rounded),
             ),
           ),
@@ -89,25 +92,27 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               }
             },
             child: CommunicationCard(
-              text: 'WhatsApp with Store Owner',
+              text: S.of(context).whatsappWithStoreOwner,
               image: FaIcon(FontAwesomeIcons.whatsapp),
             ),
           ),
           // To WhatsApp with client
-          GestureDetector(
-            onTap: () async {
-              var url = 'https://wa.me/${currentOrder.ownerPhone}';
-              if (await canLaunch(url)) {
-                await launch(url);
-              } else {
-                throw 'Could not launch $url';
-              }
-            },
-            child: CommunicationCard(
-              text: 'WhatsApp with Client',
-              image: FaIcon(FontAwesomeIcons.whatsapp),
-            ),
-          ),
+          currentOrder.ownerPhone != null
+              ? GestureDetector(
+                  onTap: () async {
+                    var url = 'https://wa.me/${currentOrder.ownerPhone}';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                  child: CommunicationCard(
+                    text: S.of(context).whatsappWithClient,
+                    image: FaIcon(FontAwesomeIcons.whatsapp),
+                  ),
+                )
+              : Container(),
           // To Open Maps
           GestureDetector(
             onTap: () {
@@ -120,7 +125,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               });
             },
             child: CommunicationCard(
-              text: 'Get Direction',
+              text: S.of(context).getDirection,
               image: FaIcon(FontAwesomeIcons.mapSigns),
             ),
           ),

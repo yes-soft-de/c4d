@@ -64,7 +64,7 @@ class OrderProgressionHelper {
     }
   }
 
-  static String getNextStageHelper(OrderStatus status, BuildContext context) {
+  static String getNextStageHelper(OrderStatus status, bool isOnline, BuildContext context) {
     switch (status) {
       case OrderStatus.INIT:
         return S.of(context).acceptOrder;
@@ -76,10 +76,10 @@ class OrderProgressionHelper {
         return S.of(context).iGotThePackage;
         break;
       case OrderStatus.DELIVERING:
-        return S.of(context).iGotTheCash;
+        return S.of(context).iFinishedDelivering;
         break;
       case OrderStatus.GOT_CASH:
-        return S.of(context).iFinishedDelivering;
+        return isOnline ? S.of(context).iFinishedDelivering : S.of(context).iGotTheCash;
         break;
       case OrderStatus.FINISHED:
         return S.of(context).iFinishedDelivering;

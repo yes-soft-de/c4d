@@ -28,12 +28,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "captainIsInStore" : MessageLookupByLibrary.simpleMessage("الكابتن في المحل"),
     "captainIsInTheWay" : MessageLookupByLibrary.simpleMessage("الكابتن على الطريق"),
     "chatRoom" : MessageLookupByLibrary.simpleMessage("غرفة المحادثة"),
+    "chatWithStoreOwner" : MessageLookupByLibrary.simpleMessage("Chat with Store Owner"),
     "chooseYourSize" : MessageLookupByLibrary.simpleMessage("عدد الموظفين العاملين"),
     "confirm" : MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmCode" : MessageLookupByLibrary.simpleMessage("تأكيد الرقم"),
+    "currentOrders" : MessageLookupByLibrary.simpleMessage("Current Orders"),
     "emailAddressIsRequired" : MessageLookupByLibrary.simpleMessage("يرجى توفير البريد الالكتروني"),
     "errorHappened" : MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
     "errorLoadingData" : MessageLookupByLibrary.simpleMessage("خطأ في تحميل البيانات"),
+    "getDirection" : MessageLookupByLibrary.simpleMessage("Get Direction"),
     "iArrivedAtTheStore" : MessageLookupByLibrary.simpleMessage("وصلت المحل التجاري"),
     "iFinishedDelivering" : MessageLookupByLibrary.simpleMessage("انتهى الطلب"),
     "iGotTheCash" : MessageLookupByLibrary.simpleMessage("حصلت على المال"),
@@ -45,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "loading" : MessageLookupByLibrary.simpleMessage("جار التحميل"),
     "login" : MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "mediumMoreThan20EmployeesLessThan100" : MessageLookupByLibrary.simpleMessage("21 - 100 موظف"),
+    "nearbyOrders" : MessageLookupByLibrary.simpleMessage("Nearby Orders"),
     "newOrder" : MessageLookupByLibrary.simpleMessage("طلب جديد"),
     "openChatRoom" : MessageLookupByLibrary.simpleMessage("Open Chat Room"),
     "orderCreatedReturnToOrders" : MessageLookupByLibrary.simpleMessage("انتهى انشاء الطلب"),
@@ -61,10 +65,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "saudiArabia" : MessageLookupByLibrary.simpleMessage("المملكة السعودية"),
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("جار البحث عن كابتن"),
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("ارسل رمز التأكيد"),
+    "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "signOut" : MessageLookupByLibrary.simpleMessage("تسحيل الخروج"),
     "smallLessThan20Employee" : MessageLookupByLibrary.simpleMessage("1 - 20 موظف"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("ابدأ الكتابة"),
     "storeOwner" : MessageLookupByLibrary.simpleMessage("محل تجاري"),
-    "syria" : MessageLookupByLibrary.simpleMessage("سوريا")
+    "syria" : MessageLookupByLibrary.simpleMessage("سوريا"),
+    "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("WhatsApp with Client"),
+    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("WhatsApp with Store Owner")
   };
 }
