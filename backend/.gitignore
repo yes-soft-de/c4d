@@ -94,3 +94,4 @@ config/jwt
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
+migrations
