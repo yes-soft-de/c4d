@@ -1,0 +1,29 @@
+
+liip_imagine:
+    loaders:
+        default:
+            flysystem:
+                filesystem_service: "oneup_flysystem.resolve_fileSystem_filesystem"
+    #                data_root:
+    #                    - "%kernel.project_dir%/../%upload_dir_name%/image/original-image"
+    #                    - "%kernel.project_dir%"
+
+    #defulat loader
+    data_loader: default
+
+    resolvers:
+        default:
+            flysystem:
+                filesystem_service: "oneup_flysystem.default_filesystem_filesystem"
+                root_url: '%upload_base_url%'
+                cache_prefix: '%image_folder%'
+    cache:  default
+    #            web_path:
+    #                web_root: "%kernel.project_dir%/../upload/"
+    #                #cache_prefix: ""
+
+
+    filter_sets:
+
+        basic:
+            quality: 30

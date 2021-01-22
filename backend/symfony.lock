@@ -120,6 +120,9 @@
     "guzzlehttp/psr7": {
         "version": "1.7.0"
     },
+    "imagine/imagine": {
+        "version": "1.2.4"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -132,6 +135,12 @@
     "lcobucci/jwt": {
         "version": "3.3.3"
     },
+    "league/flysystem": {
+        "version": "1.1.3"
+    },
+    "league/mime-type-detection": {
+        "version": "1.7.0"
+    },
     "lexik/jwt-authentication-bundle": {
         "version": "2.5",
         "recipe": {
@@ -142,6 +151,19 @@
         },
         "files": [
             "./config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
+    "liip/imagine-bundle": {
+        "version": "1.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.8",
+            "ref": "5a5bdc2d0e2533ed6935d5ae562f2b318a8fc1ee"
+        },
+        "files": [
+            "./config/packages/liip_imagine.yaml",
+            "./config/routes/liip_imagine.yaml"
         ]
     },
     "mark-gerarts/auto-mapper-plus": {
@@ -170,6 +192,18 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.8.0"
+    },
+    "oneup/flysystem-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0eb87bba411c227da027fe5f7c1dc7954b02f242"
+        },
+        "files": [
+            "./config/packages/oneup_flysystem.yaml"
+        ]
     },
     "pdepend/pdepend": {
         "version": "2.8.0"
@@ -338,6 +372,9 @@
     "symfony/mime": {
         "version": "v5.1.7"
     },
+    "symfony/options-resolver": {
+        "version": "v5.1.10"
+    },
     "symfony/orm-pack": {
         "version": "v2.0.0"
     },
@@ -373,6 +410,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.18.1"
+    },
+    "symfony/process": {
+        "version": "v5.1.10"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.5"
@@ -432,6 +472,9 @@
     },
     "symfony/string": {
         "version": "v5.1.7"
+    },
+    "symfony/templating": {
+        "version": "v5.1.10"
     },
     "symfony/translation": {
         "version": "3.3",
