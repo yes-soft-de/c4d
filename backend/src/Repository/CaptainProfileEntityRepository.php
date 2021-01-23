@@ -38,7 +38,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getcaptainprofileByCaptainID($captainID)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.specialLink')
 
             ->andWhere('captainProfile.captainID=:captainID')
             
@@ -61,7 +61,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainprofileByID($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'acceptedOrderEntity.state', 'captainProfile.bounce', 'captainProfile.uuid')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'acceptedOrderEntity.state', 'captainProfile.bounce', 'captainProfile.uuid', 'captainProfile.specialLink')
 
             
             ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
@@ -78,7 +78,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainprofileByIDStateDayOff($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.bounce', 'captainProfile.uuid')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.bounce', 'captainProfile.uuid', 'captainProfile.specialLink')
 
             ->andWhere('captainProfile.id=:captainProfileId')
             
@@ -91,7 +91,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getUserInactive()
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.specialLink')
 
             ->andWhere("captainProfile.status = 'inactive' ")
 
@@ -103,7 +103,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     {
         return  $this->createQueryBuilder('captainProfile')
          
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce', 'captainProfile.specialLink')
             ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
             
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
@@ -165,7 +165,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getDayOfCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.specialLink')
 
             ->andWhere("captainProfile.state = 'vacation'")
 
@@ -177,7 +177,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('captainProfile')
 
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce', 'captainProfile.specialLink')
 
             ->andWhere('captainProfile.id =:id')
             ->setParameter('id', $id)
@@ -189,7 +189,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('captainProfile')
 
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name as captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name as captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce', 'captainProfile.specialLink')
 
             ->addSelect('acceptedOrderEntity.captainID')
 
@@ -205,6 +205,15 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'orderEntity.fromBranch = branchesEntity.id')
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'orderEntity.ownerID = userProfileEntity.userID')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllCaptains()
+    {
+        return $this->createQueryBuilder('captainProfile')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.uuid', 'captainProfile.bounce', 'captainProfile.specialLink')
 
             ->getQuery()
             ->getResult();

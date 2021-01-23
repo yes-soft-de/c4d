@@ -27,11 +27,12 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrderById($orderId)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate','OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'OrderEntity.uuid')
+            ->addSelect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate','OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'OrderEntity.uuid')
             ->andWhere('OrderEntity.id = :id')
             ->setParameter('id', $orderId)
             ->getQuery()
-            ->getResult();
+            // ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function getOrdersByOwnerID($userID)

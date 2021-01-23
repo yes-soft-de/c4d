@@ -343,5 +343,16 @@ class UserController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
+     /**
+     * @Route("/getAllUsers/{userType}", name="getAllUsers",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function getAllUsers($userType)
+    {
+        $response = $this->userService->getAllUsers($userType);
+
+        return $this->response($response, self::FETCH);
+    }
 
 }

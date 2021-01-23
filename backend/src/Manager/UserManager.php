@@ -249,4 +249,13 @@ class UserManager
     {
         return $this->captainProRepository->getCaptains($userID);
     }
+
+    public function getAllOwners()
+    {
+        return $this->profileRepository->getAllOwners();
+    }
+    public function getAllCaptains()
+    {
+        return $this->captainProRepository->getAllCaptains();
+    }
 }

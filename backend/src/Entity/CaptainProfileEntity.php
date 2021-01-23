@@ -77,6 +77,12 @@ class CaptainProfileEntity
      */
     private $uuid;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $specialLink;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -222,6 +228,18 @@ class CaptainProfileEntity
     public function setUuid(?string $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getSpecialLink(): ?bool
+    {
+        return $this->specialLink;
+    }
+
+    public function setSpecialLink(?bool $specialLink): self
+    {
+        $this->specialLink = $specialLink;
 
         return $this;
     }

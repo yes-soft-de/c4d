@@ -21,6 +21,8 @@ class CaptainProfileCreateRequest
     private $status;
 
     private $uuid;
+    
+    public $specialLink;
 
     /**
      * Get the value of captainID
