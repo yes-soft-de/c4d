@@ -6,7 +6,7 @@ class UserProfileCreateResponse
 {
     public $id;
     
-    // public $userName;
+    public $userName;
 
     // public $story;
 

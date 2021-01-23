@@ -112,4 +112,14 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAllOwners()
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->select('profile.id', 'profile.userName', 'profile.free', 'profile.branch', 'profile.uuid')
+
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -22,7 +22,7 @@ use App\Response\AllUsersResponse;
 use App\Response\RemainingOrdersResponse;
 use App\Response\CaptainsOngoingResponse;
 use App\Response\CaptainTotalBounceResponse;
-
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class UserService
 {
@@ -32,8 +32,9 @@ class UserService
     private $ratingService;
     private $branchesService;
     private $recordService;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService, RatingService $ratingService, BranchesService $branchesService, RecordService $recordService)
+    public function __construct(AutoMapping $autoMapping, UserManager $userManager, AcceptedOrderService $acceptedOrderService, RatingService $ratingService, BranchesService $branchesService, RecordService $recordService, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->userManager = $userManager;
@@ -41,6 +42,8 @@ class UserService
         $this->ratingService = $ratingService;
         $this->branchesService = $branchesService;
         $this->recordService = $recordService;
+
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function userRegister(UserRegisterRequest $request)
@@ -117,7 +120,9 @@ class UserService
     {
         $uuid = $this->recordService->uuid();
         $captainProfile = $this->userManager->captainprofileCreate($request, $uuid);
-       
+
+        $captainProfile->setImage($this->specialLinkCheck($captainProfile->getSpecialLink()).$captainProfile->getImage());
+
         if ($captainProfile instanceof captainProfile) {
             return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
         }
@@ -131,7 +136,9 @@ class UserService
     public function captainprofileUpdate(CaptainProfileUpdateRequest $request, $captainID)
     {
         $item = $this->userManager->captainprofileUpdate($request, $captainID);
-
+        
+        $item->setImage($this->specialLinkCheck($item->getSpecialLink()).$item->getImage());
+        
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
 
@@ -151,7 +158,7 @@ class UserService
         $bounce = $this->totalBounceCaptain($item['id']);
 
         $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($captainID);
-
+        $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
         $item['rating'] = $this->ratingService->getRatingByCaptainID($captainID);
         $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
       
@@ -169,7 +176,9 @@ class UserService
         $item = $this->userManager->getCaptainprofileByID($captainProfileId);
         if($item) {
             $totalBounce = $this->totalBounceCaptain($item['id']);
-            
+            $item['imageURL'] = $item['image'];
+            $item['baseURL'] = $this->params;
+            $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
             $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
             $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
@@ -190,7 +199,9 @@ class UserService
         $item = $this->userManager->getCaptainprofileByIDStateDayOff($captainProfileId);
         if($item) {
             $totalBounce = $this->totalBounceCaptain($item['id']);
-            
+            $item['imageURL'] = $item['image'];
+            $item['baseURL'] = $this->params;
+            $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
             $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
             $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
@@ -228,7 +239,9 @@ class UserService
         foreach( $items as  $item ) {
            
             $item['totalBounce'] = $this->totalBounceCaptain($item['id']);
-           
+            $item['imageURL'] = $item['image'];
+            $item['baseURL'] = $this->params;
+            $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
             $item['countOrdersDeliverd'] = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
            
             $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
@@ -312,5 +325,35 @@ class UserService
             }
         }
         return $respons;
+    }
+
+    public function getAllUsers($userType)
+    {
+        $response = [];
+        if ($userType == "owner") {
+            $owners = $this->userManager->getAllOwners();
+            
+            foreach ($owners as $owner) {
+                $response[] = $this->autoMapping->map('array', UserProfileCreateResponse::class, $owner);
+            }
+        }
+
+        if ($userType == "captain") {
+            $captains = $this->userManager->getAllCaptains();
+        
+            foreach ($captains as $captain) {
+            
+            $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $captain);
+            } 
+        }        
+        return $response;
+    }
+
+    public function specialLinkCheck($bool)
+    {
+        if (!$bool)
+        {
+            return $this->params;
+        }
     }
 }

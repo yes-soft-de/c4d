@@ -35,5 +35,9 @@ class CaptainProfileCreateResponse
     public $totalBounce;
 
     public $uuid;
+    
+    public $imageURL;
+
+    public $baseURL;
 
 }
