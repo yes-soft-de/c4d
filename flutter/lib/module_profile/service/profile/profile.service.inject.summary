@@ -25,6 +25,13 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_profile/prefs_helper/profile_prefs_helper.dart#ProfilePreferencesHelper",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

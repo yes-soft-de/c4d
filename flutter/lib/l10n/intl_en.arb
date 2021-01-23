@@ -51,5 +51,11 @@
   "whatsappWithStoreOwner": "WhatsApp with Store Owner",
   "whatsappWithClient": "WhatsApp with Client",
   "getDirection": "Get Direction",
-  "settings": "Settings"
+  "settings": "Settings",
+  "iAm": "I am",
+  "skip": "Skip",
+  "iSpeak": "I Speak",
+  "changeLanguage": "Change Language",
+  "andIAm": "And I am",
+  "me": "ME"
 }

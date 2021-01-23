@@ -5,7 +5,6 @@ import 'package:c4d/module_orders/state_manager/captain_orders/captain_orders.da
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_loading.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
-import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 

@@ -1,7 +1,6 @@
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
-import 'package:c4d/module_auth/ui/widget/email_password_login/email_password_login.dart';
 import 'package:c4d/module_auth/ui/widget/email_password_register/email_password_register.dart';
 import 'package:c4d/module_auth/ui/widget/phone_login/phone_login.dart';
 import 'package:c4d/module_auth/ui/widget/user_type_selector/user_type_selector.dart';

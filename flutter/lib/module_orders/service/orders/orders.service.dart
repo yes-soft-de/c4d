@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
@@ -10,7 +9,6 @@ import 'package:c4d/module_orders/response/order_details/order_details_response.
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/utils/status_helper/status_helper.dart';
-import 'package:c4d/module_profile/manager/profile/profile.manager.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:inject/inject.dart';
 

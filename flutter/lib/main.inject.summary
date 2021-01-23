@@ -49,6 +49,13 @@
             },
             {
               "lookupKey": {
+                "root": "asset:c4d/lib/module_about/about_module.dart#AboutModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
                 "root": "asset:c4d/lib/module_splash/splash_module.dart#SplashModule",
                 "qualifier": null
               },

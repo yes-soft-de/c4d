@@ -1,5 +1,4 @@
 import 'package:c4d/module_init/model/package/packages.model.dart';
-import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:flutter/material.dart';
 
 class PackageCard extends StatelessWidget {

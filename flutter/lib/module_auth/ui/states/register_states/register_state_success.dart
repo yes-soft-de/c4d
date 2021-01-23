@@ -1,7 +1,6 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
-import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

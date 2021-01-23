@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class EmailPasswordForm extends StatefulWidget {
   final Function(String, String) onLoginRequest;
-  String email;
-  String password;
+  final String email;
+  final String password;
 
   EmailPasswordForm({
     this.onLoginRequest,

@@ -12,7 +12,7 @@ class CreateBranchResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status_code'] = this.statusCode;
     data['msg'] = this.msg;
     if (this.data != null) {
@@ -56,7 +56,7 @@ class Branch {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
     data['ownerID'] = this.ownerID;
     if (this.location != null) {

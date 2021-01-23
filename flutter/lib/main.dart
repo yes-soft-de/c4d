@@ -1,4 +1,5 @@
 import 'package:c4d/abstracts/module/yes_module.dart';
+import 'package:c4d/module_about/about_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
@@ -44,12 +45,14 @@ class MyApp extends StatefulWidget {
   final AuthorizationModule _authorizationModule;
   final SplashModule _splashModule;
   final ProfileModule _profileModule;
+  final AboutModule _aboutModule;
 
   MyApp(
     this._themeDataService,
     this._localizationService,
     this._ordersModule,
     this._chatModule,
+    this._aboutModule,
     this._splashModule,
     this._initAccountModule,
     this._settingsModule,
@@ -123,7 +126,7 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: theme,
       supportedLocales: S.delegate.supportedLocales,
-      title: 'C4D Client',
+      title: 'C4D',
       routes: fullRoutesList,
       initialRoute: SplashRoutes.SPLASH_SCREEN,
     );

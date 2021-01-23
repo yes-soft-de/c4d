@@ -1,6 +1,5 @@
 import 'package:c4d/module_auth/enums/auth_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
-import 'package:c4d/module_auth/exceptions/auth_exception.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';

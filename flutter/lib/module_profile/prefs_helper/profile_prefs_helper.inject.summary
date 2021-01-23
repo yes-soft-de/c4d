@@ -1,0 +1,26 @@
+{
+  "asset": "asset:c4d/lib/module_profile/prefs_helper/profile_prefs_helper.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "ProfilePreferencesHelper",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:c4d/lib/module_profile/prefs_helper/profile_prefs_helper.dart#ProfilePreferencesHelper",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": []
+        }
+      }
+    ]
+  }
+}

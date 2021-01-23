@@ -554,6 +554,66 @@ class S {
       args: [],
     );
   }
+
+  /// `I am`
+  String get iAm {
+    return Intl.message(
+      'I am',
+      name: 'iAm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Speak`
+  String get iSpeak {
+    return Intl.message(
+      'I Speak',
+      name: 'iSpeak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Language`
+  String get changeLanguage {
+    return Intl.message(
+      'Change Language',
+      name: 'changeLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `And I am`
+  String get andIAm {
+    return Intl.message(
+      'And I am',
+      name: 'andIAm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ME`
+  String get me {
+    return Intl.message(
+      'ME',
+      name: 'me',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
