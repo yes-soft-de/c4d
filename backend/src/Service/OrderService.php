@@ -338,7 +338,7 @@ class OrderService
         $acceptedInMonth = $this->acceptedOrderService->getAcceptedOrderByCaptainIdInMonth($date[0], $date[1], $userId);
          
         foreach ($acceptedInMonth as $item){
-            $ordersInMonth =  $this->orderManager->getOrderById($item['orderID']);  
+            $ordersInMonth =  $this->orderManager->orderById($item['orderID']);  
           
         
             foreach ($ordersInMonth as $order) {

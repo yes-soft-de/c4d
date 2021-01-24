@@ -50,7 +50,7 @@ class OrderManager
 
     public function orderById($orderId)
     {
-        return $this->repository->getOrderById($orderId);
+        return $this->repository->orderById($orderId);
     }
 
     public function getOrdersByOwnerID($userID)
