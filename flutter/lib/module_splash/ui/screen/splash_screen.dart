@@ -23,8 +23,7 @@ class SplashScreen extends StatelessWidget {
       try {
         var isInited = await _aboutService.isInited();
 
-        print('Is Inited? ${isInited}');
-        if (!isInited) {
+        if (isInited) {
           await Navigator.of(context).pushNamedAndRemoveUntil(
             AboutRoutes.ROUTE_ABOUT,
             (route) => false,

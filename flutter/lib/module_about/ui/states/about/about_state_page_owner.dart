@@ -56,28 +56,34 @@ class AboutStatePageOwner extends AboutState {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(S.of(context).toFindOutMorePleaseLeaveYourPhonenandWeWill),
-            Flex(direction: Axis.vertical,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                    hintText: S.of(context).phoneNumber,
-                    labelText: S.of(context).phoneNumber,
-                    suffix: Icon(Icons.call)),
-                keyboardType: TextInputType.phone,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    hintText: S.of(context).name,
-                    labelText: S.of(context).name,
-                    suffix: Icon(Icons.person)),
-                keyboardType: TextInputType.phone,
-              ),
-            ],),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(S.of(context).toFindOutMorePleaseLeaveYourPhonenandWeWill, textAlign: TextAlign.center,),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Flex(direction: Axis.vertical,
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                      hintText: S.of(context).phoneNumber,
+                      labelText: S.of(context).phoneNumber,
+                      suffix: Icon(Icons.call)),
+                  keyboardType: TextInputType.phone,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                      hintText: S.of(context).name,
+                      labelText: S.of(context).name,
+                      suffix: Icon(Icons.person)),
+                  keyboardType: TextInputType.phone,
+                ),
+              ],),
+            ),
             RaisedButton(
               color: Theme.of(context).primaryColor,
               onPressed: () {
-                // TODO: Request a booking
+                screenState.setBookingSuccess();
               },
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

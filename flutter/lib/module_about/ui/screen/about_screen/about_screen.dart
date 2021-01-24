@@ -4,6 +4,7 @@ import 'package:c4d/module_about/ui/states/about/about_state.dart';
 import 'package:c4d/module_about/ui/states/about/about_state_booking_success.dart';
 import 'package:c4d/module_about/ui/states/about/about_state_page_captain.dart';
 import 'package:c4d/module_about/ui/states/about/about_state_page_init.dart';
+import 'package:c4d/module_about/ui/states/about/about_state_page_owner.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,13 @@ class AboutScreenState extends State<AboutScreen> {
     } else {
       _currentState = AboutStatePageCaptain(this);
     }
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void setBookingSuccess() {
+    _currentState = AboutStatePageOwnerBookingSuccess(this);
     if (mounted) {
       setState(() {});
     }
