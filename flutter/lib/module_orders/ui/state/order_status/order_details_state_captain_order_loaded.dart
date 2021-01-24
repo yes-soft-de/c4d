@@ -65,7 +65,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               ),
               color: Theme.of(context).accentColor,
               textColor: Colors.white,
-              image: Icon(Icons.navigate_next_sharp, color: Colors.white,),
+              image: Icon(Icons.navigate_next_sharp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
           ),
           // To Chat with Store owner in app
@@ -78,7 +78,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             },
             child: CommunicationCard(
               text: S.of(context).chatWithStoreOwner,
-              image: Icon(Icons.chat_rounded),
+              image: Icon(Icons.chat_rounded, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
           ),
           // To WhatsApp with store owner
@@ -93,7 +93,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             },
             child: CommunicationCard(
               text: S.of(context).whatsappWithStoreOwner,
-              image: FaIcon(FontAwesomeIcons.whatsapp),
+              image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
           ),
           // To WhatsApp with client
@@ -109,7 +109,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                   },
                   child: CommunicationCard(
                     text: S.of(context).whatsappWithClient,
-                    image: FaIcon(FontAwesomeIcons.whatsapp),
+                    image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
                   ),
                 )
               : Container(),
@@ -126,9 +126,10 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             },
             child: CommunicationCard(
               text: S.of(context).getDirection,
-              image: FaIcon(FontAwesomeIcons.mapSigns),
+              image: FaIcon(FontAwesomeIcons.mapSigns, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
           ),
+          Container(height: 36,),
         ],
       ),
     );

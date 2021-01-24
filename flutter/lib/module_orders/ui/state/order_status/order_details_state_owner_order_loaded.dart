@@ -71,7 +71,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               },
               child: CommunicationCard(
                 text: S.of(context).openChatRoom,
-                image: Icon(Icons.chat_rounded),
+                image: Icon(Icons.chat_rounded, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
               ),
             ),
             GestureDetector(
@@ -106,6 +106,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 ),
               ),
             ),
+            Container(height: 36,),
           ],
         ),
       ],
