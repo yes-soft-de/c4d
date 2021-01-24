@@ -20,11 +20,13 @@ class AboutStatePageInit extends AboutState {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Lottie.asset(
-            'assets/animations/settings.json',
-            repeat: true,
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Lottie.asset(
+              'assets/animations/settings.json',
+              repeat: true,
+            ),
           ),
         ),
         Flex(
@@ -70,6 +72,24 @@ class AboutStatePageInit extends AboutState {
             ),
           ],
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: () {
+              screenState.moveNext(currentRole);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).primaryColor
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(Icons.navigate_next, color: Colors.white,),
+              ),
+            ),
+          ),
+        )
       ],
     );
   }

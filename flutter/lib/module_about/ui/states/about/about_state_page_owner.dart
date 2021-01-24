@@ -12,33 +12,68 @@ class AboutStatePageOwner extends AboutState {
     return PageView(
       children: [
         Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(Icons.mobile_friendly),
-            Text(S.of(context).openTheApp)
+            Icon(
+              Icons.mobile_friendly,
+              size: 96,
+              color: Theme.of(context).primaryColor,
+            ),
+            Text(
+              S.of(context).openTheApp,
+              style: TextStyle(fontSize: 24),
+            )
           ],
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(Icons.book_online),
-            Text(S.of(context).bookACar),
+            Icon(
+              Icons.book_online,
+              size: 96,
+              color: Theme.of(context).primaryColor,
+            ),
+            Text(
+              S.of(context).bookACar,
+              style: TextStyle(fontSize: 24),
+            )
           ],
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            FaIcon(FontAwesomeIcons.car),
-            Text(S.of(context).weDeliver)
+            FaIcon(
+              FontAwesomeIcons.car,
+              size: 96,
+              color: Theme.of(context).primaryColor,
+            ),
+            Text(
+              S.of(context).weDeliver,
+              style: TextStyle(fontSize: 24),
+            )
           ],
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(S.of(context).toFindOutMorePleaseLeaveYourPhonenandWeWill),
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: S.of(context).phoneNumber,
-                  labelText: S.of(context).phoneNumber,
-                  suffix: Icon(Icons.call)),
-              keyboardType: TextInputType.phone,
-            ),
+            Flex(direction: Axis.vertical,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                    hintText: S.of(context).phoneNumber,
+                    labelText: S.of(context).phoneNumber,
+                    suffix: Icon(Icons.call)),
+                keyboardType: TextInputType.phone,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                    hintText: S.of(context).name,
+                    labelText: S.of(context).name,
+                    suffix: Icon(Icons.person)),
+                keyboardType: TextInputType.phone,
+              ),
+            ],),
             RaisedButton(
               color: Theme.of(context).primaryColor,
               onPressed: () {

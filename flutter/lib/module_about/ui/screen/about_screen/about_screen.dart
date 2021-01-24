@@ -1,6 +1,8 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_about/state_manager/about_screen_state_manager.dart';
 import 'package:c4d/module_about/ui/states/about/about_state.dart';
+import 'package:c4d/module_about/ui/states/about/about_state_booking_success.dart';
+import 'package:c4d/module_about/ui/states/about/about_state_page_captain.dart';
 import 'package:c4d/module_about/ui/states/about/about_state_page_init.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
@@ -27,9 +29,7 @@ class AboutScreenState extends State<AboutScreen> {
 
   void refresh() {
     if (mounted) {
-      setState(() {
-
-      });
+      setState(() {});
     }
   }
 
@@ -41,6 +41,17 @@ class AboutScreenState extends State<AboutScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.of(context).pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
     });
+  }
+
+  void moveNext(UserRole role) {
+    if (role == UserRole.ROLE_OWNER) {
+      _currentState = AboutStatePageOwner(this);
+    } else {
+      _currentState = AboutStatePageCaptain(this);
+    }
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
