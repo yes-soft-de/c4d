@@ -47,8 +47,14 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
                   ) {
                     if (snapshot.hasData) {
                       return SingleChildScrollView(
-                        child: Column(
-                          children: snapshot.data,
+                        child: RefreshIndicator(
+                          onRefresh: () {
+                            screenState.getMyOrders();
+                            return Future.delayed(Duration(seconds: 3));
+                          },
+                          child: Column(
+                            children: snapshot.data,
+                          ),
                         ),
                       );
                     }
@@ -69,8 +75,14 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
                       ) {
                     if (snapshot.hasData) {
                       return SingleChildScrollView(
-                        child: Column(
-                          children: snapshot.data,
+                        child: RefreshIndicator(
+                          onRefresh: () {
+                            screenState.getMyOrders();
+                            return Future.delayed(Duration(seconds: 3));
+                          },
+                          child: Column(
+                            children: snapshot.data,
+                          ),
                         ),
                       );
                     }
@@ -180,6 +192,8 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     var uiList = <Widget>[];
 
     myOrders.forEach((element) {
+      print(
+          timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode));
       uiList.add(Container(
         margin: EdgeInsets.all(10),
         child: GestureDetector(
@@ -190,10 +204,10 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
             );
           },
           child: OrderCard(
-            title: 'Order #${element.id}',
+            title: S.of(context).order + '#${element.id}',
             subTitle: ' ',
             time:
-                '${timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode)}',
+            timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode),
           ),
         ),
       ));
@@ -216,7 +230,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
             );
           },
           child: OrderCard(
-            title: 'Order #${element.id}',
+            title: S.of(context).order + ' #${element.id}',
             subTitle: ' ',
             time: timeago.format(element.creationTime,
                 locale: Localizations.localeOf(context).languageCode),

@@ -25,6 +25,18 @@ class AboutScreenState extends State<AboutScreen> {
 
   void setCurrentUser(UserRole role) => _currentRole = role;
 
+  void refresh() {
+    if (mounted) {
+      setState(() {
+
+      });
+    }
+  }
+
+  void setInited() {
+    widget._stateManager.setInited(this);
+  }
+
   void moveToRegister() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.of(context).pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
@@ -46,11 +58,14 @@ class AboutScreenState extends State<AboutScreen> {
           Expanded(child: _currentState.getUI(context)),
           GestureDetector(
             onTap: () {
-              moveToRegister();
+              setInited();
             },
-            child: Text(
-              S.of(context).skip,
-              textAlign: TextAlign.center,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                S.of(context).skip,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ],

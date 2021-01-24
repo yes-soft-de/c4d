@@ -29,10 +29,19 @@ class AboutStatePageInit extends AboutState {
         ),
         Flex(
           direction: Axis.vertical,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(S.of(context).iSpeak),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                S.of(context).iSpeak,
+                style: TextStyle(fontSize: 24),
+                textAlign: TextAlign.center,
+              ),
+            ),
             RaisedButton(
               color: Theme.of(context).primaryColor,
+              padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               onPressed: () {
                 _showLanguagePicker(context);
@@ -43,11 +52,17 @@ class AboutStatePageInit extends AboutState {
         ),
         Flex(
           direction: Axis.vertical,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(S.of(context).andIAm),
+            Text(
+              S.of(context).andIAm,
+              style: TextStyle(fontSize: 24),
+              textAlign: TextAlign.center,
+            ),
             RaisedButton(
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,
+              padding: const EdgeInsets.all(8.0),
               onPressed: () {
                 _showRolePicker(context);
               },
@@ -94,6 +109,7 @@ class AboutStatePageInit extends AboutState {
                   Text('العربية'),
                 ],
                 onSelectedItemChanged: (lang) {
+                  currentLanguage = lang == 1 ? 'ar' : 'en';
                   screenState.setLanguage(lang == 1 ? 'ar' : 'en');
                 },
               ),
@@ -115,8 +131,10 @@ class AboutStatePageInit extends AboutState {
                   Text(S.of(ctx).storeOwner),
                 ],
                 onSelectedItemChanged: (type) {
+                  currentRole = type == 0 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER;
                   screenState.setCurrentUser(
                       type == 0 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER);
+                  screenState.refresh();
                 },
               ),
             ));

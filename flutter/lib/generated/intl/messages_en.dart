@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "online" : MessageLookupByLibrary.simpleMessage("online"),
     "openChatRoom" : MessageLookupByLibrary.simpleMessage("Open Chat Room"),
     "openTheApp" : MessageLookupByLibrary.simpleMessage("Open the app"),
+    "order" : MessageLookupByLibrary.simpleMessage("Order"),
     "orderCreatedReturnToOrders" : MessageLookupByLibrary.simpleMessage("Order Created, Return to Orders"),
     "orderDetails" : MessageLookupByLibrary.simpleMessage("Order Details"),
     "orderIsDone" : MessageLookupByLibrary.simpleMessage("Order is done!"),

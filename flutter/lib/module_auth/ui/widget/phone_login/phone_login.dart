@@ -31,6 +31,14 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (loading) {
+      Future.delayed(Duration(seconds: 30)).then((value) {
+        loading = false;
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
     return Form(
       key: _signUpFormKey,
       child: Flex(
@@ -39,8 +47,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
         children: [
           MediaQuery.of(context).viewInsets.bottom == 0
               ? Container(
-              height: 144,
-              child: Image.asset('assets/images/track.png'))
+                  height: 144, child: Image.asset('assets/images/track.png'))
               : Container(),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -90,33 +97,36 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
             ),
           ),
           _errorMsg != null ? Text(_errorMsg) : Container(),
-          loading == true ? Center(
-            child: Text(S.of(context).loading),
-          ) : Container(
-            child: FlatButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              color: Theme.of(context).primaryColor,
-              onPressed: () {
-                String phone = _phoneController.text;
-                if (phone[0] == '0') {
-                  phone = phone.substring(1);
-                }
-                loading = true;
-                setState(() {});
-                widget.onLoginRequested(countryCode + _phoneController.text);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  S.of(context).sendMeCode,
-                  style: TextStyle(
-                    color: Colors.white,
+          loading == true
+              ? Center(
+                  child: Text(S.of(context).loading),
+                )
+              : Container(
+                  child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    color: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      String phone = _phoneController.text;
+                      if (phone[0] == '0') {
+                        phone = phone.substring(1);
+                      }
+                      loading = true;
+                      setState(() {});
+                      widget.onLoginRequested(
+                          countryCode + _phoneController.text);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        S.of(context).sendMeCode,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          )
+                )
         ],
       ),
     );

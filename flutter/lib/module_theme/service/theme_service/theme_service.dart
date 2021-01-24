@@ -35,7 +35,6 @@ class AppThemeDataService {
         accentColor: AccentColor,
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          color: Colors.black,
         ),
       );
     }
@@ -46,7 +45,6 @@ class AppThemeDataService {
       accentColor: AccentColor,
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        color: Colors.white,
       ),
     );
   }

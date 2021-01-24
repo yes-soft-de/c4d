@@ -21,7 +21,6 @@ class OrdersService {
 
   Future<List<OrderModel>> getMyOrders() async {
     List<Order> response = await _ordersManager.getMyOrders();
-    print('Orders ${response.length}');
     if (response == null) return null;
 
     List<OrderModel> orders = [];

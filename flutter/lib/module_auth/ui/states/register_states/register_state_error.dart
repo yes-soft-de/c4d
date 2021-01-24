@@ -18,6 +18,12 @@ class RegisterStateError extends RegisterState {
 
   @override
   Widget getUI(BuildContext context) {
+    if (loading) {
+      Future.delayed(Duration(seconds: 30)).then((value) {
+        loading = false;
+        screen.refresh();
+      });
+    }
     return Column(
       children: [
         Container(
