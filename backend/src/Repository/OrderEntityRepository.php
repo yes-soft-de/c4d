@@ -264,7 +264,7 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->addGroupBy('userProfileEntity.userName')
 
           ->having('count(OrderEntity.ownerID) > 0')
-          ->setMaxResults(10)
+          ->setMaxResults(15)
           ->addOrderBy('countOrdersInMonth','DESC')
          
           ->setParameter('fromDate', $fromDate)

@@ -245,14 +245,14 @@ class OrderController extends BaseController
       }
 
      /**
-     * @Route("/getAllOrdersAndCount/{year}/{month}/{ownerId}/{userType}", name="getAllOrdersAndCountInMonthForOwner",methods={"GET"})
+     * @Route("/getAllOrdersAndCount/{year}/{month}/{userId}/{userType}", name="getAllOrdersAndCountInMonthForOwner",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      * @param                                     Request $request
      * @return                                    JsonResponse
      */
-    public function getAllOrdersAndCount($year, $month, $ownerId, $userType)
+    public function getAllOrdersAndCount($year, $month, $userId, $userType)
     {
-        $result = $this->orderService->getAllOrdersAndCount($year, $month, $ownerId, $userType);
+        $result = $this->orderService->getAllOrdersAndCount($year, $month, $userId, $userType);
 
         return $this->response($result, self::FETCH);
     }

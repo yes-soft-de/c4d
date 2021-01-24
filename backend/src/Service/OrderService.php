@@ -317,10 +317,12 @@ class OrderService
          
     if ($userType == "owner") {
         $response[] = $this->orderManager->countOrdersInMonthForOwner($date[0], $date[1], $userId);
-         $ordersInMonth = $this->orderManager->getAllOrders($date[0], $date[1], $userId);
+        $response[] = $this->orderManager->countOrdersInDay($userId, $date[0],$date[1]);
          
+         $ordersInMonth = $this->orderManager->getAllOrders($date[0], $date[1], $userId);
+        
          foreach ($ordersInMonth as $order) {
- 
+
              if ($order['fromBranch']){
                  $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                  }
