@@ -12,7 +12,7 @@ class AuthRepository {
   AuthRepository(this._apiClient);
 
   Future<bool> createUser(RegisterRequest request) async {
-    var result = await _apiClient.post(Urls.API_SIGN_UP, request.toJson());
+    var result = await _apiClient.post(Urls.SIGN_UP_API, request.toJson());
 
     return result != null;
   }

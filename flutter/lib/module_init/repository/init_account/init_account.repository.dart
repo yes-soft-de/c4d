@@ -1,5 +1,6 @@
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
+import 'package:c4d/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:c4d/module_init/response/packages/packages_response.dart';
 import 'package:c4d/module_network/http_client/http_client.dart';
 import 'package:inject/inject.dart';
@@ -14,7 +15,7 @@ class InitAccountRepository {
   Future<PackagesResponse> getPackages() async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
-      Urls.PACKAGES,
+      Urls.PACKAGES_API,
       headers: {
         'Authorization': 'Bearer ' + token
       },
@@ -27,8 +28,23 @@ class InitAccountRepository {
   Future<bool> subscribePackage(int packageId) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
-      Urls.SUBSCRIPTION,
+      Urls.SUBSCRIPTION_API,
       {'packageID': '$packageId'},
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    );
+
+    if (response['status_code'] == '201') return true;
+
+    return false;
+  }
+
+  Future<dynamic> createCaptainProfile(CreateCaptainProfileRequest request) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+      Urls.CAPTAIN_PROFILE_API,
+      request.toJSON(),
       headers: {
         'Authorization': 'Bearer ' + token
       },

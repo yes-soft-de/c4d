@@ -45,7 +45,7 @@ class ChatBubbleWidgetState extends State<ChatBubbleWidget> {
               children: [
                 Text(timeago.format(DateTime.parse(widget.sentDate))),
                 widget.message.contains('http')
-                    ? Image.network(widget.message)
+                    ? Image.network(widget.message.replaceFirst('uploadimage', 'upload/image'))
                     : Text(
                         '${widget.message}',
                         style: TextStyle(

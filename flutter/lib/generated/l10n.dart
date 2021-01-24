@@ -1094,6 +1094,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Branch 01`
+  String get branch01 {
+    return Intl.message(
+      'Branch 01',
+      name: 'branch01',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create new order`
+  String get createNewOrder {
+    return Intl.message(
+      'Create new order',
+      name: 'createNewOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get register {
+    return Intl.message(
+      'Register',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Branch`
+  String get branch {
+    return Intl.message(
+      'Branch',
+      name: 'branch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Branches`
+  String get saveBranches {
+    return Intl.message(
+      'Save Branches',
+      name: 'saveBranches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bank Name`
+  String get bankName {
+    return Intl.message(
+      'Bank Name',
+      name: 'bankName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account Number`
+  String get accountNumber {
+    return Intl.message(
+      'Account Number',
+      name: 'accountNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark Mode`
+  String get darkMode {
+    return Intl.message(
+      'Dark Mode',
+      name: 'darkMode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

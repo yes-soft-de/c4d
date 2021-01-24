@@ -15,7 +15,7 @@ class UploadRepository {
     Logger().info('UploadRepo', 'Uploading: ' + filePath);
 
     Response response = await client.post(
-      Urls.API_UPLOAD,
+      Urls.UPLOAD_API,
       data: data,
     );
     Logger().info('Got a Response', response.toString());

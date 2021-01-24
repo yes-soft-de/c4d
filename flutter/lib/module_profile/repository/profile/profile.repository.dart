@@ -21,7 +21,7 @@ class ProfileRepository {
   Future<bool> createProfile(ProfileRequest profileRequest) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
-      Urls.PROFILE,
+      Urls.OWNER_PROFILE_API,
       profileRequest.toJson(),
       headers: {'Authorization': 'Bearer ' + token},
     );
@@ -35,7 +35,7 @@ class ProfileRepository {
       CreateBranchRequest createBranch) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
-      Urls.BRANCH,
+      Urls.BRANCHES_API,
       createBranch.toJson(),
       headers: {'Authorization': 'Bearer $token'},
     );
@@ -48,7 +48,7 @@ class ProfileRepository {
   Future<Branch> getMyBranches() async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
-      Urls.BRANCH,
+      Urls.BRANCHES_API,
       headers: {'Authorization': 'Bearer $token'},
     );
 

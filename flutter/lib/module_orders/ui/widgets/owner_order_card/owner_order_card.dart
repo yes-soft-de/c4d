@@ -13,6 +13,7 @@ class OwnerOrderCard extends StatelessWidget {
     this.to,
     this.index,
   });
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,7 +21,11 @@ class OwnerOrderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(0),
       ),
       elevation: 0,
-      color: index == 0 ? AppThemeDataService.PrimaryColor : Colors.white,
+      color: index == 0
+          ? AppThemeDataService.PrimaryColor
+          : Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.black,
       child: Container(
         padding: EdgeInsets.all(10),
         height: 115,

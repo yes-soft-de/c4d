@@ -67,10 +67,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   void moveToNext() {
-    if (currentUserRole == UserRole.ROLE_OWNER) {
-      Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (r) => false);
-    } else if (currentUserRole == UserRole.ROLE_CAPTAIN) {
-      Navigator.of(context).pushNamedAndRemoveUntil(OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (r) => false);
-    }
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        InitAccountRoutes.INIT_ACCOUNT_SCREEN, (r) => false);
   }
 }

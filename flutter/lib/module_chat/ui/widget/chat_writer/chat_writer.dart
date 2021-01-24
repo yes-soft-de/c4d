@@ -95,8 +95,10 @@ class _ChatWriterWidget extends State<ChatWriterWidget> {
                   _imagePicker
                       .getImage(source: ImageSource.camera, imageQuality: 70)
                       .then((value) {
-                    imageFile = File(value.path);
-                    setState(() {});
+                        if (value != null) {
+                      imageFile = File(value.path);
+                      setState(() {});
+                    }
                   });
                 },
               ),

@@ -57,7 +57,14 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).orders),
+        title: Text(
+          S.of(context).orders,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+        ),
         actions: [
           IconButton(
               icon: Icon(Icons.person),

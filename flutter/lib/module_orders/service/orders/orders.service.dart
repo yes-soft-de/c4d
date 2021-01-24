@@ -54,6 +54,7 @@ class OrdersService {
       creationTime: date,
       status: StatusHelper.getStatus(response.state),
       id: orderId,
+      chatRoomId: response.uuid,
     );
 
     return order;

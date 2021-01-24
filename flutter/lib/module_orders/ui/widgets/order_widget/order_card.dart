@@ -20,7 +20,7 @@ class OrderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       elevation: 6,
-      color: active == true ? Theme.of(context).primaryColor : Colors.white,
+      color: active == true ? Theme.of(context).primaryColor : Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
       child: Container(
         padding: EdgeInsets.all(10),
         height: 115,

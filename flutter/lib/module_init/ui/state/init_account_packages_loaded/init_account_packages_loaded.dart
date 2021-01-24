@@ -128,7 +128,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
   }
 
   List<DropdownMenuItem> _getCities() {
-    var cityNames = <String>[];
+    var cityNames = <String>{};
     packages.forEach((element) {
       cityNames.add('${element.city}');
     });

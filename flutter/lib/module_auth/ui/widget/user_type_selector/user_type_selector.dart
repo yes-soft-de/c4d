@@ -1,6 +1,7 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserTypeSelector extends StatelessWidget {
   final Function(UserRole) onUserChange;
@@ -22,8 +23,8 @@ class UserTypeSelector extends StatelessWidget {
               child: AnimatedAlign(
                   duration: Duration(seconds: 1),
                   alignment: currentUserType == UserRole.ROLE_CAPTAIN
-                      ? Alignment.centerLeft
-                      : Alignment.centerRight,
+                      ? AlignmentDirectional.centerStart
+                      : AlignmentDirectional.centerEnd,
                   child: Container(
                     width: 150,
                     decoration: BoxDecoration(
@@ -70,9 +71,6 @@ class UserTypeSelector extends StatelessWidget {
                       child: Text(
                         S.of(context).storeOwner,
                         style: TextStyle(
-                          color: currentUserType != UserRole.ROLE_CAPTAIN
-                              ? Colors.white
-                              : Colors.black87,
                         ),
                       ),
                     ),

@@ -107,7 +107,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   Widget _Footer(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4)]),
       child: Flex(
         direction: Axis.horizontal,

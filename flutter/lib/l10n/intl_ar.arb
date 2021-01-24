@@ -105,5 +105,15 @@
   "mohammad": "محمد",
   "deliverTo": "وصل الى",
   "whatsappWithCaptain": "واتساب مع الكابتن",
-  "order": "الطلب "
+  "order": "الطلب ",
+  "home": "الرئيسية",
+  "branch01": "الفرع 01",
+  "createNewOrder": "انشاء طلب جديد ",
+  "register": "تسجيل جديد",
+  "branch": "الفرع التجاري",
+  "saveBranches": "حفظ الفروع",
+  "bankName": "اسم البنك",
+  "accountNumber": "رقم حساب البنك",
+  "save": "الحفظ",
+  "darkMode": "الوضع الليلي"
 }

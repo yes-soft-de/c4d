@@ -27,10 +27,16 @@ class ChatPageState extends State<ChatPage> {
   int currentState = ChatPageBloc.STATUS_CODE_INIT;
 
   List<ChatBubbleWidget> chatsMessagesWidgets = [];
-  
+
   String chatRoomId;
 
   bool initiated = false;
+
+  @override
+  void initState() {
+    widget._chatPageBloc.getMessages(chatRoomId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +65,14 @@ class ChatPageState extends State<ChatPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           AppBar(
-            title: Text(S.of(context).chatRoom),
+            title: Text(
+              S.of(context).chatRoom,
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+              ),
+            ),
           ),
           Expanded(
             child: chatsMessagesWidgets != null

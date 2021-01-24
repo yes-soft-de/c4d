@@ -1,5 +1,5 @@
 import 'package:c4d/module_about/about_routes.dart';
-import 'package:c4d/module_about/ui/service/about_service/about_service.dart';
+import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';

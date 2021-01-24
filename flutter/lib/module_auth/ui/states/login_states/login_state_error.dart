@@ -65,13 +65,13 @@ class LoginStateError extends LoginState {
                 ),
               ],
             )),
-        Container(
+        MediaQuery.of(context).viewInsets.bottom == 0 ? Container(
           alignment: Alignment.center,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(errorMsg),
+            child: Text(errorMsg, maxLines: 3,),
           ),
-        )
+        ) : Container()
       ],
     );
   }

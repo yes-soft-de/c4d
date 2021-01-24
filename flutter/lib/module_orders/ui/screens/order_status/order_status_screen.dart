@@ -71,7 +71,12 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(S.of(context).orderDetails),
+        title: Text(S.of(context).orderDetails,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),),
       ),
       body: currentState.getUI(context),
     );

@@ -1,3 +1,4 @@
+import 'package:c4d/module_about/about_routes.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_init/init_routes.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text(
+          S.of(context).settings,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+        ),
       ),
       body: Flex(
         direction: Axis.vertical,
@@ -46,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   direction: Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Dark Mode'),
+                    Text(S.of(context).darkMode),
                     Switch(
                         value: Theme.of(context).brightness == Brightness.dark,
                         onChanged: (mode) {
@@ -73,9 +81,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(S.of(context).renewSubscription),
-                    IconButton(icon: Icon(Icons.autorenew_sharp), onPressed: () {
-                      Navigator.of(context).pushNamed(InitAccountRoutes.INIT_ACCOUNT_SCREEN);
-                    }),
+                    IconButton(
+                        icon: Icon(Icons.autorenew_sharp),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                        }),
                   ],
                 ),
               ),

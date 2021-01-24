@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:c4d/generated/l10n.dart';
-import 'package:c4d/module_init/ui/screens/init_captain/init_account_captain_screen.dart';
-import 'package:c4d/module_init/ui/state/init_account_captain/init_account_captain.dart';
+import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
+import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:image_picker/image_picker.dart';
 
-class InitAccountCaptainInitProfile extends InitAccountCaptainState {
+class InitAccountCaptainInitProfile extends InitAccountState {
   Uri captainImage;
   Uri driverLicence;
   String name;
@@ -17,10 +17,11 @@ class InitAccountCaptainInitProfile extends InitAccountCaptainState {
   final _nameController = TextEditingController();
   final _ageController = TextEditingController();
 
-  InitAccountCaptainInitProfile(InitAccountCaptainScreenState screenState)
+  InitAccountCaptainInitProfile(InitAccountScreenState screenState)
       : super(screenState);
 
-  InitAccountCaptainInitProfile.withData(InitAccountCaptainScreenState screenState, this.captainImage, this.driverLicence, this.name, this.age)
+  InitAccountCaptainInitProfile.withData(InitAccountScreenState screenState,
+      this.captainImage, this.driverLicence, this.name, this.age)
       : super(screenState);
 
   @override
@@ -33,84 +34,105 @@ class InitAccountCaptainInitProfile extends InitAccountCaptainState {
       _ageController.text = this.age;
     }
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Flex(
-            direction: Axis.horizontal,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  ImagePicker()
-                      .getImage(source: ImageSource.camera)
-                      .then((value) {
-                    captainImage = Uri(path: value.path);
-                    screenState.refresh();
-                  });
-                },
-                child: Container(
-                    height: 56,
-                    width: 56,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                            child: Icon(
-                          Icons.person,
-                          color: Theme.of(context).primaryColor,
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            child: Flex(
+              direction: Axis.horizontal,
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: GestureDetector(
+                    onTap: () {
+                      ImagePicker()
+                          .getImage(source: ImageSource.gallery)
+                          .then((value) {
+                        if (value != null) {
+                          captainImage = Uri(path: value.path);
+                          screen.refresh();
+                        }
+                      });
+                    },
+                    child: Container(
+                        height: 56,
+                        width: 56,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black
+                              : Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                                child: Icon(
+                              Icons.person,
+                              color: Theme.of(context).primaryColor,
+                            )),
+                            _getCaptainImageFG(),
+                          ],
                         )),
-                        _getCaptainImageFG(),
+                  ),
+                ),
+                Flexible(
+                  flex: 3,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    height: 156,
+                    child: Flex(
+                      direction: Axis.vertical,
+                      children: [
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            hintText: S.of(context).name,
+                            labelText: S.of(context).name,
+                          ),
+                        ),
+                        Container(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          controller: _ageController,
+                          decoration: InputDecoration(
+                            hintText: S.of(context).age,
+                            labelText: S.of(context).age,
+                          ),
+                          keyboardType: TextInputType.number,
+                        )
                       ],
-                    )),
-              ),
-              Flex(
-                direction: Axis.vertical,
-                children: [
-                  TextFormField(
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      labelText: 'Name',
                     ),
                   ),
-                  Container(
-                    height: 16,
-                  ),
-                  TextFormField(
-                    controller: _ageController,
-                    decoration: InputDecoration(
-                      hintText: S.of(context).age,
-                      labelText: S.of(context).age,
-                    ),
-                    keyboardType: TextInputType.number,
-                  )
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: Flex(
-            direction: Axis.vertical,
-            children: [
-              Text(S.of(context).driverLicence),
-              _getDriverLicenceFG(),
-            ],
+          Expanded(
+            child: Flex(
+              direction: Axis.vertical,
+              children: [
+                Text(
+                  S.of(context).driverLicence,
+                  textAlign: TextAlign.start,
+                ),
+                _getDriverLicenceFG(),
+              ],
+            ),
           ),
-        ),
-        FlatButton(
-            onPressed: captainImage == null || captainImage == null
-                ? null
-                : () {
-                    screenState.showSnackBar(
-                        S.of(context).thisMightTakeAWhilePleaseWait);
-
-                  },
-            child: Text(
-              S.of(context).uploadAndSubmit,
-            ))
-      ],
+          FlatButton(
+              onPressed: captainImage == null || captainImage == null
+                  ? null
+                  : () {
+                      screen.submitProfile(captainImage, driverLicence, name, age);
+                    },
+              child: Text(
+                S.of(context).uploadAndSubmit,
+              ))
+        ],
+      ),
     );
   }
 
@@ -119,9 +141,11 @@ class InitAccountCaptainInitProfile extends InitAccountCaptainState {
       return Expanded(
         child: GestureDetector(
           onTap: () {
-            ImagePicker().getImage(source: ImageSource.camera).then((value) {
-              captainImage = Uri(path: value.path);
-              screenState.refresh();
+            ImagePicker().getImage(source: ImageSource.gallery).then((value) {
+              if (value != null) {
+                captainImage = Uri(path: value.path);
+                screen.refresh();
+              }
             });
           },
           child: Stack(
@@ -143,9 +167,11 @@ class InitAccountCaptainInitProfile extends InitAccountCaptainState {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          ImagePicker().getImage(source: ImageSource.camera).then((value) {
-            captainImage = Uri(path: value.path);
-            screenState.refresh();
+          ImagePicker().getImage(source: ImageSource.gallery).then((value) {
+            if (value != null) {
+              driverLicence = Uri(path: value.path);
+              screen.refresh();
+            }
           });
         },
         child: Stack(

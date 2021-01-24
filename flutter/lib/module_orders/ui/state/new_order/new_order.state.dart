@@ -305,7 +305,7 @@ class NewOrderStateSuccessState extends NewOrderState {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
-            height: 36,
+            height: 72,
             child: Flex(
               direction: Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -322,7 +322,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                       );
                     },
                     child: Text(
-                      'Skip',
+                      S.of(context).skip,
                     ),
                   ),
                 ),
@@ -341,7 +341,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                     },
                     child: Expanded(
                       child: Text(
-                        'Save',
+                        S.of(context).save,
                       ),
                     ),
                   ),

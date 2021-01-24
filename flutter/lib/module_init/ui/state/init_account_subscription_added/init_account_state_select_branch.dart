@@ -8,7 +8,7 @@ import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 
 class InitAccountStateSelectBranch extends InitAccountState {
-  LatLng branchLocation;
+  List<LatLng> branchLocation = [];
   final _mapController = MapController();
 
   InitAccountStateSelectBranch(InitAccountScreenState screen) : super(screen);
@@ -28,7 +28,8 @@ class InitAccountStateSelectBranch extends InitAccountState {
                 zoom: 15.0,
                 onTap: (newPos) {
                   print('New Location' + newPos.toString());
-                  branchLocation = newPos;
+                  branchLocation ??= [];
+                  branchLocation.add(newPos);
                   screen.refresh();
                 },
               ),
@@ -38,16 +39,7 @@ class InitAccountStateSelectBranch extends InitAccountState {
                         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                     subdomains: ['a', 'b', 'c']),
                 MarkerLayerOptions(
-                  markers: branchLocation == null
-                      ? []
-                      : [
-                          Marker(
-                            point: branchLocation,
-                            builder: (ctx) => Container(
-                              child: Icon(Icons.my_location),
-                            ),
-                          ),
-                        ],
+                  markers: branchLocation == null ? [] : _getMarkers(context),
                 ),
               ],
             ),
@@ -62,7 +54,10 @@ class InitAccountStateSelectBranch extends InitAccountState {
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.my_location, color: Colors.white,),
+                    icon: Icon(
+                      Icons.my_location,
+                      color: Colors.white,
+                    ),
                     onPressed: () async {
                       Location location = new Location();
 
@@ -72,15 +67,18 @@ class InitAccountStateSelectBranch extends InitAccountState {
                         _serviceEnabled = await location.requestService();
                       }
 
-                      var _permissionGranted = await location.requestPermission();
+                      var _permissionGranted =
+                          await location.requestPermission();
                       if (_permissionGranted == PermissionStatus.denied) {
                         return;
                       }
 
                       var myLocation = await Location.instance.getLocation();
-                      LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
+                      LatLng myPos =
+                          LatLng(myLocation.latitude, myLocation.longitude);
                       _mapController.move(myPos, 15);
-                      branchLocation = myPos;
+                      branchLocation ??= [];
+                      branchLocation.add(myPos);
                       screen.refresh();
                     },
                   ),
@@ -89,17 +87,80 @@ class InitAccountStateSelectBranch extends InitAccountState {
             )
           ],
         )),
-        RaisedButton(
-          color: Theme.of(context).primaryColor,
-          textColor: Colors.white,
-          child: Text(S.of(context).saveLocationAsBranch01),
-          onPressed: branchLocation == null
-              ? null
-              : () {
-                  screen.saveBranch(branchLocation);
-                },
+        Flex(
+          direction: Axis.vertical,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: 96,
+              child: ListView(
+                children: _getMarkerCards(context),
+              ),
+            ),
+            RaisedButton(
+              color: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              child: Text(S.of(context).saveBranches),
+              onPressed: branchLocation == null
+                  ? null
+                  : () {
+                      screen.saveBranch(branchLocation);
+                    },
+            ),
+          ],
         ),
       ],
     );
+  }
+
+  List<Widget> _getMarkerCards(BuildContext context) {
+    var branches = <Widget>[];
+    for (int i = 0; i < branchLocation.length; i++) {
+      branches.add(Card(
+        child: Flex(
+          direction: Axis.horizontal,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('${S.of(context).branch} $i'),
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      branchLocation.remove(branchLocation[i]);
+                      screen.refresh();
+                    }),
+                IconButton(
+                    icon: Icon(Icons.my_location),
+                    onPressed: () {
+                      _mapController.move(branchLocation[i], 15);
+                    }),
+              ],
+            ),
+          ],
+        ),
+      ));
+    }
+
+    return branches;
+  }
+
+  List<Marker> _getMarkers(BuildContext context) {
+    var markers = <Marker>[];
+    branchLocation.forEach((element) {
+      markers.add(Marker(
+        point: element,
+        builder: (ctx) => Container(
+          child: Icon(
+            Icons.my_location,
+            color: Colors.black,
+          ),
+        ),
+      ));
+    });
+
+    print('Markers ${markers.length} : Locations: ${branchLocation.length}');
+    return markers;
   }
 }

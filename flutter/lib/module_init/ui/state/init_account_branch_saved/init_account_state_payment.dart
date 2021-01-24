@@ -21,30 +21,27 @@ class InitAccountStatePayment extends InitAccountState {
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          CreditCardWidget(
-            cardNumber: cardNumber,
-            expiryDate: expiryDate,
-            cardHolderName: cardHolderName,
-            cvvCode: cvvCode,
-            showBackView: isCvvFocused,
-            cardBgColor: Theme.of(context).primaryColor,
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  CreditCardForm(
-                    onCreditCardModelChange: onCreditCardModelChange,
+          Container(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: S.of(context).bankName,
+                    labelText: S.of(context).bankName,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: S.of(context).contactPhoneNumber,
-                      labelText: S.of(context).contactPhoneNumber,
-                    ),
-                  )
-                ],
-              ),
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: S.of(context).accountNumber,
+                    labelText: S.of(context).accountNumber,
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ],
             ),
           ),
           RaisedButton(

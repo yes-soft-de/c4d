@@ -105,5 +105,15 @@
   "mohammad": "Mohammad",
   "deliverTo": "Deliver To",
   "whatsappWithCaptain": "WhatsApp with Captain",
-  "order": "Order"
+  "order": "Order",
+  "home": "Home",
+  "branch01": "Branch 01",
+  "createNewOrder": "Create new order",
+  "register": "Register",
+  "branch": "Branch",
+  "saveBranches": "Save Branches",
+  "bankName": "Bank Name",
+  "accountNumber": "Account Number",
+  "save": "Save",
+  "darkMode": "Dark Mode"
 }

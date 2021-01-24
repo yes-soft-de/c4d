@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_deep_links/service/deep_links_service.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
@@ -63,7 +64,14 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text(
+          S.of(context).home,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+        ),
         actions: [
           IconButton(
               icon: Icon(Icons.person),
@@ -105,7 +113,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
                         .pushNamed(SettingRoutes.ROUTE_SETTINGS);
                   },
                   child: Text(
-                    'Settings',
+                    S.of(context).settings,
                     style: TextStyle(color: Colors.white, fontSize: 24),
                     textAlign: TextAlign.center,
                   ),

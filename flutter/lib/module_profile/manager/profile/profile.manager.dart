@@ -1,3 +1,4 @@
+import 'package:c4d/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:c4d/module_profile/repository/profile/profile.repository.dart';
 import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';

@@ -1,5 +1,6 @@
 import 'package:c4d/module_init/manager/init_account/init_account.manager.dart';
 import 'package:c4d/module_init/model/package/packages.model.dart';
+import 'package:c4d/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:c4d/module_init/response/packages/packages_response.dart';
 import 'package:inject/inject.dart';
 
@@ -36,4 +37,8 @@ class InitAccountService {
 
   Future<bool> subscribePackage(int packageId) async =>
       await _manager.subscribePackage(packageId);
+
+  Future<dynamic> createCaptainProfile(CreateCaptainProfileRequest request) {
+    return _manager.createCaptainProfile(request);
+  }
 }

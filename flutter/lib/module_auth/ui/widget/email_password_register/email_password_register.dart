@@ -31,7 +31,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 10), () {
       loading = false;
       if (mounted) {
         setState(() {
@@ -53,10 +53,11 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: Container(
                     decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey[100],
+                            color: Colors.black26,
                             blurRadius: 2.0,
                             spreadRadius: 2.0,
                             offset: Offset(
@@ -68,7 +69,6 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
                       ),
                       child: TextFormField(
                         controller: _registerNameController,
@@ -97,9 +97,10 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey[100],
+                            color: Colors.black26,
                             blurRadius: 2.0,
                             // has the effect of softening the shadow
                             spreadRadius: 2.0,
@@ -113,7 +114,6 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
                       ),
                       child: TextFormField(
                         controller: _registerEmailController,
@@ -142,9 +142,10 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey[100],
+                            color: Colors.black26,
                             blurRadius: 2.0,
                             // has the effect of softening the shadow
                             spreadRadius: 2.0,
@@ -158,7 +159,6 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
                       ),
                       child: TextFormField(
                         controller: _registerPasswordController,
@@ -222,7 +222,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                             }
                           },
                           child: Text(
-                            'CONTINUE',
+                            S.of(context).next,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,

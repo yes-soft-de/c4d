@@ -39,8 +39,8 @@ class ActivityRecord {
   Date updateDate;
   String note;
   String payment;
-  Null recipientName;
-  Null recipientPhone;
+  String recipientName;
+  String recipientPhone;
   String state;
   int fromBranch;
   Location location;

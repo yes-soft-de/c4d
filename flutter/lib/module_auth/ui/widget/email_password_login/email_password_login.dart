@@ -26,6 +26,11 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
   bool loading = false;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
     _loginEmailController.text = widget.email;
@@ -47,24 +52,23 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[100],
-                            blurRadius: 2.0,
-                            // has the effect of softening the shadow
-                            spreadRadius: 2.0,
-                            // has the effect of extending the shadow
-                            offset: Offset(
-                              5.0, // horizontal, move right 10
-                              5.0, // vertical, move down 10
-                            ),
-                          )
-                        ]),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 2.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(
+                            5.0,
+                            5.0,
+                          ),
+                        )
+                      ],
+                    ),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       child: TextFormField(
                         controller: _loginEmailController,
@@ -95,7 +99,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey[100],
+                            color: Colors.black26,
                             blurRadius: 2.0,
                             // has the effect of softening the shadow
                             spreadRadius: 2.0,
@@ -109,7 +113,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       child: TextFormField(
                         controller: _loginPasswordController,
@@ -151,7 +155,9 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                           .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
                     },
                     child: Text(
-                      loading == true ? 'Loading' : 'Register',
+                      loading == true
+                          ? S.of(context).loading
+                          : S.of(context).register,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -176,7 +182,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        'CONTINUE',
+                        S.of(context).next,
                         style: TextStyle(
                           color: Colors.white,
                         ),

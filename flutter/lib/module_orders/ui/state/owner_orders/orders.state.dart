@@ -94,7 +94,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                         },
                         child: OrderCard(
                           subTitle: timeago.format(orders[index].creationTime),
-                          title: 'Default Branch',
+                          title: S.of(context).defaultBranch,
                           time: timeago.format(orders[index].creationTime),
                           active: orders[index].status != OrderStatus.INIT,
                         ),
@@ -112,14 +112,13 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  'Create new order',
+                  S.of(context).createNewOrder,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),
           )
-
         ],
       ),
     );

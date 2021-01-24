@@ -1,6 +1,5 @@
+import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_about/ui/screen/about_screen/about_screen.dart';
-import 'package:c4d/module_about/ui/service/about_service/about_service.dart';
-import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:inject/inject.dart';
 
@@ -18,9 +17,5 @@ class AboutScreenStateManager {
     _aboutService.setInited().then((value) {
       screenState.moveToRegister();
     });
-  }
-
-  void showAbout(UserRole role) {
-
   }
 }
