@@ -59,12 +59,10 @@ class InitAccountStateManager {
       if (value[0] != null && value[1] != null) {
         _stateSubject.add(InitAccountCaptainStateLoading(
             screenState, S.current.submittingProfile));
-        _profileService
+        _initAccountService
             .createCaptainProfile(name, age, value[0], value[1])
             .then((value) {
-          if (value != null) {
-            _stateSubject.add(InitAccountStateProfileCreated(screenState));
-          }
+          _stateSubject.add(InitAccountStateProfileCreated(screenState));
         });
       } else {
         screenState.showSnackBar(S.current.errorUploadingImages);

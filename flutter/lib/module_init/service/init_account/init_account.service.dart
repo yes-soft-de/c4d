@@ -38,7 +38,12 @@ class InitAccountService {
   Future<bool> subscribePackage(int packageId) async =>
       await _manager.subscribePackage(packageId);
 
-  Future<dynamic> createCaptainProfile(CreateCaptainProfileRequest request) {
-    return _manager.createCaptainProfile(request);
+  Future<dynamic> createCaptainProfile(String name, String age, String image, String licence) {
+    try {
+      return _manager.createCaptainProfile(CreateCaptainProfileRequest(
+          image, licence, int.tryParse(age ?? '28'), name));
+    } catch (e) {
+      return null;
+    }
   }
 }

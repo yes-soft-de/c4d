@@ -56,10 +56,6 @@ class ProfileService {
     return branch.id;
   }
 
-  Future<dynamic> createCaptainProfile(String name, String age, String image, String licence) {
-
-  }
-
   Future<List<ActivityModel>> getActivity() async {
     var records = await _manager.getMyLog();
     var activity = <ActivityModel>[];

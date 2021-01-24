@@ -49,9 +49,6 @@ class InitAccountRepository {
         'Authorization': 'Bearer ' + token
       },
     );
-
-    if (response['status_code'] == '201') return true;
-
-    return false;
+    return null;
   }
 }
