@@ -1,9 +1,9 @@
 <div class="package-details mb-5">
     <div class="container-fluid">
-        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">Package</h1>    
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">{{'package' | translate}}</h1>    
         <form [formGroup]="uploadForm" (ngSubmit)="mySubmit()">
             <div class="">
-              <label class="col-form-label mr-3">Name</label>
+              <label class="col-form-label mr-3">{{'name' | translate}}</label>
               <div class="d-inline-block">
                 <input class="form-control px-1 py-0"
                        [ngClass]="{'is-invalid': uploadForm.get('name').errors &&
@@ -11,11 +11,11 @@
                        type="text"
                        name="name"
                        formControlName="name">
-                <span class="invalid-feedback" *ngIf="uploadForm.get('name').errors?.required">Name Field Is Required</span>               
+                <span class="invalid-feedback" *ngIf="uploadForm.get('name').errors?.required">{{'name-field-is-required' | translate}}</span>               
               </div>
             </div>
             <div class="">
-                <label class="col-form-label mr-3">Cost</label>
+                <label class="col-form-label mr-3">{{'cost' | translate}}</label>
                 <div class="d-inline-block">
                   <input class="form-control px-1 py-0"
                          [ngClass]="{'is-invalid': uploadForm.get('cost').errors &&
@@ -23,12 +23,12 @@
                          type="number"
                          name="cost"
                          formControlName="cost">
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('cost').errors?.required">Cost Field Is Required</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('cost').errors?.required">{{'cost-field-is-required' | translate}}</span>               
                 </div>
               </div>
               
             <div class="">
-                <label class="col-form-label mr-3">Car Counts</label>
+                <label class="col-form-label mr-3">{{'car-count' | translate}}</label>
                 <div class="d-inline-block">
                   <input class="form-control px-1 py-0"
                          [ngClass]="{'is-invalid': uploadForm.get('carCount').errors &&
@@ -36,11 +36,11 @@
                          type="number"
                          name="carCount"
                          formControlName="carCount">
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('carCount').errors?.required">Car Counts Field Is Required</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('carCount').errors?.required">{{'car-count-field-is-required' | translate}}</span>               
                 </div>
               </div>
               <div class="">
-                <label class="col-form-label mr-3">City</label>
+                <label class="col-form-label mr-3">{{'city' | translate}}</label>
                 <div class="d-inline-block">
                   <input class="form-control px-1 py-0"
                          [ngClass]="{'is-invalid': uploadForm.get('city').errors &&
@@ -48,11 +48,11 @@
                          type="text"
                          name="city"
                          formControlName="city">
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('city').errors?.required">City Field Is Required</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('city').errors?.required">{{'city-field-is-required' | translate}}</span>               
                 </div>
               </div>
               <div class="">
-                <label class="col-form-label mr-3">Order Counts</label>
+                <label class="col-form-label mr-3">{{'order-count' | translate}}</label>
                 <div class="d-inline-block">
                   <input class="form-control px-1 py-0"
                          [ngClass]="{'is-invalid': uploadForm.get('orderCount').errors &&
@@ -60,11 +60,11 @@
                          type="number"
                          name="orderCount"
                          formControlName="orderCount">
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('orderCount').errors?.required">Order Counts Field Is Required</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('orderCount').errors?.required">{{'order-count-field-is-required' | translate}}</span>               
                 </div>
               </div>
               <div class="">
-                <label class="col-form-label mr-3">Branches</label>
+                <label class="col-form-label mr-3">{{'branch' | translate}}</label>
                 <div class="d-inline-block">
                   <input class="form-control px-1 py-0"
                          [ngClass]="{'is-invalid': uploadForm.get('branch').errors &&
@@ -72,26 +72,26 @@
                          type="number"
                          name="branch"
                          formControlName="branch">
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('branch').errors?.required">Branches Field Is Required</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('branch').errors?.required">{{'branch-field-is-required' | translate}}</span>               
                 </div>
               </div>
               <div class="">
-                <label class="col-form-label mr-3">Status</label>
+                <label class="col-form-label mr-3">{{'status' | translate}}</label>
                 <div class="d-inline-block">
                   <select class="form-control px-1 py-0"
                          name="status"
                          formControlName="status"
                          (change)="changeStatus($event)"
                          [ngClass]="{'is-invalid': isSubmitted && uploadForm.get('status').errors}">
-                   <option value="">Select General Rating</option>
-                   <option value="inactive">Inactive</option>
-                   <option value="active">Active</option>
+                   <option value="">{{'select-general-rating' | translate}}</option>
+                   <option value="inactive">{{'inactive' | translate}}</option>
+                   <option value="active">{{'active' | translate}}</option>
                  </select>
-                 <span class="invalid-feedback" *ngIf="uploadForm.get('status').errors?.required">Status Field Is Required</span> 
+                 <span class="invalid-feedback" *ngIf="uploadForm.get('status').errors?.required">{{'status-field-is-required' | translate}}</span> 
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-form-label mr-3">Note</label>
+                <label class="col-form-label mr-3">{{'note' | translate}}</label>
                 <div class="col-12 col-sm-10 pl-0">
                     <textarea class="form-control px-1 py-0"
                     [ngClass]="{'is-invalid': uploadForm.get('note').errors &&
@@ -99,11 +99,11 @@
                       name="note"
                       formControlName="note"
                       rows="5"></textarea>
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('note').errors?.required">Note Field Is Required</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('note').errors?.required">{{'note-field-is-required' | translate}}</span>               
                 </div>
               </div>
             <div class="form-group mt-3">
-              <input class="btn btn-primary" type="submit" value="Create" [disabled]="isSubmitted">
+              <input class="btn btn-primary" type="submit" value="{{'create' | translate}}" [disabled]="isSubmitted">
             </div>
           </form>
     </div><!--.container-fluid-->

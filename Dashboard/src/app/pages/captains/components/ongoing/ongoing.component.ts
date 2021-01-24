@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -20,6 +20,7 @@ export class OngoingComponent implements OnInit, OnDestroy {
   constructor(
           private captainsService: CaptainsService,
           private router: Router,
+          private activatedRoute: ActivatedRoute,
           private toaster: ToastrService) { }
 
   ngOnInit(): void {

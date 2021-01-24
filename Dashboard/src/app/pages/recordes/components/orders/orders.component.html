@@ -1,0 +1,82 @@
+<div class="all-orders" *ngIf="allOrders">
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'all-orders' | translate}}</h1>
+    <div *ngIf="allOrders.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr style="white-space: nowrap;">
+                            <th scope="col">{{'order-id' | translate}}</th>
+                            <th scope="col">{{'owner-name' | translate}}</th>
+                            <th scope="col">{{'date' | translate}}</th>
+                            <th scope="col">{{'captain-name' | translate}}</th>
+                            <th scope="col">{{'source' | translate}}</th>
+                            <th scope="col">{{'from-branch' | translate}}</th>
+                            <!-- <th scope="col">Elapsed Time</th> -->
+                            <!-- <th scope="col">State</th> -->
+                            <th scope="col">{{'payment' | translate}}</th>
+                            <th scope="col">{{'destination' | translate}}</th>
+                            <!-- <th scope="col">Branch City</th>
+                            <th scope="col">Branche Name</th>
+                            <th scope="col">From Branch</th> -->
+                            <!-- <th scope="col">Update Date</th> -->
+                            <!-- <th scope="col">Note</th> -->
+                            <th scope="col">{{'control' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of allOrdersList | paginate: config">
+                                <th scope="row">{{order?.id}}</th>
+                                <th scope="row">{{order?.userName ? order?.userName : '-'}}</th>
+                                <th scope="row" style="white-space: nowrap;">{{order?.date ? (order?.date.timestamp * 1000 | date: 'yyyy-MM-dd' : 'UTC') : '-'}}</th>
+                                <th scope="row">{{order?.acceptedOrder.length > 0 ? order?.acceptedOrder[0].captainName : '-'}}</th>
+                                <th scope="row">{{order?.source.length > 0 ? order?.source : '-'}}</th>
+                                <th scope="row">{{order?.fromBranch?.brancheName ? order?.fromBranch?.brancheName : '-'}}</th>
+                                <th scope="row">{{order?.payment ? order?.payment : '-'}}</th>
+                                <th scope="row">{{order?.destination.length > 0 ? order?.destination[0] : '-'}}</th>
+                                <!-- <th scope="row">{{order.recipientPhone ? order.recipientPhone : '-'}}</th>
+                                <th scope="row">{{order.record ? order.record[0].state : '-'}}</th>
+                                <th scope="row">{{order.record ? (order.record[0]?.startTime?.timestamp * 1000 | date: 'H:mm:ss' : 'UTC') : '-'}}</th> -->
+                                <!-- <th scope="row">{{order.state ? order.state : '-'}}</th> -->
+                                <!-- <th scope="row">{{order.fromBranch?.brancheName ? order.fromBranch?.brancheName : '-'}}</th>
+                                <th scope="row">{{order.branchCity > 0 ? order.branchCity : '-'}}</th> -->
+                                <!-- <th scope="row">{{order.updateDate ? (order.updateDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th> -->
+                                <!-- <th scope="row" class="td-custom">{{order.note ? order.note : '-'}}</th> -->
+                                <th scrope="row">
+                                    <a routerLink="/recordes/orders-log/{{order.id}}" class="text-success">{{'log' | translate}}</a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="Prev"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="allOrders.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">{{'order-not-exists' | translate}}</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="allOrders == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

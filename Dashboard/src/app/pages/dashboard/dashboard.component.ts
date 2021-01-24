@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs/operators';
 import { FooterComponent } from 'src/app/@theme/components';
 import { LayoutService } from 'src/app/@theme/helper/layout.service';
@@ -12,7 +13,7 @@ import { LayoutService } from 'src/app/@theme/helper/layout.service';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-  constructor(private layoutService: LayoutService) {}
+  constructor(private layoutService: LayoutService, public translate: TranslateService) {}
 
   ngOnInit() {    
   }

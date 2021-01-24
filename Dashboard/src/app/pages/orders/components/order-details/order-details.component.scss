@@ -1,4 +1,12 @@
 .order-details {
+    h1 {
+        @media (min-width: '992px') and (max-width: '1199px') {
+          font-size: 2.2rem;
+        }
+        @media (min-width: '768px') and (max-width: '991px') {
+          font-size: 2rem;
+        }
+    }
     .order-chat { width: max-content; border: 2px solid #21a5b8; border-radius: 5px;
         a { color: #000; }
     }

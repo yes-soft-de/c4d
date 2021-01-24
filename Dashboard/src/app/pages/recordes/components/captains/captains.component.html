@@ -1,0 +1,82 @@
+<div class="all-captains" *ngIf="allCaptains">
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'all-captains' | translate}}</h1>
+    <div *ngIf="allCaptains.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr style="white-space: nowrap;">
+                            <th scope="col">{{'captain-id' | translate}}</th>
+                            <th scope="col">{{'captain-name' | translate}}</th>
+                            <th scope="col">{{'owner-name' | translate}}</th>
+                            <th scope="col">{{'date' | translate}}</th>
+                            <th scope="col">{{'order-id' | translate}}</th>
+                            <th scope="col">{{'source' | translate}}</th>
+                            <th scope="col">{{'from-branch' | translate}}</th>
+                            <th scope="col">{{'payment' | translate}}</th>
+                            <th scope="col">{{'destination' | translate}}</th>
+                            <!-- <th scope="col">Branch City</th>
+                            <th scope="col">Branch count</th>
+                            <th scope="col">From Branch</th>
+                            <th scope="col">Captain Name</th> -->
+                            <!-- <th scope="col">Free</th> -->
+                            <!-- <th scope="col">Location</th> -->
+                            <!-- <th scope="col">Status</th> -->
+                            <th scope="col">{{'control' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let captain of allCaptainsList | paginate: config">
+                                <th scope="row">{{captain?.id}}</th>
+                                <th scope="row">{{captain?.captainName ? captain?.captainName : '-' }}</th>
+                                <!-- <th><img src="{{captain?.image}}" (error)="captain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.userName}} Image" class="img-thumbnail img-custom"></th> -->
+                                <th scope="row">{{captain?.userName ? captain.userName : '-' }}</th>
+                                <th scope="row" style="white-space: nowrap;">{{captain?.date ? (captain.date.timestamp * 1000 | date: 'yyyy-MM-dd' : 'UTC') : '-' }}</th>
+                                <th scope="row">{{captain?.orderID ? captain.orderID : '-' }}</th>
+                                <th scope="row">{{captain?.source.length > 0 ? captain?.source[0] : '-' }}</th>
+                                <th scope="row">{{captain?.brancheName ? captain?.brancheName : '-'  }}</th>
+                                <th scope="row">{{captain?.payment ? captain.payment : '-' }}</th>
+                                <th scope="row">{{captain?.destination ? captain?.destination[0] : '-' }}</th>
+                                <!-- <th scope="row">{{captain?.branchcount ? captain?.branchcount : '-' }}</th>
+                                <th scope="row">{{captain?.fromBranch ? captain?.fromBranch : '-' }}</th>
+                                <th scope="row">{{captain?.free ? captain.free : '-' }}</th>
+                                <th scope="row">{{captain?.location ? captain.location : '-' }}</th>
+                                <th scope="row">{{captain?.status ? captain.status : '-' }}</th> -->
+                                <th scrope="row">
+                                    <a routerLink="/recordes/orders-log/{{captain.orderID}}" class="text-success">{{'log' | translate}}</a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="Prev"
+                        nextLabel="Next"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="allCaptains.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">{{'captain-not-exists' | translate}}</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="allCaptains == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

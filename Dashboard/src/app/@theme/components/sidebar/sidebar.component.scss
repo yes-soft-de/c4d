@@ -1,3 +1,4 @@
+@import "../../../../variable";
 .main-sidebar {
     height: 100vh;
     overflow-y: scroll;
@@ -18,7 +19,8 @@
       background: #555;
     }
     .sidebar-search {
-        box-shadow: 1px 0px 15px #888;
+        // box-shadow: 1px 0px 15px #888;
+        box-shadow: 1px 0px 15px #ffffff47;
         input.form-control {
           border-radius: 30px 0 0 30px;
           border-right: 0;
@@ -34,7 +36,7 @@
         .card-header {
             padding: 0;
             border-radius: 0 !important;
-            background: #21a5b8;            
+            background: $medium_light_blue;            
             position: relative;
             button.btn-link { 
                 width: 100%;
@@ -51,6 +53,16 @@
                   .fa-angle-down { display: block; }
                   .fa-angle-up { display: none; }  
                 }
+                @media (min-width: '768px') and (max-width: '991px') {
+                  font-size: 1.1rem;
+                }
+                .dash-header-icon {
+                  position: relative;
+                  display: inline-block;
+                  left: 0;
+                  right: unset;
+                  top: 0;
+                }
             }
             i {
                 position: absolute;
@@ -59,9 +71,13 @@
                 color: #fff;
                 right: 10px;
             }
-        }
-        .collapse {
-            // back
+            .custom-select-lang {
+              background: $medium_light_blue;
+              border: none;
+              color: #fff;
+              cursor: pointer;
+              font-size: 1.2rem;
+            }
         }
     }
 }
@@ -71,4 +87,17 @@
   height: 100vh;
   left: -65vw;
   top: 0;
+  h5 {
+    @media (min-width: '768px') and (max-width: '991px') {
+      font-size: 1.1rem;
+    }
+    @media (min-width: '576px') and (max-width: '767px') {
+      font-size: 1rem;
+    }
+  }
+  p {
+    @media (min-width: '576px') and (max-width: '991px') {
+      font-size: .9rem;
+    }
+  }
 }

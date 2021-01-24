@@ -1,0 +1,11 @@
+h1 {
+    @media (min-width: '992px') and (max-width: '1199px') {
+      font-size: 2.2rem;
+    }
+    @media (min-width: '576px') and (max-width: '991px') {
+      font-size: 2rem;
+    }    
+    @media (max-width: '575px') {
+      font-size: 1.8rem;
+    }
+}

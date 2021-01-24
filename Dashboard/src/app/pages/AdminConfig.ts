@@ -18,6 +18,7 @@ export class AdminConfig {
   public static pendingCaptainsAPI          = AdminConfig.sourceAPI + 'getUserInactive';
   public static ongoingCaptainsAPI          = AdminConfig.sourceAPI + 'getCaptainsState';
   public static captainDetailAPI            = AdminConfig.sourceAPI + 'captainprofile';
+  public static dayOffCaptainDetailAPI      = AdminConfig.sourceAPI + 'captainprofileStateDayOff';
   public static captainSalaryBounceAPI      = AdminConfig.sourceAPI + 'captainprofileUpdateByAdmin';
   
   // Orders
@@ -34,6 +35,12 @@ export class AdminConfig {
   public static packageDetailsAPI           = AdminConfig.sourceAPI + 'getpackageById';
   public static createPackageAPI            = AdminConfig.sourceAPI + 'package';
   public static packageAcceptAPI            = AdminConfig.sourceAPI + 'package';
+
+  // Recordes
+  public static ordersAPI                   = AdminConfig.sourceAPI + 'getOrders';
+  public static ownersCaptainsAPI           = AdminConfig.sourceAPI + 'getUsers';
+  public static recordsAPI                  = AdminConfig.sourceAPI + 'records';
+
 
   // Upload     
   public static generalUploadAPI            = AdminConfig.sourceAPI + 'uploadfile'; 

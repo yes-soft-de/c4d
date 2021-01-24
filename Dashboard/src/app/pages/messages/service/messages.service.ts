@@ -13,7 +13,7 @@ export class MessagesService {
   // This sends the message
   sendMessage(chatRoomId: string, message: string, clientId: string): void {
     const chatMsg: MessageModel = {
-      msg: message,
+      msg: {message: message},
       sender: clientId,
       sentDate: Date.now().toString()
     };

@@ -11,7 +11,7 @@ export interface Orders {
     }[];
     date: { timestamp: number };
     destination: [string];
-    fromBranch: string;
+    fromBranch: {brancheName: string};
     id: number;
     note: string;
     payment: string;

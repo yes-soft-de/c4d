@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, pairwise, takeUntil } from 'rxjs/operators';
+import { ContractsRoutingModule } from 'src/app/pages/contracts/contracts-routing.module';
 import { CaptainDetails } from '../../entity/captain-details';
 import { CaptianDetailsResponse } from '../../entity/captain-details-response';
 import { CaptainsService } from '../../services/captains.service';
@@ -27,12 +28,19 @@ export class CaptainsDetailsComponent implements OnInit {
               private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activateRoute.params.subscribe(
+      urlSegment => {
+        if (urlSegment.dayOff) {
+          this.getDayOffCaptainDetails();
+        } else {
+          this.getCaptianDetails();
+        }
+      }
+    );
     this.uploadForm = this.formBuilder.group({
       salary: ['', Validators.required],
       bounce: ['', Validators.required]
     });
-    // Get Captian Details Informations
-    this.getCaptianDetails();
   }
 
 
@@ -43,6 +51,21 @@ export class CaptainsDetailsComponent implements OnInit {
       (captainDetail: CaptianDetailsResponse) => {
         if (captainDetail) {
           console.log('Captain Details: ', captainDetail);
+          this.captainDetails = captainDetail.Data;
+          this.updateFormValues();
+        }
+      },
+      error => console.log('Error : ', error)
+    );
+  }
+
+  getDayOffCaptainDetails() {
+    this.captainService.dayOffCaptainDetails(Number(this.activateRoute.snapshot.paramMap.get('id')))
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
+      (captainDetail: CaptianDetailsResponse) => {
+        if (captainDetail) {
+          console.log('Day Off Captain Details: ', captainDetail);
           this.captainDetails = captainDetail.Data;
           this.updateFormValues();
         }

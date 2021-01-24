@@ -41,6 +41,11 @@ const routes: Routes = [
         loadChildren: () => import('./packages/packages.module').then(m => m.PackagesModule),
         canActivate: [AfterLoginService]
       },
+      {
+        path: 'recordes',
+        loadChildren: () => import('./recordes/recordes.module').then(m => m.RecordesModule),
+        canActivate: [AfterLoginService]
+      },
       { path: '**', component: NotFoundComponent }
     ]
   }

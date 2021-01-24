@@ -1,28 +1,28 @@
 <div class="package-details mb-5" *ngIf="packageDetails">
     <div class="container-fluid">
-        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">Package Details</h1>    
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">{{'package-details' | translate}}</h1>    
         <div class="row w-100 mx-auto mb-1">
-            <div class="col-12 col-md-8 align-self-center">
-                <p class="mb-0">Name <span>{{packageDetails.name}}</span></p>
+            <div class="col-12 col-sm-7 col-md-8 align-self-center pl-0 pl-sm-3 my-1 my-sm-0">
+                <p class="mb-0">{{'name' | translate}} : <span>{{packageDetails.name}}</span></p>
             </div>
-            <div class="col-12 col-md-4 align-self-center text-center">
+            <div class="col-12 col-sm-5 col-md-4 align-self-center text-left text-sm-center pl-0 pl-sm-3 my-1 my-sm-0">
                 <div class="order-chat mx-auto p-1">
-                    <span>Accept:</span>
+                    <span>{{'accept' | translate}}:</span>
                     <button *ngIf="packageDetails?.status == 'inactive'" (click)="acceptPackage('active', packageDetails?.id)" class="ml-sm-2 ml-md-4 btn bg-light-blue text-white py-0 font-weight-bold" [disabled]="!active">
-                        Active     
+                        {{'active' | translate}}
                     </button>
                     <button *ngIf="packageDetails?.status == 'active'" (click)="acceptPackage('inactive', packageDetails?.id)" class="ml-sm-2 ml-md-4 btn bg-danger text-white py-0 font-weight-bold" [disabled]="!active">
-                        Disactive
+                        {{'inactive' | translate}}
                     </button>
                 </div>
             </div>
         </div><!--.row-->
-        <p class="ml-sm-2 ml-md-3 mb-1">Cost : <span>{{packageDetails?.cost}}$</span></p>
-        <p class="ml-sm-2 ml-md-3 mb-1">Car Counts : <span>{{packageDetails?.carCount}}</span></p>
-        <p class="ml-sm-2 ml-md-3 mb-1">City : <span>{{packageDetails?.city}}</span></p>
-        <p class="ml-sm-2 ml-md-3 mb-1">Orders Counts : <span>{{packageDetails?.orderCount}}</span></p>
-        <p class="ml-sm-2 ml-md-3 mb-3">Status : <span>{{packageDetails?.status}}</span></p>
-        <p class="ml-sm-2 ml-md-3 mb-1">Note : <span>{{packageDetails?.note}}</span></p>
+        <p class="ml-sm-2 ml-md-3 mb-1">{{'cost' | translate}} : <span>{{packageDetails?.cost | currency}}</span></p>
+        <p class="ml-sm-2 ml-md-3 mb-1">{{'car-count' | translate}} : <span>{{packageDetails?.carCount}}</span></p>
+        <p class="ml-sm-2 ml-md-3 mb-1">{{'city' | translate}} : <span>{{packageDetails?.city}}</span></p>
+        <p class="ml-sm-2 ml-md-3 mb-1">{{'orders-count' | translate}} : <span>{{packageDetails?.orderCount}}</span></p>
+        <p class="ml-sm-2 ml-md-3 mb-3">{{'status' | translate}} : <span>{{packageDetails?.status}}</span></p>
+        <p class="ml-sm-2 ml-md-3 mb-1">{{'note' | translate}} : <span>{{packageDetails?.note}}</span></p>
         <!-- <div>
             <p class="ml-sm-2 ml-md-3 mb-1">Note: </p>    
             <textarea #textarea class="col-11 ml-sm-2 ml-md-4 mb-1 form-control">{{packageDetails?.note}}</textarea>

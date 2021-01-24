@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 // regular style toast 
 @import '~ngx-toastr/toastr';
+@import 'variable';
 
 
 /*** Admin Loader Style ***/
@@ -8,9 +9,14 @@
     display: inline-block;
     position: fixed;
     left: 33.3%;
+    right: 33.3%;
     top: 45vh;
     width: 64px;
     height: 64px;
+    @media (max-width: '767px') {
+      left: calc(50vw - 32px);
+      right: calc(50vw - 32px);
+    }
   }
   
   .lds-ring div {
@@ -58,24 +64,45 @@
 .search-input { font-size: 14px; }
 td { font-size: 14px; vertical-align: middle !important; }
 
+// .text-light-blue {
+//   color: #3acce1;
+// }
+
+// .text-grey-blue {
+//   color: #21a5b8;
+// }
+
+// .bg-light-blue {
+//   background-color: #3acce1;
+// }
+
+// .bg-grey-blue {
+//   background-color: #21a5b8;
+// }
+
+// .bg-grey {
+//   background-color: #dbdbdb;
+// }
+
 .text-light-blue {
-  color: #3acce1;
+  color: $medium_blue;
 }
 
 .text-grey-blue {
-  color: #21a5b8;
+  color: $light_blue;
 }
 
 .bg-light-blue {
-  background-color: #3acce1;
+  background-color: $medium_blue;
 }
 
 .bg-grey-blue {
-  background-color: #21a5b8;
+  // background-color: $light_blue;
+  background-color: $warm_green;
 }
 
 .bg-grey {
-  background-color: #dbdbdb;
+  background-color: $quiet_green;
 }
 
 .img-responsive {
@@ -93,3 +120,45 @@ a { text-decoration: none; color: #fff;
 /*Global Class*/
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.td-custom {
+  max-height: 100px;
+  overflow-y: scroll;
+  display: block;
+  border-bottom: none !important;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #999;
+  }
+}
+.td-custom {
+  margin-bottom: .75rem
+}
+
+.input-group-text-custom {
+  display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+}

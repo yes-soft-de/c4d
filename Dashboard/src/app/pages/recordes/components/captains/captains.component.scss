@@ -1,0 +1,31 @@
+.all-captains {
+    & > h1 {
+        @media (min-width: '992px') and (max-width: '1199px') {
+          font-size: 2.2rem;
+        }
+        @media (min-width: '768px') and (max-width: '991px') {
+          font-size: 2rem;
+        }
+        @media (min-width: '576px') and (max-width: '767px') {
+          font-size: 2rem;
+          background: none !important;
+          color: #21a5b8 !important;
+        }
+        @media (max-width: '575px') {
+          font-size: 1.8rem;
+          background: none !important;
+          color: #21a5b8 !important;
+        }
+    }
+    .card { border-radius: 20px; }
+    .card-header {
+        box-shadow: 1px 1px 12px rgba(0,0,0,.1), 
+        -1px -1px 12px rgba(0,0,0,.1);
+        z-index: 0;
+        border-radius: 20px 20px 0 0;
+    }
+    .card-body {
+        .table td, .table th { border: none; padding: .3rem; }
+        border-radius: 0 0 20px 20px;
+    }
+}

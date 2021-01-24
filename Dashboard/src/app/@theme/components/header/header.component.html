@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light-blue" style="z-index: 9999;">
+    <a class="navbar-brand" routerLink="/">C4D</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="sidebar-search">
+            <form class="form-inline mt-3 mobile-search-form">
+                <label class="sr-only" for="inlineFormInputGroupUsername2">{{"search" | translate}}</label>
+                <div class="w-100 input-group mb-2 mr-sm-2">
+                    <input type="text" 
+                            class="form-control" 
+                            id="inlineFormInputGroupUsername2" 
+                            name="search"
+                            [(ngModel)]="name"
+                            (keyup)="applyFilter()"
+                            title="{{'title' | translate}}"
+                            placeholder="{{'placeholder' | translate}}">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-search fa-fw text-muted" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <select class="form-control custom-select-lang" [(ngModel)]="selectLang" name="selectLang" (change)="setTransLanguage()">
+                <option *ngFor="let lang of TransLang" value="{{lang}}">{{ lang | titlecase }}</option>
+              </select>
+            </h5>
+          </div>
+        </div><!--.card-->
+        <div class="card" *ngFor="let menu of menus; let i = index">
+            <div class="card-header" id="{{menu.id + '-' + i}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link {{ i != 0 ? 'collapsed' : ''}}" data-toggle="collapse" [attr.data-target]="'#' + menu.id"  aria-expanded="true" [attr.aria-controls]="menu.id">
+                  {{menu.translate | translate}}
+                  <i class="fa fa-angle-down fa-custom fa-lg fa-fw"></i>
+                  <i class="fa fa-angle-up fa-custom fa-lg fa-fw"></i>
+                </button>
+              </h5>
+            </div>
+            <div id="{{menu.id}}" class="collapse bg-light-blue text-white {{ i == 0 ? 'show' : ''}}" [attr.aria-labelledby]="menu.id + '-' + i" data-parent="#accordion">
+              <div class="card-body">
+                <p *ngFor="let item of menu.children">
+                  <a (click)="clicked(item.value)" routerLink="{{item.link}}">{{item.translate | translate}}</a>
+                </p>
+              </div>
+            </div>
+        </div><!--.card-->     
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                <button class="btn btn-link" (click)="logout()">
+                    {{"logout" | translate}}
+                </button>
+                </h5>
+            </div>
+        </div><!--.card-->          
+    </div>
+  </nav>
+  <div class="search-result bg-white py-5" *ngIf="disabled">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-3" *ngFor="let order of ordersListFilter">
+          <a *ngIf="order.id" (click)="select(order.id)" style="cursor: pointer;">
+            <div class="card w-100 text-dark" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">#ID : <span class="text-info">{{order.id}}</span></h5>
+                <!-- <h5 class="card-title" *ngIf="order.orderID">#ID : <span class="text-info">{{order.orderID}}</span></h5> -->
+                <h5 class="card-desc mb-0">{{"recipient-name" | translate}} : <span class="text-info">{{order.recipientName}}</span></h5>
+                <p class="card-desc mb-0">{{"state" | translate}} : <span class="text-info">{{order.state}}</span></p>
+                <p class="card-desc mb-0">{{"date" | translate}} : <span class="text-info">{{order.date.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
+                <!-- <p class="card-desc mb-0" *ngIf="order.orderDate">Date : <span class="text-info">{{order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p> -->
+              </div>
+            </div><!--.card-->
+          </a>
+          <a *ngIf="order.orderID" (click)="select(order.orderID)" style="cursor: pointer;">
+            <div class="card w-100 text-dark" style="width: 18rem;">
+              <div class="card-body">
+                <!-- <h5 class="card-title" *ngIf="order.id">#ID : <span class="text-info">{{order.id}}</span></h5> -->
+                <h5 class="card-title">#ID : <span class="text-info">{{order.orderID}}</span></h5>
+                <h5 class="card-desc mb-0">{{"recipient-name" | translate}} : <span class="text-info">{{order.recipientName}}</span></h5>
+                <p class="card-desc mb-0">{{"state" | translate}} : <span class="text-info">{{order.state}}</span></p>
+                <!-- <p class="card-desc mb-0" *ngIf="order.date">Date : <span class="text-info">{{order.date.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p> -->
+                <p class="card-desc mb-0">{{"date" | translate}} : <span class="text-info">{{order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
+              </div>
+            </div><!--.card-->
+          </a>
+        </div><!--.col-12-->
+      </div><!--.row-->
+    </div><!--.container-->
+  </div>

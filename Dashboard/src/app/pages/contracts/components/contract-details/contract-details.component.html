@@ -1,29 +1,29 @@
 <div class="contract-details mb-5" *ngIf="contractDetails">
     <div class="container-fluid">
-        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">Contract Details</h1>    
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">{{'contract-details' | translate}}</h1>    
         <div class="row w-100 mx-auto mb-1">
-            <div class="col-12 col-md-8 align-self-center">
-                <p class="mb-0">User Name <span>{{contractDetails.userName}}</span></p>
+            <div class="col-12 col-sm-8 col-md-7 col-lg-8 align-self-center pl-0 pl-sm-3">
+                <p class="mb-0">{{'username' | translate}} : <span>{{contractDetails.userName}}</span></p>
             </div>
-            <div class="col-12 col-md-4 align-self-center text-center">
+            <div class="col-12 col-sm-4 col-md-5 col-lg-4 align-self-center text-left text-sm-center pl-0 pl-sm-3 my-1 my-sm-0">
                 <div class="order-chat mx-auto p-1">
-                    <span>Accept:</span>
-                    <button *ngIf="contractDetails.status == 'inactive'" (click)="acceptContract('active', contractDetails.id)" class="ml-sm-2 ml-md-4 btn bg-light-blue text-white w-25 py-0 font-weight-bold" [disabled]="!active">
-                        Yes     
+                    <span>{{'accept' | translate}}:</span>
+                    <button *ngIf="contractDetails.status == 'inactive'" (click)="acceptContract('active', contractDetails.id)" class="ml-sm-2 ml-md-4 btn bg-light-blue text-white py-0 font-weight-bold" [disabled]="!active">
+                        {{'yes' | translate}}     
                     </button>
-                    <button *ngIf="contractDetails.status == 'active'" (click)="acceptContract('inactive', contractDetails.id)" class="ml-sm-2 ml-md-4 btn bg-light-blue text-white w-25 py-0 font-weight-bold" [disabled]="!active">
-                        No     
+                    <button *ngIf="contractDetails.status == 'active'" (click)="acceptContract('inactive', contractDetails.id)" class="ml-sm-2 ml-md-4 btn bg-danger text-white py-0 font-weight-bold" [disabled]="!active">
+                        {{'no' | translate}}     
                     </button>
                 </div>
             </div>
         </div><!--.row-->
-        <p class="ml-sm-2 ml-md-4 mb-1">Status : <span>{{contractDetails?.status}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Package Name : <span>{{contractDetails?.packageName}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Package Note : <span>{{contractDetails?.packageNote}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Start Date : <span>{{contractDetails?.startDate ? (contractDetails?.startDate.timestamp * 1000 | date:  'yyyy-MM-dd') : '-'}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">End Date : <span>{{contractDetails?.endDate ? (contractDetails?.endDate.timestamp * 1000 | date:  'yyyy-MM-dd') : '-'}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'status' | translate}} : <span>{{contractDetails?.status}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'package-name' | translate}} : <span>{{contractDetails?.packageName}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'package-note' | translate}} : <span>{{contractDetails?.packageNote}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'start-date' | translate}} : <span>{{contractDetails?.startDate ? (contractDetails?.startDate.timestamp * 1000 | date:  'yyyy-MM-dd') : '-'}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'end-date' | translate}} : <span>{{contractDetails?.endDate ? (contractDetails?.endDate.timestamp * 1000 | date:  'yyyy-MM-dd') : '-'}}</span></p>
         <div>
-            <p class="ml-sm-2 ml-md-4 mb-1">Note: </p>    
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'note' | translate}}: </p>    
             <textarea #textarea class="col-11 ml-sm-2 ml-md-4 mb-1 form-control">{{contractDetails?.subscriptionNote}}</textarea>
         </div>
     </div><!--.container-fluid-->

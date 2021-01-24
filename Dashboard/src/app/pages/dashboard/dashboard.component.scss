@@ -1,12 +1,34 @@
+@import '../../../variable';
 .dashboard {
+  #header {
+    color: $warm_green;
+    @media (min-width: '992px') and (max-width: '1199px') {
+      font-size: 2.2rem;
+    }
+    @media (max-width: '991px') {
+      font-size: 2rem;
+    }
+  }
   .dashboard-titles {
     .nav-tabs { border: none; }
     .nav-item {
       width: 25%;
       text-align: center;
       align-self: center;
+      @media (max-width: '575px') {
+        width: calc(100% / 3.1);
+      }
       .nav-link { font-size: 1.8rem; background-color: #dbdbdb; border: none; 
-        &:hover, &.active { color: #fff; background-color: #21a5b8; }
+        @media (min-width: '992px') and (max-width: '1199px') {
+          font-size: 1.5rem;
+        }        
+        @media (min-width: '576px') and (max-width: '991px') {
+          font-size: 1.2rem;
+        }
+        @media (max-width: '575px') {
+          font-size: .8rem;
+        }
+        &:hover, &.active { color: #fff; background-color: $warm_green; }
       }
     }
   }

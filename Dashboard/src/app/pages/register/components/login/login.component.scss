@@ -1,0 +1,25 @@
+.col-form-label {    
+    @media (min-width: '992px') and (max-width: '1199px') {
+        font-size: 0.8rem;
+        padding-right: 0;
+    }
+    @media (min-width: '576px') and (max-width: '767px') {
+        font-size: 0.73rem;
+        padding-right: 0;
+    }
+    @media (max-width: '575px') {
+        font-size: .9rem;
+        padding-right: 0;
+    }
+}
+
+.card {
+    .btn-primary{
+        @media (max-width: '575px') {
+            font-size: 1rem;
+            padding-right: 0;
+            display: block;
+            width: 100%;
+        }
+    }
+}

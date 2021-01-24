@@ -15,6 +15,7 @@ export class AfterLoginService implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+      // return true;
       let flag = this.tokenService.loggedIn();
       if(flag){
         return flag ;

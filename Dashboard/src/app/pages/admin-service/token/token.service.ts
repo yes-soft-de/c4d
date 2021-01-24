@@ -1,3 +1,4 @@
+import { DatePipe, formatDate } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HelperService } from 'src/app/@theme/helper/helper.service';
@@ -14,7 +15,7 @@ export class TokenService {
   };
 
   constructor() { 
-    console.log('Expire Time To Delete Your Token is : ', HelperService.millisecondToTime(this.expireTime));
+    console.log('Expire Time To Delete Your Token is : ', HelperService.millisecondToTime(this.expireTime));    
   }
 
   handle(username, token) {

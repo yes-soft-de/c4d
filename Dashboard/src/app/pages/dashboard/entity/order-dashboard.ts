@@ -10,6 +10,7 @@ export interface OrdersDashboard {
     orderDate: { timestamp: number };
     orderID: number;
     ownerID: string;
+    fromBranch: { brancheName: string };
     payment: string;
     recipientName: string;
     recipientPhone: string;

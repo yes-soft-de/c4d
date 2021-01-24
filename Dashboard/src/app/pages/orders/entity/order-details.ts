@@ -12,7 +12,7 @@ export interface OrderDetails {
     };
     date: { timestamp: number };
     destination: [string];
-    fromBranch: string;
+    fromBranch: {brancheName: string};
     note: string;
     payment: string;
     recipientName: string;
@@ -28,4 +28,5 @@ export interface OrderDetails {
     source: [string];
     state: string;
     updateDate: { timestamp: number };
+    uuid: string;
 }

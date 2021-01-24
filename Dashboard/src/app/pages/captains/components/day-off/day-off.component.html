@@ -1,26 +1,26 @@
 <div class="day-off" *ngIf="dayOffCaptains">
-    <h1 class="bg-light-blue text-white font-weight-bold p-3">Day Off Captains</h1>
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'day-Off-captains' | translate}}</h1>
     <div *ngIf="dayOffCaptains.length !== 0">
         <div class="container-fluid">
-            <div class="card border bg-white text-light-blue mt-4">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
                 <div class="card-header bg-white py-3"></div>
                 <div class="card-body table-responsive bg-white text-center">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#ID</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Bounce</th>
-                                <th scope="col">Captain ID</th>
-                                <th scope="col">Car</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Rating</th>
-                                <th scope="col">Salary</th>
-                                <th scope="col">State</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Control</th>
+                                <th scope="col">{{'image' | translate}}</th>
+                                <th scope="col">{{'name' | translate}}</th>
+                                <th scope="col">{{'age' | translate}}</th>
+                                <th scope="col">{{'bounce' | translate}}</th>
+                                <th scope="col" style="white-space: nowrap;">{{'captain-id' | translate}}</th>
+                                <th scope="col">{{'car' | translate }}</th>
+                                <th scope="col">{{'location' | translate }}</th>
+                                <th scope="col">{{'rating' | translate }}</th>
+                                <th scope="col">{{'salary' | translate }}</th>
+                                <th scope="col">{{'State' | translate }}</th>
+                                <th scope="col">{{'status' | translate }}</th>
+                                <th scope="col">{{'control' | translate }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,7 +38,7 @@
                                 <th scope="row">{{dayOffCaptain.state ? dayOffCaptain.state : '-'}}</th>
                                 <th scope="row">{{dayOffCaptain.status ? dayOffCaptain.status : '-'}}</th>
                                 <th scrope="row">
-                                    <a routerLink="/captains/view/{{dayOffCaptain.id}}" class="text-success">View</a>
+                                    <a routerLink="/captains/view/day-off/{{dayOffCaptain.id}}" class="text-success">{{'view' | translate}}</a>
                                 </th>
                             </tr>
                         </tbody>
@@ -62,7 +62,7 @@
     </div>
     <div *ngIf="dayOffCaptains.length === 0">
         <div class="container">
-            <div class="alert alert-primary text-center mt-5">There Isn't Day Off Captains To Show</div>
+            <div class="alert alert-primary text-center mt-5">{{'day-off-captains-not-exists' | translate}}</div>
             <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
                 <i class="fa fa-plus"></i>
                 Add New Anime

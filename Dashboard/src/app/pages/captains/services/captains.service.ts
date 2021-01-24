@@ -48,6 +48,13 @@ export class CaptainsService {
     ).pipe(catchError(CaptainsService.errorHandle));
   }
 
+  dayOffCaptainDetails(captainId: number): Observable<any> {
+    return this.httpClient.get(
+      `${AdminConfig.dayOffCaptainDetailAPI}/${captainId}`,
+      this.tokenService.httpOptions()
+    ).pipe(catchError(CaptainsService.errorHandle));
+  }
+
   updateCaptainSalaryBounce(data: any): Observable<any> {
     return this.httpClient.put(
       AdminConfig.captainSalaryBounceAPI,

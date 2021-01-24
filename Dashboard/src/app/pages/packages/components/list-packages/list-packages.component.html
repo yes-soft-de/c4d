@@ -1,23 +1,23 @@
 <div class="packages" *ngIf="packages">
-    <h1 class="bg-light-blue text-white font-weight-bold p-3">Packages</h1>
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'packages' | translate}}</h1>
     <div *ngIf="packages.length !== 0">
         <div class="container-fluid">
-            <div class="card border bg-white text-light-blue mt-4">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
                 <div class="card-header bg-white py-3"></div>
                 <div class="card-body table-responsive bg-white text-center">
                     <table class="table">
                         <thead>
                             <tr style="white-space: nowrap;">
                                 <th scope="col">#ID</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Car Count</th>
-                                <th scope="col">City</th>
-                                <th scope="col">Cost</th>
-                                <th scope="col">Order Count</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Note</th>
-                                <th scope="col">Control</th>
+                                <th scope="col">{{'image' | translate}}</th>
+                                <th scope="col">{{'name' | translate}}</th>
+                                <th scope="col">{{'car-count' | translate}}</th>
+                                <th scope="col">{{'city' | translate}}</th>
+                                <th scope="col">{{'cost' | translate}}</th>
+                                <th scope="col">{{'order-count' | translate}}</th>
+                                <th scope="col">{{'status' | translate}}</th>
+                                <th scope="col">{{'note' | translate}}</th>
+                                <th scope="col">{{'control' | translate}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,12 +27,12 @@
                                 <th scope="row">{{package.name ? package.name : '-'}}</th>
                                 <th scope="row">{{package.carCount ? package.carCount : '-'}}</th>
                                 <th scope="row">{{package.city ? package.city : '-'}}</th>
-                                <th scope="row">{{package.cost ? package.cost + '$' : '-'}}</th>
+                                <th scope="row">{{package.cost ? (package.cost | currency) : '-'}}</th>
                                 <th scope="row">{{package.orderCount ? package.orderCount : '-'}}</th>
-                                <th scope="row">{{package.status ? package.status : '-'}}</th>
+                                <th scope="row" [class.text-danger]="package.status == 'inactive'">{{package.status ? package.status : '-'}}</th>
                                 <th scope="row" class="td-custom">{{package.note ? package.note : '-'}}</th>
                                 <th scrope="row">
-                                    <a routerLink="/packages/view/{{package.id}}" class="text-success">View</a>
+                                    <a routerLink="/packages/view/{{package.id}}" class="text-success">{{'view' | translate}}</a>
                                 </th>
                             </tr>
                         </tbody>
@@ -56,7 +56,7 @@
     </div>
     <div *ngIf="packages.length === 0">
         <div class="container">
-            <div class="alert alert-primary text-center mt-5">There Isn't Packages To Show</div>
+            <div class="alert alert-primary text-center mt-5">{{'packages-not-exists' | translate}}</div>
             <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
                 <i class="fa fa-plus"></i>
                 Add New Anime

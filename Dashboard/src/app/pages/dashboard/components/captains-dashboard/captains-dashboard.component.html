@@ -1,46 +1,46 @@
 
-      <div class="captains-dashboard mb-5">
+      <div class="captains-dashboard mb-4 mb-lg-5">
         <div class="row">
-            <div class="col-12 col-md-4">
-              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+            <div class="col-12 col-sm-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{countPendingCaptains}}</div>
-                <span class="text-white">Pending</span>
+                <span class="text-white">{{"pending" | translate}}</span>
               </div>
             </div>  
-            <div class="col-12 col-md-4">
-              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+            <div class="col-12 col-sm-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{countOngoingCaptains}}</div>
-                <span class="text-white">Ongoing</span>
+                <span class="text-white">{{"ongoing" | translate}}</span>
               </div>
             </div>  
-            <div class="col-12 col-md-4">
-              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+            <div class="col-12 col-sm-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{countDayOfCaptains}}</div>
-                <span class="text-white">Day Off</span>
+                <span class="text-white">{{"day-off" | translate}}</span>
               </div>
             </div>      
           </div>
         <div class="dashboard-table mt-5">
           <div class="card border-0 text-white">
             <div class="card-header bg-light-blue py-2">
-              Top 5 Captains
+              {{"top" | translate}} 5 {{"captains" | translate}}
             </div>
             <div class="card-body table-responsive bg-light-blue text-center">
               <table class="table" *ngIf="captains.length != 0">
                 <thead>
                   <tr>
                     <th scope="col">#ID</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Count Orders Deliverd</th>
-                    <th scope="col">Bounce</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Car</th>
-                    <th scope="col">Location</th>
+                    <th scope="col">{{'image' | translate}}</th>
+                    <th scope="col">{{'name' | translate}}</th>
+                    <th scope="col" style="white-space: nowrap;">{{'count-orders-deliverd' | translate}}</th>
+                    <th scope="col">{{'bounce' | translate }}</th>
+                    <th scope="col">{{'age' | translate }}</th>
+                    <th scope="col">{{'car' | translate }}</th>
+                    <th scope="col" style="white-space: nowrap;">{{'salary' | translate }}</th>
+                    <!-- <th scope="col">Location</th>
                     <th scope="col">Rating</th>
-                    <!-- <th scope="col">Salary</th> -->
                     <th scope="col">State</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Status</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -54,18 +54,18 @@
                                 <th scope="row">{{captain.bounce ? captain.bounce : '-'}}</th>
                                 <th scope="row">{{captain.age ? captain.age : '-'}}</th>
                                 <th scope="row">{{captain.car ? captain.car : '-'}}</th>
-                                <th scope="row">{{captain.location ? captain.location : '-'}}</th>
+                                <th scope="row">{{captain.salary ? (captain.salary | currency) : '-'}}</th>
+                                <!-- <th scope="row">{{captain.location ? captain.location : '-'}}</th>
                                 <th scope="row">{{captain.rating ? captain.rating : '-'}}</th>
-                                <!-- <th scope="row">{{captain.salary ? captain.salary : '-'}}</th> -->
                                 <th scope="row">{{captain.state ? captain.state : '-'}}</th>
-                                <th scope="row">{{captain.status ? captain.status : '-'}}</th>
+                                <th scope="row">{{captain.status ? captain.status : '-'}}</th> -->
                             </tr>
                         </ng-container>
                     </ng-container>
                 </tbody>
               </table>
                 <div class="text-center" *ngIf="captains.length == 0">
-                    <p scope="row">There isn't any Day Off Captains To Show.</p>
+                    <p scope="row">{{'day-off-captains-not-exists' | translate}}.</p>
                 </div >
             </div>
           </div><!--.card-->

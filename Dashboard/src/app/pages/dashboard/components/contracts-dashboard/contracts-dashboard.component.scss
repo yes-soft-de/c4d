@@ -1,20 +1,46 @@
-// .dashboard-title-content {
-    .card {
-      .card-number {
-        margin: 2rem 2rem 0;
-        background: #fff;
-        border-radius: 50%;
-        width: 150px;
-        height: 150px;
-        font-size: 3rem;
-        font-weight: bolder;
-        line-height: 150px;
-        align-self: center;
-        overflow: hidden;
+  .card {
+    .card-number {
+      margin: 2rem 2rem 0;
+      background: #fff;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      font-size: 3rem;
+      font-weight: bolder;
+      line-height: 150px;
+      align-self: center;
+      overflow: hidden;
+      @media (min-width: '992px') and (max-width: '1199px') {
+        width: 130px;
+        height: 130px;
+        line-height: 130px;
       }
-      span { font-size: 1.8rem; }
+      @media (min-width: '768px') and (max-width: '991px') {
+        margin: 1rem 2rem 0;
+        width: 90px;
+        height: 90px;
+        font-weight: 700;
+        font-size: 2.5rem;
+        line-height: 90px;
+      }
+      @media (min-width: '576px') and (max-width: '768px') {
+        margin: 1rem 2rem 0;
+        width: 100px;
+        height: 100px;
+        font-weight: 700;
+        font-size: 2.5rem;
+        line-height: 100px;
+      }
     }
-//   }
+    span { font-size: 1.8rem;
+      @media (min-width: '992px') and (max-width: '1199px') {
+        font-size: 1.5rem;
+      }
+      @media (min-width: '576px') and (max-width: '991px') {
+        font-size: 1rem;
+      }
+    }
+  }
   .dashboard-title-content,
   .dashboard-table {
     .card {

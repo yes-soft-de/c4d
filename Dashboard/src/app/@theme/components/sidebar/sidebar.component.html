@@ -9,8 +9,8 @@
 
 <div class="main-sidebar bg-light-blue" *ngIf="loggedIn">
   <div class="sidebar-search p-3">
-    <form class="form-inline">
-      <label class="sr-only" for="inlineFormInputGroupUsername2">Search</label>
+    <form class="form-inline custom-search-form">
+      <label class="sr-only" for="inlineFormInputGroupUsername2">{{"search" | translate}}</label>
       <div class="w-100 input-group mb-2 mr-sm-2">
         <input type="text" 
                class="form-control" 
@@ -18,9 +18,10 @@
                name="search"
                [(ngModel)]="name"
                (keyup)="applyFilter()"
-               placeholder="Search for ID number or date ex: 2020-12-22">
+               title="{{'title' | translate}}"
+               placeholder="{{'placeholder' | translate}}">
         <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fa fa-search fa-fw text-muted" aria-hidden="true"></i></div>
+          <div class="input-group-text input-group-text-custom"><i class="fa fa-search fa-fw text-muted" aria-hidden="true"></i></div>
         </div>
       </div>
     </form>
@@ -28,20 +29,36 @@
   <div class="sidebar-menu py-5">
     <div class="container">
       <div id="accordion">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <select class="form-control custom-select-lang" [(ngModel)]="selectLang" name="selectLang" (change)="setTransLanguage()">
+                <option *ngFor="let lang of TransLang" value="{{lang}}">{{ lang |titlecase }}</option>
+              </select>
+            </h5>
+          </div>
+        </div><!--.card-->
         <div class="card" *ngFor="let menu of menus; let i = index">
             <div class="card-header" id="{{menu.id + '-' + i}}">
               <h5 class="mb-0">
-                <button class="btn btn-link {{ i != 0 ? 'collapsed' : ''}}" data-toggle="collapse" [attr.data-target]="'#' + menu.id"  aria-expanded="true" [attr.aria-controls]="menu.id">
-                  {{menu.title}}
-                  <i class="fa fa-angle-down fa-lg fa-fw"></i>
-                  <i class="fa fa-angle-up fa-lg fa-fw"></i>
+                <button class="btn btn-link {{ i != 0 ? 'collapsed' : ''}}" 
+                        data-toggle="collapse" 
+                        [attr.data-target]="'#' + menu.id"  
+                        aria-expanded="true" 
+                        style="cursor: pointer;"
+                        [attr.aria-controls]="menu.id">
+                  <i class="{{menu.icon}} dash-header-icon" aria-hidden="true"></i>
+                  <!-- <span>{{menu.translate | translate}}</span> -->
+                  {{menu.translate | translate}}
+                  <i class="fa fa-angle-down fa-custom fa-lg fa-fw"></i>
+                  <i class="fa fa-angle-up fa-custom fa-lg fa-fw"></i>
                 </button>
               </h5>
             </div>
             <div id="{{menu.id}}" class="collapse bg-light-blue text-white {{ i == 0 ? 'show' : ''}}" [attr.aria-labelledby]="menu.id + '-' + i" data-parent="#accordion">
               <div class="card-body">
-                <p *ngFor="let item of menu.children">
-                  <a (click)="clicked(item.value)" routerLink="{{item.link}}">{{item.title}}</a>
+                <p class="mb-2" *ngFor="let item of menu.children">
+                  <a (click)="clicked(item.value)" routerLink="{{item.link}}">{{item.translate | translate}}</a>
                 </p>
               </div>
             </div>
@@ -50,11 +67,12 @@
           <div class="card-header">
             <h5 class="mb-0">
               <button class="btn btn-link" (click)="logout()">
-                Logout
+                <i class="fa fa-sign-out dash-header-icon" aria-hidden="true"></i>
+                {{"logout" | translate}}
               </button>
             </h5>
           </div>
-        </div>
+        </div><!--.card-->
       </div>
     </div><!--.container-->
   </div><!--.sidebar-menu-->
@@ -62,15 +80,15 @@
 <div class="search-result bg-white py-5" *ngIf="disabled">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-4 mb-3" *ngFor="let order of ordersListFilter">
+      <div class="col-12 col-md-6 col-lg-4 mb-3" *ngFor="let order of ordersListFilter">
         <a *ngIf="order.id" (click)="select(order.id)" style="cursor: pointer;">
           <div class="card w-100 text-dark" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">#ID : <span class="text-info">{{order.id}}</span></h5>
               <!-- <h5 class="card-title" *ngIf="order.orderID">#ID : <span class="text-info">{{order.orderID}}</span></h5> -->
-              <h5 class="card-desc mb-0">Recipient Name : <span class="text-info">{{order.recipientName}}</span></h5>
-              <p class="card-desc mb-0">State : <span class="text-info">{{order.state}}</span></p>
-              <p class="card-desc mb-0">Date : <span class="text-info">{{order.date.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
+              <h5 class="card-desc mb-0">{{"recipient-name" | translate}} : <span class="text-info">{{order.recipientName}}</span></h5>
+              <p class="card-desc mb-0">{{"state" | translate}} : <span class="text-info">{{order.state}}</span></p>
+              <p class="card-desc mb-0">{{"date" | translate}} : <span class="text-info">{{order.date.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
               <!-- <p class="card-desc mb-0" *ngIf="order.orderDate">Date : <span class="text-info">{{order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p> -->
             </div>
           </div><!--.card-->
@@ -80,10 +98,10 @@
             <div class="card-body">
               <!-- <h5 class="card-title" *ngIf="order.id">#ID : <span class="text-info">{{order.id}}</span></h5> -->
               <h5 class="card-title">#ID : <span class="text-info">{{order.orderID}}</span></h5>
-              <h5 class="card-desc mb-0">Recipient Name : <span class="text-info">{{order.recipientName}}</span></h5>
-              <p class="card-desc mb-0">State : <span class="text-info">{{order.state}}</span></p>
+              <h5 class="card-desc mb-0">{{"recipient-name" | translate}} : <span class="text-info">{{order.recipientName}}</span></h5>
+              <p class="card-desc mb-0">{{"state" | translate}} : <span class="text-info">{{order.state}}</span></p>
               <!-- <p class="card-desc mb-0" *ngIf="order.date">Date : <span class="text-info">{{order.date.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p> -->
-              <p class="card-desc mb-0">Date : <span class="text-info">{{order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
+              <p class="card-desc mb-0">{{"date" | translate}} : <span class="text-info">{{order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd'}}</span></p>
             </div>
           </div><!--.card-->
         </a>

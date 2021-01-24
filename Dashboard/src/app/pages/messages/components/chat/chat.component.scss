@@ -1,19 +1,40 @@
+.messages {
+    h1 {
+        @media (min-width: '992px') and (max-width: '1199px') {
+          font-size: 2.2rem;
+        }
+        @media (min-width: '768px') and (max-width: '991px') {
+          font-size: 2rem;
+        }
+        @media (min-width: '576px') and (max-width: '767px') {
+          font-size: 2rem;
+          background: none !important;
+          color: #21a5b8 !important;
+        } 
+        @media (max-width: '575px') {
+          font-size: 1.8rem;
+          background: none !important;
+          color: #21a5b8 !important;
+        }
+    }
+}
 .messages-body {
     max-height: 70vh;
     overflow-y: scroll;
     &::-webkit-scrollbar {
-        width: 7px;
+        width: 4px;
     }
     &::-webkit-scrollbar-track {
         background: #f1f1f1;
     }
     &::-webkit-scrollbar-thumb {
-        background: #888;
+        background: #ccc;
     }
     &::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: #aaa;
     }
     .recieved-message {
         width: max-content;
+        .message-time { font-size: .7rem; font-weight: 100;}        
     }
 }

@@ -1,11 +1,11 @@
 <div class="captain-details mb-5" *ngIf="captainDetails">
     <div class="container-fluid">
-        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">Captain Details</h1>
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">{{'captain-details' | translate}}</h1>
         <div class="row w-100 mx-auto mb-3">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-sm-7 col-md-8 mb-3 mb-sm-0">
                 <div class="captain-details-image">
                     <div class="row w-100 mx-auto">
-                        <div class="col-5">
+                        <div class="col-5 pl-0">
                             <div class="captain-image mx-auto">
                                 <img class="img-responsive rounded-circle" src="{{captainDetails?.image}}" (error)="captainDetails.image = '../../../../../assets/default-avatar.jpg'" alt="captain image">
                             </div>
@@ -16,25 +16,25 @@
                     </div>
                 </div><!--.captain-details-image-->
             </div>
-            <div class="col-12 col-md-4 align-self-center text-center">
+            <div class="col-12 col-sm-5 col-md-4 align-self-center text-center">
                 <div class="captain-chat mx-auto p-1">
                     <i class="fa fa-commenting fa-fw fa-lg text-grey-blue"></i>
-                    <a class="font-weight-bold" routerLink="/chat/view/{{captainDetails?.id}}">Chat With Captain</a>
+                    <a class="font-weight-bold" routerLink="/chat/view/captain/{{captainDetails?.id}}">{{'chat-with-captain' | translate}}</a>
                 </div>
             </div>
         </div><!--.row-->
-        <p class="ml-sm-2 ml-md-4 mb-1">Driving Licence ID : <span>{{captainDetails?.drivingLicence}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Captain ID : <span>{{captainDetails?.captainID}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Age : <span>{{captainDetails?.age}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Car : <span>{{captainDetails?.car}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">State : <span>{{captainDetails?.state}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Status : <span>{{captainDetails?.status}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Rating : <span>{{captainDetails?.rating.rate}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Location : <span>{{captainDetails?.location}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">Total Bounce : <span>{{captainDetails?.totalBounce?.bounce}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'driving-licence-iD' | translate}} : <span>{{captainDetails?.drivingLicence}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'captain-id' | translate}} : <span>{{captainDetails?.captainID}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'age' | translate }} : <span>{{captainDetails?.age}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'car' | translate }} : <span>{{captainDetails?.car}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'state' | translate }} : <span>{{captainDetails?.state}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'status' | translate }} : <span>{{captainDetails?.status}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'rating' | translate }} : <span>{{captainDetails?.rating.rate}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'location' | translate }} : <span>{{captainDetails?.location}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'total-bounce' | translate}} : <span>{{captainDetails?.totalBounce?.bounce}}</span></p>
         <form [formGroup]="uploadForm" (blur)="blur()" class="ml-sm-2 ml-md-4 mb-1" (ngSubmit)="mySubmit()">
             <div class="">
-              <label class="col-form-label mr-3">Salary: </label>
+              <label class="col-form-label mr-3">{{'salary' | translate}}: </label>
               <div class="d-inline-block">
                 <input class="form-control px-1 py-0"
                        [ngClass]="{'is-invalid': uploadForm.get('salary').errors &&
@@ -45,11 +45,11 @@
                        [readOnly]="isSubmitted"
                        name="salary"
                        formControlName="salary">
-                <span class="invalid-feedback" *ngIf="uploadForm.get('salary').errors?.required">Salary Field Is Required</span>               
+                <span class="invalid-feedback" *ngIf="uploadForm.get('salary').errors?.required">{{'salary-field-is-required' | translate}}</span>               
               </div>
             </div>
             <div class="">
-                <label class="col-form-label mr-3">Bounce: </label>
+                <label class="col-form-label mr-3">{{'bounce' | translate}}: </label>
                 <div class="d-inline-block">
                   <input class="form-control px-1 py-0"
                          [ngClass]="{'is-invalid': uploadForm.get('bounce').errors &&
@@ -60,7 +60,7 @@
                          (blur)="blur()"
                          [readOnly]="isSubmitted"
                          formControlName="bounce">
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('bounce').errors?.required">Bounce Field Is Required</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('bounce').errors?.required">{{'bounce-field-is-required' | translate}}</span>               
                 </div>
               </div>
             <div class="form-group mt-3" [class.d-none]="display">

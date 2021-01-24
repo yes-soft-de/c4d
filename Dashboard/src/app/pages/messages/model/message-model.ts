@@ -1,5 +1,5 @@
 export interface MessageModel {
-    msg: string;
+    msg: {message: string};
     sender: string;
     sentDate: string;
 }

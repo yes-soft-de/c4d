@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'pending', component: PendingComponent },
   { path: 'day-off', component: DayOffComponent },
   { path: 'view/:id', component: CaptainsDetailsComponent},
+  { path: 'view/:dayOff/:id', component: CaptainsDetailsComponent},
   { path: '', redirectTo: 'ongoing', pathMatch: 'full' }
 ];
 

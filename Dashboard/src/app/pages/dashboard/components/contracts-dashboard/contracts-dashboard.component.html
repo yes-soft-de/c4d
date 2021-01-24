@@ -1,41 +1,41 @@
 
-      <div class="contracts-dashboard mb-5">
+      <div class="contracts-dashboard mb-4 mb-lg-5">
         <div class="row">
-            <div class="col-12 col-md-4">
-              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+            <div class="col-12 col-sm-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{countPendingContracts}}</div>
-                <span class="text-white">Pending</span>
+                <span class="text-white">{{'pending' | translate}}</span>
               </div>
             </div>  
-            <div class="col-12 col-md-4">
-              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+            <div class="col-12 col-sm-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{countDoneContracts}}</div>
-                <span class="text-white">Done</span>
+                <span class="text-white">{{'done' | translate}}</span>
               </div>
             </div>  
-            <div class="col-12 col-md-4">
-              <div class="card w-75 mx-auto bg-light-blue border-0 text-center">
+            <div class="col-12 col-sm-4">
+              <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{NewUsersThisMonth}}</div>
-                <span class="text-white">Users This Month</span>
+                <span class="text-white">{{'users-this-month' | translate}}</span>
               </div>
             </div>      
           </div>
         <div class="dashboard-table mt-5">
           <div class="card border-0 text-white">
             <div class="card-header bg-light-blue py-2">
-              Requested Contracts
+              {{"requested-contracts" | translate}}
             </div>
             <div class="card-body table-responsive bg-light-blue text-center">
               <table class="table" *ngIf="contracts.length != 0">
                 <thead>
                   <tr>
                     <th scope="col">#ID</th>
-                    <th scope="col">UserName</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">StartDate</th>
+                    <th scope="col" style="white-space: nowrap;">{{'username' | translate}}</th>
+                    <th scope="col">{{'status' | translate}}</th>
+                    <th scope="col">{{'start-date' | translate}}</th>
                     <!-- <th scope="col">EndDate</th> -->
-                    <th scope="col">PackageName</th>
-                    <th scope="col">PackageNote</th>
+                    <th scope="col">{{'package-name' | translate}}</th>
+                    <th scope="col" style="white-space: nowrap;">{{'package-note' | translate}}</th>
                     <!-- <th scope="col">Subscription Note</th> -->
                   </tr>
                 </thead>
@@ -46,7 +46,7 @@
                                 <th scope="row">{{contract.id}}</th>
                                 <th scope="row">{{contract.userName ? contract.userName : '-'}}</th>
                                 <th scope="row">{{contract.status ? contract.status : '-'}}</th>
-                                <th scope="row">{{contract.startDate ? (contract.startDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
+                                <th scope="row" style="white-space: nowrap;">{{contract.startDate ? (contract.startDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
                                 <!-- <th scope="row">{{contract.endDate ? (contract.endDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th> -->
                                 <th scope="row">{{contract.packageName ? contract.packageName : '-'}}</th>
                                 <th scope="row" class="td-custom mr-1">{{contract.packageNote ? contract.packageNote : '-'}}</th>
@@ -57,7 +57,7 @@
                 </tbody>
               </table>
                 <div class="text-center" *ngIf="contracts.length == 0">
-                    <p scope="row">There isn't any Requested Contracts To Show.</p>
+                    <p scope="row">{{'requested-contracts-not-exists' | translate}}.</p>
                 </div >
             </div>
             <div class="mt-3 text-center">

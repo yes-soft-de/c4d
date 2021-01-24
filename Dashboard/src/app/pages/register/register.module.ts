@@ -14,8 +14,8 @@ import { RegisterService } from './service/register.service';
     RegisterComponent,
   ],
   imports: [
-    RegisterRoutingModule,
-    ThemeModule
+    ThemeModule,
+    RegisterRoutingModule
   ],
   providers: [RegisterService]
 })
