@@ -363,6 +363,14 @@ methods: GET
 methods: GET
 ```
 
+#### Get top owners in this month and count orders for owner in day
+
+
+```
+/getTopOwners
+methods: GET
+```
+
 
 ### Dashboard orders 
 

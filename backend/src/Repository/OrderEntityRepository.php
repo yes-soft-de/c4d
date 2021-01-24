@@ -247,4 +247,55 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->getResult();
        
     }
+
+    public function getTopOwners($fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+       // countOrdersInMonth = countOrdersForOwnerInMonth
+          ->select('OrderEntity.ownerID','OrderEntity.ownerID', 'count(OrderEntity.ownerID) as countOrdersInMonth')
+          ->addSelect('userProfileEntity.userName')
+          ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = OrderEntity.ownerID')
+        
+          ->where('OrderEntity.date >= :fromDate')
+          ->andWhere('OrderEntity.date < :toDate')
+
+          ->addGroupBy('OrderEntity.ownerID')
+          
+          ->addGroupBy('userProfileEntity.userName')
+
+          ->having('count(OrderEntity.ownerID) > 0')
+          ->setMaxResults(10)
+          ->addOrderBy('countOrdersInMonth','DESC')
+         
+          ->setParameter('fromDate', $fromDate)
+          ->setParameter('toDate', $toDate)
+          ->getQuery()
+          ->getResult();
+    }
+    
+    public function countOrdersInDay($ownerID, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('OrderEntity')
+
+          ->select('OrderEntity.date', 'count(OrderEntity.id) as countOrdersInDay')
+        
+          ->andWhere('OrderEntity.ownerID = :ownerID') 
+          ->andWhere('OrderEntity.date >= :fromDate')
+          ->andWhere('OrderEntity.date < :toDate')
+
+          ->addGroupBy('OrderEntity.ownerID')
+          ->addGroupBy('OrderEntity.date')
+
+          ->having('count(OrderEntity.id) > 0')
+        //   ->setMaxResults(5)
+          ->addOrderBy('countOrdersInDay','DESC')
+
+          ->setParameter('ownerID', $ownerID)
+          ->setParameter('fromDate', $fromDate)
+          ->setParameter('toDate', $toDate)
+          
+          ->getQuery()
+          ->getResult();
+       
+    }
 }

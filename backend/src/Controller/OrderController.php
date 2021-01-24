@@ -256,4 +256,17 @@ class OrderController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+     /**
+     * @Route("/getTopOwners", name="getTopOwnersInThisMonthAndCountOrdersForOwnerInDay",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function getTopOwners()
+    {
+        $result = $this->orderService->getTopOwners();
+
+        return $this->response($result, self::FETCH);
+    }
 }

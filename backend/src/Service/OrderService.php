@@ -382,4 +382,23 @@ class OrderService
     }
     
    
+    public function getTopOwners()
+    {
+        $dateNow =new DateTime("now");
+        $year = $dateNow->format("Y");
+        $month = $dateNow->format("m");
+       $date = $this->returnDate($year, $month);
+ 
+       $topOwners = $this->orderManager->getTopOwners($date[0],$date[1]);
+       
+     
+        foreach ($topOwners as $topOwner) {
+         
+            $topOwner['countOrdersInDay'] = $this->orderManager->countOrdersInDay($topOwner['ownerID'], $date[0],$date[1]);
+           
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $topOwner);
+        }
+    
+       return $response;
+   }
 }

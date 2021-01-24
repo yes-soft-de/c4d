@@ -12,6 +12,7 @@ use App\Request\GetByIdRequest;
 use App\Request\DeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class OrderManager
 {
@@ -186,5 +187,15 @@ class OrderManager
     public function getAllOrders($fromDate, $toDate, $ownerId)
     {
         return $this->repository->getAllOrders($fromDate, $toDate, $ownerId);
+    }
+
+    public function getTopOwners($fromDate, $toDate)
+    {
+        return $this->repository->getTopOwners($fromDate, $toDate);
+    }
+
+    public function countOrdersInDay($ownerID, $fromDate, $toDate)
+    {
+        return $this->repository->countOrdersInDay($ownerID, $fromDate, $toDate);
     }
 }
