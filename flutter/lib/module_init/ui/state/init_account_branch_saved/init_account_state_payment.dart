@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -31,17 +32,28 @@ class InitAccountStatePayment extends InitAccountState {
           ),
           Expanded(
             child: SingleChildScrollView(
-              child: CreditCardForm(
-                onCreditCardModelChange: onCreditCardModelChange,
+              child: Column(
+                children: [
+                  CreditCardForm(
+                    onCreditCardModelChange: onCreditCardModelChange,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: S.of(context).contactPhoneNumber,
+                      labelText: S.of(context).contactPhoneNumber,
+                    ),
+                  )
+                ],
               ),
             ),
           ),
           RaisedButton(
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              child: Text('Pay Subscription'),
+              child: Text(S.of(context).paySubscription),
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
               })
         ],
       ),

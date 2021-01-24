@@ -1,4 +1,4 @@
-
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
 
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class OrdersListStateInit extends CaptainOrdersListState {
   @override
   Widget getUI(BuildContext context) {
     return Center(
-      child: Text('Welcome to Orders Screen'),
+      child: Text(S.of(context).welcomeToOrdersScreen),
     );
   }
 }

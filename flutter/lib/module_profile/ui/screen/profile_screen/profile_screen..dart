@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_profile/state_manager/profile_state_manager.dart';
 import 'package:c4d/module_profile/ui/states/profile_state/profile_state.dart';
 import 'package:c4d/module_profile/ui/states/profile_state_loading/profile_state_loading.dart';
@@ -35,7 +36,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text(S.of(context).profile),
       ),
       body: _currentState.getUI(context),
     );

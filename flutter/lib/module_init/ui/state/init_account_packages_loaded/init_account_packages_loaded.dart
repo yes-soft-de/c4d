@@ -51,7 +51,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                     child: DropdownButtonFormField(
                         // value: _selectedCity,
                         decoration: InputDecoration(
-                          hintText: 'Choose Your City',
+                          hintText: S.of(context).chooseYourCity,
                         ),
                         items: _getCities(),
                         onChanged: (value) {
@@ -83,7 +83,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                         screen.subscribeToPackage(_selectedPackageId);
                       },
                       child: Text(
-                        'CONTINUE',
+                        S.of(context).next,
                         style: TextStyle(
                           color: Colors.white,
                         ),

@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class initAccountStateInit extends InitAccountState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Text('Init Data');
+    return Text(S.of(context).initData);
   }
 }
 
@@ -25,7 +26,7 @@ class InitAccountStateLoading extends InitAccountState {
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Loading')),
+      body: Center(child: Text(S.of(context).loading)),
     );
   }
 }

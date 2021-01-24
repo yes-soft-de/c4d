@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
 
     return Form(
       key: _loginFormKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: AutovalidateMode.always,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -72,14 +73,14 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          labelText: 'Email',
+                          labelText: S.of(context).email,
                         ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus(),
                         // Move focus to next
                         validator: (result) {
                           if (result.isEmpty) {
-                            return 'الرجاء ادخال الإيميل الخاص بك';
+                            return S.of(context).emailAddressIsRequired;
                           }
                           return null;
                         },
@@ -117,11 +118,11 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          labelText: 'Password',
+                          labelText: S.of(context).password,
                         ),
                         validator: (result) {
                           if (result.length < 5) {
-                            return 'كلمة المرور يجب ان تكون من 5 محارف على الأقل';
+                            return S.of(context).passwordIsTooShort;
                           }
                           return null;
                         },

@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
@@ -69,7 +70,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 );
               },
               child: CommunicationCard(
-                text: 'Open Chat Room',
+                text: S.of(context).openChatRoom,
                 image: Icon(Icons.chat_rounded),
               ),
             ),
@@ -81,7 +82,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 );
               },
               child: CommunicationCard(
-                text: 'WhatsApp with Captain',
+                text: S.of(context).whatsappWithCaptain,
                 image: FaIcon(
                   FontAwesomeIcons.whatsapp,
                   color: Colors.green,
@@ -98,7 +99,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 }
               },
               child: CommunicationCard(
-                text: 'WhatsApp with Client',
+                text: S.of(context).whatsappWithClient,
                 image: FaIcon(
                   FontAwesomeIcons.whatsapp,
                   color: Colors.green,

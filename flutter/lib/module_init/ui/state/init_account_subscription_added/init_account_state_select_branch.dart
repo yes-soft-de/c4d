@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +92,7 @@ class InitAccountStateSelectBranch extends InitAccountState {
         RaisedButton(
           color: Theme.of(context).primaryColor,
           textColor: Colors.white,
-          child: Text('Save Location as Branch 01'),
+          child: Text(S.of(context).saveLocationAsBranch01),
           onPressed: branchLocation == null
               ? null
               : () {

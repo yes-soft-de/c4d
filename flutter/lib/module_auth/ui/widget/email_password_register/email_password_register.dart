@@ -41,7 +41,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
     return SingleChildScrollView(
       child: Form(
         key: _registerFormKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.always,
         child: Flex(
           direction: Axis.vertical,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -77,14 +77,14 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          labelText: 'Name',
+                          labelText: S.of(context).name,
                         ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus(),
                         // Move focus to next
                         validator: (result) {
                           if (result.isEmpty) {
-                            return 'الرجاء ادخال اسمك';
+                            return S.of(context).nameIsRequired;
                           }
                           return null;
                         },

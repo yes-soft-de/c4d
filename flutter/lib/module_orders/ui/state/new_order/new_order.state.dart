@@ -29,7 +29,7 @@ class NewOrderStateInit extends NewOrderState {
   NewOrderStateInit(LatLng location, NewOrderScreenState screenState)
       : super(screenState) {
     if (location != null) {
-      _toController.text = 'From WhatsApp';
+      _toController.text = S.current.fromWhatsapp;
     }
   }
 
@@ -70,7 +70,7 @@ class NewOrderStateInit extends NewOrderState {
                         color: Color(0xff454F63),
                       ),
                       child: Text(
-                        'Default Branch',
+                        S.of(context).defaultBranch,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -89,7 +89,7 @@ class NewOrderStateInit extends NewOrderState {
                         ),
                         maxLines: 1,
                         decoration: InputDecoration(
-                          hintText: 'To',
+                          hintText: S.of(context).to,
                           hintStyle: TextStyle(
                             color: Colors.grey,
                           ),
@@ -129,7 +129,7 @@ class NewOrderStateInit extends NewOrderState {
                               .map((String method) => DropdownMenuItem(
                                     value: method.toString(),
                                     child: Text(
-                                      method,
+                                      method == 'cash' ? S.of(context).cash : S.of(context).online,
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ))
@@ -196,7 +196,7 @@ class NewOrderStateInit extends NewOrderState {
                   ),
                   maxLines: 8,
                   decoration: InputDecoration(
-                    hintText: 'Info',
+                    hintText: S.of(context).info,
                   ),
                 ),
               ),
@@ -287,13 +287,13 @@ class NewOrderStateSuccessState extends NewOrderState {
               children: [
                 TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Mohammad',
-                    labelText: 'Deliver To',
+                    hintText: S.of(context).mohammad,
+                    labelText: S.of(context).deliverTo,
                   ),
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Phone Number',
+                    hintText: S.of(context).phoneNumber,
                     labelText: '123 456 789',
                   ),
                   keyboardType: TextInputType.phone,
@@ -303,48 +303,51 @@ class NewOrderStateSuccessState extends NewOrderState {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Flex(
-            direction: Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 1,
-                child: FlatButton(
-                  padding: EdgeInsets.all(24),
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      OrdersRoutes.OWNER_ORDERS_SCREEN,
-                      (r) => false,
-                    );
-                  },
-                  child: Text(
-                    'Skip',
-                  ),
-                ),
-              ),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 1,
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  padding: EdgeInsets.all(24),
-                  onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      OrdersRoutes.OWNER_ORDERS_SCREEN,
-                      (r) => false,
-                    );
-                  },
-                  child: Expanded(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            height: 36,
+            child: Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: FlatButton(
+                    padding: EdgeInsets.all(24),
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        OrdersRoutes.OWNER_ORDERS_SCREEN,
+                        (r) => false,
+                      );
+                    },
                     child: Text(
-                      'Save',
+                      'Skip',
                     ),
                   ),
                 ),
-              ),
-            ],
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.all(24),
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        OrdersRoutes.OWNER_ORDERS_SCREEN,
+                        (r) => false,
+                      );
+                    },
+                    child: Expanded(
+                      child: Text(
+                        'Save',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         )
       ],

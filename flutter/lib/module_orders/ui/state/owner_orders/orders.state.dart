@@ -1,4 +1,5 @@
 import 'package:c4d/consts/order_status.dart';
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -25,7 +26,7 @@ class OrdersListStateInit extends OwnerOrdersListState {
   @override
   Widget getUI(BuildContext context) {
     return Center(
-      child: Text('Welcome to Orders Screen'),
+      child: Text(S.of(context).welcomeToOrdersScreen),
     );
   }
 }
