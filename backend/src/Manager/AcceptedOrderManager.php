@@ -12,7 +12,7 @@ use App\Request\OrderUpdateStateByCaptainRequest;
 use App\Request\GetByIdRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use DateTime;
 class AcceptedOrderManager
 {
     private $autoMapping;
@@ -106,8 +106,8 @@ class AcceptedOrderManager
     }
 
     public function getTop5Captains()
-    {
-        return $this->repository->getTop5Captains();
+    {        
+        return $this->repository->getTop5Captains( );
     }
 
     public function countOrdersInMonthForCaptin($fromDate, $toDate, $captainId)

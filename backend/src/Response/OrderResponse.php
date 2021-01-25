@@ -24,6 +24,8 @@ class OrderResponse
     public $record;
     public $completionTime;
     public $uuid;
+    public $countOrdersInMonth;
+    public $countOrdersInDay;
     
     
 }

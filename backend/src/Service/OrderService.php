@@ -317,10 +317,12 @@ class OrderService
          
     if ($userType == "owner") {
         $response[] = $this->orderManager->countOrdersInMonthForOwner($date[0], $date[1], $userId);
-         $ordersInMonth = $this->orderManager->getAllOrders($date[0], $date[1], $userId);
+        $response[] = $this->orderManager->countOrdersInDay($userId, $date[0],$date[1]);
          
+         $ordersInMonth = $this->orderManager->getAllOrders($date[0], $date[1], $userId);
+        
          foreach ($ordersInMonth as $order) {
- 
+
              if ($order['fromBranch']){
                  $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                  }
@@ -338,7 +340,7 @@ class OrderService
         $acceptedInMonth = $this->acceptedOrderService->getAcceptedOrderByCaptainIdInMonth($date[0], $date[1], $userId);
          
         foreach ($acceptedInMonth as $item){
-            $ordersInMonth =  $this->orderManager->getOrderById($item['orderID']);  
+            $ordersInMonth =  $this->orderManager->orderById($item['orderID']);  
           
         
             foreach ($ordersInMonth as $order) {
@@ -382,4 +384,23 @@ class OrderService
     }
     
    
+    public function getTopOwners()
+    {
+        $dateNow =new DateTime("now");
+        $year = $dateNow->format("Y");
+        $month = $dateNow->format("m");
+       $date = $this->returnDate($year, $month);
+ 
+       $topOwners = $this->orderManager->getTopOwners($date[0],$date[1]);
+       
+     
+        foreach ($topOwners as $topOwner) {
+         
+            $topOwner['countOrdersInDay'] = $this->orderManager->countOrdersInDay($topOwner['ownerID'], $date[0],$date[1]);
+           
+            $response[] = $this->autoMapping->map('array', OrderResponse::class, $topOwner);
+        }
+    
+       return $response;
+   }
 }
