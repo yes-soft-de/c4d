@@ -193,6 +193,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->addGroupBy('captainProfileEntity.salary')
             ->addGroupBy('captainProfileEntity.bounce')
             ->addGroupBy('captainProfileEntity.image')
+            ->addGroupBy('captainProfileEntity.specialLink')
             
             ->having('count(AcceptedOrderEntity.captainID) > 0')
             ->setMaxResults(15)
