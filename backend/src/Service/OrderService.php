@@ -272,7 +272,7 @@ class OrderService
 
         if($userType == 'ROLE_CAPTAIN') {
             $items = $this->orderManager->getRecordsForCaptain($userId);
-        
+            
             foreach ($items as $item) {
                 
                 $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);

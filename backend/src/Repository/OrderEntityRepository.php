@@ -187,11 +187,12 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getRecordsForCaptain($CaptainId)
     {
         return $this->createQueryBuilder('OrderEntity')
-
-             ->addSelect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity') 
+        
+            ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity') 
 
             ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'branchesEntity.id = OrderEntity.fromBranch')
-            ->join(AcceptedOrderEntity::class, 'acceptedOrderEntity')
+
+            ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
 
             ->andWhere("acceptedOrderEntity.captainID = :CaptainId ")
             ->setParameter('CaptainId', $CaptainId)  
