@@ -10,8 +10,6 @@ class CaptainProfileCreateResponse
 
     public $name;
 
-    public $image;
-
     public $location;
 
     public $age;
@@ -35,6 +33,8 @@ class CaptainProfileCreateResponse
     public $totalBounce;
 
     public $uuid;
+
+    public $image;
     
     public $imageURL;
 

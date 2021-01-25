@@ -342,7 +342,9 @@ class UserService
             $captains = $this->userManager->getAllCaptains();
         
             foreach ($captains as $captain) {
-            
+                $captain['imageURL'] = $captain['image'];
+                $captain['baseURL'] = $this->params;
+                $captain['image'] = $this->specialLinkCheck($captain['specialLink']).$captain['image'];
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $captain);
             } 
         }        
