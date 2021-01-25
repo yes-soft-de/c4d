@@ -6,11 +6,17 @@ class AcceptedOrdersResponse
 {
     public $id;
     public $acceptedOrderDate;
-    public $captainID;
     public $duration;
+    public $captainID;
+    public $countOrdersInMonth;
     public $captainName;
     public $car;
+    public $salary;
+    public $age;
+    public $bounce;
     public $image;
+    public $imageURL;
+    public $baseURL;
     public $ownerID;
     public $source;
     public $destination;

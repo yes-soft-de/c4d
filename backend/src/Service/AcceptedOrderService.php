@@ -11,18 +11,22 @@ use App\Response\AcceptedOrdersResponse;
 use App\Response\CaptainTotalEarnResponse;
 use App\Response\ongoingCaptainsResponse;
 use App\Service\RecordService;
-
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use DateTime;
 class AcceptedOrderService
 {
     private $autoMapping;
     private $acceptedOrderManager;
     private $recordService;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager, RecordService $recordService)
+    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager, RecordService $recordService, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->acceptedOrderManager = $acceptedOrderManager;
         $this->recordService = $recordService;
+
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(AcceptedOrderCreateRequest $request)
@@ -104,4 +108,38 @@ class AcceptedOrderService
      {
          return $this->acceptedOrderManager->getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId);
      }
+
+    public function getTopCaptainsInThisMonth()
+    {
+        $dateNow =new DateTime("now");
+        $year = $dateNow->format("Y");
+        $month = $dateNow->format("m");
+        $date = $this->returnDate($year, $month);
+ 
+       $topCaptains = $this->acceptedOrderManager->getTopCaptainsInThisMonth($date[0],$date[1]);
+     
+        foreach ($topCaptains as $topCaptain) {
+            $topCaptain['image'] = $this->specialLinkCheck($topCaptain['specialLink']).$topCaptain['image'];
+            $topCaptain['imageURL'] = $topCaptain['image'];
+            $topCaptain['baseURL'] = $this->params;
+            $response[] = $this->autoMapping->map('array', AcceptedOrdersResponse::class, $topCaptain);
+        }
+    
+       return $response;
+   }
+
+   public function returnDate($year, $month)
+   {
+       $fromDate =new \DateTime($year . '-' . $month . '-01'); 
+       $toDate = new \DateTime($fromDate->format('Y-m-d') . ' 1 month');
+       return [$fromDate,  $toDate];
+    }
+
+    public function specialLinkCheck($bool)
+    {
+        if (!$bool)
+        {
+            return $this->params;
+        }
+    }
 }

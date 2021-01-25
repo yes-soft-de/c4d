@@ -140,4 +140,17 @@ class AcceptedOrderController extends BaseController
 
     //     return $this->response($result, self::FETCH);
     // }
+
+     /**
+     * @Route("/topCaptains", name="getTopCaptainsInThisMonth",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function getTopCaptainsInThisMonth()
+    {
+        $result = $this->acceptedOrderService->getTopCaptainsInThisMonth();
+
+        return $this->response($result, self::FETCH);
+    }
 }

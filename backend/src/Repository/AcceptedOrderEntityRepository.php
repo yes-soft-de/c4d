@@ -171,4 +171,36 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getTopCaptainsInThisMonth($fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+
+            ->select('AcceptedOrderEntity.captainID', 'count(AcceptedOrderEntity.captainID) countOrdersInMonth')
+            
+            ->addSelect('captainProfileEntity.name as captainName', 'captainProfileEntity.car', 'captainProfileEntity.age', 'captainProfileEntity.salary', 'captainProfileEntity.bounce', 'captainProfileEntity.image', 'captainProfileEntity.specialLink')
+            
+            ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
+
+             ->where('AcceptedOrderEntity.date >= :fromDate')
+             ->andWhere('AcceptedOrderEntity.date < :toDate')
+            // ->andWhere("AcceptedOrderEntity.state ='deliverd'")
+        
+            ->addGroupBy('AcceptedOrderEntity.captainID')
+            ->addGroupBy('captainProfileEntity.name')
+            ->addGroupBy('captainProfileEntity.car')
+            ->addGroupBy('captainProfileEntity.age')
+            ->addGroupBy('captainProfileEntity.salary')
+            ->addGroupBy('captainProfileEntity.bounce')
+            ->addGroupBy('captainProfileEntity.image')
+            
+            ->having('count(AcceptedOrderEntity.captainID) > 0')
+            ->setMaxResults(15)
+            ->addOrderBy('countOrdersInMonth','DESC')
+         
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+            ->getQuery()
+            ->getResult();
+    }
 }

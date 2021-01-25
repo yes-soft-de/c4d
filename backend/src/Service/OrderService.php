@@ -383,7 +383,6 @@ class OrderService
         return $this->format_interval($difference);
     }
     
-   
     public function getTopOwners()
     {
         $dateNow =new DateTime("now");

@@ -119,4 +119,9 @@ class AcceptedOrderManager
     {
         return $this->repository->getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId);
     }
+
+    public function getTopCaptainsInThisMonth($fromDate, $toDate)
+    {
+        return $this->repository->getTopCaptainsInThisMonth($fromDate, $toDate);
+    }
 }
