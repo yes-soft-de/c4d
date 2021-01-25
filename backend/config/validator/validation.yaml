@@ -167,3 +167,19 @@ App\Request\RatingCreateRequest:
       - NotBlank: ~
     orderID:
       - NotBlank: ~
+
+App\Request\BankCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    bankName:
+      - NotBlank: ~
+    accountID:
+      - NotBlank: ~
+
+App\Request\BankUpdateRequest:
+  properties:
+    bankName:
+      - NotBlank: ~
+    accountID:
+      - NotBlank: ~

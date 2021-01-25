@@ -231,6 +231,32 @@ ROLE_OWNER
 methods: POST
 ```
 
+### Bank Account
+
+#### Create bank account
+ROLE_OWNER
+
+```
+/bankaccount
+methods: POST
+```
+
+#### Update bank account
+ROLE_OWNER
+
+```
+/bankaccount
+methods: PUT
+```
+
+#### Get bank account by userId
+ROLE_OWNER
+
+```
+/bankaccountbyuserid
+methods: GET
+```
+
 
 
 # dashboard 
@@ -432,7 +458,21 @@ methods: GET
 methods: GET
 ```
 
+### Bank Account
 
+#### Get bank account by userId for admin
+
+```
+/bankaccount/{userID}
+methods: GET
+```
+
+#### Get bank accounts for admin
+
+```
+/bankaccounts
+methods: GET
+```
 
 
 
