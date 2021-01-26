@@ -33,6 +33,7 @@ class OrderDetailsData {
   Date updateDate;
   String note;
   String payment;
+  String phone;
   String recipientName;
   String recipientPhone;
   String state;
@@ -40,7 +41,7 @@ class OrderDetailsData {
   GeoJson location;
   String brancheName;
   String branchCity;
-  String acceptedOrder;
+  List<AcceptedOrder> acceptedOrder;
   List<dynamic> record;
   String uuid;
 
@@ -56,6 +57,7 @@ class OrderDetailsData {
         this.recipientName,
         this.recipientPhone,
         this.state,
+        this.phone,
         this.fromBranch,
         this.location,
         this.brancheName,
@@ -75,6 +77,7 @@ class OrderDetailsData {
         : null;
     note = json['note'];
     payment = json['payment'];
+    phone = json['phone'];
     recipientName = json['recipientName'];
     recipientPhone = json['recipientPhone'];
     state = json['state'];
@@ -82,7 +85,15 @@ class OrderDetailsData {
     location = GeoJson.fromJson(json['location']);
     brancheName = json['brancheName'];
     branchCity = json['branchCity'];
-    // acceptedOrder = json['acceptedOrder'];
+    if (json['acceptedOrder'] != null) {
+      if (json['acceptedOrder'] is List) {
+        List<Map<String, dynamic>> orders = json['accptedOrder'];
+        acceptedOrder = <AcceptedOrder>[];
+        orders.forEach((element) {
+          acceptedOrder.add(AcceptedOrder.fromJson(element));
+        });
+      }
+    }
     record = json['record'];
     uuid = json['uuid'];
   }
@@ -223,6 +234,52 @@ class Location {
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
     data['comments'] = this.comments;
+    return data;
+  }
+}
+
+
+class AcceptedOrder {
+  int id;
+  String captainID;
+  String state;
+  String captainName;
+  String car;
+  String image;
+  Null uuid;
+  String phone;
+
+  AcceptedOrder(
+      {this.id,
+        this.captainID,
+        this.state,
+        this.captainName,
+        this.car,
+        this.image,
+        this.uuid,
+        this.phone});
+
+  AcceptedOrder.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    captainID = json['captainID'];
+    state = json['state'];
+    captainName = json['captainName'];
+    car = json['car'];
+    image = json['image'];
+    uuid = json['uuid'];
+    phone = json['phone'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = this.id;
+    data['captainID'] = this.captainID;
+    data['state'] = this.state;
+    data['captainName'] = this.captainName;
+    data['car'] = this.car;
+    data['image'] = this.image;
+    data['uuid'] = this.uuid;
+    data['phone'] = this.phone;
     return data;
   }
 }

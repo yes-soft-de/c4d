@@ -55,6 +55,8 @@ class OrdersService {
       status: StatusHelper.getStatus(response.state),
       id: orderId,
       chatRoomId: response.uuid,
+      ownerPhone: response.phone,
+      captainPhone: response.acceptedOrder.last.phone,
     );
 
     return order;
