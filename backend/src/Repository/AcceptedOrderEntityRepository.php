@@ -114,7 +114,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
 
-            ->select('AcceptedOrderEntity.captainID', 'count(AcceptedOrderEntity.captainID) countOrdersDeliverd', 'captainProfileEntity.name', 'captainProfileEntity.car', 'captainProfileEntity.age', 'captainProfileEntity.salary', 'captainProfileEntity.bounce')
+            ->select('AcceptedOrderEntity.captainID', 'count(AcceptedOrderEntity.captainID) countOrdersDeliverd', 'captainProfileEntity.name', 'captainProfileEntity.car', 'captainProfileEntity.age', 'captainProfileEntity.salary', 'captainProfileEntity.bounce', 'captainProfileEntity.image', 'captainProfileEntity.specialLink')
             
             ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
 
@@ -128,6 +128,8 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->addGroupBy('captainProfileEntity.age')
             ->addGroupBy('captainProfileEntity.salary')
             ->addGroupBy('captainProfileEntity.bounce')
+            ->addGroupBy('captainProfileEntity.image')
+            ->addGroupBy('captainProfileEntity.specialLink')
             
             ->having('count(AcceptedOrderEntity.captainID) > 0')
             ->setMaxResults(5)

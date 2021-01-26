@@ -96,7 +96,14 @@ class AcceptedOrderService
 
     public function getTop5Captains()
      {
-         return $this->acceptedOrderManager->getTop5Captains();
+        $captains =$this->acceptedOrderManager->getTop5Captains();
+        foreach ($captains as $captain) {
+            $captain['image'] = $this->specialLinkCheck($captain['specialLink']).$captain['image'];
+            $captain['imageURL'] = $captain['image'];
+            $captain['baseURL'] = $this->params;
+            $response[] = $this->autoMapping->map('array', AcceptedOrdersResponse::class, $captain);
+        }
+         return $response;
      }
 
     public function countOrdersInMonthForCaptin($fromDate, $toDate, $captainId)

@@ -32,4 +32,5 @@ class AcceptedOrdersResponse
     public $brancheName;
     public $brancheLocation;
     public $record;
+    public $countOrdersDeliverd;
 }
