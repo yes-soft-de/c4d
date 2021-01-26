@@ -25,35 +25,39 @@ class ProfileService {
     return await _manager.createProfile(profileRequest);
   }
 
-  Future<bool> saveBranch(String lat, String lon, String name) async {
-    var request = CreateBranchRequest(
-      name,
-      {
-        'lat': lat,
-        'lon': lon,
-      },
-    );
+  Future<bool> saveBranch(List<Branch> branchList) async {
+    var branchesToCache = <Branch>[];
 
-    var branch = await _manager.createBranch(request);
+    for (int i = 0; i < branchList.length; i++) {
+      var request = CreateBranchRequest(
+        branchList[i].brancheName,
+        {
+          'lat': branchList[i].location.lat,
+          'lon': branchList[i].location.lon,
+        },
+      );
 
-    if (branch == null) {
-      return false;
+      var branch = await _manager.createBranch(request);
+
+      if (branch != null) {
+        branchesToCache.add(branch);
+      }
     }
 
-    await _preferencesHelper.cacheBranch(branch);
-    return branch != null;
+    await _preferencesHelper.cacheBranch(branchesToCache);
+    return branchesToCache.isNotEmpty;
   }
 
-  Future<int> getMyBranches() async {
-    Branch branch = await _preferencesHelper.getSavedBranch();
+  Future<List<Branch>> getMyBranches() async {
+    List<Branch> branches = await _preferencesHelper.getSavedBranch();
 
-    if (branch == null) {
+    if (branches == null) {
       // Get the Branches from the backend
-      branch = await _manager.getMyBranches();
-      await _preferencesHelper.cacheBranch(branch);
+      branches = await _manager.getMyBranches();
+      await _preferencesHelper.cacheBranch(branches);
     }
 
-    return branch.id;
+    return branches;
   }
 
   Future<List<ActivityModel>> getActivity() async {

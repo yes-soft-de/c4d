@@ -11,6 +11,7 @@ import 'package:c4d/module_init/ui/state/init_account_captain_loading/init_accou
 import 'package:c4d/module_init/ui/state/init_account_captain_profile_created/init_account_captain_profile_created.dart';
 import 'package:c4d/module_init/ui/state/init_account_packages_loaded/init_account_packages_loaded.dart';
 import 'package:c4d/module_init/ui/state/init_account_subscription_added/init_account_state_select_branch.dart';
+import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/module_upload/service/image_upload/image_upload_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -72,6 +73,18 @@ class InitAccountStateManager {
     });
   }
 
+  void submitAccountNumber(String bankName, String bankAccountNumber,
+      InitAccountScreenState screenState) {
+    _stateSubject.add(
+      InitAccountStateLoading(screenState),
+    );
+    _initAccountService
+        .createBankDetails(bankName, bankAccountNumber)
+        .then((value) {
+      screenState.moveToOrders();
+    });
+  }
+
   void getCaptainScreen(InitAccountScreenState screenState) {
     _stateSubject.add(InitAccountCaptainInitProfile(screenState));
   }
@@ -107,16 +120,18 @@ class InitAccountStateManager {
     });
   }
 
-  void saveBranch(LatLng position, InitAccountScreenState screen) {
+  void saveBranch(List<LatLng> position, InitAccountScreenState screen) {
     _stateSubject.add(InitAccountStateLoading(screen));
 
-    _profileService
-        .saveBranch(
-      position.latitude.toString(),
-      position.longitude.toString(),
-      BranchName.DefaultBranch,
-    )
-        .then((value) {
+    var branches = <Branch>[];
+    for (int i = 0; i < position.length; i++) {
+      branches.add(Branch(
+          brancheName: '${i}',
+          location:
+              Location(lat: position[i].latitude, lon: position[i].longitude)));
+    }
+
+    _profileService.saveBranch(branches).then((value) {
       if (value == null) {
         _stateSubject.add(InitAccountStateError(
           'Error Saving Branch',

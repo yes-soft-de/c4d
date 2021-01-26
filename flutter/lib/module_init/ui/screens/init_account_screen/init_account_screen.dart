@@ -39,6 +39,17 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     widget._stateManager.submitProfile(captainImage, licence, name, age, this);
   }
 
+  void submitBankDetails(String bankName, String bankAccountNumber) {
+    widget._stateManager.submitAccountNumber(bankName, bankAccountNumber, this);
+  }
+
+  void moveToOrders() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
+    });
+  }
+
   @override
   void initState() {
     widget._stateManager.stateStream.listen((event) {
@@ -64,9 +75,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   }
 
   void saveBranch(List<LatLng> locations) {
-    locations.forEach((location) {
-      widget._stateManager.saveBranch(location, this);
-    });
+    widget._stateManager.saveBranch(locations, this);
   }
 
   @override

@@ -1,6 +1,6 @@
 class CreateBranchRequest {
   String name;
-  Map<String, String> location;
+  Map<String, dynamic> location;
 
   CreateBranchRequest(
     this.name,

@@ -115,5 +115,7 @@
   "bankName": "Bank Name",
   "accountNumber": "Account Number",
   "save": "Save",
-  "darkMode": "Dark Mode"
+  "darkMode": "Dark Mode",
+  "errorLoadingBranches": "Error Loading Branches",
+  "cancel": "CANCEL"
 }

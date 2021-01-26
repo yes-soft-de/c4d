@@ -1,5 +1,6 @@
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
+import 'package:c4d/module_init/request/create_bank_account/create_bank_account.dart';
 import 'package:c4d/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:c4d/module_init/response/packages/packages_response.dart';
 import 'package:c4d/module_network/http_client/http_client.dart';
@@ -13,12 +14,8 @@ class InitAccountRepository {
   InitAccountRepository(this._apiClient, this._authService);
 
   Future<PackagesResponse> getPackages() async {
-    var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.PACKAGES_API,
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
     );
     if (response == null) return null;
 
@@ -49,6 +46,19 @@ class InitAccountRepository {
         'Authorization': 'Bearer ' + token
       },
     );
+    return null;
+  }
+
+  Future<dynamic> createBankAccount(CreateBankAccountRequest createBankAccountRequest) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+      Urls.CREATE_BANK_ACCOUNT_API,
+      createBankAccountRequest.toJson(),
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    );
+
     return null;
   }
 }

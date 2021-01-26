@@ -1,6 +1,7 @@
 import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state_manager/order_status/order_status.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:flutter/material.dart';
@@ -68,17 +69,33 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       widget._stateManager.getOrderDetails(orderId, this);
       currentState = OrderDetailsStateInit(this);
     }
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(S.of(context).orderDetails,
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
-          ),),
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+        return;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.navigate_before),
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+            },
+          ),
+          title: Text(
+            S.of(context).orderDetails,
+            style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
+          ),
+        ),
+        body: currentState.getUI(context),
       ),
-      body: currentState.getUI(context),
     );
   }
 }

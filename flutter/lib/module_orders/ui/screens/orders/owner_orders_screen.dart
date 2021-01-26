@@ -5,6 +5,7 @@ import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_
 import 'package:c4d/module_orders/ui/state/owner_orders/orders.state.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
@@ -56,6 +57,12 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
         );
       }
     });
+
+    WidgetsBinding.instance.addObserver(
+        LifecycleEventHandler(resumeCallBack: () async => setState(() {
+          getMyOrders();
+        }))
+    );
 
     widget._stateManager.getMyOrders(this);
   }
@@ -126,5 +133,33 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
       ),
       body: _currentState.getUI(context),
     );
+  }
+}
+
+class LifecycleEventHandler extends WidgetsBindingObserver {
+  final AsyncCallback resumeCallBack;
+  final AsyncCallback suspendingCallBack;
+
+  LifecycleEventHandler({
+    this.resumeCallBack,
+    this.suspendingCallBack,
+  });
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (resumeCallBack != null) {
+          await resumeCallBack();
+        }
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        if (suspendingCallBack != null) {
+          await suspendingCallBack();
+        }
+        break;
+    }
   }
 }

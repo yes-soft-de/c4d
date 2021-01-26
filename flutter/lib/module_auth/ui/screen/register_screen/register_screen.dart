@@ -43,7 +43,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   void refresh() {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   void registerCaptain(String phoneNumber) {
@@ -58,7 +58,7 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   void confirmCaptainSMS(String smsCode) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.registerCaptain(smsCode, this);
+    widget._stateManager.confirmCaptainCode(smsCode);
   }
 
   void retryPhone() {

@@ -51,7 +51,8 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   Widget build(BuildContext context) {
     if (currentState == null) {
       LatLng linkFromWhatsApp = ModalRoute.of(context).settings.arguments;
-      currentState = NewOrderStateInit(linkFromWhatsApp, this);
+      currentState = NewOrderStateInit(this);
+      widget._stateManager.loadBranches(this, linkFromWhatsApp);
     }
     return Scaffold(
       body: SafeArea(

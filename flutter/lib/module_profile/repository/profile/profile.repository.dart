@@ -45,7 +45,7 @@ class ProfileRepository {
     return CreateBranchResponse.fromJson(response).data;
   }
 
-  Future<Branch> getMyBranches() async {
+  Future<List<Branch>> getMyBranches() async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.BRANCHES_API,
@@ -54,7 +54,7 @@ class ProfileRepository {
 
     if (response == null) return null;
 
-    return GetBranchesResponse.fromJson(response).data.last;
+    return GetBranchesResponse.fromJson(response).data;
   }
 
   Future<List<ActivityRecord>> getUserActivityLog() async {

@@ -1,5 +1,6 @@
 import 'package:c4d/module_init/manager/init_account/init_account.manager.dart';
 import 'package:c4d/module_init/model/package/packages.model.dart';
+import 'package:c4d/module_init/request/create_bank_account/create_bank_account.dart';
 import 'package:c4d/module_init/request/create_captain_profile/create_captain_profile_request.dart';
 import 'package:c4d/module_init/response/packages/packages_response.dart';
 import 'package:inject/inject.dart';
@@ -45,5 +46,9 @@ class InitAccountService {
     } catch (e) {
       return null;
     }
+  }
+
+  Future<dynamic> createBankDetails(String bankName, String bankAccountNumber) {
+    return _manager.createBankAccount(CreateBankAccountRequest(bankName, bankAccountNumber));
   }
 }

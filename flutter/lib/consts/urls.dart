@@ -6,6 +6,7 @@ class Urls {
   static const SIGN_UP_API = BASE_API + '/user';
   static const OWNER_PROFILE_API = BASE_API + '/userprofile';
   static const CAPTAIN_PROFILE_API = BASE_API + '/captainprofile';
+  static const CREATE_BANK_ACCOUNT_API = BASE_API + '/captainprofile';
   static const BRANCHES_API = BASE_API + '/branches';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
   static const LOG_API = BASE_API + '/getRecords';

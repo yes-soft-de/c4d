@@ -20,7 +20,7 @@ class ProfileManager {
   Future<Branch> createBranch(CreateBranchRequest request) =>
       _repository.createBranch(request);
 
-  Future<Branch> getMyBranches() => _repository.getMyBranches();
+  Future<List<Branch>> getMyBranches() => _repository.getMyBranches();
 
   Future<List<ActivityRecord>> getMyLog() => _repository.getUserActivityLog();
 }

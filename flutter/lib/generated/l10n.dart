@@ -1194,6 +1194,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Error Loading Branches`
+  String get errorLoadingBranches {
+    return Intl.message(
+      'Error Loading Branches',
+      name: 'errorLoadingBranches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CANCEL`
+  String get cancel {
+    return Intl.message(
+      'CANCEL',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

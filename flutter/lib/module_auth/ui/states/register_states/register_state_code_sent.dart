@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class RegisterStatePhoneCodeSent extends RegisterState {
   final _confirmationController = TextEditingController();
   bool retryEnabled = false;
+  bool loading = false;
 
   RegisterStatePhoneCodeSent(RegisterScreenState screen) : super(screen);
 
@@ -46,10 +47,15 @@ class RegisterStatePhoneCodeSent extends RegisterState {
                 : null,
             child: Text(S.of(context).resendCode),
           ),
-          Container(
+          loading ? Text(S.of(context).loading) : Container(
             decoration: BoxDecoration(color: Theme.of(context).accentColor),
             child: GestureDetector(
               onTap: () {
+                loading = true;
+                Future.delayed(Duration(seconds: 10), () {
+                  loading = false;
+                });
+                screen.refresh();
                 screen.confirmCaptainSMS(_confirmationController.text);
               },
               child: Row(

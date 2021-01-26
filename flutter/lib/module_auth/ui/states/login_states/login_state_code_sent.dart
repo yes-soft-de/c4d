@@ -8,10 +8,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class LoginStateCodeSent extends LoginState {
   final _confirmationController = TextEditingController();
   bool retryEnabled = false;
+  bool loading = false;
 
   LoginStateCodeSent(LoginScreenState screen) : super(screen) {
     Future.delayed(Duration(seconds: 30), () {
       retryEnabled = true;
+      screen.refresh();
     });
   }
 
@@ -50,10 +52,15 @@ class LoginStateCodeSent extends LoginState {
                 : null,
             child: Text(S.of(context).resendCode),
           ),
-          Container(
+          loading ? Text(S.of(context).loading) : Container(
             decoration: BoxDecoration(color: Theme.of(context).accentColor),
             child: GestureDetector(
               onTap: () {
+                loading = true;
+                Future.delayed(Duration(seconds: 10), () {
+                  loading = false;
+                });
+                screen.refresh();
                 screen.confirmCaptainSMS(_confirmationController.text);
               },
               child: Row(

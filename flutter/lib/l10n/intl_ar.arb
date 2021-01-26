@@ -45,7 +45,7 @@
   "largeMoreThan100Employees": "+100 موظف",
   "openChatRoom": "افتح غرفة المحادثة",
   "orders": "الطلبات",
-  "currentOrders": "الطلبات الحالية",
+  "currentOrders": "طلباتي",
   "nearbyOrders": "طلبات قريبة",
   "chatWithStoreOwner": "التحدث مع صاحب المحل",
   "whatsappWithStoreOwner": "واتساب مع صاحب المحل",
@@ -115,5 +115,7 @@
   "bankName": "اسم البنك",
   "accountNumber": "رقم حساب البنك",
   "save": "الحفظ",
-  "darkMode": "الوضع الليلي"
+  "darkMode": "الوضع الليلي",
+  "errorLoadingBranches": "Error Loading Branches",
+  "cancel": "CANCEL"
 }

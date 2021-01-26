@@ -27,7 +27,7 @@ class LoginScreenState extends State<LoginScreen> {
   bool deepLinkChecked = false;
 
   void refresh() {
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   @override
@@ -77,7 +77,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   void confirmCaptainSMS(String smsCode) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.loginCaptain(smsCode, this);
+    widget._stateManager.confirmCaptainCode(smsCode);
   }
 
   void retryPhone() {
