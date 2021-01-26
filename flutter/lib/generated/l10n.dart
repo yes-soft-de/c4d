@@ -1214,6 +1214,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Our Bank Name`
+  String get ourBankName {
+    return Intl.message(
+      'Our Bank Name',
+      name: 'ourBankName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Our Bank Account Number`
+  String get ourBankAccountNumber {
+    return Intl.message(
+      'Our Bank Account Number',
+      name: 'ourBankAccountNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

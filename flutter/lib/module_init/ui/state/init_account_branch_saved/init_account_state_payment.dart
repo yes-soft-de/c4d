@@ -3,6 +3,7 @@ import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_scre
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InitAccountStatePayment extends InitAccountState {
   final _bankNameController = TextEditingController();
@@ -22,21 +23,9 @@ class InitAccountStatePayment extends InitAccountState {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                TextFormField(
-                  controller: _bankAccountController,
-                  decoration: InputDecoration(
-                    hintText: S.of(context).bankName,
-                    labelText: S.of(context).bankName,
-                  ),
-                ),
-                TextFormField(
-                  controller: _bankAccountController,
-                  decoration: InputDecoration(
-                    hintText: S.of(context).accountNumber,
-                    labelText: S.of(context).accountNumber,
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
+                FaIcon(FontAwesomeIcons.ccVisa, size: 72),
+                Text(S.of(context).ourBankName),
+                Text(S.of(context).ourBankAccountNumber),
               ],
             ),
           ),
@@ -45,10 +34,7 @@ class InitAccountStatePayment extends InitAccountState {
               textColor: Colors.white,
               child: Text(S.of(context).paySubscription),
               onPressed: () {
-                screen.submitBankDetails(
-                  _bankNameController.text,
-                  _bankNameController.text,
-                );
+                screen.moveToOrders();
               })
         ],
       ),

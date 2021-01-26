@@ -97,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "orderIsDone" : MessageLookupByLibrary.simpleMessage("Order is done!"),
     "orderIsInUndefinedState" : MessageLookupByLibrary.simpleMessage("Order is in undefined State"),
     "orders" : MessageLookupByLibrary.simpleMessage("Orders"),
+    "ourBankAccountNumber" : MessageLookupByLibrary.simpleMessage("Our Bank Account Number"),
+    "ourBankName" : MessageLookupByLibrary.simpleMessage("Our Bank Name"),
     "password" : MessageLookupByLibrary.simpleMessage("Password"),
     "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("Password is too short"),
     "paySubscription" : MessageLookupByLibrary.simpleMessage("Pay Subscription"),

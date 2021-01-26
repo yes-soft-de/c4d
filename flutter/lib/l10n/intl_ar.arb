@@ -117,5 +117,7 @@
   "save": "الحفظ",
   "darkMode": "الوضع الليلي",
   "errorLoadingBranches": "Error Loading Branches",
-  "cancel": "CANCEL"
+  "cancel": "CANCEL",
+  "ourBankName": "Our Bank Name",
+  "ourBankAccountNumber": "Our Bank Account Number"
 }
