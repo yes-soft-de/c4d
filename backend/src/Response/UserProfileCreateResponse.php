@@ -21,4 +21,6 @@ class UserProfileCreateResponse
     public $branches;
     
     public $city;
+    
+    public $phone;
 }

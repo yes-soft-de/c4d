@@ -80,6 +80,8 @@ App\Request\UserProfileCreateRequest:
       - NotBlank: ~
     city:
       - NotBlank: ~
+    phone:
+      - NotBlank: ~
 
 App\Request\UserProfileUpdateRequest:
   properties:
@@ -90,6 +92,8 @@ App\Request\UserProfileUpdateRequest:
     branch:
       - NotBlank: ~
     city:
+      - NotBlank: ~
+    phone:
       - NotBlank: ~
 
 App\Request\userProfileUpdateByAdminRequest:

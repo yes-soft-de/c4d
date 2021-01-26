@@ -127,33 +127,19 @@ class OrderService
     public function orderStatus($orderId)
     {
         
-        // if($userType == 'ROLE_OWNER') {
-            $order = $this->orderManager->orderStatus( $orderId);
-            if ($order){
-               if ($order['fromBranch'] == true){
+        $order = $this->orderManager->orderStatus( $orderId);
+        if ($order){
+               if ($order['fromBranch'] == true) {
                     $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                }
             
+            $order['owner'] = $this->userService->getUserProfileByUserID($order['ownerID']);
             $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
 
             $order['record'] = $this->recordService->getrecordByOrderId($orderId);
-            }
-            $response = $this->autoMapping->map('array', OrderResponse::class, $order);
+        }
+        $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
-        // }
-        // if($userType == 'ROLE_CAPTAIN') {
-        //     $order = $this->orderManager->orderStatusForCaptain($userID, $orderId);
-        //     if ($order){
-        //         if ($order['fromBranch']){
-        //             $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
-        //         }
-          
-        //   $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
-
-        //   $order['record'] = $this->recordService->getrecordByOrderId($orderId);
-        //     }
-        //     $response = $this->autoMapping->map('array', OrderResponse::class, $order);
-        // }
         return $response;
     }
 

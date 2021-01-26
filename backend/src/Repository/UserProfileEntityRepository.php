@@ -30,7 +30,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.branch', 'profile.free', 'profile.status', 'profile.city')
+            ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.branch', 'profile.free', 'profile.status', 'profile.city', 'profile.phone')
             ->andWhere('profile.userID=:userID')
             ->setParameter('userID', $userID)
 
@@ -41,7 +41,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     public function getUserProfileByID($id)
     {
         return $this->createQueryBuilder('profile')
-            ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.branch', 'profile.free', 'profile.status')
+            ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story', 'profile.branch', 'profile.free', 'profile.status', 'profile.phone')
 
             ->andWhere('profile.id = :id')
 

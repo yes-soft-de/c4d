@@ -17,6 +17,8 @@ class UserProfileCreateRequest
     private $city;
 
     private $uuid;
+    
+    private $phone;
 
     /**
      * @return mixed

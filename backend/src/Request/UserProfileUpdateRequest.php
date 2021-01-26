@@ -18,6 +18,8 @@ class UserProfileUpdateRequest
 
     private $city;
     
+    private $phone;
+    
     /**
      * @return mixed
      */

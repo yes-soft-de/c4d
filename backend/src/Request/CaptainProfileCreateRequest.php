@@ -23,6 +23,8 @@ class CaptainProfileCreateRequest
     private $uuid;
     
     public $specialLink;
+    
+    public $phone;
 
     /**
      * Get the value of captainID

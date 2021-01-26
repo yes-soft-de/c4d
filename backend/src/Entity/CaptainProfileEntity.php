@@ -82,6 +82,11 @@ class CaptainProfileEntity
      */
     private $specialLink;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
+
 
     public function getId(): ?int
     {
@@ -240,6 +245,18 @@ class CaptainProfileEntity
     public function setSpecialLink(?bool $specialLink): self
     {
         $this->specialLink = $specialLink;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

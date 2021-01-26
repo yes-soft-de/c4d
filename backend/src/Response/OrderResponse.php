@@ -26,6 +26,7 @@ class OrderResponse
     public $uuid;
     public $countOrdersInMonth;
     public $countOrdersInDay;
+    public $owner;
     
     
 }

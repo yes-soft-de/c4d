@@ -19,4 +19,6 @@ class UserProfileResponse
     public $free;
 
     public $city;
+    
+    public $phone;
 }

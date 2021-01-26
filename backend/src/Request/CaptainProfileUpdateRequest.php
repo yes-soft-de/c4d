@@ -17,6 +17,8 @@ class CaptainProfileUpdateRequest
     private $drivingLicence;
 
     private $state;
+    
+    private $phone;
 
     /**
      * Get the value of name

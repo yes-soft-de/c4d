@@ -39,5 +39,7 @@ class CaptainProfileCreateResponse
     public $imageURL;
 
     public $baseURL;
+    
+    public $phone;
 
 }

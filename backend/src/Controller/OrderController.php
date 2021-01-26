@@ -101,14 +101,8 @@ class OrderController extends BaseController
      */
     public function orderStatus($orderId)
     {
-
-        // if( $this->isGranted('ROLE_OWNER') ) {
-            $result = $this->orderService->orderStatus($orderId);
-        // }
-
-        // if( $this->isGranted('ROLE_CAPTAIN') ) {
-        //     $result = $this->orderService->orderStatus($this->getUserId(), $orderId, 'ROLE_CAPTAIN');
-        // }
+        $result = $this->orderService->orderStatus($orderId);
+       
         return $this->response($result, self::FETCH);
     }
 
