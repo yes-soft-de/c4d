@@ -347,11 +347,12 @@ class OrderService
 
                 $order['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($order['id']);
                 $order['record'] = $this->recordService->getrecordByOrderId($order['id']); 
-           
                 $firstDate = $this->recordService->getFirstDate($order['id']); 
-                $lastDate = $this->recordService->getLastDate($order['id']); 
-                $order['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
-                
+                $lastDate = $this->recordService->getLastDate($order['id']);
+               
+                if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                    $order['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
+                }
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
             }
         }
