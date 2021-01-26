@@ -8,6 +8,8 @@ class UserProfileCreateResponse
     
     public $userName;
 
+    public $userID;
+
     // public $story;
 
     // public $image;
