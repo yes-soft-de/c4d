@@ -21,7 +21,10 @@ class OrdersongoingResponse
     public $captainID;
     public $duration;
     public $image;
+    public $imageURL;
     public $drivingLicence;
+    public $drivingLicenceURL;
+    public $baseURL;
     public $fromBranch;
     
 }

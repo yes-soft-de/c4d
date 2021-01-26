@@ -12,6 +12,7 @@ use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
 use App\Service\SubscriptionService;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
 
 class OrderService
@@ -23,8 +24,9 @@ class OrderService
     private $branchesService;
     private $subscriptionService;
     private $userService;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService, UserService $userService)
+    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService, UserService $userService, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
@@ -33,6 +35,8 @@ class OrderService
         $this->branchesService = $branchesService;
         $this->subscriptionService = $subscriptionService;
         $this->userService = $userService;
+
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(OrderCreateRequest $request)
@@ -233,6 +237,12 @@ class OrderService
       
         foreach ($ongoingOrders as  $ongoingOrder) {
 
+            $ongoingOrder['image'] = $ongoingOrder['image'];
+            $ongoingOrder['imageURL'] = $ongoingOrder['image'];
+            $ongoingOrder['drivingLicence'] = $ongoingOrder['drivingLicence'];
+            $ongoingOrder['drivingLicenceURL'] = $ongoingOrder['drivingLicence'];
+            $ongoingOrder['baseURL'] = $this->params;
+            
             if ($ongoingOrder['fromBranch']){
                 $ongoingOrder['fromBranch'] = $this->branchesService->getBrancheById($ongoingOrder['fromBranch']);
                 }

@@ -180,7 +180,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
 
             ->select('AcceptedOrderEntity.captainID', 'count(AcceptedOrderEntity.captainID) countOrdersInMonth')
             
-            ->addSelect('captainProfileEntity.name as captainName', 'captainProfileEntity.car', 'captainProfileEntity.age', 'captainProfileEntity.salary', 'captainProfileEntity.bounce', 'captainProfileEntity.image', 'captainProfileEntity.specialLink')
+            ->addSelect('captainProfileEntity.name as captainName', 'captainProfileEntity.car', 'captainProfileEntity.age', 'captainProfileEntity.salary', 'captainProfileEntity.bounce', 'captainProfileEntity.image', 'captainProfileEntity.specialLink', 'captainProfileEntity.drivingLicence')
             
             ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
 

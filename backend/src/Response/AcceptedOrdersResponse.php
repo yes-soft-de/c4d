@@ -16,6 +16,8 @@ class AcceptedOrdersResponse
     public $bounce;
     public $image;
     public $imageURL;
+    public $drivingLicence;
+    public $drivingLicenceURL;
     public $baseURL;
     public $ownerID;
     public $source;

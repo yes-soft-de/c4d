@@ -121,6 +121,10 @@ class AcceptedOrderService
         foreach ($topCaptains as $topCaptain) {
             $topCaptain['image'] = $this->specialLinkCheck($topCaptain['specialLink']).$topCaptain['image'];
             $topCaptain['imageURL'] = $topCaptain['image'];
+            
+            $topCaptain['drivingLicence'] = $this->specialLinkCheck($topCaptain['specialLink']).$topCaptain['drivingLicence'];
+            $topCaptain['drivingLicenceURL'] = $topCaptain['drivingLicence'];
+           
             $topCaptain['baseURL'] = $this->params;
             $response[] = $this->autoMapping->map('array', AcceptedOrdersResponse::class, $topCaptain);
         }
