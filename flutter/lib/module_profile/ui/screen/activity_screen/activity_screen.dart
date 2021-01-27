@@ -1,7 +1,7 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_profile/state_manager/activity/activity_state_manager.dart';
 import 'package:c4d/module_profile/ui/states/activity_state/activity_state.dart';
 import 'package:c4d/module_profile/ui/states/activity_state_loading/activity_state_loading.dart';
-import 'file:///C:/Users/moham/Documents/Servers/c4d/flutter/lib/module_profile/state_manager/activity/activity_state_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 

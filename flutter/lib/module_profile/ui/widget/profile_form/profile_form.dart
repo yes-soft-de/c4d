@@ -7,31 +7,37 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfileFormWidget extends StatefulWidget {
   final Function(String, String, String) onProfileSaved;
-  final Function(String) onImageUpload;
+  final Function(String, String, String) onImageUpload;
   final String name;
   final String phoneNumber;
   final String image;
+  final String localImage;
 
-  ProfileFormWidget(
-    this.onProfileSaved,
-    this.onImageUpload, {
+  ProfileFormWidget({
+    @required this.onProfileSaved,
+    @required this.onImageUpload,
     this.name,
     this.phoneNumber,
     this.image,
+    this.localImage,
   });
 
   @override
   State<StatefulWidget> createState() =>
-      _ProfileFormWidgetState(name, phoneNumber, image);
+      _ProfileFormWidgetState(name, phoneNumber, image, localImage);
 }
 
 class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   String image;
-  String newImage;
+  String localImage;
 
-  _ProfileFormWidgetState(String name, String phone, String image);
+  _ProfileFormWidgetState(
+      String name, String phone, this.image, this.localImage) {
+    _nameController.text = name;
+    _phoneController.text = phone;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +54,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 ImagePicker()
                     .getImage(source: ImageSource.gallery)
                     .then((value) {
-                  newImage = value.path;
+                  localImage = value.path;
                 });
               },
               child: Container(
@@ -62,24 +68,32 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         shape: BoxShape.circle,
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: NetworkImage(image.contains('http') ? image : Urls.IMAGES_ROOT + image),
-                        fit: BoxFit.cover,
-                      )),
-                    ),
-                    newImage == null
+                    image == null
                         ? Container()
                         : Container(
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                              image: FileImage(File(image)),
+                              image: NetworkImage(image.contains('http')
+                                  ? image
+                                  : Urls.IMAGES_ROOT + image),
+                              fit: BoxFit.cover,
+                            )),
+                          ),
+                    localImage == null
+                        ? Container()
+                        : Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: FileImage(File(localImage)),
                               fit: BoxFit.cover,
                             )),
                             child: IconButton(
                               onPressed: () {
-                                widget.onImageUpload(image);
+                                widget.onImageUpload(
+                                  _nameController.text,
+                                  _phoneController.text,
+                                  image,
+                                );
                               },
                               icon: Icon(Icons.upload_file),
                             ),

@@ -133,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "save" : MessageLookupByLibrary.simpleMessage("Save"),
     "saveBranches" : MessageLookupByLibrary.simpleMessage("Save Branches"),
     "saveLocationAsBranch01" : MessageLookupByLibrary.simpleMessage("Save Location as Branch 01"),
+    "saveSuccess" : MessageLookupByLibrary.simpleMessage("Save Success"),
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("Searching for Captain"),
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("Send me code"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),

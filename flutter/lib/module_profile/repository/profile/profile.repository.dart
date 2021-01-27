@@ -6,6 +6,7 @@ import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/response/get_branches_response.dart';
 import 'package:c4d/module_profile/response/get_records_response.dart';
+import 'package:c4d/module_profile/response/profile_response.dart';
 import 'package:inject/inject.dart';
 
 @provide
@@ -18,7 +19,31 @@ class ProfileRepository {
     this._authService,
   );
 
-  Future<bool> createProfile(ProfileRequest profileRequest) async {
+  Future<ProfileResponseModel> getOwnerProfile() async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+      Urls.OWNER_PROFILE_API,
+      headers: {'Authorization': 'Bearer ' + token},
+    );
+
+    if (response['status_code'] == '201') return null;
+
+    return ProfileResponse.fromJson(response.data).data;
+  }
+
+  Future<ProfileResponseModel> getCaptainProfile() async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+      Urls.CAPTAIN_PROFILE_API,
+      headers: {'Authorization': 'Bearer ' + token},
+    );
+
+    if (response['status_code'] == '201') return null;
+
+    return ProfileResponse.fromJson(response.data).data;
+  }
+
+  Future<bool> createOwnerProfile(ProfileRequest profileRequest) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.OWNER_PROFILE_API,
@@ -31,8 +56,20 @@ class ProfileRepository {
     return false;
   }
 
-  Future<Branch> createBranch(
-      CreateBranchRequest createBranch) async {
+  Future<bool> createCaptainProfile(ProfileRequest profileRequest) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+      Urls.CAPTAIN_PROFILE_API,
+      profileRequest.toJson(),
+      headers: {'Authorization': 'Bearer ' + token},
+    );
+
+    if (response['status_code'] == '201') return true;
+
+    return false;
+  }
+
+  Future<Branch> createBranch(CreateBranchRequest createBranch) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.BRANCHES_API,

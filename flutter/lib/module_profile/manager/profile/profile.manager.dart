@@ -4,6 +4,7 @@ import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/response/get_records_response.dart';
+import 'package:c4d/module_profile/response/profile_response.dart';
 import 'package:inject/inject.dart';
 
 @provide
@@ -14,8 +15,17 @@ class ProfileManager {
     this._repository,
   );
 
-  Future<bool> createProfile(ProfileRequest profileRequest) async =>
-      await _repository.createProfile(profileRequest);
+  Future<bool> createOwnerProfile(ProfileRequest profileRequest) =>
+      _repository.createOwnerProfile(profileRequest);
+
+  Future<bool> createCaptainProfile(ProfileRequest profileRequest) =>
+      _repository.createCaptainProfile(profileRequest);
+
+  Future<ProfileResponseModel> getCaptainProfile() =>
+      _repository.getCaptainProfile();
+
+  Future<ProfileResponseModel> getOwnerProfile() =>
+      _repository.getOwnerProfile();
 
   Future<Branch> createBranch(CreateBranchRequest request) =>
       _repository.createBranch(request);

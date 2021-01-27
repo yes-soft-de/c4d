@@ -4,12 +4,12 @@ import 'package:c4d/module_upload/response/imgbb/imgbb_response.dart';
 
 @provide
 class ImageUploadService {
-  final UploadManager manager;
+  final UploadManager _manager;
 
-  ImageUploadService(this.manager);
+  ImageUploadService(this._manager);
 
   Future<String> uploadImage(String filePath) async {
-    ImgBBResponse response = await manager.upload(filePath);
+    ImgBBResponse response = await _manager.upload(filePath);
     if (response == null) {
       return null;
     } else {

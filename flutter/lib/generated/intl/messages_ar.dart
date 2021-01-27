@@ -133,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "save" : MessageLookupByLibrary.simpleMessage("الحفظ"),
     "saveBranches" : MessageLookupByLibrary.simpleMessage("حفظ الفروع"),
     "saveLocationAsBranch01" : MessageLookupByLibrary.simpleMessage("احفظ مكان الفرع 01"),
+    "saveSuccess" : MessageLookupByLibrary.simpleMessage("Save Success"),
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("جار البحث عن كابتن"),
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("ارسل رمز التأكيد"),
     "settings" : MessageLookupByLibrary.simpleMessage("الاعدادات"),

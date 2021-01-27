@@ -1,29 +1,58 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_profile/manager/profile/profile.manager.dart';
 import 'package:c4d/module_profile/model/activity_model/activity_model.dart';
 import 'package:c4d/module_profile/prefs_helper/profile_prefs_helper.dart';
 import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
+import 'package:c4d/module_profile/response/profile_response.dart';
 import 'package:inject/inject.dart';
 
 @provide
 class ProfileService {
   final ProfileManager _manager;
   final ProfilePreferencesHelper _preferencesHelper;
+  final AuthService _authService;
 
   ProfileService(
     this._manager,
     this._preferencesHelper,
+    this._authService,
   );
 
-  Future<bool> createProfile(String city, int branch) async {
-    ProfileRequest profileRequest = new ProfileRequest(
-      city: city,
-      branch: branch,
-    );
+  Future<ProfileResponseModel> getProfile() async {
+    var role = await _authService.userRole;
 
-    return await _manager.createProfile(profileRequest);
+    switch (role) {
+      case UserRole.ROLE_CAPTAIN:
+        return _manager.getCaptainProfile();
+        break;
+      case UserRole.ROLE_OWNER:
+        return _manager.getOwnerProfile();
+        break;
+      default:
+        return null;
+    }
+  }
+
+  Future<bool> createProfile(String name, String phone, String image) async {
+    ProfileRequest profileRequest =
+        new ProfileRequest(name: name, phone: phone, image: image);
+
+    var role = await _authService.userRole;
+
+    switch (role) {
+      case UserRole.ROLE_CAPTAIN:
+        return _manager.createCaptainProfile(profileRequest);
+        break;
+      case UserRole.ROLE_OWNER:
+        return _manager.createOwnerProfile(profileRequest);
+        break;
+      default:
+        return false;
+    }
   }
 
   Future<bool> saveBranch(List<Branch> branchList) async {
@@ -72,14 +101,16 @@ class ProfileService {
     }
     records.forEach((e) {
       activity.add(ActivityModel(
-        e.date != null ? DateTime.fromMillisecondsSinceEpoch(e.date.timestamp * 1000) : DateTime.now(),
+        e.date != null
+            ? DateTime.fromMillisecondsSinceEpoch(e.date.timestamp * 1000)
+            : DateTime.now(),
         '${S.current.order} #${e.id}: ${getLocalizedState(e.state)}',
         e.state.contains('pending'),
       ));
     });
     return activity;
   }
-  
+
   String getLocalizedState(String status) {
     if (status == 'pending') {
       return S.current.orderIsCreated;

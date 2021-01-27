@@ -139,5 +139,6 @@
   "captainGotCash": "حصل الكابتن على الكاش",
   "orderIsFinished": "تم انهاء الطلب",
   "orderIsCreated": "تم الانشاء",
-  "activityLog": "سجل الاستخدام"
+  "activityLog": "سجل الاستخدام",
+  "saveSuccess": "Save Success"
 }

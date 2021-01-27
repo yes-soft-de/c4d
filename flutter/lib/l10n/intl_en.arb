@@ -139,5 +139,6 @@
   "captainGotCash": "Captain Got Cash",
   "orderIsFinished": "Order is finished",
   "orderIsCreated": "Order is created",
-  "activityLog": "Activity Log"
+  "activityLog": "Activity Log",
+  "saveSuccess": "Save Success"
 }
