@@ -1424,6 +1424,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Activity Log`
+  String get activityLog {
+    return Intl.message(
+      'Activity Log',
+      name: 'activityLog',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

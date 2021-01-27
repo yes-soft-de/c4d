@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "acceptOrder" : MessageLookupByLibrary.simpleMessage("قبول الطلب"),
     "accountCreated" : MessageLookupByLibrary.simpleMessage("تم ارسال الطلب"),
     "accountNumber" : MessageLookupByLibrary.simpleMessage("رقم حساب البنك"),
+    "activityLog" : MessageLookupByLibrary.simpleMessage("سجل الاستخدام"),
     "age" : MessageLookupByLibrary.simpleMessage("العمر"),
     "andIAm" : MessageLookupByLibrary.simpleMessage("وأعمل"),
     "apply" : MessageLookupByLibrary.simpleMessage("تسجيل"),

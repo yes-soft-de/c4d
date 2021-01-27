@@ -1,14 +1,30 @@
 class ChatModel {
   String sender;
-  String sentDate;
+  DateTime sentDate;
   String msg;
 
   ChatModel({this.sentDate, this.sender, this.msg});
 
   ChatModel.fromJson(Map<String, dynamic> jsonData) {
     sender = jsonData['sender'];
-    msg = jsonData['msg'];
-    sentDate = jsonData['sentDate'].toString();
+    try {
+      msg = jsonData['msg']['message'];
+    } catch (e) {
+      msg = jsonData['msg'].toString();
+    }
+    if (jsonData['sentDate'] is String) {
+      try {
+        sentDate = DateTime.parse(jsonData['sentDate']);
+      } catch (e) {
+        sentDate = DateTime.fromMillisecondsSinceEpoch(int.tryParse(jsonData['sentDate']) * 1000);
+      }
+    }
+    if (jsonData['sentDate'] is int) {
+      DateTime.fromMillisecondsSinceEpoch(jsonData['sentDate'] * 1000);
+    }
+    if (jsonData['sentDate'] is DateTime) {
+      sentDate = jsonData['sentDate'];
+    }
   }
 
   Map<String, dynamic> toJson() {

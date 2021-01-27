@@ -138,5 +138,6 @@
   "captainStartedDelivery": "بدأ الكابتن التوصيل",
   "captainGotCash": "حصل الكابتن على الكاش",
   "orderIsFinished": "تم انهاء الطلب",
-  "orderIsCreated": "تم الانشاء"
+  "orderIsCreated": "تم الانشاء",
+  "activityLog": "سجل الاستخدام"
 }

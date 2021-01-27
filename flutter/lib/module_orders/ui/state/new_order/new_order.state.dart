@@ -292,9 +292,10 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
               child: Card(
                 child: TextFormField(
                   controller: _infoController,
+                  autofocus: false,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
+                    color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                    fontSize: 16,
                   ),
                   maxLines: 8,
                   decoration: InputDecoration(

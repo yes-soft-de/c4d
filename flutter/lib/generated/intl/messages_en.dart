@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "acceptOrder" : MessageLookupByLibrary.simpleMessage("Accept Order"),
     "accountCreated" : MessageLookupByLibrary.simpleMessage("Account Created"),
     "accountNumber" : MessageLookupByLibrary.simpleMessage("Account Number"),
+    "activityLog" : MessageLookupByLibrary.simpleMessage("Activity Log"),
     "age" : MessageLookupByLibrary.simpleMessage("Age"),
     "andIAm" : MessageLookupByLibrary.simpleMessage("And I am"),
     "apply" : MessageLookupByLibrary.simpleMessage("APPLY"),

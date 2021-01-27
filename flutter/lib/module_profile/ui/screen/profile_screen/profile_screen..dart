@@ -36,7 +36,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          S.of(context).profile,
+          S.of(context).activityLog,
           style: TextStyle(
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white

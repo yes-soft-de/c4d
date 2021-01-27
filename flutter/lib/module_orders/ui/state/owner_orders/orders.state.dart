@@ -49,8 +49,9 @@ class OrdersListStateUnauthorized extends OwnerOrdersListState {
 
   @override
   Widget getUI(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
-      Navigator.of(context).pushNamedAndRemoveUntil(AuthorizationRoutes.LOGIN_SCREEN, (r) => false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          AuthorizationRoutes.LOGIN_SCREEN, (r) => false);
     });
     return Center(
       child: CircularProgressIndicator(),
@@ -78,7 +79,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
             child: RefreshIndicator(
               onRefresh: () {
                 screenState.getMyOrders();
-                return null;
+                return Future.delayed(Duration(seconds: 3));
               },
               child: ListView.builder(
                   itemCount: orders.length,
@@ -93,9 +94,13 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                           );
                         },
                         child: OrderCard(
-                          title: '${S.of(context).branch} ${orders[index].from ?? ''}',
-                          subTitle: '${S.of(context).order} #${orders[index].id}:',
-                          time: timeago.format(orders[index].creationTime, locale: Localizations.localeOf(context).languageCode),
+                          title:
+                              '${S.of(context).branch} ${orders[index].from ?? ''}',
+                          subTitle:
+                              '${S.of(context).order} #${orders[index].id}:',
+                          time: timeago.format(orders[index].creationTime,
+                              locale:
+                                  Localizations.localeOf(context).languageCode),
                           active: orders[index].status != OrderStatus.FINISHED,
                         ),
                       ),

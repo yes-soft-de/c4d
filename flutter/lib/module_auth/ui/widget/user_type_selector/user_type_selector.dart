@@ -57,7 +57,7 @@ class UserTypeSelector extends StatelessWidget {
                         style: TextStyle(
                           color: currentUserType == UserRole.ROLE_CAPTAIN
                               ? Colors.white
-                              : Colors.black87,
+                              : Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
                         ),
                       ),
                     ),

@@ -5,7 +5,7 @@ import 'package:timeago/timeago.dart' as timeago;
 class ChatBubbleWidget extends StatefulWidget {
   final bool showImage;
   final String message;
-  final String sentDate;
+  final DateTime sentDate;
   final bool me;
 
   ChatBubbleWidget({
@@ -43,7 +43,7 @@ class ChatBubbleWidgetState extends State<ChatBubbleWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(timeago.format(DateTime.parse(widget.sentDate))),
+                Text(timeago.format(widget.sentDate)),
                 widget.message.contains('http')
                     ? Image.network(widget.message.replaceFirst('uploadimage', 'upload/image'))
                     : Text(

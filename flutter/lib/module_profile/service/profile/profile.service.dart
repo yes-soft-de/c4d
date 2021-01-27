@@ -64,6 +64,12 @@ class ProfileService {
   Future<List<ActivityModel>> getActivity() async {
     var records = await _manager.getMyLog();
     var activity = <ActivityModel>[];
+    if (records == null) {
+      return [];
+    }
+    if (records.isEmpty) {
+      return [];
+    }
     records.forEach((e) {
       activity.add(ActivityModel(
         e.date != null ? DateTime.fromMillisecondsSinceEpoch(e.date.timestamp * 1000) : DateTime.now(),
