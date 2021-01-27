@@ -91,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mediumMoreThan20EmployeesLessThan100" : MessageLookupByLibrary.simpleMessage("21 - 100 موظف"),
     "mohammad" : MessageLookupByLibrary.simpleMessage("محمد"),
     "moveToOrders" : MessageLookupByLibrary.simpleMessage("الانتقال للطلبات"),
+    "myProfile" : MessageLookupByLibrary.simpleMessage("My Profile"),
     "name" : MessageLookupByLibrary.simpleMessage("الاسم"),
     "nameIsRequired" : MessageLookupByLibrary.simpleMessage("حقل الاسم فارغ"),
     "nearbyOrders" : MessageLookupByLibrary.simpleMessage("طلبات قريبة"),

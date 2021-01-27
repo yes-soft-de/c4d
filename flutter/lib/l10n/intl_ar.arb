@@ -140,5 +140,6 @@
   "orderIsFinished": "تم انهاء الطلب",
   "orderIsCreated": "تم الانشاء",
   "activityLog": "سجل الاستخدام",
-  "saveSuccess": "Save Success"
+  "saveSuccess": "Save Success",
+  "myProfile": "My Profile"
 }

@@ -1,3 +1,4 @@
 class ProfileRoutes {
-  static const PROFILE_SCREEN = '/profile';
+  static const ACTIVITY_SCREEN = '/activity';
+  static const EDIT_ACTIVITY_SCREEN = '/editProfile';
 }

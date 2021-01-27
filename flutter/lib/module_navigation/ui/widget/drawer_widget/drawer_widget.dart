@@ -1,6 +1,6 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -42,6 +42,17 @@ class DrawerWidget extends StatelessWidget {
                   },
                   child: Text(
                     S.of(context).settings,
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
+                  },
+                  child: Text(
+                    S.of(context).myProfile,
                     style: TextStyle(color: Colors.white, fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
