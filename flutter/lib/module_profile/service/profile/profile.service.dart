@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_profile/manager/profile/profile.manager.dart';
 import 'package:c4d/module_profile/model/activity_model/activity_model.dart';
 import 'package:c4d/module_profile/prefs_helper/profile_prefs_helper.dart';
@@ -66,11 +67,27 @@ class ProfileService {
     records.forEach((e) {
       activity.add(ActivityModel(
         e.date != null ? DateTime.fromMillisecondsSinceEpoch(e.date.timestamp * 1000) : DateTime.now(),
-        'Order #${e.id} is ${e.state}',
+        '${S.current.order} #${e.id}: ${getLocalizedState(e.state)}',
         e.state.contains('pending'),
       ));
     });
-
     return activity;
+  }
+  
+  String getLocalizedState(String status) {
+    if (status == 'pending') {
+      return S.current.orderIsCreated;
+    } else if (status == 'on way to pick order') {
+      return S.current.captainAcceptedOrder;
+    } else if (status == 'in store') {
+      return S.current.captainInStore;
+    } else if (status == 'ongoing') {
+      return S.current.captainStartedDelivery;
+    } else if (status == 'cash') {
+      return S.current.captainGotCash;
+    } else if (status == 'delivered') {
+      return S.current.orderIsFinished;
+    }
+    return S.current.unknown;
   }
 }

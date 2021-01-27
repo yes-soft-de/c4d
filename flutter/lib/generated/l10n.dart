@@ -1314,6 +1314,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Please Select a Branch`
+  String get pleaseSelectABranch {
+    return Intl.message(
+      'Please Select a Branch',
+      name: 'pleaseSelectABranch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Service`
+  String get termsOfService {
+    return Intl.message(
+      'Terms of Service',
+      name: 'termsOfService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created`
+  String get created {
+    return Intl.message(
+      'Created',
+      name: 'created',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown`
+  String get unknown {
+    return Intl.message(
+      'Unknown',
+      name: 'unknown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain Accepted Order`
+  String get captainAcceptedOrder {
+    return Intl.message(
+      'Captain Accepted Order',
+      name: 'captainAcceptedOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain in Store`
+  String get captainInStore {
+    return Intl.message(
+      'Captain in Store',
+      name: 'captainInStore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain Started Delivery`
+  String get captainStartedDelivery {
+    return Intl.message(
+      'Captain Started Delivery',
+      name: 'captainStartedDelivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Captain Got Cash`
+  String get captainGotCash {
+    return Intl.message(
+      'Captain Got Cash',
+      name: 'captainGotCash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order is finished`
+  String get orderIsFinished {
+    return Intl.message(
+      'Order is finished',
+      name: 'orderIsFinished',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order is created`
+  String get orderIsCreated {
+    return Intl.message(
+      'Order is created',
+      name: 'orderIsCreated',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -58,6 +58,7 @@ class ProfileRepository {
   }
 
   Future<List<ActivityRecord>> getUserActivityLog() async {
+    await _authService.refreshToken();
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.LOG_API,

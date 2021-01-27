@@ -126,8 +126,8 @@ class ActivityRecord {
 }
 
 class Location {
-  String lat;
-  String lon;
+  double lat;
+  double lon;
 
   Location({this.lat, this.lon});
 

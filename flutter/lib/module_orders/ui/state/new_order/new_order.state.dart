@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:c4d/consts/branch.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
@@ -130,7 +132,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _infoController = TextEditingController();
   final TextEditingController _toController = TextEditingController();
-  String activeBranch;
+  Branch activeBranch;
 
   NewOrderStateBranchesLoaded(
       this.branches, LatLng location, NewOrderScreenState screenState)
@@ -333,6 +335,11 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                         borderRadius: BorderRadius.circular(15)),
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
+                      if (activeBranch == null) {
+                        screenState.showSnackBar(S.of(context).pleaseSelectABranch);
+                        return;
+                      }
+                      print(jsonEncode(activeBranch));
                       screenState.addNewOrder(
                         activeBranch,
                         GeoJson(lat: 0, lon: 0),
@@ -411,8 +418,8 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                 hintStyle: TextStyle(color: Colors.white),
               ),
               items: branches
-                  .map((e) => DropdownMenuItem<String>(
-                        value: e.id.toString(),
+                  .map((e) => DropdownMenuItem<Branch>(
+                        value: e,
                         child: Text(
                           '${S.of(context).branch} ${e.brancheName}',
                           style: TextStyle(

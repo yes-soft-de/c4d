@@ -66,67 +66,60 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
 
   @override
   Widget getUI(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            OrdersRoutes.OWNER_ORDERS_SCREEN, (route) => false);
-        return;
+    return RefreshIndicator(
+      onRefresh: () {
+        screenState.getMyOrders();
+        return Future.delayed(Duration(seconds: 3));
       },
-      child: RefreshIndicator(
-        onRefresh: () {
-          screenState.getMyOrders();
-          return Future.delayed(Duration(seconds: 3));
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: () {
-                  screenState.getMyOrders();
-                  return null;
-                },
-                child: ListView.builder(
-                    itemCount: orders.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.all(10),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              OrdersRoutes.ORDER_STATUS_SCREEN,
-                              arguments: orders[index].id,
-                            );
-                          },
-                          child: OrderCard(
-                            subTitle: timeago.format(orders[index].creationTime),
-                            title: S.of(context).defaultBranch,
-                            time: timeago.format(orders[index].creationTime),
-                            active: orders[index].status != OrderStatus.INIT,
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () {
+                screenState.getMyOrders();
+                return null;
               },
-              child: Container(
-                color: Theme.of(context).primaryColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    S.of(context).createNewOrder,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
+              child: ListView.builder(
+                  itemCount: orders.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.all(10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            OrdersRoutes.ORDER_STATUS_SCREEN,
+                            arguments: orders[index].id,
+                          );
+                        },
+                        child: OrderCard(
+                          title: '${S.of(context).branch} ${orders[index].from ?? ''}',
+                          subTitle: '${S.of(context).order} #${orders[index].id}:',
+                          time: timeago.format(orders[index].creationTime, locale: Localizations.localeOf(context).languageCode),
+                          active: orders[index].status != OrderStatus.FINISHED,
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
+            },
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  S.of(context).createNewOrder,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_orders/ui/state/new_order/new_order.state.dart';
+import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
@@ -24,7 +25,7 @@ class NewOrderStateManager {
   }
 
   void addNewOrder(
-      String fromBranch,
+      Branch fromBranch,
       GeoJson destination,
       String note,
       String paymentMethod,

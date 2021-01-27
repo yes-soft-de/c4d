@@ -125,7 +125,18 @@
   "car": "سيارة ",
   "apply": "تسجيل",
   "recipientPhoneNumber": "رقم هاتف المستلم",
-  "pickALanguage": "Pick a Language",
-  "pickAJob": "Pick a Job",
-  "paymentMethod": "Payment Method"
+  "pickALanguage": "اخاتر لغتي",
+  "pickAJob": "اخاتر عملي",
+  "paymentMethod": "طريقة الدفع",
+  "pleaseSelectABranch": "الرجاء اختيار فرع تجاري",
+  "privacyPolicy": "شروط الخصوصية",
+  "termsOfService": "شروط الاستخدام",
+  "created": "تم الانشاء",
+  "unknown": "غير معروف",
+  "captainAcceptedOrder": "قبل الكابتن الطلب",
+  "captainInStore": "الكابتن في الفرع التجاري",
+  "captainStartedDelivery": "بدأ الكابتن التوصيل",
+  "captainGotCash": "حصل الكابتن على الكاش",
+  "orderIsFinished": "تم انهاء الطلب",
+  "orderIsCreated": "تم الانشاء"
 }

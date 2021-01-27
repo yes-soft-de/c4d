@@ -22,7 +22,11 @@ import 'module_auth/authoriazation_module.dart';
 import 'module_settings/settings_module.dart';
 import 'module_splash/splash_routes.dart';
 
+import 'package:timeago/timeago.dart' as timeago;
+
 void main() async {
+  await timeago.setLocaleMessages('ar', timeago.ArMessages());
+  await timeago.setLocaleMessages('en', timeago.EnMessages());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
@@ -77,6 +81,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     widget._localizationService.localizationStream.listen((event) {
+      timeago.setDefaultLocale(event);
       setState(() {});
     });
 

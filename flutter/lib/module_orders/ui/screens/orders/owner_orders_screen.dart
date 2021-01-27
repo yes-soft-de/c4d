@@ -1,5 +1,6 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_deep_links/service/deep_links_service.dart';
+import 'package:c4d/module_navigation/ui/widget/drawer_widget/drawer_widget.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/owner_orders/orders.state.dart';
@@ -87,50 +88,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
               }),
         ],
       ),
-      drawer: Container(
-        color: Theme.of(context).primaryColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(36.0),
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Flex(
-              direction: Axis.vertical,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
-                  },
-                  child: Text(
-                    S.of(context).settings,
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-            Container(),
-          ],
-        ),
-      ),
+      drawer: DrawerWidget(),
       body: _currentState.getUI(context),
     );
   }

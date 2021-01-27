@@ -3,6 +3,8 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/state_manager/order_status/order_status.state_manager.dart';
+import 'package:c4d/module_orders/ui/state/order_status/order_details_state_captain_order_loaded.dart';
+import 'package:c4d/module_orders/ui/state/order_status/order_details_state_owner_order_loaded.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
@@ -75,8 +77,13 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
         leading: IconButton(
           icon: Icon(Icons.navigate_before),
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+            if (currentState is OrderDetailsStateOwnerOrderLoaded) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  OrdersRoutes.OWNER_ORDERS_SCREEN, (route) => false);
+            } else if (currentState is OrderDetailsStateCaptainOrderLoaded) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+            }
           },
         ),
         title: Text(

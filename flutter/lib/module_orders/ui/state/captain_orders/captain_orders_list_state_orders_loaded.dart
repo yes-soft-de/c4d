@@ -24,90 +24,83 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
 
   @override
   Widget getUI(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
-        return;
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () {
-                screenState.getMyOrders();
-                return Future.delayed(Duration(seconds: 3));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: RefreshIndicator(
+            onRefresh: () {
+              screenState.getMyOrders();
+              return Future.delayed(Duration(seconds: 3));
+            },
+            child: PageView(
+              controller: _ordersPageController,
+              onPageChanged: (pos) {
+                currentPage = pos;
               },
-              child: PageView(
-                controller: _ordersPageController,
-                onPageChanged: (pos) {
-                  currentPage = pos;
-                },
-                children: [
-                  FutureBuilder(
-                    future: getNearbyOrdersList(context),
-                    builder: (
+              children: [
+                FutureBuilder(
+                  future: getNearbyOrdersList(context),
+                  builder: (
+                    BuildContext context,
+                    AsyncSnapshot<List<Widget>> snapshot,
+                  ) {
+                    if (snapshot.hasData) {
+                      return SingleChildScrollView(
+                        child: RefreshIndicator(
+                          onRefresh: () {
+                            screenState.getMyOrders();
+                            return Future.delayed(Duration(seconds: 3));
+                          },
+                          child: Column(
+                            children: snapshot.data,
+                          ),
+                        ),
+                      );
+                    }
+                    return Column(
+                      children: [
+                        Center(
+                          child: Text('Empty Stuff'),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                FutureBuilder(
+                  future: getMyOrdersList(context),
+                  builder: (
                       BuildContext context,
                       AsyncSnapshot<List<Widget>> snapshot,
-                    ) {
-                      if (snapshot.hasData) {
-                        return SingleChildScrollView(
-                          child: RefreshIndicator(
-                            onRefresh: () {
-                              screenState.getMyOrders();
-                              return Future.delayed(Duration(seconds: 3));
-                            },
-                            child: Column(
-                              children: snapshot.data,
-                            ),
+                      ) {
+                    if (snapshot.hasData) {
+                      return SingleChildScrollView(
+                        child: RefreshIndicator(
+                          onRefresh: () {
+                            screenState.getMyOrders();
+                            return Future.delayed(Duration(seconds: 3));
+                          },
+                          child: Column(
+                            children: snapshot.data,
                           ),
-                        );
-                      }
-                      return Column(
-                        children: [
-                          Center(
-                            child: Text('Empty Stuff'),
-                          ),
-                        ],
+                        ),
                       );
-                    },
-                  ),
-                  FutureBuilder(
-                    future: getMyOrdersList(context),
-                    builder: (
-                        BuildContext context,
-                        AsyncSnapshot<List<Widget>> snapshot,
-                        ) {
-                      if (snapshot.hasData) {
-                        return SingleChildScrollView(
-                          child: RefreshIndicator(
-                            onRefresh: () {
-                              screenState.getMyOrders();
-                              return Future.delayed(Duration(seconds: 3));
-                            },
-                            child: Column(
-                              children: snapshot.data,
-                            ),
-                          ),
-                        );
-                      }
-                      return Column(
-                        children: [
-                          Center(
-                            child: Text('Empty Stuff'),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
+                    }
+                    return Column(
+                      children: [
+                        Center(
+                          child: Text('Empty Stuff'),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-          _Footer(context)
-        ],
-      ),
+        ),
+        _Footer(context)
+      ],
     );
   }
 

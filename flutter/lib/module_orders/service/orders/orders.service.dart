@@ -9,6 +9,7 @@ import 'package:c4d/module_orders/response/order_details/order_details_response.
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/utils/status_helper/status_helper.dart';
+import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:inject/inject.dart';
 
@@ -29,7 +30,7 @@ class OrdersService {
       orders.add(new OrderModel(
         to: element.location,
         clientPhone: element.recipientPhone,
-        from: '',
+        from: element.fromBranch.brancheName,
         creationTime:
             DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
         paymentMethod: element.payment,
@@ -37,7 +38,7 @@ class OrdersService {
       ));
     });
 
-    return orders;
+    return orders.reversed.toList();
   }
 
   Future<OrderModel> getOrderDetails(int orderId) async {
@@ -56,7 +57,7 @@ class OrdersService {
       id: orderId,
       chatRoomId: response.uuid,
       ownerPhone: response.phone,
-      captainPhone: response.acceptedOrder.last.phone,
+      captainPhone: response.acceptedOrder.isNotEmpty ? response.acceptedOrder.last.phone : null,
     );
 
     return order;
@@ -77,7 +78,7 @@ class OrdersService {
       try {
         orders.add(OrderModel(
           to: element.location,
-          from: '',
+          from: element.fromBranch.id.toString(),
           creationTime: DateTime.fromMillisecondsSinceEpoch(
               element.date.timestamp * 1000),
           paymentMethod: element.payment,
@@ -94,19 +95,18 @@ class OrdersService {
   }
 
   Future<bool> addNewOrder(
-      String fromBranch,
+      Branch fromBranch,
       GeoJson destination,
       String note,
       String paymentMethod,
       String recipientName,
       String recipientPhone,
       String date) async {
-    var branchId = await _profileService.getMyBranches();
     var orderRequest = CreateOrderRequest(
       note: note,
       date: date,
       payment: paymentMethod,
-      fromBranch: branchId.toString(),
+      fromBranch: fromBranch.id.toString(),
       recipientName: recipientName,
       recipientPhone: recipientPhone,
       destination: destination,

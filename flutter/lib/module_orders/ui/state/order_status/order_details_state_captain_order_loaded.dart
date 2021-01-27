@@ -2,6 +2,7 @@ import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
@@ -24,113 +25,119 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   @override
   Widget getUI(BuildContext context) {
-    print(currentOrder.id.toString());
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: OrderProgressionHelper.getStatusIcon(
-                currentOrder.status, context),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: StepProgressIndicator(
-              totalSteps: 5,
-              currentStep: currentOrder.status.index,
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+        return;
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: OrderProgressionHelper.getStatusIcon(
+                  currentOrder.status, context),
             ),
-          ),
-          Text(
-            timeago.format(currentOrder.creationTime),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 26,
-            ),
-          ),
-          SizedBox(
-            height: 56,
-          ),
-          // To Progress the Order
-          currentOrder.status == OrderStatus.FINISHED ? Container() : GestureDetector(
-            onTap: () {
-              screenState.requestOrderProgress(currentOrder);
-            },
-            child: CommunicationCard(
-              text: OrderProgressionHelper.getNextStageHelper(
-                currentOrder.status,
-                currentOrder.paymentMethod.toLowerCase().contains('ca'),
-                context,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: StepProgressIndicator(
+                totalSteps: 5,
+                currentStep: currentOrder.status.index,
               ),
-              color: Theme.of(context).accentColor,
-              textColor: Colors.white,
-              image: Icon(Icons.navigate_next_sharp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
-          ),
-          // To Chat with Store owner in app
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                ChatRoutes.chatRoute,
-                arguments: currentOrder.chatRoomId,
-              );
-            },
-            child: CommunicationCard(
-              text: S.of(context).chatWithStoreOwner,
-              image: Icon(Icons.chat_rounded, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+            Text(
+              timeago.format(currentOrder.creationTime),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+              ),
             ),
-          ),
-          // To WhatsApp with store owner
-          GestureDetector(
-            onTap: () async {
-              var url = 'https://wa.me/${currentOrder.ownerPhone}';
-              if (await canLaunch(url)) {
-                await launch(url);
-              } else {
-                throw 'Could not launch $url';
-              }
-            },
-            child: CommunicationCard(
-              text: S.of(context).whatsappWithStoreOwner,
-              image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+            SizedBox(
+              height: 56,
             ),
-          ),
-          // To WhatsApp with client
-          currentOrder.ownerPhone != null
-              ? GestureDetector(
-                  onTap: () async {
-                    var url = 'https://wa.me/${currentOrder.ownerPhone}';
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
-                    }
-                  },
-                  child: CommunicationCard(
-                    text: S.of(context).whatsappWithClient,
-                    image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
-                  ),
-                )
-              : Container(),
-          // To Open Maps
-          GestureDetector(
-            onTap: () {
-              var url =
-                  'https://www.google.com/maps/dir/?api=1&destination=${currentOrder.to.lat},${currentOrder.to.lon}';
-              canLaunch(url).then((value) {
-                if (value) {
-                  launch(url);
+            // To Progress the Order
+            currentOrder.status == OrderStatus.FINISHED ? Container() : GestureDetector(
+              onTap: () {
+                screenState.requestOrderProgress(currentOrder);
+              },
+              child: CommunicationCard(
+                text: OrderProgressionHelper.getNextStageHelper(
+                  currentOrder.status,
+                  currentOrder.paymentMethod.toLowerCase().contains('ca'),
+                  context,
+                ),
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                image: Icon(Icons.navigate_next_sharp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+              ),
+            ),
+            // To Chat with Store owner in app
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  ChatRoutes.chatRoute,
+                  arguments: currentOrder.chatRoomId,
+                );
+              },
+              child: CommunicationCard(
+                text: S.of(context).chatWithStoreOwner,
+                image: Icon(Icons.chat_rounded, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+              ),
+            ),
+            // To WhatsApp with store owner
+            GestureDetector(
+              onTap: () async {
+                var url = 'https://wa.me/${currentOrder.ownerPhone}';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
                 }
-              });
-            },
-            child: CommunicationCard(
-              text: S.of(context).getDirection,
-              image: FaIcon(FontAwesomeIcons.mapSigns, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+              },
+              child: CommunicationCard(
+                text: S.of(context).whatsappWithStoreOwner,
+                image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+              ),
             ),
-          ),
-          Container(height: 36,),
-        ],
+            // To WhatsApp with client
+            currentOrder.ownerPhone != null
+                ? GestureDetector(
+                    onTap: () async {
+                      var url = 'https://wa.me/${currentOrder.ownerPhone}';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    child: CommunicationCard(
+                      text: S.of(context).whatsappWithClient,
+                      image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+                    ),
+                  )
+                : Container(),
+            // To Open Maps
+            GestureDetector(
+              onTap: () {
+                var url =
+                    'https://www.google.com/maps/dir/?api=1&destination=${currentOrder.to.lat},${currentOrder.to.lon}';
+                canLaunch(url).then((value) {
+                  if (value) {
+                    launch(url);
+                  }
+                });
+              },
+              child: CommunicationCard(
+                text: S.of(context).getDirection,
+                image: FaIcon(FontAwesomeIcons.mapSigns, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+              ),
+            ),
+            Container(height: 36,),
+          ],
+        ),
       ),
     );
   }

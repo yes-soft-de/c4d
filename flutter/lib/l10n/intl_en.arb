@@ -127,5 +127,16 @@
   "recipientPhoneNumber": "Recipient Phone Number",
   "pickALanguage": "Pick a Language",
   "pickAJob": "Pick a Job",
-  "paymentMethod": "Payment Method"
+  "paymentMethod": "Payment Method",
+  "pleaseSelectABranch": "Please Select a Branch",
+  "privacyPolicy": "Privacy Policy",
+  "termsOfService": "Terms of Service",
+  "created": "Created",
+  "unknown": "Unknown",
+  "captainAcceptedOrder": "Captain Accepted Order",
+  "captainInStore": "Captain in Store",
+  "captainStartedDelivery": "Captain Started Delivery",
+  "captainGotCash": "Captain Got Cash",
+  "orderIsFinished": "Order is finished",
+  "orderIsCreated": "Order is created"
 }

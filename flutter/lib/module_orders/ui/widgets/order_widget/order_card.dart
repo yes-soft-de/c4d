@@ -9,7 +9,7 @@ class OrderCard extends StatelessWidget {
   OrderCard({
     this.time,
     this.title,
-    this.subTitle,
+    this.subTitle = '',
     this.active,
   });
 
@@ -41,7 +41,7 @@ class OrderCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$time',
+                  '$subTitle $time',
                   style: TextStyle(
                     color: active == true
                         ? Colors.white
