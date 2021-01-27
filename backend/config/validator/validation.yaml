@@ -187,3 +187,10 @@ App\Request\BankUpdateRequest:
       - NotBlank: ~
     accountID:
       - NotBlank: ~
+
+App\Request\ReportCreateRequest:
+  properties:
+    orderId:
+      - NotBlank: ~
+    reason:
+      - NotBlank: ~
