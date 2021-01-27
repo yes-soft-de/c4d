@@ -48,16 +48,17 @@ class RecordService
           
             $firstDate = $this->getFirstDate($record['orderID']); 
             $lastDate = $this->getLastDate($record['orderID']);
-            
-            $completionTime = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
-          
+            if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                 $completionTime = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
+            }
         $response[] = $this->autoMapping->map('array', RecordResponse::class, $record);
        
       
         }
-         $response['completionTime'] = $completionTime ;
-         $response['finalOrderFinal'] = $lastDate[0]['state'] ;
-         
+        if($completionTime && $lastDate) {
+            $response['completionTime'] = $completionTime ;
+            $response['finalOrderFinal'] = $lastDate[0]['state'] ;
+        } 
         return  $response;
     }
 
