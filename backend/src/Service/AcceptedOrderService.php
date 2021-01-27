@@ -146,4 +146,9 @@ class AcceptedOrderService
             return $this->params;
         }
     }
+
+    public function countOrdersInDay($captainID, $fromDate, $toDate)
+     {
+         return $this->acceptedOrderManager->countOrdersInDay($captainID, $fromDate, $toDate);
+     }
 }

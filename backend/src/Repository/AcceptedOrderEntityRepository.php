@@ -207,4 +207,31 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+     
+    public function countOrdersInDay($captainID, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+
+          ->select('AcceptedOrderEntity.date', 'count(AcceptedOrderEntity.id) as countOrdersInDay')
+        
+          ->andWhere('AcceptedOrderEntity.captainID = :captainID') 
+          ->andWhere('AcceptedOrderEntity.date >= :fromDate')
+          ->andWhere('AcceptedOrderEntity.date < :toDate')
+
+          ->addGroupBy('AcceptedOrderEntity.captainID')
+          ->addGroupBy('AcceptedOrderEntity.date')
+
+          ->having('count(AcceptedOrderEntity.captainID) > 0')
+        
+          ->addOrderBy('countOrdersInDay','DESC')
+
+          ->setParameter('captainID', $captainID)
+          ->setParameter('fromDate', $fromDate)
+          ->setParameter('toDate', $toDate)
+          
+          ->getQuery()
+          ->getResult();
+       
+    }
 }

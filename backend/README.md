@@ -257,6 +257,16 @@ ROLE_OWNER
 methods: GET
 ```
 
+### report
+
+#### Create report
+ROLE_OWNER
+
+```
+/report
+methods: POST
+```
+
 
 
 # dashboard 
@@ -479,6 +489,15 @@ methods: GET
 
 ```
 /topCaptains
+methods: GET
+```
+
+
+### report
+
+#### Get reports
+```
+/reports
 methods: GET
 ```
 

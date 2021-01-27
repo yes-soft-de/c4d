@@ -33,6 +33,7 @@ class AcceptedOrderManager
     public function create(AcceptedOrderCreateRequest $request)
     {
         $item = $this->autoMapping->map(AcceptedOrderCreateRequest::class, AcceptedOrderEntity::class, $request);
+       
         $item->setDuration($item->getDuration());
         $item->setState('on way to pick order');
        
@@ -123,5 +124,10 @@ class AcceptedOrderManager
     public function getTopCaptainsInThisMonth($fromDate, $toDate)
     {
         return $this->repository->getTopCaptainsInThisMonth($fromDate, $toDate);
+    }
+
+    public function countOrdersInDay($captainID, $fromDate, $toDate)
+    {
+        return $this->repository->countOrdersInDay($captainID, $fromDate, $toDate);
     }
 }

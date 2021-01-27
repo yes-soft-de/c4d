@@ -297,6 +297,5 @@ class OrderEntityRepository extends ServiceEntityRepository
           
           ->getQuery()
           ->getResult();
-       
     }
 }

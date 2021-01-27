@@ -305,7 +305,7 @@ class OrderService
     public function returnDate($year, $month)
     {
         $fromDate =new \DateTime($year . '-' . $month . '-01'); 
-        $toDate = new \DateTime($fromDate->format('Y-m-d') . ' 1 month');
+        $toDate = new \DateTime($fromDate->format('Y-m-d h:i:s') . ' 1 month');
         return [$fromDate,  $toDate];
      }
 
@@ -335,7 +335,7 @@ class OrderService
     if ($userType == "captain") {
        
         $response[] =$this->acceptedOrderService->countOrdersInMonthForCaptin($date[0], $date[1], $userId);
-
+        dd( $this->acceptedOrderService->countOrdersInDay($userId, $date[0],$date[1]));
         $acceptedInMonth = $this->acceptedOrderService->getAcceptedOrderByCaptainIdInMonth($date[0], $date[1], $userId);
          
         foreach ($acceptedInMonth as $item){
