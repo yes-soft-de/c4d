@@ -27,6 +27,8 @@ class InitAccountStateLoading extends InitAccountState {
   Widget getUI(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(S.of(context).loading),
           CircularProgressIndicator(),

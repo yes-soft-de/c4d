@@ -1,6 +1,7 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerWidget extends StatelessWidget {
   @override
@@ -43,6 +44,16 @@ class DrawerWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
+            ],
+          ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FaIcon(FontAwesomeIcons.ccVisa, size: 36),
+              ),
+              Text(S.of(context).ourBankName),
+              Text(S.of(context).ourBankAccountNumber),
             ],
           ),
           Container(),

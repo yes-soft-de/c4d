@@ -90,6 +90,11 @@ class AuthPrefsHelper {
     await preferencesHelper.remove('token_date');
   }
 
+  Future<void> cleanAll() async {
+    SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
+    preferencesHelper.clear();
+  }
+
   /// @return String Token String
   /// @throw Unauthorized Exception when token is null
   Future<String> getToken() async {

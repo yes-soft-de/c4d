@@ -9,7 +9,7 @@ class InitAccountCaptainStateLoading extends InitAccountState {
 
   @override
   Widget getUI(BuildContext context) {
-    return SafeArea(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

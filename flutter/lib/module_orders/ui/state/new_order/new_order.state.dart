@@ -319,7 +319,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                     child: Text(
                       S.of(context).cancel,
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -346,7 +346,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                     child: Text(
                       S.of(context).apply,
                       style: TextStyle(
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   ),

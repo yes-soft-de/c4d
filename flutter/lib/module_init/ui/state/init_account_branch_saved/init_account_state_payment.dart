@@ -32,7 +32,7 @@ class InitAccountStatePayment extends InitAccountState {
           RaisedButton(
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              child: Text(S.of(context).paySubscription),
+              child: Text(S.of(context).next),
               onPressed: () {
                 screen.moveToOrders();
               })

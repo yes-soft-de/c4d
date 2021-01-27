@@ -31,13 +31,11 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-    Future.delayed(Duration(seconds: 15), () {
+    Future.delayed(Duration(seconds: 30), () {
       loading = false;
-      if (mounted) {
-        setState(() {
-      });
-      }
+      if (mounted) setState(() {});
     });
+    if (mounted) setState(() {});
     return SingleChildScrollView(
       child: Form(
         key: _registerFormKey,
@@ -53,7 +51,9 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
@@ -97,7 +97,9 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black26,
@@ -142,7 +144,9 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black26,

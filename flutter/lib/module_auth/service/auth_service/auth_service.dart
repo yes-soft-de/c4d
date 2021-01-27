@@ -288,5 +288,6 @@ class AuthService {
   Future<void> logout() async {
     await _auth.signOut();
     await _prefsHelper.deleteToken();
+    await _prefsHelper.cleanAll();
   }
 }
