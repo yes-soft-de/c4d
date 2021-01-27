@@ -226,7 +226,7 @@ class OrderService
     {
         return $this->orderManager->countAllOrders();
     }
-
+    
     public function dashboardOrders()
     {
         $response = [];
@@ -236,9 +236,11 @@ class OrderService
         $ongoingOrders = $this->orderManager->ongoingOrders();
       
         foreach ($ongoingOrders as  $ongoingOrder) {
-
+            $ongoingOrder['image'] = $this->specialLinkCheck($ongoingOrder['specialLink']).$ongoingOrder['image'];
             $ongoingOrder['image'] = $ongoingOrder['image'];
             $ongoingOrder['imageURL'] = $ongoingOrder['image'];
+            
+            $ongoingOrder['drivingLicence'] = $this->specialLinkCheck($ongoingOrder['specialLink']).$ongoingOrder['drivingLicence'];
             $ongoingOrder['drivingLicence'] = $ongoingOrder['drivingLicence'];
             $ongoingOrder['drivingLicenceURL'] = $ongoingOrder['drivingLicence'];
             $ongoingOrder['baseURL'] = $this->params;
@@ -246,6 +248,7 @@ class OrderService
             if ($ongoingOrder['fromBranch']){
                 $ongoingOrder['fromBranch'] = $this->branchesService->getBrancheById($ongoingOrder['fromBranch']);
                 }
+                
            $response[]  = $this->autoMapping->map('array',OrdersongoingResponse::class,  $ongoingOrder);
         }  
         return $response;
@@ -399,4 +402,12 @@ class OrderService
     
        return $response;
    }
+
+   public function specialLinkCheck($bool)
+    {
+        if (!$bool)
+        {
+            return $this->params;
+        }
+    }
 }
