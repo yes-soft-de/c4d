@@ -126,5 +126,6 @@
   "apply": "تسجيل",
   "recipientPhoneNumber": "رقم هاتف المستلم",
   "pickALanguage": "Pick a Language",
-  "pickAJob": "Pick a Job"
+  "pickAJob": "Pick a Job",
+  "paymentMethod": "Payment Method"
 }

@@ -180,6 +180,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                       ),
                       child: TextFormField(
                         controller: _toController,
+                        autofocus: false,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -215,7 +216,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                         padding: const EdgeInsets.all(8.0),
                         child: DropdownButtonFormField(
                           decoration: InputDecoration(
-                            hintText: 'Payment Method',
+                            hintText: S.of(context).paymentMethod,
                             hintStyle: TextStyle(color: Colors.white),
                             fillColor: Color(0xff454F63),
                             labelStyle: TextStyle(color: Colors.white),

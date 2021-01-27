@@ -126,5 +126,6 @@
   "apply": "APPLY",
   "recipientPhoneNumber": "Recipient Phone Number",
   "pickALanguage": "Pick a Language",
-  "pickAJob": "Pick a Job"
+  "pickAJob": "Pick a Job",
+  "paymentMethod": "Payment Method"
 }
