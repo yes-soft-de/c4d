@@ -44,14 +44,19 @@ class RegisterStateInit extends RegisterState {
               codeSent: false,
               onLoginRequested: (phone) {
                 loading = true;
+                screen.refresh();
                 screen.registerCaptain(phone);
               },
               onConfirm: (confirmCode) {
+                loading = true;
+                screen.refresh();
                 screen.confirmCaptainSMS(confirmCode);
               },
             ),
             EmailPasswordRegisterForm(
               onRegisterRequest: (email, password, name) {
+                loading = true;
+                screen.refresh();
                 screen.registerOwner(
                   email,
                   email,

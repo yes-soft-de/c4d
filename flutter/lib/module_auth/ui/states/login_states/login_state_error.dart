@@ -46,10 +46,13 @@ class LoginStateError extends LoginState {
                   codeSent: false,
                   onLoginRequested: (phone) {
                     loading = true;
+                    screen.refresh();
                     screen.loginCaptain(phone);
                   },
                   onRetry: () {},
                   onConfirm: (confirmCode) {
+                    loading = true;
+                    screen.refresh();
                     screen.confirmCaptainSMS(confirmCode);
                   },
                 ),

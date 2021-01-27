@@ -53,10 +53,13 @@ class RegisterStateError extends RegisterState {
               codeSent: false,
               onLoginRequested: (phone) {
                 loading = true;
+                screen.refresh();
                 screen.registerCaptain(phone);
               },
               onRetry: () {},
               onConfirm: (confirmCode) {
+                loading = true;
+                screen.refresh();
                 screen.confirmCaptainSMS(confirmCode);
               },
             ),

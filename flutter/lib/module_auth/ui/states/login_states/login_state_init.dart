@@ -50,6 +50,7 @@ class LoginStateInit extends LoginState {
                 },
                 onRetry: () {},
                 onConfirm: (confirmCode) {
+                  screen.refresh();
                   screen.confirmCaptainSMS(confirmCode);
                 },
               ),

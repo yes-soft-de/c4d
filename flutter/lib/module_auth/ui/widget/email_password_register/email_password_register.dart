@@ -31,7 +31,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 15), () {
       loading = false;
       if (mounted) {
         setState(() {
