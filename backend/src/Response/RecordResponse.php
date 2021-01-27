@@ -11,4 +11,6 @@ class RecordResponse
     public $state;
 
     public $startTime;
+
+    public $date;
 }

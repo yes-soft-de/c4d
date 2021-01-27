@@ -38,7 +38,36 @@ class RecordService
     {
         return $this->recordManager->getRecordsByOrderId($orderId);
     }
-    
+
+    public function getRecordsWithcompletionTime($orderId)
+    {
+        $response=[];
+        $records = $this->getRecordsByOrderId($orderId);
+      
+        foreach ($records as $record) {
+          
+            $firstDate = $this->getFirstDate($record['orderID']); 
+            $lastDate = $this->getLastDate($record['orderID']);
+            
+            $completionTime = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
+          
+        $response[] = $this->autoMapping->map('array', RecordResponse::class, $record);
+       
+      
+        }
+         $response['completionTime'] = $completionTime ;
+         $response['finalOrderFinal'] = $lastDate[0]['state'] ;
+         
+        return  $response;
+    }
+
+    public  function subtractTowDates($firstDate, $lastDate) {
+        
+        $difference = $firstDate->diff($lastDate);
+        
+        return $this->format_interval($difference);
+    }
+
     public function getFirstDate($orderId)
     {
         return $this->recordManager->getFirstDate($orderId);
@@ -61,4 +90,16 @@ class RecordService
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
         return  vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
+
+    function format_interval($interval) {
+        $result = "";
+        if ($interval->y) { $result .= $interval->format("%y years "); }
+        if ($interval->m) { $result .= $interval->format("%m months "); }
+        if ($interval->d) { $result .= $interval->format("%d days "); }
+        if ($interval->h) { $result .= $interval->format("%h hours "); }
+        if ($interval->i) { $result .= $interval->format("%i minutes "); }
+        if ($interval->s) { $result .= $interval->format("%s seconds "); }
+    
+        return $result;
+    } 
 }

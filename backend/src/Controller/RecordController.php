@@ -42,7 +42,7 @@ class RecordController extends BaseController
       */
       public function getRecordsByOrderId($orderId)
       {
-          $result = $this->recordService->getRecordsByOrderId($orderId);
+          $result = $this->recordService->getRecordsWithcompletionTime($orderId);
   
           return $this->response($result, self::FETCH);
       }
