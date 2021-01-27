@@ -55,7 +55,7 @@ class RecordService
        
       
         }
-        if($completionTime && $lastDate) {
+        if($firstDate && $lastDate) {
             $response['completionTime'] = $completionTime ;
             $response['finalOrderFinal'] = $lastDate[0]['state'] ;
         } 
