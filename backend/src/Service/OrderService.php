@@ -334,8 +334,8 @@ class OrderService
 
     if ($userType == "captain") {
        
-        $response[] =$this->acceptedOrderService->countOrdersInMonthForCaptin($date[0], $date[1], $userId);
-        dd( $this->acceptedOrderService->countOrdersInDay($userId, $date[0],$date[1]));
+        $response[] = $this->acceptedOrderService->countOrdersInMonthForCaptin($date[0], $date[1], $userId);
+        $response[] = $this->acceptedOrderService->countOrdersInDay($userId, $date[0],$date[1]);
         $acceptedInMonth = $this->acceptedOrderService->getAcceptedOrderByCaptainIdInMonth($date[0], $date[1], $userId);
          
         foreach ($acceptedInMonth as $item){
