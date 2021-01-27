@@ -13,6 +13,6 @@ class EditProfileStateInit extends EditProfileState {
 
   @override
   Widget getUI(BuildContext context) {
-
+    return Scaffold();
   }
 }

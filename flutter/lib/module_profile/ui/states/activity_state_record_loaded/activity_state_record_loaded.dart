@@ -1,16 +1,16 @@
 import 'package:c4d/module_profile/model/activity_model/activity_model.dart';
-import 'package:c4d/module_profile/ui/screen/profile_screen/profile_screen..dart';
-import 'package:c4d/module_profile/ui/states/profile_state/profile_state.dart';
+import 'package:c4d/module_profile/ui/screen/activity_screen/activity_screen.dart';
+import 'package:c4d/module_profile/ui/states/activity_state/activity_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:charts_common/common.dart' as common;
 
-class ProfileStateRecordsLoaded extends ProfileState {
+class ActivityStateRecordsLoaded extends ActivityState {
   List<ActivityModel> activity;
 
-  ProfileStateRecordsLoaded(ProfileScreenState screen, this.activity)
+  ActivityStateRecordsLoaded(ActivityScreenState screen, this.activity)
       : super(screen);
 
   @override

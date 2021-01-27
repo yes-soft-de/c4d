@@ -48,7 +48,7 @@ class SplashScreen extends StatelessWidget {
         }
       } catch (e) {
         await Navigator.of(context).pushNamedAndRemoveUntil(
-            AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
+            AboutRoutes.ROUTE_ABOUT, (route) => false);
         return;
       }
     });
