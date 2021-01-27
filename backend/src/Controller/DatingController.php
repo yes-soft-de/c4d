@@ -3,9 +3,8 @@
 
 namespace App\Controller;
 use App\AutoMapping;
-use App\Request\ReportCreateRequest;
-// use App\Request\BranchesUpdateRequest;
-use App\Service\ReportService;
+use App\Request\DatingCreateRequest;
+use App\Service\DatingService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,25 +12,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-class ReportController extends BaseController
+
+class DatingController extends BaseController
 {
     private $autoMapping;
     private $validator;
-    private $reportService;
+    private $datingService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, ReportService $reportService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, DatingService $datingService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
-        $this->reportService = $reportService;
+        $this->datingService = $datingService;
     }
     
     /**
-     * @Route("report", name="createReport", methods={"POST"})
-     * @IsGranted("ROLE_OWNER")
+     * @Route("dating", name="createdating", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
@@ -39,9 +37,7 @@ class ReportController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ReportCreateRequest::class, (object)$data);
-
-        $request->setUserID($this->getUserId());
+        $request = $this->autoMapping->map(stdClass::class, DatingCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
 
@@ -50,21 +46,9 @@ class ReportController extends BaseController
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
-            $result = $this->reportService->create($request);
+            $result = $this->datingService->create($request);
             
 
         return $this->response($result, self::CREATE);
-    }
-
-    /**
-     * @Route("reports", name="getreportsForAdmin", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @return JsonResponse
-     */
-    public function getReports()
-    {
-        $result = $this->reportService->getReports();
-
-        return $this->response($result, self::FETCH);
     }
 }
