@@ -59,7 +59,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                 TextFormField(
                   decoration: InputDecoration(
                     hintText: S.of(context).phoneNumber,
-                    labelText: '123 456 789',
+                    labelText: S.of(context).recipientPhoneNumber,
                   ),
                   keyboardType: TextInputType.phone,
                 ),
@@ -343,9 +343,9 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                       );
                     },
                     child: Text(
-                      'APPLY',
+                      S.of(context).apply,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
                       ),
                     ),
                   ),

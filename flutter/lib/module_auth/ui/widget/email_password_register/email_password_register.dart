@@ -122,7 +122,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          labelText: 'Email',
+                          labelText: S.of(context).email,
                         ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus(),
@@ -167,7 +167,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          labelText: 'Password',
+                          labelText: S.of(context).password,
                         ),
                         validator: (result) {
                           if (result.length < 5) {
@@ -200,6 +200,9 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                           child: Text(
                             S.of(context).iHaveAnAccount,
                             textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

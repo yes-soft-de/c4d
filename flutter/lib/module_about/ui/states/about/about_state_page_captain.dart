@@ -1,11 +1,13 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_about/ui/screen/about_screen/about_screen.dart';
 import 'package:c4d/module_about/ui/states/about/about_state.dart';
+import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AboutStatePageCaptain extends AboutState {
   int currentPage = 0;
+  final pageController = PageController(initialPage: 0);
 
   AboutStatePageCaptain(AboutScreenState screenState) : super(screenState);
 
@@ -30,6 +32,14 @@ class AboutStatePageCaptain extends AboutState {
                 Text(
                   S.of(context).openTheApp,
                   style: TextStyle(fontSize: 24),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    pageController.animateToPage(1,
+                        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+                  },
                 )
               ],
             ),
@@ -44,6 +54,14 @@ class AboutStatePageCaptain extends AboutState {
                 Text(
                   S.of(context).checkOrders,
                   style: TextStyle(fontSize: 24),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    pageController.animateToPage(2,
+                        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+                  },
                 )
               ],
             ),
@@ -58,6 +76,14 @@ class AboutStatePageCaptain extends AboutState {
                 Text(
                   S.of(context).accept,
                   style: TextStyle(fontSize: 24),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    pageController.animateToPage(3,
+                        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+                  },
                 )
               ],
             ),
@@ -72,6 +98,14 @@ class AboutStatePageCaptain extends AboutState {
                 Text(
                   S.of(context).deliver,
                   style: TextStyle(fontSize: 24),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    pageController.animateToPage(4,
+                        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+                  },
                 )
               ],
             ),
@@ -86,6 +120,14 @@ class AboutStatePageCaptain extends AboutState {
                 Text(
                   S.of(context).earnCash,
                   style: TextStyle(fontSize: 24),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
+                  },
                 )
               ],
             ),

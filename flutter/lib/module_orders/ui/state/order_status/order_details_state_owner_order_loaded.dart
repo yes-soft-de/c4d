@@ -50,7 +50,8 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               ),
             ),
             Text(
-              timeago.format(currentOrder.creationTime, locale: Localizations.localeOf(context).languageCode),
+              timeago.format(currentOrder.creationTime,
+                  locale: Localizations.localeOf(context).languageCode),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -71,7 +72,12 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               },
               child: CommunicationCard(
                 text: S.of(context).openChatRoom,
-                image: Icon(Icons.chat_rounded, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+                image: Icon(
+                  Icons.chat_rounded,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
             ),
             GestureDetector(
@@ -106,7 +112,9 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 ),
               ),
             ),
-            Container(height: 36,),
+            Container(
+              height: 36,
+            ),
           ],
         ),
       ],

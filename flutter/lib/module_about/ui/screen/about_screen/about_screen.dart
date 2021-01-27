@@ -34,10 +34,6 @@ class AboutScreenState extends State<AboutScreen> {
     }
   }
 
-  void setInited() {
-    widget._stateManager.setInited(this);
-  }
-
   void moveToRegister() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.of(context).pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
@@ -77,7 +73,7 @@ class AboutScreenState extends State<AboutScreen> {
           Expanded(child: _currentState.getUI(context)),
           GestureDetector(
             onTap: () {
-              setInited();
+              moveToRegister();
             },
             child: Padding(
               padding: const EdgeInsets.all(16.0),

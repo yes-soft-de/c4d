@@ -10,7 +10,7 @@ import 'package:lottie/lottie.dart';
 @provide
 class AboutStatePageInit extends AboutState {
   AboutScreenState screenState;
-  String currentLanguage = 'en';
+  String currentLanguage;
   UserRole currentRole;
 
   AboutStatePageInit(this.screenState) : super(screenState);
@@ -80,12 +80,14 @@ class AboutStatePageInit extends AboutState {
             },
             child: Container(
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(context).primaryColor
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  color: Theme.of(context).primaryColor),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.navigate_next, color: Colors.white,),
+                child: Text(
+                  S.of(context).next,
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -125,12 +127,15 @@ class AboutStatePageInit extends AboutState {
                 itemExtent: 30,
                 scrollController: FixedExtentScrollController(initialItem: 1),
                 children: [
+                  Text(S.of(ctx).pickALanguage),
                   Text('English'),
                   Text('العربية'),
                 ],
                 onSelectedItemChanged: (lang) {
-                  currentLanguage = lang == 1 ? 'ar' : 'en';
-                  screenState.setLanguage(lang == 1 ? 'ar' : 'en');
+                  if (lang > 0) {
+                    currentLanguage = lang == 2 ? 'ar' : 'en';
+                    screenState.setLanguage(lang == 2 ? 'ar' : 'en');
+                  }
                 },
               ),
             ));
@@ -147,14 +152,19 @@ class AboutStatePageInit extends AboutState {
                 itemExtent: 30,
                 scrollController: FixedExtentScrollController(initialItem: 1),
                 children: [
+                  Text(S.of(ctx).pickAJob),
                   Text(S.of(ctx).captain),
                   Text(S.of(ctx).storeOwner),
                 ],
                 onSelectedItemChanged: (type) {
-                  currentRole = type == 0 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER;
-                  screenState.setCurrentUser(
-                      type == 0 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER);
-                  screenState.refresh();
+                  if (type > 0) {
+                    currentRole =
+                        type == 1 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER;
+                    screenState.setCurrentUser(type == 1
+                        ? UserRole.ROLE_CAPTAIN
+                        : UserRole.ROLE_OWNER);
+                    screenState.refresh();
+                  }
                 },
               ),
             ));

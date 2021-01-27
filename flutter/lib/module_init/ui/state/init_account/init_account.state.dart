@@ -26,7 +26,12 @@ class InitAccountStateLoading extends InitAccountState {
   @override
   Widget getUI(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(S.of(context).loading)),
+      body: Column(
+        children: [
+          Text(S.of(context).loading),
+          CircularProgressIndicator(),
+        ],
+      ),
     );
   }
 }

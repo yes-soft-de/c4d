@@ -1234,6 +1234,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Package`
+  String get package {
+    return Intl.message(
+      'Package',
+      name: 'package',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order/Month`
+  String get ordermonth {
+    return Intl.message(
+      'Order/Month',
+      name: 'ordermonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car`
+  String get car {
+    return Intl.message(
+      'Car',
+      name: 'car',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `APPLY`
+  String get apply {
+    return Intl.message(
+      'APPLY',
+      name: 'apply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recipient Phone Number`
+  String get recipientPhoneNumber {
+    return Intl.message(
+      'Recipient Phone Number',
+      name: 'recipientPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick a Language`
+  String get pickALanguage {
+    return Intl.message(
+      'Pick a Language',
+      name: 'pickALanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick a Job`
+  String get pickAJob {
+    return Intl.message(
+      'Pick a Job',
+      name: 'pickAJob',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,3 +1,4 @@
+import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/enums/auth_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
@@ -13,10 +14,10 @@ import 'package:rxdart/rxdart.dart';
 @provide
 class RegisterStateManager {
   final AuthService _authService;
-  final PublishSubject<RegisterState> _registerStateSubject =
-      PublishSubject<RegisterState>();
+  final AboutService _aboutService;
+  final _registerStateSubject = PublishSubject<RegisterState>();
 
-  RegisterStateManager(this._authService);
+  RegisterStateManager(this._authService, this._aboutService);
 
   Stream<RegisterState> get stateStream => _registerStateSubject.stream;
 
@@ -25,7 +26,10 @@ class RegisterStateManager {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          _registerStateSubject.add(RegisterStateSuccess(_registerScreenState));
+          _aboutService.setInited().then((value) {
+            _registerStateSubject.add(
+                RegisterStateSuccess(_registerScreenState));
+          });
           break;
         case AuthStatus.CODE_SENT:
           _registerStateSubject
@@ -52,7 +56,10 @@ class RegisterStateManager {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          _registerStateSubject.add(RegisterStateSuccess(_registerScreenState));
+          _aboutService.setInited().then((value) {
+            _registerStateSubject
+                .add(RegisterStateSuccess(_registerScreenState));
+          });
           break;
         default:
           _registerStateSubject.add(RegisterStateInit(_registerScreenState));

@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/model/package/packages.model.dart';
 import 'package:flutter/material.dart';
 
@@ -24,15 +25,15 @@ class PackageCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Package ${package.id}',
+              S.of(context).package + ' ' + package.id.toString(),
               style: TextStyle(color: active ? Colors.white : Colors.black),
             ),
             Text(
-              '${package.orderCount} Order/Month',
+              '${package.orderCount}' + S.of(context).ordermonth,
               style: TextStyle(color: active ? Colors.white : Colors.black),
             ),
             Text(
-              '${package.carCount} Car',
+              '${package.carCount} ' + S.of(context).car,
               style: TextStyle(color: active ? Colors.white : Colors.black),
             ),
             Text(

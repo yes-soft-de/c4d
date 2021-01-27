@@ -69,33 +69,26 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       widget._stateManager.getOrderDetails(orderId, this);
       currentState = OrderDetailsStateInit(this);
     }
-    return WillPopScope(
-      onWillPop: () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
-        return;
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.navigate_before),
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
-            },
-          ),
-          title: Text(
-            S.of(context).orderDetails,
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-            ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.navigate_before),
+          onPressed: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+          },
+        ),
+        title: Text(
+          S.of(context).orderDetails,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
           ),
         ),
-        body: currentState.getUI(context),
       ),
+      body: currentState.getUI(context),
     );
   }
 }

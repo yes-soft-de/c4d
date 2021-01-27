@@ -34,18 +34,6 @@ class ChatPageState extends State<ChatPage> {
 
   @override
   void initState() {
-    widget._chatPageBloc.getMessages(chatRoomId);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    chatRoomId = ModalRoute.of(context).settings.arguments;
-
-    if (currentState == ChatPageBloc.STATUS_CODE_INIT) {
-      widget._chatPageBloc.getMessages(chatRoomId);
-    }
-
     widget._chatPageBloc.chatBlocStream.listen((event) {
       currentState = event.first;
       if (event.first == ChatPageBloc.STATUS_CODE_GOT_DATA) {
@@ -58,6 +46,15 @@ class ChatPageState extends State<ChatPage> {
         }
       }
     });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (currentState == ChatPageBloc.STATUS_CODE_INIT) {
+      chatRoomId = ModalRoute.of(context).settings.arguments;
+      widget._chatPageBloc.getMessages(chatRoomId);
+    }
 
     return Scaffold(
       body: Column(

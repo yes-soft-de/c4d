@@ -85,14 +85,18 @@ class OrderDetailsData {
     location = GeoJson.fromJson(json['location']);
     brancheName = json['brancheName'];
     branchCity = json['branchCity'];
-    if (json['acceptedOrder'] != null) {
-      if (json['acceptedOrder'] is List) {
-        List<Map<String, dynamic>> orders = json['accptedOrder'];
-        acceptedOrder = <AcceptedOrder>[];
-        orders.forEach((element) {
-          acceptedOrder.add(AcceptedOrder.fromJson(element));
-        });
+    try {
+      if (json['acceptedOrder'] != null) {
+        if (json['acceptedOrder'] is List) {
+          List<Map<String, dynamic>> orders = json['accptedOrder'];
+          acceptedOrder = <AcceptedOrder>[];
+          orders.forEach((element) {
+            acceptedOrder.add(AcceptedOrder.fromJson(element));
+          });
+        }
       }
+    } catch (e) {
+      print(e);
     }
     record = json['record'];
     uuid = json['uuid'];
@@ -119,7 +123,11 @@ class OrderDetailsData {
     data['location'] = this.location;
     data['brancheName'] = this.brancheName;
     data['branchCity'] = this.branchCity;
-    data['acceptedOrder'] = this.acceptedOrder;
+    try {
+      data['acceptedOrder'] = this.acceptedOrder;
+    } catch (e) {
+      print(e.toString());
+    }
     data['record'] = this.record;
     data['uuid'] = this.uuid;
     return data;

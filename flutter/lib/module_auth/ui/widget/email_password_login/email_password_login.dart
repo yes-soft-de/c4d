@@ -68,7 +68,9 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                       ),
                       child: TextFormField(
                         controller: _loginEmailController,
@@ -113,7 +115,9 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                       ),
                       child: TextFormField(
                         controller: _loginPasswordController,
@@ -159,6 +163,9 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                           ? S.of(context).loading
                           : S.of(context).register,
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/enums/auth_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
@@ -13,13 +14,14 @@ import 'package:rxdart/rxdart.dart';
 @provide
 class LoginStateManager {
   final AuthService _authService;
+  final AboutService _aboutService;
   final PublishSubject<LoginState> _loginStateSubject =
       PublishSubject<LoginState>();
 
   String _email;
   String _password;
 
-  LoginStateManager(this._authService);
+  LoginStateManager(this._authService, this._aboutService);
 
   Stream<LoginState> get stateStream => _loginStateSubject.stream;
 
@@ -54,7 +56,9 @@ class LoginStateManager {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          _loginStateSubject.add(LoginStateSuccess(_loginScreenState));
+          _aboutService.setInited().then((value) {
+            _loginStateSubject.add(LoginStateSuccess(_loginScreenState));
+          });
           break;
         default:
           _loginStateSubject.add(LoginStateInit(_loginScreenState));

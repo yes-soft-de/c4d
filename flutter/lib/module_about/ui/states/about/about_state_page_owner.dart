@@ -5,94 +5,162 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AboutStatePageOwner extends AboutState {
+  int currentPage = 0;
+  final pageController = PageController(initialPage: 0);
+
   AboutStatePageOwner(AboutScreenState screenState) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
-    return PageView(
+    return Stack(
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        PageView(
+          controller: pageController,
+          onPageChanged: (pos) {
+            currentPage = pos;
+            screenState.refresh();
+          },
           children: [
-            Icon(
-              Icons.mobile_friendly,
-              size: 96,
-              color: Theme.of(context).primaryColor,
-            ),
-            Text(
-              S.of(context).openTheApp,
-              style: TextStyle(fontSize: 24),
-            )
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.book_online,
-              size: 96,
-              color: Theme.of(context).primaryColor,
-            ),
-            Text(
-              S.of(context).bookACar,
-              style: TextStyle(fontSize: 24),
-            )
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            FaIcon(
-              FontAwesomeIcons.car,
-              size: 96,
-              color: Theme.of(context).primaryColor,
-            ),
-            Text(
-              S.of(context).weDeliver,
-              style: TextStyle(fontSize: 24),
-            )
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(S.of(context).toFindOutMorePleaseLeaveYourPhonenandWeWill, textAlign: TextAlign.center,),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Flex(direction: Axis.vertical,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                      hintText: S.of(context).phoneNumber,
-                      labelText: S.of(context).phoneNumber,
-                      suffix: Icon(Icons.call)),
-                  keyboardType: TextInputType.phone,
+                Icon(
+                  Icons.mobile_friendly,
+                  size: 96,
+                  color: Theme.of(context).primaryColor,
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      hintText: S.of(context).name,
-                      labelText: S.of(context).name,
-                      suffix: Icon(Icons.person)),
-                  keyboardType: TextInputType.phone,
+                Text(
+                  S.of(context).openTheApp,
+                  style: TextStyle(fontSize: 24),
                 ),
-              ],),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    pageController.animateToPage(1,
+                        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+                  },
+                )
+              ],
             ),
-            RaisedButton(
-              color: Theme.of(context).primaryColor,
-              onPressed: () {
-                screenState.setBookingSuccess();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(S.of(context).requestMeeting),
-              ),
-            )
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(
+                  Icons.book_online,
+                  size: 96,
+                  color: Theme.of(context).primaryColor,
+                ),
+                Text(
+                  S.of(context).bookACar,
+                  style: TextStyle(fontSize: 24),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    pageController.animateToPage(2,
+                        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+                  },
+                )
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.car,
+                  size: 96,
+                  color: Theme.of(context).primaryColor,
+                ),
+                Text(
+                  S.of(context).weDeliver,
+                  style: TextStyle(fontSize: 24),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  child: Text(S.of(context).next),
+                  onPressed: () {
+                    pageController.animateToPage(3,
+                        duration: Duration(seconds: 1), curve: Curves.bounceIn);
+                  },
+                )
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    S.of(context).toFindOutMorePleaseLeaveYourPhonenandWeWill,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Flex(
+                    direction: Axis.vertical,
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: S.of(context).phoneNumber,
+                            labelText: S.of(context).phoneNumber,
+                            suffix: Icon(Icons.call)),
+                        keyboardType: TextInputType.phone,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: S.of(context).name,
+                            labelText: S.of(context).name,
+                            suffix: Icon(Icons.person)),
+                        keyboardType: TextInputType.phone,
+                      ),
+                    ],
+                  ),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    screenState.setBookingSuccess();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(S.of(context).requestMeeting),
+                  ),
+                )
+              ],
+            ),
           ],
         ),
+        Positioned(
+          bottom: 16,
+          left: 0,
+          right: 0,
+          child: getIndicator(),
+        )
       ],
+    );
+  }
+
+  Widget getIndicator() {
+    var circles = <Widget>[];
+    for (int i = 0; i < 5; i++) {
+      circles.add(Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+          height: 12,
+          width: 12,
+          decoration: BoxDecoration(
+              color: i <= currentPage ? Colors.cyan : Colors.grey,
+              shape: BoxShape.circle),
+        ),
+      ));
+    }
+    return Flex(
+      direction: Axis.horizontal,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: circles,
     );
   }
 }

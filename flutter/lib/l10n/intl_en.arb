@@ -119,5 +119,12 @@
   "errorLoadingBranches": "Error Loading Branches",
   "cancel": "CANCEL",
   "ourBankName": "Our Bank Name",
-  "ourBankAccountNumber": "Our Bank Account Number"
+  "ourBankAccountNumber": "Our Bank Account Number",
+  "package": "Package",
+  "ordermonth": "Order/Month",
+  "car": "Car",
+  "apply": "APPLY",
+  "recipientPhoneNumber": "Recipient Phone Number",
+  "pickALanguage": "Pick a Language",
+  "pickAJob": "Pick a Job"
 }
