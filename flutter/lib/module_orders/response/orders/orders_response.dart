@@ -186,7 +186,11 @@ class FromBranch {
   FromBranch(
       {this.id, this.ownerID, this.location, this.city, this.brancheName});
 
-  FromBranch.fromJson(Map<String, dynamic> json) {
+  FromBranch.fromJson(data) {
+    if (!(data is Map)) {
+      return;
+    }
+    Map<String, dynamic> json = data;
     id = json['id'];
     ownerID = json['ownerID'];
     location = json['location'] != null

@@ -16,7 +16,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-
   ProfileState _currentState;
 
   @override
@@ -36,7 +35,13 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).profile),
+        title: Text(
+          S.of(context).profile,
+          style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.white),
+        ),
       ),
       body: _currentState.getUI(context),
     );
