@@ -46,18 +46,8 @@ class DatingManager
         return $entity;
     }
 
-    public function getReports()
+    public function datings()
     {
-        return $this->repository->getReports();
-    }
-
-    public function branchesByUserId($userId)
-    {
-        return $this->branchesRepository->branchesByUserId($userId);
-    }
-
-    public function getBrancheById($Id)
-    {
-        return $this->branchesRepository->find($Id);
+        return $this->repository->datings();
     }
 }

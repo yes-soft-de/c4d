@@ -267,6 +267,14 @@ ROLE_OWNER
 methods: POST
 ```
 
+### Dating
+
+#### Get reports
+ROLE_OWNER
+```
+/dating
+methods: POST
+```
 
 
 # dashboard 
@@ -492,12 +500,19 @@ methods: GET
 methods: GET
 ```
 
-
 ### report
 
 #### Get reports
 ```
 /reports
+methods: GET
+```
+
+### Dating
+
+#### Get reports
+```
+/datings
 methods: GET
 ```
 

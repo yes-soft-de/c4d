@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class DatingController extends BaseController
@@ -51,4 +52,17 @@ class DatingController extends BaseController
 
         return $this->response($result, self::CREATE);
     }
+
+    /**
+      * @Route("/datings", name="Getdatings", methods={"GET"})
+      * @IsGranted("ROLE_ADMIN")
+      * @param                     Request $request
+      * @return                    JsonResponse
+      */
+      public function datings()
+      {
+          $result = $this->datingService->datings();
+  
+          return $this->response($result, self::FETCH);
+      }
 }

@@ -26,23 +26,13 @@ class DatingService
         return $this->autoMapping->map(DatingEntity::class, DatingResponse::class, $reprot);
     }
 
-    public function getReports()
+    public function datings()
     {
         $response = [];
-        $items = $this->reportManager->getReports();
+        $items = $this->datingManager->datings();
         foreach ($items as $item) {
-        $response[] =  $this->autoMapping->map('array', ReportResponse::class, $item);
+        $response[] =  $this->autoMapping->map('array', DatingResponse::class, $item);
         }
         return $response;
     }
-
-    // public function branchesByUserId($userId)
-    // {
-    //     return $this->branchesManager->branchesByUserId($userId);
-    // }
-
-    // public function getBrancheById($Id)
-    // {
-    //     return $this->branchesManager->getBrancheById($Id);
-    // }
 }
