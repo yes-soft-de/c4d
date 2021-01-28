@@ -40,7 +40,7 @@ class ActivityScreenState extends State<ActivityScreen> {
           style: TextStyle(
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
-                  : Colors.white),
+                  : Colors.black),
         ),
       ),
       body: _currentState.getUI(context),

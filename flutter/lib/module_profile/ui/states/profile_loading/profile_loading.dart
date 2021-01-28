@@ -10,12 +10,15 @@ class ProfileStateLoading extends ProfileState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(S.of(context).loading),
-        CircularProgressIndicator(),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(S.of(context).loading),
+          CircularProgressIndicator(),
+        ],
+      ),
     );
   }
 }

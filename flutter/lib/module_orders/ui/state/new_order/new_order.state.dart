@@ -265,7 +265,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                               Padding(
                                 padding: EdgeInsets.fromLTRB(8, 16, 8, 16),
                                 child: Text(
-                                  '${orderDate.hour % 12} : ${orderDate.minute} ${orderDate.hour > 12 ? 'PM' : 'AM'}',
+                                  '${orderDate.toIso8601String().substring(11, 16)}',
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -294,7 +294,9 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                   controller: _infoController,
                   autofocus: false,
                   style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 16,
                   ),
                   maxLines: 8,
@@ -337,7 +339,8 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                     color: Theme.of(context).primaryColor,
                     onPressed: () {
                       if (activeBranch == null) {
-                        screenState.showSnackBar(S.of(context).pleaseSelectABranch);
+                        screenState
+                            .showSnackBar(S.of(context).pleaseSelectABranch);
                         return;
                       }
                       print(jsonEncode(activeBranch));
@@ -422,7 +425,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                   .map((e) => DropdownMenuItem<Branch>(
                         value: e,
                         child: Text(
-                          '${S.of(context).branch} ${e.brancheName}',
+                          '${S.of(context).branch} ${int.tryParse(e.brancheName) + 1}',
                           style: TextStyle(
                             color: Colors.white,
                           ),

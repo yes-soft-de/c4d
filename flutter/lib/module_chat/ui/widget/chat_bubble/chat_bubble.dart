@@ -43,7 +43,7 @@ class ChatBubbleWidgetState extends State<ChatBubbleWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(timeago.format(widget.sentDate)),
+                Text(timeago.format(widget.sentDate ?? DateTime.now())),
                 widget.message.contains('http')
                     ? Image.network(widget.message.replaceFirst('uploadimage', 'upload/image'))
                     : Text(

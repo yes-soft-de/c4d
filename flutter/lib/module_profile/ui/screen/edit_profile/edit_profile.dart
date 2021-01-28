@@ -18,7 +18,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   List<ProfileState> states = [];
 
   void saveProfile(String name, String phone, String image) {
-
+    widget._stateManager.submitProfile(this, name, phone, image);
   }
 
   void uploadImage(String name, String phone, String image) {
@@ -37,7 +37,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     if (states.isEmpty) {
-      return ProfileStateLoading(this).getUI(context);
+      return Scaffold(body: ProfileStateLoading(this).getUI(context));
     } else {
       return states.last.getUI(context);
     }

@@ -10,24 +10,44 @@ class ReportDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 480,
+      height: 360,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(S.of(context).createNewReport),
-          TextFormField(
-            controller: _reasonController,
-            decoration: InputDecoration(
-              hintText: S.of(context).reasonOfTheReport,
-            ),
-            maxLines: 4,
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(S.of(context).createNewReport, style: TextStyle(fontSize: 20),),
           ),
-          RaisedButton(onPressed: () {
-            Navigator.of(context).pop();
-          }),
-          RaisedButton(onPressed: () {
-            onReport(_reasonController.text);
-            Navigator.of(context).pop();
-          }),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextFormField(
+                controller: _reasonController,
+                decoration: InputDecoration(
+                  hintText: S.of(context).reasonOfTheReport,
+                ),
+                maxLines: 6,
+              ),
+            ),
+          ),
+          RaisedButton(
+              child: Text(
+                S.of(context).cancel,
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+          RaisedButton(
+              color: Colors.red,
+              child: Text(
+                S.of(context).save,
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                onReport(_reasonController.text);
+                Navigator.of(context).pop();
+              }),
         ],
       ),
     );

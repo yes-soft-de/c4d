@@ -125,8 +125,8 @@
   "car": "سيارة ",
   "apply": "تسجيل",
   "recipientPhoneNumber": "رقم هاتف المستلم",
-  "pickALanguage": "اخاتر لغتي",
-  "pickAJob": "اخاتر عملي",
+  "pickALanguage": "اختار لغتي",
+  "pickAJob": "اختار عملي",
   "paymentMethod": "طريقة الدفع",
   "pleaseSelectABranch": "الرجاء اختيار فرع تجاري",
   "privacyPolicy": "شروط الخصوصية",
@@ -140,8 +140,8 @@
   "orderIsFinished": "تم انهاء الطلب",
   "orderIsCreated": "تم الانشاء",
   "activityLog": "سجل الاستخدام",
-  "saveSuccess": "Save Success",
-  "myProfile": "My Profile",
-  "reasonOfTheReport": "Reason of the report",
-  "createNewReport": "Create new Report"
+  "saveSuccess": "تم بنجاح",
+  "myProfile": "معلوماتي",
+  "reasonOfTheReport": "سبب التبليغ",
+  "createNewReport": "تبليغ جديد"
 }

@@ -8,6 +8,9 @@ class AboutStatePageOwner extends AboutState {
   int currentPage = 0;
   final pageController = PageController(initialPage: 0);
 
+  final _phoneController = TextEditingController();
+  final _nameController = TextEditingController();
+
   AboutStatePageOwner(AboutScreenState screenState) : super(screenState);
 
   @override
@@ -99,24 +102,41 @@ class AboutStatePageOwner extends AboutState {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Flex(
-                    direction: Axis.vertical,
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                            hintText: S.of(context).phoneNumber,
-                            labelText: S.of(context).phoneNumber,
-                            suffix: Icon(Icons.call)),
-                        keyboardType: TextInputType.phone,
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                            hintText: S.of(context).name,
-                            labelText: S.of(context).name,
-                            suffix: Icon(Icons.person)),
-                        keyboardType: TextInputType.phone,
-                      ),
-                    ],
+                  child: Form(
+                    autovalidateMode: AutovalidateMode.always,
+                    child: Flex(
+                      direction: Axis.vertical,
+                      children: [
+                        TextFormField(
+                          controller: _phoneController,
+                          validator: (phone) {
+                            if (phone.isEmpty) {
+                              return S.of(context).pleaseInputPhoneNumber;
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              hintText: S.of(context).phoneNumber,
+                              labelText: S.of(context).phoneNumber,
+                              suffix: Icon(Icons.call)),
+                          keyboardType: TextInputType.phone,
+                        ),
+                        TextFormField(
+                          controller: _nameController,
+                          validator: (name) {
+                            if (name.isEmpty) {
+                              return S.of(context).nameIsRequired;
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              hintText: S.of(context).name,
+                              labelText: S.of(context).name,
+                              suffix: Icon(Icons.person)),
+                          keyboardType: TextInputType.phone,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 RaisedButton(

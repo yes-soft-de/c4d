@@ -21,7 +21,7 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   UserRole currentUserRole;
 
-  LoginState _currentState;
+  final List<LoginState> _currentStates = [];
 
   StreamSubscription _stateSubscription;
   bool deepLinkChecked = false;
@@ -33,11 +33,11 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _currentState = LoginStateInit(this);
+    _currentStates.add(LoginStateInit(this));
     _stateSubscription = widget._stateManager.stateStream.listen((event) {
       if (mounted) {
         setState(() {
-          _currentState = event;
+          _currentStates.add(event);
         });
       }
     });
@@ -46,7 +46,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentState.getUI(context),
+      body: _currentStates.last.getUI(context),
     );
   }
 
@@ -80,6 +80,6 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void retryPhone() {
-    _currentState = LoginStateInit(this);
+    _currentStates.add(LoginStateInit(this));
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_about/about_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
@@ -28,13 +30,20 @@ void main() async {
   await timeago.setLocaleMessages('ar', timeago.ArMessages());
   await timeago.setLocaleMessages('en', timeago.EnMessages());
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FirebaseCrashlytics.instance.recordFlutterError(details);
+  };
   await Firebase.initializeApp();
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) async {
     final container = await AppComponent.create();
-    runApp(container.app);
+      await runZoned(() async {
+        runApp(container.app);
+      }, onError: (exception, stack){
+        FirebaseCrashlytics.instance.recordError(exception, stack);
+      });
   });
 }
 

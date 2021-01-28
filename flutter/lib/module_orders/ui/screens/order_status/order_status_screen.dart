@@ -84,6 +84,8 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
             } else if (currentState is OrderDetailsStateCaptainOrderLoaded) {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+            } else {
+              Navigator.of(context).pop();
             }
           },
         ),
@@ -100,12 +102,13 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
               icon: Icon(Icons.flag),
               onPressed: () {
                 showDialog(
-                    context: context,
-                    builder: (ctx) {
-                      return ReportDialogWidget((reason) {
-                        widget._stateManager.report(orderId, reason);
-                      });
-                    });
+                  context: context,
+                  child: Dialog(
+                    child: ReportDialogWidget((reason) {
+                      widget._stateManager.report(orderId, reason);
+                    }),
+                  ),
+                );
               }),
         ],
       ),
