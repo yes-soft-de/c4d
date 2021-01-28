@@ -27,14 +27,14 @@ import 'module_splash/splash_routes.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await timeago.setLocaleMessages('ar', timeago.ArMessages());
   await timeago.setLocaleMessages('en', timeago.EnMessages());
-  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = (FlutterErrorDetails details) {
     FirebaseCrashlytics.instance.recordFlutterError(details);
   };
-  await Firebase.initializeApp();
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) async {

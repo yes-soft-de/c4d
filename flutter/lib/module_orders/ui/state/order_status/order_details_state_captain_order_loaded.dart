@@ -106,7 +106,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             currentOrder.ownerPhone != null
                 ? GestureDetector(
                     onTap: () async {
-                      var url = 'https://wa.me/${currentOrder.ownerPhone}';
+                      var url = 'https://wa.me/${currentOrder.clientPhone}';
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {

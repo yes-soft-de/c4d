@@ -10,6 +10,7 @@ class AboutStatePageOwner extends AboutState {
 
   final _phoneController = TextEditingController();
   final _nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   AboutStatePageOwner(AboutScreenState screenState) : super(screenState);
 
@@ -103,6 +104,7 @@ class AboutStatePageOwner extends AboutState {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Form(
+                    key: _formKey,
                     autovalidateMode: AutovalidateMode.always,
                     child: Flex(
                       direction: Axis.vertical,
@@ -142,7 +144,11 @@ class AboutStatePageOwner extends AboutState {
                 RaisedButton(
                   color: Theme.of(context).primaryColor,
                   onPressed: () {
-                    screenState.setBookingSuccess();
+                    if (_formKey.currentState.validate()) {
+                      screenState.setBookingSuccess();
+                    } else {
+                      screenState.showSnackBar(S.of(context).pleaseCompleteTheForm);
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),

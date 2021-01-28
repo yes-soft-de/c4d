@@ -7,6 +7,7 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 
 @provide
 class SettingsScreen extends StatefulWidget {
@@ -67,30 +68,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: Colors.black12,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(S.of(context).renewSubscription),
-                    IconButton(
-                        icon: Icon(Icons.autorenew_sharp),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(InitAccountRoutes.INIT_ACCOUNT_SCREEN);
-                        }),
-                  ],
-                ),
-              ),
-            ),
+          FutureBuilder(
+            future: widget._authService.userRole, builder: (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
+              if (snapshot.data == UserRole.ROLE_CAPTAIN) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.black12,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(S.of(context).renewSubscription),
+                          IconButton(
+                              icon: Icon(Icons.autorenew_sharp),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                              }),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
+          },
+
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

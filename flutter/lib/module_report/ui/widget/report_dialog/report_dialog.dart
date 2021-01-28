@@ -2,10 +2,9 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ReportDialogWidget extends StatelessWidget {
-  final Function(String) onReport;
   final _reasonController = TextEditingController();
 
-  ReportDialogWidget(this.onReport);
+  ReportDialogWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +44,7 @@ class ReportDialogWidget extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                onReport(_reasonController.text);
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(_reasonController.text);
               }),
         ],
       ),

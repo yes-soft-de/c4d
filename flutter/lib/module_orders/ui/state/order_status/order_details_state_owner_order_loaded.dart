@@ -58,8 +58,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 ),
               ),
               Text(
-                timeago.format(currentOrder.creationTime,
-                    locale: 'ar'),
+                timeago.format(currentOrder.creationTime, locale: 'ar'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -89,11 +88,13 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    ChatRoutes.chatRoute,
-                    arguments: currentOrder.chatRoomId,
-                  );
+                onTap: () async {
+                  var url = 'https://wa.me/${currentOrder.captainPhone}';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
                 child: CommunicationCard(
                   text: S.of(context).whatsappWithCaptain,
@@ -103,23 +104,25 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () async {
-                  var url = 'https://wa.me/${currentOrder.ownerPhone}';
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw 'Could not launch $url';
-                  }
-                },
-                child: CommunicationCard(
-                  text: S.of(context).whatsappWithClient,
-                  image: FaIcon(
-                    FontAwesomeIcons.whatsapp,
-                    color: Colors.green,
-                  ),
-                ),
-              ),
+              currentOrder.clientPhone == null
+                  ? Container()
+                  : GestureDetector(
+                      onTap: () async {
+                        var url = 'https://wa.me/${currentOrder.clientPhone}';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
+                      child: CommunicationCard(
+                        text: S.of(context).whatsappWithClient,
+                        image: FaIcon(
+                          FontAwesomeIcons.whatsapp,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
               Container(
                 height: 36,
               ),

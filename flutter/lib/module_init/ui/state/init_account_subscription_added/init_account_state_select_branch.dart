@@ -121,7 +121,7 @@ class InitAccountStateSelectBranch extends InitAccountState {
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${S.of(context).branch} ${i + 1}'),
+            Text('${S.of(context).branch} ${i}'),
             Flex(
               direction: Axis.horizontal,
               children: [

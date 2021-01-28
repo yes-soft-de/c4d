@@ -1474,6 +1474,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Help`
+  String get help {
+    return Intl.message(
+      'Help',
+      name: 'help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Complete the Form`
+  String get pleaseCompleteTheForm {
+    return Intl.message(
+      'Please Complete the Form',
+      name: 'pleaseCompleteTheForm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

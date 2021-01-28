@@ -35,26 +35,32 @@ class DrawerWidget extends StatelessWidget {
             Flex(
               direction: Axis.vertical,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
-                  },
-                  child: Text(
-                    S.of(context).settings,
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                    textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(SettingRoutes.ROUTE_SETTINGS);
+                    },
+                    child: Text(
+                      S.of(context).settings,
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
-                  },
-                  child: Text(
-                    S.of(context).myProfile,
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                    textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
+                    },
+                    child: Text(
+                      S.of(context).myProfile,
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ],

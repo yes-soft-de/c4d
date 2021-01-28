@@ -126,9 +126,11 @@ class InitAccountStateManager {
     var branches = <Branch>[];
     for (int i = 0; i < position.length; i++) {
       branches.add(Branch(
-          brancheName: '${i}',
-          location:
-              Location(lat: position[i].latitude, lon: position[i].longitude)));
+          brancheName: '${i + 1}',
+          location: Location(
+            lat: position[i].latitude,
+            lon: position[i].longitude,
+          )));
     }
 
     _profileService.saveBranch(branches).then((value) {

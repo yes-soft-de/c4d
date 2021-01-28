@@ -21,6 +21,7 @@ class OrderRepository {
   );
 
   Future<bool> addNewOrder(CreateOrderRequest orderRequest) async {
+    await _authService.refreshToken();
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.NEW_ORDER_API,

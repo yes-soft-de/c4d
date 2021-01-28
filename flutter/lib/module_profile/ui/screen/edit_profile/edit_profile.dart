@@ -31,6 +31,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       states.add(event);
       setState(() {});
     });
+    widget._stateManager.getProfile(this);
     super.initState();
   }
 

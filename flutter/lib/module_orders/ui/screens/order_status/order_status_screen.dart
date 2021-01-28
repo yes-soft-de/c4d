@@ -104,11 +104,18 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                 showDialog(
                   context: context,
                   child: Dialog(
-                    child: ReportDialogWidget((reason) {
-                      widget._stateManager.report(orderId, reason);
-                    }),
+                    child: ReportDialogWidget(),
                   ),
-                );
+                ).then((value) {
+                  if (value == null) {
+                    return;
+                  }
+                  if (value is String) {
+                    if (value.isNotEmpty) {
+                      widget._stateManager.report(orderId, value);
+                    }
+                  }
+                });
               }),
         ],
       ),

@@ -23,8 +23,15 @@ class AboutScreen extends StatefulWidget {
 class AboutScreenState extends State<AboutScreen> {
   AboutState _currentState;
   UserRole _currentRole;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void setLanguage(String lang) => widget._stateManager.setLanguage(lang);
+
+  void showSnackBar(String msg) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(msg),
+    ));
+  }
 
   void setCurrentUser(UserRole role) => _currentRole = role;
 
@@ -35,9 +42,7 @@ class AboutScreenState extends State<AboutScreen> {
   }
 
   void moveToRegister() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Navigator.of(context).pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
-    });
+    Navigator.of(context).pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
   }
 
   void moveNext(UserRole role) {
@@ -67,6 +72,7 @@ class AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

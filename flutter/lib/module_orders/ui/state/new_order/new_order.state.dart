@@ -425,7 +425,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                   .map((e) => DropdownMenuItem<Branch>(
                         value: e,
                         child: Text(
-                          '${S.of(context).branch} ${int.tryParse(e.brancheName) + 1}',
+                          '${S.of(context).branch} ${e.brancheName}',
                           style: TextStyle(
                             color: Colors.white,
                           ),

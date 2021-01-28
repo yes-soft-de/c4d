@@ -143,5 +143,7 @@
   "saveSuccess": "تم بنجاح",
   "myProfile": "معلوماتي",
   "reasonOfTheReport": "سبب التبليغ",
-  "createNewReport": "تبليغ جديد"
+  "createNewReport": "تبليغ جديد",
+  "help": "Help",
+  "pleaseCompleteTheForm": "الرجاء أكمال الفورم"
 }
