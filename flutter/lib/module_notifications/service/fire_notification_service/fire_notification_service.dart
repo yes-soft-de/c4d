@@ -26,7 +26,6 @@ class FireNotificationService {
 
   Future<void> refreshNotificationToken(String userAuthToken) async {
     var token = await _fcm.getToken();
-    print('Token: $token');
     if (token != null && userAuthToken != null) {
 
       // And Subscribe to the changes

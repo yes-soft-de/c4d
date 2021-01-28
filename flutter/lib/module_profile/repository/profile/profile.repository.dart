@@ -32,6 +32,7 @@ class ProfileRepository {
   }
 
   Future<ProfileResponseModel> getCaptainProfile() async {
+    await _authService.refreshToken();
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.CAPTAIN_PROFILE_API,
@@ -40,7 +41,7 @@ class ProfileRepository {
 
     if (response['status_code'] == '201') return null;
 
-    return ProfileResponse.fromJson(response.data).data;
+    return ProfileResponse.fromJson(response).data;
   }
 
   Future<bool> createOwnerProfile(ProfileRequest profileRequest) async {
@@ -64,7 +65,7 @@ class ProfileRepository {
       headers: {'Authorization': 'Bearer ' + token},
     );
 
-    if (response['status_code'] == '201') return true;
+    if (response  == null) return true;
 
     return false;
   }

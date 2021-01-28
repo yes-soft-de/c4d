@@ -29,7 +29,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     widget._stateManager.stateStream.listen((event) {
       states.add(event);
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
     widget._stateManager.getProfile(this);
     super.initState();
@@ -38,9 +40,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     if (states.isEmpty) {
-      return Scaffold(body: ProfileStateLoading(this).getUI(context));
-    } else {
-      return states.last.getUI(context);
+      states.add(ProfileStateLoading(this));
     }
+    return Scaffold(body: states.last.getUI(context));
   }
 }

@@ -26,6 +26,12 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
   int orderId;
   OrderDetailsState currentState;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void showSnackBar(String msg) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(msg)));
+  }
+
   @override
   void initState() {
     widget._stateManager.stateStream.listen((event) {
@@ -75,6 +81,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        key: _scaffoldKey,
         leading: IconButton(
           icon: Icon(Icons.navigate_before),
           onPressed: () {
@@ -113,6 +120,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                   if (value is String) {
                     if (value.isNotEmpty) {
                       widget._stateManager.report(orderId, value);
+                      showSnackBar(S.of(context).reportSent);
                     }
                   }
                 });

@@ -132,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "register" : MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
     "registerSuccessSetupMyProfile" : MessageLookupByLibrary.simpleMessage("تم تأكيد الحساب، اتجه للاشتراك"),
     "renewSubscription" : MessageLookupByLibrary.simpleMessage("تجديد الاشتراك"),
+    "reportSent" : MessageLookupByLibrary.simpleMessage("Report sent"),
     "requestMeeting" : MessageLookupByLibrary.simpleMessage("اطلب موعدا للقاء"),
     "resendCode" : MessageLookupByLibrary.simpleMessage("اعادة الارسال"),
     "saudiArabia" : MessageLookupByLibrary.simpleMessage("المملكة السعودية"),

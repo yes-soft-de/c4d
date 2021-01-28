@@ -116,15 +116,15 @@ class ProfileService {
       return S.current.orderIsCreated;
     } else if (status == 'on way to pick order') {
       return S.current.captainAcceptedOrder;
-    } else if (status == 'in store') {
+    } else if (status == 'in store' ||status == 'in_store' ) {
       return S.current.captainInStore;
-    } else if (status == 'ongoing') {
+    } else if (status == 'ongoing' || status == 'piked') {
       return S.current.captainStartedDelivery;
     } else if (status == 'cash') {
       return S.current.captainGotCash;
     } else if (status == 'delivered') {
       return S.current.orderIsFinished;
     }
-    return S.current.unknown;
+    return status;
   }
 }

@@ -25,12 +25,13 @@ class EditProfileStateManager {
       String name, String phone) {
     _imageUploadService.uploadImage(image).then((uploadedImageLink) {
       _stateSubject.add(ProfileStateDirtyProfile(
-          screenState, name, phone, uploadedImageLink, image));
+          screenState, name, phone, uploadedImageLink));
     });
   }
 
   void submitProfile(EditProfileScreenState screenState, String name,
       String phone, String image) {
+    _stateSubject.add(ProfileStateLoading(screenState));
     _profileService.createProfile(name, phone, image).then((value) {
       if (value) {
         _stateSubject.add(ProfileStateSaveSuccess(screenState));

@@ -1,7 +1,7 @@
 class Urls {
   static const String DOMAIN = 'http://34.121.141.34';
   static const String BASE_API = DOMAIN + '/html/public';
-  static const String IMAGES_ROOT = DOMAIN + '/upload';
+  static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
   static const SIGN_UP_API = BASE_API + '/user';
   static const OWNER_PROFILE_API = BASE_API + '/userprofile';

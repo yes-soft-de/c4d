@@ -52,24 +52,24 @@ class ActivityRecord {
 
   ActivityRecord(
       {this.id,
-        this.ownerID,
-        this.userName,
-        this.source,
-        this.destination,
-        this.date,
-        this.updateDate,
-        this.note,
-        this.payment,
-        this.recipientName,
-        this.recipientPhone,
-        this.state,
-        this.fromBranch,
-        this.location,
-        this.brancheName,
-        this.branchCity,
-        this.acceptedOrder,
-        this.record,
-        this.uuid});
+      this.ownerID,
+      this.userName,
+      this.source,
+      this.destination,
+      this.date,
+      this.updateDate,
+      this.note,
+      this.payment,
+      this.recipientName,
+      this.recipientPhone,
+      this.state,
+      this.fromBranch,
+      this.location,
+      this.brancheName,
+      this.branchCity,
+      this.acceptedOrder,
+      this.record,
+      this.uuid});
 
   ActivityRecord.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -132,8 +132,10 @@ class Location {
   Location({this.lat, this.lon});
 
   Location.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
-    lon = json['lon'];
+    try {
+      lat = double.parse(json['lat'].toString());
+      lon = double.parse(json['lon'].toString());
+    } catch (e) {}
   }
 
   Map<String, dynamic> toJson() {

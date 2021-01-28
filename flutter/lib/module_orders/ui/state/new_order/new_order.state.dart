@@ -343,7 +343,6 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                             .showSnackBar(S.of(context).pleaseSelectABranch);
                         return;
                       }
-                      print(jsonEncode(activeBranch));
                       screenState.addNewOrder(
                         activeBranch,
                         GeoJson(lat: 0, lon: 0),
@@ -392,6 +391,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
         ),
       );
     } else if (branches.length == 1) {
+      activeBranch = branches[0];
       return Container(
         padding: EdgeInsets.fromLTRB(8, 16, 8, 16),
         decoration: BoxDecoration(

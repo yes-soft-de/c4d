@@ -85,11 +85,8 @@ class OrdersService {
           id: element.id,
         ));
       } catch (e, stack) {
-        print(e.toString() + stack.toString());
       }
     });
-
-    print('Final is: ${orders.length}');
 
     return orders;
   }
@@ -138,14 +135,12 @@ class OrdersService {
         return _ordersManager.updateOrder(request);
         break;
       default:
-        print('Unknown Package State');
         return null;
     }
   }
 
   Future<List<OrderModel>> getCaptainOrders() async {
     List<Order> response = await _ordersManager.getCaptainOrders();
-    print('Orders ${response.length}');
     if (response == null) return null;
 
     List<OrderModel> orders = [];

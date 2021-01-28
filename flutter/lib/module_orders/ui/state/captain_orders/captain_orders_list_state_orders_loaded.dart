@@ -192,8 +192,6 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     var uiList = <Widget>[];
 
     myOrders.forEach((element) {
-      print(
-          timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode));
       uiList.add(Container(
         margin: EdgeInsets.all(10),
         child: GestureDetector(
@@ -245,7 +243,6 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     Location location = new Location();
 
     bool _serviceEnabled = await location.serviceEnabled();
-    print('Service Enabled $_serviceEnabled');
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
     }
@@ -258,18 +255,14 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     final Distance distance = Distance();
 
     var myLocation = await Location.instance.getLocation();
-    print('My Location: ' + myLocation.toString());
     LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
     orders.sort((a, b) {
       try {
         var pos1 = LatLng(a.to.lat, a.to.lon);
-        print(pos1);
         var pos2 = LatLng(b.to.lat, b.to.lon);
-        print(pos2);
 
         var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
             distance.as(LengthUnit.Kilometer, pos2, myPos);
-        print('Distance $straightDistance');
         return straightDistance;
       } catch (e) {
         return 1;

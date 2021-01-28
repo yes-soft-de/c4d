@@ -15,7 +15,6 @@ class OrdersResponse {
           data.add(new Order.fromJson(v));
         });
       } catch (e, stack) {
-        print(e.toString() + stack.toString());
       }
     }
   }

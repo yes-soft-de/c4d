@@ -11,7 +11,6 @@ class ProfileFormWidget extends StatefulWidget {
   final String name;
   final String phoneNumber;
   final String image;
-  final String localImage;
 
   ProfileFormWidget({
     @required this.onProfileSaved,
@@ -19,22 +18,21 @@ class ProfileFormWidget extends StatefulWidget {
     this.name,
     this.phoneNumber,
     this.image,
-    this.localImage,
   });
 
   @override
   State<StatefulWidget> createState() =>
-      _ProfileFormWidgetState(name, phoneNumber, image, localImage);
+      _ProfileFormWidgetState(name, phoneNumber);
 }
 
 class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
-  String image;
   String localImage;
 
-  _ProfileFormWidgetState(
-      String name, String phone, this.image, this.localImage) {
+  final _formKey = GlobalKey<FormState>();
+
+  _ProfileFormWidgetState(String name, String phone) {
     _nameController.text = name;
     _phoneController.text = phone;
   }
@@ -44,6 +42,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Form(
+        key: _formKey,
         autovalidateMode: AutovalidateMode.always,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,12 +54,15 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                     .getImage(source: ImageSource.gallery)
                     .then((value) {
                   localImage = value.path;
+                  setState(() {});
                 });
               },
               child: Container(
                 height: 96,
                 width: 96,
+                decoration: BoxDecoration(shape: BoxShape.circle),
                 child: Stack(
+                  alignment: Alignment.center,
                   children: [
                     Container(
                       decoration: BoxDecoration(
@@ -68,36 +70,44 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         shape: BoxShape.circle,
                       ),
                     ),
-                    image == null
+                    widget.image == null
                         ? Container()
                         : Container(
                             decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                                 image: DecorationImage(
-                              image: NetworkImage(image.contains('http')
-                                  ? image
-                                  : Urls.IMAGES_ROOT + image),
-                              fit: BoxFit.cover,
-                            )),
+                                  image: NetworkImage(
+                                      widget.image.contains('http')
+                                          ? widget.image
+                                          : Urls.IMAGES_ROOT + widget.image),
+                                  fit: BoxFit.cover,
+                                )),
                           ),
                     localImage == null
                         ? Container()
                         : Container(
+                            height: 96,
+                            width: 96,
+                            alignment: Alignment.center,
                             decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                                 image: DecorationImage(
-                              image: FileImage(File(localImage)),
-                              fit: BoxFit.cover,
-                            )),
+                                  image: FileImage(File(localImage)),
+                                  fit: BoxFit.cover,
+                                )),
                             child: IconButton(
                               onPressed: () {
                                 widget.onImageUpload(
                                   _nameController.text,
                                   _phoneController.text,
-                                  image,
+                                  localImage,
                                 );
+
+                                localImage = null;
                               },
                               icon: Icon(Icons.upload_file),
                             ),
-                          )
+                          ),
                   ],
                 ),
               ),
@@ -119,6 +129,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
             ),
             TextFormField(
               controller: _phoneController,
+              keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: S.of(context).phoneNumber,
               ),
@@ -132,13 +143,21 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 return null;
               },
             ),
-            RaisedButton(onPressed: () {
-              widget.onProfileSaved(
-                _nameController.text,
-                _phoneController.text,
-                image,
-              );
-            })
+            RaisedButton(
+                color: Theme.of(context).primaryColor,
+                child: Text(S.of(context).save),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    widget.onProfileSaved(
+                      _nameController.text,
+                      _phoneController.text,
+                      widget.image,
+                    );
+                  } else {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text(S.of(context).pleaseCompleteTheForm)));
+                  }
+                })
           ],
         ),
       ),

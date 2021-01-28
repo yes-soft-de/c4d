@@ -145,5 +145,6 @@
   "reasonOfTheReport": "Reason of the report",
   "createNewReport": "Create new Report",
   "help": "Help",
-  "pleaseCompleteTheForm": "Please Complete the Form"
+  "pleaseCompleteTheForm": "Please Complete the Form",
+  "reportSent": "Report sent"
 }

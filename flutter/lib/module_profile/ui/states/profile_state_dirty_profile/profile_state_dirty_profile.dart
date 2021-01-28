@@ -7,10 +7,9 @@ class ProfileStateDirtyProfile extends ProfileState {
   final String name;
   final String phone;
   final String image;
-  final String localImage;
 
   ProfileStateDirtyProfile(
-      EditProfileScreenState screenState, this.name, this.phone, this.image, this.localImage)
+      EditProfileScreenState screenState, this.name, this.phone, this.image)
       : super(screenState);
 
   @override
@@ -19,11 +18,10 @@ class ProfileStateDirtyProfile extends ProfileState {
       name: name,
       phoneNumber: phone,
       image: image,
-      localImage: localImage,
       onProfileSaved: (name, phone, image) {
         screenState.saveProfile(name, phone, image);
       },
-      onImageUpload: (name, phone, image) {
+      onImageUpload: (name, phone, localImage) {
         screenState.uploadImage(name, phone, localImage);
       },
     );

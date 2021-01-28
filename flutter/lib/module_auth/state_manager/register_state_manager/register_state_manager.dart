@@ -54,7 +54,6 @@ class RegisterStateManager {
   void registerOwner(String email, String name, String password,
       RegisterScreenState _registerScreenState) {
     _authService.authListener.listen((event) {
-      print(event.runtimeType.toString());
       switch (event) {
         case AuthStatus.AUTHORIZED:
           _aboutService.setInited().then((value) {

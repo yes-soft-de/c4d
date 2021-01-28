@@ -1,3 +1,5 @@
+import 'package:c4d/consts/urls.dart';
+
 class ProfileRequest {
   String name;
   String phone;
@@ -14,7 +16,7 @@ class ProfileRequest {
 
     data['userName'] = this.name;
     data['phone'] = this.phone;
-    data['image'] = this.image;
+    data['image'] = this.image.contains('http') ? this.image.substring(Urls.IMAGES_ROOT.length) : this.image;
 
     return data;
   }

@@ -11,20 +11,24 @@ class ProfileStateSaveSuccess extends ProfileState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      children: [
-        FaIcon(
-          FontAwesomeIcons.solidHeart,
-          color: Theme.of(context).primaryColor,
-          size: 48,
-        ),
-        Text(S.of(context).saveSuccess),
-        RaisedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FaIcon(
+            FontAwesomeIcons.solidHeart,
+            color: Theme.of(context).primaryColor,
+            size: 48,
+          ),
+          Text(S.of(context).saveSuccess),
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(S.of(context).next),
+          ),
+        ],
+      ),
     );
   }
 }

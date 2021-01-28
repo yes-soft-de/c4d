@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/enums/auth_source.dart';
 import 'package:c4d/module_auth/enums/auth_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
@@ -24,12 +25,13 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 class AuthService {
   final AuthPrefsHelper _prefsHelper;
   final AuthManager _authManager;
+  final AboutService _aboutService;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final PublishSubject<AuthStatus> _authSubject = PublishSubject<AuthStatus>();
 
   String _verificationCode;
 
-  AuthService(this._prefsHelper, this._authManager);
+  AuthService(this._prefsHelper, this._authManager, this._aboutService,);
 
   // Delegates
   Future<bool> get isLoggedIn => _prefsHelper.isSignedIn();
@@ -54,6 +56,7 @@ class AuthService {
       _prefsHelper.setUserId(user.credential.user.uid),
       _prefsHelper
           .setEmail(user.credential.user.email ?? user.credential.user.uid),
+      _aboutService.setInited(),
       _prefsHelper.setPassword(user.credential.user.uid),
       _prefsHelper.setAuthSource(user.authSource),
       _prefsHelper.setToken(loginResult.token),
@@ -146,7 +149,6 @@ class AuthService {
         Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
         _authSubject.addError(x.message);
       } else {
-        print(e.toString());
         _authSubject.addError(e.toString());
       }
     }
@@ -207,7 +209,6 @@ class AuthService {
       await _prefsHelper.deleteToken();
       return null;
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }

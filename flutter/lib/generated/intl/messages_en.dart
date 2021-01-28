@@ -132,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "register" : MessageLookupByLibrary.simpleMessage("Register"),
     "registerSuccessSetupMyProfile" : MessageLookupByLibrary.simpleMessage("Register Success, Setup my profile"),
     "renewSubscription" : MessageLookupByLibrary.simpleMessage("Renew Subscription"),
+    "reportSent" : MessageLookupByLibrary.simpleMessage("Report sent"),
     "requestMeeting" : MessageLookupByLibrary.simpleMessage("Request Meeting"),
     "resendCode" : MessageLookupByLibrary.simpleMessage("Resend Code"),
     "saudiArabia" : MessageLookupByLibrary.simpleMessage("Saudi Arabia"),

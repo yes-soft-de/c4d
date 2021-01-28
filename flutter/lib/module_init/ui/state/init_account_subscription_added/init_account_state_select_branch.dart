@@ -27,7 +27,6 @@ class InitAccountStateSelectBranch extends InitAccountState {
                 center: LatLng(21.5429423, 39.1690945),
                 zoom: 15.0,
                 onTap: (newPos) {
-                  print('New Location' + newPos.toString());
                   branchLocation ??= [];
                   branchLocation.add(newPos);
                   screen.refresh();
@@ -62,7 +61,6 @@ class InitAccountStateSelectBranch extends InitAccountState {
                       Location location = new Location();
 
                       bool _serviceEnabled = await location.serviceEnabled();
-                      print('Service Enabled $_serviceEnabled');
                       if (!_serviceEnabled) {
                         _serviceEnabled = await location.requestService();
                       }
@@ -159,8 +157,6 @@ class InitAccountStateSelectBranch extends InitAccountState {
         ),
       ));
     });
-
-    print('Markers ${markers.length} : Locations: ${branchLocation.length}');
     return markers;
   }
 }

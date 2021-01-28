@@ -145,5 +145,6 @@
   "reasonOfTheReport": "سبب التبليغ",
   "createNewReport": "تبليغ جديد",
   "help": "Help",
-  "pleaseCompleteTheForm": "الرجاء أكمال الفورم"
+  "pleaseCompleteTheForm": "الرجاء أكمال الفورم",
+  "reportSent": "Report sent"
 }

@@ -96,7 +96,6 @@ class OrderDetailsData {
         }
       }
     } catch (e) {
-      print(e);
     }
     record = json['record'];
     uuid = json['uuid'];
@@ -126,7 +125,6 @@ class OrderDetailsData {
     try {
       data['acceptedOrder'] = this.acceptedOrder;
     } catch (e) {
-      print(e.toString());
     }
     data['record'] = this.record;
     data['uuid'] = this.uuid;
