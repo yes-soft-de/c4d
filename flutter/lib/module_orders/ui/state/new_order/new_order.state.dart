@@ -106,10 +106,8 @@ class NewOrderStateSuccessState extends NewOrderState {
                         (r) => false,
                       );
                     },
-                    child: Expanded(
-                      child: Text(
-                        S.of(context).save,
-                      ),
+                    child: Text(
+                      S.of(context).save,
                     ),
                   ),
                 ),
