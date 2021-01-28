@@ -119,12 +119,10 @@ class AcceptedOrderService
        $topCaptains = $this->acceptedOrderManager->getTopCaptainsInThisMonth($date[0],$date[1]);
      
         foreach ($topCaptains as $topCaptain) {
-            $topCaptain['image'] = $this->specialLinkCheck($topCaptain['specialLink']).$topCaptain['image'];
             $topCaptain['imageURL'] = $topCaptain['image'];
-            
-            $topCaptain['drivingLicence'] = $this->specialLinkCheck($topCaptain['specialLink']).$topCaptain['drivingLicence'];
+            $topCaptain['image'] = $this->params.$topCaptain['image'];
             $topCaptain['drivingLicenceURL'] = $topCaptain['drivingLicence'];
-           
+            $topCaptain['drivingLicence'] = $this->params.$topCaptain['drivingLicence'];
             $topCaptain['baseURL'] = $this->params;
             $response[] = $this->autoMapping->map('array', AcceptedOrdersResponse::class, $topCaptain);
         }

@@ -158,8 +158,14 @@ class UserService
         $bounce = $this->totalBounceCaptain($item['id']);
 
         $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($captainID);
-        $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
+        
+        $item['imageURL'] = $item['image'];
+        $item['image'] = $this->params.$item['image'];
+        $item['drivingLicenceURL'] = $item['drivingLicence'];
+        $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+        $item['baseURL'] = $this->params;
         $item['rating'] = $this->ratingService->getRatingByCaptainID($captainID);
+
         $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
       
         $response->bounce = $bounce;
@@ -177,8 +183,10 @@ class UserService
         if($item) {
             $totalBounce = $this->totalBounceCaptain($item['id']);
             $item['imageURL'] = $item['image'];
+            $item['image'] = $this->params.$item['image'];
+            $item['drivingLicenceURL'] = $item['drivingLicence'];
+            $item['drivingLicence'] = $this->params.$item['drivingLicence'];
             $item['baseURL'] = $this->params;
-            $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
             $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
             $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
@@ -200,8 +208,11 @@ class UserService
         if($item) {
             $totalBounce = $this->totalBounceCaptain($item['id']);
             $item['imageURL'] = $item['image'];
+            $item['image'] = $this->params.$item['image'];
+            $item['drivingLicenceURL'] = $item['drivingLicence'];
+            $item['drivingLicence'] = $this->params.$item['drivingLicence'];
             $item['baseURL'] = $this->params;
-            $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
+
             $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
             $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
@@ -221,6 +232,11 @@ class UserService
 
         if($userType == "captain") {
             foreach( $items as  $item ) {
+                $item['imageURL'] = $item['image'];
+                $item['image'] = $this->params.$item['image'];
+                $item['drivingLicenceURL'] = $item['drivingLicence'];
+                $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+                $item['baseURL'] = $this->params;
                 $response[]  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
             }
         }
@@ -240,8 +256,11 @@ class UserService
            
             $item['totalBounce'] = $this->totalBounceCaptain($item['id']);
             $item['imageURL'] = $item['image'];
+            $item['image'] = $this->params.$item['image'];
+            $item['drivingLicenceURL'] = $item['drivingLicence'];
+            $item['drivingLicence'] = $this->params.$item['drivingLicence'];
             $item['baseURL'] = $this->params;
-            $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
+
             $item['countOrdersDeliverd'] = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
            
             $item['rating'] = $this->ratingService->getRatingByCaptainID($item['captainID']);
@@ -273,10 +292,13 @@ class UserService
       
          foreach ($top5Captains as $item) {
            
-            $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
-                $item['imageURL'] = $item['image'];
-                $item['baseURL'] = $this->params;
-                
+            // $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
+            //     $item['imageURL'] = $item['image'];
+            //     $item['baseURL'] = $this->params;
+            $item['imageURL'] = $item['image'];
+            $item['image'] = $this->params.$item['image'];
+            $item['baseURL'] = $this->params;   
+
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $item);
          }         
          return $response;
@@ -289,7 +311,12 @@ class UserService
          $dayOfCaptains = $this->userManager->getDayOfCaptains();
       
          foreach ($dayOfCaptains as $item) {
-          
+            $item['imageURL'] = $item['image'];
+            $item['image'] = $this->params.$item['image'];
+            $item['drivingLicenceURL'] = $item['drivingLicence'];
+            $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+            $item['baseURL'] = $this->params;
+
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $item);
          }         
          return $response;
@@ -325,6 +352,11 @@ class UserService
             $items = $this->userManager->getCaptains($userType);
 
             foreach ($items as $item) {
+                $item['imageURL'] = $item['image'];
+                $item['image'] = $this->params.$item['image'];
+                $item['drivingLicenceURL'] = $item['drivingLicence'];
+                $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+                $item['baseURL'] = $this->params;
                 $respons[] = $this->autoMapping->map('array', AllUsersResponse::class, $item);
             }
         }
@@ -344,11 +376,14 @@ class UserService
 
         if ($userType == "captain") {
             $captains = $this->userManager->getAllCaptains();
-        
+           
             foreach ($captains as $captain) {
                 $captain['imageURL'] = $captain['image'];
+                $captain['image'] = $this->params.$captain['image'];
+                $captain['drivingLicenceURL'] = $captain['drivingLicence'];
+                $captain['drivingLicence'] = $this->params.$captain['drivingLicence'];
                 $captain['baseURL'] = $this->params;
-                $captain['image'] = $this->specialLinkCheck($captain['specialLink']).$captain['image'];
+
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $captain);
             } 
         }        

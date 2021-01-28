@@ -39,4 +39,12 @@ class AllUsersResponse
     public $captainID;
     
     public $captainName;
+
+    public $imageURL;
+
+    public $baseURL;
+    
+    public $drivingLicence;
+    
+    public $drivingLicenceURL;
 }

@@ -17,6 +17,8 @@ class CaptainProfileCreateResponse
     public $car;
 
     public $drivingLicence;
+    
+    public $drivingLicenceURL;
 
     public $salary;
 
