@@ -4,11 +4,15 @@ class ProfileRequest {
   String name;
   String phone;
   String image;
+  String city;
+  String branch;
 
   ProfileRequest({
     this.name,
     this.phone,
-    this.image
+    this.image,
+    this.city = 'Jedda',
+    this.branch = '-1'
   });
 
   Map<String, dynamic> toJson() {
@@ -19,6 +23,8 @@ class ProfileRequest {
     if (data['image'] != null) {
       data['image'] = this.image.contains('http') ? this.image.substring(Urls.IMAGES_ROOT.length) : this.image;
     }
+    data['city'] = this.city;
+    data['branch'] = this.branch;
 
     return data;
   }
