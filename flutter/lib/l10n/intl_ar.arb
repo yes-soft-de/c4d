@@ -123,7 +123,7 @@
   "package": "باقة",
   "ordermonth": "طلب في الشهر",
   "car": "سيارة ",
-  "apply": "تسجيل",
+  "apply": "حفظ",
   "recipientPhoneNumber": "رقم هاتف المستلم",
   "pickALanguage": "اختار لغتي",
   "pickAJob": "اختار عملي",
@@ -146,5 +146,8 @@
   "createNewReport": "تبليغ جديد",
   "help": "Help",
   "pleaseCompleteTheForm": "الرجاء أكمال الفورم",
-  "reportSent": "Report sent"
+  "reportSent": "تم ارسال الابلاغ",
+  "reasonIsRequired": "الرجاء تزويدنا بسبب الابلاغ",
+  "pleaseProvideUsWithTheClientName": "Please Provide us with the Client Name",
+  "pleaseProvideUsTheClientPhoneNumber": "Please Provide us the client phone number"
 }

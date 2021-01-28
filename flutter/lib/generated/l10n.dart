@@ -1504,6 +1504,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Reason is Required`
+  String get reasonIsRequired {
+    return Intl.message(
+      'Reason is Required',
+      name: 'reasonIsRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Provide us with the Client Name`
+  String get pleaseProvideUsWithTheClientName {
+    return Intl.message(
+      'Please Provide us with the Client Name',
+      name: 'pleaseProvideUsWithTheClientName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Provide us the client phone number`
+  String get pleaseProvideUsTheClientPhoneNumber {
+    return Intl.message(
+      'Please Provide us the client phone number',
+      name: 'pleaseProvideUsTheClientPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

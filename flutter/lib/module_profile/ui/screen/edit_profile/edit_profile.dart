@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_profile/state_manager/edit_profile/edit_profile.dart';
 import 'package:c4d/module_profile/ui/states/profile_loading/profile_loading.dart';
 import 'package:c4d/module_profile/ui/states/profile_state/profile_state.dart';
@@ -42,6 +43,11 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     if (states.isEmpty) {
       states.add(ProfileStateLoading(this));
     }
-    return Scaffold(body: states.last.getUI(context));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(S.of(context).myProfile),
+      ),
+      body: states.last.getUI(context),
+    );
   }
 }

@@ -146,5 +146,8 @@
   "createNewReport": "Create new Report",
   "help": "Help",
   "pleaseCompleteTheForm": "Please Complete the Form",
-  "reportSent": "Report sent"
+  "reportSent": "Report sent",
+  "reasonIsRequired": "Reason is Required",
+  "pleaseProvideUsWithTheClientName": "Please Provide us with the Client Name",
+  "pleaseProvideUsTheClientPhoneNumber": "Please Provide us the client phone number"
 }

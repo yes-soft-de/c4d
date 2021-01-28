@@ -28,7 +28,8 @@ class ProfileRepository {
 
     if (response['status_code'] == '201') return null;
 
-    return ProfileResponse.fromJson(response.data).data;
+
+    return ProfileResponse.fromJson(response).data;
   }
 
   Future<ProfileResponseModel> getCaptainProfile() async {

@@ -36,86 +36,118 @@ class NewOrderStateInit extends NewOrderState {
 }
 
 class NewOrderStateSuccessState extends NewOrderState {
+  final _formKey = GlobalKey<FormState>();
+
   NewOrderStateSuccessState(NewOrderScreenState screenState)
       : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(child: Lottie.asset('assets/animations/on-way.json')),
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            child: Flex(
-              direction: Axis.vertical,
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: S.of(context).mohammad,
-                    labelText: S.of(context).deliverTo,
-                  ),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: S.of(context).phoneNumber,
-                    labelText: S.of(context).recipientPhoneNumber,
-                  ),
-                  keyboardType: TextInputType.phone,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Container(
-            height: 72,
-            child: Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 1,
-                  child: FlatButton(
-                    padding: EdgeInsets.all(24),
-                    onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        OrdersRoutes.OWNER_ORDERS_SCREEN,
-                        (r) => false,
-                      );
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(child: Lottie.asset('assets/animations/on-way.json')),
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              child: Flex(
+                direction: Axis.vertical,
+                children: [
+                  TextFormField(
+                    validator: (v) {
+                      if (v.isEmpty) {
+                        return S.of(context).pleaseProvideUsWithTheClientName;
+                      }
+                      return null;
                     },
-                    child: Text(
-                      S.of(context).skip,
+                    decoration: InputDecoration(
+                      hintText: S.of(context).mohammad,
+                      labelText: S.of(context).deliverTo,
                     ),
                   ),
-                ),
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 1,
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
-                    padding: EdgeInsets.all(24),
-                    onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        OrdersRoutes.OWNER_ORDERS_SCREEN,
-                        (r) => false,
-                      );
+                  TextFormField(
+                    validator: (v) {
+                      if (v.isEmpty) {
+                        return S
+                            .of(context)
+                            .pleaseProvideUsTheClientPhoneNumber;
+                      }
+                      return null;
                     },
-                    child: Text(
-                      S.of(context).save,
+                    decoration: InputDecoration(
+                      hintText: S.of(context).phoneNumber,
+                      labelText: S.of(context).recipientPhoneNumber,
                     ),
+                    keyboardType: TextInputType.phone,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              height: 72,
+              child: Flex(
+                direction: Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 1,
+                    child: FlatButton(
+                      padding: EdgeInsets.all(24),
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          OrdersRoutes.OWNER_ORDERS_SCREEN,
+                          (r) => false,
+                        );
+                      },
+                      child: Text(
+                        S.of(context).skip,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 1,
+                    child: RaisedButton(
+                      color: Theme.of(context).primaryColor,
+                      textColor: Colors.white,
+                      padding: EdgeInsets.all(24),
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            OrdersRoutes.OWNER_ORDERS_SCREEN,
+                            (r) => false,
+                          );
+                        } else {
+                          try {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                  S
+                                      .of(context)
+                                      .pleaseCompleteTheForm,
+                                )));
+                          } catch (e){
+                          // ignore: empty_catches
+                          }
+                        }
+                      },
+                      child: Text(
+                        S.of(context).save,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
