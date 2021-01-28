@@ -56,7 +56,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                   widget.onImageUpload(
                     _nameController.text,
                     _phoneController.text,
-                    localImage,
+                    value.path,
                   );
                   setState(() {});
                 });

@@ -59,12 +59,6 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
       }
     });
 
-    WidgetsBinding.instance.addObserver(
-        LifecycleEventHandler(resumeCallBack: () async => setState(() {
-          getMyOrders();
-        }))
-    );
-
     widget._stateManager.getMyOrders(this);
   }
 
@@ -91,33 +85,5 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
       drawer: DrawerWidget(),
       body: _currentState.getUI(context),
     );
-  }
-}
-
-class LifecycleEventHandler extends WidgetsBindingObserver {
-  final AsyncCallback resumeCallBack;
-  final AsyncCallback suspendingCallBack;
-
-  LifecycleEventHandler({
-    this.resumeCallBack,
-    this.suspendingCallBack,
-  });
-
-  @override
-  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        if (resumeCallBack != null) {
-          await resumeCallBack();
-        }
-        break;
-      case AppLifecycleState.inactive:
-      case AppLifecycleState.paused:
-      case AppLifecycleState.detached:
-        if (suspendingCallBack != null) {
-          await suspendingCallBack();
-        }
-        break;
-    }
   }
 }
