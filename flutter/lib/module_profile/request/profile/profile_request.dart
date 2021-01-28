@@ -16,7 +16,9 @@ class ProfileRequest {
 
     data['userName'] = this.name;
     data['phone'] = this.phone;
-    data['image'] = this.image.contains('http') ? this.image.substring(Urls.IMAGES_ROOT.length) : this.image;
+    if (data['image'] != null) {
+      data['image'] = this.image.contains('http') ? this.image.substring(Urls.IMAGES_ROOT.length) : this.image;
+    }
 
     return data;
   }
