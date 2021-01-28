@@ -25,11 +25,12 @@ class ProfileRepository {
       Urls.OWNER_PROFILE_API,
       headers: {'Authorization': 'Bearer ' + token},
     );
-
-    if (response['status_code'] == '201') return null;
-
-
-    return ProfileResponse.fromJson(response).data;
+    if (response == null) return null;
+    try {
+      return ProfileResponseModel.fromJson(response);
+    } catch(e) {
+      return null;
+    }
   }
 
   Future<ProfileResponseModel> getCaptainProfile() async {
@@ -40,9 +41,12 @@ class ProfileRepository {
       headers: {'Authorization': 'Bearer ' + token},
     );
 
-    if (response['status_code'] == '201') return null;
-
-    return ProfileResponse.fromJson(response).data;
+    try {
+      if (response == null) return null;
+      return ProfileResponseModel.fromJson(response);
+    } catch(e) {
+      return null;
+    }
   }
 
   Future<bool> createOwnerProfile(ProfileRequest profileRequest) async {

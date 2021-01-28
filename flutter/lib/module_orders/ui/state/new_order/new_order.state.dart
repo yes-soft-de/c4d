@@ -36,118 +36,114 @@ class NewOrderStateInit extends NewOrderState {
 }
 
 class NewOrderStateSuccessState extends NewOrderState {
-  final _formKey = GlobalKey<FormState>();
+  final _contactFormKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   NewOrderStateSuccessState(NewOrderScreenState screenState)
       : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(child: Lottie.asset('assets/animations/on-way.json')),
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Form(
-              child: Flex(
-                direction: Axis.vertical,
-                children: [
-                  TextFormField(
-                    validator: (v) {
-                      if (v.isEmpty) {
-                        return S.of(context).pleaseProvideUsWithTheClientName;
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: S.of(context).mohammad,
-                      labelText: S.of(context).deliverTo,
-                    ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(child: Lottie.asset('assets/animations/on-way.json')),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Form(
+            key: _contactFormKey,
+            autovalidateMode: AutovalidateMode.always,
+            child: Flex(
+              direction: Axis.vertical,
+              children: [
+                TextFormField(
+                  controller: _phoneController,
+                  autofocus: false,
+                  validator: (v) {
+                    if (v.isEmpty) {
+                      return S.of(context).pleaseProvideUsWithTheClientName;
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: S.of(context).mohammad,
+                    labelText: S.of(context).deliverTo,
                   ),
-                  TextFormField(
-                    validator: (v) {
-                      if (v.isEmpty) {
-                        return S
-                            .of(context)
-                            .pleaseProvideUsTheClientPhoneNumber;
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: S.of(context).phoneNumber,
-                      labelText: S.of(context).recipientPhoneNumber,
-                    ),
-                    keyboardType: TextInputType.phone,
+                ),
+                TextFormField(
+                  controller: _nameController,
+                  autofocus: false,
+                  validator: (v) {
+                    if (v.isEmpty) {
+                      return S
+                          .of(context)
+                          .pleaseProvideUsTheClientPhoneNumber;
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: S.of(context).phoneNumber,
+                    labelText: S.of(context).recipientPhoneNumber,
                   ),
-                ],
-              ),
+                  keyboardType: TextInputType.phone,
+                ),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              height: 72,
-              child: Flex(
-                direction: Axis.horizontal,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: FlatButton(
-                      padding: EdgeInsets.all(24),
-                      onPressed: () {
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            height: 72,
+            child: Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: FlatButton(
+                    padding: EdgeInsets.all(24),
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        OrdersRoutes.OWNER_ORDERS_SCREEN,
+                            (r) => false,
+                      );
+                    },
+                    child: Text(
+                      S.of(context).skip,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 1,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.all(24),
+                    onPressed: () {
+                      if (_contactFormKey.currentState.validate()) {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                           OrdersRoutes.OWNER_ORDERS_SCREEN,
-                          (r) => false,
+                              (r) => false,
                         );
-                      },
-                      child: Text(
-                        S.of(context).skip,
-                      ),
+                      } else {
+                        screenState.showSnackBar(S.of(context).pleaseCompleteTheForm);
+                      }
+                    },
+                    child: Text(
+                      S.of(context).save,
                     ),
                   ),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: RaisedButton(
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      padding: EdgeInsets.all(24),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            OrdersRoutes.OWNER_ORDERS_SCREEN,
-                            (r) => false,
-                          );
-                        } else {
-                          try {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                  S
-                                      .of(context)
-                                      .pleaseCompleteTheForm,
-                                )));
-                          } catch (e){
-                          // ignore: empty_catches
-                          }
-                        }
-                      },
-                      child: Text(
-                        S.of(context).save,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
