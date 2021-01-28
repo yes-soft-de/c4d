@@ -27,7 +27,7 @@ class ProfileRepository {
     );
     if (response == null) return null;
     try {
-      return ProfileResponseModel.fromJson(response);
+      return ProfileResponse.fromJson(response).data;
     } catch(e) {
       return null;
     }
@@ -43,7 +43,7 @@ class ProfileRepository {
 
     try {
       if (response == null) return null;
-      return ProfileResponseModel.fromJson(response);
+      return ProfileResponse.fromJson(response).data;
     } catch(e) {
       return null;
     }

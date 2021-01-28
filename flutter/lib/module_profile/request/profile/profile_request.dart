@@ -20,7 +20,7 @@ class ProfileRequest {
 
     data['userName'] = this.name;
     data['phone'] = this.phone;
-    if (data['image'] != null) {
+    if (this.image != null) {
       data['image'] = this.image.contains('http') ? this.image.substring(Urls.IMAGES_ROOT.length) : this.image;
     }
     data['city'] = this.city;

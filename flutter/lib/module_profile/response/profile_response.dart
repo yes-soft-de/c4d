@@ -65,7 +65,7 @@ class ProfileResponseModel {
   ProfileResponseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     captainID = json['captainID'];
-    name = json['name'];
+    name = json['userName'];
     age = json['age'];
     car = json['car'];
     drivingLicence = json['drivingLicence'];

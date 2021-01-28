@@ -53,7 +53,11 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 ImagePicker()
                     .getImage(source: ImageSource.gallery)
                     .then((value) {
-                  localImage = value.path;
+                  widget.onImageUpload(
+                    _nameController.text,
+                    _phoneController.text,
+                    localImage,
+                  );
                   setState(() {});
                 });
               },
