@@ -25,4 +25,7 @@ class UserProfileCreateResponse
     public $city;
     
     public $phone;
+    public $imageURL;
+
+    public $baseURL;
 }

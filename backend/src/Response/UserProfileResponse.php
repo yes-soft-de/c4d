@@ -10,7 +10,7 @@ class UserProfileResponse
 
     // public $story;
 
-    // public $image;
+    public $image;
 
     // public $status;
 
@@ -21,4 +21,8 @@ class UserProfileResponse
     public $city;
     
     public $phone;
+    
+    public $imageURL;
+
+    public $baseURL;
 }

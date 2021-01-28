@@ -4,6 +4,7 @@
 namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DatingCreateRequest;
+use App\Request\DatingUpdateIsDoneRequest;
 use App\Service\DatingService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -65,4 +66,29 @@ class DatingController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
+
+      /**
+     * @Route("dating", name="updateDatingIsDone", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(\stdClass::class, DatingUpdateIsDoneRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->datingService->update($request);
+
+        return $this->response($result, self::UPDATE);
+    }
 }

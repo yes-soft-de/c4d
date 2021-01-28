@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\DatingEntity;
 use App\Repository\DatingEntityRepository;
 use App\Request\DatingCreateRequest;
+use App\Request\DatingUpdateIsDoneRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DatingManager
@@ -24,24 +25,10 @@ class DatingManager
     public function create(DatingCreateRequest $request)
     {
         $entity = $this->autoMapping->map(DatingCreateRequest::class, DatingEntity::class, $request);
-
+        $entity->setIsDone(false);
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();
-
-        return $entity;
-    }
-
-    public function update(BranchesUpdateRequest $request)
-    {
-        $entity = $this->repository->find($request->getId());
-
-        if (!$entity) {
-            return null;
-        }
-        $entity = $this->autoMapping->mapToObject(BranchesUpdateRequest::class, BranchesEntity::class, $request, $entity);
-
-        $this->entityManager->flush();
 
         return $entity;
     }
@@ -50,4 +37,19 @@ class DatingManager
     {
         return $this->repository->datings();
     }
+
+    public function update(DatingUpdateIsDoneRequest $request)
+    {
+        $entity = $this->repository->find($request->getId());
+
+        if (!$entity) {
+            return null;
+        }
+        $entity = $this->autoMapping->mapToObject(DatingUpdateIsDoneRequest::class, DatingEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    }
+
 }

@@ -6,4 +6,5 @@ class DatingResponse
 {
     public $userName;
     public $phone;
+    public $isDone;
 }

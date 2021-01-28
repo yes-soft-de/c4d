@@ -510,10 +510,18 @@ methods: GET
 
 ### Dating
 
-#### Get reports
+#### Get datings
 ```
 /datings
 methods: GET
+```
+
+#### Update dating isDone
+
+isDone = false or true .
+```
+/dating
+methods: PUT
 ```
 
 

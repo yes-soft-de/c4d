@@ -27,6 +27,11 @@ class DatingEntity
      */
     private $phone;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isDone;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class DatingEntity
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getIsDone(): ?bool
+    {
+        return $this->isDone;
+    }
+
+    public function setIsDone(?bool $isDone): self
+    {
+        $this->isDone = $isDone;
 
         return $this;
     }

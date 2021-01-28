@@ -10,7 +10,7 @@ class UserProfileCreateRequest
 
     // private $story;
 
-    // private $image;
+    private $image;
 
     private $branch;
     

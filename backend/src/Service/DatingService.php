@@ -35,4 +35,11 @@ class DatingService
         }
         return $response;
     }
+
+    public function update($request)
+    {
+        $result = $this->datingManager->update($request);
+
+        return $this->autoMapping->map(DatingEntity::class, DatingResponse::class, $result);
+    }
 }
