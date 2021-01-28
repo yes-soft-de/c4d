@@ -6,6 +6,7 @@ import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.da
 import 'package:c4d/module_orders/ui/state/order_status/order_details_state_captain_order_loaded.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_details_state_owner_order_loaded.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
+import 'package:c4d/module_report/service/report_service.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -13,15 +14,16 @@ import 'package:rxdart/rxdart.dart';
 class OrderStatusStateManager {
   final OrdersService _ordersService;
   final AuthService _authService;
+  final ReportService _reportService;
 
   final PublishSubject<OrderDetailsState> _stateSubject = new PublishSubject();
 
   Stream<OrderDetailsState> get stateStream => _stateSubject.stream;
 
-  OrderStatusStateManager(this._ordersService, this._authService);
+  OrderStatusStateManager(
+      this._ordersService, this._authService, this._reportService);
 
-  void getOrderDetails(
-      int orderId, OrderStatusScreenState screenState) {
+  void getOrderDetails(int orderId, OrderStatusScreenState screenState) {
     _stateSubject.add(OrderDetailsStateLoading(screenState));
 
     _ordersService.getOrderDetails(orderId).then((order) {
@@ -50,5 +52,9 @@ class OrderStatusStateManager {
     _ordersService.updateOrder(model.id, model).then((value) {
       getOrderDetails(model.id, screenState);
     });
+  }
+
+  void report(int orderId, String reason) {
+    _reportService.createReport(orderId, reason);
   }
 }

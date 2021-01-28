@@ -11,6 +11,8 @@ class Urls {
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
   static const LOG_API = BASE_API + '/getRecords';
 
+  static const REPORT_API = BASE_API + '/report';
+
   static const NEARBY_ORDERS_API = BASE_API + '/closestOrders';
   static const OWNER_ORDERS_API = BASE_API + '/orders/';
   static const CAPTAIN_ACCEPTED_ORDERS_API = BASE_API + '/getAcceptedOrder/';

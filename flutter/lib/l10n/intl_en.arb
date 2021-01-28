@@ -141,5 +141,7 @@
   "orderIsCreated": "Order is created",
   "activityLog": "Activity Log",
   "saveSuccess": "Save Success",
-  "myProfile": "My Profile"
+  "myProfile": "My Profile",
+  "reasonOfTheReport": "Reason of the report",
+  "createNewReport": "Create new Report"
 }

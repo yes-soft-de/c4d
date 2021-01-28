@@ -1454,6 +1454,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Reason of the report`
+  String get reasonOfTheReport {
+    return Intl.message(
+      'Reason of the report',
+      name: 'reasonOfTheReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create new Report`
+  String get createNewReport {
+    return Intl.message(
+      'Create new Report',
+      name: 'createNewReport',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

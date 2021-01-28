@@ -6,6 +6,7 @@ import 'package:c4d/module_orders/state_manager/order_status/order_status.state_
 import 'package:c4d/module_orders/ui/state/order_status/order_details_state_captain_order_loaded.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_details_state_owner_order_loaded.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
+import 'package:c4d/module_report/ui/widget/report_dialog/report_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -94,6 +95,19 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                 : Colors.black,
           ),
         ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.flag),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (ctx) {
+                      return ReportDialogWidget((reason) {
+                        widget._stateManager.report(orderId, reason);
+                      });
+                    });
+              }),
+        ],
       ),
       body: currentState.getUI(context),
     );
