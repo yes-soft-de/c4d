@@ -103,6 +103,7 @@ class UserService
         $item = $this->userManager->getUserProfileByUserID($userID);
 
         $item['branches'] = $this->branchesService->branchesByUserId($userID);
+
         try {
             if ($item['image'])
             {
