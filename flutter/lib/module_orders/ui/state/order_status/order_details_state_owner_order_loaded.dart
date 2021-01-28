@@ -4,6 +4,7 @@ import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
+import 'package:c4d/module_orders/util/whatsapp_link_helper.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -89,7 +90,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               ),
               GestureDetector(
                 onTap: () async {
-                  var url = 'https://wa.me/${currentOrder.captainPhone}';
+                  var url = WhatsAppLinkHelper.getWhatsAppLink(currentOrder.captainPhone);
                   if (await canLaunch(url)) {
                     await launch(url);
                   } else {
@@ -108,7 +109,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                   ? Container()
                   : GestureDetector(
                       onTap: () async {
-                        var url = 'https://wa.me/${currentOrder.clientPhone}';
+                        var url = WhatsAppLinkHelper.getWhatsAppLink(currentOrder.clientPhone);
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {

@@ -6,6 +6,7 @@ import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
+import 'package:c4d/module_orders/util/whatsapp_link_helper.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
 
 import 'package:flutter/material.dart';
@@ -59,21 +60,28 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               height: 56,
             ),
             // To Progress the Order
-            currentOrder.status == OrderStatus.FINISHED ? Container() : GestureDetector(
-              onTap: () {
-                screenState.requestOrderProgress(currentOrder);
-              },
-              child: CommunicationCard(
-                text: OrderProgressionHelper.getNextStageHelper(
-                  currentOrder.status,
-                  currentOrder.paymentMethod.toLowerCase().contains('ca'),
-                  context,
-                ),
-                color: Theme.of(context).accentColor,
-                textColor: Colors.white,
-                image: Icon(Icons.navigate_next_sharp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
-              ),
-            ),
+            currentOrder.status == OrderStatus.FINISHED
+                ? Container()
+                : GestureDetector(
+                    onTap: () {
+                      screenState.requestOrderProgress(currentOrder);
+                    },
+                    child: CommunicationCard(
+                      text: OrderProgressionHelper.getNextStageHelper(
+                        currentOrder.status,
+                        currentOrder.paymentMethod.toLowerCase().contains('ca'),
+                        context,
+                      ),
+                      color: Theme.of(context).accentColor,
+                      textColor: Colors.white,
+                      image: Icon(
+                        Icons.navigate_next_sharp,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  ),
             // To Chat with Store owner in app
             GestureDetector(
               onTap: () {
@@ -84,13 +92,19 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               },
               child: CommunicationCard(
                 text: S.of(context).chatWithStoreOwner,
-                image: Icon(Icons.chat_rounded, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+                image: Icon(
+                  Icons.chat_rounded,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
             ),
             // To WhatsApp with store owner
             GestureDetector(
               onTap: () async {
-                var url = 'https://wa.me/${currentOrder.ownerPhone}';
+                var url =
+                    WhatsAppLinkHelper.getWhatsAppLink(currentOrder.ownerPhone);
                 if (await canLaunch(url)) {
                   await launch(url);
                 } else {
@@ -99,14 +113,20 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               },
               child: CommunicationCard(
                 text: S.of(context).whatsappWithStoreOwner,
-                image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+                image: FaIcon(
+                  FontAwesomeIcons.whatsapp,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
             ),
             // To WhatsApp with client
             currentOrder.ownerPhone != null
                 ? GestureDetector(
                     onTap: () async {
-                      var url = 'https://wa.me/${currentOrder.clientPhone}';
+                      var url = WhatsAppLinkHelper.getWhatsAppLink(
+                          currentOrder.clientPhone);
                       if (await canLaunch(url)) {
                         await launch(url);
                       } else {
@@ -115,15 +135,20 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                     },
                     child: CommunicationCard(
                       text: S.of(context).whatsappWithClient,
-                      image: FaIcon(FontAwesomeIcons.whatsapp, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+                      image: FaIcon(
+                        FontAwesomeIcons.whatsapp,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                     ),
                   )
                 : Container(),
             // To Open Maps
             GestureDetector(
               onTap: () {
-                var url =
-                    'https://www.google.com/maps/dir/?api=1&destination=${currentOrder.to.lat},${currentOrder.to.lon}';
+                var url = WhatsAppLinkHelper.getMapsLink(
+                    currentOrder.to.lat, currentOrder.to.lat);
                 canLaunch(url).then((value) {
                   if (value) {
                     launch(url);
@@ -132,10 +157,17 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               },
               child: CommunicationCard(
                 text: S.of(context).getDirection,
-                image: FaIcon(FontAwesomeIcons.mapSigns, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+                image: FaIcon(
+                  FontAwesomeIcons.mapSigns,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
               ),
             ),
-            Container(height: 36,),
+            Container(
+              height: 36,
+            ),
           ],
         ),
       ),
