@@ -22,7 +22,7 @@ class DatingEntityRepository extends ServiceEntityRepository
     public function datings()
     {
         return $this->createQueryBuilder('DatingEntityRepository')
-            ->select('DatingEntityRepository.userName', 'DatingEntityRepository.phone')
+            ->select('DatingEntityRepository.userName', 'DatingEntityRepository.phone', 'DatingEntityRepository.isDone')
             ->getQuery()
             ->getResult();
     }
