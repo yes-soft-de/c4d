@@ -57,7 +57,7 @@ class ProfileRepository {
       headers: {'Authorization': 'Bearer ' + token},
     );
 
-    if (response['status_code'] == '201') return true;
+    if (response != null) return true;
 
     return false;
   }
