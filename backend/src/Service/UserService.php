@@ -103,12 +103,18 @@ class UserService
         $item = $this->userManager->getUserProfileByUserID($userID);
 
         $item['branches'] = $this->branchesService->branchesByUserId($userID);
-        if ($item[0]['image'])
-        {
-            $item['imageURL'] = $item['image'];
-            $item['image'] = $this->params.$item['image'];
+        try {
+            if ($item['image'])
+            {
+                $item['imageURL'] = $item['image'];
+                $item['image'] = $this->params.$item['image'];
+            }
+            $item['baseURL'] = $this->params;
         }
-        $item['baseURL'] = $this->params;
+        catch(\Exception $e) {
+
+        }
+
         
         return $this->autoMapping->map('array', UserProfileCreateResponse::class, $item);
     }
