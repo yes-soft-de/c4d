@@ -42,7 +42,7 @@ class AboutScreenState extends State<AboutScreen> {
   }
 
   void moveToRegister() {
-    Navigator.of(context).pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
+    Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
   }
 
   void moveNext(UserRole role) {

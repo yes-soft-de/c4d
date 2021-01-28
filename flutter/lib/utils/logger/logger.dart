@@ -1,4 +1,5 @@
 import 'package:inject/inject.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 @provide
 @singleton
@@ -16,8 +17,7 @@ class Logger {
   void error(String tag, String msg) {
     String time = DateTime.now().toString();
     print('$time: \t $tag \t $msg');
-    //TODO : uncomment this later
-//    FirebaseCrashlytics.instance
-//        .recordError('$time: \t $tag \t $msg', StackTrace.current??'');
+   FirebaseCrashlytics.instance
+       .recordError('$time: \t $tag \t $msg', StackTrace.current??'');
   }
 }

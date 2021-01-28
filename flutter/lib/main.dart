@@ -9,6 +9,7 @@ import 'package:c4d/module_orders/orders_module.dart';
 import 'package:c4d/module_profile/module_profile.dart';
 import 'package:c4d/module_splash/splash_module.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
+import 'package:c4d/utils/logger/logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,11 +40,15 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]).then((_) async {
     final container = await AppComponent.create();
-      await runZoned(() async {
-        runApp(container.app);
-      }, onError: (exception, stack){
-        FirebaseCrashlytics.instance.recordError(exception, stack);
-      });
+    FlutterError.onError = (FlutterErrorDetails details) async {
+      new Logger().error('Main', details.toString());
+    };
+    await runZoned<Future<void>>(() async {
+      // Your App Here
+      runApp(container.app);
+    }, onError: (error, stackTrace) {
+      new Logger().error('Main', error.toString() + stackTrace.toString());
+    });
   });
 }
 
