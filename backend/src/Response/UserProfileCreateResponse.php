@@ -12,7 +12,7 @@ class UserProfileCreateResponse
 
     // public $story;
 
-    // public $image;
+     public $image;
 
     // public $status;
 
