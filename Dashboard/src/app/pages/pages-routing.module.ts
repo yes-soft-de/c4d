@@ -46,6 +46,21 @@ const routes: Routes = [
         loadChildren: () => import('./recordes/recordes.module').then(m => m.RecordesModule),
         canActivate: [AfterLoginService]
       },
+      {
+        path: 'statistics',
+        loadChildren: () => import('./statics/statics.module').then(m => m.StaticsModule),
+        canActivate: [AfterLoginService]
+      },
+      {
+        path: 'reports',
+        loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
+        canActivate: [AfterLoginService]
+      },
+      {
+        path: 'datings',
+        loadChildren: () => import('./dating/dating.module').then(m => m.DatingModule),
+        canActivate: [AfterLoginService]
+      },
       { path: '**', component: NotFoundComponent }
     ]
   }

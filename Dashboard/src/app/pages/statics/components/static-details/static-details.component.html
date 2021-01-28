@@ -1,0 +1,33 @@
+<div class="static-details" *ngIf="statisticsDetails">
+    <h1 class="text-light-blue font-weight-bold p-3">{{'orders-request-per-month' | translate}}</h1>
+    <div class="statistic-form">
+      <form [formGroup]="statisticForm" class="col-12 my-5">
+          <div class="form-group row">
+            <label class="col-12 col-lg-3 col-xl-4 col-form-label text-md-left text-lg-center">{{'select-month' | translate}}</label>
+            <div class="col-12 col-sm-8 col-lg-7">
+              <input class="form-control"
+                     type="date"
+                     name="selectDate"
+                     (change)="changeDate($event)"
+                     formControlName="selectDate">
+            </div>
+            </div>
+        </form>
+      </div>
+    <div *ngIf="statisticsDetails?.Data[1].length !== 0">
+        <div class="container-fluid">            
+            <div class="statistic-chart">
+                <google-chart [type]="chart.type" [data]="chart.data" [columns]="chart.columnNames" [options]="chart.options" [dynamicResize]="true" style="width: 100%;">
+                </google-chart>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="statisticsDetails?.Data[1].length === 0">
+      <div class="container">
+          <div class="alert alert-primary text-center mt-5">{{'statistic-not-exists' | translate}}</div>        
+      </div>
+  </div>
+</div>
+<div *ngIf="statisticsDetails == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

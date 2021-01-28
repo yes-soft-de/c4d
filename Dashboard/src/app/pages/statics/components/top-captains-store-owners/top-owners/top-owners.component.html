@@ -1,0 +1,68 @@
+<div class="owners" *ngIf="owners">
+    <div *ngIf="owners.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                <div class="card-header bg-white py-3"></div>
+                    <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr style="white-space: nowrap;">
+                                <th scope="col">#ID</th>
+                                <th scope="col">{{'owner-name' | translate}}</th>
+                                <th scope="col">{{'count-orders-in-last-month' | translate}}</th>
+                                <!-- <th scope="col">{{'car-count' | translate}}</th>
+                                <th scope="col">{{'city' | translate}}</th>
+                                <th scope="col">{{'cost' | translate}}</th>
+                                <th scope="col">{{'order-count' | translate}}</th>
+                                <th scope="col">{{'status' | translate}}</th>
+                                <th scope="col">{{'note' | translate}}</th>
+                                <th scope="col">{{'control' | translate}}</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let owner of ownersList | paginate: config">
+                                <th scope="row">{{owner.ownerID}}</th>
+                                <th scope="row">{{owner.userName ? owner.userName: '-'}}</th>
+                                <th scope="row">{{owner.countOrdersInMonth ? owner.countOrdersInMonth : '-'}}</th>
+                                <!-- <th scope="row">{{owner.carCount ? owner.carCount : '-'}}</th>
+                                <th scope="row">{{owner.city ? owner.city : '-'}}</th>
+                                <th scope="row">{{owner.cost ? (owner.cost | currency) : '-'}}</th>
+                                <th scope="row">{{owner.orderCount ? owner.orderCount : '-'}}</th>
+                                <th scope="row" [class.text-danger]="owner.status == 'inactive'">{{owner.status ? owner.status : '-'}}</th>
+                                <th scope="row" class="td-custom">{{owner.note ? owner.note : '-'}}</th>
+                                <th scrope="row">
+                                    <a routerLink="/owners/view/{{owner.id}}" class="text-success">{{'view' | translate}}</a>
+                                </th> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pagesChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="{{'prev' | translate}}"
+                        nextLabel="{{'next' | translate}}"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="owners.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">{{'store-owner-not-exists' | translate}}</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="owners == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

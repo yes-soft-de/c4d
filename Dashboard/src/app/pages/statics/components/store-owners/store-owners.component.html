@@ -1,0 +1,63 @@
+<div class="store-owners" *ngIf="storeOwners">
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'store-owners' | translate}}</h1>
+    <div *ngIf="storeOwners.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#ID</th>
+                                <th scope="col">{{'image' | translate}}</th>
+                                <th scope="col">{{'username' | translate}}</th>
+                                <th scope="col">{{'branch' | translate }}</th>
+                                <th scope="col">{{'city' | translate }}</th>
+                                <th scope="col">{{'free' | translate }}</th>
+                                <th scope="col">{{'control' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let owner of storeOwnersList | paginate: config">
+                                <th scope="row">{{owner.id}}</th>
+                                <th><img src="{{owner?.image}}" (error)="owner.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{owner.name}} Image" class="img-thumbnail img-custom"></th>
+                                <th scope="row">{{owner.userName ? owner.userName : '-'}}</th>
+                                <th scope="row">{{owner.branch ? owner.branch : '-'}}</th>
+                                <th scope="row">{{owner.city ? owner.city : '-'}}</th>
+                                <th scope="row">{{owner.free ? ('yes' | translate) : ('no' | translate)}}</th>
+                                <th scrope="row">
+                                    <a routerLink="/statistics/view/owner/{{owner.userID}}" class="text-success">{{'statistics' | translate}}</a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="{{'prev' | translate}}"
+                        nextLabel="{{'next' | translate}}"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="storeOwners.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">{{'store-owner-not-exists' | translate}}</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="storeOwners == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

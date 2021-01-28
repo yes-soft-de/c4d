@@ -41,6 +41,30 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
         ]
     },
     {
+        title: 'Statistics',
+        id: 'statistics',
+        translate: 'statistics',
+        icon: 'fa fa-bar-chart',
+        // link: '/pages/iot-dashboard',
+        children: [
+            {
+                title: 'Top 15 ( Captains & Store Owners )',
+                translate: 'top-captains-storeOwners',
+                link: '/statistics',
+            },
+            {
+                title: 'Captains',
+                translate: 'all-captains',
+                link: '/statistics/all-captains',
+            },
+            {
+                title: 'Store Owners',
+                translate: 'store-owners',
+                link: '/statistics/store-owners',
+            },
+        ]
+    },
+    {
         title: 'Captains',
         id: 'captains',
         translate: 'captains',
@@ -78,9 +102,9 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
         ]
     },
     {
-        title: 'Contracts',
-        translate: 'contracts',
-        id: 'contracts',
+        title: 'Store Owners',
+        translate: 'store-owners',
+        id: 'store-owners',
         icon: 'fa fa-shopping-bag',
         children: [
             {
@@ -109,7 +133,7 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
             },
         ]
     },
-        {
+    {
         title: 'Recordes',
         id: 'recordes',
         translate: 'recordes',
@@ -130,6 +154,34 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
                 title: 'Owners',
                 translate: 'owners',
                 link: '/recordes/owners',
+            },
+        ]
+    },
+    {
+        title: 'Reports',
+        id: 'reports',
+        translate: 'reports',
+        icon: 'fa fa-files-o',
+        // link: '/pages/iot-dashboard',
+        children: [
+            {
+                title: 'All Reports',
+                translate: 'all-reports',
+                link: '/reports',
+            },
+        ]
+    },
+    {
+        title: 'Datings',
+        id: 'datings',
+        translate: 'datings',
+        icon: 'fa fa-calendar',
+        // link: '/pages/iot-dashboard',
+        children: [
+            {
+                title: 'All Datings',
+                translate: 'all-datings',
+                link: '/datings',
             },
         ]
     },

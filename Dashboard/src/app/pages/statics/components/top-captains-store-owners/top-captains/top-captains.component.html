@@ -1,0 +1,76 @@
+<div class="captains" *ngIf="captains">
+    <div *ngIf="captains.length !== 0">
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                <div class="card-header bg-white py-3"></div>
+                    <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr style="white-space: nowrap;">
+                                <th scope="col">{{'image' | translate }}</th>
+                                <th scope="col">{{'captain-name' | translate }}</th>
+                                <th scope="col">{{'count-orders-in-last-month' | translate }}</th>
+                                <th scope="col">{{'car' | translate }}</th>
+                                <th scope="col">{{'age' | translate }}</th>
+                                <th scope="col">{{'salary' | translate }}</th>
+                                <th scope="col">{{'bounce' | translate }}</th>
+                                <!-- <th scope="col">{{'car-count' | translate}}</th>
+                                <th scope="col">{{'city' | translate}}</th>
+                                <th scope="col">{{'cost' | translate}}</th>
+                                <th scope="col">{{'order-count' | translate}}</th>
+                                <th scope="col">{{'status' | translate}}</th>
+                                <th scope="col">{{'note' | translate}}</th>
+                                <th scope="col">{{'control' | translate}}</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let captain of captainsList | paginate: config">
+                                <th><img src="{{captain?.image}}" (error)="captain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.name}} Image" class="img-thumbnail img-custom"></th>
+                                <th scope="row">{{captain.captainName ? captain.captainName: '-'}}</th>
+                                <th scope="row">{{captain.countOrdersInMonth ? captain.countOrdersInMonth : '-'}}</th>
+                                <th scope="row">{{captain.car ? captain.car : '-'}}</th>
+                                <th scope="row">{{captain.age ? captain.age : '-'}}</th>
+                                <th scope="row">{{captain.salary ? (captain.salary | currency ) : '-'}}</th>
+                                <th scope="row">{{captain.bounce ? captain.bounce : '-'}}</th>
+                                <!-- <th scope="row">{{captain.carCount ? captain.carCount : '-'}}</th>
+                                <th scope="row">{{captain.city ? captain.city : '-'}}</th>
+                                <th scope="row">{{captain.cost ? (captain.cost | currency) : '-'}}</th>
+                                <th scope="row">{{captain.orderCount ? captain.orderCount : '-'}}</th>
+                                <th scope="row" [class.text-danger]="captain.status == 'inactive'">{{captain.status ? captain.status : '-'}}</th>
+                                <th scope="row" class="td-custom">{{captain.note ? captain.note : '-'}}</th>
+                                <th scrope="row">
+                                    <a routerLink="/captains/view/{{captain.id}}" class="text-success">{{'view' | translate}}</a>
+                                </th> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pagedChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="{{'prev' | translate}}"
+                        nextLabel="{{'next' | translate}}"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="captains.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">{{'captain-not-exists' | translate}}</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="captains == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

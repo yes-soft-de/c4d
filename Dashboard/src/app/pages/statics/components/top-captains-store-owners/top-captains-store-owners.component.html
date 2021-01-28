@@ -1,0 +1,24 @@
+<div class="all-captains-owners">
+    <h1 class="text-light-blue font-weight-bold p-3">{{'statistics' | translate}}</h1>
+    <div class="dashboard-titles">
+      <ul class="nav nav-tabs">
+        <li class="nav-item mx-auto bg-grey">
+            <a id="captain" class="nav-link text-light-blue active" data-toggle="tab" href="#top-captains">{{'captains' | translate}}</a>
+        </li>
+        <li class="nav-item mx-auto bg-grey">
+            <a id="owners" class="nav-link text-light-blue" data-toggle="tab" href="#top-owners">{{'store-owners' | translate}}</a>
+        </li>
+      </ul>
+    </div><!--.dashboard-titles-->
+    <div class="dashboard-title-content mb-5 tab-content">
+      <div id="top-captains" class="tab-pane active"><br>
+        <app-top-captains></app-top-captains>
+      </div>
+      <div id="top-owners" class="tab-pane fade"><br>
+        <app-top-owners></app-top-owners>
+      </div>
+    </div><!--.dashboard-title-content-->
+</div>
+<div *ngIf="false">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

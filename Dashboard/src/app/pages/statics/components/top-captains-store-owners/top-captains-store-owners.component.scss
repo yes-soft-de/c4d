@@ -1,0 +1,53 @@
+@import '../../../../../variable';
+.all-captains-owners {
+    & > h1 {
+        @media (min-width: '992px') and (max-width: '1199px') {
+          font-size: 2.2rem;
+        }
+        @media (min-width: '768px') and (max-width: '991px') {
+          font-size: 2rem;
+        }
+        @media (min-width: '576px') and (max-width: '767px') {
+          font-size: 2rem;
+          background: none !important;
+          color: #21a5b8 !important;
+        }
+        @media (max-width: '575px') {
+          font-size: 1.8rem;
+          background: none !important;
+          color: #21a5b8 !important;
+        }
+    }
+    .dashboard-titles {
+        .nav-tabs { border: none; }
+        .nav-item {
+            width: 25%;
+            text-align: center;
+            align-self: center;
+            @media (min-width: '576px') and (max-width: '991px') {
+            width: 30%;
+            }
+            @media (max-width: '575px') {
+            width: calc(100% / 2.8);
+            }
+            .nav-link { font-size: 1.8rem; background-color: #dbdbdb; border: none; 
+            @media (min-width: '1200px') {
+                font-size: 1.4rem;
+            }
+            @media (min-width: '992px') and (max-width: '1199px') {
+                font-size: 1.1rem;
+            }
+            @media (min-width: '576px') and (max-width: '991px') {
+                font-size: 1rem;
+            }
+            // @media (min-width: '576px') and (max-width: '767px') {
+            //   font-size: 1rem;
+            // }
+            @media (max-width: '575px') {
+                font-size: .8rem;
+            }
+            &:hover, &.active { color: #fff; background-color: $warm_green; }
+            }
+        }
+    }
+}

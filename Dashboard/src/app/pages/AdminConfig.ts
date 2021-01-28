@@ -40,6 +40,19 @@ export class AdminConfig {
   public static ordersAPI                   = AdminConfig.sourceAPI + 'getOrders';
   public static ownersCaptainsAPI           = AdminConfig.sourceAPI + 'getUsers';
   public static recordsAPI                  = AdminConfig.sourceAPI + 'records';
+  
+  // Statics
+  public static topOwnersAPI                = AdminConfig.sourceAPI + 'getTopOwners';
+  public static topCaptainsAPI              = AdminConfig.sourceAPI + 'topCaptains';
+  public static allUsersAPI                 = AdminConfig.sourceAPI + 'getAllUsers';
+  public static statisticDetailsAPI         = AdminConfig.sourceAPI + 'getAllOrdersAndCount';
+  
+  // Reports
+  public static reportsAPI                  = AdminConfig.sourceAPI + 'reports';
+  
+  // Datings
+  public static datingsAPI                  = AdminConfig.sourceAPI + 'datings';
+  public static datingAPI                   = AdminConfig.sourceAPI + 'dating';
 
 
   // Upload     
