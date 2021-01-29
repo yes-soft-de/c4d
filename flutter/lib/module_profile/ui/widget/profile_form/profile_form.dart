@@ -18,8 +18,9 @@ class ProfileFormWidget extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() =>
-      _ProfileFormWidgetState(request.name, request.phone);
+  State<StatefulWidget> createState() => _ProfileFormWidgetState(
+      request != null ? request.name : null,
+      request != null ? request.phone : null);
 }
 
 class _ProfileFormWidgetState extends State<ProfileFormWidget> {
@@ -36,6 +37,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Form(
@@ -71,6 +73,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         shape: BoxShape.circle,
                       ),
                     ),
+                    widget.request == null ? Container() :
                     widget.request.image == null
                         ? Container()
                         : Container(
@@ -80,34 +83,10 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                                   image: NetworkImage(
                                       widget.request.image.contains('http')
                                           ? widget.request.image
-                                          : Urls.IMAGES_ROOT + widget.request.image),
+                                          : Urls.IMAGES_ROOT +
+                                              widget.request.image),
                                   fit: BoxFit.cover,
                                 )),
-                          ),
-                    localImage == null
-                        ? Container()
-                        : Container(
-                            height: 96,
-                            width: 96,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: FileImage(File(localImage)),
-                                  fit: BoxFit.cover,
-                                )),
-                            child: IconButton(
-                              onPressed: () {
-                                widget.onImageUpload(
-                                  _nameController.text,
-                                  _phoneController.text,
-                                  localImage,
-                                );
-
-                                localImage = null;
-                              },
-                              icon: Icon(Icons.upload_file),
-                            ),
                           ),
                   ],
                 ),

@@ -11,6 +11,7 @@ class ProfileStateNoProfile extends ProfileState {
 
   @override
   Widget getUI(BuildContext context) {
+    request ??= ProfileRequest.empty();
     return ProfileFormWidget(
       onProfileSaved: (name, phone, image) {
         request.name = name;

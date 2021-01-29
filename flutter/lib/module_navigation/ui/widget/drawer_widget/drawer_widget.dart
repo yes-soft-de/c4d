@@ -3,6 +3,7 @@ import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends StatelessWidget {
   @override
@@ -69,7 +70,10 @@ class DrawerWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      String url = 'https://google.com';
+                      launch(url);
+                    },
                     child: Text(
                       S.of(context).privacyPolicy,
                       textAlign: TextAlign.center,
@@ -79,7 +83,10 @@ class DrawerWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      String url = 'https://google.com';
+                      launch(url);
+                    },
                     child: Text(
                       S.of(context).termsOfService,
                       textAlign: TextAlign.center,

@@ -11,6 +11,8 @@ class ProfileRequest {
   String drivingLicence;
   String state;
 
+  ProfileRequest.empty();
+
   ProfileRequest({
     this.name,
     this.phone,
