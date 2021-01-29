@@ -19,5 +19,7 @@ class Logger {
     print('$time: \t $tag \t $msg');
    FirebaseCrashlytics.instance
        .recordError('$time: \t $tag \t $msg', StackTrace.current??'');
+   FirebaseCrashlytics.instance.log('$time: \t $tag \t $msg');
+   FirebaseCrashlytics.instance.sendUnsentReports();
   }
 }

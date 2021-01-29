@@ -106,11 +106,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               onTap: () {
                 var url =
                     WhatsAppLinkHelper.getWhatsAppLink(currentOrder.ownerPhone);
-                canLaunch(url).then((canLaunch) {
-                  launch(url);
-                }).catchError((value) {
-                  Logger().error('Order Details Owner', value.toString());
-                });
+                launch(url);
               },
               child: CommunicationCard(
                 text: S.of(context).whatsappWithStoreOwner,
@@ -128,11 +124,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                     onTap: () {
                       var url = WhatsAppLinkHelper.getWhatsAppLink(
                           currentOrder.clientPhone);
-                      canLaunch(url).then((canLaunch) {
-                        launch(url);
-                      }).catchError((value) {
-                        Logger().error('Order Details Owner', value.toString());
-                      });
+                      launch(url);
                     },
                     child: CommunicationCard(
                       text: S.of(context).whatsappWithClient,
@@ -150,11 +142,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               onTap: () {
                 var url = WhatsAppLinkHelper.getMapsLink(
                     currentOrder.to.lat, currentOrder.to.lat);
-                canLaunch(url).then((canLaunch) {
-                  launch(url);
-                }).catchError((value) {
-                  Logger().error('Order Details Owner', value.toString());
-                });
+                launch(url);
               },
               child: CommunicationCard(
                 text: S.of(context).getDirection,
