@@ -64,6 +64,8 @@
         <string>comgooglemaps</string>
         <string>comgooglemapsurl</string>
         <string>whatsapp</string>
+        <string>http</string>
+        <string>https</string>
     </array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

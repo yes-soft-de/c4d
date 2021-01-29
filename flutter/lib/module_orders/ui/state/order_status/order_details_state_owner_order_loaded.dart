@@ -6,6 +6,7 @@ import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart'
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/module_orders/util/whatsapp_link_helper.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
+import 'package:c4d/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -89,13 +90,14 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 ),
               ),
               GestureDetector(
-                onTap: () async {
-                  var url = WhatsAppLinkHelper.getWhatsAppLink(currentOrder.captainPhone);
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw 'Could not launch $url';
-                  }
+                onTap: () {
+                  var url = WhatsAppLinkHelper.getWhatsAppLink(
+                      currentOrder.captainPhone);
+                  canLaunch(url).then((canLaunch) {
+                    launch(url);
+                  }).catchError((value) {
+                    Logger().error('Order Details Owner', value.toString());
+                  });
                 },
                 child: CommunicationCard(
                   text: S.of(context).whatsappWithCaptain,
@@ -108,13 +110,14 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               currentOrder.clientPhone == null
                   ? Container()
                   : GestureDetector(
-                      onTap: () async {
-                        var url = WhatsAppLinkHelper.getWhatsAppLink(currentOrder.clientPhone);
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
+                      onTap: () {
+                        var url = WhatsAppLinkHelper.getWhatsAppLink(
+                            currentOrder.clientPhone);
+                        canLaunch(url).then((canLaunch) {
+                          launch(url);
+                        }).catchError((value) {
+                          Logger().error('Order Details Owner', value.toString());
+                        });
                       },
                       child: CommunicationCard(
                         text: S.of(context).whatsappWithClient,

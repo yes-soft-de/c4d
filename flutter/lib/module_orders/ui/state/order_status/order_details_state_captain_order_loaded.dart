@@ -8,6 +8,7 @@ import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart'
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/module_orders/util/whatsapp_link_helper.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
+import 'package:c4d/utils/logger/logger.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -102,14 +103,14 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             ),
             // To WhatsApp with store owner
             GestureDetector(
-              onTap: () async {
+              onTap: () {
                 var url =
                     WhatsAppLinkHelper.getWhatsAppLink(currentOrder.ownerPhone);
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
+                canLaunch(url).then((canLaunch) {
+                  launch(url);
+                }).catchError((value) {
+                  Logger().error('Order Details Owner', value.toString());
+                });
               },
               child: CommunicationCard(
                 text: S.of(context).whatsappWithStoreOwner,
@@ -124,14 +125,14 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             // To WhatsApp with client
             currentOrder.ownerPhone != null
                 ? GestureDetector(
-                    onTap: () async {
+                    onTap: () {
                       var url = WhatsAppLinkHelper.getWhatsAppLink(
                           currentOrder.clientPhone);
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
+                      canLaunch(url).then((canLaunch) {
+                        launch(url);
+                      }).catchError((value) {
+                        Logger().error('Order Details Owner', value.toString());
+                      });
                     },
                     child: CommunicationCard(
                       text: S.of(context).whatsappWithClient,
@@ -149,10 +150,10 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               onTap: () {
                 var url = WhatsAppLinkHelper.getMapsLink(
                     currentOrder.to.lat, currentOrder.to.lat);
-                canLaunch(url).then((value) {
-                  if (value) {
-                    launch(url);
-                  }
+                canLaunch(url).then((canLaunch) {
+                  launch(url);
+                }).catchError((value) {
+                  Logger().error('Order Details Owner', value.toString());
                 });
               },
               child: CommunicationCard(
