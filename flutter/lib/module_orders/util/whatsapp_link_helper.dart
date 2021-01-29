@@ -5,7 +5,7 @@ class WhatsAppLinkHelper {
     if (Platform.isAndroid) {
       return 'https://wa.me/$phone';
     } else {
-      return 'https://api.whatsapp.com/send?phone=$phone';
+      return 'whatsapp://send?phone=$phone';
     }
   }
 
@@ -13,7 +13,7 @@ class WhatsAppLinkHelper {
     if (Platform.isAndroid) {
       return 'https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}';
     } else {
-      return 'https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}';
+      return 'comgooglemaps://www.google.com/maps/dir/?api=1&destination=${lat},${lon}';
     }
   }
 }
