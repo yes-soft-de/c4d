@@ -170,22 +170,28 @@ class UserService
 
         $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
 
-        $bounce = $this->totalBounceCaptain($item['id']);
+        try {
+            $bounce = $this->totalBounceCaptain($item['id']);
 
-        $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($captainID);
-        
-        $item['imageURL'] = $item['image'];
-        $item['image'] = $this->params.$item['image'];
-        $item['drivingLicenceURL'] = $item['drivingLicence'];
-        $item['drivingLicence'] = $this->params.$item['drivingLicence'];
-        $item['baseURL'] = $this->params;
-        $item['rating'] = $this->ratingService->getRatingByCaptainID($captainID);
+            $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($captainID);
 
-        $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
-      
-        $response->bounce = $bounce;
-        $response->countOrdersDeliverd = $countOrdersDeliverd;
+            $item['imageURL'] = $item['image'];
+            $item['image'] = $this->params.$item['image'];
+            $item['drivingLicenceURL'] = $item['drivingLicence'];
+            $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+            $item['baseURL'] = $this->params;
+            $item['rating'] = $this->ratingService->getRatingByCaptainID($captainID);
 
+            $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
+
+            $response->bounce = $bounce;
+            $response->countOrdersDeliverd = $countOrdersDeliverd;
+
+        }
+        catch (\Exception $e)
+        {
+
+        }
         return $response;
     }
 
