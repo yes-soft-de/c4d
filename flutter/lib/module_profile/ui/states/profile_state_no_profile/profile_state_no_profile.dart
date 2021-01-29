@@ -6,7 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class ProfileStateNoProfile extends ProfileState {
   ProfileRequest request;
-  ProfileStateNoProfile(EditProfileScreenState screenState)
+  ProfileStateNoProfile(EditProfileScreenState screenState, this.request)
       : super(screenState);
 
   @override

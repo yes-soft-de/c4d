@@ -21,7 +21,7 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   UserRole currentUserRole;
 
-  final List<LoginState> _currentStates = [];
+  LoginState _currentStates;
 
   StreamSubscription _stateSubscription;
   bool deepLinkChecked = false;
@@ -33,11 +33,11 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _currentStates.add(LoginStateInit(this));
+    _currentStates = LoginStateInit(this);
     _stateSubscription = widget._stateManager.stateStream.listen((event) {
       if (mounted) {
         setState(() {
-          _currentStates.add(event);
+          _currentStates = event;
         });
       }
     });
@@ -46,7 +46,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentStates.last.getUI(context),
+      body: _currentStates.getUI(context),
     );
   }
 
@@ -76,10 +76,10 @@ class LoginScreenState extends State<LoginScreen> {
 
   void confirmCaptainSMS(String smsCode) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.confirmCaptainCode(smsCode);
+    widget._stateManager.confirmCaptainCode(smsCode, this);
   }
 
   void retryPhone() {
-    _currentStates.add(LoginStateInit(this));
+    _currentStates = LoginStateInit(this);
   }
 }
