@@ -1,3 +1,4 @@
+import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/module_profile/ui/screen/edit_profile/edit_profile.dart';
 import 'package:c4d/module_profile/ui/states/profile_loading/profile_loading.dart';
@@ -21,23 +22,21 @@ class EditProfileStateManager {
 
   Stream<ProfileState> get stateStream => _stateSubject.stream;
 
-  void uploadImage(EditProfileScreenState screenState, String image,
-      String name, String phone) {
-    _imageUploadService.uploadImage(image).then((uploadedImageLink) {
-      _stateSubject.add(ProfileStateDirtyProfile(
-          screenState, name, phone, uploadedImageLink));
+  void uploadImage(EditProfileScreenState screenState, ProfileRequest request) {
+    _imageUploadService.uploadImage(request.image).then((uploadedImageLink) {
+      request.image = uploadedImageLink;
+      _stateSubject.add(ProfileStateDirtyProfile(screenState, request));
     });
   }
 
-  void submitProfile(EditProfileScreenState screenState, String name,
-      String phone, String image) {
+  void submitProfile(EditProfileScreenState screenState, ProfileRequest request) {
     _stateSubject.add(ProfileStateLoading(screenState));
-    _profileService.createProfile(name, phone, image).then((value) {
+    _profileService.createProfile(request).then((value) {
       if (value) {
         _stateSubject.add(ProfileStateSaveSuccess(screenState));
       } else {
         _stateSubject
-            .add(ProfileStateGotProfile(screenState, name, phone, image));
+            .add(ProfileStateGotProfile(screenState, request));
       }
     });
   }
@@ -50,9 +49,16 @@ class EditProfileStateManager {
       } else {
         _stateSubject.add(ProfileStateGotProfile(
           screenState,
-          value.name,
-          value.phone,
-          value.image,
+          ProfileRequest(
+            name: value.name,
+            image: value.image,
+            phone: value.phone,
+            drivingLicence: value.drivingLicence,
+            city: 'Jedda',
+            branch: '-1',
+            car: value.car,
+            age: value.age.toString(),
+          ),
         ));
       }
     });

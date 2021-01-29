@@ -2,27 +2,24 @@ import 'dart:io';
 
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileFormWidget extends StatefulWidget {
   final Function(String, String, String) onProfileSaved;
   final Function(String, String, String) onImageUpload;
-  final String name;
-  final String phoneNumber;
-  final String image;
+  final ProfileRequest request;
 
   ProfileFormWidget({
     @required this.onProfileSaved,
     @required this.onImageUpload,
-    this.name,
-    this.phoneNumber,
-    this.image,
+    this.request,
   });
 
   @override
   State<StatefulWidget> createState() =>
-      _ProfileFormWidgetState(name, phoneNumber);
+      _ProfileFormWidgetState(request.name, request.phone);
 }
 
 class _ProfileFormWidgetState extends State<ProfileFormWidget> {
@@ -74,16 +71,16 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         shape: BoxShape.circle,
                       ),
                     ),
-                    widget.image == null
+                    widget.request.image == null
                         ? Container()
                         : Container(
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                      widget.image.contains('http')
-                                          ? widget.image
-                                          : Urls.IMAGES_ROOT + widget.image),
+                                      widget.request.image.contains('http')
+                                          ? widget.request.image
+                                          : Urls.IMAGES_ROOT + widget.request.image),
                                   fit: BoxFit.cover,
                                 )),
                           ),
@@ -155,7 +152,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                     widget.onProfileSaved(
                       _nameController.text,
                       _phoneController.text,
-                      widget.image,
+                      widget.request.image,
                     );
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(

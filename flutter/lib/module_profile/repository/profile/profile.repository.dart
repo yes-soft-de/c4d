@@ -20,6 +20,7 @@ class ProfileRepository {
   );
 
   Future<ProfileResponseModel> getOwnerProfile() async {
+    await _authService.refreshToken();
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get(
       Urls.OWNER_PROFILE_API,
@@ -28,7 +29,7 @@ class ProfileRepository {
     if (response == null) return null;
     try {
       return ProfileResponse.fromJson(response).data;
-    } catch(e) {
+    } catch (e) {
       return null;
     }
   }
@@ -44,18 +45,28 @@ class ProfileRepository {
     try {
       if (response == null) return null;
       return ProfileResponse.fromJson(response).data;
-    } catch(e) {
+    } catch (e) {
       return null;
     }
   }
 
   Future<bool> createOwnerProfile(ProfileRequest profileRequest) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(
-      Urls.OWNER_PROFILE_API,
-      profileRequest.toJson(),
-      headers: {'Authorization': 'Bearer ' + token},
-    );
+    dynamic response;
+    try {
+      response = await _apiClient.post(
+        Urls.OWNER_PROFILE_API,
+        profileRequest.toJson(),
+        headers: {'Authorization': 'Bearer ' + token},
+      );
+    } catch (e) {}
+    try {
+      await _apiClient.put(
+        Urls.OWNER_PROFILE_API,
+        profileRequest.toJson(),
+        headers: {'Authorization': 'Bearer ' + token},
+      );
+    } catch (e) {}
 
     if (response != null) return true;
 
@@ -64,13 +75,24 @@ class ProfileRepository {
 
   Future<bool> createCaptainProfile(ProfileRequest profileRequest) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(
-      Urls.CAPTAIN_PROFILE_API,
-      profileRequest.toJson(),
-      headers: {'Authorization': 'Bearer ' + token},
-    );
 
-    if (response  == null) return true;
+    dynamic response;
+    try {
+      await _apiClient.post(
+        Urls.CAPTAIN_PROFILE_API,
+        profileRequest.toJson(),
+        headers: {'Authorization': 'Bearer ' + token},
+      );
+    } catch (e) {}
+    try {
+      await _apiClient.put(
+        Urls.CAPTAIN_PROFILE_API,
+        profileRequest.toJson(),
+        headers: {'Authorization': 'Bearer ' + token},
+      );
+    } catch (e) {}
+
+    if (response == null) return true;
 
     return false;
   }

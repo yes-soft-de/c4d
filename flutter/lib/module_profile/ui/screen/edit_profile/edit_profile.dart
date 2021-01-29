@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/state_manager/edit_profile/edit_profile.dart';
 import 'package:c4d/module_profile/ui/states/profile_loading/profile_loading.dart';
 import 'package:c4d/module_profile/ui/states/profile_state/profile_state.dart';
@@ -18,12 +19,12 @@ class EditProfileScreen extends StatefulWidget {
 class EditProfileScreenState extends State<EditProfileScreen> {
   List<ProfileState> states = [];
 
-  void saveProfile(String name, String phone, String image) {
-    widget._stateManager.submitProfile(this, name, phone, image);
+  void saveProfile(ProfileRequest request) {
+    widget._stateManager.submitProfile(this, request);
   }
 
-  void uploadImage(String name, String phone, String image) {
-    widget._stateManager.uploadImage(this, image, name, phone);
+  void uploadImage(ProfileRequest request) {
+    widget._stateManager.uploadImage(this, request);
   }
 
   @override

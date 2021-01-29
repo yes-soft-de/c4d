@@ -37,9 +37,7 @@ class ProfileService {
     }
   }
 
-  Future<bool> createProfile(String name, String phone, String image) async {
-    ProfileRequest profileRequest =
-        new ProfileRequest(name: name, phone: phone, image: image);
+  Future<bool> createProfile(ProfileRequest profileRequest) async {
 
     var role = await _authService.userRole;
 
