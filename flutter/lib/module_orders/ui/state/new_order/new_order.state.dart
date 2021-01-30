@@ -107,10 +107,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                   child: FlatButton(
                     padding: EdgeInsets.all(24),
                     onPressed: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        OrdersRoutes.OWNER_ORDERS_SCREEN,
-                            (r) => false,
-                      );
+                      screenState.addNewOrder(_nameController.text, _phoneController.text);
                     },
                     child: Text(
                       S.of(context).skip,
@@ -126,10 +123,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                     padding: EdgeInsets.all(24),
                     onPressed: () {
                       if (_contactFormKey.currentState.validate()) {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          OrdersRoutes.OWNER_ORDERS_SCREEN,
-                              (r) => false,
-                        );
+                        screenState.addNewOrder(_nameController.text, _phoneController.text);
                       } else {
                         screenState.showSnackBar(S.of(context).pleaseCompleteTheForm);
                       }
@@ -369,13 +363,11 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                             .showSnackBar(S.of(context).pleaseSelectABranch);
                         return;
                       }
-                      screenState.addNewOrder(
+                      screenState.initNewOrder(
                         activeBranch,
                         GeoJson(lat: 0, lon: 0),
                         _infoController.text.trim(),
                         _selectedPaymentMethod ?? _selectedPaymentMethod.trim(),
-                        null,
-                        null,
                         orderDate.toIso8601String(),
                       );
                     },

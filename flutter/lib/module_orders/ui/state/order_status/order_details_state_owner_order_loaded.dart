@@ -1,3 +1,4 @@
+import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
@@ -69,7 +70,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               ),
             ],
           ),
-          Flex(
+          currentOrder.status == OrderStatus.INIT ? Container() :Flex(
             direction: Axis.vertical,
             children: [
               GestureDetector(
@@ -120,7 +121,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                       ),
                     ),
               Container(
-                height: 36,
+                height: 48,
               ),
             ],
           ),

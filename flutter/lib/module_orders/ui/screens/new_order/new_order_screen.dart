@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
 
+import '../../../orders_routes.dart';
+
 @provide
 class NewOrderScreen extends StatefulWidget {
   final NewOrderStateManager _stateManager;
@@ -22,21 +24,42 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   NewOrderState currentState;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  Branch fromBranch;
+  GeoJson destination;
+  String note;
+  String paymentMethod;
+  String recipientName;
+  String recipientPhone;
+  String date;
+
   void addNewOrder(
-      Branch fromBranch,
-      GeoJson destination,
-      String note,
-      String paymentMethod,
-      String recipientName,
-      String recipientPhone,
-      String date) {
+    String recipientName,
+    String recipientPhone,
+  ) {
     widget._stateManager.addNewOrder(fromBranch, destination, note,
         paymentMethod, recipientName, recipientPhone, date, this);
   }
 
+  void moveToNext() {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      OrdersRoutes.OWNER_ORDERS_SCREEN,
+          (r) => false,
+    );
+  }
+
+  void initNewOrder(Branch fromBranch, GeoJson destination, String note,
+      String paymentMethod, String date) {
+    this.fromBranch = fromBranch;
+    this.destination = destination;
+    this.note = note;
+    this.paymentMethod = paymentMethod;
+    this.date = date;
+    currentState = NewOrderStateSuccessState(this);
+    refresh();
+  }
+
   void showSnackBar(String msg) {
-    _scaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text(msg)));
+    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(msg)));
   }
 
   void refresh() {

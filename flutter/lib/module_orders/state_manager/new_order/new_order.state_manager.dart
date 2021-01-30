@@ -38,7 +38,7 @@ class NewOrderStateManager {
             recipientName, recipientPhone, date)
         .then((newOrder) {
       if (newOrder) {
-        _stateSubject.add(NewOrderStateSuccessState(screenState));
+        screenState.moveToNext();
       } else {
         _stateSubject
             .add(NewOrderStateErrorState('Error Creating Order', screenState));

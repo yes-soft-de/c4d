@@ -4,10 +4,13 @@ import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_scre
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:c4d/module_init/ui/widget/package_card/package_card.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InitAccountStatePackagesLoaded extends InitAccountState {
   List<PackageModel> packages;
 
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
   String _selectedCity;
   String _selectedSize;
   int _selectedPackageId;
@@ -19,78 +22,133 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: Stack(
         children: [
-          Card(
-            elevation: 4,
+          Positioned.fill(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //size
-                  DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField(
-                        value: _selectedSize,
+              child: Card(
+                elevation: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Flex(
+                    direction: Axis.vertical,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: _nameController,
                         decoration: InputDecoration(
-                          hintText: S.of(context).chooseYourSize,
-                          hintMaxLines: 2,
-                          helperMaxLines: 2,
+                          hintText: S.of(context).storeName,
+                          labelText: S.of(context).storeName,
                         ),
-                        items: _getSizes(context),
-                        onChanged: (value) {
-                          _selectedCity = value;
-                        }),
-                  ),
-                  //city
-                  Container(
-                    child: DropdownButtonFormField(
-                        // value: _selectedCity,
+                        validator: (name) {
+                          if (name.isEmpty) {
+                            return S.of(context).nameIsRequired;
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _phoneController,
                         decoration: InputDecoration(
-                          hintText: S.of(context).chooseYourCity,
+                          hintText: S.of(context).storePhone,
+                          labelText: S.of(context).storePhone,
                         ),
-                        items: _getCities(),
-                        onChanged: (value) {
-                          _selectedCity = value;
-                          screen.refresh();
-                        }),
-                  ),
-                  //package
-                  AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                    height: _selectedCity == null ? 0 : 275,
-                    margin: EdgeInsets.only(top: 20),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: _getPackages(),
-                    ),
-                  ),
-
-                  // Submit Package
-                  AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                    margin: EdgeInsets.only(top: 30),
-                    height: _selectedPackageId == null ? 0 : 64,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      color: Theme.of(context).primaryColor,
-                      onPressed: () {
-                        screen.subscribeToPackage(_selectedPackageId);
-                      },
-                      child: Text(
-                        S.of(context).next,
-                        style: TextStyle(
-                          color: Colors.white,
+                        validator: (phone) {
+                          if (phone.isEmpty) {
+                            return S.of(context).phoneIsRequired;
+                          }
+                          return null;
+                        },
+                      ),
+                      //size
+                      DropdownButtonHideUnderline(
+                        child: DropdownButtonFormField(
+                            value: _selectedSize,
+                            decoration: InputDecoration(
+                              hintText: S.of(context).chooseYourSize,
+                              hintMaxLines: 2,
+                              helperMaxLines: 2,
+                            ),
+                            items: _getSizes(context),
+                            onChanged: (value) {
+                              _selectedCity = value;
+                            }),
+                      ),
+                      //city
+                      Container(
+                        child: DropdownButtonFormField(
+                          // value: _selectedCity,
+                            decoration: InputDecoration(
+                              hintText: S.of(context).chooseYourCity,
+                            ),
+                            items: _getCities(),
+                            onChanged: (value) {
+                              _selectedCity = value;
+                              screen.refresh();
+                            }),
+                      ),
+                      //package
+                      AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        height: _selectedCity == null ? 0 : 196,
+                        margin: EdgeInsets.only(top: 20),
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: _getPackages(),
                         ),
                       ),
-                    ),
+                      // Submit Package
+                      AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        margin: EdgeInsets.only(top: 30),
+                        height: _selectedPackageId == null ? 0 : 36,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          color: Theme.of(context).primaryColor,
+                          onPressed: () {
+                            screen.subscribeToPackage(
+                              _selectedPackageId,
+                              _nameController.text,
+                              _phoneController.text,
+                              _selectedCity,
+                            );
+                          },
+                          child: Text(
+                            S.of(context).next,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 8,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                      blurRadius: 4
+                    )],
+                    color: Colors.white
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: FaIcon(FontAwesomeIcons.store),
+                ),
               ),
             ),
           ),
@@ -116,12 +174,9 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
           _selectedPackageId = element.id;
           screen.refresh();
         },
-        child: Opacity(
-          opacity: _selectedPackageId == element.id ? 0.5 : 1.0,
-          child: PackageCard(
-            package: element,
-            active: element.id == _selectedPackageId,
-          ),
+        child: PackageCard(
+          package: element,
+          active: element.id == _selectedPackageId,
         ),
       );
     }).toList();

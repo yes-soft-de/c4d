@@ -62,8 +62,9 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     super.initState();
   }
 
-  void subscribeToPackage(int packageId) {
-    widget._stateManager.subscribePackage(packageId, this);
+  void subscribeToPackage(
+      int packageId, String name, String phone, String city) {
+    widget._stateManager.subscribePackage(this, packageId, name, phone, city);
   }
 
   void getPackages() {

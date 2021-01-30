@@ -148,6 +148,9 @@
   "pleaseCompleteTheForm": "الرجاء أكمال الفورم",
   "reportSent": "تم ارسال الابلاغ",
   "reasonIsRequired": "الرجاء تزويدنا بسبب الابلاغ",
-  "pleaseProvideUsWithTheClientName": "Please Provide us with the Client Name",
-  "pleaseProvideUsTheClientPhoneNumber": "Please Provide us the client phone number"
+  "pleaseProvideUsWithTheClientName": "الرجاء تزويدنا باسم الزبون، او التخطي",
+  "pleaseProvideUsTheClientPhoneNumber": "الرجاء تزويدنا رقم الزبون او التخطي",
+  "storeName": "اسم المحل التجاري",
+  "storePhone": "رقم هاتف المحل",
+  "phoneIsRequired": "الرجاء تزويدنا برقم الهاتف"
 }

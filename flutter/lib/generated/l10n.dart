@@ -1534,6 +1534,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Store Name`
+  String get storeName {
+    return Intl.message(
+      'Store Name',
+      name: 'storeName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Store Phone`
+  String get storePhone {
+    return Intl.message(
+      'Store Phone',
+      name: 'storePhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone is required`
+  String get phoneIsRequired {
+    return Intl.message(
+      'Phone is required',
+      name: 'phoneIsRequired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -11,6 +11,7 @@ import 'package:c4d/module_init/ui/state/init_account_captain_loading/init_accou
 import 'package:c4d/module_init/ui/state/init_account_captain_profile_created/init_account_captain_profile_created.dart';
 import 'package:c4d/module_init/ui/state/init_account_packages_loaded/init_account_packages_loaded.dart';
 import 'package:c4d/module_init/ui/state/init_account_subscription_added/init_account_state_select_branch.dart';
+import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/module_upload/service/image_upload/image_upload_service.dart';
@@ -89,21 +90,21 @@ class InitAccountStateManager {
     _stateSubject.add(InitAccountCaptainInitProfile(screenState));
   }
 
-  void subscribePackage(int packageId, InitAccountScreenState screen) {
+  void subscribePackage(InitAccountScreenState screen, int packageId, String name, String phone, String city) {
     _stateSubject.add(
       InitAccountStateLoading(screen),
     );
-    _initAccountService.subscribePackage(packageId).then((value) {
-      if (value) {
-        _stateSubject.add(
-          InitAccountStateSelectBranch(screen),
-        );
-      } else {
-        Fluttertoast.showToast(msg: S.current.errorHappened);
-        _stateSubject.add(
-          InitAccountStateError(S.current.errorHappened, screen),
-        );
-      }
+    Future.wait([_profileService.createProfile(ProfileRequest(
+      name: name,
+      phone: phone,
+      city: city,
+      age: 30.toString(),
+      image: 'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+    )),_initAccountService.subscribePackage(packageId)] )
+    .then((value) {
+      _stateSubject.add(
+        InitAccountStateSelectBranch(screen),
+      );
     });
   }
 

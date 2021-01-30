@@ -149,5 +149,8 @@
   "reportSent": "Report sent",
   "reasonIsRequired": "Reason is Required",
   "pleaseProvideUsWithTheClientName": "Please Provide us with the Client Name",
-  "pleaseProvideUsTheClientPhoneNumber": "Please Provide us the client phone number"
+  "pleaseProvideUsTheClientPhoneNumber": "Please Provide us the client phone number",
+  "storeName": "Store Name",
+  "storePhone": "Store Phone",
+  "phoneIsRequired": "Phone is required"
 }

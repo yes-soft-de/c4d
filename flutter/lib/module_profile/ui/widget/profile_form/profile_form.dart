@@ -96,6 +96,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
               controller: _nameController,
               decoration: InputDecoration(
                 hintText: S.of(context).name,
+                labelText: S.of(context).name,
               ),
               validator: (name) {
                 if (name == null) {
@@ -112,6 +113,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: S.of(context).phoneNumber,
+                labelText: S.of(context).phoneNumber,
               ),
               validator: (name) {
                 if (name == null) {
