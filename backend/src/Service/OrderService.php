@@ -355,11 +355,14 @@ class OrderService
                
                 if($firstDate[0]['date'] && $lastDate[0]['date']) {
                     $order['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
+                    
                 }
+                
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
+                
             }
         }
-     }
+     }dd($response);
          return $response;
     }
 

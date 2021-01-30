@@ -9,6 +9,7 @@ class AcceptedOrderCreateRequest
     private $date;
     private $duration;
     private $state;
+    private $dateOnly;
 
     /**
      * @param mixed $captainID

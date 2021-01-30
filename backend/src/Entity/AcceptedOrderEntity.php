@@ -44,6 +44,11 @@ class AcceptedOrderEntity
      */
     private $state;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateOnly;
+
   
     public function getId(): ?int
     {
@@ -113,6 +118,18 @@ class AcceptedOrderEntity
     public function setState(?string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getDateOnly()
+    {
+        return $this->dateOnly;
+    }
+
+    public function setDateOnly($dateOnly): self
+    {
+        $this->dateOnly = new \DateTime($dateOnly);
 
         return $this;
     }

@@ -313,9 +313,6 @@ class UserService
       
          foreach ($top5Captains as $item) {
            
-            // $item['image'] = $this->specialLinkCheck($item['specialLink']).$item['image'];
-            //     $item['imageURL'] = $item['image'];
-            //     $item['baseURL'] = $this->params;
             $item['imageURL'] = $item['image'];
             $item['image'] = $this->params.$item['image'];
             $item['baseURL'] = $this->params;   

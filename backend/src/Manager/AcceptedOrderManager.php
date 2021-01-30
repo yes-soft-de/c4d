@@ -36,10 +36,12 @@ class AcceptedOrderManager
        
         $item->setDuration($item->getDuration());
         $item->setState('on way to pick order');
-       
+        $item->setDateOnly($item->getDateOnly());
+
         $this->entityManager->persist($item);
         $this->entityManager->flush();
         $this->entityManager->clear();
+
         ///////////////update state in orderEntity
         if ($item) {
         $this->orderManager->orderUpdateStateByCaptain2($request->getOrderID());
@@ -63,6 +65,7 @@ class AcceptedOrderManager
         if ($acceptedOrderEntity) {
             $request->setDate($acceptedOrderEntity->getDate());
             $request->setDuration($acceptedOrderEntity->getDuration());
+            
         }
         if (!$acceptedOrderEntity) {
             return null;

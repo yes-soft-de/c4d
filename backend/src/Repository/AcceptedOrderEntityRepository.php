@@ -213,14 +213,14 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
 
-          ->select('AcceptedOrderEntity.date', 'count(AcceptedOrderEntity.id) as countOrdersInDay')
+          ->select('AcceptedOrderEntity.dateOnly', 'count(AcceptedOrderEntity.id) as countOrdersInDay')
         
           ->andWhere('AcceptedOrderEntity.captainID = :captainID') 
-          ->andWhere('AcceptedOrderEntity.date >= :fromDate')
-          ->andWhere('AcceptedOrderEntity.date < :toDate')
+          ->andWhere('AcceptedOrderEntity.dateOnly >= :fromDate')
+          ->andWhere('AcceptedOrderEntity.dateOnly < :toDate')
 
           ->addGroupBy('AcceptedOrderEntity.captainID')
-          ->addGroupBy('AcceptedOrderEntity.date')
+          ->addGroupBy('AcceptedOrderEntity.dateOnly')
 
           ->having('count(AcceptedOrderEntity.captainID) > 0')
         
