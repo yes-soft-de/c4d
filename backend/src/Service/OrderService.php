@@ -236,6 +236,7 @@ class OrderService
         $ongoingOrders = $this->orderManager->ongoingOrders();
       
         foreach ($ongoingOrders as  $ongoingOrder) {
+            
             $ongoingOrder['image'] = $this->specialLinkCheck($ongoingOrder['specialLink']).$ongoingOrder['image'];
             $ongoingOrder['image'] = $ongoingOrder['image'];
             $ongoingOrder['imageURL'] = $ongoingOrder['image'];
@@ -249,7 +250,10 @@ class OrderService
                 $ongoingOrder['fromBranch'] = $this->branchesService->getBrancheById($ongoingOrder['fromBranch']);
                 }
                 
-           $response[]  = $this->autoMapping->map('array',OrdersongoingResponse::class,  $ongoingOrder);
+            $ongoingOrder['record'] = $this->recordService->getFirstDate($ongoingOrder['orderID']);
+
+            $response[]  = $this->autoMapping->map('array',OrdersongoingResponse::class,  $ongoingOrder);
+           
         }  
         return $response;
     }
@@ -396,6 +400,10 @@ class OrderService
      
         foreach ($topOwners as $topOwner) {
          
+            $topOwner['imageURL'] = $topOwner['image'];
+            $topOwner['image'] = $this->params.$topOwner['image'];
+            $topOwner['baseURL'] = $this->params;
+
             $topOwner['countOrdersInDay'] = $this->orderManager->countOrdersInDay($topOwner['ownerID'], $date[0],$date[1]);
            
             $response[] = $this->autoMapping->map('array', OrderResponse::class, $topOwner);

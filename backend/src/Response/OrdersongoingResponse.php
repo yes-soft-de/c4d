@@ -26,5 +26,6 @@ class OrdersongoingResponse
     public $drivingLicenceURL;
     public $baseURL;
     public $fromBranch;
+    public $record;
     
 }

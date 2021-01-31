@@ -108,7 +108,11 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
 
+            // ->orWhere("acceptedOrderEntity.state ='picked'")
+            // ->orWhere("acceptedOrderEntity.state ='ongoing'")
+            // ->orWhere("acceptedOrderEntity.state ='cash'")
             ->andWhere('acceptedOrderEntity.state =:state')
+            // ->addGroupBy('captainProfile.id')
             ->setParameter('state', $state)
             ->getQuery()
             ->getResult();

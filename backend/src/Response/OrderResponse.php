@@ -27,6 +27,9 @@ class OrderResponse
     public $countOrdersInMonth;
     public $countOrdersInDay;
     public $owner;
+    public $image;
+    public $imageURL;
+    public $baseURL;
     
     
 }

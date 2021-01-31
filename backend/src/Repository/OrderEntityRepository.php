@@ -254,7 +254,7 @@ class OrderEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderEntity')
        // countOrdersInMonth = countOrdersForOwnerInMonth
           ->select('OrderEntity.ownerID','OrderEntity.ownerID', 'count(OrderEntity.ownerID) as countOrdersInMonth')
-          ->addSelect('userProfileEntity.userName')
+          ->addSelect('userProfileEntity.userName', 'userProfileEntity.image')
           ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = OrderEntity.ownerID')
         
           ->where('OrderEntity.date >= :fromDate')
@@ -263,6 +263,7 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->addGroupBy('OrderEntity.ownerID')
           
           ->addGroupBy('userProfileEntity.userName')
+          ->addGroupBy('userProfileEntity.image')
 
           ->having('count(OrderEntity.ownerID) > 0')
           ->setMaxResults(15)
