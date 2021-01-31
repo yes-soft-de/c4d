@@ -75,8 +75,9 @@ class OrderService
     {
         $acceptedOrder=[];
         $order = $this->orderManager->getOrderById($orderId);
-        if ($order['fromBranch']){
-            $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+     
+        if ($order[0]['fromBranch']){
+            $order[0]['fromBranch'] = $this->branchesService->getBrancheById($order[0]['fromBranch']);
             }
         if ($order){
             $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
