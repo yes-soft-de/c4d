@@ -36,10 +36,10 @@
                                 <th><img src="{{owner?.image}}" (error)="captain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.userName}} Image" class="img-thumbnail img-custom"></th> -->
                                 <th scope="row" style="white-space: nowrap;">{{owner?.date ? (owner?.date.timestamp * 1000 | date: 'yyyy-MM-dd' : 'UTC') : '-' }}</th>
                                 <th scope="row">{{owner?.orderID ? owner?.orderID : '-' }}</th>
-                                <th scope="row">{{owner?.source.length > 0 ? owner?.source[0] : '-' }}</th>
+                                <th scope="row">{{owner?.source?.length > 0 ? owner?.source[0] : '-' }}</th>
                                 <th scope="row">{{owner?.brancheName ? owner?.brancheName : '-' }}</th>
                                 <th scope="row">{{owner?.payment ? owner?.payment : '-' }}</th>
-                                <th scope="row">{{owner?.destination ? owner?.destination[0] : '-' }}</th>
+                                <!-- <th scope="row">{{owner?.destination ? owner?.destination[0] : '-' }}</th> -->
 
                                 <!-- <th scope="row">{{owner?.free ? owner.free : '-' }}</th>
                                 <th scope="row">{{owner?.location ? owner.location : '-' }}</th>

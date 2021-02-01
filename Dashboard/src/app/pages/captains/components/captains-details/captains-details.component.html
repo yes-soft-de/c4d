@@ -23,7 +23,10 @@
                 </div>
             </div>
         </div><!--.row-->
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'driving-licence-iD' | translate}} : <span>{{captainDetails?.drivingLicence}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">
+            {{'driving-licence' | translate}} : 
+            <img src="{{captainDetails?.drivingLicence}}" (error)="captainDetails.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{captainDetails.name}} driving Licence" class="img-thumbnail img-custom">            
+        </p>
         <p class="ml-sm-2 ml-md-4 mb-1">{{'captain-id' | translate}} : <span>{{captainDetails?.captainID}}</span></p>
         <p class="ml-sm-2 ml-md-4 mb-1">{{'age' | translate }} : <span>{{captainDetails?.age}}</span></p>
         <p class="ml-sm-2 ml-md-4 mb-1">{{'car' | translate }} : <span>{{captainDetails?.car}}</span></p>

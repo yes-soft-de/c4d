@@ -14,7 +14,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let report of datingsList | paginate: config">
+                            <tr [class.finished]="report.isDone" *ngFor="let report of datingsList | paginate: config">
                                 <th scope="row">{{report.userName ? report.userName : '-'}}</th>
                                 <th scope="row">{{report.phone ? report.phone : '-'}}</th>                                
                                 <th scope="row">

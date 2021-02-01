@@ -8,11 +8,11 @@
                     <table class="table">
                         <thead>
                             <tr style="white-space: nowrap;">
-                            <th scope="col">#ID</th>
+                            <!-- <th scope="col">#ID</th> -->
                             <th scope="col">{{'recipient-name' | translate}}</th>
                             <th scope="col">{{'recipient-phone' | translate}}</th>
-                            <th scope="col">{{'tracking-status' | translate}}</th>
-                            <th scope="col">{{'elapsed-time' | translate}}</th>
+                            <!-- <th scope="col">{{'tracking-status' | translate}}</th> -->
+                            <!-- <th scope="col">{{'elapsed-time' | translate}}</th> -->
                             <!-- <th scope="col">State</th> -->
                             <th scope="col">{{'source' | translate}}</th>
                             <th scope="col">{{'date' | translate}}</th>
@@ -25,11 +25,11 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let pendingOrder of pendingOrdersList | paginate: config">
-                                <th scope="row">{{pendingOrder.id}}</th>
+                                <!-- <th scope="row">{{pendingOrder.id}}</th> -->
                                 <th scope="row">{{pendingOrder.recipientName ? pendingOrder.recipientName : '-'}}</th>
                                 <th scope="row">{{pendingOrder.recipientPhone ? pendingOrder.recipientPhone : '-'}}</th>
-                                <th scope="row">{{pendingOrder.record ? pendingOrder.record[0].state : '-'}}</th>
-                                <th scope="row">{{pendingOrder.record[0]?.startTime ? (pendingOrder.record[0]?.startTime?.timestamp * 1000 | date: 'H:mm:ss' : 'UTC') : '-'}}</th>
+                                <!-- <th scope="row">{{pendingOrder.record ? pendingOrder.record[0].state : '-'}}</th>
+                                <th scope="row" style="white-space: nowrap;">{{pendingOrder.record[0]?.startTime ? (pendingOrder.record[0]?.startTime?.timestamp * 1000 | date: 'MMM d, y, h:mm:ss a') : '-'}}</th> -->
                                 <!-- <th scope="row">{{pendingOrder.state ? pendingOrder.state : '-'}}</th> -->
                                 <th scope="row">{{pendingOrder.source.length > 0 ? pendingOrder.source[0] : '-'}}</th>
                                 <th scope="row" style="white-space: nowrap;">{{pendingOrder.date ? (pendingOrder.date.timestamp * 1000 | date: 'yyyy-MM-dd' : 'UTC') : '-'}}</th>

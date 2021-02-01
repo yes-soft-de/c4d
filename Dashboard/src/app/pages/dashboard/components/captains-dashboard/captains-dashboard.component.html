@@ -29,7 +29,7 @@
               <table class="table" *ngIf="captains.length != 0">
                 <thead>
                   <tr>
-                    <th scope="col">#ID</th>
+                    <!-- <th scope="col">#ID</th> -->
                     <th scope="col">{{'image' | translate}}</th>
                     <th scope="col">{{'name' | translate}}</th>
                     <th scope="col" style="white-space: nowrap;">{{'count-orders-deliverd' | translate}}</th>
@@ -47,7 +47,7 @@
                     <ng-container *ngFor="let captain of captains.reverse(); let i = index">
                         <ng-container *ngIf="i < latestCaptainsNumber">
                             <tr>
-                                <th scope="row">{{captain.id}}</th>
+                                <!-- <th scope="row">{{captain.id}}</th> -->
                                 <th><img src="{{captain?.image}}" (error)="captain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.name}} Image" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{captain.name ? captain.name : '-'}}</th>
                                 <th scope="row">{{captain.countOrdersDeliverd ? captain.countOrdersDeliverd : '-'}}</th>                                
@@ -65,7 +65,7 @@
                 </tbody>
               </table>
                 <div class="text-center" *ngIf="captains.length == 0">
-                    <p scope="row">{{'day-off-captains-not-exists' | translate}}.</p>
+                    <p scope="row">{{'captain-not-exists' | translate}}.</p>
                 </div >
             </div>
           </div><!--.card-->

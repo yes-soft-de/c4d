@@ -7,7 +7,8 @@
                     <table class="table">
                         <thead>
                             <tr style="white-space: nowrap;">
-                                <th scope="col">#ID</th>
+                                <!-- <th scope="col">#ID</th> -->
+                                <th scope="col">{{'image' | translate}}</th>
                                 <th scope="col">{{'owner-name' | translate}}</th>
                                 <th scope="col">{{'count-orders-in-last-month' | translate}}</th>
                                 <!-- <th scope="col">{{'car-count' | translate}}</th>
@@ -21,7 +22,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let owner of ownersList | paginate: config">
-                                <th scope="row">{{owner.ownerID}}</th>
+                                <!-- <th scope="row">{{owner.ownerID}}</th> -->
+                                <th><img src="{{owner?.image}}" (error)="owner.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{owner?.name}} Image" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{owner.userName ? owner.userName: '-'}}</th>
                                 <th scope="row">{{owner.countOrdersInMonth ? owner.countOrdersInMonth : '-'}}</th>
                                 <!-- <th scope="row">{{owner.carCount ? owner.carCount : '-'}}</th>

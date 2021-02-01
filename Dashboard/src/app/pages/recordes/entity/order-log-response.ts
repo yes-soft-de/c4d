@@ -1,5 +1,5 @@
 import { OrderLog } from "./order-log";
 
 export interface OrderLogResponse {
-    Data: OrderLog[];
+    Data: OrderLog;
 }

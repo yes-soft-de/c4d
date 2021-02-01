@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OrderLog } from '../../entity/order-log';
+import { OrderLogRecords } from '../../entity/order-log-records';
 import { OrderLogResponse } from '../../entity/order-log-response';
 import { RecordesService } from '../../services/recordes.service';
 
@@ -16,9 +17,9 @@ import { RecordesService } from '../../services/recordes.service';
 })
 export class OrdersLogComponent implements OnInit {
   private destroy$: Subject<void> = new Subject();
-  allLogs: OrderLog[];
-  allLogsList: OrderLog[] = [];
-  allLogsListFilter: OrderLog[] = [];
+  allLogs: OrderLog;
+  allLogsList: OrderLogRecords[] = [];
+  allLogsListFilter: OrderLogRecords[] = [];
   config: any;
   name: string;
 
@@ -35,9 +36,9 @@ export class OrdersLogComponent implements OnInit {
       (response : OrderLogResponse) => {
         if (response) {
           this.allLogs = response.Data;
-          this.allLogsList = response.Data; 
+          this.allLogsList = response.Data.record; 
         }
-        console.log('orders Log : ', response);
+        console.log('orders Log : ', response.Data);        
       },
       error => {
         console.log(error);

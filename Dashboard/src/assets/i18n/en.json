@@ -95,6 +95,7 @@
     "tracking-status": "Tracking Status",
     "elapsed-time": "Elapsed Time",
     "order-details": "Order Details",
+    "order-created-time": "Order Created Time",
     "payment-method": "Payment Method",
     "payment": "Payment",
     "update-date": "Update Date",
@@ -116,6 +117,8 @@
     "all-orders": "All Orders",
     "all-owners": "All Owners",
     "order-log": "Order Log",
+    "final-order": "Final Order Final",
+    "completion-time": "Completion Time",
     "search": "Search",
     "title": "Search for ID number or date ex: 2020-12-22",
     "placeholder": "Search for ID number or date ex: 2020-12-22",
@@ -139,5 +142,6 @@
     "all-datings": "All Datings",
     "phone": "Phone",
     "finished": "Finished",
-    "not-finished": "Not Finished"
+    "not-finished": "Not Finished",
+    "count-orders-in-month": "Count Orders In Month"
 }

@@ -26,10 +26,22 @@
     }
     .card-body {
         .table td, .table th { border: none; padding: .3rem; }
+        .table th a { 
+          -webkit-filter: brightness(50%);
+          filter: brightness(50%);
+          &:hover, &:focus, &:active { 
+            -webkit-filter: brightness(100%);
+            filter: brightness(100%);
+           }
+        }
         border-radius: 0 0 20px 20px;
         .disabled {
             pointer-events: none;
             cursor: default;
         }
+    }
+    .finished {
+      background: #eee;
+      opacity: .7;
     }
 }

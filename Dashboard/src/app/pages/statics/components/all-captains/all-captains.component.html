@@ -9,9 +9,10 @@
                         <thead>
                             <tr>
                                 <!-- <th scope="col">#ID</th> -->
-                                <th scope="col" style="white-space: nowrap;">{{'captain-id' | translate}}</th>
+                                <!-- <th scope="col" style="white-space: nowrap;">{{'captain-id' | translate}}</th> -->
                                 <th scope="col">{{'image' | translate}}</th>
                                 <th scope="col">{{'name' | translate}}</th>
+                                <th scope="col" style="white-space: nowrap;">{{'driving-licence' | translate}}</th>
                                 <th scope="col">{{'age' | translate}}</th>
                                 <th scope="col">{{'bounce' | translate}}</th>
                                 <th scope="col">{{'car' | translate }}</th>
@@ -26,9 +27,10 @@
                         <tbody>
                             <tr *ngFor="let captain of captainsList | paginate: config">
                                 <!-- <th scope="row">{{captain.id}}</th> -->
-                                <th scope="row">{{captain.captainID ? captain.captainID : '-'}}</th>
+                                <!-- <th scope="row">{{captain.captainID ? captain.captainID : '-'}}</th> -->
                                 <th><img src="{{captain?.image}}" (error)="captain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.name}} Image" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{captain.name ? captain.name : '-'}}</th>
+                                <th><img src="{{captain?.drivingLicence}}" (error)="captain.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.name}} driving Licence" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{captain.age ? captain.age : '-'}}</th>
                                 <th scope="row">{{captain.bounce ? captain.bounce : '-'}}</th>
                                 <th scope="row">{{captain.car ? captain.car : '-'}}</th>

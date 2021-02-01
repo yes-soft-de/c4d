@@ -12,7 +12,15 @@ export interface OrderDetails {
     };
     date: { timestamp: number };
     destination: [string];
-    fromBranch: {brancheName: string};
+    fromBranch: {
+        brancheName: string;
+        city: string;
+        id: number;
+        location: {
+            lat: number;
+            lon: number
+        }
+    };
     note: string;
     payment: string;
     recipientName: string;
@@ -20,9 +28,9 @@ export interface OrderDetails {
     record: [
         {
             id: number; 
-            orderID: string;
-            state: string; 
-            startTime: { timestamp: number }
+            orderID?: string;
+            state?: string; 
+            date?: { timestamp: number }
         }
     ];
     source: [string];

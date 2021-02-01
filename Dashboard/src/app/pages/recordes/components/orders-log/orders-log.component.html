@@ -1,6 +1,12 @@
 <div class="all-logs" *ngIf="allLogs">
     <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'order-log' | translate}}</h1>
-    <div *ngIf="allLogs.length !== 0">
+    <p class="col-12 text-grey-blue text-center">
+        {{'final-order' | translate}}: <span class="text-light-blue">{{allLogs?.orderStatus.finalOrder}}</span>
+    </p>
+    <p class="col-12 text-grey-blue text-center">
+        {{'completion-time' | translate}}: <span class="text-light-blue">{{allLogs?.orderStatus.completionTime}}</span>
+    </p>
+    <div *ngIf="allLogs.record.length !== 0">
         <div class="container-fluid">
             <!-- <div class="order-log-search mt-4">
                 <form class="form-inline">
@@ -32,7 +38,7 @@
                             <tr *ngFor="let log of allLogsListFilter | paginate: config">
                                 <th scope="row">{{log?.orderID ? log?.orderID : '-'}}</th>
                                 <th scope="row">{{log?.state ? log?.state : '-'}}</th>
-                                <th scope="row">{{log?.date ? (log?.date.timestamp * 1000 | date : 'yyyy-MM-dd': 'UTC') : '-' }}</th>                            
+                                <th scope="row">{{log?.date ? (log?.date.timestamp * 1000 | date : 'MMM d, y, h:mm:ss a') : '-' }}</th>                            
                             </tr>
                         </tbody>
                     </table>
@@ -53,7 +59,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="allLogs.length === 0">
+    <div *ngIf="allLogs.record.length === 0">
         <div class="container">
             <div class="alert alert-primary text-center mt-5">{{'log-not-exists' | translate}}</div>
             <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">

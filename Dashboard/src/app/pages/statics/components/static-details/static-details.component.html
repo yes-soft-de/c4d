@@ -14,7 +14,9 @@
             </div>
         </form>
       </div>
-    <div *ngIf="statisticsDetails?.Data[1].length !== 0">
+      <p *ngIf="user == 'captain'" class="col-12 text-grey-blue text-center">{{'count-orders-in-month' | translate}}: {{statisticsDetails?.Data?.countOrdersInMonth[0].countOrdersInMonth}}</p>
+      <p *ngIf="user == 'owner'" class="col-12 text-grey-blue text-center">{{'count-orders-in-month' | translate}}: {{statisticsDetails?.Data?.countOrdersInMonth.countOrdersInMonth}}</p>
+    <div *ngIf="statisticsDetails?.Data?.countOrdersInDay.length !== 0">
         <div class="container-fluid">            
             <div class="statistic-chart">
                 <google-chart [type]="chart.type" [data]="chart.data" [columns]="chart.columnNames" [options]="chart.options" [dynamicResize]="true" style="width: 100%;">
@@ -22,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="statisticsDetails?.Data[1].length === 0">
+    <div *ngIf="statisticsDetails?.Data?.countOrdersInDay.length === 0">
       <div class="container">
           <div class="alert alert-primary text-center mt-5">{{'statistic-not-exists' | translate}}</div>        
       </div>

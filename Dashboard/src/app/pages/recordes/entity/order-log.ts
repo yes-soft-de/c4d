@@ -1,6 +1,7 @@
+import { OrderLogRecords } from "./order-log-records";
+import { OrderStatus } from "./order-status";
+
 export interface OrderLog {
-    id: number;
-    date: { timestamp: number };
-    state: string;
-    orderID: string;
+    orderStatus: OrderStatus;
+    record: OrderLogRecords[];
 }

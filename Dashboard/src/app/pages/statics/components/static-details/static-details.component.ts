@@ -22,7 +22,7 @@ export class StaticDetailsComponent implements OnInit, OnDestroy {
   statisticsDetails: any[];
   intervalCounter: any;
   chartData = [];
-  chartColumns = ['Count Orders In Day', 'Month'];
+  chartColumns = ['Day', 'Count Orders In Day'];
   // example
   myOptions = {
     colors: ['#457b9d'],
@@ -31,12 +31,13 @@ export class StaticDetailsComponent implements OnInit, OnDestroy {
     //   fill: '#457b9d'
     // }
   };
-  chart = {
-    type: 'ColumnChart',
-    data: this.chartData,
-    columnNames: this.chartColumns,
-    options: this.myOptions  
+  chart: {
+    type: string,
+    data: any,
+    columnNames: any,
+    options: any  
   };
+
 
   constructor(private staticService: StaticsService,
               private loaderService: ScriptLoaderService,
@@ -70,18 +71,32 @@ export class StaticDetailsComponent implements OnInit, OnDestroy {
     .subscribe(
       statisticsResponse => {
         if (statisticsResponse) {
-          console.log('Statistics details', statisticsResponse.Data);
+          console.log('Statistics details', statisticsResponse.Data, this.user);
           this.statisticsDetails = statisticsResponse;
-          // clear the cart data array 
-          statisticsResponse.Data[1].map(e => {
-            this.chartData.push([e.countOrdersInDay.toString(), (new Date(e.date.timestamp).getUTCMonth() + 1)]);
-          });
+          if (this.user == 'captain') {            
+            // clear the cart data array 
+            statisticsResponse.Data.countOrdersInDay.map(e => {
+              this.chartData.push([(new Date(e.dateOnly.timestamp * 1000).getUTCDate()).toString(), e.countOrdersInDay]);
+            });
+          } else {
+            // clear the cart data array 
+            statisticsResponse.Data.countOrdersInDay.map(e => {
+              this.chartData.push([(new Date(e.date.timestamp * 1000).getUTCMonth()).toString(), e.countOrdersInDay]);
+            });
+          }
         }
       }, error => console.log('Error :', error),
       () => {
         // Check If Chart Data Is Not Empty
         if (this.chartData.length !== 0) {
           console.log('chartData', this.chartData);
+          // config the chart object
+          this.chart = {
+            type: 'ColumnChart',
+            data: this.chartData,
+            columnNames: this.chartColumns,
+            options: this.myOptions  
+          };
           // Element Exists Check
           this.isElementExists();
         }
@@ -91,6 +106,7 @@ export class StaticDetailsComponent implements OnInit, OnDestroy {
 
 
   changeDate(event) {
+    // console.log(event.tar)
     // empty the chart data array
     this.chartData = [];
     const selectedMonth = (new Date(event.target.value).getUTCMonth() + 1).toString();
@@ -113,9 +129,15 @@ export class StaticDetailsComponent implements OnInit, OnDestroy {
           // Check IF Chart Is Exists Or Not
           this.toaster.success('Google Chart Is Rendering, Please Wait');
       }
-      if (second == 200) {
+      if (second == 180) {
         // Check IF Chart Is Exists Or Not
         this.toaster.success('You have a slow network, Please Wait');
+      }
+      if (second == 600) {
+        // Check IF Chart Is Exists Or Not
+        this.toaster.error('Your network is very bad, Please reload the page again');
+        second = 0;
+        clearInterval(this.intervalCounter);
       }
       if (chartElement) {
         console.log('Chart is exists');

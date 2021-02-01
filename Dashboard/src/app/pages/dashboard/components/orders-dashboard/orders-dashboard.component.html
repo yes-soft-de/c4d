@@ -33,12 +33,12 @@
                     <th scope="col">{{'image' | translate}}</th>
                     <th scope="col">{{'name' | translate}}</th>
                     <th scope="col">{{'acceptedOrderDate' | translate}}</th>
-                    <th scope="col">{{'captain-id' | translate}}</th>
+                    <!-- <th scope="col">{{'captain-id' | translate}}</th> -->
                     <th scope="col">{{'destination' | translate}}</th>
-                    <th scope="col">{{'driving-licence' | translate}}</th>
-                    <th scope="col">{{'duration' | translate}}</th>
+                    <!-- <th scope="col">{{'driving-licence' | translate}}</th> -->
+                    <!-- <th scope="col">{{'duration' | translate}}</th> -->
                     <th scope="col">{{'order-date' | translate}}</th>
-                    <th scope="col">{{'owner-id' | translate}}</th>
+                    <!-- <th scope="col">{{'owner-id' | translate}}</th> -->
                     <th scope="col">{{'payment' | translate}}</th>
                     <th scope="col">{{'from-branch' | translate}}</th>
                     <!-- <th scope="col">RecipientName</th>
@@ -57,13 +57,13 @@
                                 <th><img src="{{order?.image}}" (error)="order.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{order.name}} Image" class="img-thumbnail img-custom"></th>                              
                                 <th scope="row">{{order.name ? order.name : '-'}}</th>
                                 <th scope="row">{{order.acceptedOrderDate ? (order.acceptedOrderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
-                                <th scope="row">{{order.captainID ? order.captainID : '-'}}</th>
-                                <th scope="row">{{order.destination ? order.destination : '-'}}</th>
-                                <th scope="row">{{order.drivingLicence ? order.drivingLicence : '-'}}</th>
+                                <!-- <th scope="row">{{order.captainID ? order.captainID : '-'}}</th> -->
+                                <th scope="row">{{order.destination.length > 0 ? order.destination[0] : '-'}}</th>
+                                <!-- <th scope="row">{{order.drivingLicence ? order.drivingLicence : '-'}}</th> -->
                                 <!-- <th scope="row">{{order.duration ? order.duration : '-'}}</th> -->
-                                <th scope="row">{{order.duration ? (order.duration.timestamp * 1000 | date: 'H:mm:ss':'UTC') : '-'}}</th>
-                                <th scope="row" style="white-space: nowrap;">{{order.orderDate ? (order.orderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
-                                <th scope="row">{{order.ownerID ? order.ownerID : '-'}}</th>
+                                <!-- <th scope="row">{{order.duration ? (order.duration.timestamp * 1000 | date: 'H:mm:ss':'UTC') : '-'}}</th> -->
+                                <th scope="row" style="white-space: nowrap;">{{order.record.length > 0 ? (order.record[0]?.date?.timestamp * 1000 | date: 'MMM d, y, h:mm:ss a') : '-'}}</th>
+                                <!-- <th scope="row">{{order.ownerID ? order.ownerID : '-'}}</th> -->
                                 <th scope="row">{{order.payment ? order.payment : '-'}}</th>
                                 <th scope="row">{{order.fromBranch ? order.fromBranch.brancheName : '-'}}</th>
                                 <!-- <th scope="row">{{order.recipientName ? order.recipientName : '-'}}</th>

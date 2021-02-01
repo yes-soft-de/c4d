@@ -8,9 +8,10 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#ID</th>
+                                <!-- <th scope="col">#ID</th> -->
                                 <th scope="col">{{'image' | translate}}</th>
                                 <th scope="col">{{'name' | translate}}</th>
+                                <th scope="col" style="white-space: nowrap;">{{'driving-licence' | translate }}</th>
                                 <th scope="col">{{'age' | translate}}</th>
                                 <th scope="col">{{'bounce' | translate}}</th>
                                 <th scope="col" style="white-space: nowrap;">{{'captain-id' | translate}}</th>
@@ -25,9 +26,10 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let dayOffCaptain of dayOffCaptainsList | paginate: config">
-                                <th scope="row">{{dayOffCaptain.id}}</th>
+                                <!-- <th scope="row">{{dayOffCaptain.id}}</th> -->
                                 <th><img src="{{dayOffCaptain?.image}}" (error)="dayOffCaptain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{dayOffCaptain.name}} Image" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{dayOffCaptain.name ? dayOffCaptain.name : '-'}}</th>
+                                <th><img src="{{dayOffCaptain?.drivingLicence}}" (error)="dayOffCaptain.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{dayOffCaptain.name}} driving Licence" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{dayOffCaptain.age ? dayOffCaptain.age : '-'}}</th>
                                 <th scope="row">{{dayOffCaptain.bounce ? dayOffCaptain.bounce : '-'}}</th>
                                 <th scope="row">{{dayOffCaptain.captainID ? dayOffCaptain.captainID : '-'}}</th>

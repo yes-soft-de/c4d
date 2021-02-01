@@ -8,9 +8,10 @@
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col">#ID</th>
+                            <!-- <th scope="col">#ID</th> -->
                             <th scope="col">{{'image' | translate }}</th>
                             <th scope="col">{{'name' | translate }}</th>
+                            <th scope="col" style="white-space: nowrap;">{{'driving-licence' | translate }}</th>
                             <th scope="col">{{'age' | translate }}</th>
                             <th scope="col">{{'bounce' | translate }}</th>
                             <!-- <th scope="col">Captain ID</th> -->
@@ -25,9 +26,10 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let ongoingCaptain of ongoingCaptainsList | paginate: config">
-                                <th scope="row">{{ongoingCaptain.id}}</th>
+                                <!-- <th scope="row">{{ongoingCaptain.id}}</th> -->
                                 <th><img src="{{ongoingCaptain?.image}}" (error)="ongoingCaptain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{ongoingCaptain.name}} Image" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{ongoingCaptain.name ? ongoingCaptain.name : '-'}}</th>
+                                <th><img src="{{ongoingCaptain?.drivingLicence}}" (error)="ongoingCaptain.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{ongoingCaptain.name}} driving Licence" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{ongoingCaptain.age ? ongoingCaptain.age : '-'}}</th>
                                 <th scope="row">{{ongoingCaptain.bounce ? ongoingCaptain.bounce : '-'}}</th>
                                 <!-- <th scope="row">{{ongoingCaptain.captainID ? ongoingCaptain.captainID : '-'}}</th> -->
