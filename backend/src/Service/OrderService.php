@@ -82,7 +82,7 @@ class OrderService
                 $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                 }
             $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
-            $record = $this->recordService->getRecordByOrderId($orderId);
+            $record = $this->recordService->getFirstDate($orderId);
         }
         $response = $this->autoMapping->map('array', OrderResponse::class, $order);
 
