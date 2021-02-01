@@ -391,6 +391,7 @@ class OrderService
     
     public function getTopOwners()
     {
+        $response=[];
         $dateNow =new DateTime("now");
         $year = $dateNow->format("Y");
         $month = $dateNow->format("m");

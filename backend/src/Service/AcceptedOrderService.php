@@ -111,6 +111,7 @@ class AcceptedOrderService
 
     public function getTopCaptainsInThisMonth()
     {
+        $response = [];
         $dateNow =new DateTime("now");
         $year = $dateNow->format("Y");
         $month = $dateNow->format("m");
