@@ -13,4 +13,8 @@ class RecordResponse
     public $startTime;
 
     public $date;
+
+    public $completionTime;
+
+    public $finalOrder;
 }
