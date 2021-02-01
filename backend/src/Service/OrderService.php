@@ -74,12 +74,13 @@ class OrderService
     public function getOrderById($orderId)
     {
         $acceptedOrder=[];
+        $record=[];
         $order = $this->orderManager->getOrderById($orderId);
      
-        if ($order[0]['fromBranch']){
-            $order[0]['fromBranch'] = $this->branchesService->getBrancheById($order[0]['fromBranch']);
-            }
         if ($order){
+            if ($order['fromBranch']){
+                $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
+                }
             $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($orderId);
             $record = $this->recordService->getRecordByOrderId($orderId);
         }

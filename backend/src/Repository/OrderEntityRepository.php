@@ -31,7 +31,8 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->andWhere('OrderEntity.id = :id')
             ->setParameter('id', $orderId)
             ->getQuery()
-            ->getResult();
+            // ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function orderById($orderId)
