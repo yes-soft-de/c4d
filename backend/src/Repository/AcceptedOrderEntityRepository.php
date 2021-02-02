@@ -118,7 +118,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             
             ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
 
-            ->andWhere("AcceptedOrderEntity.state ='deliverd'")
+            // ->andWhere("AcceptedOrderEntity.state ='deliverd'")
             ->andWhere('captainProfileEntity.captainID = AcceptedOrderEntity.captainID')
            
             ->addGroupBy('AcceptedOrderEntity.captainID')
