@@ -1,3 +1,5 @@
+import 'package:c4d/utils/logger/logger.dart';
+
 class OrdersResponse {
   String statusCode;
   String msg;
@@ -15,6 +17,7 @@ class OrdersResponse {
           data.add(new Order.fromJson(v));
         });
       } catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}');
       }
     }
   }
@@ -33,7 +36,7 @@ class OrdersResponse {
 class Order {
   int id;
   String ownerID;
-  Null userName;
+  String userName;
   dynamic source;
   Destination destination;
   Date date;

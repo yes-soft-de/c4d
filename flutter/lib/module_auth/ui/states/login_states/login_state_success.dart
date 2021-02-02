@@ -2,7 +2,6 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/ui/screen/login_screen/login_screen.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class LoginStateSuccess extends LoginState {
   LoginStateSuccess(LoginScreenState screen) : super(screen);
@@ -13,7 +12,7 @@ class LoginStateSuccess extends LoginState {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Lottie.asset('assets/animations/register-success.json'),
+        Image.asset('assets/images/logo.jpg'),
         RaisedButton(
           color: Theme.of(context).primaryColor,
           textColor: Colors.white,

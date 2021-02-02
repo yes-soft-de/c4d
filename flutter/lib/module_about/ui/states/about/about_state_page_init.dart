@@ -36,7 +36,7 @@ class AboutStatePageInit extends AboutState {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                S.of(context).iSpeak,
+                S.of(context).language,
                 style: TextStyle(fontSize: 24),
                 textAlign: TextAlign.center,
               ),
@@ -116,18 +116,18 @@ class AboutStatePageInit extends AboutState {
     }
   }
 
-  void _showLanguagePicker(BuildContext ctx) {
+  void _showLanguagePicker(BuildContext context) {
     showCupertinoModalPopup(
-        context: ctx,
+        context: context,
         builder: (_) => Container(
-              width: 300,
+              width: MediaQuery.of(context).size.width,
               height: 250,
               child: CupertinoPicker(
                 backgroundColor: Colors.white,
                 itemExtent: 30,
                 scrollController: FixedExtentScrollController(initialItem: 1),
                 children: [
-                  Text(S.of(ctx).pickALanguage),
+                  Text(S.of(context).pickALanguage),
                   Text('English'),
                   Text('العربية'),
                 ],
@@ -141,20 +141,20 @@ class AboutStatePageInit extends AboutState {
             ));
   }
 
-  void _showRolePicker(BuildContext ctx) {
+  void _showRolePicker(BuildContext context) {
     showCupertinoModalPopup(
-        context: ctx,
+        context: context,
         builder: (_) => Container(
-              width: 300,
+              width: MediaQuery.of(context).size.width,
               height: 250,
               child: CupertinoPicker(
                 backgroundColor: Colors.white,
                 itemExtent: 30,
                 scrollController: FixedExtentScrollController(initialItem: 1),
                 children: [
-                  Text(S.of(ctx).pickAJob),
-                  Text(S.of(ctx).captain),
-                  Text(S.of(ctx).storeOwner),
+                  Text(S.of(context).iAm),
+                  Text(S.of(context).captain),
+                  Text(S.of(context).storeOwner),
                 ],
                 onSelectedItemChanged: (type) {
                   if (type > 0) {

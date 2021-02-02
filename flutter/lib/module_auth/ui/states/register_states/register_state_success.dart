@@ -2,7 +2,6 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class RegisterStateSuccess extends RegisterState {
   RegisterStateSuccess(RegisterScreenState screen) : super(screen);
@@ -12,10 +11,11 @@ class RegisterStateSuccess extends RegisterState {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Center(
-            child: Lottie.asset(
-          'assets/animations/register-success.json',
-        )),
+        Expanded(
+          child: Center(
+            child: Image.asset('assets/images/logo.jpg'),
+          ),
+        ),
         RaisedButton(
           padding: EdgeInsets.all(8),
           color: Theme.of(context).primaryColor,

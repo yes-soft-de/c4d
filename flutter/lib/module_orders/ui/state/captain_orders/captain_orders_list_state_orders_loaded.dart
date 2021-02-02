@@ -202,8 +202,8 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
             );
           },
           child: OrderCard(
-            title: S.of(context).order + '#${element.id}',
-            subTitle: ' ',
+            title: '${element.storeName}',
+            subTitle: S.of(context).order + '#${element.id}',
             time:
             timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode),
           ),

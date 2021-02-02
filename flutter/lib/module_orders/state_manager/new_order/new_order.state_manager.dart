@@ -33,6 +33,7 @@ class NewOrderStateManager {
       String recipientPhone,
       String date,
       NewOrderScreenState screenState) {
+    _stateSubject.add(NewOrderStateInit(screenState));
     _service
         .addNewOrder(fromBranch, destination, note, paymentMethod,
             recipientName, recipientPhone, date)

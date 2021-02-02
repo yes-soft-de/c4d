@@ -11,6 +11,7 @@ import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/utils/status_helper/status_helper.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
+import 'package:c4d/utils/logger/logger.dart';
 import 'package:inject/inject.dart';
 
 @provide
@@ -85,6 +86,7 @@ class OrdersService {
           id: element.id,
         ));
       } catch (e, stack) {
+        Logger().error('Mapping Error', '${e.toString()}:\n${stack.toString()}');
       }
     });
 
@@ -150,6 +152,7 @@ class OrdersService {
         to: element.location,
         clientPhone: element.recipientPhone,
         from: '',
+        storeName: element.userName,
         creationTime:
         DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
         paymentMethod: element.payment,
