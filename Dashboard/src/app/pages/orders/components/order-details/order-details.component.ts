@@ -5,7 +5,7 @@ import { share, takeUntil } from 'rxjs/operators';
 import { OrderDetails } from '../../entity/order-details';
 import { OrderDetailsResponse } from '../../entity/order-details-response';
 import { OrdersService } from '../../services/orders.service';
-import { google } from '@google/maps';
+// import { google } from '@google/maps';
 
 @Component({
   selector: 'app-order-details',
@@ -47,31 +47,31 @@ export class OrderDetailsComponent implements OnInit {
   }
 
 
-  getGeoLocation(lat: number, lng: number) {
-    if (navigator.geolocation) {
-        let geocoder = new google.maps.Geocoder();
-        let latlng = new google.maps.LatLng(lat, lng);
-        let request = {
-            latLng: latlng
-        };
-        console.log('geocoder', geocoder);
-        console.log('latlng', latlng);
-        console.log('request', request);
-        geocoder.geocode(request, (results, status) => {
-            if (status == google.maps.GeocoderStatus.OK) {
-                let result = results[0];
-                let rsltAdrComponent = result.address_components;
-                let resultLength = rsltAdrComponent.length;
-                if (result != null) {
-                    this.marker.buildingNum = rsltAdrComponent.find(x => x.types == 'street_number').long_name;
-                    this.marker.streetName = rsltAdrComponent.find(x => x.types == 'route').long_name;
-                } else {
-                    alert("No address available!");
-                }
-            }
-        });
-    }
-}
+//   getGeoLocation(lat: number, lng: number) {
+//     if (navigator.geolocation) {
+//         let geocoder = new google.maps.Geocoder();
+//         let latlng = new google.maps.LatLng(lat, lng);
+//         let request = {
+//             latLng: latlng
+//         };
+//         console.log('geocoder', geocoder);
+//         console.log('latlng', latlng);
+//         console.log('request', request);
+//         geocoder.geocode(request, (results, status) => {
+//             if (status == google.maps.GeocoderStatus.OK) {
+//                 let result = results[0];
+//                 let rsltAdrComponent = result.address_components;
+//                 let resultLength = rsltAdrComponent.length;
+//                 if (result != null) {
+//                     this.marker.buildingNum = rsltAdrComponent.find(x => x.types == 'street_number').long_name;
+//                     this.marker.streetName = rsltAdrComponent.find(x => x.types == 'route').long_name;
+//                 } else {
+//                     alert("No address available!");
+//                 }
+//             }
+//         });
+//     }
+// }
 
 // mapClicked($event: MouseEvent) {
 //   this.marker.lat = $event.coords.lat;

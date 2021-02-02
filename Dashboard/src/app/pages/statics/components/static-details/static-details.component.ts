@@ -81,7 +81,7 @@ export class StaticDetailsComponent implements OnInit, OnDestroy {
           } else {
             // clear the cart data array 
             statisticsResponse.Data.countOrdersInDay.map(e => {
-              this.chartData.push([(new Date(e.date.timestamp * 1000).getUTCMonth()).toString(), e.countOrdersInDay]);
+              this.chartData.push([(new Date(e.date.timestamp * 1000).getUTCDate()).toString(), e.countOrdersInDay]);
             });
           }
         }
