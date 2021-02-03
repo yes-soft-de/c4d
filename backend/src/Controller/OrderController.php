@@ -114,10 +114,7 @@ class OrderController extends BaseController
     public function closestOrders()
     {
         $response = $this->orderService->closestOrders($this->getUserId());
-        // if (is_string($response)) {
-        //     return $this->response($response, self::CAPTAIN_INACTIVE);
-        // }
-
+        
         return $this->response($response, self::FETCH);
     }
 

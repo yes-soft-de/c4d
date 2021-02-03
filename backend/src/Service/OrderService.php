@@ -162,6 +162,8 @@ class OrderService
                     $order['fromBranch'] = $this->branchesService->getBrancheById($order['fromBranch']);
                 }
                 $order['record'] = $this->recordService->getrecordByOrderId($order['id']);
+               
+                $order['owner'] = $this->userService->getUserProfileByUserID($order['ownerID']);
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
             }
         // }
