@@ -28,4 +28,6 @@ class Urls {
 
   static const PACKAGES_API = BASE_API + '/packages';
   static const SUBSCRIPTION_API = BASE_API + '/subscription';
+
+  static const APPOINTMENT_API = BASE_API + '/dating';
 }

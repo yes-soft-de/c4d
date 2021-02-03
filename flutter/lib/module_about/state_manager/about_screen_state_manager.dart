@@ -18,4 +18,10 @@ class AboutScreenStateManager {
       screenState.moveToRegister();
     });
   }
+
+  void createAppointment(AboutScreenState screenState, String name, String phone) {
+    _aboutService.createAppointment(name, phone).then((value) {
+      screenState.setBookingSuccess();
+    });
+  }
 }

@@ -27,6 +27,10 @@ class AboutScreenState extends State<AboutScreen> {
 
   void setLanguage(String lang) => widget._stateManager.setLanguage(lang);
 
+  void createAppointment(String name, String phone) {
+    widget._stateManager.createAppointment(this, name, phone);
+  }
+
   void showSnackBar(String msg) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(msg),

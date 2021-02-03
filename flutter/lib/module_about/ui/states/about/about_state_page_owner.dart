@@ -132,10 +132,10 @@ class AboutStatePageOwner extends AboutState {
                             return null;
                           },
                           decoration: InputDecoration(
-                              hintText: S.of(context).name,
-                              labelText: S.of(context).name,
-                              suffix: Icon(Icons.person)),
-                          keyboardType: TextInputType.phone,
+                            hintText: S.of(context).name,
+                            labelText: S.of(context).name,
+                            suffix: Icon(Icons.person),
+                          ),
                         ),
                       ],
                     ),
@@ -145,9 +145,11 @@ class AboutStatePageOwner extends AboutState {
                   color: Theme.of(context).primaryColor,
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      screenState.setBookingSuccess();
+                      screenState.createAppointment(_nameController.text, _phoneController.text);
                     } else {
-                      screenState.showSnackBar(S.of(context).pleaseCompleteTheForm);
+                      screenState.showSnackBar(
+                        S.of(context).pleaseCompleteTheForm,
+                      );
                     }
                   },
                   child: Padding(
