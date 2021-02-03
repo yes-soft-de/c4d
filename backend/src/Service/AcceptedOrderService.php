@@ -80,6 +80,7 @@ class AcceptedOrderService
 
     public function getAcceptedOrderByCaptainId($captainId)
     {
+        $response = [];
         $orders = $this->acceptedOrderManager->getAcceptedOrderByCaptainId($captainId);
         foreach ($orders as $order){
             $order['record'] = $this->recordService->getrecordByOrderId($order['orderID']);
