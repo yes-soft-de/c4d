@@ -280,7 +280,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
 
-          ->select('SUBSTRING(OrderEntity.date, 1, 10) as date', 'count(OrderEntity.id) as countOrdersInDay')
+          ->select('SUBSTRING(OrderEntity.date, 1, 10) as myDate', 'OrderEntity.date', 'count(OrderEntity.id) as countOrdersInDay')
         
           ->andWhere('OrderEntity.ownerID = :ownerID') 
           ->andWhere('OrderEntity.date >= :fromDate')
@@ -288,7 +288,7 @@ class OrderEntityRepository extends ServiceEntityRepository
 
         //   ->groupBy('OrderEntity.date')
           ->addGroupBy('OrderEntity.ownerID')
-          ->addGroupBy('date')
+          ->addGroupBy('myDate')
           
           ->having('count(OrderEntity.id) > 0')
        
