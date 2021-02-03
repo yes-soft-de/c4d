@@ -286,8 +286,9 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->andWhere('OrderEntity.date >= :fromDate')
           ->andWhere('OrderEntity.date < :toDate')
 
+          ->addGroupBy('OrderEntity.date')
           ->addGroupBy('OrderEntity.ownerID')
-          ->addGroupBy('myDate')
+          ->groupBy('myDate')
 
           ->having('count(OrderEntity.id) > 0')
         //   ->setMaxResults(5)
