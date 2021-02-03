@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:c4d/module_init/model/branch/branch_model.dart';
 import 'package:c4d/module_init/state_manager/init_account/init_account.state_manager.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -75,7 +76,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
     widget._stateManager.getRoleInit(this);
   }
 
-  void saveBranch(List<LatLng> locations) {
+  void saveBranch(List<BranchModel> locations) {
     widget._stateManager.saveBranch(locations, this);
   }
 

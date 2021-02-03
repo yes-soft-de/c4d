@@ -97,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "name" : MessageLookupByLibrary.simpleMessage("Name"),
     "nameIsRequired" : MessageLookupByLibrary.simpleMessage("Name is required"),
     "nearbyOrders" : MessageLookupByLibrary.simpleMessage("Nearby Orders"),
+    "newName" : MessageLookupByLibrary.simpleMessage("New name"),
     "newOrder" : MessageLookupByLibrary.simpleMessage("New Order"),
     "next" : MessageLookupByLibrary.simpleMessage("Next"),
     "online" : MessageLookupByLibrary.simpleMessage("online"),

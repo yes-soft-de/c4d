@@ -97,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "name" : MessageLookupByLibrary.simpleMessage("الاسم"),
     "nameIsRequired" : MessageLookupByLibrary.simpleMessage("حقل الاسم فارغ"),
     "nearbyOrders" : MessageLookupByLibrary.simpleMessage("الطلبات الحالية"),
+    "newName" : MessageLookupByLibrary.simpleMessage("New name"),
     "newOrder" : MessageLookupByLibrary.simpleMessage("طلب جديد"),
     "next" : MessageLookupByLibrary.simpleMessage("التالي"),
     "online" : MessageLookupByLibrary.simpleMessage("تم الدفع"),

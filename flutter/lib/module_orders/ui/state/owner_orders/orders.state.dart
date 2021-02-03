@@ -95,7 +95,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                         },
                         child: OrderCard(
                           title:
-                              '${S.of(context).branch} ${orders[index].from ?? ''}',
+                              '${orders[index].from ?? ''}',
                           subTitle:
                               '${S.of(context).order} #${orders[index].id}:',
                           time: timeago.format(orders[index].creationTime,

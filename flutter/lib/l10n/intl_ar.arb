@@ -152,5 +152,6 @@
   "pleaseProvideUsTheClientPhoneNumber": "الرجاء تزويدنا رقم الزبون او التخطي",
   "storeName": "اسم المحل التجاري",
   "storePhone": "رقم هاتف المحل",
-  "phoneIsRequired": "الرجاء تزويدنا برقم الهاتف"
+  "phoneIsRequired": "الرجاء تزويدنا برقم الهاتف",
+  "newName": "New name"
 }

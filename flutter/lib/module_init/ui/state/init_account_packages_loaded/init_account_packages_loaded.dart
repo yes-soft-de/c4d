@@ -56,6 +56,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                           hintText: S.of(context).storePhone,
                           labelText: S.of(context).storePhone,
                         ),
+                        keyboardType: TextInputType.phone,
                         validator: (phone) {
                           if (phone.isEmpty) {
                             return S.of(context).phoneIsRequired;

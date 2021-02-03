@@ -2,6 +2,7 @@ import 'package:c4d/consts/branch.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
+import 'package:c4d/module_init/model/branch/branch_model.dart';
 import 'package:c4d/module_init/service/init_account/init_account.service.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
@@ -90,18 +91,22 @@ class InitAccountStateManager {
     _stateSubject.add(InitAccountCaptainInitProfile(screenState));
   }
 
-  void subscribePackage(InitAccountScreenState screen, int packageId, String name, String phone, String city) {
+  void subscribePackage(InitAccountScreenState screen, int packageId,
+      String name, String phone, String city) {
     _stateSubject.add(
       InitAccountStateLoading(screen),
     );
-    Future.wait([_profileService.createProfile(ProfileRequest(
-      name: name,
-      phone: phone,
-      city: city,
-      age: 30.toString(),
-      image: 'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
-    )),_initAccountService.subscribePackage(packageId)] )
-    .then((value) {
+    Future.wait([
+      _profileService.createProfile(ProfileRequest(
+        name: name,
+        phone: phone,
+        city: city,
+        age: 30.toString(),
+        image:
+            'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+      )),
+      _initAccountService.subscribePackage(packageId)
+    ]).then((value) {
       _stateSubject.add(
         InitAccountStateSelectBranch(screen),
       );
@@ -121,20 +126,22 @@ class InitAccountStateManager {
     });
   }
 
-  void saveBranch(List<LatLng> position, InitAccountScreenState screen) {
+  void saveBranch(
+      List<BranchModel> store_branches, InitAccountScreenState screen) {
     _stateSubject.add(InitAccountStateLoading(screen));
 
-    var branches = <Branch>[];
-    for (int i = 0; i < position.length; i++) {
-      branches.add(Branch(
-          brancheName: '${i + 1}',
-          location: Location(
-            lat: position[i].latitude,
-            lon: position[i].longitude,
-          )));
-    }
+    var branchesToSave = <Branch>[];
 
-    _profileService.saveBranch(branches).then((value) {
+    store_branches.forEach((element) => branchesToSave.add(Branch(
+        brancheName: element.name,
+        location: Location(
+          lat: element.location.latitude,
+          lon: element.location.longitude,
+        ))));
+
+    _profileService
+        .saveBranch(branchesToSave)
+        .then((value) {
       if (value == null) {
         _stateSubject.add(InitAccountStateError(
           'Error Saving Branch',

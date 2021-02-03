@@ -80,6 +80,7 @@ class OrdersService {
         orders.add(OrderModel(
           to: element.location,
           from: element.fromBranch.id.toString(),
+          storeName: element.owner.userName,
           creationTime: DateTime.fromMillisecondsSinceEpoch(
               element.date.timestamp * 1000),
           paymentMethod: element.payment,

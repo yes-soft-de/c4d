@@ -25,12 +25,14 @@ class NewOrderStateInit extends NewOrderState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: CircularProgressIndicator(),
-        ),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+        ],
+      ),
     );
   }
 }

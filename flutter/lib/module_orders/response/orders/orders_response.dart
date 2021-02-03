@@ -38,6 +38,7 @@ class Order {
   String ownerID;
   String userName;
   dynamic source;
+  OwnerResponse owner;
   Destination destination;
   Date date;
   Date updateDate;
@@ -63,6 +64,7 @@ class Order {
         this.date,
         this.updateDate,
         this.note,
+        this.owner,
         this.payment,
         this.recipientName,
         this.recipientPhone,
@@ -85,6 +87,11 @@ class Order {
         source.add(v);
       });
     }
+
+    if (json['owner'] != null) {
+      this.owner = OwnerResponse.fromJson(json['owner']);
+    }
+
     // destination = json['destination'] != null
     //     ? new Destination.fromJson(json['destination'])
     //     : null;
@@ -246,3 +253,58 @@ class GeoJson {
     return data;
   }
 }
+
+class OwnerResponse {
+  int id;
+  String userName;
+  String userID;
+  String image;
+  String branch;
+  bool free;
+  String city;
+  String phone;
+  String imageURL;
+  String baseURL;
+
+  OwnerResponse(
+      {this.id,
+        this.userName,
+        this.userID,
+        this.image,
+        this.branch,
+        this.free,
+        this.city,
+        this.phone,
+        this.imageURL,
+        this.baseURL});
+
+  OwnerResponse.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userName = json['userName'];
+    userID = json['userID'];
+    image = json['image'];
+    branch = json['branch'];
+    free = json['free'];
+    city = json['city'];
+    phone = json['phone'];
+    imageURL = json['imageURL'];
+    baseURL = json['baseURL'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = this.id;
+    data['userName'] = this.userName;
+    data['userID'] = this.userID;
+    data['image'] = this.image;
+    data['branch'] = this.branch;
+    data['free'] = this.free;
+    data['city'] = this.city;
+    data['phone'] = this.phone;
+    data['imageURL'] = this.imageURL;
+    data['baseURL'] = this.baseURL;
+    return data;
+  }
+}
+
+

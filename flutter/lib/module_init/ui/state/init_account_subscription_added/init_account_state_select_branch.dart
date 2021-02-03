@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_init/model/branch/branch_model.dart';
 import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
 import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 
 class InitAccountStateSelectBranch extends InitAccountState {
-  List<LatLng> branchLocation = [];
+  List<BranchModel> branchLocation = [];
   final _mapController = MapController();
 
   InitAccountStateSelectBranch(InitAccountScreenState screen) : super(screen);
@@ -27,16 +28,16 @@ class InitAccountStateSelectBranch extends InitAccountState {
                 center: LatLng(21.5429423, 39.1690945),
                 zoom: 15.0,
                 onTap: (newPos) {
-                  branchLocation ??= [];
-                  branchLocation.add(newPos);
+                  saveMarker(newPos);
                   screen.refresh();
                 },
               ),
               layers: [
                 TileLayerOptions(
-                    urlTemplate:
-                        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    subdomains: ['a', 'b', 'c']),
+                  urlTemplate:
+                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  subdomains: ['a', 'b', 'c'],
+                ),
                 MarkerLayerOptions(
                   markers: branchLocation == null ? [] : _getMarkers(context),
                 ),
@@ -75,8 +76,7 @@ class InitAccountStateSelectBranch extends InitAccountState {
                       LatLng myPos =
                           LatLng(myLocation.latitude, myLocation.longitude);
                       _mapController.move(myPos, 15);
-                      branchLocation ??= [];
-                      branchLocation.add(myPos);
+                      saveMarker(myPos);
                       screen.refresh();
                     },
                   ),
@@ -119,22 +119,74 @@ class InitAccountStateSelectBranch extends InitAccountState {
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${S.of(context).branch} ${i + 1}'),
-            Flex(
-              direction: Axis.horizontal,
-              children: [
-                IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      branchLocation.remove(branchLocation[i]);
-                      screen.refresh();
-                    }),
-                IconButton(
-                    icon: Icon(Icons.my_location),
-                    onPressed: () {
-                      _mapController.move(branchLocation[i], 15);
-                    }),
-              ],
+            Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Text('${branchLocation[i].name}')),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: Flex(
+                direction: Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) {
+                              var nameController = TextEditingController();
+                              return Dialog(
+                                child: Flex(
+                                  direction: Axis.vertical,
+                                  children: [
+                                    TextFormField(
+                                      controller: nameController,
+                                      decoration: InputDecoration(
+                                        hintText: S.of(context).newName,
+                                        labelText: S.of(context).newName,
+                                      ),
+                                      validator: (name) {
+                                        if (name.isEmpty) {
+                                          return S.of(context).nameIsRequired;
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    RaisedButton(
+                                        child: Text(S.of(context).save),
+                                        onPressed: () {
+                                          if (nameController.text.isNotEmpty) {
+                                            Navigator.of(context)
+                                                .pop(nameController.text);
+                                          }
+                                        })
+                                  ],
+                                ),
+                              );
+                            }).then((result) {
+                              print('Dialog Result $result');
+                          if (result != null) {
+                            branchLocation[i].name = result;
+                            screen.refresh();
+                          }
+                        });
+                        screen.refresh();
+                      }),
+                  IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        branchLocation.remove(branchLocation[i]);
+                        screen.refresh();
+                      }),
+                  IconButton(
+                      icon: Icon(Icons.my_location),
+                      onPressed: () {
+                        _mapController.move(branchLocation[i].location, 15);
+                      }),
+                ],
+              ),
             ),
           ],
         ),
@@ -148,7 +200,7 @@ class InitAccountStateSelectBranch extends InitAccountState {
     var markers = <Marker>[];
     branchLocation.forEach((element) {
       markers.add(Marker(
-        point: element,
+        point: element.location,
         builder: (ctx) => Container(
           child: Icon(
             Icons.my_location,
@@ -158,5 +210,12 @@ class InitAccountStateSelectBranch extends InitAccountState {
       ));
     });
     return markers;
+  }
+
+  void saveMarker(LatLng location) {
+    branchLocation ??= [];
+    branchLocation.add(
+      BranchModel(location, '${branchLocation.length + 1}'),
+    );
   }
 }
