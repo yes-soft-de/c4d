@@ -8,6 +8,7 @@ class BranchesCreateRequest
     private $location = [];
     private $city;
     private $brancheName;
+    private $isActive;
       
     /**
     * @param mixed $ownerID

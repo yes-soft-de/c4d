@@ -26,7 +26,7 @@ class BranchesManager
     public function create(BranchesCreateRequest $request)
     {
         $entity = $this->autoMapping->map(BranchesCreateRequest::class, BranchesEntity::class, $request);
-
+        $entity->setIsActive(1);
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();

@@ -24,7 +24,7 @@ class BranchesEntityRepository extends ServiceEntityRepository
     public function getBranchesByUserId($userId)
     {
         return $this->createQueryBuilder('BranchesEntity')
-            ->select('BranchesEntity.id', 'BranchesEntity.ownerID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.brancheName','userProfileEntity.free','userProfileEntity.userName','userProfileEntity.status') 
+            ->select('BranchesEntity.id', 'BranchesEntity.ownerID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.brancheName','userProfileEntity.free','userProfileEntity.userName','userProfileEntity.status','BranchesEntity.isActive') 
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = BranchesEntity.ownerID')
 
