@@ -79,6 +79,8 @@ methods: POST
 ```
 #### Update captain profile 
 
+isOnline: active or inactive .
+
 ```
 /captainprofile
 methods: PUT
@@ -331,6 +333,7 @@ methods: GET
 ```
 
 ### captain profile Update By Admin
+
 
 ```
 /captainprofileUpdateByAdmin

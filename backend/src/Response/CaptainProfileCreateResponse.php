@@ -44,4 +44,6 @@ class CaptainProfileCreateResponse
     
     public $phone;
 
+    public $isOnline;
+
 }

@@ -87,6 +87,11 @@ class CaptainProfileEntity
      */
     private $phone;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $isOnline;
+
 
     public function getId(): ?int
     {
@@ -257,6 +262,18 @@ class CaptainProfileEntity
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getIsOnline(): ?string
+    {
+        return $this->isOnline;
+    }
+
+    public function setIsOnline(?string $isOnline): self
+    {
+        $this->isOnline = $isOnline;
 
         return $this;
     }

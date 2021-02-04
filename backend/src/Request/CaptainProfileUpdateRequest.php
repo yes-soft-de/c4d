@@ -20,6 +20,8 @@ class CaptainProfileUpdateRequest
     
     private $phone;
 
+    private $isOnline;
+
     /**
      * Get the value of name
      */
@@ -156,6 +158,26 @@ class CaptainProfileUpdateRequest
     public function setSalary(float $salary): self
     {
         $this->salary = $salary;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isOnline
+     */ 
+    public function getIsOnline()
+    {
+        return $this->isOnline;
+    }
+
+    /**
+     * Set the value of isOnline
+     *
+     * @return  self
+     */ 
+    public function setIsOnline($isOnline)
+    {
+        $this->isOnline = $isOnline;
 
         return $this;
     }
