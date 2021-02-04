@@ -30,6 +30,5 @@ class OrderResponse
     public $image;
     public $imageURL;
     public $baseURL;
-    
-    
+    public $kilometer;
 }

@@ -77,6 +77,11 @@ class OrderEntity
      */
     private $uuid;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $kilometer;
+
 
     public function getId(): ?int
     {
@@ -230,6 +235,18 @@ class OrderEntity
     public function setUuid(?string $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getKilometer(): ?int
+    {
+        return $this->kilometer;
+    }
+
+    public function setKilometer(?int $kilometer): self
+    {
+        $this->kilometer = $kilometer;
 
         return $this;
     }

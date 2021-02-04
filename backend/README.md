@@ -178,6 +178,7 @@ ROLE_CAPTAIN
 <!-- state: picked or ongoing or deliverd . -->
 <!-- next was  adopted -->
 state: in store or picked or ongoing or cash or deliverd
+kilometer: number of integer
 
 ```
 /orderUpdateState
@@ -275,6 +276,35 @@ ROLE_OWNER
 /dating
 methods: POST
 ```
+
+### Branch
+
+#### create branches
+ROLE_OWNER
+```
+/branches
+methods: POST
+```
+
+#### update branches
+ROLE_OWNER
+```
+/branches
+methods: PUT
+```
+
+#### Get branches by UserId
+ROLE_OWNER
+```
+/branches
+methods: GET
+```
+
+
+
+
+
+
 
 
 # dashboard 
