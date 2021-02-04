@@ -11,5 +11,5 @@ class BranchesResponse
     public $brancheName;
     public $free;
     public $userName;
-    public $status;
+    public $isActive;
 }

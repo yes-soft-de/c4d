@@ -52,4 +52,11 @@ class BranchesService
     {
         return $this->branchesManager->getBrancheById($Id);
     }
+    
+    public function updateIsActiveBranche($request)
+    {
+        $result = $this->branchesManager->updateIsActiveBranche($request);
+
+        return $this->autoMapping->map(BranchesEntity::class, BranchesResponse::class, $result);
+    }
 }

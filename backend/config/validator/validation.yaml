@@ -194,3 +194,10 @@ App\Request\ReportCreateRequest:
       - NotBlank: ~
     reason:
       - NotBlank: ~
+
+App\Request\BranchesDeleteRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    isActive:
+      - NotBlank: ~

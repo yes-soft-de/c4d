@@ -302,6 +302,13 @@ ROLE_OWNER
 methods: GET
 ```
 
+#### Update IsActive branche
+ROLE_OWNER
+```
+/branche
+methods: PUT
+```
+
 
 
 

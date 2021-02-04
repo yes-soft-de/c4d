@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BranchesEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=BranchesEntityRepository::class)
@@ -36,6 +37,11 @@ class BranchesEntity
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $brancheName;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActive;
 
     public function getId(): ?int
     {
@@ -86,6 +92,18 @@ class BranchesEntity
     public function setBrancheName(?string $brancheName): self
     {
         $this->brancheName = $brancheName;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

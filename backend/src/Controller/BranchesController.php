@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\BranchesCreateRequest;
 use App\Request\BranchesUpdateRequest;
+use App\Request\BranchesDeleteRequest;
 use App\Service\BranchesService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -91,5 +92,30 @@ class BranchesController extends BaseController
         $result = $this->branchesService->getBranchesByUserId($this->getUserId());
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("branche", name="updateIsActiveBranche", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateIsActiveBranche(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(\stdClass::class, BranchesDeleteRequest::class, (object) $data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->branchesService->updateIsActiveBranche($request);
+
+        return $this->response($result, self::UPDATE);
     }
 }

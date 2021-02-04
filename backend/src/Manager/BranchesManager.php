@@ -7,6 +7,7 @@ use App\Entity\BranchesEntity;
 use App\Repository\BranchesEntityRepository;
 use App\Request\BranchesCreateRequest;
 use App\Request\BranchesUpdateRequest;
+use App\Request\BranchesDeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class BranchesManager
@@ -40,8 +41,8 @@ class BranchesManager
         if (!$entity) {
             return null;
         }
+        
         $entity = $this->autoMapping->mapToObject(BranchesUpdateRequest::class, BranchesEntity::class, $request, $entity);
-
         $this->entityManager->flush();
 
         return $entity;
@@ -60,5 +61,19 @@ class BranchesManager
     public function getBrancheById($Id)
     {
         return $this->branchesRepository->find($Id);
+    }
+
+    public function updateIsActiveBranche(BranchesDeleteRequest $request)
+    {
+        $entity = $this->branchesRepository->find($request->getId());
+
+        if (!$entity) {
+            return null;
+        }
+        $entity = $this->autoMapping->mapToObject(BranchesDeleteRequest::class, BranchesEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
     }
 }
