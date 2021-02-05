@@ -108,8 +108,32 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "fig/http-message-util": {
+        "version": "1.1.5"
+    },
+    "firebase/php-jwt": {
+        "version": "v5.2.0"
+    },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.0"
+    },
+    "giggsey/libphonenumber-for-php": {
+        "version": "8.12.17"
+    },
+    "giggsey/locale": {
+        "version": "1.9"
+    },
+    "google/auth": {
+        "version": "v1.14.3"
+    },
+    "google/cloud-core": {
+        "version": "v1.41.0"
+    },
+    "google/cloud-storage": {
+        "version": "v1.23.1"
+    },
+    "google/crc32": {
+        "version": "v0.1.0"
     },
     "guzzlehttp/guzzle": {
         "version": "7.2.0"
@@ -122,6 +146,18 @@
     },
     "imagine/imagine": {
         "version": "1.2.4"
+    },
+    "kreait/clock": {
+        "version": "1.1.0"
+    },
+    "kreait/firebase-bundle": {
+        "version": "2.3.0"
+    },
+    "kreait/firebase-php": {
+        "version": "5.11.0"
+    },
+    "kreait/firebase-tokens": {
+        "version": "1.11.0"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
@@ -171,6 +207,12 @@
     },
     "mark-gerarts/automapper-plus-bundle": {
         "version": "1.3.0"
+    },
+    "monolog/monolog": {
+        "version": "2.2.0"
+    },
+    "mtdowling/jmespath.php": {
+        "version": "2.6.0"
     },
     "namshi/jose": {
         "version": "7.2.3"
@@ -232,8 +274,17 @@
     "psr/log": {
         "version": "1.1.3"
     },
+    "psr/simple-cache": {
+        "version": "1.0.1"
+    },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "riverline/multipart-parser": {
+        "version": "2.0.8"
+    },
+    "rize/uri-template": {
+        "version": "0.3.2"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

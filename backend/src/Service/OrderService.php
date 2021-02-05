@@ -8,6 +8,7 @@ use App\Manager\OrderManager;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
+use App\Request\SendNotificationRequest;
 use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
@@ -25,8 +26,11 @@ class OrderService
     private $subscriptionService;
     private $userService;
     private $params;
+    private $notificationService;
 
-    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService, RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService, UserService $userService, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService,
+                                RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService,
+                                UserService $userService, ParameterBagInterface $params, NotificationService $notificationService)
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
@@ -37,6 +41,7 @@ class OrderService
         $this->userService = $userService;
 
         $this->params = $params->get('upload_base_url') . '/';
+        $this->notificationService = $notificationService;
     }
 
     public function create(OrderCreateRequest $request)
@@ -48,6 +53,11 @@ class OrderService
             $uuid = $this->recordService->uuid();
         
             $item = $this->orderManager->create($request, $uuid);
+
+            //start-----> notification
+            $this->notificationService->notificationToCaptain();
+            //notification <------end
+
             if ($item) {
                 $this->recordService->create($item->getId(), $item->getState());
             }
@@ -213,6 +223,16 @@ class OrderService
             $response->acceptedOrder =  $acceptedOrder;
             $response->record =  $record;
         }
+
+        //start-----> notification
+        //Todo: please fill this request with owner uid and captain uid
+        $notificationRequest = new SendNotificationRequest();
+        $notificationRequest->setUserIdOne('owner uid');
+        $notificationRequest->setUserIdTwo('captain uid');
+
+        $this->notificationService->notificationOrderUpdate($notificationRequest);
+        //notification <------end
+
         return $response;
     }
 
