@@ -55,9 +55,14 @@ class OrderService
             $item = $this->orderManager->create($request, $uuid);
 
             //start-----> notification
+            try{
             $this->notificationService->notificationToCaptain();
             //notification <------end
-
+            }
+            catch (\Exception $e)
+            {
+    
+            }
             if ($item) {
                 $this->recordService->create($item->getId(), $item->getState());
             }
@@ -226,13 +231,18 @@ class OrderService
 
         //start-----> notification
         //Todo: please fill this request with owner uid and captain uid
+        try {
         $notificationRequest = new SendNotificationRequest();
         $notificationRequest->setUserIdOne('owner uid');
         $notificationRequest->setUserIdTwo('captain uid');
 
         $this->notificationService->notificationOrderUpdate($notificationRequest);
         //notification <------end
+        }
+        catch (\Exception $e)
+        {
 
+        }
         return $response;
     }
 
