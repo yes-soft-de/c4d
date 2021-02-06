@@ -332,10 +332,10 @@ status : active .
 methods: PUT
 ```
 
-### Get user profile by ID
+### Get user profile by userId
 
 ```
-/userprofileByID/{id}
+/userprofile/{userId}
 methods: GET
 ```
 

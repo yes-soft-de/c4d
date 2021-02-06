@@ -135,6 +135,18 @@ class UserController extends BaseController
     }
 
     /**
+     * @Route("/userprofile/{userId}", name="getUserProfileByUserId",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function getUserProfile($userId)
+    {
+        $response = $this->userService->getUserProfileByUserID($userId);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
      * @Route("/userprofile", name="getUserProfileByUserId",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
