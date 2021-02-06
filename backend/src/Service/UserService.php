@@ -94,6 +94,7 @@ class UserService
     public function getUserProfileByID($id)
     {
         $item = $this->userManager->getUserProfileByID($id);
+      
         $item['branches'] = $this->branchesService->branchesByUserId($item['userID']);
         return $this->autoMapping->map('array', UserProfileCreateResponse::class, $item);
     }

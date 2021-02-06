@@ -335,7 +335,7 @@ methods: PUT
 ### Get user profile by userId
 
 ```
-/userprofile/{userId}
+/userprofilebyuserid/{userId}
 methods: GET
 ```
 
