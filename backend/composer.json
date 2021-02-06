@@ -12,6 +12,7 @@
         "doctrine/orm": "^2.7",
         "gedmo/doctrine-extensions": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "kreait/firebase-bundle": "^2.3",
         "lexik/jwt-authentication-bundle": "^2.8",
         "liip/imagine-bundle": "^2.4",
         "mark-gerarts/automapper-plus-bundle": "^1.3",
