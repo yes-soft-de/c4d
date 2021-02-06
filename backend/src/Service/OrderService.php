@@ -216,11 +216,10 @@ class OrderService
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
     {
         $item = $this->orderManager->orderUpdateStateByCaptain($request);
-      if($item) {
+        if($item) {
             $acceptedOrderUpdateState = $this->acceptedOrderService->acceptedOrderUpdateStateByCaptain($item->getId(), $request->getState());
         
             $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($item->getId());
-        
             $record = $this->recordService->getRecordByOrderId($item->getId());
         }
         $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
@@ -230,11 +229,10 @@ class OrderService
         }
 
         //start-----> notification
-        //Todo: please fill this request with owner uid and captain uid
         try {
         $notificationRequest = new SendNotificationRequest();
-        $notificationRequest->setUserIdOne('owner uid');
-        $notificationRequest->setUserIdTwo('captain uid');
+        $notificationRequest->setUserIdOne($item->getOwnerID());
+        $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
 
         $this->notificationService->notificationOrderUpdate($notificationRequest);
         //notification <------end

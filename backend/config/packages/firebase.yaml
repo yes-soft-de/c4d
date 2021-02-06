@@ -1,4 +1,4 @@
-kreait_firebase:
-  projects:
-    my_project:
-      credentials: '%kernel.project_dir%/config/yes-soft-c4d-firebase-adminsdk-mv22v-f840bf94eb.json'
+# kreait_firebase:
+#   projects:
+#     my_project:
+#       credentials: '%kernel.project_dir%/config/yes-soft-c4d-firebase-adminsdk-mv22v-f840bf94eb.json'
