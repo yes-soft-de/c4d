@@ -71,7 +71,7 @@ class DrawerWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                     onTap: () {
-                      String url = 'https://google.com';
+                      String url = 'https://c4d-app.web.app/privacy.html';
                       launch(url);
                     },
                     child: Text(
@@ -84,7 +84,7 @@ class DrawerWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                     onTap: () {
-                      String url = 'https://google.com';
+                      String url = 'https://c4d-app.web.app/tos.html';
                       launch(url);
                     },
                     child: Text(
