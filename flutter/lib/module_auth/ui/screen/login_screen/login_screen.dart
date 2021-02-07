@@ -46,7 +46,9 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentStates.getUI(context),
+      body: SafeArea(
+        child: _currentStates.getUI(context),
+      ),
     );
   }
 
@@ -58,9 +60,11 @@ class LoginScreenState extends State<LoginScreen> {
 
   void moveToNext() {
     if (currentUserRole == UserRole.ROLE_OWNER) {
-      Navigator.of(context).pushNamedAndRemoveUntil(OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
     } else if (currentUserRole == UserRole.ROLE_CAPTAIN) {
-      Navigator.of(context).pushNamedAndRemoveUntil(OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (r) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (r) => false);
     }
   }
 

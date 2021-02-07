@@ -46,7 +46,7 @@
   "openChatRoom": "افتح غرفة المحادثة",
   "orders": "الطلبات",
   "currentOrders": "طلباتي",
-  "nearbyOrders": "الطلبات الحالية",
+  "nearbyOrders": "الطلبات القريبة",
   "chatWithStoreOwner": "التحدث مع صاحب المحل",
   "whatsappWithStoreOwner": "واتساب مع صاحب المحل",
   "whatsappWithClient": "التحدث مع الزبون",
@@ -56,7 +56,7 @@
   "skip": "تخطي",
   "iSpeak": "أتكلم",
   "changeLanguage": "غير لغة",
-  "andIAm": "وأعمل",
+  "andIAm": "من أنا",
   "me": "مهنتي",
   "weNeedYourImageAndYourDriverLicenceInOrder": "نحتاج صورتك الشخصية وصورة رخصة القيادة للتسجيل",
   "weNeedYourImageInOrderToSignUp": "نحتاج صورتك للتسجيل",
@@ -153,5 +153,6 @@
   "storeName": "اسم المحل التجاري",
   "storePhone": "رقم هاتف المحل",
   "phoneIsRequired": "الرجاء تزويدنا برقم الهاتف",
-  "newName": "New name"
+  "newName": "اسم جديد",
+  "ourPackages": "باقاتنا"
 }

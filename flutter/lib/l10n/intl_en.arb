@@ -153,5 +153,6 @@
   "storeName": "Store Name",
   "storePhone": "Store Phone",
   "phoneIsRequired": "Phone is required",
-  "newName": "New name"
+  "newName": "New name",
+  "ourPackages": "Our Packages"
 }

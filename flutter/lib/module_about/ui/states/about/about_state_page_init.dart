@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_about/state_manager/about_screen_state_manager.dart';
 import 'package:c4d/module_about/ui/screen/about_screen/about_screen.dart';
 import 'package:c4d/module_about/ui/states/about/about_state.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
@@ -9,7 +10,7 @@ import 'package:lottie/lottie.dart';
 
 @provide
 class AboutStatePageInit extends AboutState {
-  AboutScreenState screenState;
+  AboutScreenStateManager screenState;
   String currentLanguage;
   UserRole currentRole;
 
@@ -102,7 +103,7 @@ class AboutStatePageInit extends AboutState {
     } else if (currentLanguage == 'ar') {
       return 'العربية';
     } else {
-      return S.of(context).iSpeak;
+      return S.of(context).language;
     }
   }
 
@@ -112,7 +113,7 @@ class AboutStatePageInit extends AboutState {
     } else if (currentRole == UserRole.ROLE_CAPTAIN) {
       return S.of(context).captain;
     } else {
-      return S.of(context).iAm;
+      return S.of(context).andIAm;
     }
   }
 
@@ -124,10 +125,10 @@ class AboutStatePageInit extends AboutState {
               height: 250,
               child: CupertinoPicker(
                 backgroundColor: Colors.white,
-                itemExtent: 30,
+                itemExtent: 42,
                 scrollController: FixedExtentScrollController(initialItem: 1),
                 children: [
-                  Text(S.of(context).pickALanguage),
+                  Text(S.of(context).language),
                   Text('English'),
                   Text('العربية'),
                 ],
@@ -143,30 +144,28 @@ class AboutStatePageInit extends AboutState {
 
   void _showRolePicker(BuildContext context) {
     showCupertinoModalPopup(
-        context: context,
-        builder: (_) => Container(
-              width: MediaQuery.of(context).size.width,
-              height: 250,
-              child: CupertinoPicker(
-                backgroundColor: Colors.white,
-                itemExtent: 30,
-                scrollController: FixedExtentScrollController(initialItem: 1),
-                children: [
-                  Text(S.of(context).iAm),
-                  Text(S.of(context).captain),
-                  Text(S.of(context).storeOwner),
-                ],
-                onSelectedItemChanged: (type) {
-                  if (type > 0) {
-                    currentRole =
-                        type == 1 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER;
-                    screenState.setCurrentUser(type == 1
-                        ? UserRole.ROLE_CAPTAIN
-                        : UserRole.ROLE_OWNER);
-                    screenState.refresh();
-                  }
-                },
-              ),
-            ));
+      context: context,
+      builder: (_) => Container(
+        width: MediaQuery.of(context).size.width,
+        height: 250,
+        child: CupertinoPicker(
+          backgroundColor: Colors.white,
+          itemExtent: 42,
+          scrollController: FixedExtentScrollController(initialItem: 1),
+          children: [
+            Text(S.of(context).andIAm),
+            Text(S.of(context).captain),
+            Text(S.of(context).storeOwner),
+          ],
+          onSelectedItemChanged: (type) {
+            if (type > 0) {
+              currentRole =
+                  type == 1 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER;
+              screenState.refresh(this);
+            }
+          },
+        ),
+      ),
+    );
   }
 }

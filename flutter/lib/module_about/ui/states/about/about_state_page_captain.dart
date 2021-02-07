@@ -1,7 +1,10 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_about/state_manager/about_screen_state_manager.dart';
 import 'package:c4d/module_about/ui/screen/about_screen/about_screen.dart';
 import 'package:c4d/module_about/ui/states/about/about_state.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
+import 'package:c4d/module_init/model/package/packages.model.dart';
+import 'package:c4d/module_init/ui/widget/package_card/package_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,7 +12,7 @@ class AboutStatePageCaptain extends AboutState {
   int currentPage = 0;
   final pageController = PageController(initialPage: 0);
 
-  AboutStatePageCaptain(AboutScreenState screenState) : super(screenState);
+  AboutStatePageCaptain(AboutScreenStateManager screenState) : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
@@ -18,7 +21,7 @@ class AboutStatePageCaptain extends AboutState {
         PageView(
           onPageChanged: (pos) {
             currentPage = pos;
-            screenState.refresh();
+            screenState.refresh(this);
           },
           children: [
             Column(

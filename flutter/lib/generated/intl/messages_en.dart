@@ -114,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "orders" : MessageLookupByLibrary.simpleMessage("Orders"),
     "ourBankAccountNumber" : MessageLookupByLibrary.simpleMessage("Our Bank Account Number"),
     "ourBankName" : MessageLookupByLibrary.simpleMessage("Our Bank Name"),
+    "ourPackages" : MessageLookupByLibrary.simpleMessage("Our Packages"),
     "package" : MessageLookupByLibrary.simpleMessage("Package"),
     "password" : MessageLookupByLibrary.simpleMessage("Password"),
     "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("Password is too short"),
