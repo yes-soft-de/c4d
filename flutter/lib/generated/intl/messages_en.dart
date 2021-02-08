@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newName" : MessageLookupByLibrary.simpleMessage("New name"),
     "newOrder" : MessageLookupByLibrary.simpleMessage("New Order"),
     "next" : MessageLookupByLibrary.simpleMessage("Next"),
+    "notifications" : MessageLookupByLibrary.simpleMessage("Notifications"),
     "online" : MessageLookupByLibrary.simpleMessage("online"),
     "openChatRoom" : MessageLookupByLibrary.simpleMessage("Open Chat Room"),
     "openTheApp" : MessageLookupByLibrary.simpleMessage("Open the app"),

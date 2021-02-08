@@ -154,5 +154,6 @@
   "storePhone": "Store Phone",
   "phoneIsRequired": "Phone is required",
   "newName": "New name",
-  "ourPackages": "Our Packages"
+  "ourPackages": "Our Packages",
+  "notifications": "Notifications"
 }

@@ -126,7 +126,7 @@ class AuthService {
           await FirebaseAuth.instance.signInWithCredential(credential);
       await _registerApiUser(AppUser(userCredential, AuthSource.PHONE, role));
     } catch (e) {
-      Logger().error('AuthStateManager', e.toString());
+      Logger().error('AuthStateManager', e.toString(), StackTrace.current);
     }
   }
 

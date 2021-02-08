@@ -41,6 +41,7 @@ class ProfileResponseModel {
   String imageURL;
   String baseURL;
   String phone;
+  bool isOnline = true;
 
   ProfileResponseModel(
       {this.id,
@@ -71,6 +72,7 @@ class ProfileResponseModel {
     drivingLicence = json['drivingLicence'];
     salary = json['salary'];
     status = json['status'];
+    isOnline = json['isOnline'];
     if (json['countOrdersDeliverd'] != null) {
       countOrdersDeliverd = new List<CountOrdersDeliverd>();
       json['countOrdersDeliverd'].forEach((v) {
@@ -100,6 +102,7 @@ class ProfileResponseModel {
     data['drivingLicence'] = this.drivingLicence;
     data['salary'] = this.salary;
     data['status'] = this.status;
+    data['isOnline'] = this.isOnline;
     if (this.countOrdersDeliverd != null) {
       data['countOrdersDeliverd'] =
           this.countOrdersDeliverd.map((v) => v.toJson()).toList();

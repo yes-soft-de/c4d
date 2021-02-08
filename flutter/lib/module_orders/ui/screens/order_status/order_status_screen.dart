@@ -43,7 +43,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     super.initState();
   }
 
-  void requestOrderProgress(OrderModel currentOrder) {
+  void requestOrderProgress(OrderModel currentOrder, [String distance]) {
     OrderStatus newStatus;
     switch (currentOrder.status) {
       case OrderStatus.INIT:
@@ -67,6 +67,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
         break;
     }
 
+    currentOrder.distance = distance;
     currentOrder.status = newStatus;
     widget._stateManager.updateOrder(currentOrder, this);
   }

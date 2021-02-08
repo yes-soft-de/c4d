@@ -23,137 +23,139 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
   @override
   Widget getUI(BuildContext context) {
     return SafeArea(
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Card(
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Flex(
-                    direction: Axis.vertical,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          hintText: S.of(context).storeName,
-                          labelText: S.of(context).storeName,
-                        ),
-                        validator: (name) {
-                          if (name.isEmpty) {
-                            return S.of(context).nameIsRequired;
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _phoneController,
-                        decoration: InputDecoration(
-                          hintText: S.of(context).storePhone,
-                          labelText: S.of(context).storePhone,
-                        ),
-                        keyboardType: TextInputType.phone,
-                        validator: (phone) {
-                          if (phone.isEmpty) {
-                            return S.of(context).phoneIsRequired;
-                          }
-                          return null;
-                        },
-                      ),
-                      //size
-                      DropdownButtonHideUnderline(
-                        child: DropdownButtonFormField(
-                            value: _selectedSize,
-                            decoration: InputDecoration(
-                              hintText: S.of(context).chooseYourSize,
-                              hintMaxLines: 2,
-                              helperMaxLines: 2,
-                            ),
-                            items: _getSizes(context),
-                            onChanged: (value) {
-                              _selectedCity = value;
-                            }),
-                      ),
-                      //city
-                      Container(
-                        child: DropdownButtonFormField(
-                          // value: _selectedCity,
-                            decoration: InputDecoration(
-                              hintText: S.of(context).chooseYourCity,
-                            ),
-                            items: _getCities(),
-                            onChanged: (value) {
-                              _selectedCity = value;
-                              screen.refresh();
-                            }),
-                      ),
-                      //package
-                      AnimatedContainer(
-                        duration: Duration(seconds: 1),
-                        height: _selectedCity == null ? 0 : 196,
-                        margin: EdgeInsets.only(top: 20),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: _getPackages(),
-                        ),
-                      ),
-                      // Submit Package
-                      AnimatedContainer(
-                        duration: Duration(seconds: 1),
-                        margin: EdgeInsets.only(top: 30),
-                        height: _selectedPackageId == null ? 0 : 36,
-                        child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          color: Theme.of(context).primaryColor,
-                          onPressed: () {
-                            screen.subscribeToPackage(
-                              _selectedPackageId,
-                              _nameController.text,
-                              _phoneController.text,
-                              _selectedCity,
-                            );
+      child: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Card(
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Flex(
+                      direction: Axis.vertical,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            hintText: S.of(context).storeName,
+                            labelText: S.of(context).storeName,
+                          ),
+                          validator: (name) {
+                            if (name.isEmpty) {
+                              return S.of(context).nameIsRequired;
+                            }
+                            return null;
                           },
-                          child: Text(
-                            S.of(context).next,
-                            style: TextStyle(
-                              color: Colors.white,
+                        ),
+                        TextFormField(
+                          controller: _phoneController,
+                          decoration: InputDecoration(
+                            hintText: S.of(context).storePhone,
+                            labelText: S.of(context).storePhone,
+                          ),
+                          keyboardType: TextInputType.phone,
+                          validator: (phone) {
+                            if (phone.isEmpty) {
+                              return S.of(context).phoneIsRequired;
+                            }
+                            return null;
+                          },
+                        ),
+                        //size
+                        DropdownButtonHideUnderline(
+                          child: DropdownButtonFormField(
+                              value: _selectedSize,
+                              decoration: InputDecoration(
+                                hintText: S.of(context).chooseYourSize,
+                                hintMaxLines: 2,
+                                helperMaxLines: 2,
+                              ),
+                              items: _getSizes(context),
+                              onChanged: (value) {
+                                _selectedCity = value;
+                              }),
+                        ),
+                        //city
+                        Container(
+                          child: DropdownButtonFormField(
+                            // value: _selectedCity,
+                              decoration: InputDecoration(
+                                hintText: S.of(context).chooseYourCity,
+                              ),
+                              items: _getCities(),
+                              onChanged: (value) {
+                                _selectedCity = value;
+                                screen.refresh();
+                              }),
+                        ),
+                        //package
+                        AnimatedContainer(
+                          duration: Duration(seconds: 1),
+                          height: _selectedCity == null ? 0 : 196,
+                          margin: EdgeInsets.only(top: 20),
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: _getPackages(),
+                          ),
+                        ),
+                        // Submit Package
+                        AnimatedContainer(
+                          duration: Duration(seconds: 1),
+                          margin: EdgeInsets.only(top: 30),
+                          height: _selectedPackageId == null ? 0 : 36,
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            color: Theme.of(context).primaryColor,
+                            onPressed: () {
+                              screen.subscribeToPackage(
+                                _selectedPackageId,
+                                _nameController.text,
+                                _phoneController.text,
+                                _selectedCity,
+                              );
+                            },
+                            child: Text(
+                              S.of(context).next,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            top: 8,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                      blurRadius: 4
-                    )],
-                    color: Colors.white
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: FaIcon(FontAwesomeIcons.store),
+            Positioned(
+              top: 8,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                        blurRadius: 4
+                      )],
+                      color: Colors.white
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: FaIcon(FontAwesomeIcons.store),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

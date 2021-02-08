@@ -8,8 +8,6 @@ import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart'
 import 'package:c4d/module_orders/ui/widgets/communication_card/communication_card.dart';
 import 'package:c4d/module_orders/util/whatsapp_link_helper.dart';
 import 'package:c4d/module_orders/utils/icon_helper/order_progression_helper.dart';
-import 'package:c4d/utils/logger/logger.dart';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -19,6 +17,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
   OrderModel currentOrder;
+  final _distanceCalculator = TextEditingController();
 
   OrderDetailsStateCaptainOrderLoaded(
     this.currentOrder,
@@ -61,28 +60,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               height: 56,
             ),
             // To Progress the Order
-            currentOrder.status == OrderStatus.FINISHED
-                ? Container()
-                : GestureDetector(
-                    onTap: () {
-                      screenState.requestOrderProgress(currentOrder);
-                    },
-                    child: CommunicationCard(
-                      text: OrderProgressionHelper.getNextStageHelper(
-                        currentOrder.status,
-                        currentOrder.paymentMethod.toLowerCase().contains('ca'),
-                        context,
-                      ),
-                      color: Theme.of(context).accentColor,
-                      textColor: Colors.white,
-                      image: Icon(
-                        Icons.navigate_next_sharp,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                    ),
-                  ),
+            _getNextStageCard(context),
             // To Chat with Store owner in app
             GestureDetector(
               onTap: () {
@@ -161,5 +139,51 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
         ),
       ),
     );
+  }
+
+  Widget _getNextStageCard(BuildContext context) {
+    if (currentOrder.status == OrderStatus.FINISHED) {
+      return Container();
+    }
+    if (currentOrder.paymentMethod.contains('ca') && currentOrder.status == OrderStatus.GOT_CASH) {
+      return TextFormField(
+        controller: _distanceCalculator,
+        decoration: InputDecoration(
+          hintText: 'Distance',
+          labelText: 'Distance',
+          suffixIcon: GestureDetector(
+            onTap: () {
+              screenState.requestOrderProgress(currentOrder, _distanceCalculator.text);
+            },
+          )
+        ),
+        keyboardType: TextInputType.number,
+      );
+    } else {
+      return GestureDetector(
+        onTap: () {
+          screenState.requestOrderProgress(currentOrder);
+        },
+        child: CommunicationCard(
+          text: OrderProgressionHelper.getNextStageHelper(
+            currentOrder.status,
+            currentOrder.paymentMethod.toLowerCase().contains('ca'),
+            context,
+          ),
+          color: Theme
+              .of(context)
+              .accentColor,
+          textColor: Colors.white,
+          image: Icon(
+            Icons.navigate_next_sharp,
+            color: Theme
+                .of(context)
+                .brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+        ),
+      );
+    }
   }
 }

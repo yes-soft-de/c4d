@@ -10,6 +10,7 @@ class ProfileRequest {
   String age;
   String drivingLicence;
   String state;
+  bool isOnline;
 
   ProfileRequest.empty();
 
@@ -23,6 +24,7 @@ class ProfileRequest {
     this.drivingLicence = 'Unknown',
     this.age,
     this.state = 'active',
+    this.isOnline = true,
   });
 
   Map<String, dynamic> toJson() {

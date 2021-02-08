@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newName" : MessageLookupByLibrary.simpleMessage("اسم جديد"),
     "newOrder" : MessageLookupByLibrary.simpleMessage("طلب جديد"),
     "next" : MessageLookupByLibrary.simpleMessage("التالي"),
+    "notifications" : MessageLookupByLibrary.simpleMessage("الاشعارات"),
     "online" : MessageLookupByLibrary.simpleMessage("تم الدفع"),
     "openChatRoom" : MessageLookupByLibrary.simpleMessage("افتح غرفة المحادثة"),
     "openTheApp" : MessageLookupByLibrary.simpleMessage("افتح التطبيق"),

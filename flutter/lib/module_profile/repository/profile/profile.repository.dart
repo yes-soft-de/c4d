@@ -97,6 +97,30 @@ class ProfileRepository {
     return false;
   }
 
+  Future<ProfileResponse> updateCaptainProfile(ProfileRequest profileRequest) async {
+    var token = await _authService.getToken();
+
+    Map<String, dynamic> response;
+    try {
+      response = await _apiClient.post(
+        Urls.CAPTAIN_PROFILE_API,
+        profileRequest.toJson(),
+        headers: {'Authorization': 'Bearer ' + token},
+      );
+    } catch (e) {}
+    try {
+      response = await _apiClient.put(
+        Urls.CAPTAIN_PROFILE_API,
+        profileRequest.toJson(),
+        headers: {'Authorization': 'Bearer ' + token},
+      );
+    } catch (e) {}
+
+    if (response == null) return null;
+
+    return ProfileResponse.fromJson(response);
+  }
+
   Future<Branch> createBranch(CreateBranchRequest createBranch) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(

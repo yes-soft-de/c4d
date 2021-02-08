@@ -154,5 +154,6 @@
   "storePhone": "رقم هاتف المحل",
   "phoneIsRequired": "الرجاء تزويدنا برقم الهاتف",
   "newName": "اسم جديد",
-  "ourPackages": "باقاتنا"
+  "ourPackages": "باقاتنا",
+  "notifications": "الاشعارات"
 }

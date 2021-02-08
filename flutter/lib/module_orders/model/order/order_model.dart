@@ -15,6 +15,7 @@ class OrderModel {
   String clientPhone;
   String chatRoomId;
   String storeName;
+  String distance;
 
   OrderModel({
     this.id,
@@ -28,6 +29,7 @@ class OrderModel {
     this.captainPhone,
     this.clientPhone,
     this.chatRoomId,
+    this.distance,
   });
 
   OrderModel.fromJson(Map<String, dynamic> json) {

@@ -15,8 +15,7 @@ class ApiClient {
 
   ApiClient(this._logger);
 
-  Future<Map<String, dynamic>> get(
-    String url, {
+  Future<Map<String, dynamic>> get(String url, {
     Map<String, String> queryParams,
     Map<String, String> headers,
   }) async {
@@ -43,17 +42,16 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + ' ' + url);
+      _logger.error(tag, e.toString() + ', GET: ' + url, StackTrace.current);
       return null;
     }
   }
 
-  Future<Map<String, dynamic>> post(
-    String url,
-    Map<String, dynamic> payLoad, {
-    Map<String, String> queryParams,
-    Map<String, String> headers,
-  }) async {
+  Future<Map<String, dynamic>> post(String url,
+      Map<String, dynamic> payLoad, {
+        Map<String, String> queryParams,
+        Map<String, String> headers,
+      }) async {
     Dio client = Dio(BaseOptions(
       sendTimeout: 60000,
       receiveTimeout: 60000,
@@ -77,17 +75,16 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + url);
+      _logger.error(tag, e.toString() + ', POST: ' + url, StackTrace.current);
       return null;
     }
   }
 
-  Future<Map<String, dynamic>> put(
-    String url,
-    Map<String, dynamic> payLoad, {
-    Map<String, String> queryParams,
-    Map<String, String> headers,
-  }) async {
+  Future<Map<String, dynamic>> put(String url,
+      Map<String, dynamic> payLoad, {
+        Map<String, String> queryParams,
+        Map<String, String> headers,
+      }) async {
     try {
       _logger.info(tag, 'Requesting PUT to: ' + url);
       _logger.info(tag, 'PUT: ' + jsonEncode(payLoad));
@@ -114,13 +111,12 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + url);
+      _logger.error(tag, e.toString() + ', PUT: ' + url, StackTrace.current);
       return null;
     }
   }
 
-  Future<Map<String, dynamic>> delete(
-    String url, {
+  Future<Map<String, dynamic>> delete(String url, {
     Map<String, String> queryParams,
     Map<String, String> headers,
   }) async {
@@ -146,7 +142,8 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + ' ' + url);
+      _logger.error(
+          tag, e.toString() + ', DELETE: ' + url, StackTrace.current);
       return null;
     }
   }
@@ -155,8 +152,12 @@ class ApiClient {
     if (response.statusCode >= 200 && response.statusCode < 400) {
       _logger.info(tag, response.data.toString());
       return response.data;
+    } else if (response.statusCode <= 400 && response.statusCode < 500) {
+      return null;
     } else {
-      _logger.error(tag, response.statusCode.toString());
+      _logger.error(tag,
+          response.statusCode.toString() + '\n\n' + response.data.toString(),
+          StackTrace.current);
       return null;
     }
   }

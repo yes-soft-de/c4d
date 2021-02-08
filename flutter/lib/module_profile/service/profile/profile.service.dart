@@ -37,7 +37,27 @@ class ProfileService {
     }
   }
 
+  Future<bool> updateCaptainProfile(ProfileRequest profileRequest) async {
+    return _manager.createCaptainProfile(profileRequest);
+  }
+
   Future<bool> createProfile(ProfileRequest profileRequest) async {
+
+    var role = await _authService.userRole;
+
+    switch (role) {
+      case UserRole.ROLE_CAPTAIN:
+        return _manager.createCaptainProfile(profileRequest);
+        break;
+      case UserRole.ROLE_OWNER:
+        return _manager.createOwnerProfile(profileRequest);
+        break;
+      default:
+        return false;
+    }
+  }
+
+  Future<bool> updateProfile(ProfileRequest profileRequest) async {
 
     var role = await _authService.userRole;
 

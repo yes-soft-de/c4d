@@ -14,11 +14,11 @@ class Logger {
     print('$time: \t $tag \t $msg');
   }
 
-  void error(String tag, String msg) {
+  void error(String tag, String msg, StackTrace trace) {
     String time = DateTime.now().toString();
     print('$time: \t $tag \t $msg');
    FirebaseCrashlytics.instance
-       .recordError('$time: \t $tag \t $msg', StackTrace.current??'');
+       .recordError('$time: \t $tag \t $msg', trace??'');
    FirebaseCrashlytics.instance.log('$time: \t $tag \t $msg');
    FirebaseCrashlytics.instance.sendUnsentReports();
   }

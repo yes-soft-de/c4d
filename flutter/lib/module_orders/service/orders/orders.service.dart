@@ -87,7 +87,7 @@ class OrdersService {
           id: element.id,
         ));
       } catch (e, stack) {
-        Logger().error('Mapping Error', '${e.toString()}:\n${stack.toString()}');
+        Logger().error('Mapping Error', '${e.toString()}:\n${stack.toString()}', StackTrace.current);
       }
     });
 
@@ -134,7 +134,7 @@ class OrdersService {
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.FINISHED:
-        var request = UpdateOrderRequest(id: orderId, state: 'delivered');
+        var request = UpdateOrderRequest(id: orderId, state: 'delivered', distance: order.distance);
         return _ordersManager.updateOrder(request);
         break;
       default:

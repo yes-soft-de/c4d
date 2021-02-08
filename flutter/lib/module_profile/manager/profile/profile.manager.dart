@@ -24,6 +24,9 @@ class ProfileManager {
   Future<ProfileResponseModel> getCaptainProfile() =>
       _repository.getCaptainProfile();
 
+  Future<ProfileResponse> updateCaptainProfile(ProfileRequest profileRequest) =>
+      _repository.updateCaptainProfile(profileRequest);
+
   Future<ProfileResponseModel> getOwnerProfile() =>
       _repository.getOwnerProfile();
 

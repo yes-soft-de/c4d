@@ -1,6 +1,9 @@
 import 'package:c4d/module_about/about_routes.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_init/init_routes.dart';
+import 'package:c4d/module_profile/request/profile/profile_request.dart';
+import 'package:c4d/module_profile/response/profile_response.dart';
+import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 import 'package:c4d/generated/l10n.dart';
@@ -14,11 +17,13 @@ class SettingsScreen extends StatefulWidget {
   final AuthService _authService;
   final LocalizationService _localizationService;
   final AppThemeDataService _themeDataService;
+  final ProfileService _profileService;
 
   SettingsScreen(
     this._authService,
     this._localizationService,
     this._themeDataService,
+    this._profileService,
   );
 
   @override
@@ -69,7 +74,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           FutureBuilder(
-            future: widget._authService.userRole, builder: (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
+            future: widget._authService.userRole,
+            builder: (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
               if (snapshot.data == UserRole.ROLE_OWNER) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -88,8 +94,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           IconButton(
                               icon: Icon(Icons.autorenew_sharp),
                               onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                                Navigator.of(context).pushNamed(
+                                    InitAccountRoutes.INIT_ACCOUNT_SCREEN);
                               }),
                         ],
                       ),
@@ -99,8 +105,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               } else {
                 return Container();
               }
-          },
-
+            },
+          ),
+          FutureBuilder(
+            future: _getCaptainStateSwitch(),
+            builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+              if (snapshot.hasData) {
+                return snapshot.data;
+              } else {
+                return Container();
+              }
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -197,5 +212,53 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Future<Widget> _getCaptainStateSwitch() async {
+    var userRole = await widget._authService.userRole;
+    if (userRole == UserRole.ROLE_OWNER) {
+      return Container();
+    } else {
+      // The User is a captain
+      var profile = await widget._profileService.getProfile();
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            color: Colors.black12,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(S.of(context).notifications),
+                Switch(
+                  onChanged: (bool value) {
+                    profile.isOnline = value;
+                    widget._profileService.updateCaptainProfile(
+                      ProfileRequest(
+                        name: profile.name,
+                        image: profile.image,
+                        phone: profile.phone,
+                        drivingLicence: profile.drivingLicence,
+                        city: 'Jedda',
+                        branch: '-1',
+                        car: profile.car,
+                        age: profile.age.toString(),
+                        isOnline: value == true,
+                      ),
+                    );
+                  },
+                  value: profile.isOnline == true,
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    }
   }
 }
