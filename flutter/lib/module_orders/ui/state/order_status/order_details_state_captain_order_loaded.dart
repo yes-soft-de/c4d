@@ -145,19 +145,92 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
     if (currentOrder.status == OrderStatus.FINISHED) {
       return Container();
     }
-    if (currentOrder.paymentMethod.contains('ca') && currentOrder.status == OrderStatus.GOT_CASH) {
-      return TextFormField(
-        controller: _distanceCalculator,
-        decoration: InputDecoration(
-          hintText: 'Distance',
-          labelText: 'Distance',
-          suffixIcon: GestureDetector(
-            onTap: () {
-              screenState.requestOrderProgress(currentOrder, _distanceCalculator.text);
-            },
-          )
+    print(currentOrder.status);
+    if (currentOrder.status == OrderStatus.GOT_CASH) {
+      return Card(
+        elevation: 4,
+        child: Container(
+          height: 72,
+          width: MediaQuery.of(context).size.width,
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              IconButton(
+                  icon: Icon(Icons.add_road_outlined),
+                  onPressed: () {
+                    if (_distanceCalculator.text.isNotEmpty) {
+                      screenState.requestOrderProgress(
+                          currentOrder, _distanceCalculator.text);
+                    } else {
+                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                    }
+                  }),
+              Expanded(
+                child: TextFormField(
+                  controller: _distanceCalculator,
+                  decoration: InputDecoration(
+                    hintText: '45',
+                    labelText: S.of(context).finishOrderProvideDistanceInKm,
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              IconButton(
+                  icon: Icon(Icons.check),
+                  onPressed: () {
+                    if (_distanceCalculator.text.isNotEmpty) {
+                      screenState.requestOrderProgress(
+                          currentOrder, _distanceCalculator.text);
+                    } else {
+                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                    }
+                  }),
+            ],
+          ),
         ),
-        keyboardType: TextInputType.number,
+      );
+    } else if (currentOrder.status == OrderStatus.DELIVERING) {
+      return Card(
+        elevation: 4,
+        child: Container(
+          height: 72,
+          width: MediaQuery.of(context).size.width,
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              IconButton(
+                  icon: Icon(Icons.add_road_outlined),
+                  onPressed: () {
+                    if (_distanceCalculator.text.isNotEmpty) {
+                      screenState.requestOrderProgress(
+                          currentOrder, _distanceCalculator.text);
+                    } else {
+                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                    }
+                  }),
+              Expanded(
+                child: TextFormField(
+                  controller: _distanceCalculator,
+                  decoration: InputDecoration(
+                    hintText: '56',
+                    labelText: S.of(context).finishOrderProvideDistanceInKm,
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              IconButton(
+                  icon: Icon(Icons.check),
+                  onPressed: () {
+                    if (_distanceCalculator.text.isNotEmpty) {
+                      screenState.requestOrderProgress(
+                          currentOrder, _distanceCalculator.text);
+                    } else {
+                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                    }
+                  }),
+            ],
+          ),
+        ),
       );
     } else {
       return GestureDetector(
@@ -170,15 +243,11 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             currentOrder.paymentMethod.toLowerCase().contains('ca'),
             context,
           ),
-          color: Theme
-              .of(context)
-              .accentColor,
+          color: Theme.of(context).accentColor,
           textColor: Colors.white,
           image: Icon(
             Icons.navigate_next_sharp,
-            color: Theme
-                .of(context)
-                .brightness == Brightness.dark
+            color: Theme.of(context).brightness == Brightness.dark
                 ? Colors.white
                 : Colors.black,
           ),

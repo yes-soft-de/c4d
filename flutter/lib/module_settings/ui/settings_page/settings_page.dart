@@ -1,6 +1,7 @@
 import 'package:c4d/module_about/about_routes.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_init/init_routes.dart';
+import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/profile_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
@@ -18,12 +19,14 @@ class SettingsScreen extends StatefulWidget {
   final LocalizationService _localizationService;
   final AppThemeDataService _themeDataService;
   final ProfileService _profileService;
+  final FireNotificationService _notificationService;
 
   SettingsScreen(
     this._authService,
     this._localizationService,
     this._themeDataService,
     this._profileService,
+    this._notificationService,
   );
 
   @override
@@ -216,6 +219,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<Widget> _getCaptainStateSwitch() async {
     var userRole = await widget._authService.userRole;
+    print('${userRole}');
     if (userRole == UserRole.ROLE_OWNER) {
       return Container();
     } else {
@@ -238,6 +242,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Switch(
                   onChanged: (bool value) {
                     profile.isOnline = value;
+                    widget._notificationService.setCaptainActive(value);
                     widget._profileService.updateCaptainProfile(
                       ProfileRequest(
                         name: profile.name,
@@ -248,7 +253,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         branch: '-1',
                         car: profile.car,
                         age: profile.age.toString(),
-                        isOnline: value == true,
+                        isOnline: value == true ? 'active' : 'inactive',
                       ),
                     );
                   },

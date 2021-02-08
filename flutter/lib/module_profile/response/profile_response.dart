@@ -69,10 +69,10 @@ class ProfileResponseModel {
     name = json['userName'] ?? json['name'];
     age = json['age'];
     car = json['car'];
+    isOnline = json['isOnline'] == 'active';
     drivingLicence = json['drivingLicence'];
     salary = json['salary'];
     status = json['status'];
-    isOnline = json['isOnline'];
     if (json['countOrdersDeliverd'] != null) {
       countOrdersDeliverd = new List<CountOrdersDeliverd>();
       json['countOrdersDeliverd'].forEach((v) {

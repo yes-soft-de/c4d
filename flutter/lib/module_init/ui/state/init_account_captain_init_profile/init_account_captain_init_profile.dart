@@ -126,7 +126,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
               onPressed: captainImage == null || captainImage == null
                   ? null
                   : () {
-                      screen.submitProfile(captainImage, driverLicence, name, age);
+                      screen.submitProfile(captainImage, driverLicence, _nameController.text, _ageController.text);
                     },
               child: Text(
                 S.of(context).uploadAndSubmit,

@@ -155,5 +155,7 @@
   "phoneIsRequired": "الرجاء تزويدنا برقم الهاتف",
   "newName": "اسم جديد",
   "ourPackages": "باقاتنا",
-  "notifications": "الاشعارات"
+  "notifications": "الاشعارات",
+  "pleaseProvideTheDistance": "الرجاء توفير المسافة المقطوعة",
+  "finishOrderProvideDistanceInKm": "انهاء الطلب، المسافة المقطوعة"
 }

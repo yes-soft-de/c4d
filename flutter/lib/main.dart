@@ -5,6 +5,7 @@ import 'package:c4d/module_about/about_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
+import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
 import 'package:c4d/module_profile/module_profile.dart';
 import 'package:c4d/module_splash/splash_module.dart';
@@ -41,13 +42,13 @@ void main() async {
   ]).then((_) async {
     final container = await AppComponent.create();
     FlutterError.onError = (FlutterErrorDetails details) async {
-      new Logger().error('Main', details.toString());
+      new Logger().error('Main', details.toString(), StackTrace.current);
     };
     await runZoned<Future<void>>(() async {
       // Your App Here
       runApp(container.app);
     }, onError: (error, stackTrace) {
-      new Logger().error('Main', error.toString() + stackTrace.toString());
+      new Logger().error('Main', error.toString() + stackTrace.toString(), StackTrace.current);
     });
   });
 }
@@ -64,6 +65,7 @@ class MyApp extends StatefulWidget {
   final SplashModule _splashModule;
   final ProfileModule _profileModule;
   final AboutModule _aboutModule;
+  final FireNotificationService _fireNotificationService;
 
   MyApp(
     this._themeDataService,
@@ -72,6 +74,7 @@ class MyApp extends StatefulWidget {
     this._chatModule,
     this._aboutModule,
     this._splashModule,
+    this._fireNotificationService,
     this._initAccountModule,
     this._settingsModule,
     this._authorizationModule,
@@ -94,6 +97,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    widget._fireNotificationService.init();
     widget._localizationService.localizationStream.listen((event) {
       timeago.setDefaultLocale(event);
       setState(() {});

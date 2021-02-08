@@ -155,5 +155,7 @@
   "phoneIsRequired": "Phone is required",
   "newName": "New name",
   "ourPackages": "Our Packages",
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+  "pleaseProvideTheDistance": "Please Provide the distance",
+  "finishOrderProvideDistanceInKm": "Finish Order, Provide distance in KM"
 }

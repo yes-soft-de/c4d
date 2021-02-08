@@ -1594,6 +1594,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Please Provide the distance`
+  String get pleaseProvideTheDistance {
+    return Intl.message(
+      'Please Provide the distance',
+      name: 'pleaseProvideTheDistance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finish Order, Provide distance in KM`
+  String get finishOrderProvideDistanceInKm {
+    return Intl.message(
+      'Finish Order, Provide distance in KM',
+      name: 'finishOrderProvideDistanceInKm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -30,4 +30,5 @@ class Urls {
   static const SUBSCRIPTION_API = BASE_API + '/subscription';
 
   static const APPOINTMENT_API = BASE_API + '/dating';
+  static const NOTIFICATION_API = BASE_API + '/notificationtoken';
 }
