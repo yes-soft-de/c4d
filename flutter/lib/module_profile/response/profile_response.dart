@@ -8,7 +8,9 @@ class ProfileResponse {
   ProfileResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    data = json['Data'] != null ? new ProfileResponseModel.fromJson(json['Data']) : null;
+    data = json['Data'] != null
+        ? new ProfileResponseModel.fromJson(json['Data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -45,23 +47,23 @@ class ProfileResponseModel {
 
   ProfileResponseModel(
       {this.id,
-        this.captainID,
-        this.name,
-        this.age,
-        this.car,
-        this.drivingLicence,
-        this.salary,
-        this.status,
-        this.countOrdersDeliverd,
-        this.rating,
-        this.state,
-        this.bounce,
-        this.totalBounce,
-        this.uuid,
-        this.image,
-        this.imageURL,
-        this.baseURL,
-        this.phone});
+      this.captainID,
+      this.name,
+      this.age,
+      this.car,
+      this.drivingLicence,
+      this.salary,
+      this.status,
+      this.countOrdersDeliverd,
+      this.rating,
+      this.state,
+      this.bounce,
+      this.totalBounce,
+      this.uuid,
+      this.image,
+      this.imageURL,
+      this.baseURL,
+      this.phone});
 
   ProfileResponseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -80,10 +82,10 @@ class ProfileResponseModel {
       });
     }
     rating =
-    json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
+        json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
     state = json['state'];
     bounce =
-    json['bounce'] != null ? new Bounce.fromJson(json['bounce']) : null;
+        json['bounce'] != null ? new Bounce.fromJson(json['bounce']) : null;
     totalBounce = json['totalBounce'];
     uuid = json['uuid'];
     image = json['image'];
@@ -102,7 +104,7 @@ class ProfileResponseModel {
     data['drivingLicence'] = this.drivingLicence;
     data['salary'] = this.salary;
     data['status'] = this.status;
-    data['isOnline'] = this.isOnline;
+    data['isOnline'] = this.isOnline ? 'active' : 'inactive';
     if (this.countOrdersDeliverd != null) {
       data['countOrdersDeliverd'] =
           this.countOrdersDeliverd.map((v) => v.toJson()).toList();

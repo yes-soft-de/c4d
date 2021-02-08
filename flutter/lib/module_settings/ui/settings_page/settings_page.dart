@@ -238,7 +238,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               direction: Axis.horizontal,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(S.of(context).notifications),
+                Text(S.of(context).myStatus),
                 Switch(
                   onChanged: (bool value) {
                     profile.isOnline = value;

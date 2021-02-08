@@ -95,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mohammad" : MessageLookupByLibrary.simpleMessage("Mohammad"),
     "moveToOrders" : MessageLookupByLibrary.simpleMessage("Move to Orders"),
     "myProfile" : MessageLookupByLibrary.simpleMessage("My Profile"),
+    "myStatus" : MessageLookupByLibrary.simpleMessage("My Status"),
     "name" : MessageLookupByLibrary.simpleMessage("Name"),
     "nameIsRequired" : MessageLookupByLibrary.simpleMessage("Name is required"),
     "nearbyOrders" : MessageLookupByLibrary.simpleMessage("Nearby Orders"),

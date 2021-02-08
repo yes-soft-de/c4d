@@ -157,5 +157,6 @@
   "ourPackages": "Our Packages",
   "notifications": "Notifications",
   "pleaseProvideTheDistance": "Please Provide the distance",
-  "finishOrderProvideDistanceInKm": "Finish Order, Provide distance in KM"
+  "finishOrderProvideDistanceInKm": "Finish Order, Provide distance in KM",
+  "myStatus": "My Status"
 }

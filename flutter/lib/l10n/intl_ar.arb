@@ -157,5 +157,6 @@
   "ourPackages": "باقاتنا",
   "notifications": "الاشعارات",
   "pleaseProvideTheDistance": "الرجاء توفير المسافة المقطوعة",
-  "finishOrderProvideDistanceInKm": "انهاء الطلب، المسافة المقطوعة"
+  "finishOrderProvideDistanceInKm": "انهاء الطلب، المسافة المقطوعة",
+  "myStatus": "حالتي"
 }

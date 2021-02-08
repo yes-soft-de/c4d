@@ -95,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mohammad" : MessageLookupByLibrary.simpleMessage("محمد"),
     "moveToOrders" : MessageLookupByLibrary.simpleMessage("الانتقال للطلبات"),
     "myProfile" : MessageLookupByLibrary.simpleMessage("معلوماتي"),
+    "myStatus" : MessageLookupByLibrary.simpleMessage("حالتي"),
     "name" : MessageLookupByLibrary.simpleMessage("الاسم"),
     "nameIsRequired" : MessageLookupByLibrary.simpleMessage("حقل الاسم فارغ"),
     "nearbyOrders" : MessageLookupByLibrary.simpleMessage("الطلبات القريبة"),
