@@ -17,14 +17,12 @@ class FireNotificationService {
   final ProfileService _profileService;
   final NotificationRepo _notificationRepo;
 
-  FireNotificationService(
-    this._prefsHelper,
-    this._profileService,
-    this._notificationRepo,
-  );
+  FireNotificationService(this._prefsHelper,
+      this._profileService,
+      this._notificationRepo,);
 
   static final PublishSubject<String> _onNotificationRecieved =
-      PublishSubject();
+  PublishSubject();
 
   static Stream get onNotificationStream => _onNotificationRecieved.stream;
 
@@ -38,18 +36,20 @@ class FireNotificationService {
       _fcm.requestNotificationPermissions(IosNotificationSettings());
     }
     var isActive = await _prefsHelper.getIsActive();
-
-    var userAuthToken = await _fcm.getToken();
-    await refreshNotificationToken(userAuthToken);
+    await refreshNotificationToken();
 
     await setCaptainActive(isActive == true);
   }
 
-  Future<void> refreshNotificationToken(String userAuthToken) async {
+  Future<void> refreshNotificationToken() async {
     var token = await _fcm.getToken();
-    if (token != null && userAuthToken != null) {
+    if (token != null) {
       // And Subscribe to the changes
-      _notificationRepo.postToken(token);
+      try {
+        _notificationRepo.postToken(token);
+      } catch (e) {
+
+      }
       this._fcm.configure(
         onMessage: (Map<String, dynamic> message) async {
           Logger().info('FireNotificationService', 'onMessage: $message');
