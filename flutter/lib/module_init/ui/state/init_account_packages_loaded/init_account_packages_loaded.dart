@@ -23,14 +23,14 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
   @override
   Widget getUI(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Card(
-                  elevation: 4,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Card(
+                elevation: 4,
+                child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Flex(
@@ -133,29 +133,29 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                 ),
               ),
             ),
-            Positioned(
-              top: 8,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                        blurRadius: 4
-                      )],
-                      color: Colors.white
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: FaIcon(FontAwesomeIcons.store),
-                  ),
+          ),
+          Positioned(
+            top: 8,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                      blurRadius: 4
+                    )],
+                    color: Colors.white
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: FaIcon(FontAwesomeIcons.store),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
