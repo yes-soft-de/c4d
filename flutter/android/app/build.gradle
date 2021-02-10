@@ -47,9 +47,9 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.yes_soft.c4d"
-        minSdkVersion 23
-        targetSdkVersion 29
+        applicationId "de.c4d.app"
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

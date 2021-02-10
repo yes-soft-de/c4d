@@ -21,7 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_about/ui/screen/about_screen/about_screen.dart#AboutScreenState",
+                "root": "asset:c4d/lib/module_about/state_manager/about_screen_state_manager.dart#AboutScreenStateManager",
                 "qualifier": null
               },
               "isProvider": false

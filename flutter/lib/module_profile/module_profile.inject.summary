@@ -21,7 +21,14 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_profile/ui/screen/profile_screen/profile_screen..dart#ProfileScreen",
+                "root": "asset:c4d/lib/module_profile/ui/screen/activity_screen/activity_screen.dart#ActivityScreen",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_profile/ui/screen/edit_profile/edit_profile.dart#EditProfileScreen",
                 "qualifier": null
               },
               "isProvider": false
