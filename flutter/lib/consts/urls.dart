@@ -1,5 +1,5 @@
 class Urls {
-  static const String DOMAIN = 'http://34.121.141.34';
+  static const String DOMAIN = 'http://c4d.yes-cloud.de';
   static const String BASE_API = DOMAIN + '/html/public';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
