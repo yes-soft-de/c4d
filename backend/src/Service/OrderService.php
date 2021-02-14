@@ -47,42 +47,48 @@ class OrderService
     public function create(OrderCreateRequest $request)
     {  
         $response = "please subscribe!!";
-        $status = $this->subscriptionService->subscriptionIsActive($request->getOwnerID());
-       
-        if ($status == 'active') {
-            $uuid = $this->recordService->uuid();
+        //get Subscribe id Current
+        $subscriptionCurrent =  $this->subscriptionService->getSubscriptionCurrent($request->getOwnerID());
+      
+        if ($subscriptionCurrent) {
+             // check subscription
+            $status = $this->subscriptionService->subscriptionIsActive($request->getOwnerID(), $subscriptionCurrent['id']);
         
-            $item = $this->orderManager->create($request, $uuid);
+            if ($status == 'active') {
+                $uuid = $this->recordService->uuid();
+                
+                $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
 
-            //start-----> notification
-            try{
-            $this->notificationService->notificationToCaptain();
-            //notification <------end
-            }
-            catch (\Exception $e)
-            {
-    
-            }
-            if ($item) {
-                $this->recordService->create($item->getId(), $item->getState());
-            }
-            $response =$this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
-        }
+                //start-----> notification
+                try{
+                $this->notificationService->notificationToCaptain();
+                //notification <------end
+                }
+                catch (\Exception $e)
+                {
         
-        if ($status == 'inactive') {
-            $response ="subscribe is awaiting activation!!";
-        }
-        if ($status == 'orders finished') {
-            $response ="subscripe finished, count orders is finished!!";
-        }
+                }
+                if ($item) {
+                    $this->recordService->create($item->getId(), $item->getState());
+                }
+                $response =$this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+            }
+            
+            if ($status == 'inactive') {
+                $response ="subscribe is awaiting activation!!";
+            }
+            if ($status == 'orders finished') {
+                $response ="subscripe finished, count orders is finished!!";
+            }
 
-        if ($status == 'date finished') {
-            $response ="subscripe finished, date is finished!!";
-        }
+            if ($status == 'date finished') {
+                $response ="subscripe finished, date is finished!!";
+            }
 
-        if ($status == 'unaccept') {
-            $response ="subscribe unaccept!!";
-        }
+            if ($status == 'unaccept') {
+                $response ="subscribe unaccept!!";
+            }
+    }
         return $response;
     }
 

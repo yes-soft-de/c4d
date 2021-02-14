@@ -86,9 +86,9 @@ class SubscriptionManager
         return $this->subscribeRepository->getSubscriptionById($id);
     }
 
-    public function subscriptionIsActive($ownerID)
+    public function subscriptionIsActive($ownerID, $subscribeId)
     {
-        return $this->subscribeRepository->subscriptionIsActive($ownerID);
+        return $this->subscribeRepository->subscriptionIsActive($ownerID, $subscribeId);
     }
 
     public function countpendingContracts()
@@ -106,13 +106,18 @@ class SubscriptionManager
         return $this->subscribeRepository->countCancelledContracts();
     }
 
-    public function getRemainingOrders($ownerID)
+    public function getRemainingOrders($ownerID, $id)
     {
-        return $this->subscribeRepository->getRemainingOrders($ownerID);
+        return $this->subscribeRepository->getRemainingOrders($ownerID, $id);
     }
 
     public function subscripeNewUsers($fromDate, $toDate)
     {
         return $this->subscribeRepository->subscripeNewUsers($fromDate, $toDate);
+    }
+
+    public function getSubscriptionCurrent($ownerID)
+    {
+        return $this->subscribeRepository->getSubscriptionCurrent($ownerID);
     }
 }

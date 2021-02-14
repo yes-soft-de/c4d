@@ -12,7 +12,7 @@ use App\Response\RemainingOrdersResponse;
 use SebastianBergmann\Comparator\DateTimeComparator;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
-
+use dateTime;
 class SubscriptionService
 {
     private $autoMapping;
@@ -72,55 +72,49 @@ class SubscriptionService
         return $response;
     }
 
-    public function subscriptionIsActive($ownerID)
+    public function subscriptionIsActive($ownerID, $subscribeId)
     {
-        $item = $this->subscriptionManager->subscriptionIsActive($ownerID);
+        $this->saveFinisheAuto($ownerID, $subscribeId);
+    
+        $item = $this->subscriptionManager->subscriptionIsActive($ownerID, $subscribeId);
         if ($item) {
-          return  $item[0]['status'];
+          return  $item['status'];
         }
 
         return $item ;
      }
 
     // check subscription , if time is finishe or order count is finishe, change status value to 'finished'
-    
-    public function saveFinisheAuto($ownerID)
+    public function saveFinisheAuto($ownerID, $subscribeId)
     {
-        $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID);
-        if ($remainingOrdersOfPackage) {
-       // get subscripe start date after month
-        $startDate1 =date_timestamp_get($remainingOrdersOfPackage['subscriptionStartDate']);
+        $response = [];
+        //Get full information for the current subscription
+        $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
+        if ($remainingOrdersOfPackage['subscriptionEndDate']) {
+   
+            $endDate =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
+            
+            $now =date_timestamp_get(new DateTime("now"));
+
+            if ( $endDate <= $now)  {
+
+                $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'date finished');
+                $response[] = ["subscripe finished, date is finished"];
+            }
+
+            if ($remainingOrdersOfPackage['remainingOrders'] == 0)  {
         
-        $startDate2 = (json_decode($startDate1));
-
-        $startDate = date("Y-m-d h:i:s", $startDate2);
-        
-        $startDateNextMonth = date('Y-m-d h:i:s', strtotime("1 month",strtotime($startDate)));
-        // dd($startDate , $startDateNextMonth);
-
-       // get subscripe end date format normal
-        $endDate1 =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
-        
-        $endDate2 = (json_decode($endDate1));
-
-        $endDate = date("Y-m-d h:i:s", $endDate2);
-
-        if ($remainingOrdersOfPackage['remainingOrders'] == 0)  {
-      
-            $this->updateFinishe($remainingOrdersOfPackage['id'], 'orders finished');
-            $response[] = ["subscripe finished, count Orders is finished"];
+                $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'orders finished');
+                $response[] = ["subscripe finished, count Orders is finished"];
+            }
+            
         }
-
-        if ($startDateNextMonth == $endDate)  {
-      
-            $this->updateFinishe($remainingOrdersOfPackage['id'], 'date finished');
-            $response[] = ["subscripe finished, date is finished"];
-        }
-    }
         $response = $this->autoMapping->map('array', RemainingOrdersResponse::class, $remainingOrdersOfPackage);
-
-        $response->subscriptionstatus = $this->subscriptionIsActive($ownerID);
+        $subscribeStauts = $this->subscriptionManager->subscriptionIsActive($ownerID, $subscribeId);
         
+        if ($subscribeStauts['status']) {
+            $response->subscriptionstatus = $subscribeStauts['status'];
+        }
         return $response;
      }
 
@@ -148,5 +142,10 @@ class SubscriptionService
         }
         
         return $response;
+    }
+
+    public function getSubscriptionCurrent($ownerID)
+    {
+        return $this->subscriptionManager->getSubscriptionCurrent($ownerID);
     }
 }

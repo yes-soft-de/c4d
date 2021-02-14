@@ -63,15 +63,7 @@ methods: PUT
 /userprofile
 methods: GET
 ```
-#### Get remaining orders for specific owner
 
-ROLE_OWNER
-
-```
-/saveFinisheAuto
-methods: GET
-```
-``
 #### Create captain profile 
 ```
 /captainprofile
@@ -117,7 +109,7 @@ ROLE_OWNER
 /package
 methods: POST
 ```
-#### Get subscribed for owner
+#### Get All Subscriptions for owner
 ROLE_OWNER
 
 ```

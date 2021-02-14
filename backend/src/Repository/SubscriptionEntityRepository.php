@@ -30,7 +30,6 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
 
-            // ->andWhere("subscription.status = 'active'")
             ->andWhere("subscription.ownerID = :userId")
 
             ->setParameter('userId', $userId)
@@ -76,19 +75,20 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
         ;
     }
 
-    public function subscriptionIsActive($ownerID)
+    public function subscriptionIsActive($ownerID, $subscribeId)
     {
         return $this->createQueryBuilder('subscription')
 
             ->select('subscription.status')
 
-            ->andWhere("subscription.ownerID = :ownerID")
+            // ->andWhere("subscription.ownerID = :ownerID")
+            ->andWhere("subscription.id = :subscribeId")
 
-            ->setParameter('ownerID', $ownerID)
+            // ->setParameter('ownerID', $ownerID)
+            ->setParameter('subscribeId', $subscribeId)
 
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
 
     public function countpendingContracts()
@@ -127,23 +127,29 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
     
-    public function getRemainingOrders($ownerID)
+    public function getRemainingOrders($ownerID, $id)
     {
         return $this->createQueryBuilder('subscription')
 
-            ->select('subscription.id as subscriptionID', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'packageEntity.id as packagename', 'packageEntity.name as packageID', 'count(orderEntity.id) as countOrdersDelivered ', 'subscription.startDate as subscriptionStartDate', 'subscription.endDate as subscriptionEndDate', 'userProfileEntity.userID', 'userProfileEntity.userName')
+            ->select('subscription.id as subscriptionID', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'packageEntity.name as packagename', 'packageEntity.id as packageID', 'count(orderEntity.id) as countOrdersDelivered ', 'subscription.startDate as subscriptionStartDate', 'subscription.endDate as subscriptionEndDate', 'userProfileEntity.userID', 'userProfileEntity.userName')
 
-            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = subscription.ownerID')
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
 
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
             
             ->andWhere('subscription.ownerID=:ownerID')
-            ->andWhere("orderEntity.state ='deliverd'")
+            ->andWhere('subscription.id=:id')
+            // ->andWhere("orderEntity.state ='deliverd'")
 
+            ->addGroupBy('subscription.id')
+            ->setMaxResults(1)
+            ->addOrderBy('subscription.id','DESC')
+           
             ->setParameter('ownerID', $ownerID)
-
+            ->setParameter('id', $id)
+           
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -160,6 +166,24 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
 
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getSubscriptionCurrent($ownerID)
+    {
+        return $this->createQueryBuilder('subscription')
+
+            ->select('subscription.id')
+            
+            ->andWhere('subscription.ownerID=:ownerID')
+
+            ->addGroupBy('subscription.id')
+            ->setMaxResults(1)
+            ->addOrderBy('subscription.id','DESC')
+           
+            ->setParameter('ownerID', $ownerID)
+           
             ->getQuery()
             ->getOneOrNullResult();
     }

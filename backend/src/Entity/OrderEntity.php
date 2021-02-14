@@ -82,6 +82,11 @@ class OrderEntity
      */
     private $kilometer;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $subscribeId;
+
 
     public function getId(): ?int
     {
@@ -247,6 +252,18 @@ class OrderEntity
     public function setKilometer(?int $kilometer): self
     {
         $this->kilometer = $kilometer;
+
+        return $this;
+    }
+
+    public function getSubscribeId(): ?int
+    {
+        return $this->subscribeId;
+    }
+
+    public function setSubscribeId(?int $subscribeId): self
+    {
+        $this->subscribeId = $subscribeId;
 
         return $this;
     }
