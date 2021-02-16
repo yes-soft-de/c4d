@@ -34,25 +34,3 @@ spec:
         - name: pvc-sym-m
           persistentVolumeClaim:
             claimName: c4d-pvc-sym-uploud
----
-apiVersion: v1
-kind: Service
-metadata:
-  finalizers:
-    - service.kubernetes.io/load-balancer-cleanup
-  labels:
-    run: c4d-web-service
-  name: c4d-web-service
-  namespace: c4d
-spec:
-  clusterIP: 10.4.10.155
-  externalTrafficPolicy: Cluster
-  ports:
-    - nodePort: 31194
-      port: 80
-      protocol: TCP
-      targetPort: 80
-  selector:
-    app: apache
-  sessionAffinity: None
-  type: LoadBalancer
