@@ -31,4 +31,16 @@ class RatingEntityRepository extends ServiceEntityRepository
                ->getQuery()
                ->getOneOrNullResult();
     }
+    public function ratingByCaptainID($captainID)
+    {
+        return $this->createQueryBuilder('Rating')
+               ->select('AVG(Rating.type) as rate ')
+              
+               ->andWhere('Rating.captainID = :captainID')
+
+               ->setParameter('captainID', $captainID)
+
+               ->getQuery()
+               ->getResult();
+    }
 }

@@ -8,13 +8,17 @@ use App\Manager\OrderManager;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
-use App\Request\SendNotificationRequest;
+// use App\Request\SendNotificationRequest;
 use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
 use App\Service\SubscriptionService;
+use App\Service\RatingService;
+use ArrayObject;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
+use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
+use Symfony\Component\Translation\Util\ArrayConverter;
 
 class OrderService
 {
@@ -26,11 +30,13 @@ class OrderService
     private $subscriptionService;
     private $userService;
     private $params;
-    private $notificationService;
+    private $ratingService;
+    // private $notificationService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService,
                                 RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService,
-                                UserService $userService, ParameterBagInterface $params, NotificationService $notificationService)
+                                UserService $userService, ParameterBagInterface $params,  RatingService $ratingService
+                                )
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
@@ -39,9 +45,10 @@ class OrderService
         $this->branchesService = $branchesService;
         $this->subscriptionService = $subscriptionService;
         $this->userService = $userService;
+        $this->ratingService = $ratingService;
 
         $this->params = $params->get('upload_base_url') . '/';
-        $this->notificationService = $notificationService;
+        // $this->notificationService = $notificationService;
     }
 
     public function create(OrderCreateRequest $request)
@@ -61,7 +68,7 @@ class OrderService
 
                 //start-----> notification
                 try{
-                $this->notificationService->notificationToCaptain();
+                // $this->notificationService->notificationToCaptain();
                 //notification <------end
                 }
                 catch (\Exception $e)
@@ -236,11 +243,11 @@ class OrderService
 
         //start-----> notification
         try {
-        $notificationRequest = new SendNotificationRequest();
-        $notificationRequest->setUserIdOne($item->getOwnerID());
-        $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
+        // $notificationRequest = new SendNotificationRequest();
+        // $notificationRequest->setUserIdOne($item->getOwnerID());
+        // $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
 
-        $this->notificationService->notificationOrderUpdate($notificationRequest);
+        // $this->notificationService->notificationOrderUpdate($notificationRequest);
         //notification <------end
         }
         catch (\Exception $e)
@@ -307,6 +314,13 @@ class OrderService
                 $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);
                 $item['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($item['id']);
 
+                $firstDate = $this->recordService->getFirstDate($item['id']); 
+                $lastDate = $this->recordService->getLastDate($item['id']);
+                $item['currentStage'] =  $lastDate;
+                if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                    $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                }
+
                 $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
             }
         }
@@ -318,7 +332,15 @@ class OrderService
                 
                 $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);
                 $item['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($item['id']);
-
+               
+                $item['rating'] = $this->ratingService->ratingByCaptainID($item['acceptedOrder'][0]['captainID']);
+               
+                $firstDate = $this->recordService->getFirstDate($item['id']); 
+                $lastDate = $this->recordService->getLastDate($item['id']);
+                $item['currentStage'] =  $lastDate;
+                if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                    $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                }
                 $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
             }
         }

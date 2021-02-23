@@ -37,4 +37,9 @@ class RatingManager
     {
         return $this->ratingRepository->getRatingByCaptainID($captainID);
     }
+
+    public function ratingByCaptainID($captainID)
+    {
+        return $this->ratingRepository->ratingByCaptainID($captainID);
+    }
 }
