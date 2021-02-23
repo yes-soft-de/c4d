@@ -24,7 +24,7 @@ class BankEntityRepository extends ServiceEntityRepository
     public function getAccountByUserId($userId)
     {
         return $this->createQueryBuilder('BankEntity')
-            ->addSelect('BankEntity.id', 'BankEntity.bankName', 'BankEntity.userID', 'BankEntity.accountID, userProfileEntity.userName') 
+            ->addSelect('BankEntity.id', 'BankEntity.bankName', 'BankEntity.userID', 'BankEntity.stcPay', 'BankEntity.accountID', 'userProfileEntity.userName') 
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = BankEntity.userID')
 

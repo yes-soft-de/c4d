@@ -130,4 +130,17 @@ class SubscriptionController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * @Route("/packagebalance", name="packagebalanceForOwner",methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function packagebalance()
+    {
+        $result = $this->subscriptionService->packagebalance($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
 }

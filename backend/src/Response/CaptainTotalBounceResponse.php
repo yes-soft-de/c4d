@@ -5,5 +5,4 @@ namespace App\Response;
 class CaptainTotalBounceResponse
 {
     public $bounce;
-
 }

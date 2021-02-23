@@ -31,7 +31,6 @@ class BankController extends BaseController
 
      /**
      * @Route("bankaccount", name="createBankAccount", methods={"POST"})
-     * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
@@ -58,7 +57,6 @@ class BankController extends BaseController
 
     /**
      * @Route("bankaccount", name="updateBankAccount", methods={"PUT"})
-     * @IsGranted("ROLE_OWNER")
      * @param Request $request
      * @return JsonResponse
      */
@@ -83,7 +81,6 @@ class BankController extends BaseController
 
      /**
      * @Route("bankaccountbyuserid", name="getBankAccountByUserId", methods={"GET"})
-     * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
     public function getAccountByUserId()

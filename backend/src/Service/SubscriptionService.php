@@ -148,4 +148,10 @@ class SubscriptionService
     {
         return $this->subscriptionManager->getSubscriptionCurrent($ownerID);
     }
+
+    public function packagebalance($ownerID)
+    {
+        $subscribe = $this->getSubscriptionCurrent($ownerID);
+        return $this->saveFinisheAuto($ownerID, $subscribe['id']);
+    }
 }

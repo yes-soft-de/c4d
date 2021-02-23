@@ -7,6 +7,8 @@ class BankCreateRequest
     private $userID;
     private $bankName;
     private $accountID;
+    private $stcPay;
+
       
     /**
     * @param mixed $userID

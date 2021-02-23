@@ -84,6 +84,13 @@ ROLE_CAPTAIN
 /captainprofile
 methods: GET
 ```
+#### Get Captain My Balance 
+
+ROLE_CAPTAIN
+```
+/captainmybalance
+methods: GET
+```
 
 ### Package
 
@@ -109,11 +116,20 @@ ROLE_OWNER
 /package
 methods: POST
 ```
+
 #### Get All Subscriptions for owner
 ROLE_OWNER
 
 ```
 /getSubscriptionForOwner
+methods: GET
+```
+
+#### Get package balance
+ROLE_OWNER
+
+```
+/packagebalance
 methods: GET
 ```
 

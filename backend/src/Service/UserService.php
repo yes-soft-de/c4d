@@ -417,4 +417,13 @@ class UserService
         }
     }
 
+    public function getCaptainMybalance($captainID)
+    {
+        $response=[];
+        $item = $this->userManager-> getcaptainprofileByCaptainID($captainID);
+        $bounce = $this->totalBounceCaptain($item['id']);
+        $response = $this->autoMapping->map('array', CaptainTotalBounceResponse::class, $item);
+        $response->bounce = $bounce;
+        return $response;
+    }
 }

@@ -9,4 +9,5 @@ class BankResponse
     public $bankName;
     public $accountID;
     public $userName;
+    public $stcPay;
 }
