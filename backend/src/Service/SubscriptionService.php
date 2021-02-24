@@ -8,10 +8,8 @@ use App\Manager\SubscriptionManager;
 use App\Request\SubscriptionCreateRequest;
 use App\Response\SubscriptionResponse;
 use App\Response\SubscriptionByIdResponse;
+use App\Response\MySubscriptionsResponse;
 use App\Response\RemainingOrdersResponse;
-use SebastianBergmann\Comparator\DateTimeComparator;
-use phpDocumentor\Reflection\Types\Integer;
-use Symfony\Component\Serializer\Encoder\JsonDecode;
 use dateTime;
 class SubscriptionService
 {
@@ -31,11 +29,23 @@ class SubscriptionService
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
     }
 
-    public function getSubscriptionForOwner($userId)
+    public function getSubscriptionForOwner($ownerID)
     {
-        return $this->subscriptionManager->getSubscriptionForOwner($userId);
+       $response = [];
+       $currentSubscription = $this->getSubscriptionCurrent($ownerID);
+       $this->saveFinisheAuto($ownerID, $currentSubscription['id']);
+       $subscriptions = $this->subscriptionManager->getSubscriptionForOwner($ownerID);
+      
+        foreach ($subscriptions as $subscription) {
+            $this->subscriptionIsActive($ownerID, $currentSubscription['id']);
+            if ($currentSubscription['id'] == $subscription['id']) {$current = "yes";}
+            else{$current = "no";}
+            $subscription['isCurrent'] = $current;
+            $response[] = $this->autoMapping->map("array", MySubscriptionsResponse::class, $subscription);
+        }
+        return $response;
     }
-
+  
     public function subscriptionUpdateState($request)
     {
         $result = $this->subscriptionManager->subscriptionUpdateState($request);
@@ -90,6 +100,7 @@ class SubscriptionService
         $response = [];
         //Get full information for the current subscription
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
+        
         if ($remainingOrdersOfPackage['subscriptionEndDate']) {
    
             $endDate =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
@@ -152,6 +163,7 @@ class SubscriptionService
     public function packagebalance($ownerID)
     {
         $subscribe = $this->getSubscriptionCurrent($ownerID);
+        
         return $this->saveFinisheAuto($ownerID, $subscribe['id']);
     }
 }

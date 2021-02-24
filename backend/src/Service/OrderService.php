@@ -32,7 +32,8 @@ class OrderService
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService,
                                 RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService,
-                                UserService $userService, ParameterBagInterface $params,  RatingService $ratingService,  NotificationService $notificationService
+                                UserService $userService, ParameterBagInterface $params,  RatingService $ratingService
+                                , NotificationService $notificationService
                                 )
     {
         $this->autoMapping = $autoMapping;

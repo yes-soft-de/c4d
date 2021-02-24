@@ -178,9 +178,10 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             
             ->andWhere('subscription.ownerID=:ownerID')
 
-            ->addGroupBy('subscription.id')
+            // ->addGroupBy('subscription.id')
+            ->addGroupBy('subscription.startDate')
             ->setMaxResults(1)
-            ->addOrderBy('subscription.id','DESC')
+            ->addOrderBy('subscription.startDate','DESC')
            
             ->setParameter('ownerID', $ownerID)
            
