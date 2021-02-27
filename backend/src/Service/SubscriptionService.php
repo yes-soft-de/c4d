@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\SubscriptionEntity;
 use App\Manager\SubscriptionManager;
 use App\Request\SubscriptionCreateRequest;
+use App\Request\SubscriptionNextRequest;
 use App\Response\SubscriptionResponse;
 use App\Response\SubscriptionByIdResponse;
 use App\Response\MySubscriptionsResponse;
@@ -26,6 +27,16 @@ class SubscriptionService
     {
         $subscriptionResult = $this->subscriptionManager->create($request);
 
+        return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
+    }
+    
+    public function nxetSubscription(SubscriptionNextRequest $request)
+    {
+       $SubscriptionCurrent = $this->getSubscriptionCurrent($request->getOwnerID());
+       
+       $status = $this->subscriptionIsActive($request->getOwnerID(), $SubscriptionCurrent['id']);
+        $subscriptionResult = $this->subscriptionManager->nxetSubscription($request, $status);
+        
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
     }
 
@@ -56,6 +67,13 @@ class SubscriptionService
     public function updateFinishe($id, $status)
     {
         $result = $this->subscriptionManager->updateFinishe($id, $status);
+
+        return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
+    }
+
+    public function changeIsFutureToFalse($id)
+    {
+        $result = $this->subscriptionManager->changeIsFutureToFalse($id);
 
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
     }
@@ -100,7 +118,6 @@ class SubscriptionService
         $response = [];
         //Get full information for the current subscription
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
-        
         if ($remainingOrdersOfPackage['subscriptionEndDate']) {
    
             $endDate =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
@@ -110,12 +127,18 @@ class SubscriptionService
             if ( $endDate <= $now)  {
 
                 $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'date finished');
+                if($this->getNextSubscription($ownerID)) {
+                    $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
+                    }
                 $response[] = ["subscripe finished, date is finished"];
             }
 
             if ($remainingOrdersOfPackage['remainingOrders'] == 0)  {
         
                 $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'orders finished');
+                if($this->getNextSubscription($ownerID)) {
+                $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
+                }
                 $response[] = ["subscripe finished, count Orders is finished"];
             }
             
@@ -158,6 +181,11 @@ class SubscriptionService
     public function getSubscriptionCurrent($ownerID)
     {
         return $this->subscriptionManager->getSubscriptionCurrent($ownerID);
+    }
+
+    public function getNextSubscription($ownerID)
+    {
+        return $this->subscriptionManager->getNextSubscription($ownerID);
     }
 
     public function packagebalance($ownerID)

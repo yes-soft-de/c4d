@@ -177,11 +177,27 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->select('subscription.id')
             
             ->andWhere('subscription.ownerID=:ownerID')
+            ->andWhere('subscription.isFuture= 0')
 
             // ->addGroupBy('subscription.id')
             ->addGroupBy('subscription.startDate')
             ->setMaxResults(1)
             ->addOrderBy('subscription.startDate','DESC')
+           
+            ->setParameter('ownerID', $ownerID)
+           
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getNextSubscription($ownerID)
+    {
+        return $this->createQueryBuilder('subscription')
+
+            ->select('subscription.id')
+            
+            ->andWhere('subscription.ownerID=:ownerID')
+            ->andWhere('subscription.isFuture= 1')
            
             ->setParameter('ownerID', $ownerID)
            

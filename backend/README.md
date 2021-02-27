@@ -133,6 +133,14 @@ ROLE_OWNER
 methods: GET
 ```
 
+#### Pay the next payment
+ROLE_OWNER
+
+```
+/nextsubscription
+methods: POST
+```
+
 ### Order
 #### Create Order
 ROLE_OWNER

@@ -6,11 +6,13 @@ use App\AutoMapping;
 use App\Entity\SubscriptionEntity;
 use App\Repository\SubscriptionEntityRepository;
 use App\Request\SubscriptionCreateRequest;
+use App\Request\SubscriptionNextRequest;
+use App\Request\SubscriptionChangeIsFutureRequest;
 use App\Request\SubscriptionUpdateRequest;
 use App\Request\SubscriptionUpdateStateRequest;
 use App\Request\SubscriptionUpdateFinisheRequest;
 use Doctrine\ORM\EntityManagerInterface;
-
+use DateTime;
 class SubscriptionManager
 {
     private $autoMapping;
@@ -28,7 +30,31 @@ class SubscriptionManager
     { 
         // NOTE: change active to inactive 
         $request->setStatus('active');
+        $request->setIsFuture(0);
         $subscriptionEntity = $this->autoMapping->map(SubscriptionCreateRequest::class, SubscriptionEntity::class, $request);
+
+        $this->entityManager->persist($subscriptionEntity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $subscriptionEntity;
+    }
+
+    public function nxetSubscription(SubscriptionNextRequest $request, $status)
+    { 
+        // NOTE: change active to inactive 
+        $request->setStatus('active');
+       
+        if($status == "active") {
+             $request->setIsFuture(1);
+             }
+        else{
+            $request->setIsFuture(0);
+        }
+        $subscriptionEntity = $this->autoMapping->map(SubscriptionNextRequest::class, SubscriptionEntity::class, $request);
+    // tell talal and mohammed befor active    
+    // to save subscribe end date automatic
+       // $subscriptionEntity->setEndDate(date_modify(new DateTime('now'),'+1 month'));
 
         $this->entityManager->persist($subscriptionEntity);
         $this->entityManager->flush();
@@ -70,6 +96,27 @@ class SubscriptionManager
         }
 
         $subscribeEntity = $this->autoMapping->map(SubscriptionUpdateFinisheRequest::class, SubscriptionEntity::class, $subscribeEntity);
+
+        $this->entityManager->flush();
+
+        return $subscribeEntity;
+    }
+
+    public function changeIsFutureToFalse($id)
+    {
+        $subscribeEntity = $this->subscribeRepository->find($id);
+    //Make this subscription the current subscription
+        $subscribeEntity->setIsFuture(0);
+    //The end date of the previous subscription is the start date of the current subscription
+        $subscribeEntity->setStartDate(new DateTime('now'));
+
+        $subscribeEntity->setEndDate(date_modify(new DateTime('now'),'+1 month'));
+
+        if (!$subscribeEntity) {
+            return null;
+        }
+
+        $subscribeEntity = $this->autoMapping->map(SubscriptionChangeIsFutureRequest::class, SubscriptionEntity::class, $subscribeEntity);
 
         $this->entityManager->flush();
 
@@ -119,5 +166,10 @@ class SubscriptionManager
     public function getSubscriptionCurrent($ownerID)
     {
         return $this->subscribeRepository->getSubscriptionCurrent($ownerID);
+    }
+
+    public function getNextSubscription($ownerID)
+    {
+        return $this->subscribeRepository->getNextSubscription($ownerID);
     }
 }
