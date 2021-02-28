@@ -367,4 +367,15 @@ class UserController extends BaseController
         return $this->response($response, self::FETCH);
     }
 
+     /**
+     * @Route("/captainmybalance", name="getCaptainMyBalance",methods={"GET"})
+     * @IsGranted("ROLE_CAPTAIN")
+     *  @return JsonResponse
+     */
+    public function getCaptainMybalance()
+    {
+        $response = $this->userService->getCaptainMybalance($this->getUserId());
+
+        return $this->response($response, self::FETCH);
+    }
 }

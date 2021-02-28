@@ -180,12 +180,16 @@ App\Request\BankCreateRequest:
       - NotBlank: ~
     accountID:
       - NotBlank: ~
+    stcPay:
+      - NotBlank: ~
 
 App\Request\BankUpdateRequest:
   properties:
     bankName:
       - NotBlank: ~
     accountID:
+      - NotBlank: ~
+    stcPay:
       - NotBlank: ~
 
 App\Request\ReportCreateRequest:

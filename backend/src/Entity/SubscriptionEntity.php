@@ -49,6 +49,11 @@ class SubscriptionEntity
      */
     private $note;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isFuture;
+
     // /**
     //  * @ORM\Column(type="boolean", nullable=true)
     //  */
@@ -134,6 +139,18 @@ class SubscriptionEntity
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getIsFuture(): ?bool
+    {
+        return $this->isFuture;
+    }
+
+    public function setIsFuture(?bool $isFuture): self
+    {
+        $this->isFuture = $isFuture;
 
         return $this;
     }

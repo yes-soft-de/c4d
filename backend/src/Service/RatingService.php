@@ -30,4 +30,9 @@ class RatingService
     {
         return $this->ratingManager->getRatingByCaptainID($captainID);
      }
+
+    public function ratingByCaptainID($captainID)
+    {
+        return $this->ratingManager->ratingByCaptainID($captainID);
+     }
 }

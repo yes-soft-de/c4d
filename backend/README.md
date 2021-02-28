@@ -70,15 +70,7 @@ methods: PUT
 /userprofile
 methods: GET
 ```
-#### Get remaining orders for specific owner
 
-ROLE_OWNER
-
-```
-/saveFinisheAuto
-methods: GET
-```
-``
 #### Create captain profile 
 ```
 /captainprofile
@@ -97,6 +89,13 @@ methods: PUT
 ROLE_CAPTAIN
 ```
 /captainprofile
+methods: GET
+```
+#### Get Captain My Balance 
+
+ROLE_CAPTAIN
+```
+/captainmybalance
 methods: GET
 ```
 
@@ -124,12 +123,29 @@ ROLE_OWNER
 /package
 methods: POST
 ```
-#### Get subscribed for owner
+
+#### Get All Subscriptions for owner
 ROLE_OWNER
 
 ```
 /getSubscriptionForOwner
 methods: GET
+```
+
+#### Get package balance
+ROLE_OWNER
+
+```
+/packagebalance
+methods: GET
+```
+
+#### Pay the next payment
+ROLE_OWNER
+
+```
+/nextsubscription
+methods: POST
 ```
 
 ### Order

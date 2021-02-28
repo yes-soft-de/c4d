@@ -13,6 +13,7 @@ use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
 use App\Service\SubscriptionService;
+use App\Service\RatingService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
 
@@ -26,11 +27,14 @@ class OrderService
     private $subscriptionService;
     private $userService;
     private $params;
+    private $ratingService;
     private $notificationService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService,
                                 RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService,
-                                UserService $userService, ParameterBagInterface $params, NotificationService $notificationService)
+                                UserService $userService, ParameterBagInterface $params,  RatingService $ratingService
+                                , NotificationService $notificationService
+                                )
     {
         $this->autoMapping = $autoMapping;
         $this->orderManager = $orderManager;
@@ -39,6 +43,7 @@ class OrderService
         $this->branchesService = $branchesService;
         $this->subscriptionService = $subscriptionService;
         $this->userService = $userService;
+        $this->ratingService = $ratingService;
 
         $this->params = $params->get('upload_base_url') . '/';
         $this->notificationService = $notificationService;
@@ -47,42 +52,48 @@ class OrderService
     public function create(OrderCreateRequest $request)
     {  
         $response = "please subscribe!!";
-        $status = $this->subscriptionService->subscriptionIsActive($request->getOwnerID());
-       
-        if ($status == 'active') {
-            $uuid = $this->recordService->uuid();
+        //get Subscribe id Current
+        $subscriptionCurrent =  $this->subscriptionService->getSubscriptionCurrent($request->getOwnerID());
+      
+        if ($subscriptionCurrent) {
+             // check subscription
+            $status = $this->subscriptionService->subscriptionIsActive($request->getOwnerID(), $subscriptionCurrent['id']);
         
-            $item = $this->orderManager->create($request, $uuid);
+            if ($status == 'active') {
+                $uuid = $this->recordService->uuid();
+                
+                $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
 
-            //start-----> notification
-            try{
-            $this->notificationService->notificationToCaptain();
-            //notification <------end
-            }
-            catch (\Exception $e)
-            {
-    
-            }
-            if ($item) {
-                $this->recordService->create($item->getId(), $item->getState());
-            }
-            $response =$this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
-        }
+                //start-----> notification
+                try{
+                $this->notificationService->notificationToCaptain();
+                //notification <------end
+                }
+                catch (\Exception $e)
+                {
         
-        if ($status == 'inactive') {
-            $response ="subscribe is awaiting activation!!";
-        }
-        if ($status == 'orders finished') {
-            $response ="subscripe finished, count orders is finished!!";
-        }
+                }
+                if ($item) {
+                    $this->recordService->create($item->getId(), $item->getState());
+                }
+                $response =$this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+            }
+            
+            if ($status == 'inactive') {
+                $response ="subscribe is awaiting activation!!";
+            }
+            if ($status == 'orders finished') {
+                $response ="subscripe finished, count orders is finished!!";
+            }
 
-        if ($status == 'date finished') {
-            $response ="subscripe finished, date is finished!!";
-        }
+            if ($status == 'date finished') {
+                $response ="subscripe finished, date is finished!!";
+            }
 
-        if ($status == 'unaccept') {
-            $response ="subscribe unaccept!!";
-        }
+            if ($status == 'unaccept') {
+                $response ="subscribe unaccept!!";
+            }
+    }
         return $response;
     }
 
@@ -301,6 +312,13 @@ class OrderService
                 $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);
                 $item['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($item['id']);
 
+                $firstDate = $this->recordService->getFirstDate($item['id']); 
+                $lastDate = $this->recordService->getLastDate($item['id']);
+                $item['currentStage'] =  $lastDate;
+                if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                    $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                }
+
                 $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
             }
         }
@@ -312,7 +330,15 @@ class OrderService
                 
                 $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);
                 $item['acceptedOrder'] = $this->acceptedOrderService->getAcceptedOrderByOrderId($item['id']);
-
+               
+                $item['rating'] = $this->ratingService->ratingByCaptainID($item['acceptedOrder'][0]['captainID']);
+               
+                $firstDate = $this->recordService->getFirstDate($item['id']); 
+                $lastDate = $this->recordService->getLastDate($item['id']);
+                $item['currentStage'] =  $lastDate;
+                if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                    $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                }
                 $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
             }
         }

@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\SubscriptionCreateRequest;
-use App\Request\SubscriptionUpdateRequest;
+use App\Request\SubscriptionNextRequest;
+// use App\Request\SubscriptionUpdateRequest;
 use App\Request\SubscriptionUpdateStateRequest;
 use App\Service\SubscriptionService;
 use stdClass;
@@ -53,6 +54,32 @@ class SubscriptionController extends BaseController
         }
 
         $result = $this->subscriptionService->create($request);
+
+        return $this->response($result, self::CREATE);
+    }
+    /**
+     * @Route("nextsubscription", name="nxetSubscription", methods={"POST"})
+     * @IsGranted("ROLE_OWNER")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function nxetSubscription(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, SubscriptionNextRequest::class, (object)$data);
+
+        $request->setOwnerID($this->getUserId());
+
+        // $violations = $this->validator->validate($request);
+
+        // if (\count($violations) > 0) {
+        //     $violationsString = (string) $violations;
+
+        //     return new JsonResponse($violationsString, Response::HTTP_OK);
+        // }
+
+        $result = $this->subscriptionService->nxetSubscription($request);
 
         return $this->response($result, self::CREATE);
     }
@@ -132,28 +159,15 @@ class SubscriptionController extends BaseController
     }
 
     /**
-     * @Route("/saveFinisheAuto", name="saveFinisheAuto",methods={"GET"})
+     * @Route("/packagebalance", name="packagebalanceForOwner",methods={"GET"})
      * @IsGranted("ROLE_OWNER")
      * @param                                     Request $request
      * @return                                    JsonResponse
      */
-    public function saveFinisheAuto()
+    public function packagebalance()
     {
-        $result = $this->subscriptionService->saveFinisheAuto($this->getUserId());
+        $result = $this->subscriptionService->packagebalance($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
-
-    // /**
-    //  * @Route("subscripeNewUsers/{year}/{month}", name="getCountSubscripeNewUsersInThisMonth",methods={"GET"})
-    //  * @IsGranted("ROLE_ADMIN")
-    //  * @param                                     Request $request
-    //  * @return                                    JsonResponse
-    //  */
-    // public function subscripeNewUsers($year, $month)
-    // {
-    //     $result = $this->subscriptionService->subscripeNewUsers($year, $month);
-
-    //     return $this->response($result, self::FETCH);
-    // }
 }

@@ -15,6 +15,7 @@ class OrderCreateRequest
     private $state;
     private $fromBranch;
     private $uuid;
+    private $subscribeId;
 
      /**
      * @param mixed $ownerID
@@ -51,6 +52,18 @@ class OrderCreateRequest
     public function setUuid(?string $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+    
+    public function getSubscribeId(): ?int
+    {
+        return $this->subscribeId;
+    }
+
+    public function setSubscribeId(?int $subscribeId): self
+    {
+        $this->subscribeId = $subscribeId;
 
         return $this;
     }

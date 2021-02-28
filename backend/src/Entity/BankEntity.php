@@ -32,6 +32,11 @@ class BankEntity
      */
     private $accountID;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $stcPay;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class BankEntity
     public function setAccountID(string $accountID): self
     {
         $this->accountID = $accountID;
+
+        return $this;
+    }
+
+    public function getStcPay(): ?string
+    {
+        return $this->stcPay;
+    }
+
+    public function setStcPay(?string $stcPay): self
+    {
+        $this->stcPay = $stcPay;
 
         return $this;
     }

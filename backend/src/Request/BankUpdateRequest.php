@@ -7,6 +7,7 @@ class BankUpdateRequest
     private $id;
     private $bankName;
     private $accountID;
+    private $stcPay;
       
     /**
      * @return mixed
