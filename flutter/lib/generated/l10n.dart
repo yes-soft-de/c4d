@@ -1644,6 +1644,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Download C4d`
+  String get pleaseDownloadC4d {
+    return Intl.message(
+      'Please Download C4d',
+      name: 'pleaseDownloadC4d',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Plan`
+  String get myPlan {
+    return Intl.message(
+      'My Plan',
+      name: 'myPlan',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -67,6 +67,7 @@ class OrderRepository {
   }
 
   Future<List<Order>> getMyOrders() async {
+    await _authService.refreshToken();
     var token = await _authService.getToken();
 
     dynamic response = await _apiClient.get(

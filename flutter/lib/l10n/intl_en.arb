@@ -160,5 +160,8 @@
   "finishOrderProvideDistanceInKm": "Finish Order, Provide distance in KM",
   "myStatus": "My Status",
   "directSupport": "Direct Support",
-  "myOrders": "My Orders"
+  "myOrders": "My Orders",
+  "share": "Share",
+  "pleaseDownloadC4d": "Please Download C4d",
+  "myPlan": "My Plan"
 }

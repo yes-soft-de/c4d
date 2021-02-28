@@ -50,7 +50,7 @@ class Branch {
         : null;
     city = json['city'];
     brancheName = json['brancheName'];
-    free = json['free'];
+    free = json['free'].toString();
     userName = json['userName'];
     status = json['status'];
   }

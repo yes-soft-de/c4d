@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_plan/plan_routes.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
@@ -16,23 +17,23 @@ class DrawerWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Expanded(
+              child: Container(
+                color: Colors.black54,
+              ),
+            ),
             Flex(
               direction: Axis.vertical,
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 4,
-                  color: Colors.black54,
-                ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
+                    Navigator.of(context).pushNamed(
+                      PlanRoutes.PLAN_ROUTE,
+                    );
                   },
                   child: ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text(
-                      S.of(context).settings,
-                    ),
+                    title: Text(S.of(context).myPlan),
+                    leading: Icon(Icons.money),
                   ),
                 ),
                 GestureDetector(
@@ -73,6 +74,30 @@ class DrawerWidget extends StatelessWidget {
                       ),
                       leading: Icon(Icons.privacy_tip),
                     )),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text(
+                      S.of(context).settings,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    launch('https://wa.me/?text=' +
+                        S.of(context).pleaseDownloadC4d);
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.ios_share),
+                    title: Text(
+                      S.of(context).share,
+                    ),
+                  ),
+                ),
               ],
             ),
             Flex(

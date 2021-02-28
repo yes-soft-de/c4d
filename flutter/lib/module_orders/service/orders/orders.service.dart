@@ -1,4 +1,3 @@
-
 import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
@@ -28,15 +27,17 @@ class OrdersService {
     List<OrderModel> orders = [];
 
     response.forEach((element) {
-      orders.add(new OrderModel(
-        to: element.location,
-        clientPhone: element.recipientPhone,
-        from: element.fromBranch.brancheName,
-        creationTime:
-            DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
-        paymentMethod: element.payment,
-        id: element.id,
-      ));
+      if (element.state != 'delivered') {
+        orders.add(new OrderModel(
+          to: element.location,
+          clientPhone: element.recipientPhone,
+          from: element.fromBranch.brancheName,
+          creationTime: DateTime.fromMillisecondsSinceEpoch(
+              element.date.timestamp * 1000),
+          paymentMethod: element.payment,
+          id: element.id,
+        ));
+      }
     });
 
     return orders.reversed.toList();
@@ -58,7 +59,9 @@ class OrdersService {
       id: orderId,
       chatRoomId: response.uuid,
       ownerPhone: response.phone,
-      captainPhone: response.acceptedOrder.isNotEmpty ? response.acceptedOrder.last.phone : null,
+      captainPhone: response.acceptedOrder.isNotEmpty
+          ? response.acceptedOrder.last.phone
+          : null,
     );
 
     return order;
@@ -87,7 +90,8 @@ class OrdersService {
           id: element.id,
         ));
       } catch (e, stack) {
-        Logger().error('Mapping Error', '${e.toString()}:\n${stack.toString()}', StackTrace.current);
+        Logger().error('Mapping Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
       }
     });
 
@@ -117,8 +121,7 @@ class OrdersService {
   Future<OrderDetailsResponse> updateOrder(int orderId, OrderModel order) {
     switch (order.status) {
       case OrderStatus.GOT_CAPTAIN:
-        var request = AcceptOrderRequest(
-            orderID: orderId.toString());
+        var request = AcceptOrderRequest(orderID: orderId.toString());
         return _ordersManager.acceptOrder(request);
         break;
       case OrderStatus.IN_STORE:
@@ -134,7 +137,8 @@ class OrdersService {
         return _ordersManager.updateOrder(request);
         break;
       case OrderStatus.FINISHED:
-        var request = UpdateOrderRequest(id: orderId, state: 'delivered', distance: order.distance);
+        var request = UpdateOrderRequest(
+            id: orderId, state: 'delivered', distance: order.distance);
         return _ordersManager.updateOrder(request);
         break;
       default:
@@ -155,7 +159,7 @@ class OrdersService {
         from: '',
         storeName: element.userName,
         creationTime:
-        DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
+            DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
         paymentMethod: element.payment,
         id: element.id,
       ));

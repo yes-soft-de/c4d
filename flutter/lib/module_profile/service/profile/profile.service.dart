@@ -118,11 +118,13 @@ class ProfileService {
       return [];
     }
     records.forEach((e) {
-      activity[e.id] = ActivityModel(
+      if (e.state == 'delivered') {
+        activity[e.id] = ActivityModel(
         startDate: DateTime.fromMillisecondsSinceEpoch(e.record.first.date.timestamp * 1000),
         endDate: DateTime.fromMillisecondsSinceEpoch(e.record.last.date.timestamp * 1000),
         activity: e.brancheName
       );
+      }
     });
 
     return activity.values.toList();

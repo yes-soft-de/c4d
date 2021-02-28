@@ -7,6 +7,7 @@ import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
+import 'package:c4d/module_plan/plan_module.dart';
 import 'package:c4d/module_profile/module_profile.dart';
 import 'package:c4d/module_splash/splash_module.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
@@ -48,7 +49,8 @@ void main() async {
       // Your App Here
       runApp(container.app);
     }, onError: (error, stackTrace) {
-      new Logger().error('Main', error.toString() + stackTrace.toString(), StackTrace.current);
+      new Logger().error(
+          'Main', error.toString() + stackTrace.toString(), StackTrace.current);
     });
   });
 }
@@ -66,6 +68,7 @@ class MyApp extends StatefulWidget {
   final ProfileModule _profileModule;
   final AboutModule _aboutModule;
   final FireNotificationService _fireNotificationService;
+  final PlanModule _planModule;
 
   MyApp(
     this._themeDataService,
@@ -79,6 +82,7 @@ class MyApp extends StatefulWidget {
     this._settingsModule,
     this._authorizationModule,
     this._profileModule,
+    this._planModule,
   );
 
   @override

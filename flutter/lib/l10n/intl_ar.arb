@@ -159,6 +159,9 @@
   "pleaseProvideTheDistance": "الرجاء توفير المسافة المقطوعة",
   "finishOrderProvideDistanceInKm": "انهاء الطلب، المسافة المقطوعة",
   "myStatus": "حالتي",
-  "directSupport": "Direct Support",
-  "myOrders": "My Orders"
+  "directSupport": "دعم مباشر",
+  "myOrders": "طلباتي",
+  "share": "المشاركة",
+  "pleaseDownloadC4d": "الرجاء تحميل C4D",
+  "myPlan": "باقتي"
 }
