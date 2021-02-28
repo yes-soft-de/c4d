@@ -16,7 +16,6 @@ import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/module_upload/service/image_upload/image_upload_service.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
 import 'package:rxdart/rxdart.dart';
