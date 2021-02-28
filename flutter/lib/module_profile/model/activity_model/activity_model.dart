@@ -1,7 +1,8 @@
 class ActivityModel {
-  DateTime date;
+  DateTime startDate;
+  DateTime endDate;
   String activity;
   bool isCreate;
 
-  ActivityModel(this.date, this.activity, this.isCreate);
+  ActivityModel({this.startDate, this.endDate, this.activity, this.isCreate});
 }

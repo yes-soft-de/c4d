@@ -158,5 +158,7 @@
   "notifications": "Notifications",
   "pleaseProvideTheDistance": "Please Provide the distance",
   "finishOrderProvideDistanceInKm": "Finish Order, Provide distance in KM",
-  "myStatus": "My Status"
+  "myStatus": "My Status",
+  "directSupport": "Direct Support",
+  "myOrders": "My Orders"
 }

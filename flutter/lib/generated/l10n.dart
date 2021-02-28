@@ -1624,6 +1624,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Direct Support`
+  String get directSupport {
+    return Intl.message(
+      'Direct Support',
+      name: 'directSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Orders`
+  String get myOrders {
+    return Intl.message(
+      'My Orders',
+      name: 'myOrders',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

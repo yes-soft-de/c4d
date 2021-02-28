@@ -31,7 +31,11 @@ class AuthService {
 
   String _verificationCode;
 
-  AuthService(this._prefsHelper, this._authManager, this._aboutService,);
+  AuthService(
+    this._prefsHelper,
+    this._authManager,
+    this._aboutService,
+  );
 
   // Delegates
   Future<bool> get isLoggedIn => _prefsHelper.isSignedIn();
@@ -141,7 +145,9 @@ class AuthService {
       String email, String password, UserRole role) async {
     try {
       var userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       await _registerApiUser(AppUser(userCredential, AuthSource.EMAIL, role));
     } catch (e) {
       if (e is FirebaseAuthException) {
@@ -169,7 +175,8 @@ class AuthService {
         Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
         _authSubject.addError(UnauthorizedException(x.message));
       } else {
-        _authSubject.addError(UnauthorizedException('Error: ${err.toString()}'));
+        _authSubject
+            .addError(UnauthorizedException('Error: ${err.toString()}'));
       }
     });
   }

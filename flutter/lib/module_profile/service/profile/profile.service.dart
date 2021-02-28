@@ -110,7 +110,7 @@ class ProfileService {
 
   Future<List<ActivityModel>> getActivity() async {
     var records = await _manager.getMyLog();
-    var activity = <ActivityModel>[];
+    var activity = <int, ActivityModel>{};
     if (records == null) {
       return [];
     }
@@ -118,15 +118,14 @@ class ProfileService {
       return [];
     }
     records.forEach((e) {
-      activity.add(ActivityModel(
-        e.date != null
-            ? DateTime.fromMillisecondsSinceEpoch(e.date.timestamp * 1000)
-            : DateTime.now(),
-        '${S.current.order} #${e.id}: ${getLocalizedState(e.state)}',
-        e.state.contains('pending'),
-      ));
+      activity[e.id] = ActivityModel(
+        startDate: DateTime.fromMillisecondsSinceEpoch(e.record.first.date.timestamp * 1000),
+        endDate: DateTime.fromMillisecondsSinceEpoch(e.record.last.date.timestamp * 1000),
+        activity: e.brancheName
+      );
     });
-    return activity;
+
+    return activity.values.toList();
   }
 
   String getLocalizedState(String status) {

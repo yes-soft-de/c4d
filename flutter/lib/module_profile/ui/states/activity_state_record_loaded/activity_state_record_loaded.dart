@@ -4,9 +4,6 @@ import 'package:c4d/module_profile/ui/states/activity_state/activity_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:charts_common/common.dart' as common;
-
 class ActivityStateRecordsLoaded extends ActivityState {
   List<ActivityModel> activity;
 
@@ -16,26 +13,13 @@ class ActivityStateRecordsLoaded extends ActivityState {
   @override
   Widget getUI(BuildContext context) {
     var list = <Widget>[];
-    list.add(
-      Container(
-        height: 200,
-        child: charts.BarChart(
-          getChartableData(),
-        ),
-      ),
-    );
-
-    list.add(
-      Container(
-        height: 56,
-      ),
-    );
 
     list.addAll(activity.map(
       (e) => Card(
         child: ListTile(
-          leading: Icon(Icons.timelapse),
+          leading: Icon(Icons.check),
           title: Text('${e.activity}'),
+          subtitle: Text('Took ${e.startDate.difference(e.endDate).inMinutes.abs().toString()} Minutes'),
         ),
       ),
     ));
@@ -50,15 +34,4 @@ class ActivityStateRecordsLoaded extends ActivityState {
     );
   }
 
-  List<common.Series<dynamic, String>> getChartableData() {
-    return [
-      new charts.Series<ActivityModel, String>(
-        id: 'Orders',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (ActivityModel record, _) => record.date.toString().substring(0, 10),
-        measureFn: (ActivityModel sales, _) => 1,
-        data: activity,
-      )
-    ];
-  }
 }

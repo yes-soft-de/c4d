@@ -158,5 +158,7 @@
   "notifications": "الاشعارات",
   "pleaseProvideTheDistance": "الرجاء توفير المسافة المقطوعة",
   "finishOrderProvideDistanceInKm": "انهاء الطلب، المسافة المقطوعة",
-  "myStatus": "حالتي"
+  "myStatus": "حالتي",
+  "directSupport": "Direct Support",
+  "myOrders": "My Orders"
 }
