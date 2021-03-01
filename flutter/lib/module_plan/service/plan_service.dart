@@ -14,11 +14,13 @@ class PlanService {
   );
 
   Future<ActivePlanModel> getCurrentPlan() async {
-    var orders = await this._ordersService.getMyOrders();
-    var records = await this._profileService.getActivity();
+    var responses = await Future.wait([
+      this._ordersService.getMyOrders(),
+      this._profileService.getActivity(),
+    ]);
     var activePlan = ActivePlanModel(
-      activeCars: orders.length,
-      activeOrders: records.length,
+      activeCars: responses[0].length,
+      activeOrders: responses[1].length,
       name: 'Plan',
       cars: 2,
       orders: 20,
