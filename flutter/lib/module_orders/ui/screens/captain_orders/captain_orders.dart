@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_navigation/ui/widget/drawer_widget/drawer_widget.dart';
@@ -5,6 +7,7 @@ import 'package:c4d/module_orders/state_manager/captain_orders/captain_orders.da
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_loading.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
+import 'package:c4d/module_profile/response/profile_response.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -20,6 +23,10 @@ class CaptainOrdersScreen extends StatefulWidget {
 
 class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
   CaptainOrdersListState currentState;
+  ProfileResponseModel _currentProfile;
+
+  StreamSubscription _stateSubscription;
+  StreamSubscription _profileSubscription;
 
   void getMyOrders() {
     widget._stateManager.getMyOrders(this);
@@ -45,12 +52,21 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
     super.initState();
     currentState = CaptainOrdersListStateLoading(this);
     widget._stateManager.getMyOrders(this);
-    widget._stateManager.stateStream.listen((event) {
+    _stateSubscription = widget._stateManager.stateStream.listen((event) {
       currentState = event;
       if (mounted) {
         setState(() {});
       }
     });
+
+    _profileSubscription = widget._stateManager.profileStream.listen((event) {
+      _currentProfile = event;
+      if (mounted) {
+        setState(() {});
+      }
+    });
+
+    widget._stateManager.getProfile();
   }
 
   @override
@@ -73,7 +89,13 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
               }),
         ],
       ),
-      drawer: DrawerWidget(),
+      drawer: _currentProfile != null
+          ? DrawerWidget(
+              username: _currentProfile.name ?? 'user',
+              user_image: _currentProfile.imageURL ??
+                  'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+            )
+          : DrawerWidget(),
       body: currentState.getUI(context),
     );
   }

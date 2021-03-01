@@ -7,6 +7,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends StatelessWidget {
+  final username;
+  final user_image;
+  final placeholder =
+      'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png';
+
+  DrawerWidget(
+      {this.username = 'user',
+      this.user_image =
+          'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png'});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,11 +27,44 @@ class DrawerWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Container(
-                color: Colors.black54,
-              ),
-            ),
+            username != null || user_image != null
+                ? Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      color: Colors.blue[400],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 24,
+                            width: 24,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(user_image),
+                                  onError: (e, s) {
+                                    return Container(
+                                      height: 24,
+                                      width: 24,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                        'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+                                      ))),
+                                    );
+                                  }),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          Text(
+                            username,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Container(),
             Flex(
               direction: Axis.vertical,
               children: [

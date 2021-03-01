@@ -93,6 +93,10 @@ import '../../module_profile/state_manager/activity/activity_state_manager.dart'
 import '../../module_profile/ui/screen/edit_profile/edit_profile.dart' as _i68;
 import '../../module_profile/state_manager/edit_profile/edit_profile.dart'
     as _i69;
+import '../../module_plan/plan_module.dart' as _i70;
+import '../../module_plan/ui/screen/plan_screen.dart' as _i71;
+import '../../module_plan/state_manager/plan_screen_state_manager.dart' as _i72;
+import '../../module_plan/service/plan_service.dart' as _i73;
 
 class AppComponent$Injector implements _i1.AppComponent {
   AppComponent$Injector._();
@@ -120,7 +124,8 @@ class AppComponent$Injector implements _i1.AppComponent {
       _createInitAccountModule(),
       _createSettingsModule(),
       _createAuthorizationModule(),
-      _createProfileModule());
+      _createProfileModule(),
+      _createPlanModule());
   _i7.AppThemeDataService _createAppThemeDataService() =>
       _i7.AppThemeDataService(_createThemePreferencesHelper());
   _i8.ThemePreferencesHelper _createThemePreferencesHelper() =>
@@ -186,12 +191,13 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i32.OwnerOrdersScreen _createOwnerOrdersScreen() =>
       _i32.OwnerOrdersScreen(_createOwnerOrdersStateManager());
   _i33.OwnerOrdersStateManager _createOwnerOrdersStateManager() =>
-      _i33.OwnerOrdersStateManager(
-          _createOrdersService(), _createAuthService());
+      _i33.OwnerOrdersStateManager(_createOrdersService(), _createAuthService(),
+          _createProfileService());
   _i34.CaptainOrdersScreen _createCaptainOrdersScreen() =>
       _i34.CaptainOrdersScreen(_createCaptainOrdersListStateManager());
   _i35.CaptainOrdersListStateManager _createCaptainOrdersListStateManager() =>
-      _i35.CaptainOrdersListStateManager(_createOrdersService());
+      _i35.CaptainOrdersListStateManager(
+          _createOrdersService(), _createProfileService());
   _i36.ChatModule _createChatModule() =>
       _i36.ChatModule(_createChatPage(), _createAuthService());
   _i37.ChatPage _createChatPage() =>
@@ -269,6 +275,13 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i69.EditProfileStateManager _createEditProfileStateManager() =>
       _i69.EditProfileStateManager(
           _createImageUploadService(), _createProfileService());
+  _i70.PlanModule _createPlanModule() => _i70.PlanModule(_createPlanScreen());
+  _i71.PlanScreen _createPlanScreen() =>
+      _i71.PlanScreen(_createPlanScreenStateManager());
+  _i72.PlanScreenStateManager _createPlanScreenStateManager() =>
+      _i72.PlanScreenStateManager(_createPlanService());
+  _i73.PlanService _createPlanService() =>
+      _i73.PlanService(_createOrdersService(), _createProfileService());
   @override
   _i6.MyApp get app => _createMyApp();
 }
