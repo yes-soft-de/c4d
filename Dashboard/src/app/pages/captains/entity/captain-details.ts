@@ -8,6 +8,7 @@ export interface CaptainDetails {
     countOrdersDeliverd: [{countOrdersDeliverd: number}];
     drivingLicence: string;
     image: string;
+    isOnline: string;
     location: string;
     rating: { rate: number };
     salary: number;

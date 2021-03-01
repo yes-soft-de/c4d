@@ -19,6 +19,14 @@ export class CaptainsService {
     return throwError(error || 'Server Error');
   }
 
+  // Get All Captains
+  allUsers(userType: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `${AdminConfig.allUsersAPI}/${userType}`,
+      this.tokenService.httpOptions()
+    ).pipe(catchError(CaptainsService.errorHandle));
+  }
+
   // Get All Day Off Captains
   allDayOffCaptians(): Observable<CaptainsResponse> {    
     return this.httpClient.get<CaptainsResponse>(
@@ -48,6 +56,13 @@ export class CaptainsService {
     ).pipe(catchError(CaptainsService.errorHandle));
   }
 
+  // captainDetails(captainId: number) {
+  //   return this.httpClient.get(
+  //     `${AdminConfig.captainDetailAPI}/${captainId}`,
+  //     this.tokenService.httpOptions()
+  //   ).toPromise();
+  // }
+
   dayOffCaptainDetails(captainId: number): Observable<any> {
     return this.httpClient.get(
       `${AdminConfig.dayOffCaptainDetailAPI}/${captainId}`,
@@ -62,5 +77,7 @@ export class CaptainsService {
       this.tokenService.httpOptions()
     ).pipe(catchError(CaptainsService.errorHandle));
   }
+
+
   
 }

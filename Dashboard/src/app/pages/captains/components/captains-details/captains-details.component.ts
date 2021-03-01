@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { filter, pairwise, takeUntil } from 'rxjs/operators';
+import { TokenService } from 'src/app/pages/admin-service/token/token.service';
+import { AdminConfig } from 'src/app/pages/AdminConfig';
 import { ContractsRoutingModule } from 'src/app/pages/contracts/contracts-routing.module';
 import { CaptainDetails } from '../../entity/captain-details';
 import { CaptianDetailsResponse } from '../../entity/captain-details-response';
@@ -20,14 +24,20 @@ export class CaptainsDetailsComponent implements OnInit {
   uploadForm: FormGroup;
   isSubmitted = false; 
   display = true;
+  intervalCounter: any;
 
   constructor(private captainService: CaptainsService,
+              private httpClient: HttpClient, 
+              private tokenService: TokenService,
               private formBuilder: FormBuilder,
               private toaster: ToastrService,
               private router: Router,
-              private activateRoute: ActivatedRoute) { }
+              private activateRoute: ActivatedRoute,
+              @Inject(DOCUMENT) private document: Document,
+              private render: Renderer2) { }
 
-  ngOnInit() {
+  ngOnInit() {  
+    this.changeElementExistsWidth();
     this.activateRoute.params.subscribe(
       urlSegment => {
         if (urlSegment.dayOff) {
@@ -43,7 +53,7 @@ export class CaptainsDetailsComponent implements OnInit {
     });
   }
 
-
+  // Observable getCaptainDetails
   getCaptianDetails() {
     this.captainService.captainDetails(Number(this.activateRoute.snapshot.paramMap.get('id')))
     .pipe(takeUntil(this.destroy$))
@@ -58,6 +68,26 @@ export class CaptainsDetailsComponent implements OnInit {
       error => console.log('Error : ', error)
     );
   }
+
+  // private async getCaptianDetails() {  
+  //   const data = await this.httpClient.get(
+  //     `${AdminConfig.captainDetailAPI}/${Number(this.activateRoute.snapshot.paramMap.get('id'))}`,
+  //     this.tokenService.httpOptions()
+  //   ).toPromise();
+  //   console.log('Promise Captain Details: ', data);
+  //   this.captainDetails = data.Data;
+  //   this.updateFormValues();
+    // console.log('Promise Captain Details', data);
+    // this.captainService.captainDetails(Number(this.activateRoute.snapshot.paramMap.get('id')))
+    // .then(
+    //   (captainDetail: CaptianDetailsResponse) => {
+    //     if (captainDetail) {
+    //       console.log('Promise Captain Details: ', captainDetail);
+    //       this.captainDetails = captainDetail.Data;
+    //       this.updateFormValues();
+    //     }
+    //   }).catch(error => console.log('Error : ', error));
+  // }
 
   getDayOffCaptainDetails() {
     this.captainService.dayOffCaptainDetails(Number(this.activateRoute.snapshot.paramMap.get('id')))
@@ -81,10 +111,38 @@ export class CaptainsDetailsComponent implements OnInit {
     });
   }
 
+  refresh() {
+    console.log('click refresh');
+    this.activateRoute.params.subscribe(
+      urlSegment => {
+        if (urlSegment.dayOff) {
+          this.getDayOffCaptainDetails();
+        } else {
+          this.getCaptianDetails();
+        }
+      }
+    );
+  }
+
+  // Check If Chart Element Exists
+  changeElementExistsWidth() {
+    let second = 0;
+    this.intervalCounter = setInterval(() => {
+      second++;
+      const Element = this.document.querySelector('#refresh_button');        
+      if (Element) {
+        second = 0;
+        this.render.setStyle(Element, 'width', Element.previousElementSibling.clientWidth + 'px');
+        clearInterval(this.intervalCounter);
+      }
+    }, 100);
+  }
+
 
   focus() {
     this.display = false;
   }
+
 
   blur() {
     console.log('blur');

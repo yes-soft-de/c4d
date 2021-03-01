@@ -118,6 +118,15 @@ td { font-size: 14px; vertical-align: middle !important; }
   height: 100%;
 }
 
+
+.ml-custom-auto {
+  margin-left: auto!important;
+}
+
+.mr-custom-auto {
+  margin-right: auto!important;
+}
+
 a { text-decoration: none; color: #fff;
   -webkit-transition: all .5s ease-in-out;
   -moz-transition: all .5s ease-in-out;

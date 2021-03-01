@@ -36,17 +36,4 @@ export class OrdersService {
   }
 
 
-  getPosition(): Promise<any>
-  {
-    return new Promise((resolve, reject) => {
-      navigator.geolocation.watchPosition(resp => {
-      // navigator.geolocation.getCurrentPosition(resp => {
-          resolve(resp);
-          // resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
-        },
-        err => {
-          reject(err);
-        });
-    });
-  }
 }

@@ -1,7 +1,8 @@
 export class AdminConfig {
   // An Example | Delete The Content When Started
   // source api
-  public static sourceAPI                   = 'http://34.121.141.34//html/public/index.php/';
+  // public static sourceAPI                   = 'http://34.121.141.34/html/public/index.php/';
+  public static sourceAPI                   = 'http://c4d.yes-cloud.de/html/public/index.php/';
   // public static sourceAPI                   = 'http://localhost:8000/';
 
   // All Application Api
@@ -28,6 +29,7 @@ export class AdminConfig {
   // Contracts
   public static pendingContractsAPI         = AdminConfig.sourceAPI + 'getSubscriptionsPending';
   public static contractDetailsAPI          = AdminConfig.sourceAPI + 'getSubscriptionById';
+  public static ownerDetailsAPI             = AdminConfig.sourceAPI + 'userprofilebyuserid';
   public static contractAcceptAPI           = AdminConfig.sourceAPI + 'subscriptionUpdateState';
 
   // Packages

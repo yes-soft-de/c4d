@@ -14,6 +14,7 @@
                             <th scope="col">{{'captain-name' | translate}}</th>
                             <th scope="col">{{'source' | translate}}</th>
                             <th scope="col">{{'from-branch' | translate}}</th>
+                            <th scope="col">{{'kilometer' | translate}}</th>
                             <!-- <th scope="col">Elapsed Time</th> -->
                             <!-- <th scope="col">State</th> -->
                             <th scope="col">{{'payment' | translate}}</th>
@@ -34,6 +35,7 @@
                                 <th scope="row">{{order?.acceptedOrder.length > 0 ? order?.acceptedOrder[0].captainName : '-'}}</th>
                                 <th scope="row">{{order?.source.length > 0 ? order?.source : '-'}}</th>
                                 <th scope="row">{{order?.fromBranch?.brancheName ? order?.fromBranch?.brancheName : '-'}}</th>
+                                <th scope="row">{{order?.kilometer ? order?.kilometer : '-'}}</th>
                                 <th scope="row">{{order?.payment ? order?.payment : '-'}}</th>
                                 <th scope="row">{{order?.destination.length > 0 ? order?.destination[0] : '-'}}</th>
                                 <!-- <th scope="row">{{order.recipientPhone ? order.recipientPhone : '-'}}</th>

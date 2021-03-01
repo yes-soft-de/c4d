@@ -5,13 +5,13 @@
             <div class="messages-body my-3 pt-3 p-2">
                 <ng-container *ngFor="let message of messages">                
                     <ng-container *ngIf="message.sender == secondSender">
-                        <p class="col-12 col-sm-11 col-md-10 recieved-message text-white py-1 px-2 rounded bg-grey-blue ml-auto">
+                        <p class="col-12 col-sm-11 col-md-10 recieved-message text-white py-1 px-2 rounded bg-grey-blue ml-custom-auto">
                             {{message.msg.message}}<br>
                             <span class="message-time">{{message.sentDate | date: 'h:mm a'}}</span>
                         </p>
                     </ng-container>
                     <ng-container *ngIf="message.sender == firstSender">
-                            <p class="col-12 col-sm-11 col-md-10 recieved-message text-white py-1 px-2 rounded bg-light-blue">
+                            <p class="col-12 col-sm-11 col-md-10 recieved-message text-white py-1 px-2 rounded bg-light-blue mr-custom-auto">
                                 {{message.msg.message}}<br>
                                 <span class="message-time">{{message.sentDate | date: 'h:mm a'}}</span>
                             </p>

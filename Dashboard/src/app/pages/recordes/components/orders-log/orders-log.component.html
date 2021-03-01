@@ -4,16 +4,17 @@
         {{'final-order' | translate}}: <span class="text-light-blue">{{allLogs?.orderStatus.finalOrder}}</span>
     </p>
     <p class="col-12 text-grey-blue text-center">
-        {{'completion-time' | translate}}: <span class="text-light-blue">{{allLogs?.orderStatus.completionTime}}</span>
+        {{'completion-time' | translate}}:
+        <span class="text-light-blue" style="display: inline-block; direction: ltr;">{{allLogs?.orderStatus.completionTime}}</span>
     </p>
     <div *ngIf="allLogs.record.length !== 0">
         <div class="container-fluid">
             <!-- <div class="order-log-search mt-4">
                 <form class="form-inline">
                     <div class="w-100 input-group mb-2 mr-sm-2">
-                        <input type="text" 
-                                class="form-control" 
-                                id="inlineFormInputGroupUsername2" 
+                        <input type="text"
+                                class="form-control"
+                                id="inlineFormInputGroupUsername2"
                                 name="search"
                                 [(ngModel)]="name"
                                 (keyup)="applyFilter()"
@@ -38,7 +39,7 @@
                             <tr *ngFor="let log of allLogsListFilter | paginate: config">
                                 <th scope="row">{{log?.orderID ? log?.orderID : '-'}}</th>
                                 <th scope="row">{{log?.state ? log?.state : '-'}}</th>
-                                <th scope="row">{{log?.date ? (log?.date.timestamp * 1000 | date : 'MMM d, y, h:mm:ss a') : '-' }}</th>                            
+                                <th scope="row">{{log?.date ? (log?.date.timestamp * 1000 | date : 'MMM d, y, h:mm:ss a') : '-' }}</th>
                             </tr>
                         </tbody>
                     </table>

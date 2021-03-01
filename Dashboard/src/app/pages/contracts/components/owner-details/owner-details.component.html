@@ -1,0 +1,88 @@
+<div class="owner-details mb-5" *ngIf="ownerDetails">
+    <div class="container-fluid">
+        <h1 class="text-light-blue mt-3 mb-2 font-weight-bold">{{'owner-details' | translate}}</h1>
+        <div class="row w-100 mx-auto mb-3">
+            <div class="col-12 col-sm-7 col-md-8 mb-3 mb-sm-0">
+                <div class="captain-details-image">
+                    <div class="row w-100 mx-auto">
+                        <div class="col-5 pl-0">
+                            <div class="captain-image mx-auto">
+                                <img class="img-responsive rounded-circle" src="{{ownerDetails?.image}}" (error)="ownerDetails.image = '../../../../../assets/default-avatar.jpg'" alt="captain image">
+                            </div>
+                        </div>
+                        <div class="col-7 align-self-center">
+                            <p class="text-light-blue">{{ownerDetails?.userName}}</p>
+                        </div>
+                    </div>
+                </div><!--.captain-details-image-->
+            </div>
+               
+            <!-- <div class="col-12 col-sm-5 col-md-4 align-self-center text-center">
+                <div class="captain-chat mx-auto p-1">
+                    <i class="fa fa-commenting fa-fw fa-lg text-grey-blue"></i>
+                    <a class="font-weight-bold" routerLink="/chat/view/captain/{{ownerDetails?.id}}">{{'chat-with-captain' | translate}}</a>
+                </div>
+                <a id="refresh_button" type="button" class="btn btn-primary text-white mx-auto p-1 mt-2" (click)="refresh()" style="display: inline-block;cursor: pointer;">Refresh</a>
+            </div> -->
+        </div><!--.row-->        
+        <!-- <p class="ml-sm-2 ml-md-4 mb-1">{{'captain-id' | translate}} : <span>{{ownerDetails?.userID}}</span></p> -->
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'city' | translate }} : <span>{{ownerDetails?.city}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'free' | translate }} : <span>{{ownerDetails?.free}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'phone' | translate }} : <span>{{ownerDetails?.phone}}</span></p>      
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'branches' | translate }} : </p>
+        <div *ngIf="ownerDetailsBranches.length !== 0">
+            <div class="col-12 col-sm-9 col-md-8 col-xl-6">
+                <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                    <div class="card-header bg-white py-3"></div>
+                    <div class="card-body table-responsive bg-white text-center">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>                                    
+                                    <th scope="col" style="white-space: nowrap;">{{'branch-name' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let branch of ownerDetailsBranches | paginate: config; let i = index">
+                                    <th scope="row">{{branch.id}}</th>
+                                    <th scope="row">{{branch.brancheName ? branch.brancheName : '-'}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--.card-->
+                <div class="mt-3 text-center">
+                    <pagination-controls class="my-pagination"
+                            (pageChange)="pageChanged($event)"
+                            autoHide="true"
+                            maxSize="5"
+                            responsive="true"
+                            previousLabel="{{'prev' | translate}}"
+                            nextLabel="{{'next' | translate}}"
+                            screenReaderPaginationLabel="Pagination"
+                            screenReaderPageLabel="page"
+                            screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="ownerDetailsBranches.length === 0">
+            <div class="container">
+                <div class="alert alert-primary text-center mt-5">{{'branches-not-exists' | translate}}</div>
+                <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                    <i class="fa fa-plus"></i>
+                    Add New Anime
+                </a> -->
+            </div>
+        </div>
+        <!-- <p class="ml-sm-2 ml-md-4 mb-1"><strong>Salary: </strong> <span class="salary border border-dark rounded px-2">{{ownerDetails?.salary}} $</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1"><strong>Bounce: </strong> <span class="bounce border border-dark rounded px-2">{{ownerDetails?.bounce}} $</span></p> -->
+        <!-- <button class="mt-2 ml-sm-2 ml-md-4 btn bg-light-blue text-white w-25 py-0 font-weight-bold">
+            <i class="fa fa-dot-circle-o fa-fw fa-lg"></i>
+            tracking
+        </button> -->
+    </div><!--.container-fluid-->
+</div>
+<div *ngIf="ownerDetails == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

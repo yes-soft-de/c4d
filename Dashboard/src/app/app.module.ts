@@ -15,7 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SidebarComponent } from './@theme/components';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, "/admin/assets/i18n/");
   }
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional

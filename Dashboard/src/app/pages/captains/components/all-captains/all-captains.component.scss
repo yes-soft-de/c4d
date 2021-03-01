@@ -1,5 +1,5 @@
-.messages {
-    h1 {
+.captains {
+    & > h1 {
         @media (min-width: '992px') and (max-width: '1199px') {
           font-size: 2.2rem;
         }
@@ -10,32 +10,22 @@
           font-size: 2rem;
           background: none !important;
           color: #21a5b8 !important;
-        } 
+        }
         @media (max-width: '575px') {
           font-size: 1.8rem;
           background: none !important;
           color: #21a5b8 !important;
         }
     }
-}
-.messages-body {
-    max-height: 70vh;
-    overflow-y: scroll;
-    sdirection: ltr;
-    &::-webkit-scrollbar {
-        width: 4px;
+    .card { border-radius: 20px; }
+    .card-header {
+        box-shadow: 1px 1px 12px rgba(0,0,0,.1), 
+        -1px -1px 12px rgba(0,0,0,.1);
+        z-index: 0;
+        border-radius: 20px 20px 0 0;
     }
-    &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: #ccc;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-        background: #aaa;
-    }
-    .recieved-message {
-        width: max-content;
-        .message-time { font-size: .7rem; font-weight: 100;}        
+    .card-body {
+        .table td, .table th { border: none; padding: .3rem; }
+        border-radius: 0 0 20px 20px;
     }
 }

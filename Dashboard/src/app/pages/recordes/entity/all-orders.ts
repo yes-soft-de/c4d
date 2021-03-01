@@ -16,6 +16,7 @@ export interface AllOrders {
     branchCity: string;
     brancheName: string;    
     location: string;
+    kilometer: string;
     note: string;
     payment: string;
     recipientName: string;

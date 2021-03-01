@@ -7,7 +7,8 @@
                     <div class="row w-100 mx-auto">
                         <div class="col-5 pl-0">
                             <div class="captain-image mx-auto">
-                                <img class="img-responsive rounded-circle" src="{{captainDetails?.image}}" (error)="captainDetails.image = '../../../../../assets/default-avatar.jpg'" alt="captain image">
+                                <!-- <img class="img-responsive rounded-circle" src="{{captainDetails?.image}}" (error)="captainDetails.image = '../../../../../assets/default-avatar.jpg'" alt="captain image"> -->
+                                <img class="img-responsive rounded-circle" src="{{captainDetails?.image}}" alt="captain image">
                             </div>
                         </div>
                         <div class="col-7 align-self-center">
@@ -21,6 +22,9 @@
                     <i class="fa fa-commenting fa-fw fa-lg text-grey-blue"></i>
                     <a class="font-weight-bold" routerLink="/chat/view/captain/{{captainDetails?.id}}">{{'chat-with-captain' | translate}}</a>
                 </div>
+                <a id="refresh_button" type="button" class="btn btn-primary text-white mx-auto p-1 mt-2" (click)="refresh()" style="display: inline-block;cursor: pointer;">
+                    {{'refresh' | translate}}
+                </a>
             </div>
         </div><!--.row-->
         <p class="ml-sm-2 ml-md-4 mb-1">
@@ -28,6 +32,7 @@
             <img src="{{captainDetails?.drivingLicence}}" (error)="captainDetails.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{captainDetails.name}} driving Licence" class="img-thumbnail img-custom">            
         </p>
         <p class="ml-sm-2 ml-md-4 mb-1">{{'captain-id' | translate}} : <span>{{captainDetails?.captainID}}</span></p>
+        <p class="ml-sm-2 ml-md-4 mb-1">{{'is-online' | translate}} : <span class="text-{{captainDetails?.isOnline == 'active' ? 'success' : 'danger'}}">{{captainDetails?.isOnline}}</span></p>
         <p class="ml-sm-2 ml-md-4 mb-1">{{'age' | translate }} : <span>{{captainDetails?.age}}</span></p>
         <p class="ml-sm-2 ml-md-4 mb-1">{{'car' | translate }} : <span>{{captainDetails?.car}}</span></p>
         <p class="ml-sm-2 ml-md-4 mb-1">{{'state' | translate }} : <span>{{captainDetails?.state}}</span></p>

@@ -72,6 +72,11 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
         // link: '/pages/iot-dashboard',
         children: [
             {
+                title: 'All Captains',
+                translate: 'all-captains',
+                link: '/captains',
+            },
+            {
                 title: 'Ongoing',
                 translate: 'ongoing',
                 link: '/captains/ongoing',
@@ -95,7 +100,7 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
         icon: 'fa fa-tags',
         children: [
             {
-                title: 'Pending',                
+                title: 'Pending',
                 translate: 'pending',
                 link: '/orders/pending',
             },
@@ -108,7 +113,12 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
         icon: 'fa fa-shopping-bag',
         children: [
             {
-                title: 'Pending',                
+              title: 'All Owners',
+              translate: 'all-owners',
+              link: '/contracts',
+            },
+            {
+                title: 'Pending',
                 translate: 'pending',
                 link: '/contracts/pending',
             },
