@@ -350,6 +350,8 @@ class UserService
              $countAcceptedOrder = $this->acceptedOrderService->countAcceptedOrder($item[0]['captainID']);
 
              $item['bounce'] = $item[0]['bounce'] * $countAcceptedOrder[0]['countOrdersDeliverd'];
+             $item['countOrdersDeliverd'] = $countAcceptedOrder[0]['countOrdersDeliverd'];
+             $item['total'] = $item['bounce'] + $item[0]['salary'];
 
              $response  = $this->autoMapping->map('array', CaptainTotalBounceResponse::class,  $item);
         }
@@ -419,11 +421,7 @@ class UserService
 
     public function getCaptainMybalance($captainID)
     {
-        $response=[];
         $item = $this->userManager-> getcaptainprofileByCaptainID($captainID);
-        $bounce = $this->totalBounceCaptain($item['id']);
-        $response = $this->autoMapping->map('array', CaptainTotalBounceResponse::class, $item);
-        $response->bounce = $bounce;
-        return $response;
+        return $this->totalBounceCaptain($item['id']);
     }
 }
