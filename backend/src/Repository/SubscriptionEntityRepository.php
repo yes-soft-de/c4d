@@ -131,7 +131,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('subscription')
 
-            ->select('subscription.id as subscriptionID', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'packageEntity.name as packagename', 'packageEntity.id as packageID', 'count(orderEntity.id) as countOrdersDelivered ', 'subscription.startDate as subscriptionStartDate', 'subscription.endDate as subscriptionEndDate', 'userProfileEntity.userID', 'userProfileEntity.userName')
+            ->select('subscription.id as subscriptionID', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'packageEntity.name as packagename', 'packageEntity.id as packageID', 'count(orderEntity.id) as countOrdersDelivered ', 'subscription.startDate as subscriptionStartDate', 'subscription.endDate as subscriptionEndDate', 'userProfileEntity.userID', 'userProfileEntity.userName', 'packageEntity.carCount as packageCarCount', 'packageEntity.orderCount as packageOrderCount')
 
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
 

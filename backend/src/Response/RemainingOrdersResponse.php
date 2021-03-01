@@ -12,4 +12,6 @@ class RemainingOrdersResponse
     public $subscriptionstatus;
     public $subscriptionStartDate;
     public $subscriptionEndDate;
+    public $packageCarCount;
+    public $packageOrderCount;
 }
