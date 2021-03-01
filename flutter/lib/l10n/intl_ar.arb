@@ -163,5 +163,7 @@
   "myOrders": "طلباتي",
   "share": "المشاركة",
   "pleaseDownloadC4d": "الرجاء تحميل C4D",
-  "myPlan": "باقتي"
+  "myPlan": "باقتي",
+  "bankAccountNumber": "Bank Account Number",
+  "stcPayCode": "STC Pay Code"
 }

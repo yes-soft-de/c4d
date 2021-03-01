@@ -163,5 +163,7 @@
   "myOrders": "My Orders",
   "share": "Share",
   "pleaseDownloadC4d": "Please Download C4d",
-  "myPlan": "My Plan"
+  "myPlan": "My Plan",
+  "bankAccountNumber": "Bank Account Number",
+  "stcPayCode": "STC Pay Code"
 }

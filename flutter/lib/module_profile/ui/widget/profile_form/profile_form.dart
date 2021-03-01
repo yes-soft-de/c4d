@@ -1,43 +1,53 @@
-import 'dart:io';
-
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:c4d/module_profile/model/profile_model/profile_model.dart';
 
 class ProfileFormWidget extends StatefulWidget {
-  final Function(String, String, String) onProfileSaved;
-  final Function(String, String, String) onImageUpload;
+  final Function(ProfileModel) onProfileSaved;
+  final Function(ProfileModel) onImageUpload;
+  final isCaptain;
   final ProfileRequest request;
 
   ProfileFormWidget({
     @required this.onProfileSaved,
     @required this.onImageUpload,
+    @required this.isCaptain,
     this.request,
   });
 
   @override
   State<StatefulWidget> createState() => _ProfileFormWidgetState(
-      request != null ? request.name : null,
-      request != null ? request.phone : null);
+        request != null ? request.name : null,
+        request != null ? request.phone : null,
+        request != null ? request.stcPay : null,
+        request != null ? request.bankAccountNumber : null,
+      );
 }
 
 class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
+  final _stcPayController = TextEditingController();
+  final _bankAccountNumberController = TextEditingController();
   String localImage;
+
+  var currentProfile = ProfileModel();
 
   final _formKey = GlobalKey<FormState>();
 
-  _ProfileFormWidgetState(String name, String phone) {
+  _ProfileFormWidgetState(
+      String name, String phone, String stcPay, String bankNumber) {
     _nameController.text = name;
     _phoneController.text = phone;
+    _stcPayController.text = stcPay;
+    _bankAccountNumberController.text = bankNumber;
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Form(
@@ -52,11 +62,14 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 ImagePicker()
                     .getImage(source: ImageSource.gallery)
                     .then((value) {
-                  widget.onImageUpload(
-                    _nameController.text,
-                    _phoneController.text,
-                    value.path,
+                  var profile = ProfileModel(
+                    image: value.path,
+                    name: _nameController.text,
+                    phone: _phoneController.text,
+                    stcPay: _stcPayController.text,
+                    bankNumber: _stcPayController.text,
                   );
+                  widget.onImageUpload(profile);
                   setState(() {});
                 });
               },
@@ -73,21 +86,22 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         shape: BoxShape.circle,
                       ),
                     ),
-                    widget.request == null ? Container() :
-                    widget.request.image == null
+                    widget.request == null
                         ? Container()
-                        : Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      widget.request.image.contains('http')
-                                          ? widget.request.image
-                                          : Urls.IMAGES_ROOT +
-                                              widget.request.image),
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
+                        : widget.request.image == null
+                            ? Container()
+                            : Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          widget.request.image.contains('http')
+                                              ? widget.request.image
+                                              : Urls.IMAGES_ROOT +
+                                                  widget.request.image),
+                                      fit: BoxFit.cover,
+                                    )),
+                              ),
                   ],
                 ),
               ),
@@ -125,16 +139,20 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 return null;
               },
             ),
+            widget.isCaptain == true ? _getPaymentExtension() : Container(),
             RaisedButton(
                 color: Theme.of(context).primaryColor,
                 child: Text(S.of(context).save),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    widget.onProfileSaved(
-                      _nameController.text,
-                      _phoneController.text,
-                      widget.request.image,
+                    var profile = ProfileModel(
+                      image: localImage,
+                      name: _nameController.text,
+                      phone: _phoneController.text,
+                      stcPay: _stcPayController.text,
+                      bankNumber: _stcPayController.text,
                     );
+                    widget.onProfileSaved(profile);
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(S.of(context).pleaseCompleteTheForm)));
@@ -143,6 +161,28 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _getPaymentExtension() {
+    return Flex(
+      direction: Axis.vertical,
+      children: [
+        TextFormField(
+          controller: _bankAccountNumberController,
+          decoration: InputDecoration(
+            hintText: S.of(context).bankAccountNumber,
+            labelText: S.of(context).bankAccountNumber,
+          ),
+        ),
+        TextFormField(
+          controller: _stcPayController,
+          decoration: InputDecoration(
+            hintText: S.of(context).stcPayCode,
+            labelText: S.of(context).stcPayCode,
+          ),
+        ),
+      ],
     );
   }
 }

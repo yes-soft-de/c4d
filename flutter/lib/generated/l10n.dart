@@ -1674,6 +1674,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Bank Account Number`
+  String get bankAccountNumber {
+    return Intl.message(
+      'Bank Account Number',
+      name: 'bankAccountNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `STC Pay Code`
+  String get stcPayCode {
+    return Intl.message(
+      'STC Pay Code',
+      name: 'stcPayCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

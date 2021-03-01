@@ -6,6 +6,8 @@ class ProfileRequest {
   String image;
   String city;
   String branch;
+  String stcPay;
+  String bankAccountNumber;
   String car;
   String age;
   String drivingLicence;
@@ -23,6 +25,8 @@ class ProfileRequest {
     this.car = 'Unknown',
     this.drivingLicence = 'Unknown',
     this.age,
+    this.stcPay,
+    this.bankAccountNumber,
     this.state = 'active',
     this.isOnline = 'active',
   });
