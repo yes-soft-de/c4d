@@ -46,13 +46,17 @@ class SubscriptionService
     {
        $response = [];
        $currentSubscription = $this->getSubscriptionCurrent($ownerID);
-       $this->saveFinisheAuto($ownerID, $currentSubscription['id']);
+
+       if ($currentSubscription) {
+            $this->saveFinisheAuto($ownerID, $currentSubscription['id']);
+       }
+
        $subscriptions = $this->subscriptionManager->getSubscriptionForOwner($ownerID);
       
         foreach ($subscriptions as $subscription) {
             $this->subscriptionIsActive($ownerID, $currentSubscription['id']);
             if ($currentSubscription['id'] == $subscription['id']) {$current = "yes";}
-            else{$current = "no";}
+            else {$current = "no";}
             $subscription['isCurrent'] = $current;
             $response[] = $this->autoMapping->map("array", MySubscriptionsResponse::class, $subscription);
         }
