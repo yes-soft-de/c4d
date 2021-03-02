@@ -193,8 +193,10 @@ class SubscriptionService
     public function packagebalance($ownerID)
     {
         $subscribe = $this->getSubscriptionCurrent($ownerID);
-        
-        return $this->saveFinisheAuto($ownerID, $subscribe['id']);
+        if ($subscribe) {
+            return $this->saveFinisheAuto($ownerID, $subscribe['id']);
+        }
+
     }
 
     public function totalAmountOfSubscriptions($ownerID)
