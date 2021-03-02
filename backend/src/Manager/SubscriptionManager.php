@@ -172,4 +172,9 @@ class SubscriptionManager
     {
         return $this->subscribeRepository->getNextSubscription($ownerID);
     }
+
+    public function totalAmountOfSubscriptions($ownerID)
+    {
+        return $this->subscribeRepository->totalAmountOfSubscriptions($ownerID);
+    }
 }

@@ -332,6 +332,16 @@ ROLE_OWNER
 methods: PUT
 ```
 
+### Payments
+
+#### Get payments
+ROLE_OWNER
+```
+/payments
+methods: GET
+```
+
+
 
 
 
@@ -585,4 +595,14 @@ isDone = false or true .
 ```
 /dating
 methods: PUT
+```
+
+
+### Payments
+
+#### Get payments
+
+```
+/payment
+methods: POST
 ```

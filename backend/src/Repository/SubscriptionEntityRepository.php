@@ -204,4 +204,19 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function totalAmountOfSubscriptions($ownerID)
+    {
+        return $this->createQueryBuilder('subscription')
+            ->select('packageEntity.cost * count(subscription.id) as totalAmountOfSubscriptions')
+
+            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+
+            ->andWhere('subscription.ownerID=:ownerID')
+            ->addGroupBy('subscription.packageID')
+            ->setParameter('ownerID', $ownerID)
+           
+            ->getQuery()
+            ->getResult();
+    }
 }

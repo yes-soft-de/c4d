@@ -12,6 +12,8 @@ use App\Response\SubscriptionByIdResponse;
 use App\Response\MySubscriptionsResponse;
 use App\Response\RemainingOrdersResponse;
 use dateTime;
+use Symfony\Component\Validator\Constraints\Length;
+
 class SubscriptionService
 {
     private $autoMapping;
@@ -194,4 +196,21 @@ class SubscriptionService
         
         return $this->saveFinisheAuto($ownerID, $subscribe['id']);
     }
+
+    public function totalAmountOfSubscriptions($ownerID)
+    {
+        $items = $this->subscriptionManager->totalAmountOfSubscriptions($ownerID);
+        foreach($items as $item)
+        {
+            if (isset($result[$item['totalAmountOfSubscriptions']]))
+            {
+                $result[$item['totalAmountOfSubscriptions']] += $item['totalAmountOfSubscriptions'];
+            }
+            else
+            {
+                $result[$item['totalAmountOfSubscriptions']] = $item['totalAmountOfSubscriptions'];
+            }
+        }
+            return array_sum($result);
+    }  
 }
