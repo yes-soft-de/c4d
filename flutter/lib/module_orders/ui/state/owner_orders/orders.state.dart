@@ -61,12 +61,14 @@ class OrdersListStateUnauthorized extends OwnerOrdersListState {
 
 class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
   final List<OrderModel> orders;
+  final bool canMakeOrders;
 
-  OrdersListStateOrdersLoaded(this.orders, OwnerOrdersScreenState screenState)
+  OrdersListStateOrdersLoaded(this.orders, this.canMakeOrders, OwnerOrdersScreenState screenState)
       : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
+    print(canMakeOrders.toString());
     return RefreshIndicator(
       onRefresh: () {
         screenState.getMyOrders();
@@ -108,7 +110,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                   }),
             ),
           ),
-          GestureDetector(
+          canMakeOrders == false ? Container() : GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
             },
