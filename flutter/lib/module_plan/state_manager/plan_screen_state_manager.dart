@@ -16,7 +16,7 @@ class PlanScreenStateManager {
 
   void getActivePlan(PlanScreen screen) {
     stateSubject.add(PlanScreenStateLoading(screen));
-    _planService.getCurrentPlan().then((value) {
+    _planService.getOwnerCurrentPlan().then((value) {
       stateSubject.add(PlanScreenStateLoaded(screen, value));
     });
   }

@@ -17,7 +17,7 @@ class PlanService {
     this._packageBalanceManager,
   );
 
-  Future<ActivePlanModel> getCurrentPlan() async {
+  Future<ActivePlanModel> getOwnerCurrentPlan() async {
     var responses = await Future.wait([
       this._ordersService.getMyOrders(),
       this._packageBalanceManager.getOwnerPackage(),

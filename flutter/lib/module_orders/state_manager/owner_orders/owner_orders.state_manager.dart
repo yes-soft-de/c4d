@@ -56,7 +56,7 @@ class OwnerOrdersStateManager {
 
   void isNewOrderAvailable(
       List<OrderModel> orders, OwnerOrdersScreenState screenState) {
-    _planService.getCurrentPlan().then((value) {
+    _planService.getOwnerCurrentPlan().then((value) {
       _stateSubject.add(OrdersListStateOrdersLoaded(
           orders, value.activeCars < orders.length, screenState));
     });
