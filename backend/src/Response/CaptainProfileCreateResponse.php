@@ -46,4 +46,9 @@ class CaptainProfileCreateResponse
 
     public $isOnline;
 
+    public $bankName;
+    
+    public $accountID;
+    
+    public $stcPay;
 }

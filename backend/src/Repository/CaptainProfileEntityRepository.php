@@ -7,6 +7,7 @@ use App\Entity\AcceptedOrderEntity;
 use App\Entity\UserProfileEntity;
 use App\Entity\OrderEntity;
 use App\Entity\BranchesEntity;
+use App\Entity\BankEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -61,11 +62,12 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainprofileByID($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'acceptedOrderEntity.state', 'captainProfile.bounce', 'captainProfile.uuid', 'captainProfile.specialLink', 'captainProfile.isOnline')
-
-            
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'acceptedOrderEntity.state', 'captainProfile.bounce', 'captainProfile.uuid', 'captainProfile.specialLink', 'captainProfile.isOnline', 'captainProfile.isOnline')
             ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
+            ->addSelect('bankEntity.bankName', 'bankEntity.accountID', 'bankEntity.stcPay')
+
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
+            ->leftJoin(BankEntity::class, 'bankEntity', Join::WITH, 'bankEntity.userID = captainProfile.captainID')
 
             ->andWhere('captainProfile.id=:captainProfileId')
             
