@@ -32,7 +32,7 @@ class PaymentService
         return $this->autoMapping->map(PaymentsEntity::class, PaymentCreateResponse::class, $item);
     }
 
-    public function getpaymentsForOwner($ownerId)
+    public function getpaymentsForOwner($ownerId, $admin='null')
     {
 
        $totalAmountOfSubscriptions= $this->subscriptionService->totalAmountOfSubscriptions($ownerId);
@@ -44,8 +44,10 @@ class PaymentService
         $nextPay = $this->subtractTowDates($NewAmount[0]['date']);
         $sumPayments = $sumPayments[0]['sumPayments'];
 
-        $total = $sumPayments - $totalAmountOfSubscriptions;
         
+
+        $total = $sumPayments - $totalAmountOfSubscriptions;
+        if ($admin == "admin"){$total = $totalAmountOfSubscriptions - $sumPayments;}
         
         foreach ($items as $item) {   
            

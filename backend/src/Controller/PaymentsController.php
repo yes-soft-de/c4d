@@ -53,6 +53,19 @@ class PaymentsController extends BaseController
     }
 
     /**
+     * @Route("/paymentsOfOwner/{ownerId}", name="paymentsOfOwner",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function paymentsOfOwner($ownerId)
+    {
+        $result = $this->paymentService->getpaymentsForOwner($ownerId,"admin");
+
+        return $this->response($result, self::FETCH);
+    }
+
+
+    /**
       * @Route("/payments", name="GetpaymentsForOwner", methods={"GET"})
       * @IsGranted("ROLE_OWNER")
       * @param                     Request $request
@@ -64,4 +77,6 @@ class PaymentsController extends BaseController
   
           return $this->response($result, self::FETCH);
       }
+
+     
 }
