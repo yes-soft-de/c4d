@@ -41,9 +41,9 @@ class PaymentService
         $items = $this->paymentManager->getpaymentsForOwner($ownerId);
         $sumPayments = $this->paymentManager->getSumAmount($ownerId);
         $NewAmount = $this->paymentManager->getNewAmount($ownerId);
-
-         $nextPay = $this->subtractTowDates($NewAmount[0]['date']);
-        
+        if ($NewAmount){
+            $nextPay = $this->subtractTowDates($NewAmount[0]['date']);
+        }
         $sumPayments = $sumPayments[0]['sumPayments'];
 
         
@@ -56,8 +56,9 @@ class PaymentService
            
             $response[] =  $this->autoMapping->map('array', PaymentCreateResponse::class, $item);
         }
-        $response['nextPay'] = $nextPay;
-      
+        if ($NewAmount){
+            $response['nextPay'] = $nextPay;
+        }
         $response['sumPayments'] = $sumPayments;
         $response['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
         $response['currentTotal'] = $total;
