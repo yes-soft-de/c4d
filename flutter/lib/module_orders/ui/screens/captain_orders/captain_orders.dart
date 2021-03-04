@@ -85,7 +85,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
           IconButton(
               icon: Icon(Icons.person),
               onPressed: () {
-                Navigator.of(context).pushNamed(ProfileRoutes.ACTIVITY_SCREEN);
+                Navigator.of(context).pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
               }),
         ],
       ),

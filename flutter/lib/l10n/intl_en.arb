@@ -165,5 +165,8 @@
   "pleaseDownloadC4d": "Please Download C4d",
   "myPlan": "My Plan",
   "bankAccountNumber": "Bank Account Number",
-  "stcPayCode": "STC Pay Code"
+  "stcPayCode": "STC Pay Code",
+  "currentBalance": "Current Balance:",
+  "nextPaymentDate": "Next Payment Date:",
+  "saudiRiyal": "Saudi Riyal"
 }

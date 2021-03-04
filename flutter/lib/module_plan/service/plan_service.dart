@@ -1,6 +1,7 @@
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_plan/manager/package_balance_manager.dart';
 import 'package:c4d/module_plan/model/active_plan_model.dart';
+import 'package:c4d/module_plan/model/captain_balance_model.dart';
 import 'package:c4d/module_plan/response/package_balance_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:inject/inject.dart';
@@ -32,5 +33,25 @@ class PlanService {
       orders: int.tryParse(packages.data.packageOrderCount),
     );
     return activePlan;
+  }
+
+  Future<CaptainBalanceModel> getCaptainBalance() async {
+    var result = await _packageBalanceManager.getCaptainBalance();
+
+    if (result == null) {
+      return null;
+    }
+
+    var resultModel = CaptainBalanceModel(payments: []);
+    resultModel.bonus = result.data.bounce;
+    resultModel.currentBalance = int.tryParse(result.data.sumPayments);
+    result.data.payments.forEach((element) {
+      resultModel.payments.add(PaymentModel(
+        DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
+        element.amount,
+      ));
+    });
+
+    return resultModel;
   }
 }

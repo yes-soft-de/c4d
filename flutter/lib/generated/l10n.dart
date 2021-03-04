@@ -1694,6 +1694,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Current Balance:`
+  String get currentBalance {
+    return Intl.message(
+      'Current Balance:',
+      name: 'currentBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next Payment Date:`
+  String get nextPaymentDate {
+    return Intl.message(
+      'Next Payment Date:',
+      name: 'nextPaymentDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Saudi Riyal`
+  String get saudiRiyal {
+    return Intl.message(
+      'Saudi Riyal',
+      name: 'saudiRiyal',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

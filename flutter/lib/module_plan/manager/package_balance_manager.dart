@@ -1,4 +1,5 @@
 import 'package:c4d/module_plan/repository/package_balance_repository.dart';
+import 'package:c4d/module_plan/response/captain_balance_report.dart';
 import 'package:c4d/module_plan/response/package_balance_response.dart';
 import 'package:inject/inject.dart';
 
@@ -7,7 +8,9 @@ class PackageBalanceManager {
   final PackageBalanceRepository _repository;
   PackageBalanceManager(this._repository);
 
-  Future<PackageBalanceResponse> getOwnerPackage() => _repository.getOwnerBalance();
+  Future<PackageBalanceResponse> getOwnerPackage() => _repository.getOwnerPackage();
 
-  Future<PackageBalanceResponse> getCaptainPackage() => _repository.getCaptainBalance();
+  Future<PackageBalanceResponse> getCaptainPackage() => _repository.getCaptainPackage();
+
+  Future<CaptainBalanceResponse> getCaptainBalance() => _repository.getCaptainBalance();
 }

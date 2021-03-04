@@ -4,10 +4,10 @@ import 'package:c4d/module_profile/ui/states/activity_state/activity_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class ActivityStateRecordsLoaded extends ActivityState {
+class OwnerActivityStateRecordsLoaded extends ActivityState {
   List<ActivityModel> activity;
 
-  ActivityStateRecordsLoaded(ActivityScreenState screen, this.activity)
+  OwnerActivityStateRecordsLoaded(ActivityScreenState screen, this.activity)
       : super(screen);
 
   @override
