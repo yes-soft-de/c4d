@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
@@ -57,8 +59,9 @@ class OwnerOrdersStateManager {
   void isNewOrderAvailable(
       List<OrderModel> orders, OwnerOrdersScreenState screenState) {
     _planService.getOwnerCurrentPlan().then((value) {
+      print('${value.cars} ${orders.length}');
       _stateSubject.add(OrdersListStateOrdersLoaded(
-          orders, value.activeCars < orders.length, screenState));
+          orders, value.cars > orders.length, screenState));
     });
   }
 }
