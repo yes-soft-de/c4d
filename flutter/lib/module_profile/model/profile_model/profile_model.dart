@@ -4,6 +4,7 @@ class ProfileModel {
   String phone;
   String stcPay;
   String bankNumber;
+  String bankName;
 
   ProfileModel({
     this.image,
@@ -11,5 +12,6 @@ class ProfileModel {
     this.phone,
     this.stcPay,
     this.bankNumber,
+    this.bankName,
   });
 }

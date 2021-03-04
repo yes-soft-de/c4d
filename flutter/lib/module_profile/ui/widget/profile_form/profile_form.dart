@@ -24,6 +24,7 @@ class ProfileFormWidget extends StatefulWidget {
         request != null ? request.phone : null,
         request != null ? request.stcPay : null,
         request != null ? request.bankAccountNumber : null,
+        request != null ? request.bankName : null,
       );
 }
 
@@ -32,18 +33,19 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   final _phoneController = TextEditingController();
   final _stcPayController = TextEditingController();
   final _bankAccountNumberController = TextEditingController();
-  String localImage;
+  final _bankNameController = TextEditingController();
 
   var currentProfile = ProfileModel();
 
   final _formKey = GlobalKey<FormState>();
 
-  _ProfileFormWidgetState(
-      String name, String phone, String stcPay, String bankNumber) {
+  _ProfileFormWidgetState(String name, String phone, String stcPay,
+      String bankNumber, String bankName) {
     _nameController.text = name;
     _phoneController.text = phone;
     _stcPayController.text = stcPay;
     _bankAccountNumberController.text = bankNumber;
+    _bankNameController.text = bankName;
   }
 
   @override
@@ -68,6 +70,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                     phone: _phoneController.text,
                     stcPay: _stcPayController.text,
                     bankNumber: _stcPayController.text,
+                    bankName: _bankNameController.text,
                   );
                   widget.onImageUpload(profile);
                   setState(() {});
@@ -146,7 +149,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     var profile = ProfileModel(
-                      image: localImage,
+                      image: widget.request.image,
                       name: _nameController.text,
                       phone: _phoneController.text,
                       stcPay: _stcPayController.text,
@@ -168,6 +171,13 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     return Flex(
       direction: Axis.vertical,
       children: [
+        TextFormField(
+          controller: _bankNameController,
+          decoration: InputDecoration(
+            hintText: S.of(context).bankName,
+            labelText: S.of(context).bankName,
+          ),
+        ),
         TextFormField(
           controller: _bankAccountNumberController,
           decoration: InputDecoration(
