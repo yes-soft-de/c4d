@@ -29,38 +29,52 @@ class DrawerWidget extends StatelessWidget {
           children: [
             username != null || user_image != null
                 ? Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      color: Colors.blue[400],
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            height: 24,
-                            width: 24,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(user_image),
-                                  onError: (e, s) {
-                                    return Container(
-                                      height: 24,
-                                      width: 24,
-                                      decoration: BoxDecoration(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(16),
+                        color: Colors.blue[400],
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.all(8),
+                              child: Container(
+                                height: 56,
+                                width: 56,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(user_image),
+                                    onError: (e, s) {
+                                      return Container(
+                                        height: 48,
+                                        width: 48,
+                                        decoration: BoxDecoration(
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                        'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
-                                      ))),
-                                    );
-                                  }),
-                              shape: BoxShape.circle,
+                                            image: NetworkImage(
+                                              'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
                             ),
-                          ),
-                          Text(
-                            username,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
+                            Text(
+                              username,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   )
