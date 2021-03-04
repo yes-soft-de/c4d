@@ -334,12 +334,13 @@ class UserController extends BaseController
 
     /**
      * @Route("/totalBounceCaptain/{captainProfileId}", name="TotalBounceCaptain",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      * @param                                     Request $request
      * @return                                    JsonResponse
      */
     public function totalBounceCaptain($captainProfileId)
     {
-        $result = $this->userService->totalBounceCaptain($captainProfileId);
+        $result = $this->userService->totalBounceCaptain($captainProfileId,'admin');
 
         return $this->response($result, self::FETCH);
     }

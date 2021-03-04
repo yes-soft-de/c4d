@@ -19,32 +19,28 @@ class PaymentsCaptainEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, PaymentsCaptainEntity::class);
     }
 
-    // /**
-    //  * @return PaymentsCaptainEntity[] Returns an array of PaymentsCaptainEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function  getpayments($captainId)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('PaymentsCaptain')
+               ->select('PaymentsCaptain.id, PaymentsCaptain.captainId, PaymentsCaptain.amount, PaymentsCaptain.date')
 
-    /*
-    public function findOneBySomeField($value): ?PaymentsCaptainEntity
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+               ->andWhere('PaymentsCaptain.captainId = :captainId')
+
+               ->setParameter('captainId', $captainId)
+
+               ->getQuery()
+               ->getResult();
     }
-    */
+    
+    public function getSumAmount($captainId)
+    {
+        return $this->createQueryBuilder('PaymentsCaptain')
+               ->select('sum(PaymentsCaptain.amount) as sumPayments')
+               ->andWhere('PaymentsCaptain.captainId = :captainId')
+
+               ->setParameter('captainId', $captainId)
+
+               ->getQuery()
+               ->getResult();
+    }
 }

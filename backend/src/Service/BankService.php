@@ -47,6 +47,13 @@ class BankService
         return $this->autoMapping->map('array', BankResponse::class, $item);
     }
 
+    // public function getAccount($userID)
+    // {
+    //     $item = $this->bankManager->getAccount($userID);
+     
+    //     return $this->autoMapping->map('array', BankResponse::class, $item);
+    // }
+
     public function getAccounts()
     {
         $items = $this->bankManager->getAccounts();

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PaymentsCaptainEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=PaymentsCaptainEntityRepository::class)
@@ -23,6 +24,7 @@ class PaymentsCaptainEntity
     private $captainId;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
