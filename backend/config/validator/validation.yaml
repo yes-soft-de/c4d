@@ -95,6 +95,12 @@ App\Request\UserProfileUpdateRequest:
       - NotBlank: ~
     phone:
       - NotBlank: ~
+    bankName:
+      - NotBlank: ~
+    accountID:
+      - NotBlank: ~
+    stcPay:
+      - NotBlank: ~
 
 App\Request\userProfileUpdateByAdminRequest:
   properties:

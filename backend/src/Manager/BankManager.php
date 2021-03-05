@@ -7,6 +7,8 @@ use App\Entity\BankEntity;
 use App\Repository\BankEntityRepository;
 use App\Request\BankCreateRequest;
 use App\Request\BankUpdateRequest;
+use App\Request\UserProfileUpdateRequest;
+use App\Request\CaptainProfileUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class BankManager
@@ -41,6 +43,34 @@ class BankManager
             return null;
         }
         $entity = $this->autoMapping->mapToObject(BankUpdateRequest::class, BankEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    } 
+
+    public function updateFromProfile(UserProfileUpdateRequest $request)
+    {
+        $entity = $this->bankEntityRepository->getByUserId($request->getUserID());
+        if (!$entity) {
+            return null;
+        }
+                
+        $entity = $this->autoMapping->mapToObject(UserProfileUpdateRequest::class, BankEntity::class, $request, $entity);
+
+        $this->entityManager->flush();
+
+        return $entity;
+    }  
+    
+    public function updateFromCaptain(CaptainProfileUpdateRequest $request)
+    {
+        $entity = $this->bankEntityRepository->getByUserId($request->getUserID());
+        if (!$entity) {
+            return null;
+        }
+                
+        $entity = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, BankEntity::class, $request, $entity);
 
         $this->entityManager->flush();
 

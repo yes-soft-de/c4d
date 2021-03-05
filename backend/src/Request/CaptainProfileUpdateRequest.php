@@ -4,6 +4,8 @@ namespace App\Request;
 
 class CaptainProfileUpdateRequest
 {
+    private $userID;
+    
     private $name;
 
     private $image;
@@ -21,6 +23,12 @@ class CaptainProfileUpdateRequest
     private $phone;
 
     private $isOnline;
+    
+    private $bankName;
+
+    private $accountID;
+    
+    private $stcPay;
 
     /**
      * Get the value of name
@@ -178,6 +186,26 @@ class CaptainProfileUpdateRequest
     public function setIsOnline($isOnline)
     {
         $this->isOnline = $isOnline;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userID
+     */ 
+    public function getUserID()
+    {
+        return $this->userID;
+    }
+
+    /**
+     * Set the value of userID
+     *
+     * @return  self
+     */ 
+    public function setUserID($userID)
+    {
+        $this->userID = $userID;
 
         return $this;
     }

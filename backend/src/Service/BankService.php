@@ -33,6 +33,20 @@ class BankService
         return $this->autoMapping->map(BankEntity::class, BankResponse::class, $result);
     }
 
+    public function updateFromProfile($request)
+    {
+        $result = $this->bankManager->updateFromProfile($request);
+
+        return $this->autoMapping->map(BankEntity::class, BankResponse::class, $result);
+    }
+
+    public function updateFromCaptain($request)
+    {
+        $result = $this->bankManager->updateFromCaptain($request);
+
+        return $this->autoMapping->map(BankEntity::class, BankResponse::class, $result);
+    }
+
     public function getAccountByUserId($userId)
     {
         $item = $this->bankManager->getAccountByUserId($userId);

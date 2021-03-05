@@ -34,6 +34,15 @@ class BankEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+    public function getByUserId($userId)
+    {
+        return $this->createQueryBuilder('BankEntity')
+            ->andWhere("BankEntity.userID = :userId ")
+
+            ->setParameter('userId',$userId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     public function getAccount($userId)
     {

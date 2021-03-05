@@ -19,6 +19,12 @@ class UserProfileUpdateRequest
     private $city;
     
     private $phone;
+
+    private $bankName;
+
+    private $accountID;
+    
+    private $stcPay;
     
     /**
      * @return mixed

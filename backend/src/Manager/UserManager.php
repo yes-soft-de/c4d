@@ -156,9 +156,9 @@ class UserManager
         }
     }
 
-    public function captainprofileUpdate(CaptainProfileUpdateRequest $request, $captainID)
+    public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
     {
-        $item = $this->captainProRepository->getByCaptainIDForUpdate($captainID);
+        $item = $this->captainProRepository->getByCaptainIDForUpdate($request->getUserID());
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
             $this->entityManager->flush();
