@@ -34,13 +34,16 @@ class PaymentService
 
     public function getpaymentsForOwner($ownerId, $admin='null')
     {
+       $response = [];
 
        $totalAmountOfSubscriptions= $this->subscriptionService->totalAmountOfSubscriptions($ownerId);
        $bank= $this->bankService->getAccount($ownerId);
-        $response = [];
+       
         $items = $this->paymentManager->getpaymentsForOwner($ownerId);
+       
         $sumPayments = $this->paymentManager->getSumAmount($ownerId);
         $NewAmount = $this->paymentManager->getNewAmount($ownerId);
+        $nextPay = null;
         if ($NewAmount){
             $nextPay = $this->subtractTowDates($NewAmount[0]['date']);
         }
@@ -52,13 +55,11 @@ class PaymentService
         if ($admin == "admin"){$total = $totalAmountOfSubscriptions - $sumPayments;}
         
         foreach ($items as $item) {   
-           
-           
             $response[] =  $this->autoMapping->map('array', PaymentCreateResponse::class, $item);
         }
-        if ($NewAmount){
-            $response['nextPay'] = $nextPay;
-        }
+      
+        $response['nextPay'] = $nextPay;
+        
         $response['sumPayments'] = $sumPayments;
         $response['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
         $response['currentTotal'] = $total;

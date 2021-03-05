@@ -221,6 +221,10 @@ class SubscriptionService
                 $result[$item['totalAmountOfSubscriptions']] = $item['totalAmountOfSubscriptions'];
             }
         }
+        if ($items ) {
             return array_sum($result);
+        }
+        return 0;
+            
     }  
 }
