@@ -12,10 +12,9 @@ class DrawerWidget extends StatelessWidget {
   final placeholder =
       'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png';
 
-  DrawerWidget(
-      {this.username = 'user',
-      this.user_image =
-          'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png'});
+  DrawerWidget({this.username = 'user',
+    this.user_image =
+    'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png'});
 
   @override
   Widget build(BuildContext context) {
@@ -29,55 +28,56 @@ class DrawerWidget extends StatelessWidget {
           children: [
             username != null || user_image != null
                 ? Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(16),
-                        color: Colors.blue[400],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.all(8),
-                              child: Container(
-                                height: 56,
-                                width: 56,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(user_image),
-                                    onError: (e, s) {
-                                      return Container(
-                                        height: 48,
-                                        width: 48,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      );
-                                    },
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                      ProfileRoutes.EDIT_ACTIVITY_SCREEN);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  color: Colors.blue[400],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.all(8),
+                        child: Container(
+                          height: 56,
+                          width: 56,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(user_image),
+                              onError: (e, s) {
+                                return Container(
+                                  height: 48,
+                                  width: 48,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
+                                );
+                              },
                             ),
-                            Text(
-                              username,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
+                            shape: BoxShape.circle,
+                          ),
                         ),
                       ),
-                    ),
-                  )
+                      Text(
+                        username,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
                 : Container(),
             Flex(
               direction: Axis.vertical,
@@ -89,24 +89,30 @@ class DrawerWidget extends StatelessWidget {
                     );
                   },
                   child: ListTile(
-                    title: Text(S.of(context).myPlan),
+                    title: Text(S
+                        .of(context)
+                        .myPlan),
                     leading: Icon(Icons.money),
                   ),
                 ),
                 GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        ProfileRoutes.ACTIVITY_SCREEN,
-                      );
-                    },
-                    child: ListTile(
-                      title: Text(S.of(context).myOrders),
-                      leading: Icon(Icons.compare_arrows),
-                    )),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      ProfileRoutes.ACTIVITY_SCREEN,
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(S
+                        .of(context)
+                        .myOrders),
+                    leading: Icon(Icons.compare_arrows),
+                  ),),
                 GestureDetector(
                   child: ListTile(
                     leading: Icon(Icons.phone),
-                    title: Text(S.of(context).directSupport),
+                    title: Text(S
+                        .of(context)
+                        .directSupport),
                   ),
                 ),
                 GestureDetector(
@@ -117,7 +123,9 @@ class DrawerWidget extends StatelessWidget {
                     child: ListTile(
                       leading: Icon(Icons.privacy_tip),
                       title: Text(
-                        S.of(context).privacyPolicy,
+                        S
+                            .of(context)
+                            .privacyPolicy,
                       ),
                     )),
                 GestureDetector(
@@ -127,7 +135,9 @@ class DrawerWidget extends StatelessWidget {
                     },
                     child: ListTile(
                       title: Text(
-                        S.of(context).termsOfService,
+                        S
+                            .of(context)
+                            .termsOfService,
                       ),
                       leading: Icon(Icons.privacy_tip),
                     )),
@@ -139,19 +149,25 @@ class DrawerWidget extends StatelessWidget {
                   child: ListTile(
                     leading: Icon(Icons.settings),
                     title: Text(
-                      S.of(context).settings,
+                      S
+                          .of(context)
+                          .settings,
                     ),
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
                     launch('https://wa.me/?text=' +
-                        S.of(context).pleaseDownloadC4d);
+                        S
+                            .of(context)
+                            .pleaseDownloadC4d);
                   },
                   child: ListTile(
                     leading: Icon(Icons.ios_share),
                     title: Text(
-                      S.of(context).share,
+                      S
+                          .of(context)
+                          .share,
                     ),
                   ),
                 ),
