@@ -22,6 +22,7 @@ class ProfileStateGotProfile extends ProfileState {
           request.phone = profile.phone;
           request.stcPay = profile.stcPay;
           request.bankAccountNumber = profile.bankNumber;
+          request.bankName = profile.bankName;
           request.image = profile.image;
           screenState.saveProfile(request);
         },
@@ -30,6 +31,7 @@ class ProfileStateGotProfile extends ProfileState {
           request.phone = profile.phone;
           request.stcPay = profile.stcPay;
           request.bankAccountNumber = profile.bankNumber;
+          request.bankName = profile.bankName;
           request.image = profile.image;
           screenState.uploadImage(request);
         },

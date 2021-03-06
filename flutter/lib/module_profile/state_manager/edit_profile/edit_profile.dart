@@ -8,7 +8,6 @@ import 'package:c4d/module_profile/ui/states/profile_state_got_profile/profile_s
 import 'package:c4d/module_profile/ui/states/profile_state_no_profile/profile_state_no_profile.dart';
 import 'package:c4d/module_profile/ui/states/profile_state_success/profile_state_success.dart';
 import 'package:c4d/module_upload/service/image_upload/image_upload_service.dart';
-import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -56,6 +55,9 @@ class EditProfileStateManager {
             drivingLicence: value.drivingLicence,
             city: 'Jedda',
             branch: '-1',
+            bankName: value.bankName,
+            bankAccountNumber: value.accountID,
+            stcPay: value.stcPay,
             car: value.car,
             age: value.age.toString(),
           ),

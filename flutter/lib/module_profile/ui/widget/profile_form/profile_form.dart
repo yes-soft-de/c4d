@@ -70,7 +70,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                     phone: _phoneController.text,
                     stcPay: _stcPayController.text,
                     bankNumber: _stcPayController.text,
-                    bankName: _bankNameController.text,
+                    bankName: _bankAccountNumberController.text,
                   );
                   widget.onImageUpload(profile);
                   setState(() {});
@@ -80,33 +80,23 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 height: 96,
                 width: 96,
                 decoration: BoxDecoration(shape: BoxShape.circle),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        shape: BoxShape.circle,
+                child: widget.request == null
+                    ? Container()
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(25.0),
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/images/logo.jpg',
+                          height: 80,
+                          width: 80,
+                          image: widget.request.image.contains('http')
+                              ? widget.request.image
+                              : Urls.IMAGES_ROOT + widget.request.image,
+                          fit: BoxFit.cover,
+                          imageErrorBuilder: (e, s, h) {
+                            return Image.asset('assets/images/logo.jpg');
+                          },
+                        ),
                       ),
-                    ),
-                    widget.request == null
-                        ? Container()
-                        : widget.request.image == null
-                            ? Container()
-                            : Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          widget.request.image.contains('http')
-                                              ? widget.request.image
-                                              : Urls.IMAGES_ROOT +
-                                                  widget.request.image),
-                                      fit: BoxFit.cover,
-                                    )),
-                              ),
-                  ],
-                ),
               ),
             ),
             TextFormField(
@@ -153,7 +143,8 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                       name: _nameController.text,
                       phone: _phoneController.text,
                       stcPay: _stcPayController.text,
-                      bankNumber: _stcPayController.text,
+                      bankName: _bankNameController.text,
+                      bankNumber: _bankNameController.text,
                     );
                     widget.onProfileSaved(profile);
                   } else {
