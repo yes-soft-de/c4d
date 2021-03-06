@@ -164,9 +164,12 @@
   "share": "المشاركة",
   "pleaseDownloadC4d": "الرجاء تحميل C4D",
   "myPlan": "باقتي",
-  "bankAccountNumber": "Bank Account Number",
-  "stcPayCode": "STC Pay Code",
-  "currentBalance": "Current Balance:",
-  "nextPaymentDate": "Next Payment Date:",
-  "saudiRiyal": "Saudi Riyal"
+  "bankAccountNumber": "رقم الحساب البنكي",
+  "stcPayCode": "رقم حساب STC",
+  "currentBalance": "الرصيد الحالي:",
+  "nextPaymentDate": "تاريخ الدفعة القادمة:",
+  "saudiRiyal": "ريال سعودي",
+  "activePlan": "الباقة الحالية",
+  "activeCars": "السيارات المشغولة",
+  "ordersMonth": "طلب / الشهر"
 }

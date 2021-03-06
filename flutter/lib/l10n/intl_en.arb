@@ -168,5 +168,8 @@
   "stcPayCode": "STC Pay Code",
   "currentBalance": "Current Balance:",
   "nextPaymentDate": "Next Payment Date:",
-  "saudiRiyal": "Saudi Riyal"
+  "saudiRiyal": "Saudi Riyal",
+  "activePlan": "Active Plan",
+  "activeCars": "Active Cars",
+  "ordersMonth": "Orders / Month"
 }

@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_plan/model/active_plan_model.dart';
 import 'package:c4d/module_plan/ui/screen/plan_screen.dart';
 import 'package:c4d/module_plan/ui/state/plan_state.dart';
@@ -17,7 +18,7 @@ class PlanScreenStateLoaded extends PlanScreenState {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Active Plan'),
+          child: Text(S.of(context).activePlan),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -33,7 +34,7 @@ class PlanScreenStateLoaded extends PlanScreenState {
                         FaIcon(FontAwesomeIcons.car),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Text('${activePlanModel.cars} Active Cars'),
+                          child: Text('${activePlanModel.cars} ' + S.of(context).activeCars),
                         ),
                       ],
                     ),
@@ -46,7 +47,7 @@ class PlanScreenStateLoaded extends PlanScreenState {
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child:
-                              Text('${activePlanModel.orders} Orders / Month'),
+                              Text('${activePlanModel.orders} ' + S.of(context).ordersMonth),
                         ),
                       ],
                     ),

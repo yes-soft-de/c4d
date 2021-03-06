@@ -108,6 +108,9 @@ class DrawerWidget extends StatelessWidget {
                     leading: Icon(Icons.compare_arrows),
                   ),),
                 GestureDetector(
+                  onTap: () {
+                    launch('https://wa.me/+966502722204');
+                  },
                   child: ListTile(
                     leading: Icon(Icons.phone),
                     title: Text(S

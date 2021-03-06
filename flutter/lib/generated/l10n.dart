@@ -1724,6 +1724,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Active Plan`
+  String get activePlan {
+    return Intl.message(
+      'Active Plan',
+      name: 'activePlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active Cars`
+  String get activeCars {
+    return Intl.message(
+      'Active Cars',
+      name: 'activeCars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders / Month`
+  String get ordersMonth {
+    return Intl.message(
+      'Orders / Month',
+      name: 'ordersMonth',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
