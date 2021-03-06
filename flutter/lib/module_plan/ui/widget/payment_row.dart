@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -14,7 +15,7 @@ class PaymentRow extends StatelessWidget {
       child: Card(
         child: ListTile(
           leading: Icon(Icons.payment),
-          title: Text('${amount}'),
+          title: Text('${amount} ' + S.of(context).saudiRiyal),
           trailing: Text(
             timeago.format(paymentDate,
                 locale: Localizations.localeOf(context).languageCode),

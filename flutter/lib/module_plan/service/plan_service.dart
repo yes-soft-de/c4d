@@ -26,13 +26,14 @@ class PlanService {
     ]);
     List orders = responses[0];
     PackageBalanceResponse packages = responses[1];
+    BalanceModel balanceModel = responses[2];
     var activePlan = ActivePlanModel(
       activeCars: orders == null ? 0 : orders.length,
       activeOrders: packages.data.countOrdersDelivered,
       name: packages.data.packagename,
       cars: int.tryParse(packages.data.packageCarCount),
       orders: int.tryParse(packages.data.packageOrderCount),
-      payments: responses[2],
+      payments: balanceModel.payments,
     );
     return activePlan;
   }

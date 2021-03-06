@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
     });
     return Scaffold(
       body: Center(
-        child: FlutterLogo(),
+        child: Image.asset('assets/images/logo.jpg'),
       ),
     );
   }

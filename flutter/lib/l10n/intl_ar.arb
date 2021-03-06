@@ -171,5 +171,6 @@
   "saudiRiyal": "ريال سعودي",
   "activePlan": "الباقة الحالية",
   "activeCars": "السيارات المشغولة",
-  "ordersMonth": "طلب / الشهر"
+  "ordersMonth": "طلب / الشهر",
+  "paymentHistory": "تاريخ الدفعات"
 }

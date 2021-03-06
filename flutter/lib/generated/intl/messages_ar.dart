@@ -131,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "password" : MessageLookupByLibrary.simpleMessage("كلمة السر"),
     "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("كلمة السر قصيرة جدا"),
     "paySubscription" : MessageLookupByLibrary.simpleMessage("دفع الاشتراك"),
+    "paymentHistory" : MessageLookupByLibrary.simpleMessage("تاريخ الدفعات"),
     "paymentMethod" : MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
     "phoneIsRequired" : MessageLookupByLibrary.simpleMessage("الرجاء تزويدنا برقم الهاتف"),
     "phoneNumber" : MessageLookupByLibrary.simpleMessage("رقم الهاتف"),

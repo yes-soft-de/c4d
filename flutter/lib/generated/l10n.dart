@@ -1754,6 +1754,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Payment History`
+  String get paymentHistory {
+    return Intl.message(
+      'Payment History',
+      name: 'paymentHistory',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,7 +1,9 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_plan/model/active_plan_model.dart';
+import 'package:c4d/module_plan/model/captain_balance_model.dart';
 import 'package:c4d/module_plan/ui/screen/plan_screen.dart';
 import 'package:c4d/module_plan/ui/state/plan_state.dart';
+import 'package:c4d/module_plan/ui/widget/payment_row.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,61 +15,64 @@ class PlanScreenStateLoaded extends PlanScreenState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(S.of(context).activePlan),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        FaIcon(FontAwesomeIcons.car),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text('${activePlanModel.cars} ' + S.of(context).activeCars),
-                        ),
-                      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(S.of(context).activePlan),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          FaIcon(FontAwesomeIcons.car),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text('${activePlanModel.cars} ' + S.of(context).activeCars),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        FaIcon(FontAwesomeIcons.sync),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child:
-                              Text('${activePlanModel.orders} ' + S.of(context).ordersMonth),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          FaIcon(FontAwesomeIcons.sync),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child:
+                                Text('${activePlanModel.orders} ' + S.of(context).ordersMonth),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        _getOrderRow(
-            context,
-            activePlanModel.activeOrders,
-            (activePlanModel.orders - activePlanModel.activeOrders).abs(),
-            (activePlanModel.activeOrders / activePlanModel.orders) > 0.8),
-        _getCarsRow(
-            context,
-            activePlanModel.activeCars,
-            (activePlanModel.cars - activePlanModel.activeCars).abs(),
-            (activePlanModel.activeCars / activePlanModel.cars) > 0.8),
-      ],
+          _getOrderRow(
+              context,
+              activePlanModel.activeOrders,
+              (activePlanModel.orders - activePlanModel.activeOrders).abs(),
+              (activePlanModel.activeOrders / activePlanModel.orders) > 0.8),
+          _getCarsRow(
+              context,
+              activePlanModel.activeCars,
+              (activePlanModel.cars - activePlanModel.activeCars).abs(),
+              (activePlanModel.activeCars / activePlanModel.cars) > 0.8),
+          _getPaymentList(activePlanModel.payments, context),
+        ],
+      ),
     );
   }
 
@@ -166,6 +171,21 @@ class PlanScreenStateLoaded extends PlanScreenState {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _getPaymentList(List<PaymentModel> payments, BuildContext context) {
+    var list = <Widget>[];
+
+    list.add(ListTile(title: Text(S.of(context).paymentHistory, style: TextStyle(fontWeight: FontWeight.bold),),));
+
+    payments.forEach((element) {
+      list.add(PaymentRow(element.paymentDate, element.amount));
+    });
+
+    return Flex(
+      direction: Axis.vertical,
+      children: list,
     );
   }
 }

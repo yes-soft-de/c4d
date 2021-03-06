@@ -131,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "password" : MessageLookupByLibrary.simpleMessage("Password"),
     "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("Password is too short"),
     "paySubscription" : MessageLookupByLibrary.simpleMessage("Pay Subscription"),
+    "paymentHistory" : MessageLookupByLibrary.simpleMessage("Payment History"),
     "paymentMethod" : MessageLookupByLibrary.simpleMessage("Payment Method"),
     "phoneIsRequired" : MessageLookupByLibrary.simpleMessage("Phone is required"),
     "phoneNumber" : MessageLookupByLibrary.simpleMessage("Phone Number"),
