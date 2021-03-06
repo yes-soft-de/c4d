@@ -36,11 +36,8 @@ class ProfileRequest {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
 
-    if (data['userName'] != null) {
-      data['userName'] = this.name;
-    } else {
-      data['name'] = this.name;
-    }
+    data['name'] = this.name;
+    data['userName'] = this.name;
     data['phone'] = this.phone;
     data['bankName'] = this.bankName;
     if (this.image != null) {

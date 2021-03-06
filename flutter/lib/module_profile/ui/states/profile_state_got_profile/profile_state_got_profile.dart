@@ -7,16 +7,17 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class ProfileStateGotProfile extends ProfileState {
   ProfileRequest request;
+  final bool isCaptain;
 
   ProfileStateGotProfile(
-      EditProfileScreenState screenState, this.request)
+      EditProfileScreenState screenState, this.request, this.isCaptain)
       : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
     return SingleChildScrollView(
       child: ProfileFormWidget(
-        isCaptain: true,
+        isCaptain: isCaptain,
         onProfileSaved: (profile) {
           request.name = profile.name;
           request.phone = profile.phone;

@@ -7,9 +7,10 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class ProfileStateDirtyProfile extends ProfileState {
   ProfileRequest request;
+  bool isCaptain;
 
   ProfileStateDirtyProfile(
-      EditProfileScreenState screenState, this.request)
+      EditProfileScreenState screenState, this.request, this.isCaptain)
       : super(screenState);
 
   @override

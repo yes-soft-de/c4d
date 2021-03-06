@@ -7,7 +7,8 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class ProfileStateNoProfile extends ProfileState {
   ProfileRequest request;
-  ProfileStateNoProfile(EditProfileScreenState screenState, this.request)
+  final bool isCaptain;
+  ProfileStateNoProfile(EditProfileScreenState screenState, this.request, this.isCaptain)
       : super(screenState);
 
   @override
@@ -33,7 +34,7 @@ class ProfileStateNoProfile extends ProfileState {
           request.image = profile.image;
           screenState.uploadImage(request);
         },
-        isCaptain: true,
+        isCaptain: isCaptain,
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/module_profile/ui/screen/edit_profile/edit_profile.dart';
@@ -16,26 +18,35 @@ class EditProfileStateManager {
   final _stateSubject = PublishSubject<ProfileState>();
   final ImageUploadService _imageUploadService;
   final ProfileService _profileService;
+  final AuthService _authService;
+  bool isCaptain;
 
-  EditProfileStateManager(this._imageUploadService, this._profileService);
+  EditProfileStateManager(
+      this._imageUploadService, this._profileService, this._authService) {
+    this._authService.userRole.then((value) {
+      isCaptain = value == UserRole.ROLE_CAPTAIN;
+    });
+  }
 
   Stream<ProfileState> get stateStream => _stateSubject.stream;
 
   void uploadImage(EditProfileScreenState screenState, ProfileRequest request) {
     _imageUploadService.uploadImage(request.image).then((uploadedImageLink) {
       request.image = uploadedImageLink;
-      _stateSubject.add(ProfileStateDirtyProfile(screenState, request));
+      _stateSubject.add(
+          ProfileStateDirtyProfile(screenState, request, isCaptain == true));
     });
   }
 
-  void submitProfile(EditProfileScreenState screenState, ProfileRequest request) {
+  void submitProfile(
+      EditProfileScreenState screenState, ProfileRequest request) {
     _stateSubject.add(ProfileStateLoading(screenState));
     _profileService.createProfile(request).then((value) {
       if (value) {
         _stateSubject.add(ProfileStateSaveSuccess(screenState));
       } else {
-        _stateSubject
-            .add(ProfileStateGotProfile(screenState, request));
+        _stateSubject.add(
+            ProfileStateGotProfile(screenState, request, isCaptain == true));
       }
     });
   }
@@ -44,7 +55,8 @@ class EditProfileStateManager {
     _stateSubject.add(ProfileStateLoading(screenState));
     _profileService.getProfile().then((value) {
       if (value == null) {
-        _stateSubject.add(ProfileStateNoProfile(screenState, ProfileRequest()));
+        _stateSubject.add(ProfileStateNoProfile(
+            screenState, ProfileRequest(), isCaptain == true));
       } else {
         _stateSubject.add(ProfileStateGotProfile(
           screenState,
@@ -61,6 +73,7 @@ class EditProfileStateManager {
             car: value.car,
             age: value.age.toString(),
           ),
+          isCaptain == true,
         ));
       }
     });

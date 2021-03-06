@@ -30,7 +30,7 @@ class Data {
   int countOrdersDelivered;
   String subscriptionstatus;
   SubscriptionStartDate subscriptionStartDate;
-  Null subscriptionEndDate;
+  dynamic subscriptionEndDate;
   String packageCarCount;
   String packageOrderCount;
 
