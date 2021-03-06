@@ -43,7 +43,7 @@ class EditProfileStateManager {
     _stateSubject.add(ProfileStateLoading(screenState));
     _profileService.createProfile(request).then((value) {
       if (value) {
-        _stateSubject.add(ProfileStateSaveSuccess(screenState));
+        _stateSubject.add(ProfileStateSaveSuccess(screenState, this.isCaptain == true));
       } else {
         _stateSubject.add(
             ProfileStateGotProfile(screenState, request, isCaptain == true));
