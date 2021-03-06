@@ -12,5 +12,7 @@ class PackageBalanceManager {
 
   Future<PackageBalanceResponse> getCaptainPackage() => _repository.getCaptainPackage();
 
-  Future<CaptainBalanceResponse> getCaptainBalance() => _repository.getCaptainBalance();
+  Future<PaymentListReponse> getCaptainBalance() => _repository.getCaptainBalance();
+
+  Future<PaymentListReponse> getOwnerPayments() => _repository.getOwnerPayments();
 }

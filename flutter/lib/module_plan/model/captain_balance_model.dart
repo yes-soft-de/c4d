@@ -1,11 +1,11 @@
-class CaptainBalanceModel {
+class BalanceModel {
   DateTime nextPaymentDate;
   int currentBalance;
   int bonus;
   int salary;
   List<PaymentModel> payments;
 
-  CaptainBalanceModel({
+  BalanceModel({
     this.nextPaymentDate,
     this.currentBalance,
     this.bonus,

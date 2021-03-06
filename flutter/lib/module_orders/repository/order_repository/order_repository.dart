@@ -70,13 +70,19 @@ class OrderRepository {
     await _authService.refreshToken();
     var token = await _authService.getToken();
 
-    dynamic response = await _apiClient.get(
-      Urls.OWNER_ORDERS_API,
-      headers: {'Authorization': 'Bearer ${token}'},
-    );
-    if (response == null) return [];
+    try {
+      dynamic response = await _apiClient.get(
+        Urls.OWNER_ORDERS_API,
+        headers: {'Authorization': 'Bearer ${token}'},
+      );
+      if (response == null) return [];
 
-    return OrdersResponse.fromJson(response).data;
+      return OrdersResponse
+          .fromJson(response)
+          .data;
+    } catch (e) {
+      return [];
+    }
   }
 
   Future<List<Order>> getCaptainOrders() async {

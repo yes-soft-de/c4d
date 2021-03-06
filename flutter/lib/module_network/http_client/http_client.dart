@@ -42,7 +42,17 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + ', GET: ' + url, StackTrace.current);
+      if (e is DioError) {
+        DioError err = e;
+        if (err.response != null) {
+          if (err.response?.statusCode != 404) {
+            _logger.error(
+                tag, err.message + ', GET: ' + url, StackTrace.current);
+          }
+        }
+      } else {
+        _logger.error(tag, e.toString() + ', GET: ' + url, StackTrace.current);
+      }
       return null;
     }
   }
@@ -75,8 +85,21 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + ', POST: ' + url, StackTrace.current);
-      return null;
+      if (e is DioError) {
+        DioError err = e;
+        if (err != null) {
+          if (err.response != null) {
+            if (err.response.statusCode != 404) {
+              _logger.error(
+                  tag, err.message + ', POST: ' + url, StackTrace.current);
+              return null;
+            }
+          }
+        }
+      } else {
+        _logger.error(tag, e.toString() + ', POST: ' + url, StackTrace.current);
+        return null;
+      }
     }
   }
 
@@ -111,7 +134,14 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + ', PUT: ' + url, StackTrace.current);
+      if (e is DioError) {
+        DioError err = e;
+        if (err.response.statusCode != 404) {
+          _logger.error(tag, err.message + ', PUT: ' + url, StackTrace.current);
+        }
+      } else {
+        _logger.error(tag, e.toString() + ', PUT: ' + url, StackTrace.current);
+      }
       return null;
     }
   }
@@ -142,8 +172,14 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(
-          tag, e.toString() + ', DELETE: ' + url, StackTrace.current);
+      if (e is DioError) {
+        DioError err = e;
+        if (err.response.statusCode != 404) {
+          _logger.error(tag, err.message + ', DELETE: ' + url, StackTrace.current);
+        }
+      } else {
+        _logger.error(tag, e.toString() + ', DELETE: ' + url, StackTrace.current);
+      }
       return null;
     }
   }

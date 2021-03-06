@@ -8,11 +8,13 @@ import 'package:inject/inject.dart';
 @provide
 class PackageBalanceRepository {
   final AuthService _authService;
+
   PackageBalanceRepository(this._authService);
 
   Future<PackageBalanceResponse> getCaptainPackage() async {
     ApiClient client = new ApiClient(new Logger());
-    var response = await client.get('http://c4d.yes-cloud.de/html/public/packagebalance/');
+    var response =
+        await client.get('http://c4d.yes-cloud.de/html/public/packagebalance/');
 
     if (response == null) return null;
     return PackageBalanceResponse.fromJson(response);
@@ -22,7 +24,8 @@ class PackageBalanceRepository {
     ApiClient client = new ApiClient(new Logger());
     await _authService.refreshToken();
     var token = await _authService.getToken();
-    var response = await client.get('http://c4d.yes-cloud.de/html/public/packagebalance/', headers: {
+    var response = await client
+        .get('http://c4d.yes-cloud.de/html/public/packagebalance/', headers: {
       'Authorization': 'Bearer ' + token,
     });
 
@@ -30,16 +33,41 @@ class PackageBalanceRepository {
     return PackageBalanceResponse.fromJson(response);
   }
 
-  Future<CaptainBalanceResponse> getCaptainBalance() async {
+  Future<PaymentListReponse> getOwnerPayments() async {
     ApiClient client = new ApiClient(new Logger());
     await _authService.refreshToken();
     var token = await _authService.getToken();
-    var response = await client.get('http://c4d.yes-cloud.de/html/public/captainmybalance/', headers: {
+
+    try {
+      var response = await client.get(
+        'http://c4d.yes-cloud.de/html/public/payments/',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      );
+
+      if (response == null) return null;
+      return PaymentListReponse.fromJson(response);
+    } catch (e) {
+      return PaymentListReponse(
+        data: PaymentObject(
+          payments: [],
+        ),
+      );
+    }
+  }
+
+  Future<PaymentListReponse> getCaptainBalance() async {
+    ApiClient client = new ApiClient(new Logger());
+    await _authService.refreshToken();
+    var token = await _authService.getToken();
+    var response = await client
+        .get('http://c4d.yes-cloud.de/html/public/captainmybalance/', headers: {
       'Authorization': 'Bearer ' + token,
     });
 
     if (response == null) return null;
 
-    return CaptainBalanceResponse.fromJson(response);
+    return PaymentListReponse.fromJson(response);
   }
 }

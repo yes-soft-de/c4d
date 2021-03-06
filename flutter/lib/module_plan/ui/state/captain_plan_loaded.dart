@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class CaptainPlanScreenStateLoaded extends PlanScreenState {
-  CaptainBalanceModel captainBalanceModel;
+  BalanceModel captainBalanceModel;
 
   CaptainPlanScreenStateLoaded(PlanScreen screen, this.captainBalanceModel)
       : super(screen);

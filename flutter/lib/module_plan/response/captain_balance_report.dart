@@ -1,14 +1,14 @@
-class CaptainBalanceResponse {
+class PaymentListReponse {
   String statusCode;
   String msg;
-  Data data;
+  PaymentObject data;
 
-  CaptainBalanceResponse({this.statusCode, this.msg, this.data});
+  PaymentListReponse({this.statusCode, this.msg, this.data});
 
-  CaptainBalanceResponse.fromJson(Map<String, dynamic> json) {
+  PaymentListReponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    data = json['Data'] != null ? new Data.fromJson(json['Data']) : null;
+    data = json['Data'] != null ? new PaymentObject.fromJson(json['Data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class CaptainBalanceResponse {
   }
 }
 
-class Data {
+class PaymentObject {
   int bounce;
   String sumPayments;
   int netProfit;
@@ -31,7 +31,7 @@ class Data {
   List<Payments> payments;
   String bank;
 
-  Data(
+  PaymentObject(
       {this.bounce,
         this.sumPayments,
         this.netProfit,
@@ -40,7 +40,7 @@ class Data {
         this.payments,
         this.bank});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  PaymentObject.fromJson(Map<String, dynamic> json) {
     bounce = json['bounce'];
     sumPayments = json['sumPayments'];
     netProfit = json['NetProfit'];
