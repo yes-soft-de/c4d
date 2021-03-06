@@ -6,7 +6,7 @@ class UserProfileResponse
 {
     public $id;
     
-    // public $userName;
+    public $userName;
 
     // public $story;
 
@@ -25,4 +25,10 @@ class UserProfileResponse
     public $imageURL;
 
     public $baseURL;
+
+    public $bankName;
+    
+    public $accountID;
+    
+    public $stcPay;
 }
