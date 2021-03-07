@@ -24,7 +24,7 @@ jobs:
 
     - name: Upgrade Flutter Version
       run: |
-        flutter upgrade
+        flutter downgrade 1.22.5
 
     - name: Select Xcode version
       run: sudo xcode-select -s '/Applications/Xcode_12.4.app/Contents/Developer'

@@ -57,7 +57,7 @@ jobs:
 
       - name: Upgrade Flutter Version
         run: |
-          flutter upgrade
+          flutter downgrade 1.22.5
 
       - name: Get Flutter Packages tools
         run: |
