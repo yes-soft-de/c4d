@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mediumMoreThan20EmployeesLessThan100" : MessageLookupByLibrary.simpleMessage("21 - 100 Employees"),
     "mohammad" : MessageLookupByLibrary.simpleMessage("Mohammad"),
     "moveToOrders" : MessageLookupByLibrary.simpleMessage("Move to Orders"),
+    "myBalance" : MessageLookupByLibrary.simpleMessage("My Balance"),
     "myOrders" : MessageLookupByLibrary.simpleMessage("My Orders"),
     "myPlan" : MessageLookupByLibrary.simpleMessage("My Plan"),
     "myProfile" : MessageLookupByLibrary.simpleMessage("My Profile"),

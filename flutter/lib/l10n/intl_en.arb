@@ -174,5 +174,6 @@
   "ordersMonth": "Orders / Month",
   "paymentHistory": "Payment History",
   "completedOrders": "Completed Orders",
-  "latestUpdates": "Latest Updates"
+  "latestUpdates": "Latest Updates",
+  "myBalance": "My Balance"
 }

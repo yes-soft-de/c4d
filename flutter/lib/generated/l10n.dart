@@ -1784,6 +1784,16 @@ class S {
       args: [],
     );
   }
+
+  /// `My Balance`
+  String get myBalance {
+    return Intl.message(
+      'My Balance',
+      name: 'myBalance',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

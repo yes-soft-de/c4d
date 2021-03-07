@@ -92,7 +92,7 @@ class DrawerWidget extends StatelessWidget {
                     );
                   },
                   child: ListTile(
-                    title: Text(S.of(context).myPlan),
+                    title: Text(S.of(context).myBalance),
                     leading: Icon(Icons.money),
                   ),
                 ),
