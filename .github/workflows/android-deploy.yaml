@@ -55,6 +55,10 @@ jobs:
         env:
           FIREBASE_CONFIG: ${{secrets.FIREBASE_CONFIG}}
 
+      - name: Upgrade Flutter Version
+        run: |
+          flutter upgrade
+
       - name: Get Flutter Packages tools
         run: |
           cd ./flutter

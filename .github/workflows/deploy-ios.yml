@@ -11,6 +11,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Setup JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: "12.x"
+    
+    - name: Setup flutter
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: "1.22.4"
+        channel: "stable"
+
+    - name: Upgrade Flutter Version
+      run: |
+        flutter upgrade
+
+    - name: Select Xcode version
+      run: sudo xcode-select -s '/Applications/Xcode_12.4.app/Contents/Developer'
+
     - name: Setup SSH Keys and known_hosts for fastlane match
       run: |
         SSH_PATH="$HOME/.ssh"
@@ -26,23 +44,13 @@ jobs:
       env:
         PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Select Xcode version
-      run: sudo xcode-select -s '/Applications/Xcode_11.3.app/Contents/Developer'
+    - name: Clean the build
+      run: cd ./flutter && flutter clean
 
     - name: Bundle install
       run: cd ./flutter/ios && bundle update --bundler && bundle install
 
-    - name: Setup JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: "12.x"
-    - name: Setup flutter
-      uses: subosito/flutter-action@v1
-      with:
-        flutter-version: "1.22.4"
-        channel: "stable"
-
-    - name: Install tools
+    - name: Install Flutter dependencies
       run: |
         cd flutter && flutter pub get
         flutter packages pub run build_runner build --delete-conflicting-outputs
@@ -61,4 +69,3 @@ jobs:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
         MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-        DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS: ${{ secrets.DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS }}
