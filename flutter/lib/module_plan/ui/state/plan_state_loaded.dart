@@ -37,7 +37,8 @@ class PlanScreenStateLoaded extends PlanScreenState {
                           FaIcon(FontAwesomeIcons.car),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Text('${activePlanModel.cars} ' + S.of(context).activeCars),
+                            child: Text('${activePlanModel.cars} ' +
+                                S.of(context).activeCars),
                           ),
                         ],
                       ),
@@ -49,8 +50,8 @@ class PlanScreenStateLoaded extends PlanScreenState {
                           FaIcon(FontAwesomeIcons.sync),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child:
-                                Text('${activePlanModel.orders} ' + S.of(context).ordersMonth),
+                            child: Text('${activePlanModel.orders} ' +
+                                S.of(context).ordersMonth),
                           ),
                         ],
                       ),
@@ -177,7 +178,38 @@ class PlanScreenStateLoaded extends PlanScreenState {
   Widget _getPaymentList(List<PaymentModel> payments, BuildContext context) {
     var list = <Widget>[];
 
-    list.add(ListTile(title: Text(S.of(context).paymentHistory, style: TextStyle(fontWeight: FontWeight.bold),),));
+    try {
+      int paymentDay = activePlanModel.payments.last.paymentDate.day;
+      int paymentMonth = activePlanModel.payments.last.paymentDate.day + 1;
+      int paymentYear = activePlanModel.payments.last.paymentDate.year;
+
+      list.add(
+        Card(
+          color: Theme.of(context).primaryColor,
+          child: ListTile(
+            title: Text(
+              S.of(context).nextPaymentDate,
+              style: TextStyle(color: Colors.white),
+            ),
+            trailing: Text(
+              paymentDay.toString() +
+                  '/' +
+                  paymentMonth.toString() +
+                  '/' +
+                  paymentYear.toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      );
+    } catch (e) {}
+
+    list.add(ListTile(
+      title: Text(
+        S.of(context).paymentHistory,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    ));
 
     payments.forEach((element) {
       list.add(PaymentRow(element.paymentDate, element.amount));

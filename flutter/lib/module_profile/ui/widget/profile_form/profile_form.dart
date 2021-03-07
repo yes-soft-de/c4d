@@ -79,24 +79,42 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
               child: Container(
                 height: 96,
                 width: 96,
-                decoration: BoxDecoration(shape: BoxShape.circle),
-                child: widget.request == null
-                    ? Container()
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(25.0),
-                        child: FadeInImage.assetNetwork(
-                          placeholder: 'assets/images/logo.jpg',
-                          height: 80,
-                          width: 80,
-                          image: widget.request.image.contains('http')
-                              ? widget.request.image
-                              : Urls.IMAGES_ROOT + widget.request.image,
-                          fit: BoxFit.cover,
-                          imageErrorBuilder: (e, s, h) {
-                            return Image.asset('assets/images/logo.jpg');
-                          },
-                        ),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Container(
+                        height: 96,
+                        width: 96,
+                        decoration: BoxDecoration(shape: BoxShape.circle),
+                        child: widget.request == null
+                            ? Container()
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(25.0),
+                                child: FadeInImage.assetNetwork(
+                                  placeholder: 'assets/images/logo.jpg',
+                                  height: 80,
+                                  width: 80,
+                                  image: widget.request.image.contains('http')
+                                      ? widget.request.image
+                                      : Urls.IMAGES_ROOT + widget.request.image,
+                                  fit: BoxFit.cover,
+                                  imageErrorBuilder: (e, s, h) {
+                                    return Image.asset('assets/images/logo.jpg');
+                                  },
+                                ),
+                              ),
                       ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Icon(
+                        Icons.add_a_photo,
+                        size: 4,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             TextFormField(

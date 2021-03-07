@@ -191,7 +191,10 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   Future<List<Widget>> getMyOrdersList(BuildContext context) async {
     var uiList = <Widget>[];
 
-    myOrders.forEach((element) {
+    var orders = myOrders;
+    orders ??= [];
+
+    orders.forEach((element) {
       uiList.add(Container(
         margin: EdgeInsets.all(10),
         child: GestureDetector(

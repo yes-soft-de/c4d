@@ -175,5 +175,7 @@
   "paymentHistory": "تاريخ الدفعات",
   "completedOrders": " طلبات منتهية ",
   "latestUpdates": "اخر التحديثات",
-  "myBalance": "رصيدي"
+  "myBalance": "رصيدي",
+  "noImage": "لا يوجد صورة",
+  "howWeWork": "كيف يعمل التطبيق"
 }

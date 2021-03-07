@@ -23,185 +23,184 @@ class DrawerWidget extends StatelessWidget {
       color: Theme.of(context).brightness == Brightness.dark
           ? Colors.black87
           : Colors.white,
-      child: Container(
-        width: 256,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            username != null || user_image != null
-                ? Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(16),
-                        color: Colors.blue[400],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.all(8),
-                              child: Container(
-                                height: 56,
-                                width: 56,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(user_image),
-                                    onError: (e, s) {
-                                      return Container(
-                                        height: 48,
-                                        width: 48,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+      height: MediaQuery.of(context).size.height,
+      width: 256,
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Flex(
+                direction: Axis.vertical,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      color: Colors.blue[400],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 48,
+                            width: 48,
+                            child: Container(
+                              decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                ),
-                              ),
+                                  image: DecorationImage(
+                                    image: NetworkImage(user_image),
+                                    fit: BoxFit.cover,
+                                    onError: (c, s) {
+                                      print('Error ' + c.toString());
+                                      return AssetImage(
+                                          'assets/images/logo.jpg');
+                                    },
+                                  )),
                             ),
-                            Text(
-                              username,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
+                          ),
+                          Text(
+                            username,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        PlanRoutes.PLAN_ROUTE,
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(S.of(context).myBalance),
+                      leading: Icon(Icons.money),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        ProfileRoutes.ACTIVITY_SCREEN,
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(S.of(context).myOrders),
+                      leading: Icon(Icons.compare_arrows),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      launch('https://wa.me/+966502722204');
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.phone),
+                      title: Text(S.of(context).directSupport),
+                    ),
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        String url = 'https://c4d-app.web.app/privacy.html';
+                        launch(url);
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.privacy_tip),
+                        title: Text(
+                          S.of(context).privacyPolicy,
                         ),
-                      ),
-                    ),
-                  )
-                : Container(),
-            Flex(
-              direction: Axis.vertical,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      PlanRoutes.PLAN_ROUTE,
-                    );
-                  },
-                  child: ListTile(
-                    title: Text(S.of(context).myBalance),
-                    leading: Icon(Icons.money),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      ProfileRoutes.ACTIVITY_SCREEN,
-                    );
-                  },
-                  child: ListTile(
-                    title: Text(S.of(context).myOrders),
-                    leading: Icon(Icons.compare_arrows),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    launch('https://wa.me/+966502722204');
-                  },
-                  child: ListTile(
-                    leading: Icon(Icons.phone),
-                    title: Text(S.of(context).directSupport),
-                  ),
-                ),
-                GestureDetector(
+                      )),
+                  GestureDetector(
+                      onTap: () {
+                        String url = 'https://c4d-app.web.app/tos.html';
+                        launch(url);
+                      },
+                      child: ListTile(
+                        title: Text(
+                          S.of(context).termsOfService,
+                        ),
+                        leading: Icon(Icons.privacy_tip),
+                      )),
+                  GestureDetector(
                     onTap: () {
-                      String url = 'https://c4d-app.web.app/privacy.html';
-                      launch(url);
+                      Navigator.of(context)
+                          .pushNamed(SettingRoutes.ROUTE_SETTINGS);
                     },
                     child: ListTile(
-                      leading: Icon(Icons.privacy_tip),
+                      leading: Icon(Icons.settings),
                       title: Text(
-                        S.of(context).privacyPolicy,
+                        S.of(context).settings,
                       ),
-                    )),
-                GestureDetector(
-                    onTap: () {
-                      String url = 'https://c4d-app.web.app/tos.html';
-                      launch(url);
-                    },
-                    child: ListTile(
-                      title: Text(
-                        S.of(context).termsOfService,
-                      ),
-                      leading: Icon(Icons.privacy_tip),
-                    )),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(SettingRoutes.ROUTE_SETTINGS);
-                  },
-                  child: ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text(
-                      S.of(context).settings,
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    launch('https://wa.me/?text=' +
-                        S.of(context).pleaseDownloadC4d);
-                  },
-                  child: ListTile(
-                    leading: Icon(Icons.ios_share),
-                    title: Text(
-                      S.of(context).share,
-                    ),
-                  ),
-                ),
-                GestureDetector(
+                  GestureDetector(
                     onTap: () {
-                      String url = 'https://c4d-app.web.app/privacy.html';
-                      launch(url);
+                      launch('https://wa.me/?text=' +
+                          S.of(context).pleaseDownloadC4d);
                     },
                     child: ListTile(
-                      leading: Icon(Icons.update),
+                      leading: Icon(Icons.ios_share),
                       title: Text(
-                        S.of(context).latestUpdates,
+                        S.of(context).share,
                       ),
-                    )),
-              ],
-            ),
-            Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.phone,
                     ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.whatsapp,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.facebook,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.twitter,
-                    ),
-                    onPressed: () {}),
-              ],
-            ),
-          ],
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        String url = 'https://c4d-app.web.app/privacy.html';
+                        launch(url);
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.update),
+                        title: Text(
+                          S.of(context).latestUpdates,
+                        ),
+                      )),
+                  GestureDetector(
+                      onTap: () {
+                        String url = 'https://c4d-app.web.app/privacy.html';
+                        launch(url);
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.video_collection),
+                        title: Text(
+                          S.of(context).howWeWork,
+                        ),
+                      )),
+                ],
+              ),
+              Container(
+                height: 48,
+                child: Flex(
+                  direction: Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                        icon: Icon(
+                          Icons.phone,
+                        ),
+                        onPressed: () {}),
+                    IconButton(
+                        icon: FaIcon(
+                          FontAwesomeIcons.whatsapp,
+                        ),
+                        onPressed: () {}),
+                    IconButton(
+                        icon: FaIcon(
+                          FontAwesomeIcons.facebook,
+                        ),
+                        onPressed: () {}),
+                    IconButton(
+                        icon: FaIcon(
+                          FontAwesomeIcons.twitter,
+                        ),
+                        onPressed: () {}),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

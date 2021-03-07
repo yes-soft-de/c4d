@@ -175,5 +175,7 @@
   "paymentHistory": "Payment History",
   "completedOrders": "Completed Orders",
   "latestUpdates": "Latest Updates",
-  "myBalance": "My Balance"
+  "myBalance": "My Balance",
+  "noImage": "No Image",
+  "howWeWork": "How we work"
 }
