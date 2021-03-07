@@ -40,32 +40,38 @@ class PaymentService
        $bank= $this->bankService->getAccount($ownerId);
        
         $items = $this->paymentManager->getpaymentsForOwner($ownerId);
-       
+      
         $sumPayments = $this->paymentManager->getSumAmount($ownerId);
+       
         $NewAmount = $this->paymentManager->getNewAmount($ownerId);
         $nextPay = null;
         if ($NewAmount){
             $nextPay = $this->subtractTowDates($NewAmount[0]['date']);
         }
         $sumPayments = $sumPayments[0]['sumPayments'];
-
+       
         
 
         $total = $sumPayments - $totalAmountOfSubscriptions;
+        
         if ($admin == "admin"){$total = $totalAmountOfSubscriptions - $sumPayments;}
         
-        foreach ($items as $item) {   
-            $response[] =  $this->autoMapping->map('array', PaymentCreateResponse::class, $item);
+        foreach ($items as $item) {  
+            $response[]=  $this->autoMapping->map('array', PaymentCreateResponse::class, $item);  
         }
-      
-        $response['nextPay'] = $nextPay;
         
-        $response['sumPayments'] = $sumPayments;
-        $response['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
-        $response['currentTotal'] = $total;
-        $response['bank'] = $bank;
-       
-        return $response;
+      $arr['payments'] = $response;
+      $arr['nextPay'] = $nextPay;
+      $arr['sumPayments'] = $sumPayments;
+      $arr['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
+      $arr['currentTotal'] = $total;
+      $arr['bank']= $bank;
+        // $response['sumPayments'] = $sumPayments;
+        // $response['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
+        // $response['currentTotal'] = $total;
+        // $response['bank'] = $bank;
+      
+        return $arr;
     }
 
     public  function subtractTowDates($date) {
