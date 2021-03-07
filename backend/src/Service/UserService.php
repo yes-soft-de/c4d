@@ -87,9 +87,11 @@ class UserService
     {
         $item = $this->userManager->userProfileUpdate($request);
         $bank = $this->bankService->updateFromProfile($request);
+        if ($bank) {
         $item->bankName = $bank->bankName;
         $item->accountID = $bank->accountID;
         $item->stcPay = $bank->stcPay;
+        }
         return $this->autoMapping->map(UserProfileEntity::class, UserProfileResponse::class, $item);
     }
 
@@ -162,9 +164,11 @@ class UserService
     {
         $item = $this->userManager->captainprofileUpdate($request);
         $bank = $this->bankService->updateFromCaptain($request);
+        if ($bank) {
         $item->bankName = $bank->bankName;
         $item->accountID = $bank->accountID;
         $item->stcPay = $bank->stcPay;
+        }
         $item->setImage($this->specialLinkCheck($item->getSpecialLink()).$item->getImage());
         
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
