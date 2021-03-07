@@ -56,9 +56,9 @@ class DrawerWidget extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        user_image.contains('http')
-                                            ? user_image
-                                            : Urls.IMAGES_ROOT + user_image,
+                                        '${user_image}'.contains('http')
+                                            ? '${user_image}'
+                                            : '${Urls.IMAGES_ROOT}${user_image}',
                                       ),
                                       fit: BoxFit.cover,
                                       onError: (c, s) {

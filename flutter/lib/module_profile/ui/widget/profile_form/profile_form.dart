@@ -71,9 +71,9 @@ class ProfileFormWidget extends StatelessWidget {
                         decoration: BoxDecoration(shape: BoxShape.circle),
                         child: FadeInImage.assetNetwork(
                           placeholder: 'assets/images/logo.jpg',
-                          image: request.image.contains('http')
-                              ? request.image
-                              : Urls.IMAGES_ROOT + request.image,
+                          image: '${request.image}'.contains('http')
+                              ? '${request.image}'
+                              : '${Urls.IMAGES_ROOT}${request.image}',
                           height: 80,
                           width: 80,
                           fit: BoxFit.cover,
