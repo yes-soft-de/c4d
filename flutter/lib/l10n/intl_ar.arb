@@ -172,5 +172,6 @@
   "activePlan": "الباقة الحالية",
   "activeCars": "السيارات المشغولة",
   "ordersMonth": "طلب / الشهر",
-  "paymentHistory": "تاريخ الدفعات"
+  "paymentHistory": "تاريخ الدفعات",
+  "completedOrders": " طلبات منتهية "
 }

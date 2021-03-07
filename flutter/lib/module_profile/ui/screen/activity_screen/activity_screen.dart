@@ -36,7 +36,7 @@ class ActivityScreenState extends State<ActivityScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          S.of(context).activityLog,
+          S.of(context).completedOrders,
           style: TextStyle(
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white

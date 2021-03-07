@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "checkOrders" : MessageLookupByLibrary.simpleMessage("Check Orders"),
     "chooseYourCity" : MessageLookupByLibrary.simpleMessage("Choose Your City"),
     "chooseYourSize" : MessageLookupByLibrary.simpleMessage("Choose Your Size"),
+    "completedOrders" : MessageLookupByLibrary.simpleMessage("Completed Orders"),
     "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmCode" : MessageLookupByLibrary.simpleMessage("Confirm Code"),
     "contactPhoneNumber" : MessageLookupByLibrary.simpleMessage("Contact Phone Number"),

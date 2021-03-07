@@ -172,5 +172,6 @@
   "activePlan": "Active Plan",
   "activeCars": "Active Cars",
   "ordersMonth": "Orders / Month",
-  "paymentHistory": "Payment History"
+  "paymentHistory": "Payment History",
+  "completedOrders": "Completed Orders"
 }

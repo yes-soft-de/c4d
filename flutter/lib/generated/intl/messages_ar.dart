@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "checkOrders" : MessageLookupByLibrary.simpleMessage("تاكد من الطلبات"),
     "chooseYourCity" : MessageLookupByLibrary.simpleMessage("اختر مدينة تواجدك"),
     "chooseYourSize" : MessageLookupByLibrary.simpleMessage("عدد الموظفين العاملين"),
+    "completedOrders" : MessageLookupByLibrary.simpleMessage(" طلبات منتهية "),
     "confirm" : MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmCode" : MessageLookupByLibrary.simpleMessage("تأكيد الرقم"),
     "contactPhoneNumber" : MessageLookupByLibrary.simpleMessage("رقم الهاتف للتواصل"),
