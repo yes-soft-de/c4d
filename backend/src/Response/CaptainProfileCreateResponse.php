@@ -51,4 +51,6 @@ class CaptainProfileCreateResponse
     public $accountID;
     
     public $stcPay;
+    
+    public $bank;
 }

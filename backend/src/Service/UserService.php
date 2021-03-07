@@ -111,7 +111,7 @@ class UserService
     public function getUserProfileByUserID($userID)
     {
         $item = $this->userManager->getUserProfileByUserID($userID);
-
+        $item['bank'] = $this->bankService->getAccountByUserId($userID);
         $item['branches'] = $this->branchesService->branchesByUserId($userID);
 
         try {
@@ -194,6 +194,7 @@ class UserService
             $item['drivingLicence'] = $this->params.$item['drivingLicence'];
             $item['baseURL'] = $this->params;
             $item['rating'] = $this->ratingService->getRatingByCaptainID($captainID);
+            $item['bank'] = $this->bankService->getAccountByUserId($captainID);
 
             $response = $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $item);
 
