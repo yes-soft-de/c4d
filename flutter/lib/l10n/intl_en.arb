@@ -173,5 +173,6 @@
   "activeCars": "Active Cars",
   "ordersMonth": "Orders / Month",
   "paymentHistory": "Payment History",
-  "completedOrders": "Completed Orders"
+  "completedOrders": "Completed Orders",
+  "latestUpdates": "Latest Updates"
 }

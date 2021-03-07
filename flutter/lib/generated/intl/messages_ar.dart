@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "initData" : MessageLookupByLibrary.simpleMessage("تعيين البيانات"),
     "language" : MessageLookupByLibrary.simpleMessage("اللغة"),
     "largeMoreThan100Employees" : MessageLookupByLibrary.simpleMessage("+100 موظف"),
+    "latestUpdates" : MessageLookupByLibrary.simpleMessage("Latest Updates"),
     "lebanon" : MessageLookupByLibrary.simpleMessage("لبنان"),
     "loading" : MessageLookupByLibrary.simpleMessage("جار التحميل"),
     "login" : MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),

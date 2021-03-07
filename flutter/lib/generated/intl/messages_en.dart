@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "initData" : MessageLookupByLibrary.simpleMessage("Init Data"),
     "language" : MessageLookupByLibrary.simpleMessage("Language"),
     "largeMoreThan100Employees" : MessageLookupByLibrary.simpleMessage("+100 Employees"),
+    "latestUpdates" : MessageLookupByLibrary.simpleMessage("Latest Updates"),
     "lebanon" : MessageLookupByLibrary.simpleMessage("Lebanon"),
     "loading" : MessageLookupByLibrary.simpleMessage("Loading"),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),

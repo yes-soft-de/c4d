@@ -162,6 +162,17 @@ class DrawerWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                GestureDetector(
+                    onTap: () {
+                      String url = 'https://c4d-app.web.app/privacy.html';
+                      launch(url);
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.update),
+                      title: Text(
+                        S.of(context).latestUpdates,
+                      ),
+                    )),
               ],
             ),
             Flex(

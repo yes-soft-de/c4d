@@ -173,5 +173,6 @@
   "activeCars": "السيارات المشغولة",
   "ordersMonth": "طلب / الشهر",
   "paymentHistory": "تاريخ الدفعات",
-  "completedOrders": " طلبات منتهية "
+  "completedOrders": " طلبات منتهية ",
+  "latestUpdates": "Latest Updates"
 }
