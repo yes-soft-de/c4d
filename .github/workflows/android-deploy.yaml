@@ -55,9 +55,9 @@ jobs:
         env:
           FIREBASE_CONFIG: ${{secrets.FIREBASE_CONFIG}}
 
-      - name: Upgrade Flutter Version
-        run: |
-          flutter downgrade 1.22.5
+      # - name: Upgrade Flutter Version
+      #   run: |
+      #     flutter downgrade 1.22.5
 
       - name: Get Flutter Packages tools
         run: |
