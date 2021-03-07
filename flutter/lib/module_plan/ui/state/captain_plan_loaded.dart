@@ -53,7 +53,7 @@ class CaptainPlanScreenStateLoaded extends PlanScreenState {
       ),
     );
 
-    list.add(ListTile(title: Text('Payment History', style: TextStyle(fontWeight: FontWeight.bold),),));
+    list.add(ListTile(title: Text(S.of(context).paymentHistory, style: TextStyle(fontWeight: FontWeight.bold),),));
 
     captainBalanceModel.payments.forEach((element) {
       list.add(PaymentRow(element.paymentDate, element.amount));
