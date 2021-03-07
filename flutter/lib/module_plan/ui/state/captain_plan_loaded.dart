@@ -24,9 +24,14 @@ class CaptainPlanScreenStateLoaded extends PlanScreenState {
   List<Widget> _getUI(BuildContext context) {
     var list = <Widget>[];
 
-    int paymentDay = captainBalanceModel.payments.last.paymentDate.day;
-    int paymentMonth = captainBalanceModel.payments.last.paymentDate.day + 1;
-    int paymentYear = captainBalanceModel.payments.last.paymentDate.year;
+    int paymentDay = DateTime.now().day;
+    int paymentMonth = DateTime.now().month + 1;
+    int paymentYear = DateTime.now().year;
+    if (captainBalanceModel.payments.isNotEmpty) {
+      paymentDay = captainBalanceModel.payments.last.paymentDate.day;
+      paymentMonth = captainBalanceModel.payments.last.paymentDate.day + 1;
+      paymentYear = captainBalanceModel.payments.last.paymentDate.year;
+    }
 
     list.add(
       ListTile(
@@ -42,7 +47,7 @@ class CaptainPlanScreenStateLoaded extends PlanScreenState {
       ListTile(
         title: Text(S.of(context).currentBalance),
         trailing: Text(
-          '${captainBalanceModel.currentBalance} ' + S.of(context).saudiRiyal,
+          '${captainBalanceModel.currentBalance ?? 0} ' + S.of(context).saudiRiyal,
           style: TextStyle(color: Theme.of(context).primaryColor),
         ),
       ),

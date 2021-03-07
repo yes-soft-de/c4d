@@ -15,9 +15,10 @@ class ProfileStateDirtyProfile extends ProfileState {
 
   @override
   Widget getUI(BuildContext context) {
+    print('Dirty Image ' + request.image);
     return SingleChildScrollView(
       child: ProfileFormWidget(
-        isCaptain: true,
+        isCaptain: isCaptain,
         request: request,
         onProfileSaved: (profile) {
           request.name = profile.name;

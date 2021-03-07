@@ -1,3 +1,4 @@
+import 'package:c4d/consts/urls.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_plan/plan_routes.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
@@ -7,15 +8,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends StatelessWidget {
-  final username;
-  final user_image;
-  final placeholder =
+  final String username;
+  final String user_image;
+  final String placeholder =
       'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png';
 
-  DrawerWidget(
-      {this.username = 'user',
-      this.user_image =
-          'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png'});
+  DrawerWidget({
+    this.username,
+    this.user_image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,27 +39,36 @@ class DrawerWidget extends StatelessWidget {
                           .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
                     },
                     child: Container(
+                      width: 256,
                       padding: EdgeInsets.all(16),
                       color: Colors.blue[400],
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(
-                            height: 48,
-                            width: 48,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: NetworkImage(user_image),
-                                    fit: BoxFit.cover,
-                                    onError: (c, s) {
-                                      print('Error ' + c.toString());
-                                      return AssetImage(
-                                          'assets/images/logo.jpg');
-                                    },
-                                  )),
+                              height: 48,
+                              width: 48,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        user_image.contains('http')
+                                            ? user_image
+                                            : Urls.IMAGES_ROOT + user_image,
+                                      ),
+                                      fit: BoxFit.cover,
+                                      onError: (c, s) {
+                                        print('Error ' + c.toString());
+                                        return AssetImage(
+                                          'assets/images/logo.jpg',
+                                        );
+                                      },
+                                    )),
+                              ),
                             ),
                           ),
                           Text(

@@ -5,48 +5,32 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:c4d/module_profile/model/profile_model/profile_model.dart';
 
-class ProfileFormWidget extends StatefulWidget {
+class ProfileFormWidget extends StatelessWidget {
   final Function(ProfileModel) onProfileSaved;
   final Function(ProfileModel) onImageUpload;
   final isCaptain;
   final ProfileRequest request;
+
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _stcPayController = TextEditingController();
+  final _bankAccountNumberController = TextEditingController();
+  final _bankNameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   ProfileFormWidget({
     @required this.onProfileSaved,
     @required this.onImageUpload,
     @required this.isCaptain,
     this.request,
-  });
-
-  @override
-  State<StatefulWidget> createState() => _ProfileFormWidgetState(
-        request != null ? request.name : null,
-        request != null ? request.phone : null,
-        request != null ? request.stcPay : null,
-        request != null ? request.bankAccountNumber : null,
-        request != null ? request.bankName : null,
-      );
-}
-
-class _ProfileFormWidgetState extends State<ProfileFormWidget> {
-  final _nameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _stcPayController = TextEditingController();
-  final _bankAccountNumberController = TextEditingController();
-  final _bankNameController = TextEditingController();
-
-  var currentProfile = ProfileModel();
-
-  final _formKey = GlobalKey<FormState>();
-
-  _ProfileFormWidgetState(String name, String phone, String stcPay,
-      String bankNumber, String bankName) {
-    _nameController.text = name;
-    _phoneController.text = phone;
-    _stcPayController.text = stcPay;
-    _bankAccountNumberController.text = bankNumber;
-    _bankNameController.text = bankName;
+  }) {
+    _nameController.text = request.name;
+    _phoneController.text = request.phone;
+    _stcPayController.text = request.stcPay;
+    _bankAccountNumberController.text = request.bankAccountNumber;
+    _bankNameController.text = request.bankName;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +56,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                     bankNumber: _stcPayController.text,
                     bankName: _bankAccountNumberController.text,
                   );
-                  widget.onImageUpload(profile);
-                  setState(() {});
+                  onImageUpload(profile);
                 });
               },
               child: Container(
@@ -86,23 +69,19 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         height: 96,
                         width: 96,
                         decoration: BoxDecoration(shape: BoxShape.circle),
-                        child: widget.request == null
-                            ? Container()
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(25.0),
-                                child: FadeInImage.assetNetwork(
-                                  placeholder: 'assets/images/logo.jpg',
-                                  height: 80,
-                                  width: 80,
-                                  image: widget.request.image.contains('http')
-                                      ? widget.request.image
-                                      : Urls.IMAGES_ROOT + widget.request.image,
-                                  fit: BoxFit.cover,
-                                  imageErrorBuilder: (e, s, h) {
-                                    return Image.asset('assets/images/logo.jpg');
-                                  },
-                                ),
-                              ),
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/images/logo.jpg',
+                          image: request.image.contains('http')
+                              ? request.image
+                              : Urls.IMAGES_ROOT + request.image,
+                          height: 80,
+                          width: 80,
+                          fit: BoxFit.cover,
+                          imageErrorBuilder: (e, s, h) {
+                            print('Error: ' + s.toString());
+                            return Image.asset('assets/images/logo.jpg');
+                          },
+                        ),
                       ),
                     ),
                     Positioned(
@@ -110,7 +89,6 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                       right: 0,
                       child: Icon(
                         Icons.add_a_photo,
-                        size: 4,
                       ),
                     ),
                   ],
@@ -150,21 +128,21 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 return null;
               },
             ),
-            widget.isCaptain == true ? _getPaymentExtension() : Container(),
+            isCaptain == true ? _getPaymentExtension(context) : Container(),
             RaisedButton(
                 color: Theme.of(context).primaryColor,
                 child: Text(S.of(context).save),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     var profile = ProfileModel(
-                      image: widget.request.image,
+                      image: request.image,
                       name: _nameController.text,
                       phone: _phoneController.text,
                       stcPay: _stcPayController.text,
                       bankName: _bankNameController.text,
                       bankNumber: _bankNameController.text,
                     );
-                    widget.onProfileSaved(profile);
+                    onProfileSaved(profile);
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(S.of(context).pleaseCompleteTheForm)));
@@ -176,7 +154,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     );
   }
 
-  Widget _getPaymentExtension() {
+  Widget _getPaymentExtension(BuildContext context) {
     return Flex(
       direction: Axis.vertical,
       children: [
@@ -205,3 +183,4 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     );
   }
 }
+
