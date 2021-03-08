@@ -36,7 +36,7 @@ class ProfileStateGotProfile extends ProfileState {
           request.image = profile.image;
           screenState.uploadImage(request);
         },
-        request: request,
+        profileRequest: request,
       ),
     );
   }

@@ -9,7 +9,7 @@ class ProfileFormWidget extends StatelessWidget {
   final Function(ProfileModel) onProfileSaved;
   final Function(ProfileModel) onImageUpload;
   final isCaptain;
-  final ProfileRequest request;
+  final ProfileRequest profileRequest;
 
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -22,18 +22,22 @@ class ProfileFormWidget extends StatelessWidget {
     @required this.onProfileSaved,
     @required this.onImageUpload,
     @required this.isCaptain,
-    this.request,
+    this.profileRequest,
   }) {
-    _nameController.text = request.name;
-    _phoneController.text = request.phone;
-    _stcPayController.text = request.stcPay;
-    _bankAccountNumberController.text = request.bankAccountNumber;
-    _bankNameController.text = request.bankName;
+    if (profileRequest == null) {
+      return;
+    }
+    _nameController.text = profileRequest.name;
+    _phoneController.text = profileRequest.phone;
+    _stcPayController.text = profileRequest.stcPay;
+    _bankAccountNumberController.text = profileRequest.bankAccountNumber;
+    _bankNameController.text = profileRequest.bankName;
   }
 
 
   @override
   Widget build(BuildContext context) {
+    var request = profileRequest ?? ProfileRequest.empty();
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Form(
@@ -135,7 +139,7 @@ class ProfileFormWidget extends StatelessWidget {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     var profile = ProfileModel(
-                      image: request.image,
+                      image: profileRequest.image,
                       name: _nameController.text,
                       phone: _phoneController.text,
                       stcPay: _stcPayController.text,
