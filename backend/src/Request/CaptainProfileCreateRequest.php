@@ -26,6 +26,10 @@ class CaptainProfileCreateRequest
     
     public $phone;
 
+    private $bankName;
+    private $accountID;
+    private $stcPay;
+
     /**
      * Get the value of captainID
      */
@@ -197,6 +201,4 @@ class CaptainProfileCreateRequest
 
         return $this;
     }
-
-
 }

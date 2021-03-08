@@ -8,6 +8,7 @@ use App\Repository\BankEntityRepository;
 use App\Request\BankCreateRequest;
 use App\Request\BankUpdateRequest;
 use App\Request\UserProfileUpdateRequest;
+use App\Request\CaptainProfileCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -27,6 +28,19 @@ class BankManager
     public function create(BankCreateRequest $request)
     {
         $entity = $this->autoMapping->map(BankCreateRequest::class, BankEntity::class, $request);
+
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $entity;
+    }
+
+    public function createFromCaptain(CaptainProfileCreateRequest $request)
+    {
+       
+        $entity = $this->autoMapping->map(CaptainProfileCreateRequest::class, BankEntity::class, $request);
+        $entity->setUserID($request->getCaptainID());
 
         $this->entityManager->persist($entity);
         $this->entityManager->flush();

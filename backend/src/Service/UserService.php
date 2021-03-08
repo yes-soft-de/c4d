@@ -144,20 +144,26 @@ class UserService
     }
 
     public function captainprofileCreate(CaptainProfileCreateRequest $request)
-    {
+    { 
         $uuid = $this->recordService->uuid();
         $captainProfile = $this->userManager->captainprofileCreate($request, $uuid);
+        
+        // $captainProfile->setImage($this->specialLinkCheck($captainProfile->getSpecialLink()).$captainProfile->getImage());
 
-        $captainProfile->setImage($this->specialLinkCheck($captainProfile->getSpecialLink()).$captainProfile->getImage());
+        if ($captainProfile instanceof CaptainProfileEntity) {
+           
+            $item = $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
 
-        if ($captainProfile instanceof captainProfile) {
-            return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
+            $bank = $this->bankService->createFromCaptain($request);
+            if ($bank) {
+                $item->bankName = $bank->bankName;
+                $item->accountID = $bank->accountID;
+                $item->stcPay = $bank->stcPay;
+            }
         }
         if ($captainProfile == true) {
-           
             return $this->getcaptainprofileByCaptainID($request->getCaptainID());
         }
-       
     }
 
     public function captainprofileUpdate(CaptainProfileUpdateRequest $request)
@@ -169,7 +175,7 @@ class UserService
         $item->accountID = $bank->accountID;
         $item->stcPay = $bank->stcPay;
         }
-        $item->setImage($this->specialLinkCheck($item->getSpecialLink()).$item->getImage());
+        // $item->setImage($this->specialLinkCheck($item->getSpecialLink()).$item->getImage());
         
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }

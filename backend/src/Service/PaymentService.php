@@ -66,12 +66,8 @@ class PaymentService
       $arr['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
       $arr['currentTotal'] = $total;
       $arr['bank']= $bank;
-        // $response['sumPayments'] = $sumPayments;
-        // $response['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
-        // $response['currentTotal'] = $total;
-        // $response['bank'] = $bank;
       
-        return $arr;
+      return $arr;
     }
 
     public  function subtractTowDates($date) {
