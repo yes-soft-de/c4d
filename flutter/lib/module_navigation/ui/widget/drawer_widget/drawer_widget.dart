@@ -72,7 +72,7 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            username,
+                            '${username ?? 'user'}',
                             style: TextStyle(color: Colors.white),
                           ),
                         ],
