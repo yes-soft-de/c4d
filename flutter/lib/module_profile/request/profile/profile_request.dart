@@ -53,8 +53,9 @@ class ProfileRequest {
     data['state'] = this.state;
     data['location'] = 'Unknown';
     data['isOnline'] = this.isOnline;
-    data['accountID'] = this.bankAccountNumber;
-    data['stcPay'] = this.stcPay;
+    data['accountID'] = this.bankAccountNumber ?? 'IBAN';
+    data['stcPay'] = this.stcPay ?? 'STC Pay';
+    data['bankName'] = this.stcPay ?? 'Bank Name';
     return data;
   }
 }

@@ -17,6 +17,9 @@ class CreateCaptainProfileRequest {
       'drivingLicence': drivingLicence,
       'age': age,
       'name': name,
+      'bankName': 'Bank Name',
+      'stcPay': 'STC Pay',
+      'accountID': '1234 4567 7896'
     };
   }
 }
