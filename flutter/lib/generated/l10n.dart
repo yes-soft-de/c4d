@@ -1814,6 +1814,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Took`
+  String get took {
+    return Intl.message(
+      'Took',
+      name: 'took',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minutes`
+  String get minutes {
+    return Intl.message(
+      'Minutes',
+      name: 'minutes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
