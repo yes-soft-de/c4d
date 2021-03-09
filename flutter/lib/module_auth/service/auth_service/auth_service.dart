@@ -205,14 +205,19 @@ class AuthService {
     String email,
     String password,
     UserRole role,
+    bool isRegister,
   ) async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      var creds = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      await _loginApiUser(role, AuthSource.EMAIL);
+      if (isRegister) {
+        await _registerApiNewUser(AppUser(creds.user, AuthSource.EMAIL, role));
+      } else {
+        await _loginApiUser(role, AuthSource.EMAIL);
+      }
     } catch (e) {
       if (e is FirebaseAuthException) {
         FirebaseAuthException x = e;
@@ -232,7 +237,7 @@ class AuthService {
     _auth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      signInWithEmailAndPassword(email, password, role);
+      signInWithEmailAndPassword(email, password, role, true);
     }).catchError((err) {
       if (err is FirebaseAuthException) {
         FirebaseAuthException x = err;

@@ -57,12 +57,16 @@ class LoginStateManager {
   void checkInited(LoginScreenState _loginScreenState) {
     // Check for name in Profile
     _profileService.getProfile().then((profile) {
-      _loginStateSubject.add(LoginStateSuccess(_loginScreenState, profile != null));
+      _loginStateSubject
+          .add(LoginStateSuccess(_loginScreenState, profile != null));
     });
   }
 
   void loginOwner(
-      String email, String password, LoginScreenState _loginScreenState) {
+    String email,
+    String password,
+    LoginScreenState _loginScreenState,
+  ) {
     _screenState = _loginScreenState;
     _email = email;
     _password = password;
@@ -81,7 +85,11 @@ class LoginStateManager {
     });
 
     _authService.signInWithEmailAndPassword(
-        email, password, UserRole.ROLE_OWNER);
+      email,
+      password,
+      UserRole.ROLE_OWNER,
+      false,
+    );
   }
 
   void confirmCaptainCode(String smsCode, LoginScreenState screenState) {
