@@ -122,7 +122,7 @@ class ProfileService {
         activity[e.id] = ActivityModel(
         startDate: DateTime.fromMillisecondsSinceEpoch(e.record.first.date.timestamp * 1000),
         endDate: DateTime.fromMillisecondsSinceEpoch(e.record.last.date.timestamp * 1000),
-        activity: e.brancheName
+        activity: '${e.brancheName}, #${e.id.toString()}'
       );
       }
     });
