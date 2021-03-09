@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:c4d/module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart';
@@ -18,7 +20,7 @@ class LocalizationService {
 
   Future<String> getLanguage() async {
     String lang = await _preferencesHelper.getLanguage();
-    lang ??= 'en';
+    lang ??= Platform.localeName;
     return lang;
   }
 

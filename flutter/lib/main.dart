@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_about/about_module.dart';
@@ -120,7 +121,7 @@ class _MyAppState extends State<MyApp> {
       future: widget._themeDataService.getActiveTheme(),
       builder: (BuildContext context, AsyncSnapshot<ThemeData> themeSnapshot) {
         return FutureBuilder(
-            initialData: 'en',
+            initialData: Platform.localeName,
             future: widget._localizationService.getLanguage(),
             builder:
                 (BuildContext context, AsyncSnapshot<String> langSnapshot) {
