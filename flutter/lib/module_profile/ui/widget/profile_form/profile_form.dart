@@ -144,7 +144,7 @@ class ProfileFormWidget extends StatelessWidget {
                       phone: _phoneController.text,
                       stcPay: _stcPayController.text,
                       bankName: _bankNameController.text,
-                      bankNumber: _bankNameController.text,
+                      bankNumber: _bankAccountNumberController.text,
                     );
                     onProfileSaved(profile);
                   } else {

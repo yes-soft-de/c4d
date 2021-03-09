@@ -78,22 +78,24 @@ class OrdersService {
     }
 
     var orders = <OrderModel>[];
-    response.forEach((element) {
-      try {
-        orders.add(OrderModel(
-          to: element.location,
-          from: element.fromBranch.id.toString(),
-          storeName: element.owner.userName,
-          creationTime: DateTime.fromMillisecondsSinceEpoch(
-              element.date.timestamp * 1000),
-          paymentMethod: element.payment,
-          id: element.id,
-        ));
-      } catch (e, stack) {
-        Logger().error('Mapping Error', '${e.toString()}:\n${stack.toString()}',
-            StackTrace.current);
-      }
-    });
+    if (response.isNotEmpty) {
+      response.forEach((element) {
+        try {
+          orders.add(OrderModel(
+            to: element.location,
+            from: element.fromBranch?.id.toString(),
+            storeName: element.owner.userName,
+            creationTime: DateTime.fromMillisecondsSinceEpoch(
+                element.date.timestamp * 1000),
+            paymentMethod: element.payment,
+            id: element.id,
+          ));
+        } catch (e, stack) {
+          Logger().error('Mapping Error',
+              '${e.toString()}:\n${stack.toString()}', StackTrace.current);
+        }
+      });
+    }
 
     return orders;
   }

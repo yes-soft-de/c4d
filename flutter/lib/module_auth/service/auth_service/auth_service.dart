@@ -51,8 +51,17 @@ class AuthService {
   Future<void> _loginApiUser(UserRole role, AuthSource source) async {
     var store = FirebaseFirestore.instance;
     var user = _auth.currentUser;
-    var existingProfile = await store.collection('users').doc(user.uid).get();
-    var password = existingProfile.data()['password'];
+    var existingProfile =
+        await store.collection('users').doc(user.uid).get().catchError((e) {
+      _authSubject.addError('Error finding the profile, please register first');
+      return;
+    });
+    if (existingProfile.data() == null) {
+      _authSubject.addError('Error finding the profile, please register first');
+      return;
+    }
+
+    String password = existingProfile.data()['password'];
 
     // Change This
     LoginResponse loginResult = await _authManager.login(LoginRequest(
@@ -62,7 +71,8 @@ class AuthService {
 
     if (loginResult == null) {
       _authSubject.addError('Error finding the profile, please register first');
-      throw UnauthorizedException('Error finding the profile, please register first');
+      throw UnauthorizedException(
+          'Error finding the profile, please register first');
     }
 
     await Future.wait([
@@ -85,7 +95,7 @@ class AuthService {
     String password;
 
     // This means that this guy is not registered
-    if (existingProfile.data()['password'] == null) {
+    if (existingProfile.data() == null) {
       // Create the profile password
       password = Uuid().v1();
 

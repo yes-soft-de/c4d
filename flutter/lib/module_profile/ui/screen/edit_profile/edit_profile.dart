@@ -17,7 +17,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class EditProfileScreenState extends State<EditProfileScreen> {
-  List<ProfileState> states = [];
+  ProfileState states;
 
   void saveProfile(ProfileRequest request) {
     widget._stateManager.submitProfile(this, request);
@@ -30,7 +30,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     widget._stateManager.stateStream.listen((event) {
-      states.add(event);
+      states = event;
       if (mounted) {
         setState(() {});
       }
@@ -41,14 +41,12 @@ class EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (states.isEmpty) {
-      states.add(ProfileStateLoading(this));
-    }
+    states ??= ProfileStateLoading(this);
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).myProfile),
       ),
-      body: states.last.getUI(context),
+      body: states.getUI(context),
     );
   }
 }

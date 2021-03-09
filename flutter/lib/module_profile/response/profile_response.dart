@@ -1,3 +1,5 @@
+import 'package:c4d/consts/urls.dart';
+
 class ProfileResponse {
   String statusCode;
   String msg;
@@ -8,7 +10,9 @@ class ProfileResponse {
   ProfileResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    data = json['Data'] != null ? new ProfileResponseModel.fromJson(json['Data']) : null;
+    data = json['Data'] != null
+        ? new ProfileResponseModel.fromJson(json['Data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -50,29 +54,29 @@ class ProfileResponseModel {
 
   ProfileResponseModel(
       {this.id,
-        this.captainID,
-        this.name,
-        this.location,
-        this.age,
-        this.car,
-        this.drivingLicence,
-        this.drivingLicenceURL,
-        this.salary,
-        this.status,
-        this.countOrdersDeliverd,
-        this.rating,
-        this.state,
-        this.bounce,
-        this.totalBounce,
-        this.uuid,
-        this.image,
-        this.imageURL,
-        this.baseURL,
-        this.phone,
-        this.isOnline,
-        this.bankName,
-        this.accountID,
-        this.stcPay});
+      this.captainID,
+      this.name,
+      this.location,
+      this.age,
+      this.car,
+      this.drivingLicence,
+      this.drivingLicenceURL,
+      this.salary,
+      this.status,
+      this.countOrdersDeliverd,
+      this.rating,
+      this.state,
+      this.bounce,
+      this.totalBounce,
+      this.uuid,
+      this.image,
+      this.imageURL,
+      this.baseURL,
+      this.phone,
+      this.isOnline,
+      this.bankName,
+      this.accountID,
+      this.stcPay});
 
   ProfileResponseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -96,10 +100,10 @@ class ProfileResponseModel {
       });
     }
     rating =
-    json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
+        json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
     state = json['state'];
     bounce =
-    json['bounce'] != null ? new Bounce.fromJson(json['bounce']) : null;
+        json['bounce'] != null ? new Bounce.fromJson(json['bounce']) : null;
     totalBounce = json['totalBounce'];
     uuid = json['uuid'];
     image = json['image'];
@@ -107,9 +111,11 @@ class ProfileResponseModel {
     baseURL = json['baseURL'];
     phone = json['phone'];
     isOnline = json['isOnline'] == 'active';
-    bankName = json['bankName'];
-    accountID = json['accountID'];
-    stcPay = json['stcPay'];
+    if (json['bank'] != null) {
+      bankName = json['bank']['bankName'];
+      accountID = json['bank']['accountID'];
+      stcPay = json['bank']['stcPay'];
+    }
 
     print('Stc: $stcPay, $accountID $bankName');
   }
@@ -122,8 +128,15 @@ class ProfileResponseModel {
     data['location'] = this.location;
     data['age'] = this.age;
     data['car'] = this.car;
-    data['drivingLicence'] = this.drivingLicence;
-    data['drivingLicenceURL'] = this.drivingLicenceURL;
+    if (this.drivingLicence != null) {
+      var licence = this.drivingLicence;
+      if (licence.contains('http')) {
+        licence = licence.substring(licence.lastIndexOf('http'));
+        licence = licence.substring(Urls.IMAGES_ROOT.length);
+      }
+      data['drivingLicence'] = licence;
+      print('Licence Url: ' + licence);
+    }
     data['salary'] = this.salary;
     data['status'] = this.status;
     if (this.countOrdersDeliverd != null) {
@@ -190,16 +203,16 @@ class Bounce {
   int total;
   int countOrdersDeliverd;
   List<Payments> payments;
-  Null bank;
+  dynamic bank;
 
   Bounce(
       {this.bounce,
-        this.sumPayments,
-        this.netProfit,
-        this.total,
-        this.countOrdersDeliverd,
-        this.payments,
-        this.bank});
+      this.sumPayments,
+      this.netProfit,
+      this.total,
+      this.countOrdersDeliverd,
+      this.payments,
+      this.bank});
 
   Bounce.fromJson(Map<String, dynamic> json) {
     bounce = json['bounce'];

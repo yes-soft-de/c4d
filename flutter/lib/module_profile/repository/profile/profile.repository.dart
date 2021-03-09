@@ -7,6 +7,7 @@ import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/response/get_branches_response.dart';
 import 'package:c4d/module_profile/response/get_records_response.dart';
 import 'package:c4d/module_profile/response/profile_response.dart';
+import 'package:c4d/utils/logger/logger.dart';
 import 'package:inject/inject.dart';
 
 @provide
@@ -43,9 +44,10 @@ class ProfileRepository {
     );
 
     try {
-      if (response == null) return null;
       return ProfileResponse.fromJson(response).data;
-    } catch (e) {
+    } catch (e, stack) {
+      Logger().error(e.toString(),
+          '${e.toString()}:\n${stack.toString()}', StackTrace.current);
       return null;
     }
   }

@@ -39,7 +39,6 @@ class ProfileRequest {
     data['name'] = this.name;
     data['userName'] = this.name;
     data['phone'] = this.phone;
-    data['bankName'] = this.bankName;
     if (this.image != null) {
       data['image'] = this.image.contains('http')
           ? this.image.substring(Urls.IMAGES_ROOT.length)
@@ -55,7 +54,17 @@ class ProfileRequest {
     data['isOnline'] = this.isOnline;
     data['accountID'] = this.bankAccountNumber ?? 'IBAN';
     data['stcPay'] = this.stcPay ?? 'STC Pay';
-    data['bankName'] = this.stcPay ?? 'Bank Name';
+    data['bankName'] = this.bankName ?? 'Bank Name';
+
+    if (this.drivingLicence != null) {
+      var licence = this.drivingLicence;
+      if (licence.contains('http')) {
+        licence = licence.substring(licence.lastIndexOf('http'));
+        licence = licence.substring(Urls.IMAGES_ROOT.length);
+      }
+      data['drivingLicence'] = licence;
+      print('Licence Url: ' + licence);
+    }
     return data;
   }
 }
