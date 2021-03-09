@@ -5,13 +5,19 @@ class PhoneLoginWidget extends StatefulWidget {
   final Function(String) onLoginRequested;
   final Function() onRetry;
   final Function(String) onConfirm;
+
+  // To switch between register and login
+  final Function() onAlterRequest;
   final bool codeSent;
+  final bool isRegister;
 
   PhoneLoginWidget({
     this.onLoginRequested,
     this.onConfirm,
     this.onRetry,
     this.codeSent,
+    this.isRegister = false,
+    this.onAlterRequest,
   });
 
   @override
@@ -97,6 +103,12 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
             ),
           ),
           _errorMsg != null ? Text(_errorMsg) : Container(),
+          GestureDetector(
+            onTap: () {
+              if (widget.onAlterRequest != null) widget.onAlterRequest();
+            },
+            child: Text(widget.isRegister ? S.of(context).iHaveAnAccount : S.of(context).register),
+          ) ,
           loading == true
               ? Center(
                   child: Text(S.of(context).loading),

@@ -3,7 +3,6 @@ import 'package:c4d/module_auth/ui/screen/login_screen/login_screen.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginStateCodeSent extends LoginState {
   final _confirmationController = TextEditingController();
@@ -26,7 +25,7 @@ class LoginStateCodeSent extends LoginState {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           MediaQuery.of(context).viewInsets.bottom == 0
-              ? SvgPicture.asset('assets/images/logo.svg')
+              ? Image.asset('assets/images/logo.jpg')
               : Container(),
           Padding(
             padding: const EdgeInsets.all(16.0),

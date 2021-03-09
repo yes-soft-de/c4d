@@ -8,13 +8,14 @@ import 'package:c4d/module_auth/ui/states/login_states/login_state_code_sent.dar
 import 'package:c4d/module_auth/ui/states/login_states/login_state_error.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state_init.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state_success.dart';
+import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
 @provide
 class LoginStateManager {
   final AuthService _authService;
-  final AboutService _aboutService;
+  final ProfileService _profileService;
   final PublishSubject<LoginState> _loginStateSubject =
       PublishSubject<LoginState>();
 
@@ -23,15 +24,16 @@ class LoginStateManager {
 
   LoginScreenState _screenState;
 
-  LoginStateManager(this._authService, this._aboutService);
+  LoginStateManager(this._authService, this._profileService);
 
   Stream<LoginState> get stateStream => _loginStateSubject.stream;
 
   void loginCaptain(String phoneNumber, LoginScreenState _loginScreenState) {
+    _screenState = _loginScreenState;
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          _loginStateSubject.add(LoginStateSuccess(_loginScreenState));
+          checkInited(_screenState);
           break;
         case AuthStatus.CODE_SENT:
           _loginStateSubject.add(LoginStateCodeSent(_loginScreenState));
@@ -49,17 +51,25 @@ class LoginStateManager {
           _loginScreenState, err.toString(), _email, _password));
     });
 
-    _authService.verifyWithPhone(phoneNumber, UserRole.ROLE_CAPTAIN);
+    _authService.verifyWithPhone(false, phoneNumber, UserRole.ROLE_CAPTAIN);
+  }
+
+  void checkInited(LoginScreenState _loginScreenState) {
+    // Check for name in Profile
+    _profileService.getProfile().then((profile) {
+      _loginStateSubject.add(LoginStateSuccess(_loginScreenState, profile != null));
+    });
   }
 
   void loginOwner(
       String email, String password, LoginScreenState _loginScreenState) {
+    _screenState = _loginScreenState;
     _email = email;
     _password = password;
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          _loginStateSubject.add(LoginStateSuccess(_loginScreenState ?? _screenState));
+          checkInited(_loginScreenState);
           break;
         default:
           _loginStateSubject.add(LoginStateInit(_loginScreenState));
@@ -76,6 +86,6 @@ class LoginStateManager {
 
   void confirmCaptainCode(String smsCode, LoginScreenState screenState) {
     _screenState = screenState;
-    _authService.confirmWithCode(smsCode, UserRole.ROLE_CAPTAIN);
+    _authService.confirmWithCode(smsCode, UserRole.ROLE_CAPTAIN, false);
   }
 }

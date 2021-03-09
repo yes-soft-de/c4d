@@ -6,6 +6,8 @@ import 'package:c4d/module_auth/ui/widget/phone_login/phone_login.dart';
 import 'package:c4d/module_auth/ui/widget/user_type_selector/user_type_selector.dart';
 import 'package:flutter/material.dart';
 
+import '../../../authorization_routes.dart';
+
 class LoginStateError extends LoginState {
   String errorMsg;
   UserRole userType = UserRole.ROLE_OWNER;
@@ -49,7 +51,14 @@ class LoginStateError extends LoginState {
                     screen.refresh();
                     screen.loginCaptain(phone);
                   },
-                  onRetry: () {},
+                  onAlterRequest: () {
+                    Navigator.of(context)
+                        .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
+                  },
+                  isRegister: false,
+                  onRetry: () {
+                    screen.retryPhone();
+                  },
                   onConfirm: (confirmCode) {
                     loading = true;
                     screen.refresh();

@@ -6,6 +6,8 @@ import 'package:c4d/module_auth/ui/widget/phone_login/phone_login.dart';
 import 'package:c4d/module_auth/ui/widget/user_type_selector/user_type_selector.dart';
 import 'package:flutter/material.dart';
 
+import '../../../authorization_routes.dart';
+
 class LoginStateInit extends LoginState {
   UserRole userType = UserRole.ROLE_OWNER;
   final loginTypeController =
@@ -48,7 +50,14 @@ class LoginStateInit extends LoginState {
                   screen.refresh();
                   screen.loginCaptain(phone);
                 },
-                onRetry: () {},
+                onAlterRequest: () {
+                  Navigator.of(context)
+                      .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
+                },
+                isRegister: false,
+                onRetry: () {
+                  screen.retryPhone();
+                },
                 onConfirm: (confirmCode) {
                   screen.refresh();
                   screen.confirmCaptainSMS(confirmCode);

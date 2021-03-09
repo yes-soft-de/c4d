@@ -56,7 +56,13 @@ class RegisterStateError extends RegisterState {
                 screen.refresh();
                 screen.registerCaptain(phone);
               },
-              onRetry: () {},
+              onAlterRequest: () {
+                Navigator.of(context).pop();
+              },
+              isRegister: true,
+              onRetry: () {
+                screen.retryPhone();
+              },
               onConfirm: (confirmCode) {
                 loading = true;
                 screen.refresh();

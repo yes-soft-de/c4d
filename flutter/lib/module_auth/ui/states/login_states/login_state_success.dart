@@ -4,7 +4,8 @@ import 'package:c4d/module_auth/ui/states/login_states/login_state.dart';
 import 'package:flutter/material.dart';
 
 class LoginStateSuccess extends LoginState {
-  LoginStateSuccess(LoginScreenState screen) : super(screen);
+  final bool inited;
+  LoginStateSuccess(LoginScreenState screen, this.inited) : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
@@ -18,7 +19,7 @@ class LoginStateSuccess extends LoginState {
           textColor: Colors.white,
           padding: EdgeInsets.all(16),
           onPressed: () {
-            screen.moveToNext();
+            screen.moveToNext(inited);
           },
           child: Text(S.of(context).welcomeToC4d),
         )

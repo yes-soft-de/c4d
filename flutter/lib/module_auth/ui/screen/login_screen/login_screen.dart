@@ -4,6 +4,7 @@ import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/state_manager/login_state_manager/login_state_manager.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state_init.dart';
+import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
@@ -58,7 +59,12 @@ class LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void moveToNext() {
+  void moveToNext(bool inited) {
+    if (!inited) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          InitAccountRoutes.INIT_ACCOUNT_SCREEN, (r) => false);
+      return;
+    }
     if (currentUserRole == UserRole.ROLE_OWNER) {
       Navigator.of(context).pushNamedAndRemoveUntil(
           OrdersRoutes.OWNER_ORDERS_SCREEN, (r) => false);
@@ -85,5 +91,6 @@ class LoginScreenState extends State<LoginScreen> {
 
   void retryPhone() {
     _currentStates = LoginStateInit(this);
+    if (mounted) setState(() {});
   }
 }

@@ -47,6 +47,10 @@ class RegisterStateInit extends RegisterState {
                 screen.refresh();
                 screen.registerCaptain(phone);
               },
+              onAlterRequest: () {
+                Navigator.of(context).pop();
+              },
+              isRegister: true,
               onConfirm: (confirmCode) {
                 loading = true;
                 screen.refresh();
