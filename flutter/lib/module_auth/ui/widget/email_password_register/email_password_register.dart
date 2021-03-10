@@ -21,6 +21,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
       TextEditingController();
 
   bool loading = false;
+  bool agreed = false;
 
   @override
   void initState() {
@@ -189,6 +190,13 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                 ),
               ],
             ),
+            CheckboxListTile(
+                value: agreed,
+                title: Text(S.of(context).iAgreeToTheTermsOsService),
+                onChanged: (v) {
+                  agreed = v;
+                  if (mounted) setState(() {});
+                }),
             loading == true
                 ? Text(S.of(context).loading)
                 : Flex(

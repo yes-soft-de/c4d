@@ -1834,6 +1834,16 @@ class S {
       args: [],
     );
   }
+
+  /// `I Agree to the Terms os service.`
+  String get iAgreeToTheTermsOsService {
+    return Intl.message(
+      'I Agree to the Terms os service.',
+      name: 'iAgreeToTheTermsOsService',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

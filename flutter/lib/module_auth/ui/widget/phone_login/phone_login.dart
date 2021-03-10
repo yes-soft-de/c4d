@@ -34,6 +34,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
   String countryCode = '+963';
 
   bool retryEnabled = false;
+  bool agreed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +108,19 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
             onTap: () {
               if (widget.onAlterRequest != null) widget.onAlterRequest();
             },
-            child: Text(widget.isRegister ? S.of(context).iHaveAnAccount : S.of(context).register),
-          ) ,
+            child: Text(widget.isRegister
+                ? S.of(context).iHaveAnAccount
+                : S.of(context).register),
+          ),
+          widget.isRegister
+              ? CheckboxListTile(
+                  value: agreed,
+                  title: Text(S.of(context).iAgreeToTheTermsOsService),
+                  onChanged: (v) {
+                    agreed = v;
+                    if (mounted) setState(() {});
+                  })
+              : Container(),
           loading == true
               ? Center(
                   child: Text(S.of(context).loading),
@@ -117,7 +129,9 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
-                    color: Theme.of(context).primaryColor,
+                    color: widget.isRegister
+                        ? Theme.of(context).primaryColorDark
+                        : Theme.of(context).primaryColor,
                     onPressed: () {
                       String phone = _phoneController.text;
                       if (phone[0] == '0') {

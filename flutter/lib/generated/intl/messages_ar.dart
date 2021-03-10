@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "helpMeMore" : MessageLookupByLibrary.simpleMessage("تواصلوا معي"),
     "home" : MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "howWeWork" : MessageLookupByLibrary.simpleMessage("كيف يعمل التطبيق"),
+    "iAgreeToTheTermsOsService" : MessageLookupByLibrary.simpleMessage("I Agree to the Terms os service."),
     "iAm" : MessageLookupByLibrary.simpleMessage("من أنا"),
     "iArrivedAtTheStore" : MessageLookupByLibrary.simpleMessage("وصلت المحل التجاري"),
     "iFinishedDelivering" : MessageLookupByLibrary.simpleMessage("انتهى الطلب"),

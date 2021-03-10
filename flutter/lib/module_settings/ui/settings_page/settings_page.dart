@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:c4d/module_about/about_routes.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_init/init_routes.dart';
@@ -47,172 +49,175 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ),
-      body: Flex(
-        direction: Axis.vertical,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: Colors.black12,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(S.of(context).darkMode),
-                    Switch(
-                        value: Theme.of(context).brightness == Brightness.dark,
-                        onChanged: (mode) {
-                          widget._themeDataService
-                              .switchDarkMode(mode)
-                              .then((value) {});
-                        })
-                  ],
+      body: SingleChildScrollView(
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color: Colors.black12,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Flex(
+                    direction: Axis.horizontal,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).darkMode),
+                      Switch(
+                          value: Theme.of(context).brightness == Brightness.dark,
+                          onChanged: (mode) {
+                            widget._themeDataService
+                                .switchDarkMode(mode)
+                                .then((value) {});
+                          })
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          FutureBuilder(
-            future: widget._authService.userRole,
-            builder: (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
-              if (snapshot.data == UserRole.ROLE_OWNER) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.black12,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Flex(
-                        direction: Axis.horizontal,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(S.of(context).renewSubscription),
-                          IconButton(
-                              icon: Icon(Icons.autorenew_sharp),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                    InitAccountRoutes.INIT_ACCOUNT_SCREEN);
-                              }),
-                        ],
+            FutureBuilder(
+              future: widget._authService.userRole,
+              builder: (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
+                if (snapshot.data == UserRole.ROLE_OWNER) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        color: Colors.black12,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(S.of(context).renewSubscription),
+                            IconButton(
+                                icon: Icon(Icons.autorenew_sharp),
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed(
+                                      InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                                }),
+                          ],
+                        ),
                       ),
                     ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+            FutureBuilder(
+              future: _getCaptainStateSwitch(),
+              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+                if (snapshot.hasData) {
+                  return snapshot.data;
+                } else {
+                  return Container();
+                }
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color: Colors.black12,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Flex(
+                    direction: Axis.horizontal,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).language),
+                      FutureBuilder(
+                        initialData: Platform.localeName.substring(0,2),
+                        future: widget._localizationService.getLanguage(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          return DropdownButton(
+                              value: snapshot.data ?? Platform.localeName.substring(0,2),
+                              items: [
+                                DropdownMenuItem(
+                                  child: Text('العربية'),
+                                  value: 'ar',
+                                ),
+                                DropdownMenuItem(
+                                  child: Text('English'),
+                                  value: 'en',
+                                ),
+                              ],
+                              onChanged: (String newLang) {
+                                widget._localizationService.setLanguage(newLang);
+                              });
+                        },
+                      ),
+                    ],
                   ),
-                );
-              } else {
-                return Container();
-              }
-            },
-          ),
-          FutureBuilder(
-            future: _getCaptainStateSwitch(),
-            builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-              if (snapshot.hasData) {
-                return snapshot.data;
-              } else {
-                return Container();
-              }
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: Colors.black12,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Flex(
-                  direction: Axis.horizontal,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(S.of(context).language),
-                    FutureBuilder(
-                      future: widget._localizationService.getLanguage(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<String> snapshot) {
-                        return DropdownButton(
-                            value: snapshot.data,
-                            items: [
-                              DropdownMenuItem(
-                                child: Text('العربية'),
-                                value: 'ar',
-                              ),
-                              DropdownMenuItem(
-                                child: Text('English'),
-                                value: 'en',
-                              ),
-                            ],
-                            onChanged: (String newLang) {
-                              widget._localizationService.setLanguage(newLang);
-                            });
-                      },
-                    ),
-                  ],
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: Colors.black12,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FutureBuilder(
-                  future: widget._authService.isLoggedIn,
-                  initialData: false,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                    if (snapshot.data) {
-                      return Flex(
-                        direction: Axis.horizontal,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(S.of(context).signOut),
-                          IconButton(
-                              icon: Icon(Icons.logout),
-                              onPressed: () {
-                                widget._authService.logout().then((value) {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      AuthorizationRoutes.LOGIN_SCREEN,
-                                      (route) => false);
-                                });
-                              })
-                        ],
-                      );
-                    } else {
-                      return Flex(
-                        direction: Axis.horizontal,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(S.of(context).login),
-                          IconButton(
-                              icon: Icon(Icons.login),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                    AuthorizationRoutes.LOGIN_SCREEN);
-                              })
-                        ],
-                      );
-                    }
-                  },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color: Colors.black12,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FutureBuilder(
+                    future: widget._authService.isLoggedIn,
+                    initialData: false,
+                    builder:
+                        (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.data) {
+                        return Flex(
+                          direction: Axis.horizontal,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(S.of(context).signOut),
+                            IconButton(
+                                icon: Icon(Icons.logout),
+                                onPressed: () {
+                                  widget._authService.logout().then((value) {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        AuthorizationRoutes.LOGIN_SCREEN,
+                                        (route) => false);
+                                  });
+                                })
+                          ],
+                        );
+                      } else {
+                        return Flex(
+                          direction: Axis.horizontal,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(S.of(context).login),
+                            IconButton(
+                                icon: Icon(Icons.login),
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed(
+                                      AuthorizationRoutes.LOGIN_SCREEN);
+                                })
+                          ],
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

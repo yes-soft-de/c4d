@@ -20,7 +20,7 @@ class LocalizationService {
 
   Future<String> getLanguage() async {
     String lang = await _preferencesHelper.getLanguage();
-    lang ??= Platform.localeName;
+    lang ??= Platform.localeName.substring(0, 2);
     return lang;
   }
 

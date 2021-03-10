@@ -53,11 +53,11 @@ class AuthService {
     var user = _auth.currentUser;
     var existingProfile =
         await store.collection('users').doc(user.uid).get().catchError((e) {
-      _authSubject.addError('Error finding the profile, please register first');
+      _authSubject.addError('Error logging in, firebase account not found');
       return;
     });
     if (existingProfile.data() == null) {
-      _authSubject.addError('Error finding the profile, please register first');
+      _authSubject.addError('Error logging in, firebase account not found');
       return;
     }
 
@@ -70,9 +70,8 @@ class AuthService {
     ));
 
     if (loginResult == null) {
-      _authSubject.addError('Error finding the profile, please register first');
-      throw UnauthorizedException(
-          'Error finding the profile, please register first');
+      _authSubject.addError('Error getting the token from the API');
+      throw UnauthorizedException('Error getting the token from the API');
     }
 
     await Future.wait([
