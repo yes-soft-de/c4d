@@ -45,36 +45,38 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                 Flexible(
                   flex: 1,
                   fit: FlexFit.tight,
-                  child: GestureDetector(
-                    onTap: () {
-                      ImagePicker()
-                          .getImage(source: ImageSource.gallery)
-                          .then((value) {
-                        if (value != null) {
-                          captainImage = Uri(path: value.path);
-                          screen.refresh();
-                        }
-                      });
-                    },
-                    child: Container(
-                        height: 56,
-                        width: 56,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.black
-                              : Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned.fill(
-                                child: Icon(
-                              Icons.person,
-                              color: Theme.of(context).primaryColor,
-                            )),
-                            _getCaptainImageFG(),
-                          ],
-                        )),
+                  child: Card(
+                    child: GestureDetector(
+                      onTap: () {
+                        ImagePicker()
+                            .getImage(source: ImageSource.gallery)
+                            .then((value) {
+                          if (value != null) {
+                            captainImage = Uri(path: value.path);
+                            screen.refresh();
+                          }
+                        });
+                      },
+                      child: Container(
+                          height: 56,
+                          width: 56,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.black
+                                : Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                  child: Icon(
+                                Icons.person,
+                                color: Theme.of(context).primaryColor,
+                              )),
+                              _getCaptainImageFG(),
+                            ],
+                          )),
+                    ),
                   ),
                 ),
                 Flexible(
