@@ -192,7 +192,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
             ),
             CheckboxListTile(
                 value: agreed,
-                title: Text(S.of(context).iAgreeToTheTermsOsService),
+                title: Text(S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy),
                 onChanged: (v) {
                   agreed = v;
                   if (mounted) setState(() {});
@@ -225,7 +225,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16)),
                           color: Theme.of(context).primaryColor,
-                          onPressed: () {
+                          onPressed: (!agreed) ? null : () {
                             if (_registerFormKey.currentState.validate()) {
                               loading = true;
                               setState(() {});

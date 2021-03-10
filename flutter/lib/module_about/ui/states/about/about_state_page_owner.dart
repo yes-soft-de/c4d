@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AboutStatePageOwner extends AboutState {
   int currentPage = 0;
-  final pageController = PageController(initialPage: 0);
+  final _pageController = PageController(initialPage: 0);
   List<PackageModel> packages;
 
   AboutStatePageOwner(AboutScreenStateManager screenState, this.packages)
@@ -20,7 +20,7 @@ class AboutStatePageOwner extends AboutState {
     return Stack(
       children: [
         PageView(
-          controller: pageController,
+          controller: _pageController,
           onPageChanged: (pos) {
             currentPage = pos;
             screenState.refresh(this);
@@ -42,7 +42,7 @@ class AboutStatePageOwner extends AboutState {
                   color: Theme.of(context).primaryColor,
                   child: Text(S.of(context).next),
                   onPressed: () {
-                    pageController.animateToPage(1,
+                    _pageController.animateToPage(1,
                         duration: Duration(seconds: 1), curve: Curves.bounceIn);
                   },
                 )
@@ -64,7 +64,7 @@ class AboutStatePageOwner extends AboutState {
                   color: Theme.of(context).primaryColor,
                   child: Text(S.of(context).next),
                   onPressed: () {
-                    pageController.animateToPage(2,
+                    _pageController.animateToPage(2,
                         duration: Duration(seconds: 1), curve: Curves.bounceIn);
                   },
                 )
@@ -86,7 +86,7 @@ class AboutStatePageOwner extends AboutState {
                   color: Theme.of(context).primaryColor,
                   child: Text(S.of(context).next),
                   onPressed: () {
-                    pageController.animateToPage(3,
+                    _pageController.animateToPage(3,
                         duration: Duration(seconds: 1), curve: Curves.bounceIn);
                   },
                 )

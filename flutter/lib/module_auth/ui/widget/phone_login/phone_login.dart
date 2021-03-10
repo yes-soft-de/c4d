@@ -132,7 +132,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                     color: widget.isRegister
                         ? Theme.of(context).primaryColorDark
                         : Theme.of(context).primaryColor,
-                    onPressed: () {
+                    onPressed: !agreed ? null : () {
                       String phone = _phoneController.text;
                       if (phone[0] == '0') {
                         phone = phone.substring(1);

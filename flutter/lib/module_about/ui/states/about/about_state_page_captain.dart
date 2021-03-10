@@ -19,6 +19,7 @@ class AboutStatePageCaptain extends AboutState {
     return Stack(
       children: [
         PageView(
+          controller: pageController,
           onPageChanged: (pos) {
             currentPage = pos;
             screenState.refresh(this);

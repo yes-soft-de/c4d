@@ -29,7 +29,7 @@ class PaymentObject {
   int total;
   int countOrdersDeliverd;
   List<Payments> payments;
-  String bank;
+  dynamic bank;
 
   PaymentObject(
       {this.bounce,

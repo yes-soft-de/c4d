@@ -117,29 +117,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      initialData: ThemeData.light(),
-      future: widget._themeDataService.getActiveTheme(),
-      builder: (BuildContext context, AsyncSnapshot<ThemeData> themeSnapshot) {
-        return FutureBuilder(
-            initialData: Platform.localeName,
-            future: widget._localizationService.getLanguage(),
-            builder:
-                (BuildContext context, AsyncSnapshot<String> langSnapshot) {
-              return getConfiguratedApp(
-                YesModule.RoutesMap,
-                themeSnapshot.data,
-                langSnapshot.data,
-              );
-            });
+      initialData: Scaffold(),
+      future: getConfiguratedApp(YesModule.RoutesMap),
+      builder: (BuildContext context, AsyncSnapshot<Widget> scaffoldSnapshot) {
+        return scaffoldSnapshot.data;
       },
     );
   }
 
-  Widget getConfiguratedApp(
+  Future<Widget> getConfiguratedApp(
     Map<String, WidgetBuilder> fullRoutesList,
-    ThemeData theme,
-    String activeLanguage,
-  ) {
+  ) async {
+    var activeLanguage = await widget._localizationService.getLanguage();
+    var theme = await widget._themeDataService.getActiveTheme();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[observer],

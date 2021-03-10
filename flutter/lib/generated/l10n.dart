@@ -1844,6 +1844,16 @@ class S {
       args: [],
     );
   }
+
+  /// `I Agree To The Terms Of Service & privacy policy`
+  String get iAgreeToTheTermsOfServicePrivacyPolicy {
+    return Intl.message(
+      'I Agree To The Terms Of Service & privacy policy',
+      name: 'iAgreeToTheTermsOfServicePrivacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

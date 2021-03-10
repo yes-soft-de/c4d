@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "helpMeMore" : MessageLookupByLibrary.simpleMessage("Help me more"),
     "home" : MessageLookupByLibrary.simpleMessage("Home"),
     "howWeWork" : MessageLookupByLibrary.simpleMessage("How we work"),
+    "iAgreeToTheTermsOfServicePrivacyPolicy" : MessageLookupByLibrary.simpleMessage("I Agree To The Terms Of Service & privacy policy"),
     "iAgreeToTheTermsOsService" : MessageLookupByLibrary.simpleMessage("I Agree to the Terms os service."),
     "iAm" : MessageLookupByLibrary.simpleMessage("I am"),
     "iArrivedAtTheStore" : MessageLookupByLibrary.simpleMessage("I Arrived at the Store"),
