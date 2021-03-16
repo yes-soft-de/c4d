@@ -31,7 +31,7 @@ class CompanyInfoEntityRepository extends ServiceEntityRepository
     public function  getcompanyinfoAll()
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
-            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone')
+            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
             ->getQuery()
             ->getResult();
     }

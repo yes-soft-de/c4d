@@ -6,6 +6,12 @@ class companyInfoUpdateRequest
 {
     private $id;
     private $phone;
+    private $phone2;
+    private $whatsapp;
+    private $fax;
+    private $bank;
+    private $stc;
+    private $email;
 
     /**
      * Get the value of id
