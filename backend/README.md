@@ -343,13 +343,6 @@ methods: GET
 
 ### CompanyInfo
 
-#### GET companyinfo ById
-
-```
-/companyinfo/{id}
-methods: GET
-```
-
 #### GET companyinfo all
 
 ```
@@ -650,13 +643,6 @@ methods: POST
 methods: PUT
 ```
 
-#### GET companyinfo ById
-
-```
-/companyinfo/{id}
-methods: GET
-```
-
 #### GET companyinfo all
 
 ```
@@ -676,6 +662,6 @@ methods: POST
 #### Update update
 
 ```
-update
+update/{id}
 methods: PUT
 ```
