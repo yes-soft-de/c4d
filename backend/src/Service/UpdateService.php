@@ -43,6 +43,7 @@ class UpdateService
 
     public function  getUpdateAll()
     {
+        $respons=[];
         $results = $this->updateManager->getUpdateAll();
        
         foreach ($results as  $result) {

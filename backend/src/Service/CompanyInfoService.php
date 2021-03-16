@@ -49,6 +49,7 @@ class CompanyInfoService
 
     public function  getcompanyinfoAll()
     {
+        $respons=[];
         $results = $this->companyInfoManager->getcompanyinfoAll();
        
         foreach ($results as  $result) {
