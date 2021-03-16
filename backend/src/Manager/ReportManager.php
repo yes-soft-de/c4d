@@ -22,8 +22,9 @@ class ReportManager
         $this->repository = $repository;
     }
 
-    public function create(ReportCreateRequest $request)
+    public function create(ReportCreateRequest $request, $uuid)
     {
+        $request->setUuid($uuid);
         $entity = $this->autoMapping->map(ReportCreateRequest::class, ReportEntity::class, $request);
 
         $this->entityManager->persist($entity);
@@ -33,32 +34,8 @@ class ReportManager
         return $entity;
     }
 
-    public function update(BranchesUpdateRequest $request)
-    {
-        $entity = $this->repository->find($request->getId());
-
-        if (!$entity) {
-            return null;
-        }
-        $entity = $this->autoMapping->mapToObject(BranchesUpdateRequest::class, BranchesEntity::class, $request, $entity);
-
-        $this->entityManager->flush();
-
-        return $entity;
-    }
-
     public function getReports()
     {
         return $this->repository->getReports();
-    }
-
-    public function branchesByUserId($userId)
-    {
-        return $this->branchesRepository->branchesByUserId($userId);
-    }
-
-    public function getBrancheById($Id)
-    {
-        return $this->branchesRepository->find($Id);
     }
 }

@@ -32,6 +32,12 @@ class ReportEntity
      */
     private $reason;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $uuid;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,17 @@ class ReportEntity
     public function setReason(?string $reason): self
     {
         $this->reason = $reason;
+
+        return $this;
+    }
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(?string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }
