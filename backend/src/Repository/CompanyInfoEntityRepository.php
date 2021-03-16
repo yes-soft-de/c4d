@@ -27,6 +27,7 @@ class CompanyInfoEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+    
     public function  getcompanyinfoAll()
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 

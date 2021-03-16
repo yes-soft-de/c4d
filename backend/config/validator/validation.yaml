@@ -223,3 +223,19 @@ App\Request\companyInfoUpdateRequest:
       - NotBlank: ~
     phone:
       - NotBlank: ~
+
+App\Request\updateCreateRequest:
+  properties:
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
+
+App\Request\UpdateUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
