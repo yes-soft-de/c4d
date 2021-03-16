@@ -211,3 +211,15 @@ App\Request\BranchesDeleteRequest:
       - NotBlank: ~
     isActive:
       - NotBlank: ~
+
+App\Request\companyInfoCreateRequest:
+  properties:
+    phone:
+      - NotBlank: ~
+
+App\Request\companyInfoUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~

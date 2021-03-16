@@ -341,7 +341,21 @@ ROLE_OWNER
 methods: GET
 ```
 
+### CompanyInfo
 
+#### GET companyinfo ById
+
+```
+/companyinfo/{id}
+methods: GET
+```
+
+#### GET companyinfo all
+
+```
+/companyinfoall
+methods: GET
+```
 
 
 
@@ -605,4 +619,34 @@ methods: PUT
 ```
 /payment
 methods: POST
+```
+
+### CompanyInfo
+
+#### Create CompanyInfo
+
+```
+/companyinfo
+methods: POST
+```
+
+#### Update CompanyInfo
+
+```
+/companyinfo
+methods: PUT
+```
+
+#### GET companyinfo ById
+
+```
+/companyinfo/{id}
+methods: GET
+```
+
+#### GET companyinfo all
+
+```
+/companyinfoall
+methods: GET
 ```
