@@ -24,6 +24,8 @@ class CompanyInfoManager
 
     public function create(companyInfoCreateRequest $request)
     {
+       $isfound = $this->getcompanyinfoAll();
+        if ($isfound == null) {
         $entity = $this->autoMapping->map(companyInfoCreateRequest::class, CompanyInfoEntity::class, $request);
 
         $this->entityManager->persist($entity);
@@ -31,6 +33,10 @@ class CompanyInfoManager
         $this->entityManager->clear();
 
         return $entity;
+        }
+        else {
+            return true;
+        }
     }
 
     public function update(companyInfoUpdateRequest $request)

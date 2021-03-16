@@ -23,8 +23,13 @@ class CompanyInfoService
     public function create(CompanyInfoCreateRequest $request)
     {
         $item = $this->companyInfoManager->create($request);
-
+        if ($item instanceof CompanyInfoEntity) {
         return $this->autoMapping->map(CompanyInfoEntity::class, CompanyInfoResponse::class, $item);
+        }
+        if ($item == true) {
+          
+            return $this->getcompanyinfoAll();
+        }
     }
 
     public function update($request)
