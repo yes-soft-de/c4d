@@ -60,7 +60,7 @@ class PackageController extends BaseController
      */
     public function getPackages()
     {
-        $result = $this->packageService->getPackages();
+        $result = $this->packageService->getPackages($this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

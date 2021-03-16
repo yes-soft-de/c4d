@@ -33,9 +33,9 @@ class PackageManager
         return $packageEntity;
     }
 
-    public function getPackages()
+    public function getPackages($user)
     {
-        return $this->packageRepository->getPackages();
+        return $this->packageRepository->getPackages($user);
     }
 
     public function getAllpackages()

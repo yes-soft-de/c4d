@@ -26,10 +26,10 @@ class PackageService
         return $this->autoMapping->map(PackageEntity::class, PackageResponse::class, $result);
     }
 
-    public function getPackages()
+    public function getPackages($user)
     {
         $respons = [];
-        $items = $this->packageManager->getPackages();
+        $items = $this->packageManager->getPackages($user);
 
         foreach ($items as $item) {
             $respons[] = $this->autoMapping->map('array', PackageResponse::class, $item);
