@@ -357,7 +357,20 @@ methods: GET
 methods: GET
 ```
 
+### Update
 
+#### GET Update ById
+
+```
+update/{id}
+methods: GET
+```
+#### GET Update All
+
+```
+updateall
+methods: GET
+```
 
 
 
@@ -649,4 +662,20 @@ methods: GET
 ```
 /companyinfoall
 methods: GET
+```
+
+### Update
+
+#### GET Update ById
+
+```
+update
+methods: POST
+```
+
+#### Update update
+
+```
+update
+methods: PUT
 ```
