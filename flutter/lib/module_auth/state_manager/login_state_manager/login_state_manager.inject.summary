@@ -28,7 +28,7 @@
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_about/service/about_service/about_service.dart#AboutService",
+                "root": "asset:c4d/lib/module_profile/service/profile/profile.service.dart#ProfileService",
                 "qualifier": null
               },
               "isProvider": false

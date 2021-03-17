@@ -269,7 +269,7 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i64.LoginScreen _createLoginScreen() =>
       _i64.LoginScreen(_createLoginStateManager());
   _i65.LoginStateManager _createLoginStateManager() =>
-      _i65.LoginStateManager(_createAuthService(), _createAboutService());
+      _i65.LoginStateManager(_createAuthService(), _createProfileService());
   _i66.RegisterScreen _createRegisterScreen() =>
       _i66.RegisterScreen(_createRegisterStateManager());
   _i67.RegisterStateManager _createRegisterStateManager() =>
