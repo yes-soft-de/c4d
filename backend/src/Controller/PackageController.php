@@ -56,6 +56,7 @@ class PackageController extends BaseController
 
     /**
      * @Route("packages", name="getPackagesUserCompatible", methods={"GET"})
+     * @IsGranted("ROLE_OWNER")
      * @return JsonResponse
      */
     public function getPackages()

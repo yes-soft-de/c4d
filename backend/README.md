@@ -444,6 +444,12 @@ methods: GET
 /totalBounceCaptain/{captainProfileId}
 methods: GET
 ```
+### The Remaining Captain Has A Boost
+
+```
+/remainingcaptain
+methods: GET
+```
 
 ### Package
 

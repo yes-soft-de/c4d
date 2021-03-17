@@ -379,4 +379,16 @@ class UserController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
+
+     /**
+     * @Route("/remainingcaptain", name="TheRemainingCaptainHasABoost",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function remainingcaptain()
+    {
+        $response = $this->userService->remainingcaptain();
+
+        return $this->response($response, self::FETCH);
+    }
 }

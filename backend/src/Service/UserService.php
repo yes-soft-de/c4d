@@ -26,6 +26,8 @@ use App\Service\PaymentCaptainService;
 use App\Service\BankService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
+use function PHPSTORM_META\type;
+
 class UserService
 {
     private $autoMapping;
@@ -465,5 +467,28 @@ class UserService
     {
         $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
         return $this->totalBounceCaptain($item['id'], 'captain', $captainID);
+    }
+
+    public function remainingcaptain()
+    {
+        $response = [];
+        $result = [];
+        $captains = $this->userManager->getAllCaptains();
+         
+        foreach ($captains as $captain) {
+                
+                $item = $this->userManager->getCaptainprofileByID($captain['id']);
+       
+                 $totalBounce = $this->totalBounceCaptain($item['id'],'admin');
+                 $total=(array)$totalBounce;
+                 $captain['totalBounce'] = $total;
+        
+                if ($captain['totalBounce']['total'] < 0 ){
+                
+                $response[] =  $this->autoMapping->map('array', CaptainProfileCreateResponse::class, $captain);
+            }
+        } 
+        $result['response']=$response;
+        return $result;
     }
 }
