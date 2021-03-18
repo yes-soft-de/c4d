@@ -21,7 +21,28 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/service/owner_orders/owner_orders.service.dart#OwnerOrdersService",
+                "root": "asset:c4d/lib/module_orders/service/orders/orders.service.dart#OrdersService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_profile/service/profile/profile.service.dart#ProfileService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_plan/service/plan_service.dart#PlanService",
                 "qualifier": null
               },
               "isProvider": false

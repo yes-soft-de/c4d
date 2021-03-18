@@ -1,0 +1,34 @@
+{
+  "asset": "asset:c4d/lib/module_auth/manager/auth_manager/auth_manager.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": [
+      {
+        "name": "AuthManager",
+        "constructor": {
+          "name": "",
+          "kind": "constructor",
+          "injectedType": {
+            "lookupKey": {
+              "root": "asset:c4d/lib/module_auth/manager/auth_manager/auth_manager.dart#AuthManager",
+              "qualifier": null
+            },
+            "isProvider": false
+          },
+          "singleton": false,
+          "asynchronous": false,
+          "dependencies": [
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_auth/repository/auth/auth_repository.dart#AuthRepository",
+                "qualifier": null
+              },
+              "isProvider": false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

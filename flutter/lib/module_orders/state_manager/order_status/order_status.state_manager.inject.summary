@@ -21,7 +21,21 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/service/order_status/order_status.service.dart#OrderStatusService",
+                "root": "asset:c4d/lib/module_orders/service/orders/orders.service.dart#OrdersService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_auth/service/auth_service/auth_service.dart#AuthService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_report/service/report_service.dart#ReportService",
                 "qualifier": null
               },
               "isProvider": false

@@ -21,6 +21,20 @@
           "dependencies": [
             {
               "lookupKey": {
+                "root": "asset:c4d/lib/module_theme/service/theme_service/theme_service.dart#AppThemeDataService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_localization/service/localization_service/localization_service.dart#LocalizationService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
                 "root": "asset:c4d/lib/module_orders/orders_module.dart#OrdersModule",
                 "qualifier": null
               },
@@ -28,7 +42,28 @@
             },
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_authorization/authoriazation_module.dart#AuthorizationModule",
+                "root": "asset:c4d/lib/module_chat/chat_module.dart#ChatModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_about/about_module.dart#AboutModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_splash/splash_module.dart#SplashModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_notifications/service/fire_notification_service/fire_notification_service.dart#FireNotificationService",
                 "qualifier": null
               },
               "isProvider": false
@@ -36,6 +71,34 @@
             {
               "lookupKey": {
                 "root": "asset:c4d/lib/module_init/init_account_module.dart#InitAccountModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_settings/settings_module.dart#SettingsModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_auth/authoriazation_module.dart#AuthorizationModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_profile/module_profile.dart#ProfileModule",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_plan/plan_module.dart#PlanModule",
                 "qualifier": null
               },
               "isProvider": false

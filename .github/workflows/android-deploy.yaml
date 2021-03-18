@@ -34,12 +34,13 @@ jobs:
         run: |
           cd ./flutter/android
           echo "$ANDROID_KEYSTORE_FILE" > key.jks.b64
-          base64 -d -i key.jks.b64 > ../key.jks
-          echo "storeFile=../../key.jks" > key.properties
+          base64 -d -i key.jks.b64 > app/key.jks
+          echo "storeFile=key.jks" > key.properties
           echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
           echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
           echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
           ls
+          
         env:
           ANDROID_KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE_FILE }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
@@ -54,10 +55,15 @@ jobs:
         env:
           FIREBASE_CONFIG: ${{secrets.FIREBASE_CONFIG}}
 
+      # - name: Upgrade Flutter Version
+      #   run: |
+      #     flutter downgrade 1.22.5
+
       - name: Get Flutter Packages tools
         run: |
           cd ./flutter
           flutter pub upgrade
+          flutter packages pub run build_runner build --delete-conflicting-outputs
 
       - name: Install bundle
         run: |
@@ -72,12 +78,18 @@ jobs:
           cd flutter/android
           bundle exec fastlane alpha
 
+      - name: Upload artifact to Github
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: flutter/build/app/outputs/flutter-apk/app-release.apk
+
       - name: Create release and upload apk
         uses: underwindfall/create-release-with-debugapk@v2.0.0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag_name: ${{ github.run_number }}
           asset_path: flutter/build/app/outputs/flutter-apk/app-release.apk
-          asset_name: C4D.apk
+          asset_name: release.apk
           asset_content_type: application/zip
-          tag_name: ${{ github.ref }}

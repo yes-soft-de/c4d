@@ -1,8 +1,0 @@
-{
-  "asset": "asset:c4d/lib/module_orders/state/owner_orders/owner_orders.state.dart",
-  "summary": {
-    "injector": [],
-    "module": [],
-    "injectable": []
-  }
-}

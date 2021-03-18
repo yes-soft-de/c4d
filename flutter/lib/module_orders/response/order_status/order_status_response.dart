@@ -1,21 +1,53 @@
+import 'package:c4d/module_orders/response/orders/orders_response.dart';
+
 class OrderStatusResponse {
+  String statusCode;
+  String msg;
+  OrderDetailsData data;
+
+  OrderStatusResponse({this.statusCode, this.msg, this.data});
+
+  OrderStatusResponse.fromJson(Map<String, dynamic> json) {
+    statusCode = json['status_code'];
+    msg = json['msg'];
+    data = json['Data'] != null ? new OrderDetailsData.fromJson(json['Data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status_code'] = this.statusCode;
+    data['msg'] = this.msg;
+    if (this.data != null) {
+      data['Data'] = this.data.toJson();
+    }
+    return data;
+  }
+}
+
+class OrderDetailsData {
   int id;
+  String ownerID;
   List<String> source;
-  List<String> destination;
+  GeoJson destination;
   Date date;
   Date updateDate;
   String note;
   String payment;
+  String phone;
   String recipientName;
   String recipientPhone;
   String state;
-//  Null fromBranch;
+  GeoJson fromBranch;
+  GeoJson location;
+  String brancheName;
+  String branchCity;
   List<AcceptedOrder> acceptedOrder;
-  List<Record> record;
-//  Null uuid;
+  List<dynamic> record;
+  String uuid;
 
-  OrderStatusResponse(
+  OrderDetailsData(
       {this.id,
+        this.ownerID,
         this.source,
         this.destination,
         this.date,
@@ -25,44 +57,54 @@ class OrderStatusResponse {
         this.recipientName,
         this.recipientPhone,
         this.state,
-//        this.fromBranch,
+        this.phone,
+        this.fromBranch,
+        this.location,
+        this.brancheName,
+        this.branchCity,
         this.acceptedOrder,
         this.record,
-//        this.uuid
-        });
+        this.uuid});
 
-  OrderStatusResponse.fromJson(Map<String, dynamic> json) {
+  OrderDetailsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    ownerID = json['ownerID'];
     source = json['source'].cast<String>();
-    destination = json['destination'].cast<String>();
+    // destination = GeoJson.fromJson(json['destination']);
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
     updateDate = json['updateDate'] != null
         ? new Date.fromJson(json['updateDate'])
         : null;
     note = json['note'];
     payment = json['payment'];
+    phone = json['phone'];
     recipientName = json['recipientName'];
     recipientPhone = json['recipientPhone'];
     state = json['state'];
-//    fromBranch = json['fromBranch'];
-    if (json['acceptedOrder'] != null) {
-      acceptedOrder = new List<AcceptedOrder>();
-      json['acceptedOrder'].forEach((v) {
-        acceptedOrder.add(new AcceptedOrder.fromJson(v));
-      });
+    fromBranch = GeoJson.fromJson(json['fromBranch']);
+    location = GeoJson.fromJson(json['location']);
+    brancheName = json['brancheName'];
+    branchCity = json['branchCity'];
+    try {
+      if (json['acceptedOrder'] != null) {
+        if (json['acceptedOrder'] is List) {
+          List<Map<String, dynamic>> orders = json['accptedOrder'];
+          acceptedOrder = <AcceptedOrder>[];
+          orders.forEach((element) {
+            acceptedOrder.add(AcceptedOrder.fromJson(element));
+          });
+        }
+      }
+    } catch (e) {
     }
-    if (json['record'] != null) {
-      record = new List<Record>();
-      json['record'].forEach((v) {
-        record.add(new Record.fromJson(v));
-      });
-    }
-//    uuid = json['uuid'];
+    record = json['record'];
+    uuid = json['uuid'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
+    data['ownerID'] = this.ownerID;
     data['source'] = this.source;
     data['destination'] = this.destination;
     if (this.date != null) {
@@ -76,15 +118,16 @@ class OrderStatusResponse {
     data['recipientName'] = this.recipientName;
     data['recipientPhone'] = this.recipientPhone;
     data['state'] = this.state;
-//    data['fromBranch'] = this.fromBranch;
-    if (this.acceptedOrder != null) {
-      data['acceptedOrder'] =
-          this.acceptedOrder.map((v) => v.toJson()).toList();
+    data['fromBranch'] = this.fromBranch;
+    data['location'] = this.location;
+    data['brancheName'] = this.brancheName;
+    data['branchCity'] = this.branchCity;
+    try {
+      data['acceptedOrder'] = this.acceptedOrder;
+    } catch (e) {
     }
-    if (this.record != null) {
-      data['record'] = this.record.map((v) => v.toJson()).toList();
-    }
-//    data['uuid'] = this.uuid;
+    data['record'] = this.record;
+    data['uuid'] = this.uuid;
     return data;
   }
 }
@@ -105,7 +148,7 @@ class Date {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.timezone != null) {
       data['timezone'] = this.timezone.toJson();
     }
@@ -125,7 +168,7 @@ class Timezone {
   Timezone.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     if (json['transitions'] != null) {
-      transitions = new List<Transitions>();
+      transitions = <Transitions>[];
       json['transitions'].forEach((v) {
         transitions.add(new Transitions.fromJson(v));
       });
@@ -136,7 +179,7 @@ class Timezone {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = this.name;
     if (this.transitions != null) {
       data['transitions'] = this.transitions.map((v) => v.toJson()).toList();
@@ -166,7 +209,7 @@ class Transitions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['ts'] = this.ts;
     data['time'] = this.time;
     data['offset'] = this.offset;
@@ -192,7 +235,7 @@ class Location {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['country_code'] = this.countryCode;
     data['latitude'] = this.latitude;
     data['longitude'] = this.longitude;
@@ -201,82 +244,48 @@ class Location {
   }
 }
 
+
 class AcceptedOrder {
   int id;
-  Date acceptedOrderDate;
   String captainID;
-  Date duration;
   String state;
   String captainName;
   String car;
   String image;
+  Null uuid;
+  String phone;
 
   AcceptedOrder(
       {this.id,
-        this.acceptedOrderDate,
         this.captainID,
-        this.duration,
         this.state,
         this.captainName,
         this.car,
-        this.image});
+        this.image,
+        this.uuid,
+        this.phone});
 
   AcceptedOrder.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    acceptedOrderDate = json['acceptedOrderDate'] != null
-        ? new Date.fromJson(json['acceptedOrderDate'])
-        : null;
     captainID = json['captainID'];
-    duration =
-    json['duration'] != null ? new Date.fromJson(json['duration']) : null;
     state = json['state'];
     captainName = json['captainName'];
     car = json['car'];
     image = json['image'];
+    uuid = json['uuid'];
+    phone = json['phone'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
-    if (this.acceptedOrderDate != null) {
-      data['acceptedOrderDate'] = this.acceptedOrderDate.toJson();
-    }
     data['captainID'] = this.captainID;
-    if (this.duration != null) {
-      data['duration'] = this.duration.toJson();
-    }
     data['state'] = this.state;
     data['captainName'] = this.captainName;
     data['car'] = this.car;
     data['image'] = this.image;
-    return data;
-  }
-}
-
-class Record {
-  int id;
-  String orderID;
-  String state;
-  Date startTime;
-
-  Record({this.id, this.orderID, this.state, this.startTime});
-
-  Record.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    orderID = json['orderID'];
-    state = json['state'];
-    startTime =
-    json['startTime'] != null ? new Date.fromJson(json['startTime']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['orderID'] = this.orderID;
-    data['state'] = this.state;
-    if (this.startTime != null) {
-      data['startTime'] = this.startTime.toJson();
-    }
+    data['uuid'] = this.uuid;
+    data['phone'] = this.phone;
     return data;
   }
 }

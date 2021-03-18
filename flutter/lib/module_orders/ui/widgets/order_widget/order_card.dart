@@ -1,18 +1,18 @@
-import 'package:c4d/utils/project_colors/project_colors.dart';
 import 'package:flutter/material.dart';
 
 class OrderCard extends StatelessWidget {
-  final String from;
-  final String to;
+  final String title;
+  final String subTitle;
   final String time;
-  final int index;
+  final bool active;
 
   OrderCard({
     this.time,
-    this.from,
-    this.to,
-    this.index,
-});
+    this.title,
+    this.subTitle = '',
+    this.active,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,7 +20,7 @@ class OrderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       elevation: 6,
-      color: index == 0 ? ProjectColors.THEME_COLOR : Colors.white,
+      color: active == true ? Theme.of(context).primaryColor : Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
       child: Container(
         padding: EdgeInsets.all(10),
         height: 115,
@@ -32,35 +32,35 @@ class OrderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'to $to',
+                  '$title',
                   style: TextStyle(
-                      color: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10
+                    color: active == true
+                        ? Colors.white
+                        : Theme.of(context).primaryColor,
+                    fontSize: 20,
                   ),
                 ),
                 Text(
-                  '$from',
+                  '$subTitle $time',
                   style: TextStyle(
-                      color: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
-                      fontSize: 10
-                  ),
-                ),
-                Text(
-                  'time: $time',
-                  style: TextStyle(
-                      color: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
-                      fontSize: 10
+                    color: active == true
+                        ? Colors.white
+                        : Theme.of(context).primaryColor,
+                    fontSize: 12,
                   ),
                 ),
               ],
             ),
             Center(
               child: CircleAvatar(
-                backgroundColor: index == 0 ? Colors.white :ProjectColors.THEME_COLOR ,
+                backgroundColor: active == true
+                    ? Colors.white
+                    : Theme.of(context).primaryColor,
                 child: Icon(
                   Icons.arrow_forward,
-                  color: index == 0 ? ProjectColors.THEME_COLOR : Colors.white ,
+                  color: active == true
+                      ? Theme.of(context).primaryColor
+                      : Colors.white,
                 ),
               ),
             )

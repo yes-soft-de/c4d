@@ -1,10 +1,21 @@
-
-
+import 'package:c4d/consts/urls.dart';
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
+import 'package:c4d/module_init/model/branch/branch_model.dart';
 import 'package:c4d/module_init/service/init_account/init_account.service.dart';
-import 'package:c4d/module_init/state/init_account/init_account.state.dart';
+import 'package:c4d/module_init/ui/state/init_account/init_account.state.dart';
+import 'package:c4d/module_init/ui/screens/init_account_screen/init_account_screen.dart';
+import 'package:c4d/module_init/ui/state/init_account_branch_saved/init_account_state_payment.dart';
+import 'package:c4d/module_init/ui/state/init_account_captain_init_profile/init_account_captain_init_profile.dart';
+import 'package:c4d/module_init/ui/state/init_account_captain_loading/init_account_captain_loading.dart';
+import 'package:c4d/module_init/ui/state/init_account_captain_profile_created/init_account_captain_profile_created.dart';
+import 'package:c4d/module_init/ui/state/init_account_packages_loaded/init_account_packages_loaded.dart';
+import 'package:c4d/module_init/ui/state/init_account_subscription_added/init_account_state_select_branch.dart';
+import 'package:c4d/module_profile/request/profile/profile_request.dart';
+import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:c4d/module_upload/service/image_upload/image_upload_service.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -12,50 +23,132 @@ import 'package:rxdart/rxdart.dart';
 class InitAccountStateManager {
   final InitAccountService _initAccountService;
   final ProfileService _profileService;
-  final PublishSubject<InitAccountState> _stateSubject = PublishSubject();
+  final AuthService _authService;
+  final ImageUploadService _uploadService;
+
+  final PublishSubject<InitAccountState> _stateSubject =
+      PublishSubject<InitAccountState>();
 
   Stream<InitAccountState> get stateStream => _stateSubject.stream;
 
   InitAccountStateManager(
-      this._initAccountService,
-      this._profileService,
+    this._initAccountService,
+    this._profileService,
+    this._authService,
+    this._uploadService,
+  );
+
+  void getRoleInit(InitAccountScreenState screen) {
+    _authService.userRole.then((value) {
+      if (value == UserRole.ROLE_OWNER) {
+        getPackages(screen);
+      } else {
+        getCaptainScreen(screen);
+      }
+    });
+  }
+
+  void submitProfile(Uri captainImage, Uri licenceImage, String name,
+      String age, InitAccountScreenState screenState) {
+    screenState.showSnackBar(S.current.uploadingImagesPleaseWait);
+    _stateSubject.add(
+        InitAccountCaptainStateLoading(screenState, S.current.uploadingImages));
+    Future.wait([
+      _uploadService.uploadImage(captainImage.path),
+      _uploadService.uploadImage(licenceImage.path)
+    ]).then((value) {
+      if (value[0] != null && value[1] != null) {
+        _stateSubject.add(InitAccountCaptainStateLoading(
+            screenState, S.current.submittingProfile));
+        _initAccountService
+            .createCaptainProfile(name, age, value[0], value[1])
+            .then((value) {
+          _stateSubject.add(InitAccountStateProfileCreated(screenState));
+        });
+      } else {
+        screenState.showSnackBar(S.current.errorUploadingImages);
+        _stateSubject.add(InitAccountCaptainInitProfile.withData(
+            screenState, captainImage, licenceImage, name, age));
+      }
+    });
+  }
+
+  void submitAccountNumber(String bankName, String bankAccountNumber,
+      InitAccountScreenState screenState) {
+    _stateSubject.add(
+      InitAccountStateLoading(screenState),
+    );
+    _initAccountService
+        .createBankDetails(bankName, bankAccountNumber)
+        .then((value) {
+      screenState.moveToOrders();
+    });
+  }
+
+  void getCaptainScreen(InitAccountScreenState screenState) {
+    _stateSubject.add(InitAccountCaptainInitProfile(screenState));
+  }
+
+  void subscribePackage(InitAccountScreenState screen, int packageId,
+      String name, String phone, String city) {
+    _stateSubject.add(
+      InitAccountStateLoading(screen),
+    );
+    Future.wait([
+      _profileService.createProfile(ProfileRequest(
+        name: name,
+        phone: phone,
+        city: city,
+        age: 30.toString(),
+        image:
+            Urls.IMAGES_ROOT + 'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+      )),
+      _initAccountService.subscribePackage(packageId)
+    ]).then((value) {
+      _stateSubject.add(
+        InitAccountStateSelectBranch(screen),
       );
-
-  void createProfile(String city, int branch){
-    _profileService.createProfile(city, branch).then((value) {
-      if(value){
-        _stateSubject.add(InitAccountCreateProfileSuccessState());
-      }
-      else{
-        Fluttertoast.showToast(msg: S.current.errorHappened);
-        _stateSubject.add(InitAccountCreateProfileErrorState());
-      }
     });
   }
 
-  void subscribePackage(int packageId){
-    _initAccountService.subscribePackage(packageId).then((value) {
-      if(value){
-        _stateSubject.add(InitAccountSubscribeSuccessState());
-      }
-      else{
-        Fluttertoast.showToast(msg: S.current.errorHappened);
-        _stateSubject.add(InitAccountSubscribeErrorState());
-      }
-    });
-  }
-
-
-  void getPackages() {
-    _stateSubject.add(InitAccountFetchingDataState());
+  void getPackages(InitAccountScreenState screen) {
+    _stateSubject.add(InitAccountStateLoading(screen));
 
     _initAccountService.getPackages().then((value) {
       if (value == null) {
-        Fluttertoast.showToast(msg: S.current.errorLoadingData);
-        _stateSubject.add(InitAccountFetchingDataErrorState());
+        _stateSubject
+            .add(InitAccountStateError('Error Fetching Packages', screen));
+      } else {
+        _stateSubject.add(InitAccountStatePackagesLoaded(value, screen));
       }
-      else {
-        _stateSubject.add(InitAccountFetchingDataSuccessState(value));
+    });
+  }
+
+  void saveBranch(
+      List<BranchModel> store_branches, InitAccountScreenState screen) {
+    _stateSubject.add(InitAccountStateLoading(screen));
+
+    var branchesToSave = <Branch>[];
+
+    store_branches.forEach((element) => branchesToSave.add(Branch(
+        brancheName: element.name,
+        location: Location(
+          lat: element.location.latitude,
+          lon: element.location.longitude,
+        ))));
+
+    _profileService
+        .saveBranch(branchesToSave)
+        .then((value) {
+      if (value == null) {
+        _stateSubject.add(InitAccountStateError(
+          'Error Saving Branch',
+          screen,
+        ));
+      } else {
+        _stateSubject.add(
+          InitAccountStatePayment(screen),
+        );
       }
     });
   }

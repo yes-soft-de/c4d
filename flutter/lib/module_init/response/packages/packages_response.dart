@@ -5,7 +5,7 @@ class PackagesResponse {
 
   PackagesResponse.fromJson(Map<String, dynamic> json) {
     if (json['Data'] != null) {
-      data = new List<Data>();
+      data = <Data>[];
       json['Data'].forEach((v) {
         data.add(new Data.fromJson(v));
       });
@@ -13,7 +13,7 @@ class PackagesResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['Data'] = this.data.map((v) => v.toJson()).toList();
     }
@@ -56,7 +56,7 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
     data['name'] = this.name;
     data['cost'] = this.cost;
