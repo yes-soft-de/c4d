@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>396882908080-1v902d7cvq3ne69ne1j3m1r01c9rlrbq.apps.googleusercontent.com</string>
+	<string>410273886458-sb3rb4c672dgt1h5ok98020unqa65e7h.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.396882908080-1v902d7cvq3ne69ne1j3m1r01c9rlrbq</string>
+	<string>com.googleusercontent.apps.410273886458-sb3rb4c672dgt1h5ok98020unqa65e7h</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>396882908080-5bj3ogui8f35nvmspo78hupict0sbcci.apps.googleusercontent.com</string>
+	<string>410273886458-fd6s8r736otlbkkqkmmbdtas3garq9lm.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDJ9fg6e7-4xhfiif9ahtDE27ZXet5IkvU</string>
+	<string>AIzaSyDmhSOcWvDFVu3eb3J1B2aZVcaifcqlVPo</string>
 	<key>GCM_SENDER_ID</key>
-	<string>396882908080</string>
+	<string>410273886458</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>de.yes-soft.c4d</string>
 	<key>PROJECT_ID</key>
-	<string>yes-soft-6866a</string>
+	<string>c4d-app-c299b</string>
 	<key>STORAGE_BUCKET</key>
-	<string>yes-soft-6866a.appspot.com</string>
+	<string>c4d-app-c299b.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:396882908080:ios:d0ae6c3f24ce012ffabc75</string>
-	<key>DATABASE_URL</key>
-	<string>https://yes-soft-6866a.firebaseio.com</string>
+	<string>1:410273886458:ios:e0c4e8cc19eb9f9d1f1943</string>
 </dict>
 </plist>
