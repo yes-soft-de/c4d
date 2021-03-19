@@ -3,39 +3,42 @@
 namespace App\Manager;
 
 use App\AutoMapping;
-use App\Entity\PackageEntity;
-use App\Repository\PackageEntityRepository;
-use App\Request\PackageCreateRequest;
-use App\Request\PackageUpdateStateRequest;
+use App\Entity\VacationsEntity;
+use App\Repository\VacationsEntityRepository;
+use App\Request\VacationsCreateRequest;
+use App\Request\VacationsUpdateStateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
-class PackageManager
+class VacationsManager
 {
     private $autoMapping;
     private $entityManager;
-    private $packageRepository;
+    private $vacationsRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, PackageEntityRepository $packageRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, VacationsEntityRepository $vacationsRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->packageRepository = $packageRepository;
+        $this->vacationsRepository = $vacationsRepository;
     }
 
-    public function create(PackageCreateRequest $request)
+    public function create(VacationsCreateRequest $request)
     {
-        $packageEntity = $this->autoMapping->map(PackageCreateRequest::class, PackageEntity::class, $request);
+        $entity = $this->autoMapping->map(VacationsCreateRequest::class, VacationsEntity::class, $request);
 
-        $this->entityManager->persist($packageEntity);
+        $entity->setStartDate($request->getStartDate());
+        $entity->setEndDate($request->getEndDate());
+
+        $this->entityManager->persist($entity);
         $this->entityManager->flush();
         $this->entityManager->clear();
 
-        return $packageEntity;
+        return $entity;
     }
 
-    public function getPackages()
+    public function getPackages($user)
     {
-        return $this->packageRepository->getPackages();
+        return $this->packageRepository->getPackages($user);
     }
 
     public function getAllpackages()

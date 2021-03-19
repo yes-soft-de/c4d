@@ -12,6 +12,7 @@ use App\Repository\CaptainProfileEntityRepository;
 use App\Request\UserProfileCreateRequest;
 use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileCreateRequest;
+use App\Request\VacationsCreateRequest;
 use App\Request\UserProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateRequest;
@@ -173,6 +174,19 @@ class UserManager
         $item = $this->captainProRepository->getByCaptainIDForUpdate($request->getCaptainID());
         if ($item) {
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateByAdminRequest::class, CaptainProfileEntity::class, $request, $item);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
+
+    public function captainvacationbyadmin(VacationsCreateRequest $request)
+    {  
+        $item = $this->captainProRepository->getByCaptainIDForUpdate($request->getCaptainId());
+        
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(VacationsCreateRequest::class, CaptainProfileEntity::class, $request, $item);
             $this->entityManager->flush();
             $this->entityManager->clear();
 

@@ -53,4 +53,6 @@ class CaptainProfileCreateResponse
     public $stcPay;
     
     public $bank;
+
+    public $vacationStatus;
 }

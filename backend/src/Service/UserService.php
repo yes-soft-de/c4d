@@ -11,6 +11,7 @@ use App\Request\UserProfileCreateRequest;
 use App\Request\UserProfileUpdateRequest;
 use App\Request\userProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileCreateRequest;
+use App\Request\VacationsCreateRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\UserRegisterRequest;
@@ -26,7 +27,6 @@ use App\Service\PaymentCaptainService;
 use App\Service\BankService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-use function PHPSTORM_META\type;
 
 class UserService
 {
@@ -187,6 +187,13 @@ class UserService
         $item = $this->userManager->captainprofileUpdateByAdmin($request);
 
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
+    }
+
+    public function captainvacationbyadmin(VacationsCreateRequest $request)
+    {
+        return $this->userManager->captainvacationbyadmin($request);
+
+        // return $this->autoMapping->map(CaptainProfileEntity::class, VacationsCreateRequest::class, $item);
     }
 
     public function getcaptainprofileByCaptainID($captainID)
