@@ -658,7 +658,7 @@ methods: GET
 
 ### Update
 
-#### Create Update ById
+#### Create Update 
 
 ```
 /update
