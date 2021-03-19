@@ -658,16 +658,26 @@ methods: GET
 
 ### Update
 
-#### GET Update ById
+#### Create Update ById
 
 ```
-update
+/update
 methods: POST
 ```
 
 #### Update update
 
 ```
-update/{id}
+/update/{id}
 methods: PUT
+```
+
+### Vacation
+
+#### Creeate vacation 
+
+state = vacation  OR work
+```
+/vacation
+methods: POST
 ```
