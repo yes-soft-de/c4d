@@ -365,6 +365,18 @@ updateall
 methods: GET
 ```
 
+### TermsCaptain
+
+#### Get TermsCaptain 
+
+```
+/termscaptain
+methods: GET
+```
+
+
+
+
 
 
 
@@ -680,4 +692,20 @@ state = vacation  OR work
 ```
 /vacation
 methods: POST
+```
+
+### TermsCaptain
+
+#### Create TermsCaptain 
+
+```
+/termscaptain
+methods: POST
+```
+
+#### Update TermsCaptain 
+
+```
+/termscaptain
+methods: PUT
 ```
