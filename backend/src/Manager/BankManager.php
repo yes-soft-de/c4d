@@ -49,6 +49,18 @@ class BankManager
         return $entity;
     }
 
+    public function updateFromCreateCaptain(CaptainProfileUpdateRequest $request)
+    {
+       
+        $entity = $this->autoMapping->map(CaptainProfileUpdateRequest::class, BankEntity::class, $request);
+
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $entity;
+    }
+
     public function update(BankUpdateRequest $request)
     {
         $entity = $this->bankEntityRepository->find($request->getId());

@@ -33,6 +33,13 @@ class BankService
         return $this->autoMapping->map(BankEntity::class, BankResponse::class, $item);
     }
 
+    public function updateFromCreateCaptain($request)
+    {
+        $item = $this->bankManager->updateFromCreateCaptain($request);
+
+        return $this->autoMapping->map(BankEntity::class, BankResponse::class, $item);
+    }
+
     public function update($request)
     {
         $result = $this->bankManager->update($request);

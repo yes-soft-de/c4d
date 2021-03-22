@@ -150,8 +150,6 @@ class UserService
         $uuid = $this->recordService->uuid();
         $captainProfile = $this->userManager->captainprofileCreate($request, $uuid);
         
-        // $captainProfile->setImage($this->specialLinkCheck($captainProfile->getSpecialLink()).$captainProfile->getImage());
-
         if ($captainProfile instanceof CaptainProfileEntity) {
            
             $item = $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $captainProfile);
@@ -173,11 +171,17 @@ class UserService
         $item = $this->userManager->captainprofileUpdate($request);
         $bank = $this->bankService->updateFromCaptain($request);
         if ($bank) {
-        $item->bankName = $bank->bankName;
-        $item->accountID = $bank->accountID;
-        $item->stcPay = $bank->stcPay;
+            $item->bankName = $bank->bankName;
+            $item->accountID = $bank->accountID;
+            $item->stcPay = $bank->stcPay;
         }
-        // $item->setImage($this->specialLinkCheck($item->getSpecialLink()).$item->getImage());
+        if (!$bank) {
+            $bank = $this->bankService->updateFromCreateCaptain($request);
+            $item->bankName = $bank->bankName;
+            $item->accountID = $bank->accountID;
+            $item->stcPay = $bank->stcPay;
+        }
+
         
         return $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $item);
     }
