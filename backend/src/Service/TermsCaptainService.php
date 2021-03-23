@@ -37,6 +37,14 @@ class TermsCaptainService
             return $response;
     }
 
+    public function getTermsCaptainById($id) {
+       
+        $item = $this->termsCaptainManager->getTermsCaptainById($id);
+        
+        return $this->autoMapping->map(TermsCaptain::class, TermsCaptainCreateResponse::class, $item);
+            
+    }
+
     public function update(TermsCaptainUpdateRequest $request)
     {
         $item = $this->termsCaptainManager->update($request);

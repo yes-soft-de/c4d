@@ -374,6 +374,13 @@ methods: GET
 methods: GET
 ```
 
+#### Get TermsCaptain By Id
+
+```
+/termscaptainbyid/{id}
+methods: GET
+```
+
 
 
 

@@ -38,6 +38,11 @@ class TermsCaptainManager
         return $this->repository->getTermsCaptain();
     }
 
+    public function getTermsCaptainById($id) 
+    {
+        return $this->repository->getTermsCaptainById($id) ;
+    }
+
     public function update(TermsCaptainUpdateRequest $request)
     {
         $item = $this->repository->find($request->getId());

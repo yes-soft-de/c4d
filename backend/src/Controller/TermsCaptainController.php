@@ -65,6 +65,18 @@ class TermsCaptainController extends BaseController
           return $this->response($result, self::FETCH);
       }
 
+    /**
+      * @Route("/termscaptainbyid/{id}", name="GetTermsCaptainById", methods={"GET"})
+      * @param                     Request $request
+      * @return                    JsonResponse
+      */
+      public function getTermsCaptainById($id)
+      {
+          $result = $this->termsCaptainService->getTermsCaptainById($id);
+  
+          return $this->response($result, self::FETCH);
+      }
+
       /**
      * @Route("/termscaptain", name="termsUpdate", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")

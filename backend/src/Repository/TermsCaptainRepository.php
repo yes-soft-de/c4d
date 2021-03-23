@@ -26,4 +26,13 @@ class TermsCaptainRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getTermsCaptainById($id) 
+    {
+        return $this->createQueryBuilder('terms') 
+            ->andWhere('terms.id = :id')   
+            ->setParameter('id',$id)        
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
