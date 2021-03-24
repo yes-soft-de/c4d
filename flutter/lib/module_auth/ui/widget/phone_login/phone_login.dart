@@ -35,7 +35,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
 
   bool retryEnabled = false;
   bool agreed = false;
-
+  String hint = '900000000';
   @override
   Widget build(BuildContext context) {
     if (loading) {
@@ -45,6 +45,13 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
           setState(() {});
         }
       });
+    }
+    if (countryCode == '+963') {
+      hint = '900000000';
+    } else if (countryCode == '+966') {
+      hint = '500000000';
+    } else {
+      hint = '700000000';
     }
     return Form(
       key: _signUpFormKey,
@@ -89,7 +96,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                       controller: _phoneController,
                       decoration: InputDecoration(
                           labelText: S.of(context).phoneNumber,
-                          hintText: '123 456 789'),
+                          hintText: '$hint'),
                       validator: (v) {
                         if (v.isEmpty) {
                           return S.of(context).pleaseInputPhoneNumber;
@@ -112,15 +119,13 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                 ? S.of(context).iHaveAnAccount
                 : S.of(context).register),
           ),
-          widget.isRegister
-              ? CheckboxListTile(
-                  value: agreed,
-                  title: Text(S.of(context).iAgreeToTheTermsOsService),
-                  onChanged: (v) {
-                    agreed = v;
-                    if (mounted) setState(() {});
-                  })
-              : Container(),
+          CheckboxListTile(
+              value: agreed,
+              title: Text(S.of(context).iAgreeToTheTermsOsService),
+              onChanged: (v) {
+                agreed = v;
+                if (mounted) setState(() {});
+              }),
           loading == true
               ? Center(
                   child: Text(S.of(context).loading),
@@ -132,16 +137,18 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                     color: widget.isRegister
                         ? Theme.of(context).primaryColorDark
                         : Theme.of(context).primaryColor,
-                    onPressed: !agreed ? null : () {
-                      String phone = _phoneController.text;
-                      if (phone[0] == '0') {
-                        phone = phone.substring(1);
-                      }
-                      loading = true;
-                      setState(() {});
-                      widget.onLoginRequested(
-                          countryCode + _phoneController.text);
-                    },
+                    onPressed: !agreed
+                        ? null
+                        : () {
+                            String phone = _phoneController.text;
+                            if (phone[0] == '0') {
+                              phone = phone.substring(1);
+                            }
+                            loading = true;
+                            setState(() {});
+                            widget.onLoginRequested(
+                                countryCode + _phoneController.text);
+                          },
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(

@@ -54,8 +54,8 @@ class AboutStateRequestBooking extends AboutState {
                     return null;
                   },
                   decoration: InputDecoration(
-                    hintText: S.of(context).name,
-                    labelText: S.of(context).name,
+                    hintText: S.of(context).businessName,
+                    labelText: S.of(context).businessName,
                     suffix: Icon(Icons.person),
                   ),
                 ),

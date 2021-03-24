@@ -1,4 +1,6 @@
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_init/request/create_captain_profile/create_captain_profile_request.dart';
+import 'package:c4d/module_orders/response/terms/terms_respons.dart';
 import 'package:c4d/module_profile/repository/profile/profile.repository.dart';
 import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
@@ -36,4 +38,6 @@ class ProfileManager {
   Future<List<Branch>> getMyBranches() => _repository.getMyBranches();
 
   Future<List<ActivityRecord>> getMyLog() => _repository.getUserActivityLog();
+  Future <List<Terms>> getTerms(UserRole role) => _repository.getTerms(role);
+
 }

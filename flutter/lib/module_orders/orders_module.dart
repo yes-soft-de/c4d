@@ -4,6 +4,8 @@ import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart'
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_orders/ui/screens/order_status/order_status_screen.dart';
 import 'package:c4d/module_orders/ui/screens/orders/owner_orders_screen.dart';
+import 'package:c4d/module_orders/ui/screens/terms/terms.dart';
+import 'package:c4d/module_orders/ui/screens/update/update.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 
@@ -14,13 +16,10 @@ class OrdersModule extends YesModule {
   final NewOrderScreen _newOrderScreen;
   final OrderStatusScreen _orderStatus;
   final CaptainOrdersScreen _captainOrdersScreen;
-
-  OrdersModule(
-    this._newOrderScreen,
-    this._orderStatus,
-    this._ordersScreen,
-    this._captainOrdersScreen,
-  ) {
+  final UpdateScreen _updateScreen;
+  final TermsScreen _termsScreen;
+  OrdersModule(this._newOrderScreen, this._orderStatus, this._ordersScreen,
+      this._captainOrdersScreen, this._updateScreen,this._termsScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
 
@@ -30,6 +29,8 @@ class OrdersModule extends YesModule {
       OrdersRoutes.OWNER_ORDERS_SCREEN: (context) => _ordersScreen,
       OrdersRoutes.ORDER_STATUS_SCREEN: (context) => _orderStatus,
       OrdersRoutes.CAPTAIN_ORDERS_SCREEN: (context) => _captainOrdersScreen,
+      OrdersRoutes.UPDATE_SCREEN: (context) => _updateScreen,
+      OrdersRoutes.TERMS_SCREEN: (context) => _termsScreen
     };
   }
 }

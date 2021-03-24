@@ -54,7 +54,7 @@
   "settings": "Settings",
   "iAm": "I am",
   "skip": "Skip",
-  "iSpeak": "I Speak",
+  "iSpeak": "Preferred language",
   "changeLanguage": "Change Language",
   "andIAm": "And I am",
   "me": "ME",
@@ -181,5 +181,9 @@
   "took": "Took",
   "minutes": "Minutes",
   "iAgreeToTheTermsOsService": "I Agree to the Terms os service.",
-  "iAgreeToTheTermsOfServicePrivacyPolicy": "I Agree To The Terms Of Service & privacy policy"
+  "iAgreeToTheTermsOfServicePrivacyPolicy": "I Agree To The Terms Of Service & privacy policy",
+  "businessName":"Business Name",
+  "unknownNumberOfCar":"The number of cars unknown",
+  "recipientName":"Recipient Name",
+  "date":"Date"
 }

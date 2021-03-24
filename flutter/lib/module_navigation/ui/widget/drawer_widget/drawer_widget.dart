@@ -1,5 +1,7 @@
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_plan/plan_routes.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
@@ -12,11 +14,11 @@ class DrawerWidget extends StatelessWidget {
   final String user_image;
   final String placeholder =
       'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png';
-
-  DrawerWidget({
-    this.username,
-    this.user_image,
-  });
+  final String whatsapp;
+  final phone;
+  UserRole role = UserRole.ROLE_OWNER;
+  DrawerWidget(
+      {this.username, this.user_image, this.whatsapp, this.phone, this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +105,10 @@ class DrawerWidget extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      launch('https://wa.me/+966502722204');
+                      launch('https://wa.me/$whatsapp');
                     },
                     child: ListTile(
-                      leading: Icon(Icons.phone),
+                      leading: FaIcon(FontAwesomeIcons.whatsapp),
                       title: Text(S.of(context).directSupport),
                     ),
                   ),
@@ -123,8 +125,13 @@ class DrawerWidget extends StatelessWidget {
                       )),
                   GestureDetector(
                       onTap: () {
-                        String url = 'https://c4d-app.web.app/tos.html';
-                        launch(url);
+                        if (role == UserRole.ROLE_CAPTAIN) {
+                          Navigator.of(context)
+                              .pushNamed(OrdersRoutes.TERMS_SCREEN);
+                        } else {
+                          String url = 'https://c4d-app.web.app/tos.html';
+                          launch(url);
+                        }
                       },
                       child: ListTile(
                         title: Text(
@@ -158,8 +165,8 @@ class DrawerWidget extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        String url = 'https://c4d-app.web.app/privacy.html';
-                        launch(url);
+                        Navigator.of(context)
+                            .pushNamed(OrdersRoutes.UPDATE_SCREEN);
                       },
                       child: ListTile(
                         leading: Icon(Icons.update),
@@ -190,12 +197,16 @@ class DrawerWidget extends StatelessWidget {
                         icon: Icon(
                           Icons.phone,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          launch('tel://$phone');
+                        }),
                     IconButton(
                         icon: FaIcon(
                           FontAwesomeIcons.whatsapp,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          launch('https://wa.me/$whatsapp');
+                        }),
                     IconButton(
                         icon: FaIcon(
                           FontAwesomeIcons.facebook,

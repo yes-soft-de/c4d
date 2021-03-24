@@ -1,5 +1,6 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_profile/model/activity_model/activity_model.dart';
+import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_profile/ui/screen/activity_screen/activity_screen.dart';
 import 'package:c4d/module_profile/ui/states/activity_state/activity_state.dart';
 import 'package:flutter/material.dart';
@@ -15,18 +16,25 @@ class OwnerActivityStateRecordsLoaded extends ActivityState {
   @override
   Widget getUI(BuildContext context) {
     var list = <Widget>[];
-
+    List<String> orderId;
     list.addAll(activity.map(
-      (e) => Card(
-        child: ListTile(
-          leading: Icon(Icons.check),
-          title: Text('${e.activity}'),
-          subtitle: Text(
-            S.of(context).took +
-                ' ' +
-                e.startDate.difference(e.endDate).inMinutes.abs().toString() +
-                ' ' +
-                S.of(context).minutes,
+      (e) => GestureDetector(
+        onTap: () {
+          orderId = e.activity.split('#');
+          Navigator.of(context).pushNamed(ProfileRoutes.ORDER_INFO_SCREEN,
+              arguments: int.parse(orderId[1].toString()));
+        },
+        child: Card(
+          child: ListTile(
+            leading: Icon(Icons.check),
+            title: Text('${e.activity}'),
+            subtitle: Text(
+              S.of(context).took +
+                  ' ' +
+                  e.startDate.difference(e.endDate).inMinutes.abs().toString() +
+                  ' ' +
+                  S.of(context).minutes,
+            ),
           ),
         ),
       ),

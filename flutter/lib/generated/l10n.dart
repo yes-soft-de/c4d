@@ -575,10 +575,10 @@ class S {
     );
   }
 
-  /// `I Speak`
+  /// `Preferred language`
   String get iSpeak {
     return Intl.message(
-      'I Speak',
+      'Preferred language',
       name: 'iSpeak',
       desc: '',
       args: [],
@@ -1850,6 +1850,46 @@ class S {
     return Intl.message(
       'I Agree To The Terms Of Service & privacy policy',
       name: 'iAgreeToTheTermsOfServicePrivacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Business Name`
+  String get businessName {
+    return Intl.message(
+      'Business Name',
+      name: 'businessName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The number of cars unknown`
+  String get unknownNumberOfCar {
+    return Intl.message(
+      'The number of cars unknown',
+      name: 'unknownNumberOfCar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recipient Name`
+  String get recipientName {
+    return Intl.message(
+      'Recipient Name',
+      name: 'recipientName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
       desc: '',
       args: [],
     );

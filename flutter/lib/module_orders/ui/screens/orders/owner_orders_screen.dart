@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_deep_links/service/deep_links_service.dart';
 import 'package:c4d/module_navigation/ui/widget/drawer_widget/drawer_widget.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
+import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/owner_orders/orders.state.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
@@ -29,9 +31,11 @@ class OwnerOrdersScreen extends StatefulWidget {
 class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
   OwnerOrdersListState _currentState;
   ProfileResponseModel _currentProfile;
+  CompanyInfoResponse _companyInfo;
 
   StreamSubscription _stateSubscription;
   StreamSubscription _profileSubscription;
+  StreamSubscription _companySubscription;
 
   void getMyOrders() {
     widget._stateManager.getMyOrders(this);
@@ -63,8 +67,15 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
         setState(() {});
       }
     });
+    _companySubscription = widget._stateManager.companyStream.listen((event) {
+      _companyInfo = event;
+      if (mounted) {
+        setState(() {});
+      }
+    });
 
     widget._stateManager.getProfile();
+    widget._stateManager.companyInfo();
     widget._stateManager.getMyOrders(this);
 
     DeepLinksService.checkForGeoLink().then((value) {
@@ -98,13 +109,22 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
               }),
         ],
       ),
-      drawer: _currentProfile != null
+      drawer: _currentProfile != null && _companyInfo != null
           ? DrawerWidget(
+            role: UserRole.ROLE_OWNER,
               username: _currentProfile.name ?? 'user',
               user_image: _currentProfile.image ??
                   'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+              whatsapp: _companyInfo.whatsapp ?? '',
+              phone: _companyInfo.phone ?? '',
             )
-          : DrawerWidget(),
+          : _companyInfo != null ? DrawerWidget(
+            role: UserRole.ROLE_OWNER,
+              whatsapp: _companyInfo.whatsapp ?? '',
+              phone: _companyInfo.phone ?? '',
+            ) : DrawerWidget(
+               role: UserRole.ROLE_OWNER,
+            ),
       body: _currentState.getUI(context),
     );
   }
@@ -116,6 +136,9 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
     }
     if (_profileSubscription != null) {
       _profileSubscription.cancel();
+    }
+    if (_companySubscription != null) {
+      _companySubscription.cancel();
     }
     super.dispose();
   }

@@ -1,6 +1,7 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
+import 'package:c4d/module_orders/response/terms/terms_respons.dart';
 import 'package:c4d/module_profile/manager/profile/profile.manager.dart';
 import 'package:c4d/module_profile/model/activity_model/activity_model.dart';
 import 'package:c4d/module_profile/prefs_helper/profile_prefs_helper.dart';
@@ -120,10 +121,11 @@ class ProfileService {
     records.forEach((e) {
       if (e.state == 'delivered') {
         activity[e.id] = ActivityModel(
-        startDate: DateTime.fromMillisecondsSinceEpoch(e.record.first.date.timestamp * 1000),
-        endDate: DateTime.fromMillisecondsSinceEpoch(e.record.last.date.timestamp * 1000),
-        activity: '${e.brancheName}, #${e.id.toString()}'
-      );
+            startDate: DateTime.fromMillisecondsSinceEpoch(
+                e.record.first.date.timestamp * 1000),
+            endDate: DateTime.fromMillisecondsSinceEpoch(
+                e.record.last.date.timestamp * 1000),
+            activity: '${e.brancheName}, #${e.id.toString()}');
       }
     });
 
@@ -135,7 +137,7 @@ class ProfileService {
       return S.current.orderIsCreated;
     } else if (status == 'on way to pick order') {
       return S.current.captainAcceptedOrder;
-    } else if (status == 'in store' ||status == 'in_store' ) {
+    } else if (status == 'in store' || status == 'in_store') {
       return S.current.captainInStore;
     } else if (status == 'ongoing' || status == 'piked') {
       return S.current.captainStartedDelivery;
@@ -145,5 +147,10 @@ class ProfileService {
       return S.current.orderIsFinished;
     }
     return status;
+  }
+
+  Future <List<Terms>> getTerms() async {
+    var role = await _authService.userRole;
+    return await _manager.getTerms(role);
   }
 }

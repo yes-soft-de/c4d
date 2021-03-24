@@ -68,7 +68,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       Text(S.of(context).darkMode),
                       Switch(
-                          value: Theme.of(context).brightness == Brightness.dark,
+                          value:
+                              Theme.of(context).brightness == Brightness.dark,
                           onChanged: (mode) {
                             widget._themeDataService
                                 .switchDarkMode(mode)
@@ -81,7 +82,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             FutureBuilder(
               future: widget._authService.userRole,
-              builder: (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
                 if (snapshot.data == UserRole.ROLE_OWNER) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -138,12 +140,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       Text(S.of(context).language),
                       FutureBuilder(
-                        initialData: Platform.localeName.substring(0,2),
+                        initialData: Platform.localeName.substring(0, 2),
                         future: widget._localizationService.getLanguage(),
                         builder: (BuildContext context,
                             AsyncSnapshot<String> snapshot) {
                           return DropdownButton(
-                              value: snapshot.data ?? Platform.localeName.substring(0,2),
+                              value: snapshot.data ??
+                                  Platform.localeName.substring(0, 2),
                               items: [
                                 DropdownMenuItem(
                                   child: Text('العربية'),
@@ -155,7 +158,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 ),
                               ],
                               onChanged: (String newLang) {
-                                widget._localizationService.setLanguage(newLang);
+                                widget._localizationService
+                                    .setLanguage(newLang);
                               });
                         },
                       ),
@@ -247,7 +251,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Switch(
                   onChanged: (bool value) {
                     profile.isOnline = value;
-                    widget._notificationService.setCaptainActive(value);
+                    widget._notificationService
+                        .setCaptainActive(value)
+                        .whenComplete(() => setState(() {}));
                     widget._profileService.updateCaptainProfile(
                       ProfileRequest(
                         name: profile.name,
@@ -260,7 +266,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         age: profile.age.toString(),
                         isOnline: value == true ? 'active' : 'inactive',
                       ),
-                    );
+                    ).whenComplete(() => setState(() {}));
                   },
                   value: profile.isOnline == true,
                 )

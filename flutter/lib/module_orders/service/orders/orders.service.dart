@@ -1,14 +1,17 @@
 import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/model/update/update_model.dart';
 import 'package:c4d/module_orders/request/accept_order_request/accept_order_request.dart';
 import 'package:c4d/module_orders/request/order/order_request.dart';
 import 'package:c4d/module_orders/request/update_order_request/update_order_request.dart';
+import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/utils/status_helper/status_helper.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
+import 'package:c4d/module_profile/response/order_info_respons.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/utils/logger/logger.dart';
 import 'package:inject/inject.dart';
@@ -168,5 +171,29 @@ class OrdersService {
     });
 
     return orders;
+  }
+
+  Future<CompanyInfoResponse> getCompanyInfo() async {
+    CompanyInfoResponse response = await _ordersManager.getCompanyInfo();
+    if (response == null) return null;
+    return response;
+  }
+
+  Future<List<UpdateModel>> getUpdates() async {
+    List response = await _ordersManager.getUpdates();
+    if (response == null) return null;
+
+    List<UpdateModel> updates = [];
+
+    response.forEach((element) {
+      updates.add(UpdateModel.fromJson(element));
+    });
+    return updates;
+  }
+
+  Future<OrderInfoRespons> getOrder(int orderId) async {
+    Map response = await _ordersManager.getOrder(orderId);
+    if (response == null) return null;
+    return OrderInfoRespons.fromJson(response);
   }
 }

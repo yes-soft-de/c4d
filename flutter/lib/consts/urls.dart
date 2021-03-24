@@ -31,4 +31,9 @@ class Urls {
 
   static const APPOINTMENT_API = BASE_API + '/dating';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
+  static const COMPANYINFO_API = BASE_API + '/companyinfoall';
+  static const UPDATES_API = BASE_API + '/updateall';
+  static const ORDER_BY_ID = BASE_API + '/orderStatus/';
+  static const TERMS_CAPTAIN = BASE_API + '/termscaptain';
+  static const TERMS_OWNER = BASE_API + '/';
 }

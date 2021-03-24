@@ -22,7 +22,7 @@ class ChatBubbleWidget extends StatefulWidget {
 
 class ChatBubbleWidgetState extends State<ChatBubbleWidget> {
   bool focused = false;
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,9 +43,13 @@ class ChatBubbleWidgetState extends State<ChatBubbleWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(timeago.format(widget.sentDate ?? DateTime.now())),
+                Text(
+                  timeago.format(widget.sentDate ?? DateTime.now(),locale:Localizations.localeOf(context).languageCode),
+                
+                ),
                 widget.message.contains('http')
-                    ? Image.network(widget.message.replaceFirst('uploadimage', 'upload/image'))
+                    ? Image.network(widget.message
+                        .replaceFirst('uploadimage', 'upload/image'))
                     : Text(
                         '${widget.message}',
                         style: TextStyle(
