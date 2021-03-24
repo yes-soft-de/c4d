@@ -292,6 +292,10 @@ ROLE_OWNER
 /report
 methods: POST
 ```
+#### Get By id
+/report/{id}
+methods: GET
+```
 
 ### Dating
 
