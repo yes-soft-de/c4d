@@ -38,4 +38,9 @@ class ReportManager
     {
         return $this->repository->getReports();
     }
+
+    public function getReport($id)
+    {
+        return $this->repository->getReport($id);
+    }
 }

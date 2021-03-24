@@ -23,11 +23,23 @@ class ReportEntityRepository extends ServiceEntityRepository
     public function getReports()
     {
         return $this->createQueryBuilder('ReportEntity')
-            ->addSelect('ReportEntity.id', 'ReportEntity.orderId', 'ReportEntity.reason', 'ReportEntity.userId', 'userProfileEntity.userName', 'userProfileEntity.uuid') 
+            ->addSelect('ReportEntity.id', 'ReportEntity.orderId', 'ReportEntity.reason', 'ReportEntity.userId', 'userProfileEntity.userName', 'ReportEntity.uuid') 
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = ReportEntity.userId')
             
             ->getQuery()
             ->getResult();
+    }
+
+    public function getReport($id)
+    {
+        return $this->createQueryBuilder('ReportEntity')
+            ->addSelect('ReportEntity.id', 'ReportEntity.orderId', 'ReportEntity.reason', 'ReportEntity.userId', 'userProfileEntity.userName', 'ReportEntity.uuid') 
+
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = ReportEntity.userId')
+            ->andWhere('ReportEntity.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

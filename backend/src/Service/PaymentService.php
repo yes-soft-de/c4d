@@ -66,16 +66,23 @@ class PaymentService
       $arr['totalAmountOfSubscriptions'] = $totalAmountOfSubscriptions;
       $arr['currentTotal'] = $total;
       $arr['bank']= $bank;
-      
       return $arr;
     }
 
     public  function subtractTowDates($date) {
-        $dateAfterMonth = date_modify(new DateTime('now'),'+1 month');
-
-        $difference = $date->diff($dateAfterMonth);
+      
+        $d =$date->format('y-m-d');
+        $dateAfterMonth = date_modify(new DateTime($d),'+ 1month');
+        $now = new DateTime('now');
+        $difference =  $now->diff($dateAfterMonth);
         
-        return $this->format_interval($difference);
+        if($now < $dateAfterMonth) {
+            return $this->format_interval($difference);
+        }
+        if($now >= $dateAfterMonth) {
+            return "it is time for payment";
+        }
+        // return $this->format_interval($difference);
     }
 
     function format_interval($interval) {

@@ -26,11 +26,9 @@ class VacationsService
     {
         $result = $this->vacationsManager->create($request);
         if ($result) {
-            $state = $this->userService->captainvacationbyadmin($request);
-            
+           $this->userService->captainvacationbyadmin($request); 
         }
         $respnose = $this->autoMapping->map(VacationsEntity::class, VacationsResponse::class, $result);
-        $respnose->state =$state->getState();
         
         return $respnose;
     }

@@ -40,4 +40,12 @@ class ReportService
         }
         return $response;
     }
+
+    public function getReport($id)
+    {
+       
+        $item = $this->reportManager->getReport($id);
+    
+        return  $this->autoMapping->map('array', ReportResponse::class, $item);
+    }
 }

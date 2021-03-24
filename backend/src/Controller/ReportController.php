@@ -67,4 +67,15 @@ class ReportController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
+    /**
+     * @Route("report/{id}", name="getReportById", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getReport($id)
+    {
+        $result = $this->reportService->getReport($id);
+
+        return $this->response($result, self::FETCH);
+    }
 }
