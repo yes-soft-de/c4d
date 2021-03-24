@@ -1,0 +1,8 @@
+{
+  "asset": "asset:c4d/lib/module_auth/authorization_routes.dart",
+  "summary": {
+    "injector": [],
+    "module": [],
+    "injectable": []
+  }
+}

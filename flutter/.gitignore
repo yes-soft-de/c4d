@@ -43,7 +43,12 @@ app.*.map.json
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
-*.summary
+# DI Files
+*.inject.summary
 *.inject.dart
 
+# Android Files
+google-services.json
 key.jks
+key.properties
+yes-cloud.json

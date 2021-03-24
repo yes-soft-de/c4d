@@ -1,21 +1,9 @@
 name: c4d
 description: A new Flutter application.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.1
+version: 1.0.10+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -23,18 +11,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
-
-  date_time_picker: ^1.1.0
+  cupertino_icons: ^1.0.0
+  flutter_datetime_picker: ^1.4.0
 
   # Localization Library
   flutter_localizations:
     sdk: flutter
 
+  # Fonts
+  google_fonts: ^1.1.1
+  font_awesome_flutter: ^8.11.0
+
+  # DI
+  provider: ^4.3.2+2
+
+  # Crypto for SHA1
+  crypto: ^2.1.5
 
   # Dependency injection
   inject:
@@ -42,12 +34,17 @@ dependencies:
       url: https://github.com/yes-soft-de/inject.dart.git
       path: package/inject
 
+  # Camera
+  image_picker: ^0.6.7+14
 
-  firebase_crashlytics: ^0.2.3
+  # Video
+  video_player: ^1.0.0
 
+  # Paths
+  path_provider: ^1.6.24
 
   # Shared Prefs
-  shared_preferences: ^0.5.12
+  shared_preferences: ^0.5.12+4
 
   # Open Url in Chrome
   url_launcher: ^5.7.0
@@ -58,25 +55,35 @@ dependencies:
   dio_http_cache: ^0.2.11
   dio_firebase_performance: ^0.2.0
 
+  # Pair and Other Types
+  analyzer_plugin: ^0.3.0
+  timeago: ^2.0.29
+
   # String validation
   validators: ^2.0.1
 
   # Svg Loader
-  flutter_svg: ^0.19.0
+  flutter_svg: ^0.19.1
 
   # Streams and RX
   rxdart: ^0.24.1
 
+  # ORM, Database SQL
+  sqfentity: ^1.4.0+3
+
   # Firebase Libs
   firebase_core: ^0.5.0
-  firebase_auth: ^0.18.0+1
-  firebase_analytics: ^6.0.0
-  firebase_remote_config: ^0.4.0
-  cloud_firestore: ^0.14.0+2
+  firebase_auth: ^0.18.4+1
+  firebase_analytics: ^6.3.0
+  firebase_remote_config: ^0.4.3
+  cloud_firestore: ^0.14.4
+  firebase_performance: ^0.4.0
+  firebase_messaging: ^7.0.0
+  firebase_crashlytics: ^0.2.4
 
   # Google Sign In
-  google_sign_in: ^4.5.4
-  sign_in_with_apple: ^2.5.2
+  google_sign_in: ^4.5.6
+  sign_in_with_apple: ^2.5.4
 
   # Localization
   gen_lang: 0.1.3
@@ -84,28 +91,46 @@ dependencies:
   # Internationalization
   intl: ^0.16.1
   intl_translation: ^0.17.10
-  intl_utils: ^1.6.5
-
-  # Toasts
-  fluttertoast: ^7.1.4
+  intl_utils: ^1.9.0
 
   # UUID
   uuid: ^2.2.2
 
-  #  progress indicator
-  percent_indicator: ^2.1.7+4
+  # ProgressBar
+  step_progress_indicator: ^0.2.5+8
 
-  #  rating bar
-  flutter_rating_bar: ^3.0.1+1
+  # Maps and Locations
+  flutter_map: ^0.10.1+1
+  latlong: ^0.6.1
+  location: ^3.1.0
+
+  # Deep Linking, for quick send
+  uni_links: ^0.4.0
+
+  # Charts and Diagrams
+  charts_flutter: ^0.9.0
+
+  # Credit Card and Payment
+  flutter_credit_card: ^0.1.3
+
+  # Lottie and Flare for animations
+  lottie: ^0.7.0+1
+  flare_flutter: ^2.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # For Testing
+  flutter_driver:
+    sdk: flutter
+  test: ^1.15.5
+  flutter_gherkin: ^1.1.9
+
+  # For DI
   build_runner: ^1.10.1
 
-  test: ^1.15.2
-
+  # DI Framework
   inject_generator:
     git:
       url: https://github.com/yes-soft-de/inject.dart.git
@@ -117,22 +142,16 @@ dev_dependencies:
   # Icons Generator
   flutter_launcher_icons: "^0.7.3"
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/animations/
 
-  fonts:
-    - family: RB
-      fonts:
-        - asset: assets/fonts/RB/RB.ttf
+flutter_intl:
+  enabled: true
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.jpg"

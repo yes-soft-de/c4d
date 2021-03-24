@@ -1,51 +1,50 @@
-
 import 'package:flutter/material.dart';
 
 class CommunicationCard extends StatelessWidget {
   final String text;
-  final String image;
+  final Widget image;
   final Color textColor;
   final Color color;
 
   CommunicationCard({
     this.text,
     this.image,
-    this.textColor = Colors.black,
-    this.color = Colors.white,
+    this.textColor,
+    this.color,
   });
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: color ,
+      color: getBGColor(context),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
       elevation: 4,
       child: Container(
-        padding: EdgeInsets.all(10),
-        width: MediaQuery.of(context).size.width*0.9,
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-              Image(
-                image: AssetImage(
-                    '$image'
-                ),
-              ),
-           SizedBox(width: 20,),
-            Center(
-              child: Text(
-                '$text',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: textColor,
-                ),
-              ),
-            )
-          ],
-        ),
+        padding: EdgeInsets.all(8),
+        child: ListTile(
+          title: Text(text, style: TextStyle(color: getTextColor(context)),),
+          leading: image,
+        )
       ),
     );
+  }
+
+  Color getBGColor(BuildContext context) {
+    if (color != null) {
+      return color;
+    }
+    return Theme.of(context).brightness == Brightness.light
+        ? Colors.white
+        : Colors.black;
+  }
+
+  Color getTextColor(BuildContext context) {
+    if (textColor != null) {
+      return textColor;
+    }
+    return Theme.of(context).brightness != Brightness.light
+        ? Colors.white
+        : Colors.black;
   }
 }

@@ -9,6 +9,8 @@ import 'intl/messages_all.dart';
 // **************************************************************************
 
 // ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
+// ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
+// ignore_for_file: avoid_redundant_argument_values
 
 class S {
   S();
@@ -33,71 +35,41 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Enable Audio:`
-  String get enableAudio {
+  /// `Loading`
+  String get loading {
     return Intl.message(
-      'Enable Audio:',
-      name: 'enableAudio',
+      'Loading',
+      name: 'loading',
       desc: '',
       args: [],
     );
   }
 
-  /// `No camera found`
-  String get noCameraFound {
+  /// `Please Enter Your Email`
+  String get pleaseEnterYourEmail {
     return Intl.message(
-      'No camera found',
-      name: 'noCameraFound',
+      'Please Enter Your Email',
+      name: 'pleaseEnterYourEmail',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error Loading Items!`
-  String get errorLoadingItems {
+  /// `I have an account`
+  String get iHaveAnAccount {
     return Intl.message(
-      'Error Loading Items!',
-      name: 'errorLoadingItems',
+      'I have an account',
+      name: 'iHaveAnAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Retry`
-  String get retry {
+  /// `Error Happened`
+  String get errorHappened {
     return Intl.message(
-      'Retry',
-      name: 'retry',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Games List`
-  String get gamesList {
-    return Intl.message(
-      'Games List',
-      name: 'gamesList',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Request a Swap!`
-  String get requestASwap {
-    return Intl.message(
-      'Request a Swap!',
-      name: 'requestASwap',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error Getting Swap Item id!`
-  String get errorGettingSwapItemId {
-    return Intl.message(
-      'Error Getting Swap Item id!',
-      name: 'errorGettingSwapItemId',
+      'Error Happened',
+      name: 'errorHappened',
       desc: '',
       args: [],
     );
@@ -113,91 +85,31 @@ class S {
     );
   }
 
-  /// `Empty List`
-  String get emptyList {
+  /// `Email Address is Required`
+  String get emailAddressIsRequired {
     return Intl.message(
-      'Empty List',
-      name: 'emptyList',
+      'Email Address is Required',
+      name: 'emailAddressIsRequired',
       desc: '',
       args: [],
     );
   }
 
-  /// `Phone Number`
-  String get phoneNumber {
+  /// `Captain`
+  String get captain {
     return Intl.message(
-      'Phone Number',
-      name: 'phoneNumber',
+      'Captain',
+      name: 'captain',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please Input Phone Number`
-  String get pleaseInputPhoneNumber {
+  /// `Store Owner`
+  String get storeOwner {
     return Intl.message(
-      'Please Input Phone Number',
-      name: 'pleaseInputPhoneNumber',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Loading!`
-  String get loading {
-    return Intl.message(
-      'Loading!',
-      name: 'loading',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Send me a Code!`
-  String get sendMeACode {
-    return Intl.message(
-      'Send me a Code!',
-      name: 'sendMeACode',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Saudi Arabia`
-  String get saudiArabia {
-    return Intl.message(
-      'Saudi Arabia',
-      name: 'saudiArabia',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `USA`
-  String get usa {
-    return Intl.message(
-      'USA',
-      name: 'usa',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Lebanon`
-  String get lebanon {
-    return Intl.message(
-      'Lebanon',
-      name: 'lebanon',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Syria`
-  String get syria {
-    return Intl.message(
-      'Syria',
-      name: 'syria',
+      'Store Owner',
+      name: 'storeOwner',
       desc: '',
       args: [],
     );
@@ -223,241 +135,211 @@ class S {
     );
   }
 
-  /// `Be the First to Comment`
-  String get beTheFirstToComment {
+  /// `Accept Order`
+  String get acceptOrder {
     return Intl.message(
-      'Be the First to Comment',
-      name: 'beTheFirstToComment',
+      'Accept Order',
+      name: 'acceptOrder',
       desc: '',
       args: [],
     );
   }
 
-  /// `Search a Game :)`
-  String get searchAGame {
+  /// `I Arrived at the Store`
+  String get iArrivedAtTheStore {
     return Intl.message(
-      'Search a Game :)',
-      name: 'searchAGame',
+      'I Arrived at the Store',
+      name: 'iArrivedAtTheStore',
       desc: '',
       args: [],
     );
   }
 
-  /// `Add`
-  String get add {
+  /// `I Got the Package`
+  String get iGotThePackage {
     return Intl.message(
-      'Add',
-      name: 'add',
+      'I Got the Package',
+      name: 'iGotThePackage',
       desc: '',
       args: [],
     );
   }
 
-  /// `to my collection`
-  String get toMyCollection {
+  /// `I Got the Cash`
+  String get iGotTheCash {
     return Intl.message(
-      'to my collection',
-      name: 'toMyCollection',
+      'I Got the Cash',
+      name: 'iGotTheCash',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please Upload the Image`
-  String get pleaseUploadTheImage {
+  /// `I Finished Delivering`
+  String get iFinishedDelivering {
     return Intl.message(
-      'Please Upload the Image',
-      name: 'pleaseUploadTheImage',
+      'I Finished Delivering',
+      name: 'iFinishedDelivering',
       desc: '',
       args: [],
     );
   }
 
-  /// `Submit Game!`
-  String get submitGame {
+  /// `Order is in undefined State`
+  String get orderIsInUndefinedState {
     return Intl.message(
-      'Submit Game!',
-      name: 'submitGame',
+      'Order is in undefined State',
+      name: 'orderIsInUndefinedState',
       desc: '',
       args: [],
     );
   }
 
-  /// `Upload Image`
-  String get uploadImage {
+  /// `Searching for Captain`
+  String get searchingForCaptain {
     return Intl.message(
-      'Upload Image',
-      name: 'uploadImage',
+      'Searching for Captain',
+      name: 'searchingForCaptain',
       desc: '',
       args: [],
     );
   }
 
-  /// `Empty Tag List`
-  String get emptyTagList {
+  /// `Captain is in the way`
+  String get captainIsInTheWay {
     return Intl.message(
-      'Empty Tag List',
-      name: 'emptyTagList',
+      'Captain is in the way',
+      name: 'captainIsInTheWay',
       desc: '',
       args: [],
     );
   }
 
-  /// `Insert via a Preset`
-  String get insertViaAPreset {
+  /// `Captain is in store`
+  String get captainIsInStore {
     return Intl.message(
-      'Insert via a Preset',
-      name: 'insertViaAPreset',
+      'Captain is in store',
+      name: 'captainIsInStore',
       desc: '',
       args: [],
     );
   }
 
-  /// `Insert via Camera`
-  String get insertViaCamera {
+  /// `Captain is Delivering`
+  String get captainIsDelivering {
     return Intl.message(
-      'Insert via Camera',
-      name: 'insertViaCamera',
+      'Captain is Delivering',
+      name: 'captainIsDelivering',
       desc: '',
       args: [],
     );
   }
 
-  /// `Home`
-  String get home {
+  /// `Captain got the cash`
+  String get captainGotTheCash {
     return Intl.message(
-      'Home',
-      name: 'home',
+      'Captain got the cash',
+      name: 'captainGotTheCash',
       desc: '',
       args: [],
     );
   }
 
-  /// `Notifications`
-  String get notifications {
+  /// `Order is done!`
+  String get orderIsDone {
     return Intl.message(
-      'Notifications',
-      name: 'notifications',
+      'Order is done!',
+      name: 'orderIsDone',
       desc: '',
       args: [],
     );
   }
 
-  /// `Favorite`
-  String get favorite {
+  /// `Please input phone number`
+  String get pleaseInputPhoneNumber {
     return Intl.message(
-      'Favorite',
-      name: 'favorite',
+      'Please input phone number',
+      name: 'pleaseInputPhoneNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Profile`
-  String get profile {
+  /// `Confirm Code`
+  String get confirmCode {
     return Intl.message(
-      'Profile',
-      name: 'profile',
+      'Confirm Code',
+      name: 'confirmCode',
       desc: '',
       args: [],
     );
   }
 
-  /// `Settings`
-  String get settings {
+  /// `Resend Code`
+  String get resendCode {
     return Intl.message(
-      'Settings',
-      name: 'settings',
+      'Resend Code',
+      name: 'resendCode',
       desc: '',
       args: [],
     );
   }
 
-  /// `Feedback!`
-  String get feedback {
+  /// `Confirm`
+  String get confirm {
     return Intl.message(
-      'Feedback!',
-      name: 'feedback',
+      'Confirm',
+      name: 'confirm',
       desc: '',
       args: [],
     );
   }
 
-  /// `Feed`
-  String get feed {
+  /// `Saudi Arabia`
+  String get saudiArabia {
     return Intl.message(
-      'Feed',
-      name: 'feed',
+      'Saudi Arabia',
+      name: 'saudiArabia',
       desc: '',
       args: [],
     );
   }
 
-  /// `TOS`
-  String get tos {
+  /// `Lebanon`
+  String get lebanon {
     return Intl.message(
-      'TOS',
-      name: 'tos',
+      'Lebanon',
+      name: 'lebanon',
       desc: '',
       args: [],
     );
   }
 
-  /// `Privacy Policy`
-  String get privacyPolicy {
+  /// `Syria`
+  String get syria {
     return Intl.message(
-      'Privacy Policy',
-      name: 'privacyPolicy',
+      'Syria',
+      name: 'syria',
       desc: '',
       args: [],
     );
   }
 
-  /// `Set Exchange Game`
-  String get setExchangeGame {
+  /// `Phone Number`
+  String get phoneNumber {
     return Intl.message(
-      'Set Exchange Game',
-      name: 'setExchangeGame',
+      'Phone Number',
+      name: 'phoneNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Start Chat`
-  String get startChat {
+  /// `Send me code`
+  String get sendMeCode {
     return Intl.message(
-      'Start Chat',
-      name: 'startChat',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Set Game`
-  String get setGame {
-    return Intl.message(
-      'Set Game',
-      name: 'setGame',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Username:`
-  String get username {
-    return Intl.message(
-      'Username:',
-      name: 'username',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Location`
-  String get location {
-    return Intl.message(
-      'Location',
-      name: 'location',
+      'Send me code',
+      name: 'sendMeCode',
       desc: '',
       args: [],
     );
@@ -483,11 +365,821 @@ class S {
     );
   }
 
-  /// `Not Logged in!`
-  String get notLoggedIn {
+  /// `Login`
+  String get login {
     return Intl.message(
-      'Not Logged in!',
-      name: 'notLoggedIn',
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Details`
+  String get orderDetails {
+    return Intl.message(
+      'Order Details',
+      name: 'orderDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Created, Return to Orders`
+  String get orderCreatedReturnToOrders {
+    return Intl.message(
+      'Order Created, Return to Orders',
+      name: 'orderCreatedReturnToOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Order`
+  String get newOrder {
+    return Intl.message(
+      'New Order',
+      name: 'newOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Renew Subscription`
+  String get renewSubscription {
+    return Intl.message(
+      'Renew Subscription',
+      name: 'renewSubscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register Success, Setup my profile`
+  String get registerSuccessSetupMyProfile {
+    return Intl.message(
+      'Register Success, Setup my profile',
+      name: 'registerSuccessSetupMyProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Your Size`
+  String get chooseYourSize {
+    return Intl.message(
+      'Choose Your Size',
+      name: 'chooseYourSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 - 20 Employee`
+  String get smallLessThan20Employee {
+    return Intl.message(
+      '1 - 20 Employee',
+      name: 'smallLessThan20Employee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `21 - 100 Employees`
+  String get mediumMoreThan20EmployeesLessThan100 {
+    return Intl.message(
+      '21 - 100 Employees',
+      name: 'mediumMoreThan20EmployeesLessThan100',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+100 Employees`
+  String get largeMoreThan100Employees {
+    return Intl.message(
+      '+100 Employees',
+      name: 'largeMoreThan100Employees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Chat Room`
+  String get openChatRoom {
+    return Intl.message(
+      'Open Chat Room',
+      name: 'openChatRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders`
+  String get orders {
+    return Intl.message(
+      'Orders',
+      name: 'orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Orders`
+  String get currentOrders {
+    return Intl.message(
+      'Current Orders',
+      name: 'currentOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nearby Orders`
+  String get nearbyOrders {
+    return Intl.message(
+      'Nearby Orders',
+      name: 'nearbyOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat with Store Owner`
+  String get chatWithStoreOwner {
+    return Intl.message(
+      'Chat with Store Owner',
+      name: 'chatWithStoreOwner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WhatsApp with Store Owner`
+  String get whatsappWithStoreOwner {
+    return Intl.message(
+      'WhatsApp with Store Owner',
+      name: 'whatsappWithStoreOwner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WhatsApp with Client`
+  String get whatsappWithClient {
+    return Intl.message(
+      'WhatsApp with Client',
+      name: 'whatsappWithClient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Direction`
+  String get getDirection {
+    return Intl.message(
+      'Get Direction',
+      name: 'getDirection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I am`
+  String get iAm {
+    return Intl.message(
+      'I am',
+      name: 'iAm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preferred language`
+  String get iSpeak {
+    return Intl.message(
+      'Preferred language',
+      name: 'iSpeak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Language`
+  String get changeLanguage {
+    return Intl.message(
+      'Change Language',
+      name: 'changeLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `And I am`
+  String get andIAm {
+    return Intl.message(
+      'And I am',
+      name: 'andIAm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ME`
+  String get me {
+    return Intl.message(
+      'ME',
+      name: 'me',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We need your image and your driver licence in order to sign up`
+  String get weNeedYourImageAndYourDriverLicenceInOrder {
+    return Intl.message(
+      'We need your image and your driver licence in order to sign up',
+      name: 'weNeedYourImageAndYourDriverLicenceInOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We need  your image in order to sign up`
+  String get weNeedYourImageInOrderToSignUp {
+    return Intl.message(
+      'We need  your image in order to sign up',
+      name: 'weNeedYourImageInOrderToSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload and submit`
+  String get uploadAndSubmit {
+    return Intl.message(
+      'Upload and submit',
+      name: 'uploadAndSubmit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Might Take a while, please wait`
+  String get thisMightTakeAWhilePleaseWait {
+    return Intl.message(
+      'This Might Take a while, please wait',
+      name: 'thisMightTakeAWhilePleaseWait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploading Images, Please Wait`
+  String get uploadingImagesPleaseWait {
+    return Intl.message(
+      'Uploading Images, Please Wait',
+      name: 'uploadingImagesPleaseWait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Driver Licence`
+  String get driverLicence {
+    return Intl.message(
+      'Driver Licence',
+      name: 'driverLicence',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Age`
+  String get age {
+    return Intl.message(
+      'Age',
+      name: 'age',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploading and Submitting`
+  String get uploadingAndSubmitting {
+    return Intl.message(
+      'Uploading and Submitting',
+      name: 'uploadingAndSubmitting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploading Images`
+  String get uploadingImages {
+    return Intl.message(
+      'Uploading Images',
+      name: 'uploadingImages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submitting Profile`
+  String get submittingProfile {
+    return Intl.message(
+      'Submitting Profile',
+      name: 'submittingProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error Uploading Images!!`
+  String get errorUploadingImages {
+    return Intl.message(
+      'Error Uploading Images!!',
+      name: 'errorUploadingImages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account Created`
+  String get accountCreated {
+    return Intl.message(
+      'Account Created',
+      name: 'accountCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move to Orders`
+  String get moveToOrders {
+    return Intl.message(
+      'Move to Orders',
+      name: 'moveToOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Phone Number`
+  String get contactPhoneNumber {
+    return Intl.message(
+      'Contact Phone Number',
+      name: 'contactPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay Subscription`
+  String get paySubscription {
+    return Intl.message(
+      'Pay Subscription',
+      name: 'paySubscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Earn Cash`
+  String get earnCash {
+    return Intl.message(
+      'Earn Cash',
+      name: 'earnCash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deliver`
+  String get deliver {
+    return Intl.message(
+      'Deliver',
+      name: 'deliver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check Orders`
+  String get checkOrders {
+    return Intl.message(
+      'Check Orders',
+      name: 'checkOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open the app`
+  String get openTheApp {
+    return Intl.message(
+      'Open the app',
+      name: 'openTheApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book a car`
+  String get bookACar {
+    return Intl.message(
+      'Book a car',
+      name: 'bookACar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We Deliver`
+  String get weDeliver {
+    return Intl.message(
+      'We Deliver',
+      name: 'weDeliver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help me more`
+  String get helpMeMore {
+    return Intl.message(
+      'Help me more',
+      name: 'helpMeMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Meeting`
+  String get requestMeeting {
+    return Intl.message(
+      'Request Meeting',
+      name: 'requestMeeting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To find out more, please leave your phone.\nand we will contact you personally`
+  String get toFindOutMorePleaseLeaveYourPhonenandWeWill {
+    return Intl.message(
+      'To find out more, please leave your phone.\nand we will contact you personally',
+      name: 'toFindOutMorePleaseLeaveYourPhonenandWeWill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will contact you soon`
+  String get weWillContactYouSoon {
+    return Intl.message(
+      'We will contact you soon',
+      name: 'weWillContactYouSoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to C4D`
+  String get welcomeToC4d {
+    return Intl.message(
+      'Welcome to C4D',
+      name: 'welcomeToC4d',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Init Data`
+  String get initData {
+    return Intl.message(
+      'Init Data',
+      name: 'initData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Location as Branch 01`
+  String get saveLocationAsBranch01 {
+    return Intl.message(
+      'Save Location as Branch 01',
+      name: 'saveLocationAsBranch01',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome to Orders Screen`
+  String get welcomeToOrdersScreen {
+    return Intl.message(
+      'Welcome to Orders Screen',
+      name: 'welcomeToOrdersScreen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password is too short`
+  String get passwordIsTooShort {
+    return Intl.message(
+      'Password is too short',
+      name: 'passwordIsTooShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name is required`
+  String get nameIsRequired {
+    return Intl.message(
+      'Name is required',
+      name: 'nameIsRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Your City`
+  String get chooseYourCity {
+    return Intl.message(
+      'Choose Your City',
+      name: 'chooseYourCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From WhatsApp`
+  String get fromWhatsapp {
+    return Intl.message(
+      'From WhatsApp',
+      name: 'fromWhatsapp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default Branch`
+  String get defaultBranch {
+    return Intl.message(
+      'Default Branch',
+      name: 'defaultBranch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash`
+  String get cash {
+    return Intl.message(
+      'Cash',
+      name: 'cash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `online`
+  String get online {
+    return Intl.message(
+      'online',
+      name: 'online',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To`
+  String get to {
+    return Intl.message(
+      'To',
+      name: 'to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Info`
+  String get info {
+    return Intl.message(
+      'Info',
+      name: 'info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mohammad`
+  String get mohammad {
+    return Intl.message(
+      'Mohammad',
+      name: 'mohammad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deliver To`
+  String get deliverTo {
+    return Intl.message(
+      'Deliver To',
+      name: 'deliverTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WhatsApp with Captain`
+  String get whatsappWithCaptain {
+    return Intl.message(
+      'WhatsApp with Captain',
+      name: 'whatsappWithCaptain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order`
+  String get order {
+    return Intl.message(
+      'Order',
+      name: 'order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Branch 01`
+  String get branch01 {
+    return Intl.message(
+      'Branch 01',
+      name: 'branch01',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create new order`
+  String get createNewOrder {
+    return Intl.message(
+      'Create new order',
+      name: 'createNewOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get register {
+    return Intl.message(
+      'Register',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Branch`
+  String get branch {
+    return Intl.message(
+      'Branch',
+      name: 'branch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Branches`
+  String get saveBranches {
+    return Intl.message(
+      'Save Branches',
+      name: 'saveBranches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bank Name`
+  String get bankName {
+    return Intl.message(
+      'Bank Name',
+      name: 'bankName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account Number`
+  String get accountNumber {
+    return Intl.message(
+      'Account Number',
+      name: 'accountNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
       desc: '',
       args: [],
     );
@@ -503,941 +1195,701 @@ class S {
     );
   }
 
-  /// `Login`
-  String get login {
+  /// `Error Loading Branches`
+  String get errorLoadingBranches {
     return Intl.message(
-      'Login',
-      name: 'login',
+      'Error Loading Branches',
+      name: 'errorLoadingBranches',
       desc: '',
       args: [],
     );
   }
 
-  /// `Empty Comment!`
-  String get emptyComment {
+  /// `CANCEL`
+  String get cancel {
     return Intl.message(
-      'Empty Comment!',
-      name: 'emptyComment',
+      'CANCEL',
+      name: 'cancel',
       desc: '',
       args: [],
     );
   }
 
-  /// `Save Profile`
-  String get saveProfile {
+  /// `Our Bank Name`
+  String get ourBankName {
     return Intl.message(
-      'Save Profile',
-      name: 'saveProfile',
+      'Our Bank Name',
+      name: 'ourBankName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Saving!`
-  String get saving {
+  /// `Our Bank Account Number`
+  String get ourBankAccountNumber {
     return Intl.message(
-      'Saving!',
-      name: 'saving',
+      'Our Bank Account Number',
+      name: 'ourBankAccountNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please Provide a short story about you :)`
-  String get pleaseProvideAShortStoryAboutYou {
+  /// `Package`
+  String get package {
     return Intl.message(
-      'Please Provide a short story about you :)',
-      name: 'pleaseProvideAShortStoryAboutYou',
+      'Package',
+      name: 'package',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please Provide your Name :)`
-  String get pleaseProvideYourName {
+  /// `Order/Month`
+  String get ordermonth {
     return Intl.message(
-      'Please Provide your Name :)',
-      name: 'pleaseProvideYourName',
+      'Order/Month',
+      name: 'ordermonth',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please Upload your Image :)`
-  String get pleaseUploadYourImage {
+  /// `Car`
+  String get car {
     return Intl.message(
-      'Please Upload your Image :)',
-      name: 'pleaseUploadYourImage',
+      'Car',
+      name: 'car',
       desc: '',
       args: [],
     );
   }
 
-  /// `Uploading`
-  String get uploading {
+  /// `APPLY`
+  String get apply {
     return Intl.message(
-      'Uploading',
-      name: 'uploading',
+      'APPLY',
+      name: 'apply',
       desc: '',
       args: [],
     );
   }
 
-  /// `Close`
-  String get close {
+  /// `Recipient Phone Number`
+  String get recipientPhoneNumber {
     return Intl.message(
-      'Close',
-      name: 'close',
+      'Recipient Phone Number',
+      name: 'recipientPhoneNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Comment`
-  String get comment {
+  /// `Pick a Language`
+  String get pickALanguage {
     return Intl.message(
-      'Comment',
-      name: 'comment',
+      'Pick a Language',
+      name: 'pickALanguage',
       desc: '',
       args: [],
     );
   }
 
-  /// `This Game is Great`
-  String get thisGameIsGreat {
+  /// `Pick a Job`
+  String get pickAJob {
     return Intl.message(
-      'This Game is Great',
-      name: 'thisGameIsGreat',
+      'Pick a Job',
+      name: 'pickAJob',
       desc: '',
       args: [],
     );
   }
 
-  /// `برونزي`
-  String get pronze {
+  /// `Payment Method`
+  String get paymentMethod {
     return Intl.message(
-      'برونزي',
-      name: 'pronze',
+      'Payment Method',
+      name: 'paymentMethod',
       desc: '',
       args: [],
     );
   }
 
-  /// `فضي`
-  String get silver {
+  /// `Please Select a Branch`
+  String get pleaseSelectABranch {
     return Intl.message(
-      'فضي',
-      name: 'silver',
+      'Please Select a Branch',
+      name: 'pleaseSelectABranch',
       desc: '',
       args: [],
     );
   }
 
-  /// `Anime`
-  String get anime {
+  /// `Privacy Policy`
+  String get privacyPolicy {
     return Intl.message(
-      'Anime',
-      name: 'anime',
+      'Privacy Policy',
+      name: 'privacyPolicy',
       desc: '',
       args: [],
     );
   }
 
-  /// `قيم المسلسل`
-  String get EvaluteSerise {
+  /// `Terms of Service`
+  String get termsOfService {
     return Intl.message(
-      'قيم المسلسل',
-      name: 'EvaluteSerise',
+      'Terms of Service',
+      name: 'termsOfService',
       desc: '',
       args: [],
     );
   }
 
-  /// `حول`
-  String get about {
+  /// `Created`
+  String get created {
     return Intl.message(
-      'حول',
-      name: 'about',
+      'Created',
+      name: 'created',
       desc: '',
       args: [],
     );
   }
 
-  /// `Confirm!`
-  String get confirm {
+  /// `Unknown`
+  String get unknown {
     return Intl.message(
-      'Confirm!',
-      name: 'confirm',
+      'Unknown',
+      name: 'unknown',
       desc: '',
       args: [],
     );
   }
 
-  /// `قيم المسلسل`
-  String get RateSeries {
+  /// `Captain Accepted Order`
+  String get captainAcceptedOrder {
     return Intl.message(
-      'قيم المسلسل',
-      name: 'RateSeries',
+      'Captain Accepted Order',
+      name: 'captainAcceptedOrder',
       desc: '',
       args: [],
     );
   }
 
-  /// `حول`
-  String get About {
+  /// `Captain in Store`
+  String get captainInStore {
     return Intl.message(
-      'حول',
-      name: 'About',
+      'Captain in Store',
+      name: 'captainInStore',
       desc: '',
       args: [],
     );
   }
 
-  /// `المزيد`
-  String get More {
+  /// `Captain Started Delivery`
+  String get captainStartedDelivery {
     return Intl.message(
-      'المزيد',
-      name: 'More',
+      'Captain Started Delivery',
+      name: 'captainStartedDelivery',
       desc: '',
       args: [],
     );
   }
 
-  /// `التصنيف`
-  String get Classification {
+  /// `Captain Got Cash`
+  String get captainGotCash {
     return Intl.message(
-      'التصنيف',
-      name: 'Classification',
+      'Captain Got Cash',
+      name: 'captainGotCash',
       desc: '',
       args: [],
     );
   }
 
-  /// `آخر الحلقات`
-  String get LastEpisodes {
+  /// `Order is finished`
+  String get orderIsFinished {
     return Intl.message(
-      'آخر الحلقات',
-      name: 'LastEpisodes',
+      'Order is finished',
+      name: 'orderIsFinished',
       desc: '',
       args: [],
     );
   }
 
-  /// `آخر الردود والتعليقات`
-  String get LastReplaysAndComments {
+  /// `Order is created`
+  String get orderIsCreated {
     return Intl.message(
-      'آخر الردود والتعليقات',
-      name: 'LastReplaysAndComments',
+      'Order is created',
+      name: 'orderIsCreated',
       desc: '',
       args: [],
     );
   }
 
-  /// `مشاركة`
-  String get Share {
+  /// `Activity Log`
+  String get activityLog {
     return Intl.message(
-      'مشاركة',
-      name: 'Share',
+      'Activity Log',
+      name: 'activityLog',
       desc: '',
       args: [],
     );
   }
 
-  /// `أحببته`
-  String get Like {
+  /// `Save Success`
+  String get saveSuccess {
     return Intl.message(
-      'أحببته',
-      name: 'Like',
+      'Save Success',
+      name: 'saveSuccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `متابعة`
-  String get Follow {
+  /// `My Profile`
+  String get myProfile {
     return Intl.message(
-      'متابعة',
-      name: 'Follow',
+      'My Profile',
+      name: 'myProfile',
       desc: '',
       args: [],
     );
   }
 
-  /// `حلقة`
-  String get Episode {
+  /// `Reason of the report`
+  String get reasonOfTheReport {
     return Intl.message(
-      'حلقة',
-      name: 'Episode',
+      'Reason of the report',
+      name: 'reasonOfTheReport',
       desc: '',
       args: [],
     );
   }
 
-  /// `الموسم`
-  String get Season {
+  /// `Create new Report`
+  String get createNewReport {
     return Intl.message(
-      'الموسم',
-      name: 'Season',
+      'Create new Report',
+      name: 'createNewReport',
       desc: '',
       args: [],
     );
   }
 
-  /// `حلقات جديدة`
-  String get newEpisodes {
-    return Intl.message(
-      'حلقات جديدة',
-      name: 'newEpisodes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `مسلسلات متابعة`
-  String get watchedSeries {
-    return Intl.message(
-      'مسلسلات متابعة',
-      name: 'watchedSeries',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `مسلسلات قد تعجبك`
-  String get mayLikeSeries {
-    return Intl.message(
-      'مسلسلات قد تعجبك',
-      name: 'mayLikeSeries',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `ذهبي`
-  String get gold {
-    return Intl.message(
-      'ذهبي',
-      name: 'gold',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `نقطة`
-  String get point {
-    return Intl.message(
-      'نقطة',
-      name: 'point',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `عضو`
-  String get member {
-    return Intl.message(
-      'عضو',
-      name: 'member',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `ابدأ متابعة المسلسلات`
-  String get startWachingSeries {
-    return Intl.message(
-      'ابدأ متابعة المسلسلات',
-      name: 'startWachingSeries',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `ddd`
-  String get test {
-    return Intl.message(
-      'ddd',
-      name: 'test',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `إحصاءات`
-  String get statics {
-    return Intl.message(
-      'إحصاءات',
-      name: 'statics',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `التقييم العام`
-  String get generalEvaluation {
-    return Intl.message(
-      'التقييم العام',
-      name: 'generalEvaluation',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `التعليقات الشهرية`
-  String get monthlyComments {
-    return Intl.message(
-      'التعليقات الشهرية',
-      name: 'monthlyComments',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `تفاعل جديد`
-  String get newInteraction {
-    return Intl.message(
-      'تفاعل جديد',
-      name: 'newInteraction',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `إرسال التعليق`
-  String get sendComment {
-    return Intl.message(
-      'إرسال التعليق',
-      name: 'sendComment',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `اضف تعليقك`
-  String get addYourComment {
-    return Intl.message(
-      'اضف تعليقك',
-      name: 'addYourComment',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `يحوي حرق`
-  String get spoilerAlert {
-    return Intl.message(
-      'يحوي حرق',
-      name: 'spoilerAlert',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `هناك مشكلة ما أعد التعليق لاحقا`
-  String get ommentingError {
-    return Intl.message(
-      'هناك مشكلة ما أعد التعليق لاحقا',
-      name: 'ommentingError',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `الاسم`
-  String get name {
-    return Intl.message(
-      'الاسم',
-      name: 'name',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `البريد الالكتروني`
-  String get email {
-    return Intl.message(
-      'البريد الالكتروني',
-      name: 'email',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `كلمة المرور`
-  String get password {
-    return Intl.message(
-      'كلمة المرور',
-      name: 'password',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `المسلسلات الموصى بها عالميا`
-  String get worldWideSeries {
-    return Intl.message(
-      'المسلسلات الموصى بها عالميا',
-      name: 'worldWideSeries',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `المسلسلات الموصى بها حسب تفضيلاتك`
-  String get recomendationByFavorite {
-    return Intl.message(
-      'المسلسلات الموصى بها حسب تفضيلاتك',
-      name: 'recomendationByFavorite',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `أعضاء نشيطين`
-  String get activeMembers {
-    return Intl.message(
-      'أعضاء نشيطين',
-      name: 'activeMembers',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `الإعدادات العامة`
-  String get genaeralSettings {
-    return Intl.message(
-      'الإعدادات العامة',
-      name: 'genaeralSettings',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `الحساب`
-  String get account {
-    return Intl.message(
-      'الحساب',
-      name: 'account',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `الخصوصية`
-  String get privacy {
-    return Intl.message(
-      'الخصوصية',
-      name: 'privacy',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `حصل خطأ ما`
-  String get errorHappened {
-    return Intl.message(
-      'حصل خطأ ما',
-      name: 'errorHappened',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `تابع استخدام التطبيق`
-  String get continueUsingApp {
-    return Intl.message(
-      'تابع استخدام التطبيق',
-      name: 'continueUsingApp',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `عادي`
-  String get ordinary {
-    return Intl.message(
-      'عادي',
-      name: 'ordinary',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `اكتشف`
-  String get explore {
-    return Intl.message(
-      'اكتشف',
-      name: 'explore',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `متابع`
-  String get isFollowed {
-    return Intl.message(
-      'متابع',
-      name: 'isFollowed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `مساعدة`
+  /// `Help`
   String get help {
     return Intl.message(
-      'مساعدة',
+      'Help',
       name: 'help',
       desc: '',
       args: [],
     );
   }
 
-  /// `تعديل`
-  String get edit {
+  /// `Please Complete the Form`
+  String get pleaseCompleteTheForm {
     return Intl.message(
-      'تعديل',
-      name: 'edit',
+      'Please Complete the Form',
+      name: 'pleaseCompleteTheForm',
       desc: '',
       args: [],
     );
   }
 
-  /// `التعليقات`
-  String get comments {
+  /// `Report sent`
+  String get reportSent {
     return Intl.message(
-      'التعليقات',
-      name: 'comments',
+      'Report sent',
+      name: 'reportSent',
       desc: '',
       args: [],
     );
   }
 
-  /// `متابعات`
-  String get following {
+  /// `Reason is Required`
+  String get reasonIsRequired {
     return Intl.message(
-      'متابعات',
-      name: 'following',
+      'Reason is Required',
+      name: 'reasonIsRequired',
       desc: '',
       args: [],
     );
   }
 
-  /// `مسلسل`
-  String get series {
+  /// `Please Provide us with the Client Name`
+  String get pleaseProvideUsWithTheClientName {
     return Intl.message(
-      'مسلسل',
-      name: 'series',
+      'Please Provide us with the Client Name',
+      name: 'pleaseProvideUsWithTheClientName',
       desc: '',
       args: [],
     );
   }
 
-  /// `عني`
-  String get aboutMe {
+  /// `Please Provide us the client phone number`
+  String get pleaseProvideUsTheClientPhoneNumber {
     return Intl.message(
-      'عني',
-      name: 'aboutMe',
+      'Please Provide us the client phone number',
+      name: 'pleaseProvideUsTheClientPhoneNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `نشاطات`
-  String get activities {
+  /// `Store Name`
+  String get storeName {
     return Intl.message(
-      'نشاطات',
-      name: 'activities',
+      'Store Name',
+      name: 'storeName',
       desc: '',
       args: [],
     );
   }
 
-  /// `No New Episodes`
-  String get noNewEpisodes {
+  /// `Store Phone`
+  String get storePhone {
     return Intl.message(
-      'No New Episodes',
-      name: 'noNewEpisodes',
+      'Store Phone',
+      name: 'storePhone',
       desc: '',
       args: [],
     );
   }
 
-  /// `No Notifications Yet!`
-  String get noNotificationsYet {
+  /// `Phone is required`
+  String get phoneIsRequired {
     return Intl.message(
-      'No Notifications Yet!',
-      name: 'noNotificationsYet',
+      'Phone is required',
+      name: 'phoneIsRequired',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your Name`
-  String get yourName {
+  /// `New name`
+  String get newName {
     return Intl.message(
-      'Your Name',
-      name: 'yourName',
+      'New name',
+      name: 'newName',
       desc: '',
       args: [],
     );
   }
 
-  /// `name_hont`
-  String get name_hont {
+  /// `Our Packages`
+  String get ourPackages {
     return Intl.message(
-      'name_hont',
-      name: 'name_hont',
+      'Our Packages',
+      name: 'ourPackages',
       desc: '',
       args: [],
     );
   }
 
-  /// `Name Hint`
-  String get nameHint {
+  /// `Notifications`
+  String get notifications {
     return Intl.message(
-      'Name Hint',
-      name: 'nameHint',
+      'Notifications',
+      name: 'notifications',
       desc: '',
       args: [],
     );
   }
 
-  /// `Name is empty`
-  String get nameIsEmpty {
+  /// `Please Provide the distance`
+  String get pleaseProvideTheDistance {
     return Intl.message(
-      'Name is empty',
-      name: 'nameIsEmpty',
+      'Please Provide the distance',
+      name: 'pleaseProvideTheDistance',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please tell us about your self`
-  String get pleaseTellUsAboutYourSelf {
+  /// `Finish Order, Provide distance in KM`
+  String get finishOrderProvideDistanceInKm {
     return Intl.message(
-      'Please tell us about your self',
-      name: 'pleaseTellUsAboutYourSelf',
+      'Finish Order, Provide distance in KM',
+      name: 'finishOrderProvideDistanceInKm',
       desc: '',
       args: [],
     );
   }
 
-  /// `تم التقييم بنجاح`
-  String get ratingSuccessfully {
+  /// `My Status`
+  String get myStatus {
     return Intl.message(
-      'تم التقييم بنجاح',
-      name: 'ratingSuccessfully',
+      'My Status',
+      name: 'myStatus',
       desc: '',
       args: [],
     );
   }
 
-  /// `قيم الحلقة`
-  String get RateEpisode {
+  /// `Direct Support`
+  String get directSupport {
     return Intl.message(
-      'قيم الحلقة',
-      name: 'RateEpisode',
+      'Direct Support',
+      name: 'directSupport',
       desc: '',
       args: [],
     );
   }
 
-  /// `صباح الخير`
-  String get GoodMorning {
+  /// `My Orders`
+  String get myOrders {
     return Intl.message(
-      'صباح الخير',
-      name: 'GoodMorning',
+      'My Orders',
+      name: 'myOrders',
       desc: '',
       args: [],
     );
   }
 
-  /// `مساء الخير`
-  String get GoodEvining {
+  /// `Share`
+  String get share {
     return Intl.message(
-      'مساء الخير',
-      name: 'GoodEvining',
+      'Share',
+      name: 'share',
       desc: '',
       args: [],
     );
   }
 
-  /// `لقد قمت بتقييم هذا الأنمي مسبقا`
-  String get YouHaveRatedThisAnime {
+  /// `Please Download C4d`
+  String get pleaseDownloadC4d {
     return Intl.message(
-      'لقد قمت بتقييم هذا الأنمي مسبقا',
-      name: 'YouHaveRatedThisAnime',
+      'Please Download C4d',
+      name: 'pleaseDownloadC4d',
       desc: '',
       args: [],
     );
   }
 
-  /// `لقد قمت بتقييم هذه الحلقة مسبقا`
-  String get YouHaveRatedThisEpisode {
+  /// `My Plan`
+  String get myPlan {
     return Intl.message(
-      'لقد قمت بتقييم هذه الحلقة مسبقا',
-      name: 'YouHaveRatedThisEpisode',
+      'My Plan',
+      name: 'myPlan',
       desc: '',
       args: [],
     );
   }
 
-  /// `شكرا لحماسك`
-  String get ThanksYourExcitement {
+  /// `Bank Account Number`
+  String get bankAccountNumber {
     return Intl.message(
-      'شكرا لحماسك',
-      name: 'ThanksYourExcitement',
+      'Bank Account Number',
+      name: 'bankAccountNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `الغاء المتابعة`
-  String get unFollow {
+  /// `STC Pay Code`
+  String get stcPayCode {
     return Intl.message(
-      'الغاء المتابعة',
-      name: 'unFollow',
+      'STC Pay Code',
+      name: 'stcPayCode',
       desc: '',
       args: [],
     );
   }
 
-  /// `لدي حساب`
-  String get iHaveAnAccount {
+  /// `Current Balance:`
+  String get currentBalance {
     return Intl.message(
-      'لدي حساب',
-      name: 'iHaveAnAccount',
+      'Current Balance:',
+      name: 'currentBalance',
       desc: '',
       args: [],
     );
   }
 
-  /// `سجل حسابا جديدا`
-  String get registerNewAccount {
+  /// `Next Payment Date:`
+  String get nextPaymentDate {
     return Intl.message(
-      'سجل حسابا جديدا',
-      name: 'registerNewAccount',
+      'Next Payment Date:',
+      name: 'nextPaymentDate',
       desc: '',
       args: [],
     );
   }
 
-  /// `لا املك حسابا`
-  String get iDontHaveAnAccount {
+  /// `Saudi Riyal`
+  String get saudiRiyal {
     return Intl.message(
-      'لا املك حسابا',
-      name: 'iDontHaveAnAccount',
+      'Saudi Riyal',
+      name: 'saudiRiyal',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ca not Sign in!`
-  String get caNotSignIn {
+  /// `Active Plan`
+  String get activePlan {
     return Intl.message(
-      'Ca not Sign in!',
-      name: 'caNotSignIn',
+      'Active Plan',
+      name: 'activePlan',
       desc: '',
       args: [],
     );
   }
 
-  /// `Create new account`
-  String get createNewAccount {
+  /// `Active Cars`
+  String get activeCars {
     return Intl.message(
-      'Create new account',
-      name: 'createNewAccount',
+      'Active Cars',
+      name: 'activeCars',
       desc: '',
       args: [],
     );
   }
 
-  /// `Select an Image`
-  String get selectAnImage {
+  /// `Orders / Month`
+  String get ordersMonth {
     return Intl.message(
-      'Select an Image',
-      name: 'selectAnImage',
+      'Orders / Month',
+      name: 'ordersMonth',
       desc: '',
       args: [],
     );
   }
 
-  /// `تعليقات سابقة`
-  String get previousComments {
+  /// `Payment History`
+  String get paymentHistory {
     return Intl.message(
-      'تعليقات سابقة',
-      name: 'previousComments',
+      'Payment History',
+      name: 'paymentHistory',
       desc: '',
       args: [],
     );
   }
 
-  /// `التصنيفات`
-  String get categories {
+  /// `Completed Orders`
+  String get completedOrders {
     return Intl.message(
-      'التصنيفات',
-      name: 'categories',
+      'Completed Orders',
+      name: 'completedOrders',
       desc: '',
       args: [],
     );
   }
 
-  /// `ابحث عن انمي`
-  String get searchForAnAnime {
+  /// `Latest Updates`
+  String get latestUpdates {
     return Intl.message(
-      'ابحث عن انمي',
-      name: 'searchForAnAnime',
+      'Latest Updates',
+      name: 'latestUpdates',
       desc: '',
       args: [],
     );
   }
 
-  /// `مسلسلات تصدر قريبا`
-  String get comingSoonSeries {
+  /// `My Balance`
+  String get myBalance {
     return Intl.message(
-      'مسلسلات تصدر قريبا',
-      name: 'comingSoonSeries',
+      'My Balance',
+      name: 'myBalance',
       desc: '',
       args: [],
     );
   }
 
-  /// `حلقات ستصدر قريباً`
-  String get comingSoonEpisodes {
+  /// `No Image`
+  String get noImage {
     return Intl.message(
-      'حلقات ستصدر قريباً',
-      name: 'comingSoonEpisodes',
+      'No Image',
+      name: 'noImage',
       desc: '',
       args: [],
     );
   }
 
-  /// `اخفاء التعليقات`
-  String get hideComments {
+  /// `How we work`
+  String get howWeWork {
     return Intl.message(
-      'اخفاء التعليقات',
-      name: 'hideComments',
+      'How we work',
+      name: 'howWeWork',
       desc: '',
       args: [],
     );
   }
 
-  /// `اظهار التعليقات`
-  String get showComments {
+  /// `Took`
+  String get took {
     return Intl.message(
-      'اظهار التعليقات',
-      name: 'showComments',
+      'Took',
+      name: 'took',
       desc: '',
       args: [],
     );
   }
 
-  /// `هذا التعليق يحوي حرق`
-  String get commentContainsSpoiler {
+  /// `Minutes`
+  String get minutes {
     return Intl.message(
-      'هذا التعليق يحوي حرق',
-      name: 'commentContainsSpoiler',
+      'Minutes',
+      name: 'minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Agree to the Terms os service.`
+  String get iAgreeToTheTermsOsService {
+    return Intl.message(
+      'I Agree to the Terms os service.',
+      name: 'iAgreeToTheTermsOsService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Agree To The Terms Of Service & privacy policy`
+  String get iAgreeToTheTermsOfServicePrivacyPolicy {
+    return Intl.message(
+      'I Agree To The Terms Of Service & privacy policy',
+      name: 'iAgreeToTheTermsOfServicePrivacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Business Name`
+  String get businessName {
+    return Intl.message(
+      'Business Name',
+      name: 'businessName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The number of cars unknown`
+  String get unknownNumberOfCar {
+    return Intl.message(
+      'The number of cars unknown',
+      name: 'unknownNumberOfCar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recipient Name`
+  String get recipientName {
+    return Intl.message(
+      'Recipient Name',
+      name: 'recipientName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
       desc: '',
       args: [],
     );

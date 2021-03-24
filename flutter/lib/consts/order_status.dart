@@ -1,0 +1,8 @@
+enum OrderStatus {
+  INIT,
+  GOT_CAPTAIN,
+  IN_STORE,
+  DELIVERING,
+  GOT_CASH,
+  FINISHED
+}

@@ -21,7 +21,14 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_orders/service/new_order/new_order.service.dart#NewOrderService",
+                "root": "asset:c4d/lib/module_orders/service/orders/orders.service.dart#OrdersService",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_profile/service/profile/profile.service.dart#ProfileService",
                 "qualifier": null
               },
               "isProvider": false
