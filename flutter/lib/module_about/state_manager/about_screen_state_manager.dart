@@ -65,7 +65,6 @@ class AboutScreenStateManager {
       _stateSubject.add(AboutStatePageOwnerBookingSuccess(this));
     });
   }
-
   void refresh(AboutState state) {
     _stateSubject.add(state);
   }

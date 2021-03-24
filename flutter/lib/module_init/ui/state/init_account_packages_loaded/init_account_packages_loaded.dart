@@ -82,7 +82,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                         //city
                         Container(
                           child: DropdownButtonFormField(
-                            // value: _selectedCity,
+                              // value: _selectedCity,
                               decoration: InputDecoration(
                                 hintText: S.of(context).chooseYourCity,
                               ),
@@ -99,7 +99,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                           margin: EdgeInsets.only(top: 20),
                           child: ListView(
                             scrollDirection: Axis.horizontal,
-                            children: _getPackages(),
+                            children: _getPackages(_selectedCity),
                           ),
                         ),
                         // Submit Package
@@ -142,12 +142,8 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
               child: Container(
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                      blurRadius: 4
-                    )],
-                    color: Colors.white
-                ),
+                    boxShadow: [BoxShadow(blurRadius: 4)],
+                    color: Colors.white),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: FaIcon(FontAwesomeIcons.store),
@@ -160,7 +156,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
     );
   }
 
-  List<Widget> _getPackages() {
+  List<Widget> _getPackages(String city) {
     if (packages == null) {
       return [];
     }
@@ -170,8 +166,13 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
     if (_selectedCity == null) {
       return [];
     }
-
-    return packages.map((element) {
+    List<PackageModel> cityPackage = [];
+    for (int i = 0; i < packages.length; i++) {
+      if (packages[i].city == city) {
+        cityPackage.add(packages[i]);
+      }
+    }
+    return cityPackage.map((element) {
       return GestureDetector(
         onTap: () {
           _selectedPackageId = element.id;

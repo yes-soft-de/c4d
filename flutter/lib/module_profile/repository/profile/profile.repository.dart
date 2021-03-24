@@ -1,6 +1,8 @@
 import 'package:c4d/consts/urls.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_network/http_client/http_client.dart';
+import 'package:c4d/module_orders/response/terms/terms_respons.dart';
 import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
@@ -46,8 +48,8 @@ class ProfileRepository {
     try {
       return ProfileResponse.fromJson(response).data;
     } catch (e, stack) {
-      Logger().error(e.toString(),
-          '${e.toString()}:\n${stack.toString()}', StackTrace.current);
+      Logger().error(e.toString(), '${e.toString()}:\n${stack.toString()}',
+          StackTrace.current);
       return null;
     }
   }
@@ -99,7 +101,8 @@ class ProfileRepository {
     return false;
   }
 
-  Future<ProfileResponse> updateCaptainProfile(ProfileRequest profileRequest) async {
+  Future<ProfileResponse> updateCaptainProfile(
+      ProfileRequest profileRequest) async {
     var token = await _authService.getToken();
 
     Map<String, dynamic> response;
@@ -159,5 +162,20 @@ class ProfileRepository {
     if (response == null) return null;
 
     return GetRecordsResponse.fromJson(response).data;
+  }
+
+  Future <List<Terms>> getTerms(UserRole role) async {
+    var token = await _authService.getToken();
+    dynamic response;
+    if (role == UserRole.ROLE_CAPTAIN) {
+      response = await _apiClient
+          .get(Urls.TERMS_CAPTAIN, headers: {'Authorization': 'Bearer $token'});
+    } else {
+      response = await _apiClient
+          .get(Urls.TERMS_OWNER, headers: {'Authorization': 'Bearer $token'});
+    }
+    if (response == null) return null;
+
+    return TermsResponse.fromJson(response).data;
   }
 }

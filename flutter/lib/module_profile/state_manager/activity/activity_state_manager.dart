@@ -23,4 +23,5 @@ class ActivityStateManager {
       _stateSubject.add(OwnerActivityStateRecordsLoaded(state, value));
     });
   }
+
 }

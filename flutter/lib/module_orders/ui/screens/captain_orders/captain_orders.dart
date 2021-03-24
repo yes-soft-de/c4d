@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_navigation/ui/widget/drawer_widget/drawer_widget.dart';
 import 'package:c4d/module_orders/state_manager/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
@@ -91,11 +92,14 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
       ),
       drawer: _currentProfile != null
           ? DrawerWidget(
+            role: UserRole.ROLE_CAPTAIN,
               username: _currentProfile.name ?? 'user',
               user_image: _currentProfile.imageURL ??
                   'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
             )
-          : DrawerWidget(),
+          : DrawerWidget(
+             role: UserRole.ROLE_CAPTAIN,
+          ),
       body: currentState.getUI(context),
     );
   }

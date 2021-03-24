@@ -27,7 +27,8 @@ class PackageCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                package.name ?? S.of(context).package + ' ' + package.id.toString(),
+                package.name ??
+                    S.of(context).package + ' ' + package.id.toString(),
                 style: TextStyle(color: active ? Colors.white : Colors.black),
               ),
             ),
@@ -47,8 +48,8 @@ class PackageCard extends StatelessWidget {
                     fit: FlexFit.tight,
                     child: Text(
                       '${package.orderCount} ' + S.of(context).ordermonth,
-                      style:
-                          TextStyle(color: active ? Colors.white : Colors.black),
+                      style: TextStyle(
+                          color: active ? Colors.white : Colors.black),
                     ),
                   ),
                 ],
@@ -72,12 +73,19 @@ class PackageCard extends StatelessWidget {
                   Flexible(
                     flex: 2,
                     fit: FlexFit.tight,
-                    child: Text(
-                      '${package.carCount} ' + S.of(context).car,
-                      style: TextStyle(
-                        color: active ? Colors.white : Colors.black,
-                      ),
-                    ),
+                    child: int.parse(package.carCount) != 0
+                        ? Text(
+                            '${package.carCount} ' + S.of(context).car,
+                            style: TextStyle(
+                              color: active ? Colors.white : Colors.black,
+                            ),
+                          )
+                        : Text(
+                            '∞ '+S.of(context).car,
+                            style: TextStyle(
+                              color: active ? Colors.white : Colors.black,
+                            ),
+                          ),
                   ),
                 ],
               ),
@@ -101,8 +109,8 @@ class PackageCard extends StatelessWidget {
                     fit: FlexFit.tight,
                     child: Text(
                       '${package.cost} SAR',
-                      style:
-                          TextStyle(color: active ? Colors.white : Colors.black),
+                      style: TextStyle(
+                          color: active ? Colors.white : Colors.black),
                     ),
                   ),
                 ],

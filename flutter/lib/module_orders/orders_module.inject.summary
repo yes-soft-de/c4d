@@ -46,6 +46,20 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_orders/ui/screens/update/update.dart#UpdateScreen",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_orders/ui/screens/terms/terms.dart#TermsScreen",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

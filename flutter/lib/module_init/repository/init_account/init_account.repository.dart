@@ -14,9 +14,8 @@ class InitAccountRepository {
   InitAccountRepository(this._apiClient, this._authService);
 
   Future<PackagesResponse> getPackages() async {
-    dynamic response = await _apiClient.get(
-      Urls.PACKAGES_API,
-    );
+    dynamic response = await _apiClient
+        .get(Urls.PACKAGES_API,);
     if (response == null) return null;
 
     return PackagesResponse.fromJson(response);
@@ -27,9 +26,7 @@ class InitAccountRepository {
     dynamic response = await _apiClient.post(
       Urls.SUBSCRIPTION_API,
       {'packageID': '$packageId'},
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
+      headers: {'Authorization': 'Bearer ' + token},
     );
 
     if (response['status_code'] == '201') return true;
@@ -37,26 +34,24 @@ class InitAccountRepository {
     return false;
   }
 
-  Future<dynamic> createCaptainProfile(CreateCaptainProfileRequest request) async {
+  Future<dynamic> createCaptainProfile(
+      CreateCaptainProfileRequest request) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.CAPTAIN_PROFILE_API,
       request.toJSON(),
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
+      headers: {'Authorization': 'Bearer ' + token},
     );
     return null;
   }
 
-  Future<dynamic> createBankAccount(CreateBankAccountRequest createBankAccountRequest) async {
+  Future<dynamic> createBankAccount(
+      CreateBankAccountRequest createBankAccountRequest) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.CREATE_BANK_ACCOUNT_API,
       createBankAccountRequest.toJson(),
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
+      headers: {'Authorization': 'Bearer ' + token},
     );
 
     return null;

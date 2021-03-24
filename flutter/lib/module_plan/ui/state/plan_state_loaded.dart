@@ -9,12 +9,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PlanScreenStateLoaded extends PlanScreenState {
   final ActivePlanModel activePlanModel;
-
   PlanScreenStateLoaded(PlanScreen screen, this.activePlanModel)
       : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
+    if (activePlanModel.cars == 0) {
+      activePlanModel.cars = 999999999;
+    }
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,8 +39,10 @@ class PlanScreenStateLoaded extends PlanScreenState {
                           FaIcon(FontAwesomeIcons.car),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Text('${activePlanModel.cars} ' +
-                                S.of(context).activeCars),
+                            child: activePlanModel.cars >= 999999999
+                                ? Text('${S.of(context).unknownNumberOfCar}')
+                                : Text('${activePlanModel.cars} ' +
+                                    S.of(context).activeCars),
                           ),
                         ],
                       ),
@@ -167,7 +171,7 @@ class PlanScreenStateLoaded extends PlanScreenState {
           ),
           Text('${activePlanModel.activeCars} / '),
           Text(
-            '${activePlanModel.cars}',
+            '${activePlanModel.cars >= 999999999 ? '∞' : activePlanModel.cars}',
             style: TextStyle(color: Theme.of(context).primaryColor),
           ),
         ],

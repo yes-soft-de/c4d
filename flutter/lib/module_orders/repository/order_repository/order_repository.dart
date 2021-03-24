@@ -5,6 +5,7 @@ import 'package:c4d/module_network/http_client/http_client.dart';
 import 'package:c4d/module_orders/request/accept_order_request/accept_order_request.dart';
 import 'package:c4d/module_orders/request/order/order_request.dart';
 import 'package:c4d/module_orders/request/update_order_request/update_order_request.dart';
+import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/module_orders/response/order_status/order_status_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
@@ -77,9 +78,7 @@ class OrderRepository {
       );
       if (response == null) return [];
 
-      return OrdersResponse
-          .fromJson(response)
-          .data;
+      return OrdersResponse.fromJson(response).data;
     } catch (e) {
       return [];
     }
@@ -121,5 +120,26 @@ class OrderRepository {
     if (response == null) return null;
 
     return OrderDetailsResponse.fromJson(response);
+  }
+
+  Future<CompanyInfoResponse> getCompanyInfo() async {
+    dynamic response = await _apiClient.get('${Urls.COMPANYINFO_API}');
+
+    if (response == null) return null;
+    return CompanyInfoResponse.fromJson(response['Data'][0]);
+  }
+
+  Future<List> getUpdates() async {
+    dynamic response = await _apiClient.get('${Urls.UPDATES_API}');
+
+    if (response == null) return null;
+    return response['Data'];
+  }
+
+  Future<Map> getOrder(int orderId) async {
+    dynamic response = await _apiClient.get('${Urls.ORDER_BY_ID}+$orderId');
+
+    if (response == null) return null;
+    return response['Data'];
   }
 }

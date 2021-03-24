@@ -37,7 +37,7 @@ class AboutStatePageInit extends AboutState {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                S.of(context).language,
+                S.of(context).iSpeak,
                 style: TextStyle(fontSize: 24),
                 textAlign: TextAlign.center,
               ),
@@ -146,7 +146,7 @@ class AboutStatePageInit extends AboutState {
     showCupertinoModalPopup(
       context: context,
       builder: (_) => Container(
-        width: MediaQuery.of(context).size.width,
+        width: double.maxFinite,
         height: 250,
         child: CupertinoPicker(
           backgroundColor: Colors.white,

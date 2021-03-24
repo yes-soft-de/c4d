@@ -7,6 +7,7 @@ import 'package:c4d/module_orders/ui/state/order_status/order_details_state_capt
 import 'package:c4d/module_orders/ui/state/order_status/order_details_state_owner_order_loaded.dart';
 import 'package:c4d/module_orders/ui/state/order_status/order_status.state.dart';
 import 'package:c4d/module_report/service/report_service.dart';
+import 'package:dio/dio.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -54,7 +55,7 @@ class OrderStatusStateManager {
     });
   }
 
-  void report(int orderId, String reason) {
-    _reportService.createReport(orderId, reason);
+  Future report(int orderId, String reason) async {
+   await _reportService.createReport(orderId, reason);
   }
 }

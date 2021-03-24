@@ -14,7 +14,7 @@ class AboutStatePageOwner extends AboutState {
 
   AboutStatePageOwner(AboutScreenStateManager screenState, this.packages)
       : super(screenState);
-
+  int get getCurrentPage => currentPage;
   @override
   Widget getUI(BuildContext context) {
     return Stack(
@@ -150,7 +150,7 @@ class AboutStatePageOwner extends AboutState {
 
   Widget getIndicator() {
     var circles = <Widget>[];
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
       circles.add(Padding(
         padding: const EdgeInsets.all(4.0),
         child: Container(

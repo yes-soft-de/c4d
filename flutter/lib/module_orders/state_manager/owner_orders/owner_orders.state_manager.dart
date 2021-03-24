@@ -1,8 +1,13 @@
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
+import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/orders/owner_orders_screen.dart';
+import 'package:c4d/module_orders/ui/screens/terms/terms.dart';
+import 'package:c4d/module_orders/ui/screens/update/update.dart';
 import 'package:c4d/module_orders/ui/state/owner_orders/orders.state.dart';
+import 'package:c4d/module_orders/ui/state/terms/terms_state.dart';
+import 'package:c4d/module_orders/ui/state/update/update_state.dart';
 import 'package:c4d/module_plan/service/plan_service.dart';
 import 'package:c4d/module_profile/response/profile_response.dart';
 import 'package:inject/inject.dart';
@@ -18,10 +23,18 @@ class OwnerOrdersStateManager {
 
   final PublishSubject<OwnerOrdersListState> _stateSubject = PublishSubject();
   final PublishSubject<ProfileResponseModel> _profileSubject = PublishSubject();
+  final PublishSubject<CompanyInfoResponse> _companySubject = PublishSubject();
+  final PublishSubject<UpdateListState> _updateStateSubject = PublishSubject();
+  final PublishSubject<TermsListState> _termsStateSubject = PublishSubject();
 
   Stream<OwnerOrdersListState> get stateStream => _stateSubject.stream;
 
   Stream<ProfileResponseModel> get profileStream => _profileSubject.stream;
+
+  Stream<CompanyInfoResponse> get companyStream => _companySubject.stream;
+
+  Stream<UpdateListState> get updateStram => _updateStateSubject.stream;
+  Stream<TermsListState> get termsStream => _termsStateSubject.stream;
 
   OwnerOrdersStateManager(
     this._ordersService,
@@ -57,8 +70,31 @@ class OwnerOrdersStateManager {
   void isNewOrderAvailable(
       List<OrderModel> orders, OwnerOrdersScreenState screenState) {
     _planService.getOwnerCurrentPlan().then((value) {
+      bool can = false;
+      if (value.cars == 0) {
+        can = true;
+      } else {
+        can = value.cars > orders.length;
+      }
       _stateSubject.add(OrdersListStateOrdersLoaded(
-          orders, value.cars > orders.length, screenState));
+          orders, can, screenState));
+    });
+  }
+
+  void companyInfo() {
+    _ordersService.getCompanyInfo().then((info) => _companySubject.add(info));
+  }
+
+  void getUpdates(UpdateScreenState screenState) {
+    _updateStateSubject.add(UpdateListStateLoading(screenState));
+    _ordersService.getUpdates().then((value) {
+      _updateStateSubject.add(UpdateListStateInit(value, screenState));
+    });
+  }
+  void getTerms(TermsScreenState screenState) {
+    _termsStateSubject.add(TermsListStateLoading(screenState));
+    _profileService.getTerms().then((value) {
+      _termsStateSubject.add(TermsListStateInit(value, screenState));
     });
   }
 }
