@@ -367,8 +367,13 @@ class OrderService
     public function returnDate($year, $month)
     {
         $fromDate =new \DateTime($year . '-' . $month . '-01'); 
-        $toDate = new \DateTime($fromDate->format('Y-m-d h:i:s') . ' 1 month');
-        return [$fromDate,  $toDate];
+        $toDate = new \DateTime($fromDate->format('Y-m-d h:i:s') . ' -1 month');
+        // if you want get top captains in this month must change (-1 month) to (+1 month) in back line
+    //    return [$fromDate,  $toDate];
+
+        // if you want get top captains in last month must change (+1 month) to (-1 month) in back line
+       return [$toDate,  $fromDate];
+    
      }
 
      public function getAllOrdersAndCount($year, $month, $userId, $userType)
@@ -455,7 +460,6 @@ class OrderService
        $date = $this->returnDate($year, $month);
  
        $topOwners = $this->orderManager->getTopOwners($date[0],$date[1]);
-       
      
         foreach ($topOwners as $topOwner) {
          

@@ -117,7 +117,6 @@ class AcceptedOrderService
         $year = $dateNow->format("Y");
         $month = $dateNow->format("m");
         $date = $this->returnDate($year, $month);
- 
        $topCaptains = $this->acceptedOrderManager->getTopCaptainsInThisMonth($date[0],$date[1]);
      
         foreach ($topCaptains as $topCaptain) {
@@ -135,8 +134,12 @@ class AcceptedOrderService
    public function returnDate($year, $month)
    {
        $fromDate =new \DateTime($year . '-' . $month . '-01'); 
-       $toDate = new \DateTime($fromDate->format('Y-m-d') . ' 1 month');
-       return [$fromDate,  $toDate];
+       $toDate = new \DateTime($fromDate->format('Y-m-d') . ' -1 month');
+    //    if you want get top captains in this month must change (-1 month) to (+1 month) in back line
+    //    return [$fromDate,  $toDate];
+
+    //    if you want get top captains in last month must change (+1 month) to (-1 month) in back line
+       return [$toDate,  $fromDate];
     }
 
     public function specialLinkCheck($bool)
