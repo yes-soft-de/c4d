@@ -101,21 +101,23 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
       ),
       drawer: _currentProfile != null && _companyInfo != null
           ? DrawerWidget(
-              role: UserRole.ROLE_OWNER,
+              role: UserRole.ROLE_CAPTAIN,
               username: _currentProfile.name ?? 'user',
               user_image: _currentProfile.image ??
                   'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
               whatsapp: _companyInfo.whatsapp ?? '',
               phone: _companyInfo.phone ?? '',
+              chatID: _companyInfo.uuid ?? '',
             )
           : _companyInfo != null
               ? DrawerWidget(
-                  role: UserRole.ROLE_OWNER,
+                  role: UserRole.ROLE_CAPTAIN,
                   whatsapp: _companyInfo.whatsapp ?? '',
                   phone: _companyInfo.phone ?? '',
+                  chatID: _companyInfo.uuid ?? '',
                 )
               : DrawerWidget(
-                  role: UserRole.ROLE_OWNER,
+                  role: UserRole.ROLE_CAPTAIN,
                 ),
       body: currentState.getUI(context),
     );

@@ -7,17 +7,17 @@ class CompanyInfoResponse {
   String bank;
   String stc;
   String email;
-
+  String uuid;
   CompanyInfoResponse(
       {this.id,
-     this.phone,
-     this.phone2,
-     this.whatsapp,
-     this.bank,
-     this.email,
-     this.fax,
-     this.stc
-     });
+      this.phone,
+      this.phone2,
+      this.whatsapp,
+      this.bank,
+      this.email,
+      this.fax,
+      this.stc,
+      this.uuid});
 
   CompanyInfoResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -28,6 +28,7 @@ class CompanyInfoResponse {
     email = json['email'];
     fax = json['fax'];
     stc = json['stc'];
+    uuid = json['uuid'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +41,7 @@ class CompanyInfoResponse {
     data['fax'] = this.fax;
     data['email'] = this.email;
     data['stc'] = this.stc;
+    data['uuid'] = this.uuid;
     return data;
   }
 }

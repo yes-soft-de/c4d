@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_plan/state_manager/plan_screen_state_manager.dart';
 import 'package:c4d/module_plan/ui/state/plan_state.dart';
 import 'package:c4d/module_plan/ui/state/plan_state_loading.dart';
@@ -31,7 +32,6 @@ class _PlanScreenState extends State<PlanScreen> {
   Widget build(BuildContext context) {
     _currentState ??= PlanScreenStateLoading(widget);
     return Scaffold(
-      appBar: AppBar(),
       body: _currentState.getUI(context) ?? Container(),
     );
   }
