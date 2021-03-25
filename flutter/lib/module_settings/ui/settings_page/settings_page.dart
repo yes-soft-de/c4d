@@ -84,6 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               future: widget._authService.userRole,
               builder:
                   (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
+				  
                 if (snapshot.data == UserRole.ROLE_OWNER) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -254,19 +255,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     widget._notificationService
                         .setCaptainActive(value)
                         .whenComplete(() => setState(() {}));
-                    widget._profileService.updateCaptainProfile(
-                      ProfileRequest(
-                        name: profile.name,
-                        image: profile.image,
-                        phone: profile.phone,
-                        drivingLicence: profile.drivingLicence,
-                        city: 'Jedda',
-                        branch: '-1',
-                        car: profile.car,
-                        age: profile.age.toString(),
-                        isOnline: value == true ? 'active' : 'inactive',
-                      ),
-                    ).whenComplete(() => setState(() {}));
+                    widget._profileService
+                        .updateCaptainProfile(
+                          ProfileRequest(
+                            name: profile.name,
+                            image: profile.image,
+                            phone: profile.phone,
+                            drivingLicence: profile.drivingLicence,
+                            city: 'Jedda',
+                            branch: '-1',
+                            car: profile.car,
+                            age: profile.age.toString(),
+                            isOnline: value == true ? 'active' : 'inactive',
+                          ),
+                        )
+                        .whenComplete(() => setState(() {}));
                   },
                   value: profile.isOnline == true,
                 )
