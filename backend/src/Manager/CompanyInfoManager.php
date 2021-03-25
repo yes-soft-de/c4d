@@ -63,4 +63,13 @@ class CompanyInfoManager
        return $this->companyInfoEntityRepository->getcompanyinfoAll();
     }
 
+    public function getcompanyinfoAllOwner($userId)
+    {
+       return $this->companyInfoEntityRepository->getcompanyinfoAllOwner($userId);
+    }
+
+    public function getcompanyinfoAllCaptain($userId)
+    {
+       return $this->companyInfoEntityRepository->getcompanyinfoAllCaptain($userId);
+    }
 }

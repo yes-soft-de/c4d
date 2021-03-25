@@ -12,4 +12,5 @@ class CompanyInfoResponse
     public $bank;
     public $stc;
     public $email;
+    public $uuid;
 }

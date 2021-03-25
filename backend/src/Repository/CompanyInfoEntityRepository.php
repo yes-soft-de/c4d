@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\CompanyInfoEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\CaptainProfileEntity;
+use App\Entity\UserProfileEntity;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method CompanyInfoEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -32,6 +35,28 @@ class CompanyInfoEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
             ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function  getcompanyinfoAllOwner($userId)
+    {
+        return $this->createQueryBuilder('CompanyInfoEntity') 
+            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+            ->addSelect('userProfileEntity.uuid')
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = :userId')
+            ->setParameter('userId',$userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getcompanyinfoAllCaptain($userId)
+    {
+        return $this->createQueryBuilder('CompanyInfoEntity') 
+            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+            ->addSelect('captainProfileEntity.uuid')
+            ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = :userId')
+            ->setParameter('userId',$userId)
             ->getQuery()
             ->getResult();
     }

@@ -100,4 +100,19 @@ class CompanyInfoController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+     /**
+     * @Route("companyinfoforuser", name="getcompanyinfoAllforUser", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getcompanyinfoAllForUser()
+    {
+        if ($this->isGranted('ROLE_OWNER')) {
+             $result = $this->companyInfoService->getcompanyinfoAllOwner($this->getUserId());
+        }
+
+        if ($this->isGranted('ROLE_CAPTAIN')) {
+             $result = $this->companyInfoService->getcompanyinfoAllCaptain($this->getUserId());
+        }
+        return $this->response($result, self::FETCH);
+    }
 }

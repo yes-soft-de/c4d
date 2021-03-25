@@ -59,4 +59,28 @@ class CompanyInfoService
        
     }
 
+     public function  getcompanyinfoAllOwner($userId)
+    {
+        $respons=[];
+        $results = $this->companyInfoManager->getcompanyinfoAllOwner($userId);
+       
+        foreach ($results as  $result) {
+           $respons[]= $this->autoMapping->map('array', CompanyInfoResponse::class, $result);
+        }
+        return $respons;
+       
+    }
+
+    public function  getcompanyinfoAllCaptain($userId)
+    {
+        $respons=[];
+        $results = $this->companyInfoManager->getcompanyinfoAllCaptain($userId);
+       
+        foreach ($results as  $result) {
+           $respons[]= $this->autoMapping->map('array', CompanyInfoResponse::class, $result);
+        }
+        return $respons;
+       
+    }
+
 }
