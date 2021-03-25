@@ -65,8 +65,8 @@ class PlanService {
 
     var resultModel = BalanceModel(payments: []);
     resultModel.bonus = result.data.bounce;
-    if (result.data.sumPayments != null) {
-      resultModel.currentBalance = int.tryParse(result.data.sumPayments);
+    if (result.data.total != null) {
+      resultModel.currentBalance = result.data.total;
     }
     result.data.payments.forEach((element) {
       resultModel.payments.add(PaymentModel(

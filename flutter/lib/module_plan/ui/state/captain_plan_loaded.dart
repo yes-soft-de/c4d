@@ -38,15 +38,15 @@ class CaptainPlanScreenStateLoaded extends PlanScreenState {
       paymentYear = captainBalanceModel.payments.last.paymentDate.year;
     }
 
-    list.add(
-      ListTile(
-        title: Text(S.of(context).nextPaymentDate),
-        trailing: Text(
-          paymentDay.toString() + '/' + paymentMonth.toString()+ '/' + paymentYear.toString(),
-          style: TextStyle(color: Theme.of(context).primaryColor),
-        ),
-      ),
-    );
+    // list.add(
+    //   ListTile(
+    //     title: Text(S.of(context).nextPaymentDate),
+    //     trailing: Text(
+    //       paymentDay.toString() + '/' + paymentMonth.toString()+ '/' + paymentYear.toString(),
+    //       style: TextStyle(color: Theme.of(context).primaryColor),
+    //     ),
+    //   ),
+    // );
 
     list.add(
       ListTile(
