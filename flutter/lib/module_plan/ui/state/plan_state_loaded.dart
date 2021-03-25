@@ -189,7 +189,7 @@ class PlanScreenStateLoaded extends PlanScreenState {
 
     try {
       int paymentDay = activePlanModel.payments.last.paymentDate.day;
-      int paymentMonth = activePlanModel.payments.last.paymentDate.day + 1;
+      int paymentMonth = activePlanModel.payments.last.paymentDate.month;
       int paymentYear = activePlanModel.payments.last.paymentDate.year;
 
       list.add(
@@ -211,6 +211,21 @@ class PlanScreenStateLoaded extends PlanScreenState {
           ),
         ),
       );
+      list.add(
+        Card(
+          color: Theme.of(context).primaryColor,
+          child: ListTile(
+            title: Text(
+              S.of(context).myBalance,
+              style: TextStyle(color: Colors.white),
+            ),
+            trailing: Text(activePlanModel.total.toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      );
+    
     } catch (e) {}
 
     list.add(ListTile(

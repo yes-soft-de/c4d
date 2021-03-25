@@ -84,7 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               future: widget._authService.userRole,
               builder:
                   (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
-				  
+
                 if (snapshot.data == UserRole.ROLE_OWNER) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),

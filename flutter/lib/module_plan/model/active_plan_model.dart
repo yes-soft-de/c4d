@@ -6,6 +6,7 @@ class ActivePlanModel {
   int orders;
   int activeOrders;
   int activeCars;
+  int total;
   List<PaymentModel> payments = <PaymentModel>[];
 
   ActivePlanModel({
@@ -15,5 +16,6 @@ class ActivePlanModel {
     this.activeOrders,
     this.activeCars,
     this.payments,
+    this.total
   });
 }
