@@ -4,6 +4,7 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_navigation/ui/widget/drawer_widget/drawer_widget.dart';
+import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_orders/state_manager/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state_loading.dart';
@@ -25,10 +26,11 @@ class CaptainOrdersScreen extends StatefulWidget {
 class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
   CaptainOrdersListState currentState;
   ProfileResponseModel _currentProfile;
+  CompanyInfoResponse _companyInfo;
 
   StreamSubscription _stateSubscription;
   StreamSubscription _profileSubscription;
-
+  StreamSubscription _companySubscription;
   void getMyOrders() {
     widget._stateManager.getMyOrders(this);
   }
@@ -52,6 +54,8 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
   void initState() {
     super.initState();
     currentState = CaptainOrdersListStateLoading(this);
+    widget._stateManager.getProfile();
+    widget._stateManager.companyInfo();
     widget._stateManager.getMyOrders(this);
     _stateSubscription = widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -66,8 +70,12 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
         setState(() {});
       }
     });
-
-    widget._stateManager.getProfile();
+    _companySubscription = widget._stateManager.companyStream.listen((event) {
+      _companyInfo = event;
+      if (mounted) {
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -86,20 +94,29 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
           IconButton(
               icon: Icon(Icons.person),
               onPressed: () {
-                Navigator.of(context).pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
+                Navigator.of(context)
+                    .pushNamed(ProfileRoutes.EDIT_ACTIVITY_SCREEN);
               }),
         ],
       ),
-      drawer: _currentProfile != null
+      drawer: _currentProfile != null && _companyInfo != null
           ? DrawerWidget(
-            role: UserRole.ROLE_CAPTAIN,
+              role: UserRole.ROLE_OWNER,
               username: _currentProfile.name ?? 'user',
-              user_image: _currentProfile.imageURL ??
+              user_image: _currentProfile.image ??
                   'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+              whatsapp: _companyInfo.whatsapp ?? '',
+              phone: _companyInfo.phone ?? '',
             )
-          : DrawerWidget(
-             role: UserRole.ROLE_CAPTAIN,
-          ),
+          : _companyInfo != null
+              ? DrawerWidget(
+                  role: UserRole.ROLE_OWNER,
+                  whatsapp: _companyInfo.whatsapp ?? '',
+                  phone: _companyInfo.phone ?? '',
+                )
+              : DrawerWidget(
+                  role: UserRole.ROLE_OWNER,
+                ),
       body: currentState.getUI(context),
     );
   }
