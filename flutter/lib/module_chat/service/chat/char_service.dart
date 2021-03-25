@@ -33,7 +33,7 @@ class ChatService {
     ChatModel model = new ChatModel(
       msg: msg,
       sender: user.uid,
-      sentDate: DateTime.now(),);
+      sentDate: DateTime.now().toString(),);
     _chatManager.sendMessage(chatRoomID, model);
   }
 

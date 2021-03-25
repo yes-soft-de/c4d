@@ -2,6 +2,7 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_profile/response/order_info_respons.dart';
 import 'package:c4d/module_profile/ui/screen/order_info/order_info_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 abstract class OrderInfoState {
   OrderInfoScreenState screenState;
@@ -15,35 +16,44 @@ class OrderInfoStateInit extends OrderInfoState {
       : super(screenState);
   @override
   Widget getUI(BuildContext context) {
+    var format = DateFormat('yyyy-MM-dd');
+    bool utc = order.date.timezone.name == 'UTC' ? true : false;
+   var date = format.format(DateTime.fromMillisecondsSinceEpoch(order.date.timestamp * 1000,isUtc: utc));
     return ListView(
       children: [
         ListTile(
           leading: Icon(Icons.store),
-          title: Text('${S.of(context).storeOwner}  :  ${order.owner.ownerName}'),          
+          title:
+              Text('${S.of(context).storeOwner}  :  ${order.owner.ownerName}'),
         ),
         ListTile(
           leading: Icon(Icons.phone),
-          title: Text('${S.of(context).storePhone}  :  ${order.owner.ownerPhone}'),          
+          title:
+              Text('${S.of(context).storePhone}  :  ${order.owner.ownerPhone}'),
         ),
         ListTile(
           leading: Icon(Icons.person),
-          title: Text('${S.of(context).recipientName}  :  ${order.recipientName}'),          
+          title:
+              Text('${S.of(context).recipientName}  :  ${order.recipientName}'),
         ),
         ListTile(
           leading: Icon(Icons.phone),
-          title: Text('${S.of(context).recipientPhoneNumber}  :  ${order.recipientPhone}'),          
+          title: Text(
+              '${S.of(context).recipientPhoneNumber}  :  ${order.recipientPhone}'),
         ),
         ListTile(
           leading: Icon(Icons.date_range),
-          title: Text('${S.of(context).date}  :  ${order.date}'),          
+          title: Text(
+              '${S.of(context).date}  :  ${date}'),
         ),
         ListTile(
           leading: Icon(Icons.payment),
-          title: Text('${S.of(context).paymentMethod}  :  ${order.payment}'),          
+          title: Text('${S.of(context).paymentMethod}  :  ${order.payment}'),
         ),
         ListTile(
           leading: Icon(Icons.location_on),
-          title: Text('${S.of(context).branch}  :  ${order.fromBranch}'),          
+          title: Text(
+              '${S.of(context).branch}  :  ${order.fromBranch.branchName}'),
         ),
       ],
     );
