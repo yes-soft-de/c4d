@@ -184,5 +184,6 @@
   "businessName":"الاسم التجاري",
   "unknownNumberOfCar":"عدد السيارات غير محدود",
   "recipientName":"اسم المستلم",
-  "date":"التاريخ"
+  "date":"التاريخ",
+  "go":"انطلق"
 }

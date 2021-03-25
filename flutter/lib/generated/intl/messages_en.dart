@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "finishOrderProvideDistanceInKm" : MessageLookupByLibrary.simpleMessage("Finish Order, Provide distance in KM"),
     "fromWhatsapp" : MessageLookupByLibrary.simpleMessage("From WhatsApp"),
     "getDirection" : MessageLookupByLibrary.simpleMessage("Get Direction"),
+    "go" : MessageLookupByLibrary.simpleMessage("Go"),
     "help" : MessageLookupByLibrary.simpleMessage("Help"),
     "helpMeMore" : MessageLookupByLibrary.simpleMessage("Help me more"),
     "home" : MessageLookupByLibrary.simpleMessage("Home"),
