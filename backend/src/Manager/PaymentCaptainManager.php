@@ -42,14 +42,4 @@ class PaymentCaptainManager
     {
         return $this->repository->getSumAmount($captainId);
     }
-
-    // public function getNewAmount($ownerId)
-    // {
-    //     return $this->repository->getNewAmount($ownerId);
-    // }
-
-    // public function ratingByCaptainID($captainID)
-    // {
-    //     return $this->ratingRepository->ratingByCaptainID($captainID);
-    // }
 }
