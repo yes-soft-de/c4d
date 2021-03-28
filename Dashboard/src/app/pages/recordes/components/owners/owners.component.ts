@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -14,9 +14,11 @@ import { RecordesService } from '../../services/recordes.service';
 })
 export class OwnersComponent implements OnInit {
   private destroy$: Subject<void> = new Subject();
+  getLogEvent: EventEmitter<string> = new EventEmitter();
   allOwners: AllOwners[];
   allOwnersList: AllOwners[] = [];
   config: any;
+  orderID: string;
 
   constructor(private recordService: RecordesService,
               private toaster: ToastrService,
@@ -28,7 +30,7 @@ export class OwnersComponent implements OnInit {
         if (response) {
           console.log('All Owners : ', response);
           this.allOwners = response.Data;
-          this.allOwnersList = response.Data;
+          this.allOwnersList = response.Data.reverse();
         }
       },
       error => {
@@ -39,13 +41,15 @@ export class OwnersComponent implements OnInit {
             this.router.navigate(['/']);
           }, 2000);
         }
+      }, () => {
+        this.config = {
+          id: 'record-owners-pagination',
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.allOwnersList.length
+        };
       }
     );
-    this.config = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.allOwnersList.length
-    }
   }
 
   ngOnDestroy() {
@@ -53,6 +57,14 @@ export class OwnersComponent implements OnInit {
     this.destroy$.complete();
   }
 
+
+  getOrderLog(id: string) {
+    if (id) {
+      console.log('order id : ', id);
+      this.orderID = id;
+      this.getLogEvent.emit(id);
+    }
+  }
 
   pageChanged(event) {
     this.config.currentPage = event;

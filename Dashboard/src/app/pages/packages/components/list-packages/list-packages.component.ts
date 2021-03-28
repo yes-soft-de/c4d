@@ -30,7 +30,7 @@ export class ListPackagesComponent implements OnInit {
           if (packagesResponse) {
             console.log('packagesResponse', packagesResponse);
             this.packages = packagesResponse.Data
-            this.packagesList = packagesResponse.Data;
+            this.packagesList = packagesResponse.Data.reverse();
           }
         },
         error => this.handleError(error)          

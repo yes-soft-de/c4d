@@ -32,7 +32,7 @@ export class AllDatingsComponent implements OnInit {
         if (datingsResponse) {
           console.log('datingsResponse', datingsResponse);
           this.datings = datingsResponse.Data
-          this.datingsList = datingsResponse.Data;
+          this.datingsList = datingsResponse.Data.reverse();
         }
       },
       error => this.handleError(error)          

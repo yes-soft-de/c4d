@@ -33,12 +33,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     private toaster: ToastrService,
     private render: Renderer2,
     @Inject(DOCUMENT) private document: Document,
-    private activatedRoute: ActivatedRoute) { 
-      
+    private activatedRoute: ActivatedRoute) {
+
     }
 
   ngOnInit(): void {
-    // this.checkMessageBodyScrollHeight();
+    this.checkMessageBodyScrollHeight();
     // Fetch Form Data
     this.messageForm = this.formBuilder.group({
       message: ['', Validators.required],
@@ -75,6 +75,10 @@ export class ChatComponent implements OnInit, OnDestroy {
             }
           );
         }
+        if (params.client == 'report') {
+          this.getMessages(params.uuid);
+          console.log('Report Room ID : ', params.uuid);
+        }
       }
     );
 
@@ -94,10 +98,11 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.messages = [];
           messages.docs.forEach((e, i) => {
             // Get ALl Message by e.data()
+            // console.log('e : ', e.data());
             this.messages.push(e.data());
           });
           // Sort Messages Depending On Message Date
-          this.messages.sort((a, b) => a.sentDate.localeCompare(b.sentDate));
+          this.messages.sort(( a, b) => a.sentDate.localeCompare(b.sentDate));
           // console.log('after sort Messages : ', this.messages);
           // Check if the messages is not empty
           if (this.messages.length > 0) {
@@ -187,7 +192,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           // Check if the messages is not empty
           if (this.messages.length > 0) {
             this.secondSender = 'admin';
-            for (let i = 0; i < this.messages.length - 1; i++) {          
+            for (let i = 0; i < this.messages.length - 1; i++) {
               // check if firstSender And secondSender still empty
               if (this.firstSender == null) {
                 // Check if the this sender equal to next sender
@@ -241,8 +246,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       }, 100);
     }
   }
-  
-  
+
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

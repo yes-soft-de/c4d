@@ -41,7 +41,8 @@
         <div class="card" *ngFor="let menu of menus; let i = index">
             <div class="card-header" id="{{menu.id + '-' + i}}">
               <h5 class="mb-0">
-                <button class="btn btn-link {{ i != 0 ? 'collapsed' : ''}}" 
+                <!-- <button class="btn btn-link {{ i != 0 ? 'collapsed' : ''}}"  -->
+                <button class="btn btn-link collapsed" 
                         data-toggle="collapse" 
                         [attr.data-target]="'#' + menu.id"  
                         aria-expanded="true" 
@@ -55,7 +56,8 @@
                 </button>
               </h5>
             </div>
-            <div id="{{menu.id}}" class="collapse bg-light-blue text-white {{ i == 0 ? 'show' : ''}}" [attr.aria-labelledby]="menu.id + '-' + i" data-parent="#accordion">
+            <!-- <div id="{{menu.id}}" class="collapse bg-light-blue text-white {{ i == 0 ? 'show' : ''}}" [attr.aria-labelledby]="menu.id + '-' + i" data-parent="#accordion"> -->
+            <div id="{{menu.id}}" class="collapse bg-light-blue text-white" [attr.aria-labelledby]="menu.id + '-' + i" data-parent="#accordion">
               <div class="card-body">
                 <p class="mb-2" *ngFor="let item of menu.children">
                   <a (click)="clicked(item.value)" routerLink="{{item.link}}">{{item.translate | translate}}</a>

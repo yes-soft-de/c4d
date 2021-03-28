@@ -15,6 +15,7 @@ export class AllCaptainsComponent implements OnInit {
   captains: any[];
   captainsList: any[] = [];
   config: any;
+  name: string;
 
   constructor(
         private captainService: CaptainsService,
@@ -28,7 +29,7 @@ export class AllCaptainsComponent implements OnInit {
           if (captainsResponse) {
             console.log('captainsResponse', captainsResponse);
             this.captains = captainsResponse.Data
-            this.captainsList = captainsResponse.Data;
+            this.captainsList = captainsResponse.Data.reverse();
           }
         },
         error => this.handleError(error)          
@@ -61,6 +62,22 @@ export class AllCaptainsComponent implements OnInit {
     this.config.currentPage = event;
   }
 
+
+  applyFilter() {
+    if (!this.name) {
+      this.captainsList = [...this.captains];
+    } else {
+      this.captainsList = [];
+      this.captainsList = this.captains.filter(res => {
+        if (res.name) {
+          const name = res.name.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+          if (name) {
+            return name;
+          }
+        }
+      })
+    }
+  }
 
 }
 

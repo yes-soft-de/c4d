@@ -156,11 +156,14 @@ export class HeaderComponent implements OnInit {
   }
 
   collapseMenu() {
+
     const screenWidth = window.innerWidth;
     console.log('screenWidth', screenWidth);
     if (screenWidth < 768) {
-      this.render.addClass(this.document.querySelector('.navbar-toggler'), 'collapsed');
-      this.render.removeClass(this.document.getElementById('navbarSupportedContent'), 'show');
+      setTimeout(() => {
+        this.render.addClass(this.document.querySelector('.navbar-toggler'), 'collapsed');
+        this.render.removeClass(this.document.getElementById('navbarSupportedContent'), 'show');
+      }, 1000);
     }
   }
 
@@ -169,8 +172,24 @@ export class HeaderComponent implements OnInit {
     this.render.setProperty(this.document.getElementById('inlineFormInputGroupUsername2'), 'value', '');
   }
 
-  applyFilter() {
-    this.collapseMenu();
+  isTyping() {
+    let wordSearch = this.name;
+    setTimeout(() => {
+      if (wordSearch == this.name) {
+            if (this.name) {
+              // If Stop Typing Cllapse Menu
+              this.collapseMenu();
+            }else{
+                //code here
+                console.log('still type');
+            }
+        }
+    }, 1000);
+  }
+
+  applyFilter(event) {
+    // Check IF user Still Typing
+    this.isTyping();
     if (this.name == '') {
       this.disabled = false;
     } else {

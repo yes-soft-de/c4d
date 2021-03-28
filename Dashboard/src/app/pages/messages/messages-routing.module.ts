@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
-  { path: 'view/:client/:id', component: ChatComponent }
+  { path: 'view/:client/:id', component: ChatComponent },
+  { path: 'view/:client/:id/:uuid', component: ChatComponent }
 ];
 
 @NgModule({

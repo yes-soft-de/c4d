@@ -28,7 +28,7 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
             },
             {
                 title: 'Order',
-                translate: 'order',
+                translate: 'orders',
                 // link: '/',
                 value: 'order'
             },
@@ -91,6 +91,21 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
                 translate: 'day-off',
                 link: '/captains/day-off',
             },
+            // {
+            //     title: 'Remaining',
+            //     translate: 'remaining-captains',
+            //     link: '/captains/remaining',
+            // },
+            {
+              title: 'Payment',
+              translate: 'payment',
+              link: '/captains/payment',
+            },
+            {
+                title: 'Terms',
+                translate: 'terms-captain',
+                link: '/captains/terms',
+            }
         ]
     },
     {
@@ -122,6 +137,11 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
                 translate: 'pending',
                 link: '/contracts/pending',
             },
+            {
+              title: 'Payment',
+              translate: 'payment',
+              link: '/contracts/payment',
+            }
         ]
     },
     {
@@ -195,4 +215,30 @@ export const SIDEBAR_MENU_ITEM: SidebarMenuItems[] = [
             },
         ]
     },
+    {
+        title: 'Direct Support',
+        id: 'support',
+        translate: 'direct-support',
+        icon: 'fa fa-volume-control-phone',
+        children: [
+            {
+                title: 'Support Information',
+                translate: 'support-information',
+                link: '/supports',
+            },
+        ]
+    },
+    {
+        title: 'Latest Updated',
+        id: 'updated',
+        translate: 'updated',
+        icon: 'fa fa-history',
+        children: [
+            {
+                title: 'Latest Updated',
+                translate: 'latest-updated',
+                link: '/updated',
+            },
+        ]
+    }
 ];

@@ -14,7 +14,7 @@
                             id="inlineFormInputGroupUsername2" 
                             name="search"
                             [(ngModel)]="name"
-                            (keyup)="applyFilter()"
+                            (keyup)="applyFilter($event)"
                             title="{{'title' | translate}}"
                             placeholder="{{'placeholder' | translate}}">
                     <div class="input-group-prepend">

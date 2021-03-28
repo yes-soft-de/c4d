@@ -1,0 +1,111 @@
+<!-- general form elements -->
+<div class="container-fluid" *ngIf="supportInformation != null || noData">
+    <div class="content-header">
+        <h1 class="text-center mt-5 mb-3">{{'direct-support-information' | translate}}</h1>
+    </div>
+    <div class="card card-info mb-5">
+        <div class="card-header bg-light-blue text-white p-3">
+            <!-- <h3 class="card-title mb-0">{{'new-event' | translate}}</h3> -->
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form [formGroup]="addSupportForm" (ngSubmit)="onSubmit()">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputphone1">{{'phone' | translate}}</label>
+                    <input type="number"
+                           [ngClass]="{'is-invalid': addSupportForm.get('phone').errors &&
+                           (addSupportForm.get('phone').touched || addSupportForm.get('phone').dirty)}"
+                           name="phone"
+                           formControlName="phone"
+                           id="exampleInputphone1"
+                           class="form-control"
+                           placeholder="{{'phone-type-placeholder' | translate}}">
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('phone').errors?.required">{{'phone-field-is-required' | translate}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputphone2">{{'phone-two' | translate}}</label>
+                    <input type="number"
+                           [ngClass]="{'is-invalid': addSupportForm.get('phone2').errors &&
+                           (addSupportForm.get('phone2').touched || addSupportForm.get('phone2').dirty)}"
+                           name="phone2"
+                           formControlName="phone2"
+                           id="exampleInputphone2"
+                           class="form-control"
+                           placeholder="{{'phone-two-type-placeholder' | translate}}">
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('phone2').errors?.required">{{'phone-two-field-is-required' | translate}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputWhatsapp">{{'whatsapp' | translate}}</label>
+                    <input type="number"
+                           [ngClass]="{'is-invalid': addSupportForm.get('whatsapp').errors &&
+                           (addSupportForm.get('whatsapp').touched || addSupportForm.get('whatsapp').dirty)}"
+                           name="whatsapp"
+                           formControlName="whatsapp"
+                           id="exampleInputWhatsapp"
+                           class="form-control"
+                           placeholder="{{'whatsapp-type-placeholder' | translate}}">
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('whatsapp').errors?.required">{{'whatsapp-field-is-required' | translate}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFax">{{'fax' | translate}}</label>
+                    <input type="text"
+                           [ngClass]="{'is-invalid': addSupportForm.get('fax').errors &&
+                           (addSupportForm.get('fax').touched || addSupportForm.get('fax').dirty)}"
+                           name="fax"
+                           formControlName="fax"
+                           id="exampleInputFax"
+                           class="form-control"
+                           placeholder="{{'fax-type-placeholder' | translate}}">
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('fax').errors?.required">{{'fax-field-is-required' | translate}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputBank">{{'bank' | translate}}</label>
+                    <input type="text"
+                           [ngClass]="{'is-invalid': addSupportForm.get('bank').errors &&
+                           (addSupportForm.get('bank').touched || addSupportForm.get('bank').dirty)}"
+                           name="bank"
+                           formControlName="bank"
+                           id="exampleInputBank"
+                           class="form-control"
+                           placeholder="{{'bank-type-placeholder' | translate}}">
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('bank').errors?.required">{{'bank-field-is-required' | translate}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputStc">{{'stc' | translate}}</label>
+                    <input type="text"
+                           [ngClass]="{'is-invalid': addSupportForm.get('stc').errors &&
+                           (addSupportForm.get('stc').touched || addSupportForm.get('stc').dirty)}"
+                           name="stc"
+                           formControlName="stc"
+                           id="exampleInputStc"
+                           class="form-control"
+                           placeholder="{{'stc-type-placeholder' | translate}}">
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('stc').errors?.required">{{'stc-field-is-required' | translate}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail">{{'email' | translate}}</label>
+                    <input type="email"
+                           [ngClass]="{'is-invalid': addSupportForm.get('email').errors &&
+                           (addSupportForm.get('email').touched || addSupportForm.get('email').dirty)}"
+                           name="email"
+                           formControlName="email"
+                           id="exampleInputEmail"
+                           class="form-control"
+                           placeholder="{{'email-type-placeholder' | translate}}">
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('email').errors?.required">{{'email-field-is-required' | translate}}</span>
+                    <span class="invalid-feedback" *ngIf="addSupportForm.get('email').errors?.email">{{'email-field-valid' | translate}}</span>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn bg-light-blue text-white" [disabled]="addSupportForm.invalid || isSubmited">{{buttonText | translate}}</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.card -->
+</div>
+<div *ngIf="supportInformation == null && !noData">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

@@ -22,12 +22,12 @@ export class CaptainsDetailsComponent implements OnInit {
   private destroy$: Subject<void> = new Subject<void>();
   captainDetails: CaptainDetails;
   uploadForm: FormGroup;
-  isSubmitted = false; 
+  isSubmitted = false;
   display = true;
   intervalCounter: any;
 
   constructor(private captainService: CaptainsService,
-              private httpClient: HttpClient, 
+              private httpClient: HttpClient,
               private tokenService: TokenService,
               private formBuilder: FormBuilder,
               private toaster: ToastrService,
@@ -36,7 +36,7 @@ export class CaptainsDetailsComponent implements OnInit {
               @Inject(DOCUMENT) private document: Document,
               private render: Renderer2) { }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.changeElementExistsWidth();
     this.activateRoute.params.subscribe(
       urlSegment => {
@@ -69,7 +69,7 @@ export class CaptainsDetailsComponent implements OnInit {
     );
   }
 
-  // private async getCaptianDetails() {  
+  // private async getCaptianDetails() {
   //   const data = await this.httpClient.get(
   //     `${AdminConfig.captainDetailAPI}/${Number(this.activateRoute.snapshot.paramMap.get('id'))}`,
   //     this.tokenService.httpOptions()
@@ -129,7 +129,7 @@ export class CaptainsDetailsComponent implements OnInit {
     let second = 0;
     this.intervalCounter = setInterval(() => {
       second++;
-      const Element = this.document.querySelector('#refresh_button');        
+      const Element = this.document.querySelector('#refresh_button');
       if (Element) {
         second = 0;
         this.render.setStyle(Element, 'width', Element.previousElementSibling.clientWidth + 'px');

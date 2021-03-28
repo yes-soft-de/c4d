@@ -17,6 +17,7 @@ export class StoreOwnersComponent implements OnInit {
   storeOwners: StoreOwners[];
   storeOwnersList: StoreOwners[] = [];
   config: any;
+  name: string;
 
   constructor(
         private staticService: StaticsService,
@@ -30,7 +31,7 @@ export class StoreOwnersComponent implements OnInit {
           if (storeOwnersResponse) {
             console.log('storeOwnersResponse', storeOwnersResponse);
             this.storeOwners = storeOwnersResponse.Data
-            this.storeOwnersList = storeOwnersResponse.Data;
+            this.storeOwnersList = storeOwnersResponse.Data.reverse();
           }
         },
         error => this.handleError(error)          
@@ -63,6 +64,21 @@ export class StoreOwnersComponent implements OnInit {
     this.config.currentPage = event;
   }
 
+  applyFilter() {
+    if (!this.name) {
+      this.storeOwnersList = [...this.storeOwners];
+    } else {
+      this.storeOwnersList = [];
+      this.storeOwnersList = this.storeOwners.filter(res => {
+        if (res.userName) {
+          const userName = res.userName.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+          if (userName) {
+            return userName;
+          }
+        }
+      });
+    }
+  }
 
 }
 

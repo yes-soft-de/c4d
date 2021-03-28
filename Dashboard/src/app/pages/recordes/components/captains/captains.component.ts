@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
@@ -13,9 +13,12 @@ import { RecordesService } from '../../services/recordes.service';
 })
 export class CaptainsComponent implements OnInit {
   private destroy$: Subject<void> = new Subject();
+  getLogEvent: EventEmitter<string> = new EventEmitter();
   allCaptains: AllOwners[];
   allCaptainsList: AllOwners[] = [];
   config: any;
+  orderID: string;
+
 
   constructor(private recordService: RecordesService,
               private toaster: ToastrService,
@@ -27,7 +30,7 @@ export class CaptainsComponent implements OnInit {
         if (response) {
           console.log('All Captains : ', response);
           this.allCaptains = response.Data;
-          this.allCaptainsList = response.Data;        
+          this.allCaptainsList = response.Data.reverse();
         }
       },
       error => {
@@ -38,18 +41,30 @@ export class CaptainsComponent implements OnInit {
             this.router.navigate(['/']);
           }, 2000);
         }
+      }, () => {
+        this.config = {
+          id: 'record-captains-pagination',
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.allCaptainsList.length
+        };
       }
     );
-    this.config = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.allCaptainsList.length
-    }
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+
+
+  getOrderLog(id: string) {
+    if (id) {
+      console.log('order id : ', id);
+      this.orderID = id;
+      this.getLogEvent.emit(id);
+    }
   }
 
 

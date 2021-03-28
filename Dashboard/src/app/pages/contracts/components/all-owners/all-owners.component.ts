@@ -17,6 +17,7 @@ export class AllOwnersComponent implements OnInit {
   allOwners: AllOwners[];
   allOwnersList: AllOwners[] = [];
   config: any;
+  name: string;
 
   constructor(
         private contractService: ContractsService,
@@ -30,7 +31,7 @@ export class AllOwnersComponent implements OnInit {
           if (allOwnersResponse) {
             console.log('allOwnersResponse', allOwnersResponse);
             this.allOwners = allOwnersResponse.Data
-            this.allOwnersList = allOwnersResponse.Data;
+            this.allOwnersList = allOwnersResponse.Data.reverse();
           }
         },
         error => this.handleError(error)
@@ -63,6 +64,22 @@ export class AllOwnersComponent implements OnInit {
     this.config.currentPage = event;
   }
 
+  
+  applyFilter() {
+    if (!this.name) {
+      this.allOwnersList = [...this.allOwners];
+    } else {
+      this.allOwnersList = [];
+      this.allOwnersList = this.allOwners.filter(res => {
+        if (res.userName) {
+          const userName = res.userName.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+          if (userName) {
+            return userName;
+          }
+        }
+      })
+    }
+  }
 
 }
 

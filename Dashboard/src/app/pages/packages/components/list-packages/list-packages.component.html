@@ -8,8 +8,8 @@
                     <table class="table">
                         <thead>
                             <tr style="white-space: nowrap;">
-                                <th scope="col">#ID</th>
-                                <th scope="col">{{'image' | translate}}</th>
+                                <!-- <th scope="col">#ID</th> -->
+                                <!-- <th scope="col">{{'image' | translate}}</th> -->
                                 <th scope="col">{{'name' | translate}}</th>
                                 <th scope="col">{{'car-count' | translate}}</th>
                                 <th scope="col">{{'city' | translate}}</th>
@@ -22,17 +22,17 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let package of packagesList | paginate: config">
-                                <th scope="row">{{package.id}}</th>
-                                <th><img src="{{package?.image}}" (error)="package.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{package.name}} Image" class="img-thumbnail img-custom"></th>
-                                <th scope="row">{{package.name ? package.name : '-'}}</th>
-                                <th scope="row">{{package.carCount ? package.carCount : '-'}}</th>
-                                <th scope="row">{{package.city ? package.city : '-'}}</th>
-                                <th scope="row">{{package.cost ? (package.cost | currency) : '-'}}</th>
-                                <th scope="row">{{package.orderCount ? package.orderCount : '-'}}</th>
-                                <th scope="row" [class.text-danger]="package.status == 'inactive'">{{package.status ? package.status : '-'}}</th>
-                                <th scope="row" class="td-custom">{{package.note ? package.note : '-'}}</th>
+                                <!-- <th scope="row">{{package.id}}</th> -->
+                                <!-- <th><img src="{{package?.image}}" (error)="package.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{package?.name}} Image" class="img-thumbnail img-custom"></th> -->
+                                <th scope="row">{{package?.name ? package?.name : '-'}}</th>
+                                <th scope="row">{{package?.carCount ? (package?.carCount != 0 ? package?.carCount : ('unlimited-cars' | translate)) : '-'}}</th>
+                                <th scope="row">{{package?.city ? package?.city : '-'}}</th>
+                                <th scope="row">{{package?.cost ? (package?.cost | currency) : '-'}}</th>
+                                <th scope="row">{{package?.orderCount ? package?.orderCount : '-'}}</th>
+                                <th scope="row" [class.text-danger]="package?.status == 'inactive'">{{package?.status ? package?.status : '-'}}</th>
+                                <th scope="row" class="td-custom">{{package?.note ? package?.note : '-'}}</th>
                                 <th scrope="row">
-                                    <a routerLink="/packages/view/{{package.id}}" class="text-success">{{'view' | translate}}</a>
+                                    <a routerLink="/packages/view/{{package?.id}}" class="text-success">{{'view' | translate}}</a>
                                 </th>
                             </tr>
                         </tbody>

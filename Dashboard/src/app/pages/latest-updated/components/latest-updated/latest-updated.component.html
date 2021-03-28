@@ -1,0 +1,109 @@
+<div *ngIf="!noData">
+<div class="container-fuild" *ngIf="latestUpdated">
+    <div class="captains">
+        <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'latest-updated' | translate}}</h1>
+        <form [formGroup]="uploadForm" class="col-md-10 col-lg-8 col-xl-7 my-5 mx-auto" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+            <label class="col-12 col-form-label">{{'latest-updated-title' | translate}}</label>
+            <div class="col-12">
+            <input
+                type="text"
+                [ngClass]="{'is-invalid': uploadForm.get('title').errors &&
+                (uploadForm.get('title').touched || uploadForm.get('title').dirty)}"
+                class="form-control"
+                name="title"
+                formControlName="title"
+                placeholder="{{'title-type-placeholder' | translate}}">
+            <span class="invalid-feedback" *ngIf="uploadForm.get('title').errors?.required">{{'title-field-is-required' | translate}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-12 col-form-label">{{'content' | translate}}</label>
+            <div class="col-12">
+                <textarea
+                  [ngClass]="{'is-invalid': uploadForm.get('content').errors &&
+                           (uploadForm.get('content').touched || uploadForm.get('content').dirty)}"
+                  name="content"
+                  formControlName="content"
+                  id="exampleInputcontent1"
+                  class="form-control"
+                  placeholder="{{'content-type-placeholder' | translate}}"></textarea>
+            <span class="invalid-feedback" *ngIf="uploadForm.get('content').errors?.required">{{'content-field-is-required' | translate}}</span>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <input class="btn bg-light-blue text-white btn-block" type="submit" value="{{buttonText | translate}}" [disabled]="isSubmitted">
+            <!-- <input class="btn btn-primary btn-block" type="submit" value="send"> -->
+        </div>
+        </form>
+    </div>
+    <div class="payment-captains">
+        <!-- <div *ngIf="captainTotalBounce.length !== 0"> -->
+        <div class="container-fluid">
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{'latest-updated-title' | translate }}</th>
+                                <th scope="col">{{'content' | translate }}</th>
+                                <th scope="col">{{'control' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let updated of latestUpdatedList | paginate: config">
+                                <th scope="row">{{updated?.title ? updated?.title : '-'}}</th>
+                                <th scope="row">{{updated?.content ? updated?.content : '-'}}</th>
+                                <th scope="row">
+                                    <a (click)="fillingForm(updated)" class="btn btn-success btn-sm text-white mr-1 mb-1">
+                                        {{'update' | translate}}
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr *ngIf="latestUpdatedList.length === 0">
+                                <th scope="row" colSpan="3">{{'latest-updated-not-exists' | translate}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls class="my-pagination"
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="{{'prev' | translate}}"
+                        nextLabel="{{'next' | translate}}"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+                </pagination-controls>
+            </div>
+        </div>
+        <!-- </div>   -->
+        <!-- <div *ngIf="captainTotalBounce.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">{{'captain-payments-not-exists' | translate}}</div>
+            <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a>
+        </div>
+        </div> -->
+   </div>
+  </div>
+  <div *ngIf="!latestUpdated">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+<div *ngIf="noData">
+  <div class="container">
+      <div class="alert alert-primary text-center mt-5">{{'latest-updated-not-exists' | translate}}</div>
+      <a routerLink="/updated/add" class="btn btn-primary btn-sm mb-2 float-right">
+          <i class="fa fa-plus"></i>
+          {{'new-update' | translate}}
+      </a>
+  </div>
+</div>

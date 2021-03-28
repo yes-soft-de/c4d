@@ -1,0 +1,47 @@
+<!-- general form elements -->
+<div class="container-fluid">
+  <div class="content-header">
+    <h1 class="text-center mt-5 mb-3">{{'latest-updated' | translate}}</h1>
+  </div>
+  <div class="card card-info mb-5">
+    <div class="card-header bg-light-blue text-white p-3">
+      <!-- <h3 class="card-title mb-0">{{'new-event' | translate}}</h3> -->
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form [formGroup]="addUpdateForm" (ngSubmit)="onSubmit()">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="exampleInputtitle1">{{'latest-updated-title' | translate}}</label>
+          <input type="text"
+                 [ngClass]="{'is-invalid': addUpdateForm.get('title').errors &&
+                           (addUpdateForm.get('title').touched || addUpdateForm.get('title').dirty)}"
+                 name="title"
+                 formControlName="title"
+                 id="exampleInputtitle1"
+                 class="form-control"
+                 placeholder="{{'title-type-placeholder' | translate}}">
+          <span class="invalid-feedback" *ngIf="addUpdateForm.get('title').errors?.required">{{'title-field-is-required' | translate}}</span>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputcontent1">{{'content' | translate}}</label>
+          <textarea
+                 [ngClass]="{'is-invalid': addUpdateForm.get('content').errors &&
+                           (addUpdateForm.get('content').touched || addUpdateForm.get('content').dirty)}"
+                 name="content"
+                 formControlName="content"
+                 id="exampleInputcontent1"
+                 class="form-control"
+                 placeholder="{{'content-type-placeholder' | translate}}"></textarea>
+          <span class="invalid-feedback" *ngIf="addUpdateForm.get('content').errors?.required">{{'content-field-is-required' | translate}}</span>
+        </div>
+      </div>
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button type="submit" class="btn bg-light-blue text-white" [disabled]="addUpdateForm.invalid || isSubmited">{{'create' | translate}}</button>
+      </div>
+    </form>
+  </div>
+  <!-- /.card -->
+</div>

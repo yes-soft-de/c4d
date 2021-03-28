@@ -58,10 +58,10 @@
               </table>
                 <div class="text-center" *ngIf="contracts.length == 0">
                     <p scope="row">{{'requested-contracts-not-exists' | translate}}.</p>
-                </div >
+                </div>
             </div>
-            <div class="mt-3 text-center">
-              <pagination-controls class="my-pagination"
+            <div class="mt-3 text-center" *ngIf="contracts.length != 0">
+              <pagination-controls class="contract-pagination"
                       (pageChange)="pageChanged($event)"
                       autoHide="true"
                       maxSize="5"
@@ -72,7 +72,7 @@
                       screenReaderPageLabel="page"
                       screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
               </pagination-controls>
-          </div>
+            </div>
           </div><!--.card-->
         </div>
       </div>

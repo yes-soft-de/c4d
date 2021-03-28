@@ -94,12 +94,10 @@
                 <label class="col-form-label mr-3">{{'note' | translate}}</label>
                 <div class="col-12 col-sm-10 pl-0">
                     <textarea class="form-control px-1 py-0"
-                    [ngClass]="{'is-invalid': uploadForm.get('note').errors &&
-                      (uploadForm.get('note').touched || uploadForm.get('note').dirty)}"                      
                       name="note"
                       formControlName="note"
                       rows="5"></textarea>
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('note').errors?.required">{{'note-field-is-required' | translate}}</span>               
+                  <!-- <span class="invalid-feedback" *ngIf="uploadForm.get('note').errors?.required">{{'note-field-is-required' | translate}}</span>                -->
                 </div>
               </div>
             <div class="form-group mt-3">

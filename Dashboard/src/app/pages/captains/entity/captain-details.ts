@@ -15,5 +15,16 @@ export interface CaptainDetails {
     state: string;
     status: string;
     uuid: string;
-    totalBounce: {bounce: number}
+    totalBounce: {
+        NetProfit: number;
+        bank: string;
+        bounce: number;
+        countOrdersDeliverd: number;
+        payments: [];
+        sumPayments: string;
+        total: number;
+    };
+    accountID: string;
+    bankName: string;
+    stcPay: string;
 }

@@ -17,7 +17,7 @@
             height: 180px;
             padding: 4px;
             border: 13px solid #21a5b8;
-            img { border: 5px solid #076370; 
+            img { border: 5px solid #076370;
                 @media (min-width: '576px') and (max-width: '991px') {
                     border: 3px solid #076370;
                 }
@@ -67,4 +67,9 @@
     .salary, .bounce { display: inline-block; width: 160px; }
     button { letter-spacing: .05rem; }
     img.img-custom { width: 150px; }
+    .captain-details-content {
+      @media (min-width: '576px') {
+        border-right: 1px solid #d8d8d8;
+      }
+    }
 }

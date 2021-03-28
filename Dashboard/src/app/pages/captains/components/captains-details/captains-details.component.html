@@ -28,35 +28,32 @@
             </div>
         </div><!--.row-->
         <p class="ml-sm-2 ml-md-4 mb-1">
-            {{'driving-licence' | translate}} : 
-            <img src="{{captainDetails?.drivingLicence}}" (error)="captainDetails.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{captainDetails.name}} driving Licence" class="img-thumbnail img-custom">            
+            {{'driving-licence' | translate}} :
+            <img src="{{captainDetails?.drivingLicence}}" (error)="captainDetails.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{captainDetails.name}} driving Licence" class="img-thumbnail img-custom">
         </p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'captain-id' | translate}} : <span>{{captainDetails?.captainID}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'is-online' | translate}} : <span class="text-{{captainDetails?.isOnline == 'active' ? 'success' : 'danger'}}">{{captainDetails?.isOnline}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'age' | translate }} : <span>{{captainDetails?.age}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'car' | translate }} : <span>{{captainDetails?.car}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'state' | translate }} : <span>{{captainDetails?.state}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'status' | translate }} : <span>{{captainDetails?.status}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'rating' | translate }} : <span>{{captainDetails?.rating.rate}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'location' | translate }} : <span>{{captainDetails?.location}}</span></p>
-        <p class="ml-sm-2 ml-md-4 mb-1">{{'total-bounce' | translate}} : <span>{{captainDetails?.totalBounce?.bounce}}</span></p>
-        <form [formGroup]="uploadForm" (blur)="blur()" class="ml-sm-2 ml-md-4 mb-1" (ngSubmit)="mySubmit()">
-            <div class="">
-              <label class="col-form-label mr-3">{{'salary' | translate}}: </label>
-              <div class="d-inline-block">
-                <input class="form-control px-1 py-0"
-                       [ngClass]="{'is-invalid': uploadForm.get('salary').errors &&
+        <div class="row mt-3">
+          <div class="col-12 col-sm-6 captain-details-content">
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'car' | translate }} : <span>{{captainDetails?.car}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'age' | translate }} : <span>{{captainDetails?.age}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'is-online' | translate}} : <span class="text-{{captainDetails?.isOnline == 'active' ? 'success' : 'danger'}}">{{captainDetails?.isOnline}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'state' | translate }} : <span>{{captainDetails?.state}}</span></p>
+            <form [formGroup]="uploadForm" (blur)="blur()" class="ml-sm-2 ml-md-4 mb-1" (ngSubmit)="mySubmit()">
+              <div class="">
+                <label class="col-form-label mr-3">{{'salary' | translate}}: </label>
+                <div class="d-inline-block">
+                  <input class="form-control px-1 py-0"
+                         [ngClass]="{'is-invalid': uploadForm.get('salary').errors &&
                          (uploadForm.get('salary').touched || uploadForm.get('salary').dirty)}"
-                       type="text"
-                       (click)="focus()"
-                       (blur)="blur()"
-                       [readOnly]="isSubmitted"
-                       name="salary"
-                       formControlName="salary">
-                <span class="invalid-feedback" *ngIf="uploadForm.get('salary').errors?.required">{{'salary-field-is-required' | translate}}</span>               
+                         type="text"
+                         (click)="focus()"
+                         (blur)="blur()"
+                         [readOnly]="isSubmitted"
+                         name="salary"
+                         formControlName="salary">
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('salary').errors?.required">{{'salary-field-is-required' | translate}}</span>
+                </div>
               </div>
-            </div>
-            <div class="">
+              <div class="">
                 <label class="col-form-label mr-3">{{'bounce' | translate}}: </label>
                 <div class="d-inline-block">
                   <input class="form-control px-1 py-0"
@@ -68,13 +65,27 @@
                          (blur)="blur()"
                          [readOnly]="isSubmitted"
                          formControlName="bounce">
-                  <span class="invalid-feedback" *ngIf="uploadForm.get('bounce').errors?.required">{{'bounce-field-is-required' | translate}}</span>               
+                  <span class="invalid-feedback" *ngIf="uploadForm.get('bounce').errors?.required">{{'bounce-field-is-required' | translate}}</span>
                 </div>
               </div>
-            <div class="form-group mt-3" [class.d-none]="display">
+              <div class="form-group mt-3" [class.d-none]="display">
                 <input class="btn btn-primary" type="submit" value="Update" [disabled]="isSubmitted">
-            </div>
-        </form>
+              </div>
+            </form>
+          </div><!--.col-12.col-ms-6-->
+          <div class="col-12 col-sm-6">
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'bank-name' | translate }} : <span>{{captainDetails?.bankName ? captainDetails?.bankName : '-'}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'account-id' | translate }} : <span>{{captainDetails?.accountID ? captainDetails?.accountID : '-'}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'stc-pay' | translate }} : <span>{{captainDetails?.stcPay ? captainDetails?.stcPay : '-'}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'net-profit' | translate }} : <span>{{captainDetails?.totalBounce?.NetProfit ? captainDetails?.totalBounce?.NetProfit : '-'}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'sum-payments' | translate }} : <span>{{captainDetails?.totalBounce?.sumPayments ? captainDetails?.totalBounce?.sumPayments : '-'}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'current-total' | translate }} : <span class="{{aptainDetails?.totalBounce?.total < 0 ? 'text-danger' : ''}}">{{captainDetails?.totalBounce?.total ? captainDetails?.totalBounce?.total : '-'}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'status' | translate }} : <span>{{captainDetails?.status}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'rating' | translate }} : <span>{{captainDetails?.rating.rate}}</span></p>
+            <p class="ml-sm-2 ml-md-4 mb-1">{{'location' | translate }} : <span>{{captainDetails?.location}}</span></p>
+            <!-- <p class="ml-sm-2 ml-md-4 mb-1">{{'total-bounce' | translate}} : <span>{{captainDetails?.totalBounce?.bounce}}</span></p> -->
+          </div><!--.col-12.col-ms-6-->
+        </div><!--.row-->
         <!-- <p class="ml-sm-2 ml-md-4 mb-1"><strong>Salary: </strong> <span class="salary border border-dark rounded px-2">{{captainDetails?.salary}} $</span></p>
         <p class="ml-sm-2 ml-md-4 mb-1"><strong>Bounce: </strong> <span class="bounce border border-dark rounded px-2">{{captainDetails?.bounce}} $</span></p> -->
         <!-- <button class="mt-2 ml-sm-2 ml-md-4 btn bg-light-blue text-white w-25 py-0 font-weight-bold">

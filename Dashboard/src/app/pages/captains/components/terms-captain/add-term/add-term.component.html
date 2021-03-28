@@ -1,0 +1,35 @@
+<!-- general form elements -->
+<div class="container-fluid">
+  <div class="content-header">
+    <h1 class="text-center mt-5 mb-3">{{'new-term' | translate}}</h1>
+  </div>
+  <div class="card card-info mb-5">
+    <div class="card-header bg-light-blue text-white p-3">
+      <!-- <h3 class="card-title mb-0">{{'new-event' | translate}}</h3> -->
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form [formGroup]="addTermForm" (ngSubmit)="onSubmit()">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="exampleInputcontent1">{{'content' | translate}}</label>
+          <textarea
+                 [ngClass]="{'is-invalid': addTermForm.get('content').errors &&
+                           (addTermForm.get('content').touched || addTermForm.get('content').dirty)}"
+                 name="content"
+                 formControlName="content"
+                 id="exampleInputcontent1"
+                 class="form-control"
+                 placeholder="{{'content-type-placeholder' | translate}}"></textarea>
+          <span class="invalid-feedback" *ngIf="addTermForm.get('content').errors?.required">{{'content-field-is-required' | translate}}</span>
+        </div>
+      </div>
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button type="submit" class="btn bg-light-blue text-white" [disabled]="addTermForm.invalid || isSubmited">{{'create' | translate}}</button>
+      </div>
+    </form>
+  </div>
+  <!-- /.card -->
+</div>

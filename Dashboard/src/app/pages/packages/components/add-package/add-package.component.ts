@@ -26,7 +26,7 @@ export class AddPackageComponent implements OnInit {
     this.uploadForm = this.formBuilder.group({
       name: ['', Validators.required],
       cost: ['', Validators.required],
-      note: ['', Validators.required],
+      note: [''],
       carCount: ['', Validators.required],
       city: ['', Validators.required],
       orderCount: ['', Validators.required],

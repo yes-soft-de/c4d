@@ -2,6 +2,20 @@
     <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'all-captains' | translate}}</h1>
     <div *ngIf="captains.length !== 0">
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 col-sm-8 col-md-6 col-xl-4">
+                    <div class="form-group mt-4 mb-0">
+                        <input
+                          id="exampleFormControlInput2"
+                          [(ngModel)]="name"
+                          (keyup)="applyFilter()"
+                          type="text"
+                          placeholder="{{'statistic-captain-search-input' | translate}}"
+                          title="{{'statistic-captain-search-input' | translate}}"
+                          class="form-control form-control-underlined border-primary search-input">
+                    </div>
+                </div>
+            </div>
             <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
                 <div class="card-header bg-white py-3"></div>
                 <div class="card-body table-responsive bg-white text-center">

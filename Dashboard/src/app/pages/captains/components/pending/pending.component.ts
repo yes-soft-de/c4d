@@ -59,5 +59,5 @@ export class PendingComponent implements OnInit, OnDestroy {
   pageChanged(event) {
     this.config.currentPage = event;
   }
-  
+
 }

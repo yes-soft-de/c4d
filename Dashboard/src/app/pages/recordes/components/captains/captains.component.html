@@ -16,7 +16,7 @@
                             <th scope="col">{{'source' | translate}}</th>
                             <th scope="col">{{'from-branch' | translate}}</th>
                             <th scope="col">{{'payment' | translate}}</th>
-                            <th scope="col">{{'destination' | translate}}</th>
+                            <!-- <th scope="col">{{'destination' | translate}}</th> -->
                             <!-- <th scope="col">Branch City</th>
                             <th scope="col">Branch count</th>
                             <th scope="col">From Branch</th>
@@ -38,14 +38,15 @@
                                 <th scope="row">{{captain?.source.length > 0 ? captain?.source[0] : '-' }}</th>
                                 <th scope="row">{{captain?.brancheName ? captain?.brancheName : '-'  }}</th>
                                 <th scope="row">{{captain?.payment ? captain.payment : '-' }}</th>
-                                <th scope="row">{{captain?.destination ? captain?.destination[0] : '-' }}</th>
+                                <!-- <th scope="row">{{captain?.destination ? captain?.destination[0] : '-' }}</th> -->
                                 <!-- <th scope="row">{{captain?.branchcount ? captain?.branchcount : '-' }}</th>
                                 <th scope="row">{{captain?.fromBranch ? captain?.fromBranch : '-' }}</th>
                                 <th scope="row">{{captain?.free ? captain.free : '-' }}</th>
                                 <th scope="row">{{captain?.location ? captain.location : '-' }}</th>
                                 <th scope="row">{{captain?.status ? captain.status : '-' }}</th> -->
                                 <th scrope="row">
-                                    <a routerLink="/recordes/orders-log/{{captain.orderID}}" class="text-success">{{'log' | translate}}</a>
+                                    <!-- <a routerLink="/recordes/orders-log/{{captain.orderID}}" class="text-success">{{'log' | translate}}</a> -->
+                                    <a (click)="getOrderLog(captain?.orderID)" style="cursor: pointer;" class="text-success">{{'log' | translate}}</a>
                                 </th>
                             </tr>
                         </tbody>
@@ -53,7 +54,7 @@
                 </div>
             </div><!--.card-->
             <div class="mt-3 text-center">
-                <pagination-controls class="my-pagination"
+                <pagination-controls id="record-captains-pagination"
                         (pageChange)="pageChanged($event)"
                         autoHide="true"
                         maxSize="5"
@@ -75,6 +76,9 @@
                 Add New Anime
             </a> -->
         </div>
+    </div>
+    <div class="p-3 my-5" *ngIf="orderID">
+      <app-orders-log [parentEvent]="getLogEvent" [parentOrderID]="orderID"></app-orders-log>
     </div>
 </div>
 <div *ngIf="allCaptains == null">

@@ -13,10 +13,18 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SidebarComponent } from './@theme/components';
+import {environment} from '../environments/environment';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "/admin/assets/i18n/");
+  if (environment.production) {
+    // for production
+    return new TranslateHttpLoader(http, "/admin/assets/i18n/");
+  } else {
+    // for development
+    return new TranslateHttpLoader(http);
   }
+}
+
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -32,7 +40,7 @@ const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

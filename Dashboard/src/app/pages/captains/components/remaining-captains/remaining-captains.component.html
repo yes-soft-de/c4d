@@ -1,0 +1,82 @@
+<div class="remaining-captains" *ngIf="remainingCaptains">
+    <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'all-remaining-captains' | translate}}</h1>
+<!--    <app-payment [removeTitle]="false"></app-payment>-->
+    <div *ngIf="remainingCaptains.length !== 0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 col-sm-8 col-md-6 col-xl-4">
+                    <div class="form-group mt-4 mb-0">
+                        <input
+                          id="exampleFormControlInput2"
+                          [(ngModel)]="name"
+                          (keyup)="applyFilter()"
+                          type="text"
+                          placeholder="{{'remaining-captain-search-input' | translate}}"
+                          title="{{'remaining-captain-search-input' | translate}}"
+                          class="form-control form-control-underlined border-primary search-input">
+                    </div>
+                </div>
+            </div>
+            <div class="card border bg-white text-light-blue mt-2 mt-sm-3 mt-md-4">
+                <div class="card-header bg-white py-3"></div>
+                <div class="card-body table-responsive bg-white text-center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{'image' | translate}}</th>
+                                <th scope="col">{{'name' | translate}}</th>
+                                <th scope="col" style="white-space: nowrap;">{{'driving-licence' | translate}}</th>
+                                <th scope="col">{{'age' | translate}}</th>
+                                <th scope="col">{{'bounce' | translate}}</th>
+                                <th scope="col">{{'car' | translate }}</th>
+                                <th scope="col">{{'location' | translate }}</th>
+                                <th scope="col" style="white-space: nowrap;">{{'salary' | translate }}</th>
+<!--                                <th scope="col">{{'control' | translate }}</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let captain of remainingCaptainsList | paginate: config">
+                                <th><img src="{{captain?.image}}" (error)="captain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.name}} Image" class="img-thumbnail img-custom"></th>
+                                <th scope="row">{{captain.name ? captain.name : '-'}}</th>
+                                <th><img src="{{captain?.drivingLicence}}" (error)="captain.drivingLicence = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.name}} driving Licence" class="img-thumbnail img-custom"></th>
+                                <th scope="row">{{captain.age ? captain.age : '-'}}</th>
+                                <th scope="row">{{captain.bounce ? captain.bounce : '-'}}</th>
+                                <th scope="row">{{captain.car ? captain.car : '-'}}</th>
+                                <th scope="row">{{captain.location ? captain.location : '-'}}</th>
+                                <th scope="row">{{captain.salary ? (captain.salary | currency) : '-'}}</th>
+<!--                                <th scrope="row">-->
+<!--                                    <a routerLink="/captains/view/{{captain.id}}" class="text-success">{{'view' | translate }}</a>-->
+<!--                                </th>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--.card-->
+            <div class="mt-3 text-center">
+                <pagination-controls
+                        (pageChange)="pageChanged($event)"
+                        autoHide="true"
+                        maxSize="5"
+                        responsive="true"
+                        previousLabel="{{'prev' | translate}}"
+                        nextLabel="{{'next' | translate}}"
+                        screenReaderPaginationLabel="Pagination"
+                        screenReaderPageLabel="page"
+                        screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="remainingCaptains.length === 0">
+        <div class="container">
+            <div class="alert alert-primary text-center mt-5">{{'d' | translate}}</div>
+            <!-- <a routerLink="/animes/add" class="btn btn-primary btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                Add New Anime
+            </a> -->
+        </div>
+    </div>
+</div>
+<div *ngIf="remainingCaptains == null">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>

@@ -29,7 +29,7 @@ export class AllReportsComponent implements OnInit {
           if (reportsResponse) {
             console.log('reportsResponse', reportsResponse);
             this.reports = reportsResponse.Data
-            this.reportsList = reportsResponse.Data;
+            this.reportsList = reportsResponse.Data.reverse();
           }
         },
         error => this.handleError(error)          

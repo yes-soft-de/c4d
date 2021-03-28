@@ -68,8 +68,9 @@
   @media (max-width: '767px') {    
     width: 100vw;
     height: max-content;
+    min-height: 100vh;
     left: 0;
-    top: 0;
+    top: 30px;
     right: 0;
     bottom: 0;
     z-index: 999;

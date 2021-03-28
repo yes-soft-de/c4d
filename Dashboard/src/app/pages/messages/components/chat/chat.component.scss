@@ -10,7 +10,7 @@
           font-size: 2rem;
           background: none !important;
           color: #21a5b8 !important;
-        } 
+        }
         @media (max-width: '575px') {
           font-size: 1.8rem;
           background: none !important;
@@ -21,7 +21,7 @@
 .messages-body {
     max-height: 70vh;
     overflow-y: scroll;
-    sdirection: ltr;
+    direction: ltr;
     &::-webkit-scrollbar {
         width: 4px;
     }
@@ -36,6 +36,6 @@
     }
     .recieved-message {
         width: max-content;
-        .message-time { font-size: .7rem; font-weight: 100;}        
+        .message-time { font-size: .7rem; font-weight: 100;}
     }
 }

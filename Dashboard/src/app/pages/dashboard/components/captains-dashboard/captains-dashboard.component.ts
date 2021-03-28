@@ -27,18 +27,18 @@ export class CaptainsDashboardComponent implements OnInit, OnDestroy {
         this.countPendingCaptains = captainsResponse.Data[0].countPendingCaptains;
         this.countOngoingCaptains = captainsResponse.Data[1].countOngoingCaptains;
         this.countDayOfCaptains = captainsResponse.Data[2].countDayOfCaptains;
-        captainsResponse.Data.map((captians, index) => {          
+        captainsResponse.Data.map((captians, index) => {
           if (index >= 3) {
             this.captains.push(captians);
           }
         });
-      }      
+      }
     });
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-  }  
+  }
 
 }

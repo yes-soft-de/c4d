@@ -4,6 +4,7 @@ import { ContractDetailsComponent } from './components/contract-details/contract
 import { PendingComponent } from './components/pending/pending.component';
 import {AllOwnersComponent} from './components/all-owners/all-owners.component';
 import { OwnerDetailsComponent } from './components/owner-details/owner-details.component';
+import {PaymentComponent} from './components/payment/payment.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'pending', component: PendingComponent },
   { path: 'view/:id', component: ContractDetailsComponent },
   { path: 'owner/:id', component: OwnerDetailsComponent },
+  { path: 'payment', component: PaymentComponent },
   { path: '', redirectTo: 'pending', pathMatch: 'full' }
 ];
 

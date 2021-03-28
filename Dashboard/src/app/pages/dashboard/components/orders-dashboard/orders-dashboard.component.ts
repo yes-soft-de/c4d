@@ -17,6 +17,8 @@ export class OrdersDashboardComponent implements OnInit, OnDestroy {
   ordersCount: number;
   orders: any[] = [];
   latestOrdersNumber = 5;
+  config: any;
+
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
@@ -34,8 +36,22 @@ export class OrdersDashboardComponent implements OnInit, OnDestroy {
           }
         });
       }      
+    }, error => console.log(error),
+    () => {
+      if (this.orders.length > 0 ) {
+        this.config = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: this.orders.length
+        };
+      }
     });
   }
+
+  
+  pageChanged(event) {
+    this.config.currentPage = event;
+  } 
 
   ngOnDestroy() {
     this.destroy$.next();

@@ -3,7 +3,6 @@ export class AdminConfig {
   // source api
   // public static sourceAPI                   = 'http://34.121.141.34/html/public/index.php/';
   public static sourceAPI                   = 'http://c4d.yes-cloud.de/html/public/index.php/';
-  // public static sourceAPI                   = 'http://localhost:8000/';
 
   // All Application Api
   public static loginAPI                    = AdminConfig.sourceAPI + 'login_check';
@@ -13,7 +12,7 @@ export class AdminConfig {
   public static captainsDashboardAPI        = AdminConfig.sourceAPI + 'dashboardCaptains';
   public static ordersDashboardAPI          = AdminConfig.sourceAPI + 'dashboardOrders';
   public static contractsDashboardAPI       = AdminConfig.sourceAPI + 'dashboardContracts';
-  
+
   // Captains
   public static dayOffCaptainsAPI           = AdminConfig.sourceAPI + 'getDayOfCaptains';
   public static pendingCaptainsAPI          = AdminConfig.sourceAPI + 'getUserInactive';
@@ -21,7 +20,13 @@ export class AdminConfig {
   public static captainDetailAPI            = AdminConfig.sourceAPI + 'captainprofile';
   public static dayOffCaptainDetailAPI      = AdminConfig.sourceAPI + 'captainprofileStateDayOff';
   public static captainSalaryBounceAPI      = AdminConfig.sourceAPI + 'captainprofileUpdateByAdmin';
-  
+  public static captianPaymentAPI           = AdminConfig.sourceAPI + 'paymentcaptain';
+  public static captianTotalBounceAPI       = AdminConfig.sourceAPI + 'totalBounceCaptain';
+  public static remainingCaptainsAPI        = AdminConfig.sourceAPI + 'remainingcaptain';
+  public static termsCaptainsAPI            = AdminConfig.sourceAPI + 'termscaptain';
+  public static termsCaptainByIdAPI         = AdminConfig.sourceAPI + 'termscaptainbyid';
+  public static giveDayOffAPI               = AdminConfig.sourceAPI + 'vacation';
+
   // Orders
   public static pendingOrdersAPI            = AdminConfig.sourceAPI + 'getPendingOrders';
   public static orderDetailsAPI             = AdminConfig.sourceAPI + 'order';
@@ -31,6 +36,8 @@ export class AdminConfig {
   public static contractDetailsAPI          = AdminConfig.sourceAPI + 'getSubscriptionById';
   public static ownerDetailsAPI             = AdminConfig.sourceAPI + 'userprofilebyuserid';
   public static contractAcceptAPI           = AdminConfig.sourceAPI + 'subscriptionUpdateState';
+  public static paymentAPI                  = AdminConfig.sourceAPI + 'payment';
+  public static paymentOfOwnerAPI           = AdminConfig.sourceAPI + 'paymentsOfOwner';
 
   // Packages
   public static allpackagesAPI              = AdminConfig.sourceAPI + 'getAllpackages';
@@ -42,21 +49,29 @@ export class AdminConfig {
   public static ordersAPI                   = AdminConfig.sourceAPI + 'getOrders';
   public static ownersCaptainsAPI           = AdminConfig.sourceAPI + 'getUsers';
   public static recordsAPI                  = AdminConfig.sourceAPI + 'records';
-  
+
   // Statics
   public static topOwnersAPI                = AdminConfig.sourceAPI + 'getTopOwners';
   public static topCaptainsAPI              = AdminConfig.sourceAPI + 'topCaptains';
   public static allUsersAPI                 = AdminConfig.sourceAPI + 'getAllUsers';
   public static statisticDetailsAPI         = AdminConfig.sourceAPI + 'getAllOrdersAndCount';
-  
+
   // Reports
   public static reportsAPI                  = AdminConfig.sourceAPI + 'reports';
-  
+
   // Datings
   public static datingsAPI                  = AdminConfig.sourceAPI + 'datings';
   public static datingAPI                   = AdminConfig.sourceAPI + 'dating';
 
+  // Support Information
+  public static getSupportInfoAPI           = AdminConfig.sourceAPI + 'companyinfoall';
+  public static supportInfoAPI              = AdminConfig.sourceAPI + 'companyinfo';
 
-  // Upload     
-  public static generalUploadAPI            = AdminConfig.sourceAPI + 'uploadfile'; 
+  // Updated
+  public static getUpdatesAPI               = AdminConfig.sourceAPI + 'updateall';
+  public static updateAPI                   = AdminConfig.sourceAPI + 'update';
+
+
+  // Upload
+  public static generalUploadAPI            = AdminConfig.sourceAPI + 'uploadfile';
 }

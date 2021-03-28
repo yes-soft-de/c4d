@@ -34,7 +34,7 @@
                     <th scope="col">{{'name' | translate}}</th>
                     <th scope="col">{{'acceptedOrderDate' | translate}}</th>
                     <!-- <th scope="col">{{'captain-id' | translate}}</th> -->
-                    <th scope="col">{{'destination' | translate}}</th>
+                    <!-- <th scope="col">{{'destination' | translate}}</th> -->
                     <!-- <th scope="col">{{'driving-licence' | translate}}</th> -->
                     <!-- <th scope="col">{{'duration' | translate}}</th> -->
                     <th scope="col">{{'order-date' | translate}}</th>
@@ -43,14 +43,14 @@
                     <th scope="col">{{'from-branch' | translate}}</th>
                     <!-- <th scope="col">RecipientName</th>
                     <th scope="col">RecipientPhone</th> -->
-                    <th scope="col">{{'source' | translate}}</th>
+                    <!-- <th scope="col">{{'source' | translate}}</th> -->
                     <th scope="col">{{'state' | translate}}</th>
                     <th scope="col">{{'updateOrderDate' | translate}}</th>
                     <th scope="col" style="white-space: nowrap;">{{'note' | translate}}</th>
                   </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let order of orders.reverse(); let i = index">
+                    <ng-container *ngFor="let order of orders.reverse() | paginate: config; let i = index">
                         <ng-container *ngIf="i < latestOrdersNumber">
                             <tr>
                                 <th scope="row">{{order.orderID}}</th>
@@ -58,7 +58,7 @@
                                 <th scope="row">{{order.name ? order.name : '-'}}</th>
                                 <th scope="row">{{order.acceptedOrderDate ? (order.acceptedOrderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
                                 <!-- <th scope="row">{{order.captainID ? order.captainID : '-'}}</th> -->
-                                <th scope="row">{{order.destination.length > 0 ? order.destination[0] : '-'}}</th>
+                                <!-- <th scope="row">{{order.destination.length > 0 ? order.destination[0] : '-'}}</th> -->
                                 <!-- <th scope="row">{{order.drivingLicence ? order.drivingLicence : '-'}}</th> -->
                                 <!-- <th scope="row">{{order.duration ? order.duration : '-'}}</th> -->
                                 <!-- <th scope="row">{{order.duration ? (order.duration.timestamp * 1000 | date: 'H:mm:ss':'UTC') : '-'}}</th> -->
@@ -68,7 +68,7 @@
                                 <th scope="row">{{order.fromBranch ? order.fromBranch.brancheName : '-'}}</th>
                                 <!-- <th scope="row">{{order.recipientName ? order.recipientName : '-'}}</th>
                                 <th scope="row">{{order.recipientPhone ? order.recipientPhone : '-'}}</th> -->
-                                <th scope="row">{{order.source.length > 0 ? order.source : '-'}}</th>
+                                <!-- <th scope="row">{{order.source.length > 0 ? order.source : '-'}}</th> -->
                                 <th scope="row">{{order.state ? order.state : '-'}}</th>
                                 <!-- <th scope="row">{{order.updateOrderDate ? order.updateOrderDate : '-'}}</th> -->
                                 <th scope="row">{{order.updateOrderDate ? (order.updateOrderDate.timestamp * 1000 | date: 'yyyy-MM-dd') : '-'}}</th>
@@ -78,9 +78,22 @@
                     </ng-container>
                 </tbody>
               </table>
-                <div class="text-center" *ngIf="orders.length == 0">
-                    <p scope="row">{{'active-orders-not-exists' | translate}}.</p>
-                </div >
+              <div class="text-center" *ngIf="orders.length == 0">
+                  <p scope="row">{{'active-orders-not-exists' | translate}}.</p>
+              </div>
+            </div>              
+            <div class="mt-3 text-center" *ngIf="orders.length != 0">
+              <pagination-controls class="orders-pagination"
+                      (pageChange)="pageChanged($event)"
+                      autoHide="true"
+                      maxSize="5"
+                      responsive="true"
+                      previousLabel="{{'prev' | translate}}"
+                      nextLabel="{{'next' | translate}}"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+              </pagination-controls>
             </div>
           </div><!--.card-->
         </div>

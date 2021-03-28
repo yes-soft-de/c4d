@@ -1,0 +1,86 @@
+<div *ngIf="!noData">
+  <div class="terms-captains" *ngIf="termCaptains">
+      <h1 class="bg-light-blue text-white font-weight-bold p-3">{{'terms-captain' | translate }}</h1>
+      <div *ngIf="termCaptains.length !== 0">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-7 col-md-6 col-xl-4 invisible">
+                      <div class="form-group mb-4">
+                          <input
+                            id="exampleFormControlInput2"
+                            [(ngModel)]="name"
+                            (keyup)="applyFilter()"
+                            type="text"
+                            placeholder="searching for Admin Name Or Location ?"
+                            class="form-control form-control-underlined border-primary search-input">
+                      </div>
+                  </div>
+                  <div class="col-5 col-md-6 col-xl-8 align-self-center">
+                      <a routerLink="/captains/terms/add" class="btn bg-light-blue text-white btn-sm mb-2 float-right">
+                          <i class="fa fa-plus"></i>
+                          {{'add-new-term' | translate}}
+                      </a>
+                  </div>
+              </div>
+              <div class="card border bg-white text-light-blue">
+                  <div class="card-header bg-white py-3"></div>
+                  <div class="card-body table-responsive bg-white text-center">
+                      <table class="table">
+                          <thead>
+                              <tr>
+                              <!-- <th scope="col">#ID</th> -->
+                              <th scope="col">{{'content' | translate }}</th>
+                              <th scope="col">{{'control' | translate }}</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let term of termCaptainsList | paginate: config">
+                                  <!-- <th scope="row">{{term.id}}</th> -->
+                                  <th scope="row">{{term?.content ? term.content : '-'}}</th>
+                                  <th scrope="row">
+                                      <a routerLink="/captains/terms/{{term.id}}" class="text-success">{{'update' | translate }}</a>
+                                  </th>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div><!--.card-->
+              <div class="mt-3 text-center">
+                  <pagination-controls
+                          (pageChange)="pageChanged($event)"
+                          autoHide="true"
+                          maxSize="5"
+                          responsive="true"
+                          previousLabel="{{'prev' | translate}}"
+                          nextLabel="{{'next' | translate}}"
+                          screenReaderPaginationLabel="Pagination"
+                          screenReaderPageLabel="page"
+                          screenReaderCurrentLabel="{{'you-are-on-page' | translate}}">
+                  </pagination-controls>
+              </div>
+          </div>
+      </div>
+      <div *ngIf="termCaptains.length === 0">
+          <div class="container">
+              <div class="alert alert-primary text-center mt-5">{{'term-captain-not-exists' | translate }}</div>
+              <a routerLink="/captains/terms/add" class="btn bg-light-blue text-white btn-sm mb-2 float-right">
+                <i class="fa fa-plus"></i>
+                {{'add-new-term' | translate}}
+              </a>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="termCaptains == null">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
+<div *ngIf="noData">
+  <div class="container">
+    <div class="alert alert-primary text-center mt-5">{{'term-captain-not-exists' | translate }}</div>
+    <a routerLink="/captains/terms/add" class="btn bg-light-blue text-white btn-sm mb-2 float-right">
+      <i class="fa fa-plus"></i>
+      {{'add-new-term' | translate}}
+    </a>
+  </div>
+</div>
+<router-outlet></router-outlet>

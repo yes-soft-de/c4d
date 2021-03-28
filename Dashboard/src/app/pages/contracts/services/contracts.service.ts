@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { TokenService } from '../../admin-service/token/token.service';
 import { AdminConfig } from '../../AdminConfig';
 import { ContractDetailsResponse } from '../entity/contract-details-response';
@@ -55,6 +55,21 @@ export class ContractsService {
     return this.httpClient.put<any>(
       AdminConfig.contractAcceptAPI,
       JSON.stringify(data),
+      this.tokenService.httpOptions()
+    ).pipe(catchError(ContractsService.errorHandle));
+  }
+
+  payment(data): Observable<any> {
+    return this.httpClient.post(
+      AdminConfig.paymentAPI,
+      JSON.stringify(data),
+      this.tokenService.httpOptions()
+    ).pipe(catchError(ContractsService.errorHandle));
+  }
+
+  paymentsOfOwner(ownerID: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `${AdminConfig.paymentOfOwnerAPI}/${ownerID}`,
       this.tokenService.httpOptions()
     ).pipe(catchError(ContractsService.errorHandle));
   }

@@ -6,19 +6,19 @@
                 <div class="card-number text-light-blue">{{countPendingCaptains}}</div>
                 <span class="text-white">{{"pending" | translate}}</span>
               </div>
-            </div>  
+            </div>
             <div class="col-12 col-sm-4">
               <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{countOngoingCaptains}}</div>
                 <span class="text-white">{{"ongoing" | translate}}</span>
               </div>
-            </div>  
+            </div>
             <div class="col-12 col-sm-4">
               <div class="card w-75 mx-auto bg-light-blue border-0 text-center mb-2">
                 <div class="card-number text-light-blue">{{countDayOfCaptains}}</div>
                 <span class="text-white">{{"day-off" | translate}}</span>
               </div>
-            </div>      
+            </div>
           </div>
         <div class="dashboard-table mt-5">
           <div class="card border-0 text-white">
@@ -44,13 +44,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let captain of captains.reverse(); let i = index">
+                    <ng-container *ngFor="let captain of captains; let i = index">
                         <ng-container *ngIf="i < latestCaptainsNumber">
                             <tr>
                                 <!-- <th scope="row">{{captain.id}}</th> -->
                                 <th><img src="{{captain?.image}}" (error)="captain.image = '../../../../../../../assets/default-avatar.jpg'" alt="{{captain.name}} Image" class="img-thumbnail img-custom"></th>
                                 <th scope="row">{{captain.name ? captain.name : '-'}}</th>
-                                <th scope="row">{{captain.countOrdersDeliverd ? captain.countOrdersDeliverd : '-'}}</th>                                
+                                <th scope="row">{{captain.countOrdersDeliverd ? captain.countOrdersDeliverd : '-'}}</th>
                                 <th scope="row">{{captain.bounce ? captain.bounce : '-'}}</th>
                                 <th scope="row">{{captain.age ? captain.age : '-'}}</th>
                                 <th scope="row">{{captain.car ? captain.car : '-'}}</th>

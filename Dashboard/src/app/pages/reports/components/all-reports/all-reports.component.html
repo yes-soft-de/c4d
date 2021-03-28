@@ -11,13 +11,17 @@
                                 <th scope="col">{{'order-id' | translate}}</th>
                                 <th scope="col">{{'username' | translate }}</th>
                                 <th scope="col">{{'reason' | translate}}</th>
+                                <th scope="col">{{'chat' | translate}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let report of reportsList | paginate: config">
                                 <th scope="row">{{report.orderId ? report.orderId : '-'}}</th>
                                 <th scope="row">{{report.userName ? report.userName : '-'}}</th>
-                                <th scope="row">{{report.reason ? report.reason : '-'}}</th>                                
+                                <th scope="row">{{report.reason ? report.reason : '-'}}</th>
+                                <th scope="row">
+                                    <a class="font-weight-bold text-success" routerLink="/chat/view/report/{{report?.id}}/{{report?.uuid}}">{{'chat' | translate}}</a>
+                                </th>
                             </tr>
                         </tbody>
                     </table>

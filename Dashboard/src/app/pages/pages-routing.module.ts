@@ -52,6 +52,11 @@ const routes: Routes = [
         canActivate: [AfterLoginService]
       },
       {
+        path: 'supports',
+        loadChildren: () => import('./supports/supports.module').then(m => m.SupportsModule),
+        canActivate: [AfterLoginService]
+      },
+      {
         path: 'reports',
         loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
         canActivate: [AfterLoginService]
@@ -59,6 +64,11 @@ const routes: Routes = [
       {
         path: 'datings',
         loadChildren: () => import('./dating/dating.module').then(m => m.DatingModule),
+        canActivate: [AfterLoginService]
+      },
+      {
+        path: 'updated',
+        loadChildren: () => import('./latest-updated/latest-updated.module').then(m => m.LatestUpdatedModule),
         canActivate: [AfterLoginService]
       },
       { path: '**', component: NotFoundComponent }
