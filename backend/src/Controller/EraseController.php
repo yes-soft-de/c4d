@@ -5,15 +5,25 @@ namespace App\Controller;
 
 
 use App\Entity\AcceptedOrderEntity;
+use App\Entity\BankEntity;
 use App\Entity\BranchesEntity;
 use App\Entity\CaptainProfileEntity;
+use App\Entity\CompanyInfoEntity;
+use App\Entity\DatingEntity;
 use App\Entity\OrderEntity;
 use App\Entity\PackageEntity;
+use App\Entity\PaymentsCaptainEntity;
+use App\Entity\PaymentsEntity;
 use App\Entity\RatingEntity;
 use App\Entity\RecordEntity;
+use App\Entity\ReportEntity;
+use App\Entity\SettingEntity;
 use App\Entity\SubscriptionEntity;
+use App\Entity\TermsCaptain;
+use App\Entity\UpdateEntity;
 use App\Entity\UserEntity;
 use App\Entity\UserProfileEntity;
+use App\Entity\VacationsEntity;
 
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -74,6 +84,56 @@ class EraseController extends BaseController
                 ->execute();
 
             $setting = $em->getRepository(UserProfileEntity::class)->createQueryBuilder('userProfileEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+                
+            $bank = $em->getRepository(BankEntity::class)->createQueryBuilder('BankEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $companyInfoEntity = $em->getRepository(CompanyInfoEntity::class)->createQueryBuilder('CompanyInfoEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $dating = $em->getRepository(DatingEntity::class)->createQueryBuilder('DatingEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $paymentsCaptain = $em->getRepository(PaymentsCaptainEntity::class)->createQueryBuilder('PaymentsCaptainEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $payments = $em->getRepository(PaymentsEntity::class)->createQueryBuilder('PaymentsEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $report = $em->getRepository(ReportEntity::class)->createQueryBuilder('ReportEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $setting = $em->getRepository(SettingEntity::class)->createQueryBuilder('SettingEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $termsCaptain = $em->getRepository(TermsCaptain::class)->createQueryBuilder('TermsCaptain')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $update = $em->getRepository(UpdateEntity::class)->createQueryBuilder('UpdateEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $vacations = $em->getRepository(VacationsEntity::class)->createQueryBuilder('VacationsEntity')
                 ->delete()
                 ->getQuery()
                 ->execute();
