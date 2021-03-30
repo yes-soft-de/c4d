@@ -42,4 +42,21 @@ class NotificationController extends BaseController
 
         return $this->response($response, self::CREATE);
     }
+
+    /**
+     * @Route("/notificationnewchat", name="notificationnewchat", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function notificationNewChat(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
+        $request->setUserID($this->getUser()->getUsername());
+        
+        $response = $this->notificationService->notificationNewChat($request);
+
+        return $this->response($response, self::CREATE);
+    }
 }

@@ -14,6 +14,8 @@ class NotificationTokenRequest
 
     private $date;
 
+    private $userID2;
+
     public function getDate():?\DateTime
     {
         try
@@ -71,4 +73,24 @@ class NotificationTokenRequest
     }
 
 
+
+    /**
+     * Get the value of userID2
+     */ 
+    public function getUserID2()
+    {
+        return $this->userID2;
+    }
+
+    /**
+     * Set the value of userID2
+     *
+     * @return  self
+     */ 
+    public function setUserID2($userID2)
+    {
+        $this->userID2 = $userID2;
+
+        return $this;
+    }
 }

@@ -21,6 +21,7 @@ class NotificationService
     const CAPTAIN_TOPIC = 'captain';
     const MESSAGE_CAPTAIN_NEW_ORDER = 'هناك طلب جديد، الرجاء تفقد قائمة الطلبات لديك';
     const MESSAGE_ORDER_UPDATE = 'هناك تحديث في حالة الطلبات';
+    const MESSAGE_NEW_CHAT = 'لديك رسالة جديدة';
 
     public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager)
     {
@@ -47,6 +48,20 @@ class NotificationService
 
         $message = CloudMessage::new()
             ->withNotification(Notification::create('C4D', $this::MESSAGE_ORDER_UPDATE));
+
+        $this->messaging->sendMulticast($message, $devicesToken);
+    }
+
+    public function notificationNewChat($request)
+    {
+        $devicesToken = [];
+        $userTokenOne = $this->getNotificationTokenByUserID($request->getUserID());
+        $devicesToken[] = $userTokenOne;
+        $userTokenTwo = $this->getNotificationTokenByUserID($request->getUserID2());
+        $devicesToken[] = $userTokenTwo;
+        
+        $message = CloudMessage::new()
+            ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT));
 
         $this->messaging->sendMulticast($message, $devicesToken);
     }
