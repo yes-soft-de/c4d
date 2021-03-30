@@ -8,6 +8,7 @@ import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -174,8 +175,7 @@ class DrawerWidget extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      launch('https://wa.me/?text=' +
-                          S.of(context).pleaseDownloadC4d);
+                      Share.share('check out my website https://c4d.com');
                     },
                     child: ListTile(
                       leading: Icon(Icons.ios_share),
