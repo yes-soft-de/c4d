@@ -12,7 +12,11 @@ class AuthRepository {
   AuthRepository(this._apiClient);
 
   Future<bool> createUser(RegisterRequest request) async {
-    var result = await _apiClient.post(Urls.SIGN_UP_API, request.toJson());
+    var result = await _apiClient.post(
+      Urls.SIGN_UP_API,
+      request.toJson(),
+      headers: {'Content-Type': 'application/json'},
+    );
 
     return result != null;
   }
@@ -21,6 +25,7 @@ class AuthRepository {
     var result = await _apiClient.post(
       Urls.CREATE_TOKEN_API,
       loginRequest.toJson(),
+      headers: {'Content-Type': 'application/json'},
     );
 
     if (result == null) {

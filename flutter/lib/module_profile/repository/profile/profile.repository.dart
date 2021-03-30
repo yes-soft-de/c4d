@@ -1,5 +1,6 @@
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/exceptions/auth_exception.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_network/http_client/http_client.dart';
 import 'package:c4d/module_orders/response/terms/terms_respons.dart';
@@ -23,15 +24,20 @@ class ProfileRepository {
   );
 
   Future<ProfileResponseModel> getOwnerProfile() async {
-    await _authService.refreshToken();
-    var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(
-      Urls.OWNER_PROFILE_API,
-      headers: {'Authorization': 'Bearer ' + token},
-    );
-    if (response == null) return null;
     try {
+      await _authService.refreshToken();
+      var token = await _authService.getToken();
+      dynamic response = await _apiClient.get(
+        Urls.OWNER_PROFILE_API,
+        headers: {'Authorization': 'Bearer ' + token},
+      );
+      if (response == null) return null;
+
       return ProfileResponse.fromJson(response).data;
+    } on UnauthorizedException {
+      return null;
+    } on TokenExpiredException {
+      return null;
     } catch (e) {
       return null;
     }
@@ -39,14 +45,17 @@ class ProfileRepository {
 
   Future<ProfileResponseModel> getCaptainProfile() async {
     await _authService.refreshToken();
-    var token = await _authService.getToken();
-    dynamic response = await _apiClient.get(
-      Urls.CAPTAIN_PROFILE_API,
-      headers: {'Authorization': 'Bearer ' + token},
-    );
-
     try {
+      var token = await _authService.getToken();
+      dynamic response = await _apiClient.get(
+        Urls.CAPTAIN_PROFILE_API,
+        headers: {'Authorization': 'Bearer ' + token},
+      );
       return ProfileResponse.fromJson(response).data;
+    } on UnauthorizedException {
+      return null;
+    } on TokenExpiredException {
+      return null;
     } catch (e, stack) {
       Logger().error(e.toString(), '${e.toString()}:\n${stack.toString()}',
           StackTrace.current);
@@ -164,7 +173,7 @@ class ProfileRepository {
     return GetRecordsResponse.fromJson(response).data;
   }
 
-  Future <List<Terms>> getTerms(UserRole role) async {
+  Future<List<Terms>> getTerms(UserRole role) async {
     var token = await _authService.getToken();
     dynamic response;
     if (role == UserRole.ROLE_CAPTAIN) {
