@@ -48,6 +48,7 @@ dependencies:
 
   # Open Url in Chrome
   url_launcher: ^5.7.0
+  share: ^0.6.5+4
 
   # Network Agent
   dio: ^3.0.10
