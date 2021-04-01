@@ -18,7 +18,7 @@ class NotificationService
     private $messaging;
     private $notificationManager;
     private $autoMapping;
-    const CAPTAIN_TOPIC = 'captain';
+    const CAPTAIN_TOPIC = 'captains';
     const MESSAGE_CAPTAIN_NEW_ORDER = 'هناك طلب جديد، الرجاء تفقد قائمة الطلبات لديك';
     const MESSAGE_ORDER_UPDATE = 'هناك تحديث في حالة الطلبات';
     const MESSAGE_NEW_CHAT = 'لديك رسالة جديدة';
