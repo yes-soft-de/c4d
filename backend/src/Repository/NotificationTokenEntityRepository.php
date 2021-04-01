@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\NotificationTokenEntity;
+use App\Entity\CaptainProfileEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\Query\Expr\Join;
 /**
  * @method NotificationTokenEntity|null find($id, $lockMode = null, $lockVersion = null)
  * @method NotificationTokenEntity|null findOneBy(array $criteria, array $orderBy = null)
@@ -19,32 +21,34 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, NotificationTokenEntity::class);
     }
 
-    // /**
-    //  * @return NotificationTokenEntity[] Returns an array of NotificationTokenEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getNotificationTokenByCaptainUuid($uuid)
     {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('n.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('notification')
+                ->addSelect('captainProfile.captainID', 'captainProfile.name')
 
-    /*
-    public function findOneBySomeField($value): ?NotificationTokenEntity
-    {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+                ->leftJoin(CaptainProfileEntity::class, 'captainProfile', Join::WITH, 'captainProfile.uuid =:uuid ')
+              
+                ->andWhere("captainProfile.uuid = :uuid")
+             
+                ->setParameter('uuid', $uuid)
+
+                ->getQuery()
+                ->getResult();
     }
-    */
+
+    public function getNotificationTokenByOwnerUuid($uuid)
+    {
+        return $this->createQueryBuilder('notification')
+                ->addSelect('userProfileEntity.userID')
+
+                ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.uuid =:uuid ')
+              
+                ->andWhere("userProfileEntity.uuid = :uuid")
+             
+                ->setParameter('uuid', $uuid)
+
+                ->getQuery()
+                ->getResult();
+    }
+
 }

@@ -57,7 +57,14 @@ class NotificationService
         $devicesToken = [];
         $userTokenOne = $this->getNotificationTokenByUserID($request->getUserID());
         $devicesToken[] = $userTokenOne;
-        $userTokenTwo = $this->getNotificationTokenByUserID($request->getUserID2());
+        // $userTokenTwo = $this->getNotificationTokenByUserID($request->getUserID2());
+        if($request->getUsertype() == 'captain') {
+            $userTokenTwo = $this->notificationManager->getNotificationTokenByCaptainUuid($request->getUuid());
+        }
+        if($request->getUsertype() == 'owner') {
+            $userTokenTwo = $this->notificationManager->getNotificationTokenByOwnerUuid($request->getUuid());
+        }
+
         $devicesToken[] = $userTokenTwo;
         
         $message = CloudMessage::new()

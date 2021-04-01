@@ -14,7 +14,9 @@ class NotificationTokenRequest
 
     private $date;
 
-    private $userID2;
+    private $uuid;
+
+    private $usertype;
 
     public function getDate():?\DateTime
     {
@@ -73,23 +75,42 @@ class NotificationTokenRequest
     }
 
 
-
     /**
-     * Get the value of userID2
+     * Get the value of uuid
      */ 
-    public function getUserID2()
+    public function getUuid()
     {
-        return $this->userID2;
+        return $this->uuid;
     }
 
     /**
-     * Set the value of userID2
+     * Set the value of uuid
      *
      * @return  self
      */ 
-    public function setUserID2($userID2)
+    public function setUuid($uuid)
     {
-        $this->userID2 = $userID2;
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of usertype
+     */ 
+    public function getUsertype()
+    {
+        return $this->usertype;
+    }
+
+    /**
+     * Set the value of usertype
+     *
+     * @return  self
+     */ 
+    public function setUsertype($usertype)
+    {
+        $this->usertype = $usertype;
 
         return $this;
     }
