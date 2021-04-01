@@ -65,14 +65,14 @@ class OrderService
                 $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
 
                 //start-----> notification
-                try{
+                // try{
                 $this->notificationService->notificationToCaptain();
                 //notification <------end
-                }
-                catch (\Exception $e)
-                {
+                // }
+                // catch (\Exception $e)
+                // {
         
-                }
+                // }
                 if ($item) {
                     $this->recordService->create($item->getId(), $item->getState());
                 }
@@ -240,18 +240,18 @@ class OrderService
         }
 
         //start-----> notification
-        try {
+        // try {
         $notificationRequest = new SendNotificationRequest();
         $notificationRequest->setUserIdOne($item->getOwnerID());
         $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
 
         $this->notificationService->notificationOrderUpdate($notificationRequest);
         //notification <------end
-        }
-        catch (\Exception $e)
-        {
+        // }
+        // catch (\Exception $e)
+        // {
 
-        }
+        // }
         return $response;
     }
 
