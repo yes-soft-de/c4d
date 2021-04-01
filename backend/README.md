@@ -10,7 +10,7 @@ composer update
 First add to** .env** file correct connection string
 `DATABASE_URL=mysql://root@127.0.0.1:3306/animeDB?serverVersion=5.7`
 
-Then create database
+Then, create database
 ```
 php bin/console doctrine:database:create
 ```
@@ -20,7 +20,7 @@ After that make migration
 php bin/console make:migration
 ```
 
-Finaly run migration versions to create tables
+Finally, run migration versions to create tables
 ```
 php bin/console doctrine:migration:migrate
 ```

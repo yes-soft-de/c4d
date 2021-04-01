@@ -21,7 +21,7 @@ RUN composer update symfony/flex --no-plugins --no-scripts
 #RUN composer dump-env prod
 COPY --from=gcr.io/pc-api-6479467557629758909-343/c4dsec ./.htaccess /var/www/html/public
 COPY --from=gcr.io/pc-api-6479467557629758909-343/c4dsec ./jwt/ /var/www/html/config/jwt
-COPY --from=gcr.io/pc-api-6479467557629758909-343/c4dsec ./yes-soft-c4d-firebase-adminsdk-mv22v-f840bf94eb.json /var/www/html/config/
+COPY --from=gcr.io/pc-api-6479467557629758909-343/c4dsec ./c4d-app-c299b-firebase-adminsdk-xegik-fa885c59c0.json /var/www/html/config/
 RUN chown -R www-data:www-data /var && chmod -R g+rw /var
 COPY --from=vendor /tmp/vendor/ /var/www/html/vendor/
 RUN docker-php-ext-install mysqli pdo pdo_mysql
