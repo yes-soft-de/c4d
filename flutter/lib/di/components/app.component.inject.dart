@@ -232,7 +232,8 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i45.ChatService(_createChatManager());
   _i46.ChatManager _createChatManager() =>
       _i46.ChatManager(_createChatRepository());
-  _i47.ChatRepository _createChatRepository() => _i47.ChatRepository();
+  _i47.ChatRepository _createChatRepository() =>
+      _i47.ChatRepository(_createApiClient(), _createAuthService());
   _i48.ImageUploadService _createImageUploadService() =>
       _i48.ImageUploadService(_createUploadManager());
   _i49.UploadManager _createUploadManager() =>

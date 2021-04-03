@@ -36,4 +36,5 @@ class Urls {
   static const ORDER_BY_ID = BASE_API + '/orderStatus/';
   static const TERMS_CAPTAIN = BASE_API + '/termscaptain';
   static const TERMS_OWNER = BASE_API + '/';
+  static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
 }

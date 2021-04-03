@@ -35,6 +35,7 @@ class ChatService {
       sender: user.uid,
       sentDate: DateTime.now().toString(),);
     _chatManager.sendMessage(chatRoomID, model);
+    _chatManager.sendNotification(chatRoomID);
   }
 
   void dispose() {
