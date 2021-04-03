@@ -20,7 +20,7 @@ class InitAccountStateProfileCreated extends InitAccountState {
           RaisedButton(
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              child: Text(S.of(context).paySubscription),
+              child: Text(S.of(context).go),
               onPressed: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (r) => false);

@@ -1,8 +1,8 @@
 class ChatModel {
   String sender;
-  DateTime sentDate;
+  var sentDate;
   String msg;
-
+  
   ChatModel({this.sentDate, this.sender, this.msg});
 
   ChatModel.fromJson(Map<String, dynamic> jsonData) {

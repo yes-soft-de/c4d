@@ -14,9 +14,14 @@ class CaptainPlanScreenStateLoaded extends PlanScreenState {
 
   @override
   Widget getUI(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: _getUI(context),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${S.of(context).myBalance}'),
+      ),
+          body: SingleChildScrollView(
+        child: Column(
+          children: _getUI(context),
+        ),
       ),
     );
   }
@@ -29,19 +34,19 @@ class CaptainPlanScreenStateLoaded extends PlanScreenState {
     int paymentYear = DateTime.now().year;
     if (captainBalanceModel.payments.isNotEmpty) {
       paymentDay = captainBalanceModel.payments.last.paymentDate.day;
-      paymentMonth = captainBalanceModel.payments.last.paymentDate.day + 1;
+      paymentMonth = int.parse(captainBalanceModel.payments.last.paymentDate.day.toString())+1;
       paymentYear = captainBalanceModel.payments.last.paymentDate.year;
     }
 
-    list.add(
-      ListTile(
-        title: Text(S.of(context).nextPaymentDate),
-        trailing: Text(
-          paymentDay.toString() + '/' + paymentMonth.toString()+ '/' + paymentYear.toString(),
-          style: TextStyle(color: Theme.of(context).primaryColor),
-        ),
-      ),
-    );
+    // list.add(
+    //   ListTile(
+    //     title: Text(S.of(context).nextPaymentDate),
+    //     trailing: Text(
+    //       paymentDay.toString() + '/' + paymentMonth.toString()+ '/' + paymentYear.toString(),
+    //       style: TextStyle(color: Theme.of(context).primaryColor),
+    //     ),
+    //   ),
+    // );
 
     list.add(
       ListTile(

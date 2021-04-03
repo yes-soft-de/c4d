@@ -1,4 +1,5 @@
 import 'package:c4d/module_auth/exceptions/auth_exception.dart';
+import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
 import 'package:c4d/module_orders/ui/screens/captain_orders/captain_orders.dart';
 import 'package:c4d/module_orders/ui/state/captain_orders/captain_orders_list_state.dart';
@@ -18,9 +19,10 @@ class CaptainOrdersListStateManager {
 
   final PublishSubject<CaptainOrdersListState> _stateSubject = PublishSubject();
   final PublishSubject<ProfileResponseModel> _profileSubject = PublishSubject();
-
+  final PublishSubject<CompanyInfoResponse> _companySubject = PublishSubject();
   Stream<ProfileResponseModel> get profileStream => _profileSubject.stream;
   Stream<CaptainOrdersListState> get stateStream => _stateSubject.stream;
+  Stream<CompanyInfoResponse> get companyStream => _companySubject.stream;
 
   CaptainOrdersListStateManager(this._ordersService, this._profileService);
 
@@ -46,5 +48,8 @@ class CaptainOrdersListStateManager {
             .add(CaptainOrdersListStateError(e.toString(), screenState));
       }
     });
+  }
+  void companyInfo() {
+    _ordersService.getCompanyInfo().then((info) => _companySubject.add(info));
   }
 }

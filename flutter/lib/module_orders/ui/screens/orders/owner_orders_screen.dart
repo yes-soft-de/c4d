@@ -117,11 +117,13 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
                   'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
               whatsapp: _companyInfo.whatsapp ?? '',
               phone: _companyInfo.phone ?? '',
+              chatID: _companyInfo.uuid ?? '',
             )
           : _companyInfo != null ? DrawerWidget(
             role: UserRole.ROLE_OWNER,
               whatsapp: _companyInfo.whatsapp ?? '',
               phone: _companyInfo.phone ?? '',
+              chatID: _companyInfo.uuid ?? '',
             ) : DrawerWidget(
                role: UserRole.ROLE_OWNER,
             ),

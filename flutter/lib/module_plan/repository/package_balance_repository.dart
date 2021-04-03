@@ -62,7 +62,7 @@ class PackageBalanceRepository {
     await _authService.refreshToken();
     var token = await _authService.getToken();
     var response = await client
-        .get('http://c4d.yes-cloud.de/html/public/captainmybalance/', headers: {
+        .get('http://c4d.yes-cloud.de/html/public/captainmybalance', headers: {
       'Authorization': 'Bearer ' + token,
     });
 

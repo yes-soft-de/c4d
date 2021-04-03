@@ -185,5 +185,6 @@
   "businessName":"Business Name",
   "unknownNumberOfCar":"The number of cars unknown",
   "recipientName":"Recipient Name",
-  "date":"Date"
+  "date":"Date",
+  "go":"Go"
 }

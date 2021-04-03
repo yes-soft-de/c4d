@@ -35,14 +35,14 @@ class ProfileResponseModel {
   String car;
   String drivingLicence;
   String drivingLicenceURL;
-  Null salary;
+  var salary;
   String status;
   List<CountOrdersDeliverd> countOrdersDeliverd;
   Rating rating;
   String state;
   Bounce bounce;
-  Null totalBounce;
-  Null uuid;
+  var totalBounce;
+  var uuid;
   String image;
   String imageURL;
   String baseURL;
@@ -181,7 +181,7 @@ class CountOrdersDeliverd {
 }
 
 class Rating {
-  Null rate;
+  var rate;
 
   Rating({this.rate});
 

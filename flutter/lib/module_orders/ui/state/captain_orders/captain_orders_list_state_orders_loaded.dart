@@ -70,9 +70,9 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
                 FutureBuilder(
                   future: getMyOrdersList(context),
                   builder: (
-                      BuildContext context,
-                      AsyncSnapshot<List<Widget>> snapshot,
-                      ) {
+                    BuildContext context,
+                    AsyncSnapshot<List<Widget>> snapshot,
+                  ) {
                     if (snapshot.hasData) {
                       return SingleChildScrollView(
                         child: RefreshIndicator(
@@ -107,7 +107,9 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   Widget _Footer(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.black,
           boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4)]),
       child: Flex(
         direction: Axis.horizontal,
@@ -207,8 +209,8 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
           child: OrderCard(
             title: '${element.storeName}',
             subTitle: S.of(context).order + '#${element.id}',
-            time:
-            timeago.format(element.creationTime, locale: Localizations.localeOf(context).languageCode),
+            time: timeago.format(element.creationTime,
+                locale: Localizations.localeOf(context).languageCode),
           ),
         ),
       ));
@@ -220,7 +222,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   Future<List<Widget>> getNearbyOrdersList(BuildContext context) async {
     var availableOrders = await sortLocations();
     var uiList = <Widget>[];
-    availableOrders.forEach((element) {
+    orders.forEach((element) {
       uiList.add(Container(
         margin: EdgeInsets.all(10),
         child: GestureDetector(
@@ -231,8 +233,8 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
             );
           },
           child: OrderCard(
-            title: S.of(context).order + ' #${element.id}',
-            subTitle: ' ',
+            title: '${element.storeName}',
+            subTitle: S.of(context).order + '#${element.id}',
             time: timeago.format(element.creationTime,
                 locale: Localizations.localeOf(context).languageCode),
           ),

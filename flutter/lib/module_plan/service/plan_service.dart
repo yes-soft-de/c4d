@@ -34,6 +34,7 @@ class PlanService {
       cars: int.tryParse(packages.data.packageCarCount),
       orders: int.tryParse(packages.data.packageOrderCount),
       payments: balanceModel.payments,
+      total: balanceModel.currentBalance
     );
     return activePlan;
   }
@@ -45,7 +46,7 @@ class PlanService {
       return null;
     }
 
-    var resultModel = BalanceModel(payments: []);
+    var resultModel = BalanceModel(payments: [],currentBalance:result.data.currentTotal);
     result.data.payments.forEach((element) {
       resultModel.payments.add(PaymentModel(
         DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
@@ -65,8 +66,8 @@ class PlanService {
 
     var resultModel = BalanceModel(payments: []);
     resultModel.bonus = result.data.bounce;
-    if (result.data.sumPayments != null) {
-      resultModel.currentBalance = int.tryParse(result.data.sumPayments);
+    if (result.data.total != null) {
+      resultModel.currentBalance = result.data.total;
     }
     result.data.payments.forEach((element) {
       resultModel.payments.add(PaymentModel(

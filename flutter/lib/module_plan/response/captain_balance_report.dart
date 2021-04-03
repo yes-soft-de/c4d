@@ -27,6 +27,7 @@ class PaymentObject {
   String sumPayments;
   int netProfit;
   int total;
+  int currentTotal;
   int countOrdersDeliverd;
   List<Payments> payments;
   dynamic bank;
@@ -36,6 +37,7 @@ class PaymentObject {
         this.sumPayments,
         this.netProfit,
         this.total,
+        this.currentTotal,
         this.countOrdersDeliverd,
         this.payments,
         this.bank});
@@ -45,6 +47,7 @@ class PaymentObject {
     sumPayments = json['sumPayments'];
     netProfit = json['NetProfit'];
     total = json['total'];
+    currentTotal = json['currentTotal'];
     countOrdersDeliverd = json['countOrdersDeliverd'];
     if (json['payments'] != null) {
       payments = new List<Payments>();
@@ -61,6 +64,7 @@ class PaymentObject {
     data['sumPayments'] = this.sumPayments;
     data['NetProfit'] = this.netProfit;
     data['total'] = this.total;
+    data['currentTotal'] = this.currentTotal;
     data['countOrdersDeliverd'] = this.countOrdersDeliverd;
     if (this.payments != null) {
       data['payments'] = this.payments.map((v) => v.toJson()).toList();

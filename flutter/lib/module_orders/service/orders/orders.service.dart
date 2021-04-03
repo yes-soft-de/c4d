@@ -156,13 +156,12 @@ class OrdersService {
     if (response == null) return null;
 
     List<OrderModel> orders = [];
-
     response.forEach((element) {
       orders.add(new OrderModel(
         to: element.location,
         clientPhone: element.recipientPhone,
         from: '',
-        storeName: element.userName,
+        storeName: element.ownerName,
         creationTime:
             DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),
         paymentMethod: element.payment,

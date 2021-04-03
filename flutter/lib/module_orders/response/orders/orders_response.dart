@@ -17,7 +17,8 @@ class OrdersResponse {
           data.add(new Order.fromJson(v));
         });
       } catch (e, stack) {
-        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}', StackTrace.current);
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
       }
     }
   }
@@ -54,33 +55,35 @@ class Order {
   dynamic acceptedOrder;
   dynamic record;
   String uuid;
-
+  String ownerName;
   Order(
       {this.id,
-        this.ownerID,
-        this.userName,
-        this.source,
-        this.destination,
-        this.date,
-        this.updateDate,
-        this.note,
-        this.owner,
-        this.payment,
-        this.recipientName,
-        this.recipientPhone,
-        this.state,
-        this.fromBranch,
-        this.location,
-        this.brancheName,
-        this.branchCity,
-        this.acceptedOrder,
-        this.record,
-        this.uuid});
+      this.ownerID,
+      this.userName,
+      this.source,
+      this.destination,
+      this.date,
+      this.updateDate,
+      this.note,
+      this.owner,
+      this.payment,
+      this.recipientName,
+      this.recipientPhone,
+      this.state,
+      this.fromBranch,
+      this.location,
+      this.brancheName,
+      this.branchCity,
+      this.acceptedOrder,
+      this.record,
+      this.uuid,
+      this.ownerName});
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     ownerID = json['ownerID'];
     userName = json['userName'];
+    ownerName = json['ownerName'];
     if (json['source'] != null) {
       source = <String>[];
       json['source'].forEach((v) {
@@ -120,6 +123,7 @@ class Order {
     data['id'] = this.id;
     data['ownerID'] = this.ownerID;
     data['userName'] = this.userName;
+    data['ownerName'] = this.ownerName;
     if (this.source != null) {
       data['source'] = this.source.map((v) => v.toJson()).toList();
     }
@@ -202,9 +206,8 @@ class FromBranch {
     Map<String, dynamic> json = data;
     id = json['id'];
     ownerID = json['ownerID'];
-    location = json['location'] != null
-        ? GeoJson.fromJson(json['location'])
-        : null;
+    location =
+        json['location'] != null ? GeoJson.fromJson(json['location']) : null;
     city = json['city'];
     brancheName = json['brancheName'];
   }
@@ -268,15 +271,15 @@ class OwnerResponse {
 
   OwnerResponse(
       {this.id,
-        this.userName,
-        this.userID,
-        this.image,
-        this.branch,
-        this.free,
-        this.city,
-        this.phone,
-        this.imageURL,
-        this.baseURL});
+      this.userName,
+      this.userID,
+      this.image,
+      this.branch,
+      this.free,
+      this.city,
+      this.phone,
+      this.imageURL,
+      this.baseURL});
 
   OwnerResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -306,5 +309,3 @@ class OwnerResponse {
     return data;
   }
 }
-
-
