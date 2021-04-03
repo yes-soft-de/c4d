@@ -234,4 +234,18 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
           ->getResult();
        
     }
+
+    public function getOwnerIdAndUuid($orderId)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select('AcceptedOrderEntity.id', 'AcceptedOrderEntity.captainID')
+            ->addSelect('orderEntity.id', 'orderEntity.ownerID', 'orderEntity.uuid')
+
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = :orderId')
+
+            ->andWhere('AcceptedOrderEntity.orderID = :orderId')
+            ->setParameter('orderId', $orderId)
+            ->getQuery()
+            ->getResult();
+    }
 }

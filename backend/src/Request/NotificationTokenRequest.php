@@ -14,9 +14,8 @@ class NotificationTokenRequest
 
     private $date;
 
-    private $uuid;
+    private $roomID;
 
-    private $usertype;
 
     public function getDate():?\DateTime
     {
@@ -74,43 +73,22 @@ class NotificationTokenRequest
         $this->token = $token;
     }
 
-
     /**
-     * Get the value of uuid
+     * Get the value of roomID
      */ 
-    public function getUuid()
+    public function getRoomID()
     {
-        return $this->uuid;
+        return $this->roomID;
     }
 
     /**
-     * Set the value of uuid
+     * Set the value of roomID
      *
      * @return  self
      */ 
-    public function setUuid($uuid)
+    public function setRoomID($roomID)
     {
-        $this->uuid = $uuid;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of usertype
-     */ 
-    public function getUsertype()
-    {
-        return $this->usertype;
-    }
-
-    /**
-     * Set the value of usertype
-     *
-     * @return  self
-     */ 
-    public function setUsertype($usertype)
-    {
-        $this->usertype = $usertype;
+        $this->roomID = $roomID;
 
         return $this;
     }

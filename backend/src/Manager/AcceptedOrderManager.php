@@ -133,4 +133,9 @@ class AcceptedOrderManager
     {
         return $this->repository->countOrdersInDay($captainID, $fromDate, $toDate);
     }
+
+    public function getOwnerIdAndUuid($orderId)
+    {
+        return $this->repository->getOwnerIdAndUuid($orderId);
+    }
 }

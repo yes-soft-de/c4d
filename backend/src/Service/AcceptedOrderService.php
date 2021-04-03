@@ -11,6 +11,7 @@ use App\Response\AcceptedOrdersResponse;
 use App\Response\CaptainTotalEarnResponse;
 use App\Response\ongoingCaptainsResponse;
 use App\Service\RecordService;
+use App\Service\RoomIdHelperService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
 class AcceptedOrderService
@@ -18,13 +19,15 @@ class AcceptedOrderService
     private $autoMapping;
     private $acceptedOrderManager;
     private $recordService;
+    private $roomIdHelperService;
     private $params;
 
-    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager, RecordService $recordService, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager, RecordService $recordService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService)
     {
         $this->autoMapping = $autoMapping;
         $this->acceptedOrderManager = $acceptedOrderManager;
         $this->recordService = $recordService;
+        $this->roomIdHelperService = $roomIdHelperService;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -36,7 +39,9 @@ class AcceptedOrderService
         if (!$acceptedOrder) {
             $item = $this->acceptedOrderManager->create($request);
             if ($item) {
-                $this->recordService->create($item->getOrderID(), $item->getState());
+               $this->recordService->create($item->getOrderID(), $item->getState());
+               $data = $this->getOwnerIdAndUuid($item->getOrderID());
+               $this->roomIdHelperService->create($data);
             }
             $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
         }
@@ -153,5 +158,10 @@ class AcceptedOrderService
     public function countOrdersInDay($captainID, $fromDate, $toDate)
      {
          return $this->acceptedOrderManager->countOrdersInDay($captainID, $fromDate, $toDate);
+     }
+
+    public function getOwnerIdAndUuid($orderId)
+     {
+         return $this->acceptedOrderManager->getOwnerIdAndUuid($orderId);
      }
 }
