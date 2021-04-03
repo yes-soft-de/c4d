@@ -68,7 +68,6 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
 
   @override
   Widget getUI(BuildContext context) {
-    print(canMakeOrders.toString());
     return RefreshIndicator(
       onRefresh: () {
         screenState.getMyOrders();
