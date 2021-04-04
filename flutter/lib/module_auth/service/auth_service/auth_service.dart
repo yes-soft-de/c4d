@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/enums/auth_source.dart';
 import 'package:c4d/module_auth/enums/auth_status.dart';
@@ -35,10 +34,10 @@ class AuthService {
   String _verificationCode;
 
   AuthService(
-    this._prefsHelper,
-    this._authManager,
-    this._aboutService,
-  );
+      this._prefsHelper,
+      this._authManager,
+      this._aboutService,
+      );
 
   // Delegates
   Future<bool> get isLoggedIn => _prefsHelper.isSignedIn();
@@ -53,12 +52,12 @@ class AuthService {
     var store = FirebaseFirestore.instance;
     var user = _auth.currentUser;
     var existingProfile =
-        await store.collection('users').doc(user.uid).get().catchError((e) {
-      _authSubject.addError(S.current.errorLoggingInFirebaseAccountNotFound);
+    await store.collection('users').doc(user.uid).get().catchError((e) {
+      _authSubject.addError('Error logging in, firebase account not found');
       return;
     });
     if (existingProfile.data() == null) {
-      _authSubject.addError(S.current.errorLoggingInFirebaseAccountNotFound);
+      _authSubject.addError('Error logging in, firebase account not found');
       return;
     }
 
@@ -72,7 +71,7 @@ class AuthService {
 
     if (loginResult == null) {
       _authSubject.addError('Error getting the token from the API');
-      Logger().error('AuthService', 'Error Logging In user with ID ${user.uid}', StackTrace.empty);
+      await logout();
       throw UnauthorizedException('Error getting the token from the API');
     }
 
@@ -92,7 +91,7 @@ class AuthService {
   Future<void> _registerApiNewUser(AppUser user) async {
     var store = FirebaseFirestore.instance;
     var existingProfile =
-        await store.collection('users').doc(user.credential.uid).get();
+    await store.collection('users').doc(user.credential.uid).get();
     String password;
 
     // This means that this guy is not registered
@@ -166,7 +165,7 @@ class AuthService {
       Logger().info('AuthStateManager', 'Got Google User');
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      await googleUser.authentication;
 
       // Create a new credential
       final GoogleAuthCredential credential = GoogleAuthProvider.credential(
@@ -176,7 +175,7 @@ class AuthService {
 
       // Once signed in, return the UserCredential
       var userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
 
       if (isRegister) {
         await _registerApiNewUser(
@@ -192,7 +191,7 @@ class AuthService {
   Future<void> verifyWithApple(UserRole role, bool isRegister) async {
     var oauthCred = await _createAppleOAuthCred();
     UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(oauthCred);
+    await FirebaseAuth.instance.signInWithCredential(oauthCred);
 
     if (isRegister) {
       await _registerApiNewUser(
@@ -203,11 +202,11 @@ class AuthService {
   }
 
   Future<void> signInWithEmailAndPassword(
-    String email,
-    String password,
-    UserRole role,
-    bool isRegister,
-  ) async {
+      String email,
+      String password,
+      UserRole role,
+      bool isRegister,
+      ) async {
     try {
       var creds = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -245,8 +244,10 @@ class AuthService {
         Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
         _authSubject.addError(UnauthorizedException(x.message));
       } else {
-        _authSubject
-            .addError(UnauthorizedException('Error: ${err.toString()}'));
+        logout().then((value) {
+          _authSubject
+              .addError(UnauthorizedException('Error: ${err.toString()}'));
+        });
       }
     });
   }
@@ -270,7 +271,9 @@ class AuthService {
         FirebaseAuthException x = err;
         throw UnauthorizedException(x.message);
       } else {
-        throw UnauthorizedException('Error Registering with Auth Provider');
+        logout().then((_) {
+          throw UnauthorizedException('Error Registering with Auth Provider');
+        });
       }
     });
   }
@@ -312,24 +315,24 @@ class AuthService {
     final nonce = _createNonce(32);
     final nativeAppleCred = Platform.isIOS
         ? await SignInWithApple.getAppleIDCredential(
-            scopes: [
-              AppleIDAuthorizationScopes.email,
-              AppleIDAuthorizationScopes.fullName,
-            ],
-            nonce: sha256.convert(utf8.encode(nonce)).toString(),
-          )
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: sha256.convert(utf8.encode(nonce)).toString(),
+    )
         : await SignInWithApple.getAppleIDCredential(
-            scopes: [
-              AppleIDAuthorizationScopes.email,
-              AppleIDAuthorizationScopes.fullName,
-            ],
-            webAuthenticationOptions: WebAuthenticationOptions(
-              redirectUri: Uri.parse(
-                  'https://your-project-name.firebaseapp.com/__/auth/handler'),
-              clientId: 'your.app.bundle.name',
-            ),
-            nonce: sha256.convert(utf8.encode(nonce)).toString(),
-          );
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      webAuthenticationOptions: WebAuthenticationOptions(
+        redirectUri: Uri.parse(
+            'https://your-project-name.firebaseapp.com/__/auth/handler'),
+        clientId: 'your.app.bundle.name',
+      ),
+      nonce: sha256.convert(utf8.encode(nonce)).toString(),
+    );
 
     return new OAuthCredential(
       providerId: 'apple.com',
