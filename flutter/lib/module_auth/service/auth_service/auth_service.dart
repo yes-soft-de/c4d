@@ -135,6 +135,7 @@ class AuthService {
             });
           },
           verificationFailed: (err) {
+            Logger().error('AuthError', e.toString(), StackTrace.current);
             _authSubject.addError(err);
           },
           codeSent: (String verificationId, int forceResendingToken) {

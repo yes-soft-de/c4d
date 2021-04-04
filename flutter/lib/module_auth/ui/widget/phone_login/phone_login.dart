@@ -152,8 +152,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                               }
                               loading = true;
                               setState(() {});
-                              widget.onLoginRequested(
-                                  countryCode + _phoneController.text);
+                              widget.onLoginRequested(countryCode + phone);
                             },
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
