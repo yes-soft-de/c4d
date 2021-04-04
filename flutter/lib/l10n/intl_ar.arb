@@ -185,5 +185,6 @@
   "unknownNumberOfCar":"عدد السيارات غير محدود",
   "recipientName":"اسم المستلم",
   "date":"التاريخ",
-  "go":"انطلق"
+  "go":"انطلق",
+  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found"
 }

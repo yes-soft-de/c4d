@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/enums/auth_source.dart';
 import 'package:c4d/module_auth/enums/auth_status.dart';
@@ -53,11 +54,11 @@ class AuthService {
     var user = _auth.currentUser;
     var existingProfile =
         await store.collection('users').doc(user.uid).get().catchError((e) {
-      _authSubject.addError('Error logging in, firebase account not found');
+      _authSubject.addError(S.current.errorLoggingInFirebaseAccountNotFound);
       return;
     });
     if (existingProfile.data() == null) {
-      _authSubject.addError('Error logging in, firebase account not found');
+      _authSubject.addError(S.current.errorLoggingInFirebaseAccountNotFound);
       return;
     }
 
@@ -71,6 +72,7 @@ class AuthService {
 
     if (loginResult == null) {
       _authSubject.addError('Error getting the token from the API');
+      Logger().error('AuthService', 'Error Logging In user with ID ${user.uid}', StackTrace.empty);
       throw UnauthorizedException('Error getting the token from the API');
     }
 

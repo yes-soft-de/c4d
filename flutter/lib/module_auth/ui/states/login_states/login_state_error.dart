@@ -26,15 +26,18 @@ class LoginStateError extends LoginState {
   Widget getUI(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 96,
-          child: UserTypeSelector(
-            currentUserType: userType,
-            onUserChange: (newType) {
-              userType = newType;
-              screen.refresh();
-              loginTypeController.jumpToPage(userType.index);
-            },
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            height: 36,
+            child: UserTypeSelector(
+              currentUserType: userType,
+              onUserChange: (newType) {
+                userType = newType;
+                screen.refresh();
+                loginTypeController.jumpToPage(userType.index);
+              },
+            ),
           ),
         ),
         Expanded(

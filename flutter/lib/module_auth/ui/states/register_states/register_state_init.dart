@@ -18,19 +18,22 @@ class RegisterStateInit extends RegisterState {
   Widget getUI(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 96,
-          child: UserTypeSelector(
-            currentUserType: userType,
-            onUserChange: (newType) {
-              userType = newType;
-              screen.refresh();
-              registerTypeController.animateToPage(
-                userType.index,
-                curve: Curves.linear,
-                duration: Duration(seconds: 1),
-              );
-            },
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            height: 36,
+            child: UserTypeSelector(
+              currentUserType: userType,
+              onUserChange: (newType) {
+                userType = newType;
+                screen.refresh();
+                registerTypeController.animateToPage(
+                  userType.index,
+                  curve: Curves.linear,
+                  duration: Duration(seconds: 1),
+                );
+              },
+            ),
           ),
         ),
         Expanded(

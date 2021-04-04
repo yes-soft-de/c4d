@@ -186,5 +186,6 @@
   "unknownNumberOfCar":"The number of cars unknown",
   "recipientName":"Recipient Name",
   "date":"Date",
-  "go":"Go"
+  "go":"Go",
+  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found"
 }
