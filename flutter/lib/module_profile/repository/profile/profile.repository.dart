@@ -51,6 +51,9 @@ class ProfileRepository {
         Urls.CAPTAIN_PROFILE_API,
         headers: {'Authorization': 'Bearer ' + token},
       );
+      if (response == null) {
+        return null;
+      }
       return ProfileResponse.fromJson(response).data;
     } on UnauthorizedException {
       return null;

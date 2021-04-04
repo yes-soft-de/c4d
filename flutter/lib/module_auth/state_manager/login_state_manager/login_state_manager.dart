@@ -1,4 +1,3 @@
-import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/enums/auth_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
@@ -24,33 +23,33 @@ class LoginStateManager {
 
   LoginScreenState _screenState;
 
-  LoginStateManager(this._authService, this._profileService);
-
-  Stream<LoginState> get stateStream => _loginStateSubject.stream;
-
-  void loginCaptain(String phoneNumber, LoginScreenState _loginScreenState) {
-    _screenState = _loginScreenState;
+  LoginStateManager(this._authService, this._profileService) {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
           checkInited(_screenState);
           break;
         case AuthStatus.CODE_SENT:
-          _loginStateSubject.add(LoginStateCodeSent(_loginScreenState));
+          _loginStateSubject.add(LoginStateCodeSent(_screenState));
           break;
         case AuthStatus.CODE_TIMEOUT:
           _loginStateSubject.add(LoginStateError(
-              _loginScreenState, 'Code Timeout', _email, _password));
+              _screenState, 'Code Timeout', _email, _password));
           break;
         default:
-          _loginStateSubject.add(LoginStateInit(_loginScreenState));
+          _loginStateSubject.add(LoginStateInit(_screenState));
           break;
       }
     }).onError((err) {
       _loginStateSubject.add(LoginStateError(
-          _loginScreenState, err.toString(), _email, _password));
+          _screenState, err.toString(), _email, _password));
     });
+  }
 
+  Stream<LoginState> get stateStream => _loginStateSubject.stream;
+
+  void loginCaptain(String phoneNumber, LoginScreenState _loginScreenState) {
+    _screenState = _loginScreenState;
     _authService.verifyWithPhone(false, phoneNumber, UserRole.ROLE_CAPTAIN);
   }
 
@@ -70,19 +69,6 @@ class LoginStateManager {
     _screenState = _loginScreenState;
     _email = email;
     _password = password;
-    _authService.authListener.listen((event) {
-      switch (event) {
-        case AuthStatus.AUTHORIZED:
-          checkInited(_loginScreenState);
-          break;
-        default:
-          _loginStateSubject.add(LoginStateInit(_loginScreenState));
-          break;
-      }
-    }).onError((err) {
-      _loginStateSubject.add(LoginStateError(
-          _loginScreenState, err.toString(), _email, _password));
-    });
 
     _authService.signInWithEmailAndPassword(
       email,

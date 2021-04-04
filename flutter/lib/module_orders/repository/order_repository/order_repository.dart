@@ -124,7 +124,7 @@ class OrderRepository {
   Future<CompanyInfoResponse> getCompanyInfo() async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.get('${Urls.COMPANYINFO_API}',
-        headers: {'Authorization': 'Bearer ' + token});
+        headers: {'Authorization': 'Bearer $token'});
 
     if (response == null) return null;
     return CompanyInfoResponse.fromJson(response['Data'][0]);
