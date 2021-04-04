@@ -134,8 +134,8 @@ class AuthService {
               }
             });
           },
-          verificationFailed: (err) {
-            Logger().error('AuthError', e.toString(), StackTrace.current);
+          verificationFailed: (FirebaseAuthException err) {
+            Logger().error('AuthError', err.message, StackTrace.current);
             _authSubject.addError(err);
           },
           codeSent: (String verificationId, int forceResendingToken) {
