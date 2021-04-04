@@ -21,19 +21,22 @@ class LoginStateInit extends LoginState {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            height: 36,
-            child: UserTypeSelector(
-              currentUserType: userType,
-              onUserChange: (newType) {
-                userType = newType;
-                screen.refresh();
-                loginTypeController.animateToPage(
-                  userType.index,
-                  duration: Duration(seconds: 1),
-                  curve: Curves.linear,
-                );
-              },
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              height: 36,
+              child: UserTypeSelector(
+                currentUserType: userType,
+                onUserChange: (newType) {
+                  userType = newType;
+                  screen.refresh();
+                  loginTypeController.animateToPage(
+                    userType.index,
+                    duration: Duration(seconds: 1),
+                    curve: Curves.linear,
+                  );
+                },
+              ),
             ),
           ),
           Expanded(

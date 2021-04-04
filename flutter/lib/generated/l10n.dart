@@ -1904,6 +1904,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Error logging in, firebase account not found`
+  String get errorLoggingInFirebaseAccountNotFound {
+    return Intl.message(
+      'Error logging in, firebase account not found',
+      name: 'errorLoggingInFirebaseAccountNotFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

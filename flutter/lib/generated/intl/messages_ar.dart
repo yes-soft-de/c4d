@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorHappened" : MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
     "errorLoadingBranches" : MessageLookupByLibrary.simpleMessage("حدث خطأ أثناء تحميل الفروع"),
     "errorLoadingData" : MessageLookupByLibrary.simpleMessage("خطأ في تحميل البيانات"),
+    "errorLoggingInFirebaseAccountNotFound" : MessageLookupByLibrary.simpleMessage("Error logging in, firebase account not found"),
     "errorUploadingImages" : MessageLookupByLibrary.simpleMessage("حدث خطأ عند رفع الصور!!"),
     "finishOrderProvideDistanceInKm" : MessageLookupByLibrary.simpleMessage("انهاء الطلب، المسافة المقطوعة"),
     "fromWhatsapp" : MessageLookupByLibrary.simpleMessage("من واتساب"),
