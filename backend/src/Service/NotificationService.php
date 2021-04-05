@@ -102,8 +102,11 @@ class NotificationService
     public function notificationToCaptainFromAdmin($request)
     {
         $item = $this->getCaptainUuid($request->getRoomID());
+       
+        
         if($item) {
             $devicesToken = [];
+            $this->userService->update($request,false);
             $userTokenOne = $this->getNotificationTokenByUserID($item[0]['captainID']);
             $devicesToken[] = $userTokenOne;
             $message = CloudMessage::new()

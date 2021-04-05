@@ -62,7 +62,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getCaptainprofileByID($captainProfileId)
     {
         return $this->createQueryBuilder('captainProfile')
-            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state as vacationStatus', 'captainProfile.bounce', 'captainProfile.uuid', 'captainProfile.specialLink', 'captainProfile.isOnline')
+            ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state as vacationStatus', 'captainProfile.bounce', 'captainProfile.uuid', 'captainProfile.specialLink', 'captainProfile.isOnline', 'captainProfile.newMessageStatus')
             ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
             ->addSelect('bankEntity.bankName', 'bankEntity.accountID', 'bankEntity.stcPay')
 
@@ -204,7 +204,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('captainProfile')
 
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name as captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce', 'captainProfile.specialLink')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name as captainName', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.bounce', 'captainProfile.specialLink','captainProfile.newMessageStatus')
 
             ->addSelect('acceptedOrderEntity.captainID')
 
@@ -228,7 +228,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     public function getAllCaptains()
     {
         return $this->createQueryBuilder('captainProfile')
-            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.uuid', 'captainProfile.bounce', 'captainProfile.specialLink', 'captainProfile.isOnline')
+            ->select('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state', 'captainProfile.uuid', 'captainProfile.bounce', 'captainProfile.specialLink', 'captainProfile.isOnline', 'captainProfile.newMessageStatus')
 
             ->getQuery()
             ->getResult();

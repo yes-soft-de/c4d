@@ -23,7 +23,7 @@ class ReportEntityRepository extends ServiceEntityRepository
     public function getReports()
     {
         return $this->createQueryBuilder('ReportEntity')
-            ->addSelect('ReportEntity.id', 'ReportEntity.orderId', 'ReportEntity.reason', 'ReportEntity.userId', 'userProfileEntity.userName', 'ReportEntity.uuid') 
+            ->addSelect('ReportEntity.id', 'ReportEntity.orderId', 'ReportEntity.reason', 'ReportEntity.userId', 'userProfileEntity.userName', 'ReportEntity.uuid', 'ReportEntity.newMessageStatus') 
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = ReportEntity.userId')
             
@@ -34,7 +34,7 @@ class ReportEntityRepository extends ServiceEntityRepository
     public function getReport($id)
     {
         return $this->createQueryBuilder('ReportEntity')
-            ->addSelect('ReportEntity.id', 'ReportEntity.orderId', 'ReportEntity.reason', 'ReportEntity.userId', 'userProfileEntity.userName', 'ReportEntity.uuid') 
+            ->addSelect('ReportEntity.id', 'ReportEntity.orderId', 'ReportEntity.reason', 'ReportEntity.userId', 'userProfileEntity.userName', 'ReportEntity.uuid', 'ReportEntity.newMessageStatus') 
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = ReportEntity.userId')
             ->andWhere('ReportEntity.id = :id')

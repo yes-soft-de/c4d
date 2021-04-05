@@ -4,7 +4,6 @@
 namespace App\Controller;
 use App\AutoMapping;
 use App\Request\ReportCreateRequest;
-// use App\Request\BranchesUpdateRequest;
 use App\Service\ReportService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -75,6 +74,18 @@ class ReportController extends BaseController
     public function getReport($id)
     {
         $result = $this->reportService->getReport($id);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("reportupdatenewmessagestatus/{id}", name="reportUpdateNewMeessageStatus", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @return JsonResponse
+     */
+    public function reportUpdateNewMeessageStatus($id)
+    {
+        $result = $this->reportService->reportUpdateNewMeessageStatus($id);
 
         return $this->response($result, self::FETCH);
     }

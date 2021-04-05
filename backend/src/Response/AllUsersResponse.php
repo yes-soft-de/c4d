@@ -47,4 +47,6 @@ class AllUsersResponse
     public $drivingLicence;
     
     public $drivingLicenceURL;
+    
+    public $newMessageStatus;
 }

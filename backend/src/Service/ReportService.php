@@ -55,4 +55,11 @@ class ReportService
    
         return $this->reportManager->update($item, $NewMessageStatus);
      }
+
+    public function reportUpdateNewMeessageStatus($id)
+    {
+        return $this->reportManager->reportUpdateNewMeessageStatus($id);
+   
+       
+     }
 }

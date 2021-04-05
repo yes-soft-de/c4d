@@ -10,4 +10,5 @@ class ReportResponse
     public $reason;
     public $uuid;
     public $userName;
+    public $newMessageStatus;
 }

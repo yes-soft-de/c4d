@@ -55,4 +55,6 @@ class CaptainProfileCreateResponse
     public $bank;
 
     public $vacationStatus;
+
+    public $newMessageStatus;
 }

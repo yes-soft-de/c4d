@@ -66,4 +66,21 @@ class ReportManager
         }
         return null;
     }
+
+    public function reportUpdateNewMeessageStatus($id)
+    {
+        
+            $entity = $this->repository->find($id);
+            
+            if (!$entity) {
+                return null;
+            }
+            $entity->setNewMessageStatus(false);
+        
+            $entity = $this->autoMapping->mapToObject(ReportEntity::class, ReportEntity::class, $entity, $entity);
+
+            $this->entityManager->flush();
+
+            return $entity;
+    }
 }
