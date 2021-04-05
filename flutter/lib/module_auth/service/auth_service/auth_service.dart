@@ -128,7 +128,6 @@ class AuthService {
       _auth.verifyPhoneNumber(
           phoneNumber: phone,
           verificationCompleted: (authCredentials) {
-            Logger().error('AuthError', 'verificationCompleted', StackTrace.current);
             _auth.signInWithCredential(authCredentials).then((credential) {
               if (isRegister) {
                 _registerApiNewUser(
@@ -143,12 +142,10 @@ class AuthService {
             _authSubject.addError(err);
           },
           codeSent: (String verificationId, int forceResendingToken) {
-            Logger().error('AuthError', 'CodeSent', StackTrace.current);
             _verificationCode = verificationId;
             _authSubject.add(AuthStatus.CODE_SENT);
           },
           codeAutoRetrievalTimeout: (verificationId) {
-            Logger().error('AuthError', 'Time Out', StackTrace.current);
             _authSubject.add(AuthStatus.CODE_TIMEOUT);
           });
     } else {
