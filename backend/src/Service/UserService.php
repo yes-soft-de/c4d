@@ -502,4 +502,11 @@ class UserService
         $result['response']=$response;
         return $result;
     }
+
+    public function update($request, $NewMessageStatus)
+    {
+        $item = $this->userManager->getcaptainByUuid($request->getRoomID());
+   
+        return $this->userManager->update($item, $NewMessageStatus);
+    }
 }

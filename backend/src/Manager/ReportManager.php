@@ -6,7 +6,6 @@ use App\AutoMapping;
 use App\Entity\ReportEntity;
 use App\Repository\ReportEntityRepository;
 use App\Request\ReportCreateRequest;
-// use App\Request\BranchesUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ReportManager
@@ -42,5 +41,29 @@ class ReportManager
     public function getReport($id)
     {
         return $this->repository->getReport($id);
+    }
+
+    public function getReportByUuid($uuid)
+    {
+        return $this->repository->getreortByUuid($uuid);
+    }
+
+    public function update($request, $NewMessageStatus)
+    {
+        if ($request) {
+            $entity = $this->repository->find($request->getId());
+            
+            if (!$entity) {
+                return null;
+            }
+            $entity->setNewMessageStatus($NewMessageStatus);
+        
+            $entity = $this->autoMapping->mapToObject(ReportEntity::class, ReportEntity::class, $entity, $entity);
+
+            $this->entityManager->flush();
+
+            return $entity;
+        }
+        return null;
     }
 }

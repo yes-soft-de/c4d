@@ -37,6 +37,11 @@ class ReportEntity
      */
     private $uuid;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $newMessageStatus;
+
 
     public function getId(): ?int
     {
@@ -86,6 +91,18 @@ class ReportEntity
     public function setUuid(?string $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getNewMessageStatus(): ?bool
+    {
+        return $this->newMessageStatus;
+    }
+
+    public function setNewMessageStatus(?bool $newMessageStatus): self
+    {
+        $this->newMessageStatus = $newMessageStatus;
 
         return $this;
     }

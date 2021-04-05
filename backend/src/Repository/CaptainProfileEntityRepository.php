@@ -233,4 +233,13 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
+    public function getcaptainByUuid($uuid)
+    {
+        return $this->createQueryBuilder('captainProfile')
+            ->andWhere('captainProfile.uuid = :uuid')
+            ->setParameter('uuid',$uuid)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

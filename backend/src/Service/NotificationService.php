@@ -8,6 +8,8 @@ use App\AutoMapping;
 use App\Entity\NotificationTokenEntity;
 use App\Manager\NotificationManager;
 use App\Service\RoomIdHelperService;
+use App\Service\ReportService;
+use App\Service\UserService;
 use App\Request\NotificationTokenRequest;
 use App\Response\NotificationTokenResponse;
 use Kreait\Firebase\Messaging;
@@ -19,18 +21,24 @@ class NotificationService
     private $messaging;
     private $notificationManager;
     private $roomIdHelperService;
+    private $reportService;
+    private $userService;
     private $autoMapping;
+
     const CAPTAIN_TOPIC = 'captains';
     const MESSAGE_CAPTAIN_NEW_ORDER = 'هناك طلب جديد، الرجاء تفقد قائمة الطلبات لديك';
     const MESSAGE_ORDER_UPDATE = 'هناك تحديث في حالة الطلبات';
     const MESSAGE_NEW_CHAT = 'لديك رسالة جديدة';
+    const MESSAGE_NEW_CHAT_FROM_ADMIN = 'لديك رسالة جديدة من الإدارة';
 
-    public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService)
+    public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService, ReportService $reportService, UserService $userService)
     {
         $this->messaging = $messaging;
         $this->notificationManager = $notificationManager;
         $this->autoMapping = $autoMapping;
         $this->roomIdHelperService = $roomIdHelperService;
+        $this->reportService = $reportService;
+        $this->userService = $userService;
     }
 
     public function notificationToCaptain()
@@ -59,17 +67,64 @@ class NotificationService
     {
 
         $item = $this->roomIdHelperService->getByRoomID($request->getRoomID());
+        if($item) {
+            $devicesToken = [];
+            $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
+            $devicesToken[] = $userTokenOne;
+            $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
+            $devicesToken[] = $userTokenTwo;
+
+            $message = CloudMessage::new()
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT));
+
+            $this->messaging->sendMulticast($message, $devicesToken);   
+        }    
+    }
+
+    public function updateNewMessageStatusInReport($request)
+    {  
+        //NewMessageStatus = true
+        $item = $this->reportService->update($request,true);
         
-        $devicesToken = [];
-        $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
-        $devicesToken[] = $userTokenOne;
-        $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
-        $devicesToken[] = $userTokenTwo;
+        $response =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
+        return $response;
+    }
 
-        $message = CloudMessage::new()
-            ->withNotification(Notification::create('C4D', $this::MESSAGE_ORDER_UPDATE));
+    public function updateNewMessageStatusInCaptain($request)
+    {
+        //NewMessageStatus = true
+        $item = $this->userService->update($request,true);
+      
+        $response =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
+        return $response;
+    }
 
-        $this->messaging->sendMulticast($message, $devicesToken);       
+    public function notificationToCaptainFromAdmin($request)
+    {
+        $item = $this->getCaptainUuid($request->getRoomID());
+        if($item) {
+            $devicesToken = [];
+            $userTokenOne = $this->getNotificationTokenByUserID($item[0]['captainID']);
+            $devicesToken[] = $userTokenOne;
+            $message = CloudMessage::new()
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
+
+            $this->messaging->sendMulticast($message, $devicesToken); 
+        }      
+    }
+
+    public function notificationToReportFromAdmin($request)
+    {
+        $item = $this->getByReprotUuid($request->getRoomID());
+        if($item) {
+            $devicesToken = [];
+            $userTokenOne = $this->getNotificationTokenByUserID($item[0]['userId']);
+            $devicesToken[] = $userTokenOne;
+            $message = CloudMessage::new()
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
+
+            $this->messaging->sendMulticast($message, $devicesToken);  
+        }     
     }
 
     public function notificationTokenCreate(NotificationTokenRequest $request)
@@ -82,5 +137,15 @@ class NotificationService
     public function getNotificationTokenByUserID($userID)
     {
         return $this->notificationManager->getNotificationTokenByUserID($userID);
+    }
+
+    public function getByReprotUuid($uuid)
+    {
+        return $this->notificationManager->getByReprotUuid($uuid);
+    }
+
+    public function getCaptainUuid($uuid)
+    {
+        return $this->notificationManager->getCaptainUuid($uuid);
     }
 }

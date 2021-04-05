@@ -42,4 +42,13 @@ class ReportEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getreortByUuid($uuid)
+    {
+        return $this->createQueryBuilder('ReportEntity')
+            ->andWhere('ReportEntity.uuid = :uuid')
+            ->setParameter('uuid',$uuid)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

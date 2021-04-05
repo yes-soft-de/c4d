@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\NotificationTokenEntity;
+use App\Entity\ReportEntity;
 use App\Entity\CaptainProfileEntity;
-use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -20,35 +20,30 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, NotificationTokenEntity::class);
     }
-
-    public function getNotificationTokenByCaptainUuid($uuid)
+    
+    public function getByReprotUuid($uuid)
     {
-        return $this->createQueryBuilder('notification')
-                ->addSelect('captainProfile.captainID', 'captainProfile.name')
+        return $this->createQueryBuilder('NotificationTokenEntity')
+        ->addSelect('reportEntity.userId') 
 
-                ->leftJoin(CaptainProfileEntity::class, 'captainProfile', Join::WITH, 'captainProfile.uuid =:uuid ')
-              
-                ->andWhere("captainProfile.uuid = :uuid")
-             
-                ->setParameter('uuid', $uuid)
+        ->leftJoin(ReportEntity::class, 'reportEntity', Join::WITH, 'reportEntity.uuid = :uuid')
 
-                ->getQuery()
-                ->getResult();
+        ->andWhere("reportEntity.uuid = :uuid ")
+        ->setParameter('uuid', $uuid) 
+        ->getQuery()
+        ->getResult();
     }
-
-    public function getNotificationTokenByOwnerUuid($uuid)
+    
+    public function getCaptainUuid($uuid)
     {
-        return $this->createQueryBuilder('notification')
-                ->addSelect('userProfileEntity.userID')
+        return $this->createQueryBuilder('NotificationTokenEntity')
+        ->addSelect('captainProfileEntity.captainID') 
 
-                ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.uuid =:uuid ')
-              
-                ->andWhere("userProfileEntity.uuid = :uuid")
-             
-                ->setParameter('uuid', $uuid)
+        ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.uuid = :uuid')
 
-                ->getQuery()
-                ->getResult();
+        ->andWhere("captainProfileEntity.uuid = :uuid ")
+        ->setParameter('uuid', $uuid) 
+        ->getQuery()
+        ->getResult();
     }
-
 }

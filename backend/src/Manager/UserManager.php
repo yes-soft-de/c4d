@@ -274,8 +274,27 @@ class UserManager
         return $this->captainProRepository->getAllCaptains();
     }
 
-    // public function getCaptain($captainID)
-    // {
-    //     return $this->captainProRepository->getCaptain($captainID);
-    // }
+    public function getcaptainByUuid($uuid)
+    {
+        return $this->captainProRepository->getcaptainByUuid($uuid);
+    }
+
+    public function update($request, $NewMessageStatus)
+    {
+        if ($request) {
+            $entity = $this->captainProRepository->find($request->getId());
+
+            if (!$entity) {
+                return null;
+            }
+            $entity->setNewMessageStatus($NewMessageStatus);
+        
+            $entity = $this->autoMapping->mapToObject(UserProfileEntity::class, UserProfileEntity::class, $entity, $entity);
+
+            $this->entityManager->flush();
+
+            return $entity;
+        }
+        return null;
+    }
 }

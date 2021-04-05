@@ -92,6 +92,11 @@ class CaptainProfileEntity
      */
     private $isOnline;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $newMessageStatus;
+
 
     public function getId(): ?int
     {
@@ -274,6 +279,18 @@ class CaptainProfileEntity
     public function setIsOnline(?string $isOnline): self
     {
         $this->isOnline = $isOnline;
+
+        return $this;
+    }
+
+    public function getNewMessageStatus(): ?bool
+    {
+        return $this->newMessageStatus;
+    }
+
+    public function setNewMessageStatus(?bool $newMessageStatus): self
+    {
+        $this->newMessageStatus = $newMessageStatus;
 
         return $this;
     }

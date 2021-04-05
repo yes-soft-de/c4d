@@ -48,4 +48,11 @@ class ReportService
     
         return  $this->autoMapping->map('array', ReportResponse::class, $item);
     }
+
+    public function update($request, $NewMessageStatus)
+    {
+        $item = $this->reportManager->getReportByUuid($request->getRoomID());
+   
+        return $this->reportManager->update($item, $NewMessageStatus);
+     }
 }
