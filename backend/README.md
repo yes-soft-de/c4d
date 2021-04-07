@@ -773,3 +773,57 @@ send roomID
 /notificationtocaptainfromadmin
 methods: POST
 ```
+
+
+
+### How send notification from Admin
+
+from all captains page 
+
+1- on click talk with captain
+
+```
+/captainupdatenewmessagestatus
+
+methods: PUT
+
+request:
+{
+    "roomID":" "
+}
+```
+
+2- on click send from chat
+
+```
+
+/notificationtocaptainfromadmin
+methods={"POST"}
+request:
+{
+    "roomID":" "
+}
+```
+
+from report page 
+
+1- on click chat
+
+```
+/reportupdatenewmessagestatus/{id}
+
+methods: PUT
+
+```
+
+2- on click send from chat
+
+```
+
+/notificationtoreportfromadmin
+methods={"POST"}
+request:
+{
+    "roomID":" "
+}
+```
