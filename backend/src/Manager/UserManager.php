@@ -282,15 +282,16 @@ class UserManager
     public function update($request, $NewMessageStatus)
     {
         if ($request) {
+           
             $entity = $this->captainProRepository->find($request->getId());
-
+        
             if (!$entity) {
                 return null;
             }
             $entity->setNewMessageStatus($NewMessageStatus);
         
-            $entity = $this->autoMapping->mapToObject(UserProfileEntity::class, UserProfileEntity::class, $entity, $entity);
-
+            $entity = $this->autoMapping->mapToObject(CaptainProfileEntity::class, CaptainProfileEntity::class, $entity, $entity);
+          
             $this->entityManager->flush();
 
             return $entity;

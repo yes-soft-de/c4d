@@ -385,8 +385,32 @@ methods: GET
 methods: GET
 ```
 
+### notification
 
+#### Notificationtoken
 
+must run it during start app
+send firebase token  
+```
+/notificationtoken
+methods: POST
+```
+
+#### Notification New Chat 
+
+send roomID 
+```
+/notificationnewchat
+methods: POST
+```
+
+#### Notification Message From Captain Or Reprot To Admin
+
+send roomID 
+```
+/notificationtoadmin
+methods: POST
+```
 
 
 
@@ -630,6 +654,14 @@ methods: GET
 methods: GET
 ```
 
+#### Update Report NewMeessageStatus
+
+Turn it on when you click chat
+```
+/reportupdatenewmessagestatus/{id}
+methods: PUT
+```
+
 ### Dating
 
 #### Get datings
@@ -719,4 +751,25 @@ methods: POST
 ```
 /termscaptain
 methods: PUT
+```
+
+
+### notification
+
+#### Notificationtoken
+
+#### Notification To Report From Admin 
+```
+send roomID 
+
+/notificationtoreportfromadmin
+methods: POST
+```
+
+#### Notification To Captain From Admin 
+```
+send roomID 
+
+/notificationtocaptainfromadmin
+methods: POST
 ```

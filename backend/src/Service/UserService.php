@@ -507,6 +507,9 @@ class UserService
     {
         $item = $this->userManager->getcaptainByUuid($request->getRoomID());
    
-        return $this->userManager->update($item, $NewMessageStatus);
+       $response = $this->userManager->update($item, $NewMessageStatus);
+    
+       return  $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $response);
+      
     }
 }

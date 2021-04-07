@@ -11,6 +11,8 @@ class CaptainProfileUpdateByAdminRequest
     private $status;
 
     private $bounce;
+
+    private $roomID;
     
     /**
      * Get the value of captainID
@@ -88,6 +90,26 @@ class CaptainProfileUpdateByAdminRequest
     public function setBounce(string $bounce): self
     {
         $this->bounce = $bounce;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of roomID
+     */ 
+    public function getRoomID()
+    {
+        return $this->roomID;
+    }
+
+    /**
+     * Set the value of roomID
+     *
+     * @return  self
+     */ 
+    public function setRoomID($roomID)
+    {
+        $this->roomID = $roomID;
 
         return $this;
     }

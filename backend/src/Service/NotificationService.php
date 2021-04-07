@@ -83,19 +83,23 @@ class NotificationService
 
     public function updateNewMessageStatusInReport($request)
     {  
+        $response=[];
         //NewMessageStatus = true
         $item = $this->reportService->update($request,true);
-        
-        $response =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
+        if($item) {
+            $response[] =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
+        }
         return $response;
     }
 
     public function updateNewMessageStatusInCaptain($request)
     {
+        $response=[];
         //NewMessageStatus = true
         $item = $this->userService->update($request,true);
-      
-        $response =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
+        if($item) {
+            $response[] =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
+        }
         return $response;
     }
 
@@ -103,10 +107,8 @@ class NotificationService
     {
         $item = $this->getCaptainUuid($request->getRoomID());
        
-        
         if($item) {
             $devicesToken = [];
-            $this->userService->update($request,false);
             $userTokenOne = $this->getNotificationTokenByUserID($item[0]['captainID']);
             $devicesToken[] = $userTokenOne;
             $message = CloudMessage::new()
