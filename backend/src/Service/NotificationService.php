@@ -105,6 +105,7 @@ class NotificationService
 
     public function notificationToCaptainFromAdmin($request)
     {
+        $response=[];
         $item = $this->getCaptainUuid($request->getRoomID());
        
         if($item) {
@@ -115,12 +116,17 @@ class NotificationService
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
 
             $this->messaging->sendMulticast($message, $devicesToken); 
-        }      
+            $this->messaging->sendMulticast($message, $devicesToken);  
+            $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
+        }
+        return $response;       
     }
 
     public function notificationToReportFromAdmin($request)
     {
+        $response=[];
         $item = $this->getByReprotUuid($request->getRoomID());
+       
         if($item) {
             $devicesToken = [];
             $userTokenOne = $this->getNotificationTokenByUserID($item[0]['userId']);
@@ -129,7 +135,9 @@ class NotificationService
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
 
             $this->messaging->sendMulticast($message, $devicesToken);  
-        }     
+            $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
+        } 
+        return $response;    
     }
 
     public function notificationTokenCreate(NotificationTokenRequest $request)
