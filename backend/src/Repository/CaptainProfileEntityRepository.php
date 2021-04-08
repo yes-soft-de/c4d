@@ -63,7 +63,7 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('captainProfile')
             ->addSelect('captainProfile.id', 'captainProfile.captainID', 'captainProfile.name', 'captainProfile.image', 'captainProfile.location', 'captainProfile.age', 'captainProfile.car', 'captainProfile.drivingLicence', 'captainProfile.salary', 'captainProfile.status', 'captainProfile.state as vacationStatus', 'captainProfile.bounce', 'captainProfile.uuid', 'captainProfile.specialLink', 'captainProfile.isOnline', 'captainProfile.newMessageStatus')
-            ->addSelect('acceptedOrderEntity.captainID', 'acceptedOrderEntity.state')
+            ->addSelect('acceptedOrderEntity.state')
             ->addSelect('bankEntity.bankName', 'bankEntity.accountID', 'bankEntity.stcPay')
 
             ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.captainID = captainProfile.captainID')
