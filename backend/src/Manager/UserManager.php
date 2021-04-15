@@ -145,6 +145,8 @@ class UserManager
             
             //change this to inactive
             $captainProfile->setStatus('active');
+
+            $captainProfile->setIsOnline('active');
             
             $this->entityManager->persist($captainProfile);
             $this->entityManager->flush();
