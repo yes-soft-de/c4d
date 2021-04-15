@@ -774,8 +774,6 @@ send roomID
 methods: POST
 ```
 
-
-
 ### How send notification from Admin
 
 from all captains page 
