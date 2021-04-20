@@ -77,16 +77,32 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
+      - uses: eskatos/gradle-command-action@v1
+        with:
+          gradle-version: 6.7.1
+
+      - name: Generate Gradle Wrapper
+        run: |
+          cd flutter/android
+          gradle flutterWrapper
+          chmod +x gradlew
+
       - name: Distribute app to Alpha track 🚀
         run: |
           cd flutter/android
           bundle exec fastlane alpha
 
-      - name: Upload artifact to Github
+      - name: Upload APK to Github
         uses: actions/upload-artifact@v1
         with:
           name: release-apk
           path: flutter/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB to Github
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-aab
+          path: flutter/build/app/outputs/bundle/release/app-release.aab
 
       - name: Create release and upload apk
         uses: underwindfall/create-release-with-debugapk@v2.0.0
