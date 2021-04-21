@@ -3,7 +3,7 @@
 /captures/
 #/gradlew
 #/gradlew.bat
-/local.properties
+#/local.properties
 GeneratedPluginRegistrant.java
 /app/google-services.json
 /keystore.jks
