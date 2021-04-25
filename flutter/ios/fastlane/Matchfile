@@ -1,5 +1,5 @@
 git_url("git@github.com:yes-soft-de/flutter_keys.git")
-git_branch("c4d")
+git_branch("c4d-v2")
 storage_mode("git")
-app_identifier(["de.yes-soft.c4d"])
+app_identifier(["de.yessoft.c4d"])
 username(ENV['FASTLANE_USER'])

@@ -1,5 +1,5 @@
 
-app_identifier("de.yes-soft.c4d") # The bundle identifier of your app
+app_identifier("de.yessoft.c4d") # The bundle identifier of your app
 apple_id("albandr_000@icloud.com") # Your Apple email address
 
 itc_team_id("122938431") # App Store Connect Team ID
