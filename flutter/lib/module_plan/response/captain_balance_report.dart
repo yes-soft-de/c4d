@@ -8,7 +8,8 @@ class PaymentListReponse {
   PaymentListReponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    data = json['Data'] != null ? new PaymentObject.fromJson(json['Data']) : null;
+    data =
+        json['Data'] != null ? new PaymentObject.fromJson(json['Data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -31,16 +32,18 @@ class PaymentObject {
   int countOrdersDeliverd;
   List<Payments> payments;
   dynamic bank;
-
+  var nextPay;
   PaymentObject(
       {this.bounce,
-        this.sumPayments,
-        this.netProfit,
-        this.total,
-        this.currentTotal,
-        this.countOrdersDeliverd,
-        this.payments,
-        this.bank});
+      this.sumPayments,
+      this.netProfit,
+      this.total,
+      this.currentTotal,
+      this.countOrdersDeliverd,
+      this.payments,
+      this.bank,
+      this.nextPay
+      });
 
   PaymentObject.fromJson(Map<String, dynamic> json) {
     bounce = json['bounce'];
@@ -49,6 +52,7 @@ class PaymentObject {
     total = json['total'];
     currentTotal = json['currentTotal'];
     countOrdersDeliverd = json['countOrdersDeliverd'];
+    nextPay = json['nextPay'];
     if (json['payments'] != null) {
       payments = new List<Payments>();
       json['payments'].forEach((v) {
