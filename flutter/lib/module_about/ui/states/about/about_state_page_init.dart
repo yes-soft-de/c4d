@@ -15,9 +15,10 @@ class AboutStatePageInit extends AboutState {
   UserRole currentRole;
 
   AboutStatePageInit(this.screenState) : super(screenState);
-
+  UserRole get getCurrentRole => currentRole;
   @override
   Widget getUI(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -47,9 +48,9 @@ class AboutStatePageInit extends AboutState {
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               onPressed: () {
-                _showLanguagePicker(context);
+                _showLanguagePicker(context, myLocale);
               },
-              child: Text(_getCurrentLanguage(context)),
+              child: Text(_getCurrentLanguage(context, myLocale)),
             ),
           ],
         ),
@@ -97,10 +98,10 @@ class AboutStatePageInit extends AboutState {
     );
   }
 
-  String _getCurrentLanguage(BuildContext context) {
-    if (currentLanguage == 'en') {
+  String _getCurrentLanguage(BuildContext context, Locale locale) {
+    if (locale.languageCode == 'en') {
       return 'English';
-    } else if (currentLanguage == 'ar') {
+    } else if (locale.languageCode == 'ar') {
       return 'العربية';
     } else {
       return S.of(context).language;
@@ -117,55 +118,162 @@ class AboutStatePageInit extends AboutState {
     }
   }
 
-  void _showLanguagePicker(BuildContext context) {
-    showCupertinoModalPopup(
+  void _showLanguagePicker(BuildContext context, Locale locale) {
+    // showCupertinoModalPopup(
+    //     context: context,
+    //     builder: (_) => Container(
+    //           width: MediaQuery.of(context).size.width,
+    //           height: 250,
+    //           child: CupertinoPicker(
+    //             backgroundColor: Colors.white,
+    //             itemExtent: 42,
+    //             scrollController: FixedExtentScrollController(initialItem: 1),
+    //             children: [
+    //               Text(S.of(context).language),
+    //               Text('English'),
+    //               Text('العربية'),
+    //             ],
+    //             onSelectedItemChanged: (lang) {
+    //               if (lang > 0) {
+    //                 currentLanguage = lang == 2 ? 'ar' : 'en';
+    //                 screenState.setLanguage(lang == 2 ? 'ar' : 'en');
+    //               }
+    //             },
+    //           ),
+    //         ));
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
         context: context,
-        builder: (_) => Container(
-              width: MediaQuery.of(context).size.width,
-              height: 250,
-              child: CupertinoPicker(
-                backgroundColor: Colors.white,
-                itemExtent: 42,
-                scrollController: FixedExtentScrollController(initialItem: 1),
-                children: [
-                  Text(S.of(context).language),
-                  Text('English'),
-                  Text('العربية'),
-                ],
-                onSelectedItemChanged: (lang) {
-                  if (lang > 0) {
-                    currentLanguage = lang == 2 ? 'ar' : 'en';
-                    screenState.setLanguage(lang == 2 ? 'ar' : 'en');
-                  }
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  S.of(context).language,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Image.asset(
+                  'assets/images/united-kingdom.png',
+                  width: 25,
+                ),
+                trailing: locale.languageCode == 'en'
+                    ? Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                      )
+                    : null,
+                title: new Text('English'),
+                onTap: () {
+                  screenState.setLanguage('en');
+                  Navigator.pop(context);
                 },
               ),
-            ));
+              ListTile(
+                leading: Image.asset(
+                  'assets/images/saudi-arabia.png',
+                  width: 25,
+                ),
+                trailing: locale.languageCode == 'ar'
+                    ? Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                      )
+                    : null,
+                title: new Text('العربية'),
+                onTap: () {
+                  screenState.setLanguage('ar');
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 
   void _showRolePicker(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (_) => Container(
-        width: double.maxFinite,
-        height: 250,
-        child: CupertinoPicker(
-          backgroundColor: Colors.white,
-          itemExtent: 42,
-          scrollController: FixedExtentScrollController(initialItem: 1),
-          children: [
-            Text(S.of(context).andIAm),
-            Text(S.of(context).captain),
-            Text(S.of(context).storeOwner),
-          ],
-          onSelectedItemChanged: (type) {
-            if (type > 0) {
-              currentRole =
-                  type == 1 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER;
-              screenState.refresh(this);
-            }
-          },
-        ),
-      ),
-    );
+    // showCupertinoModalPopup(
+    //   context: context,
+    //   builder: (_) => Container(
+    //     width: double.maxFinite,
+    //     height: 250,
+    //     child: CupertinoPicker(
+    //       backgroundColor: Colors.white,
+    //       itemExtent: 42,
+    //       scrollController: FixedExtentScrollController(initialItem: 1),
+    //       children: [
+    //         Text(S.of(context).andIAm),
+    //         Text(S.of(context).captain),
+    //         Text(S.of(context).storeOwner),
+    //       ],
+    //       onSelectedItemChanged: (type) {
+    //         if (type > 0) {
+    //           currentRole =
+    //               type == 1 ? UserRole.ROLE_CAPTAIN : UserRole.ROLE_OWNER;
+    //           screenState.refresh(this);
+    //         }
+    //       },
+    //     ),
+    //   ),
+    // );
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  S.of(context).andIAm,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text(S.of(context).captain),
+                leading: Icon(Icons.local_taxi),
+                trailing: currentRole == UserRole.ROLE_CAPTAIN
+                    ? Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                      )
+                    : null,
+                onTap: () {
+                  currentRole = UserRole.ROLE_CAPTAIN;
+                  screenState.refresh(this);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                trailing: currentRole == UserRole.ROLE_OWNER
+                    ? Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                      )
+                    : null,
+                leading: Icon(Icons.store),
+                title: new Text(S.of(context).storeOwner),
+                onTap: () {
+                  currentRole = UserRole.ROLE_OWNER;
+
+                  screenState.refresh(this);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 }
