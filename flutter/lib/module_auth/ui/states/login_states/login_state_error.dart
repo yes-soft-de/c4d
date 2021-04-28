@@ -24,8 +24,8 @@ class LoginStateError extends LoginState {
 
   @override
   Widget getUI(BuildContext context) {
-    UserRole userRole = ModalRoute.of(context).settings.arguments;
-    if (flag && userRole != null) {
+    UserRole userRole = screen.getInitRole;
+    if (userRole != null && flag) {
       loginTypeController = PageController(initialPage: userRole.index);
       userType = userRole;
       flag = false;
@@ -61,8 +61,9 @@ class LoginStateError extends LoginState {
                 screen.loginCaptain(phone);
               },
               onAlterRequest: () {
-                Navigator.of(context)
-                    .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
+                Navigator.of(context).pushNamed(
+                    AuthorizationRoutes.REGISTER_SCREEN,
+                    arguments: userType);
               },
               isRegister: false,
               onRetry: () {

@@ -20,7 +20,8 @@ class RegisterScreen extends StatefulWidget {
 class RegisterScreenState extends State<RegisterScreen> {
   RegisterState _currentState;
   UserRole currentUserRole;
-
+  UserRole initRole;
+  UserRole get getInitRole => this.initRole;
   @override
   void initState() {
     super.initState();
@@ -71,5 +72,8 @@ class RegisterScreenState extends State<RegisterScreen> {
   void moveToNext() {
     Navigator.of(context).pushNamedAndRemoveUntil(
         InitAccountRoutes.INIT_ACCOUNT_SCREEN, (r) => false);
+  }
+  void setRole(UserRole userType) {
+    initRole = userType;
   }
 }

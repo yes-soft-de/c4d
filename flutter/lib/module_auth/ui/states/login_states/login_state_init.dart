@@ -56,12 +56,14 @@ class LoginStateInit extends LoginState {
               PhoneLoginWidget(
                 codeSent: false,
                 onLoginRequested: (phone) {
+                  screen.setRole(userType);
                   screen.refresh();
                   screen.loginCaptain(phone);
                 },
                 onAlterRequest: () {
-                  Navigator.of(context)
-                      .pushNamed(AuthorizationRoutes.REGISTER_SCREEN,arguments: userType);
+                  Navigator.of(context).pushNamed(
+                      AuthorizationRoutes.REGISTER_SCREEN,
+                      arguments: userType);
                 },
                 isRegister: false,
                 onRetry: () {
@@ -74,6 +76,7 @@ class LoginStateInit extends LoginState {
               ),
               EmailPasswordForm(
                 onLoginRequest: (email, password) {
+                  screen.setRole(userType);
                   screen.refresh();
                   screen.loginOwner(
                     email,

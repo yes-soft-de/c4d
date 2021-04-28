@@ -18,8 +18,8 @@ class RegisterStateError extends RegisterState {
 
   @override
   Widget getUI(BuildContext context) {
-    UserRole userRole = ModalRoute.of(context).settings.arguments;
-    if (flag && userRole != null) {
+    UserRole userRole = screen.getInitRole;
+    if (userRole != null && flag) {
       registerTypeController = PageController(initialPage: userRole.index);
       userType = userRole;
       flag = false;

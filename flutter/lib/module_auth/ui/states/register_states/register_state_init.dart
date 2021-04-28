@@ -54,6 +54,7 @@ class RegisterStateInit extends RegisterState {
               codeSent: false,
               onLoginRequested: (phone) {
                 loading = true;
+                screen.setRole(userType);
                 screen.refresh();
                 screen.registerCaptain(phone);
               },
@@ -70,6 +71,7 @@ class RegisterStateInit extends RegisterState {
             EmailPasswordRegisterForm(
               onRegisterRequest: (email, password, name) {
                 loading = true;
+                screen.setRole(userType);
                 screen.refresh();
                 screen.registerOwner(
                   email,
