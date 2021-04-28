@@ -64,7 +64,7 @@ class _AboutScreenState extends State<AboutScreen> {
     if (_pageOwner != null) {
       currentPage = _pageOwner.getCurrentPage;
     }
-    if (_roleInit != null && role == null) {
+    if (_roleInit != null) {
       role = _roleInit.currentRole;
     }
     return Scaffold(
