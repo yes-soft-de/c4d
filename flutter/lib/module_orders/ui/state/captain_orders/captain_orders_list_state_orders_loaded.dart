@@ -46,15 +46,13 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
                     AsyncSnapshot<List<Widget>> snapshot,
                   ) {
                     if (snapshot.hasData) {
-                      return SingleChildScrollView(
-                        child: RefreshIndicator(
-                          onRefresh: () {
-                            screenState.getMyOrders();
-                            return Future.delayed(Duration(seconds: 3));
-                          },
-                          child: Column(
-                            children: snapshot.data,
-                          ),
+                      return RefreshIndicator(
+                        onRefresh: () {
+                          screenState.getMyOrders();
+                          return Future.delayed(Duration(seconds: 3));
+                        },
+                        child: ListView(
+                          children: snapshot.data,
                         ),
                       );
                     }
@@ -74,15 +72,13 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
                     AsyncSnapshot<List<Widget>> snapshot,
                   ) {
                     if (snapshot.hasData) {
-                      return SingleChildScrollView(
-                        child: RefreshIndicator(
-                          onRefresh: () {
-                            screenState.getMyOrders();
-                            return Future.delayed(Duration(seconds: 3));
-                          },
-                          child: Column(
-                            children: snapshot.data,
-                          ),
+                      return RefreshIndicator(
+                        onRefresh: () {
+                          screenState.getMyOrders();
+                          return Future.delayed(Duration(seconds: 3));
+                        },
+                        child: ListView(
+                          children: snapshot.data,
                         ),
                       );
                     }
