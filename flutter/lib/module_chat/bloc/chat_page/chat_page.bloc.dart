@@ -35,8 +35,8 @@ class ChatPageBloc {
     _chatService.requestMessages(chatRoomID);
   }
 
-  void sendMessage(String chatRoomID, String chat) {
-    _chatService.sendMessage(chatRoomID, chat);
+  void sendMessage(String chatRoomID, String chat, bool support , bool feedBack ) {
+    _chatService.sendMessage(chatRoomID, chat,support,feedBack);
   }
 
   void dispose() {

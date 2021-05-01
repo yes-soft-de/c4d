@@ -37,4 +37,6 @@ class Urls {
   static const TERMS_CAPTAIN = BASE_API + '/termscaptain';
   static const TERMS_OWNER = BASE_API + '/';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
+  static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
+
 }

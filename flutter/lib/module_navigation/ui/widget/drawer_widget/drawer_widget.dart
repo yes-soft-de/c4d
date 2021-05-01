@@ -125,7 +125,7 @@ class DrawerWidget extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         ChatRoutes.chatRoute,
-                        arguments: chatID,
+                        arguments: 'A#$chatID',
                       );
                     },
                     child: ListTile(
