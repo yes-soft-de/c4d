@@ -40,7 +40,7 @@ class ChatRepository {
     );
     } else if (feedBack) {
       result = await _apiClient.post(
-      Urls.NOTIFICATIONNEWCHAT_API,
+      Urls.NOTIFICATIONTOADMIN_API,
       {'roomID': chatRoomID},
       headers: {'Authorization': 'Bearer ' + token},
     );
