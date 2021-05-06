@@ -98,8 +98,8 @@
   "next": "التالي",
   "fromWhatsapp": "من واتساب",
   "defaultBranch": "الفرع الافتراضي",
-  "cash": "نقدا",
-  "online": "تم الدفع",
+  "cash": "الدفع عند الاستلام",
+  "online": "مدفوع",
   "to": "الى",
   "info": "حول الطلب",
   "mohammad": "محمد",
@@ -186,5 +186,6 @@
   "recipientName":"اسم المستلم",
   "date":"التاريخ",
   "go":"انطلق",
-  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found"
+  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found",
+  "locationOfCustomer": "موقع الزبون"
 }

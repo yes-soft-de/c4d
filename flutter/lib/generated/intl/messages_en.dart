@@ -103,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "latestUpdates" : MessageLookupByLibrary.simpleMessage("Latest Updates"),
     "lebanon" : MessageLookupByLibrary.simpleMessage("Lebanon"),
     "loading" : MessageLookupByLibrary.simpleMessage("Loading"),
+    "locationOfCustomer" : MessageLookupByLibrary.simpleMessage("Location of customer"),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
     "me" : MessageLookupByLibrary.simpleMessage("ME"),
     "mediumMoreThan20EmployeesLessThan100" : MessageLookupByLibrary.simpleMessage("21 - 100 Employees"),
