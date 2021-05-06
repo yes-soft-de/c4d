@@ -5,6 +5,7 @@ import 'package:latlong/latlong.dart';
 class OrderModel {
   int id;
   GeoJson to;
+  GeoJson branchLocation;
   LatLng toOnMap;
   String from;
   DateTime creationTime;
@@ -30,6 +31,7 @@ class OrderModel {
     this.clientPhone,
     this.chatRoomId,
     this.distance,
+    this.branchLocation
   });
 
   OrderModel.fromJson(Map<String, dynamic> json) {

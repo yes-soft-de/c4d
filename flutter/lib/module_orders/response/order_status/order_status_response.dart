@@ -10,7 +10,9 @@ class OrderStatusResponse {
   OrderStatusResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    data = json['Data'] != null ? new OrderDetailsData.fromJson(json['Data']) : null;
+    data = json['Data'] != null
+        ? new OrderDetailsData.fromJson(json['Data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -37,7 +39,7 @@ class OrderDetailsData {
   String recipientName;
   String recipientPhone;
   String state;
-  GeoJson fromBranch;
+  FromBranch fromBranch;
   GeoJson location;
   String brancheName;
   String branchCity;
@@ -47,24 +49,24 @@ class OrderDetailsData {
 
   OrderDetailsData(
       {this.id,
-        this.ownerID,
-        this.source,
-        this.destination,
-        this.date,
-        this.updateDate,
-        this.note,
-        this.payment,
-        this.recipientName,
-        this.recipientPhone,
-        this.state,
-        this.phone,
-        this.fromBranch,
-        this.location,
-        this.brancheName,
-        this.branchCity,
-        this.acceptedOrder,
-        this.record,
-        this.uuid});
+      this.ownerID,
+      this.source,
+      this.destination,
+      this.date,
+      this.updateDate,
+      this.note,
+      this.payment,
+      this.recipientName,
+      this.recipientPhone,
+      this.state,
+      this.phone,
+      this.fromBranch,
+      this.location,
+      this.brancheName,
+      this.branchCity,
+      this.acceptedOrder,
+      this.record,
+      this.uuid});
 
   OrderDetailsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -81,7 +83,9 @@ class OrderDetailsData {
     recipientName = json['recipientName'];
     recipientPhone = json['recipientPhone'];
     state = json['state'];
-    fromBranch = GeoJson.fromJson(json['fromBranch']);
+    fromBranch = json['fromBranch'] != null
+        ? FromBranch.fromJson(json['fromBranch'])
+        : null;
     location = GeoJson.fromJson(json['location']);
     brancheName = json['brancheName'];
     branchCity = json['branchCity'];
@@ -95,8 +99,7 @@ class OrderDetailsData {
           });
         }
       }
-    } catch (e) {
-    }
+    } catch (e) {}
     record = json['record'];
     uuid = json['uuid'];
   }
@@ -124,8 +127,7 @@ class OrderDetailsData {
     data['branchCity'] = this.branchCity;
     try {
       data['acceptedOrder'] = this.acceptedOrder;
-    } catch (e) {
-    }
+    } catch (e) {}
     data['record'] = this.record;
     data['uuid'] = this.uuid;
     return data;
@@ -244,7 +246,6 @@ class Location {
   }
 }
 
-
 class AcceptedOrder {
   int id;
   String captainID;
@@ -257,13 +258,13 @@ class AcceptedOrder {
 
   AcceptedOrder(
       {this.id,
-        this.captainID,
-        this.state,
-        this.captainName,
-        this.car,
-        this.image,
-        this.uuid,
-        this.phone});
+      this.captainID,
+      this.state,
+      this.captainName,
+      this.car,
+      this.image,
+      this.uuid,
+      this.phone});
 
   AcceptedOrder.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -49,7 +49,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               ),
             ),
             Text(
-              timeago.format(currentOrder.creationTime),
+              timeago.format(currentOrder.creationTime,
+                  locale: Localizations.localeOf(context).languageCode),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -118,14 +119,32 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             // To Open Maps
             GestureDetector(
               onTap: () {
+                print(currentOrder.branchLocation.lat);
                 var url = WhatsAppLinkHelper.getMapsLink(
-                    currentOrder.to.lat, currentOrder.to.lat);
+                    currentOrder.branchLocation.lat, currentOrder.branchLocation.lon);
                 launch(url);
               },
               child: CommunicationCard(
                 text: S.of(context).getDirection,
                 image: FaIcon(
                   FontAwesomeIcons.mapSigns,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
+              ),
+            ),
+
+            GestureDetector(
+              onTap: () {
+                var url = WhatsAppLinkHelper.getMapsLink(
+                    currentOrder.to.lat, currentOrder.to.lon);
+                launch(url);
+              },
+              child: CommunicationCard(
+                text: S.of(context).locationOfCustomer,
+                image: FaIcon(
+                  FontAwesomeIcons.locationArrow,
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.black,
@@ -162,7 +181,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       screenState.requestOrderProgress(
                           currentOrder, _distanceCalculator.text);
                     } else {
-                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                      screenState
+                          .showSnackBar(S.of(context).pleaseProvideTheDistance);
                     }
                   }),
               Expanded(
@@ -182,7 +202,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       screenState.requestOrderProgress(
                           currentOrder, _distanceCalculator.text);
                     } else {
-                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                      screenState
+                          .showSnackBar(S.of(context).pleaseProvideTheDistance);
                     }
                   }),
             ],
@@ -205,7 +226,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       screenState.requestOrderProgress(
                           currentOrder, _distanceCalculator.text);
                     } else {
-                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                      screenState
+                          .showSnackBar(S.of(context).pleaseProvideTheDistance);
                     }
                   }),
               Expanded(
@@ -225,7 +247,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       screenState.requestOrderProgress(
                           currentOrder, _distanceCalculator.text);
                     } else {
-                      screenState.showSnackBar(S.of(context).pleaseProvideTheDistance);
+                      screenState
+                          .showSnackBar(S.of(context).pleaseProvideTheDistance);
                     }
                   }),
             ],

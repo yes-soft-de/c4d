@@ -1,3 +1,4 @@
+import 'package:c4d/module_orders/response/order_details/order_details_response.dart';
 import 'package:c4d/utils/logger/logger.dart';
 
 class OrdersResponse {
@@ -53,7 +54,7 @@ class Order {
   String brancheName;
   String branchCity;
   dynamic acceptedOrder;
-  dynamic record;
+  Record record;
   String uuid;
   String ownerName;
   Order(
@@ -114,7 +115,12 @@ class Order {
     brancheName = json['brancheName'];
     branchCity = json['branchCity'];
     acceptedOrder = json['acceptedOrder'];
-    record = json['record'];
+    try {
+      record =
+          json['record'] != null ? Record.fromJson(json['record'][0]) : null;
+    } catch (e) {
+      print(e);
+    }
     uuid = json['uuid'];
   }
 
@@ -243,6 +249,7 @@ class GeoJson {
     }
     if (data != null) {
       if (data is Map) {
+        json.addAll(data);
         lat = double.tryParse(json['lat'].toString());
         lon = double.tryParse(json['lon'].toString());
       }
