@@ -59,7 +59,7 @@ class ChatPageState extends State<ChatPage> {
         support = true;
       }
       if (chatRoomId.substring(0,2) == 'F#') {
-        chatRoomId = chatRoomId.substring(1);
+        chatRoomId = chatRoomId.substring(2);
         feedBack = true;
       }
       widget._chatPageBloc.getMessages(chatRoomId);
