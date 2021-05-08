@@ -61,7 +61,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                 ),
               ),
               Text(
-                timeago.format(currentOrder.creationTime, locale: 'ar'),
+                timeago.format(currentOrder.creationTime, locale: Localizations.localeOf(context).languageCode),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,

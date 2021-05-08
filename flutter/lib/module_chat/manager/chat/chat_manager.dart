@@ -16,7 +16,7 @@ class ChatManager {
   void sendMessage(String chatRoomID, ChatModel chatMessage) {
     _chatRepository.sendMessage(chatRoomID, chatMessage);
   }
-  void sendNotification(String chatRoomID){
-    _chatRepository.sendNotification(chatRoomID);
+  void sendNotification(String chatRoomID , bool support , bool feedBack){
+    _chatRepository.sendNotification(chatRoomID,support,feedBack);
   }
 }

@@ -4,13 +4,14 @@ class BalanceModel {
   int bonus;
   int salary;
   List<PaymentModel> payments;
-
+  var nextPay;
   BalanceModel({
     this.nextPaymentDate,
     this.currentBalance,
     this.bonus,
     this.salary,
     this.payments,
+    this.nextPay
   });
 }
 

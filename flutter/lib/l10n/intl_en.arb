@@ -187,5 +187,7 @@
   "recipientName":"Recipient Name",
   "date":"Date",
   "go":"Go",
-  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found"
+  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found",
+  "locationOfCustomer": "Location of customer"
+  
 }

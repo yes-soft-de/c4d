@@ -3,7 +3,7 @@ description: A new Flutter application.
 
 publish_to: 'none'
 
-version: 1.0.13+148
+version: 1.0.10+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.0
   flutter_datetime_picker: ^1.4.0
+  date_time_picker: ^1.1.1
 
   # Localization Library
   flutter_localizations:
@@ -35,7 +36,7 @@ dependencies:
       path: package/inject
 
   # Camera
-  image_picker: ^0.6.7+14
+  image_picker: ^0.6.7+22
 
   # Video
   video_player: ^1.0.0

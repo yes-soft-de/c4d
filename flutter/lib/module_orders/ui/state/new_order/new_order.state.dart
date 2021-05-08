@@ -5,6 +5,7 @@ import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -79,9 +80,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                   autofocus: false,
                   validator: (v) {
                     if (v.isEmpty) {
-                      return S
-                          .of(context)
-                          .pleaseProvideUsTheClientPhoneNumber;
+                      return S.of(context).pleaseProvideUsTheClientPhoneNumber;
                     }
                     return null;
                   },
@@ -109,7 +108,8 @@ class NewOrderStateSuccessState extends NewOrderState {
                   child: FlatButton(
                     padding: EdgeInsets.all(24),
                     onPressed: () {
-                      screenState.addNewOrder(_nameController.text, _phoneController.text);
+                      screenState.addNewOrder(
+                          _nameController.text, _phoneController.text);
                     },
                     child: Text(
                       S.of(context).skip,
@@ -125,9 +125,11 @@ class NewOrderStateSuccessState extends NewOrderState {
                     padding: EdgeInsets.all(24),
                     onPressed: () {
                       if (_contactFormKey.currentState.validate()) {
-                        screenState.addNewOrder(_nameController.text, _phoneController.text);
+                        screenState.addNewOrder(
+                            _nameController.text, _phoneController.text);
                       } else {
-                        screenState.showSnackBar(S.of(context).pleaseCompleteTheForm);
+                        screenState
+                            .showSnackBar(S.of(context).pleaseCompleteTheForm);
                       }
                     },
                     child: Text(
@@ -267,42 +269,84 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                       ),
                     ),
 
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(8),
+                    //     color: Color(0xff454F63),
+                    //   ),
+                    //   child: GestureDetector(
+                    //       onTap: () {
+                    //         DatePicker.showDatePicker(
+                    //           context,
+                    //         ).then((value) {
+                    //           orderDate = value;
+                    //           screenState.refresh();
+                    //         });
+                    //       },
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Padding(
+                    //             padding: EdgeInsets.fromLTRB(8, 16, 8, 16),
+                    //             child: Text(
+                    //               '${orderDate.toIso8601String().substring(11, 16)}',
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           Padding(
+                    //             padding: const EdgeInsets.all(16.0),
+                    //             child: Icon(
+                    //               Icons.calendar_today,
+                    //               color: Colors.grey,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       )),
+                    // ),
+
                     Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xff454F63),
-                      ),
-                      child: GestureDetector(
-                          onTap: () {
-                            DatePicker.showTimePicker(
-                              context,
-                            ).then((value) {
-                              orderDate = value;
-                              screenState.refresh();
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(8, 16, 8, 16),
-                                child: Text(
-                                  '${orderDate.toIso8601String().substring(11, 16)}',
-                                  style: TextStyle(
+                      height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Color(0xff454F63),
+                        ),
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width - 75,
+                              child: DateTimePicker(
+                                use24HourFormat: false,
+                                initialValue: DateTime.now().toString(),
+                                type: DateTimePickerType.dateTimeSeparate,
+                                locale: Locale.fromSubtags(languageCode: 'en'),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2100),
+                                style: TextStyle(
                                     color: Colors.white,
-                                  ),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400),
+                                decoration: InputDecoration(
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  contentPadding: EdgeInsets.all(8),
                                 ),
+                                onChanged: (date) {
+                                  orderDate = DateTime.parse(date);
+                                  screenState.refresh();
+                                },
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Icon(
-                                  Icons.calendar_today,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          )),
-                    ),
+                            ),
+                            Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        )),
                   ],
                 ),
               ),

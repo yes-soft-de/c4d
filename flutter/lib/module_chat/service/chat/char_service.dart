@@ -27,7 +27,7 @@ class ChatService {
     });
   }
 
-  void sendMessage(String chatRoomID, String msg) async {
+  void sendMessage(String chatRoomID, String msg,bool support,feedBack) async {
     FirebaseAuth auth = await FirebaseAuth.instance;
     User user = auth.currentUser;
     ChatModel model = new ChatModel(
@@ -35,7 +35,7 @@ class ChatService {
       sender: user.uid,
       sentDate: DateTime.now().toString(),);
     _chatManager.sendMessage(chatRoomID, model);
-    _chatManager.sendNotification(chatRoomID);
+    _chatManager.sendNotification(chatRoomID,support ,feedBack);
   }
 
   void dispose() {

@@ -124,7 +124,6 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-
   Future<Widget> getConfiguratedApp(
     Map<String, WidgetBuilder> fullRoutesList,
   ) async {

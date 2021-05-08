@@ -7,15 +7,17 @@ class ActivePlanModel {
   int activeOrders;
   int activeCars;
   int total;
+  String nextPayment;
   List<PaymentModel> payments = <PaymentModel>[];
 
-  ActivePlanModel({
-    this.name,
-    this.cars,
-    this.orders,
-    this.activeOrders,
-    this.activeCars,
-    this.payments,
-    this.total
-  });
+  ActivePlanModel(
+      {this.name,
+      this.cars,
+      this.orders,
+      this.activeOrders,
+      this.activeCars,
+      this.payments,
+      this.total,
+      this.nextPayment
+      });
 }

@@ -98,8 +98,8 @@
   "next": "التالي",
   "fromWhatsapp": "من واتساب",
   "defaultBranch": "الفرع الافتراضي",
-  "cash": "نقدا",
-  "online": "تم الدفع",
+  "cash": "الدفع عند الاستلام",
+  "online": "مدفوع",
   "to": "الى",
   "info": "حول الطلب",
   "mohammad": "محمد",
@@ -180,11 +180,12 @@
   "howWeWork": "كيف يعمل التطبيق",
   "took": "استغرق",
   "minutes": "من الدقائق",
-  "iAgreeToTheTermsOfServicePrivacyPolicy": "اوافق على سياسات الاستخدام والخصوصية",
+  "iAgreeToTheTermsOfServicePrivacyPolicy": "اوافق على سياسة الاستخدام والخصوصية",
   "businessName":"الاسم التجاري",
   "unknownNumberOfCar":"عدد السيارات غير محدود",
   "recipientName":"اسم المستلم",
   "date":"التاريخ",
   "go":"انطلق",
-  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found"
+  "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found",
+  "locationOfCustomer": "موقع الزبون"
 }

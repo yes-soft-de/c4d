@@ -52,12 +52,12 @@ class OrdersService {
 
     var date =
         DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000);
-
     OrderModel order = new OrderModel(
       paymentMethod: response.payment,
       from: response.fromBranch.toString(),
       to: response.location,
       creationTime: date,
+      branchLocation: response.fromBranch?.location,
       status: StatusHelper.getStatus(response.state),
       id: orderId,
       chatRoomId: response.uuid,
@@ -84,15 +84,25 @@ class OrdersService {
     if (response.isNotEmpty) {
       response.forEach((element) {
         try {
-          orders.add(OrderModel(
-            to: element.location,
-            from: element.fromBranch?.id.toString(),
-            storeName: element.owner.userName,
-            creationTime: DateTime.fromMillisecondsSinceEpoch(
-                element.date.timestamp * 1000),
-            paymentMethod: element.payment,
-            id: element.id,
-          ));
+          bool flag = true;
+          var creationDate = DateTime.fromMillisecondsSinceEpoch(
+              element.date.timestamp * 1000);
+          if (creationDate.difference(DateTime.now()).inMinutes <= 30 ) {
+            flag = true;
+          } else {
+            flag = false;
+          }
+          if (flag) {
+            orders.add(OrderModel(
+              to: element.location,
+              from: element.fromBranch?.id.toString(),
+              storeName: element.owner.userName,
+              creationTime: DateTime.fromMillisecondsSinceEpoch(
+                  element.date.timestamp * 1000),
+              paymentMethod: element.payment,
+              id: element.id,
+            ));
+          }
         } catch (e, stack) {
           Logger().error('Mapping Error',
               '${e.toString()}:\n${stack.toString()}', StackTrace.current);
@@ -160,6 +170,7 @@ class OrdersService {
       orders.add(new OrderModel(
         to: element.location,
         clientPhone: element.recipientPhone,
+        branchLocation: element.fromBranch?.location,
         from: '',
         storeName: element.ownerName,
         creationTime:

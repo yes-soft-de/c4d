@@ -11,10 +11,10 @@ import '../../../authorization_routes.dart';
 class LoginStateError extends LoginState {
   String errorMsg;
   UserRole userType = UserRole.ROLE_OWNER;
-  final loginTypeController =
+  var loginTypeController =
       PageController(initialPage: UserRole.ROLE_OWNER.index);
   bool loading = false;
-
+  bool flag = true;
   String email;
   String password;
 
@@ -24,6 +24,12 @@ class LoginStateError extends LoginState {
 
   @override
   Widget getUI(BuildContext context) {
+    UserRole userRole = screen.getInitRole;
+    if (userRole != null && flag) {
+      loginTypeController = PageController(initialPage: userRole.index);
+      userType = userRole;
+      flag = false;
+    }
     return Column(
       children: [
         Padding(
@@ -42,51 +48,57 @@ class LoginStateError extends LoginState {
         ),
         Expanded(
             child: PageView(
-              controller: loginTypeController,
-              onPageChanged: (pos) {
-                userType = UserRole.values[pos];
+          controller: loginTypeController,
+          onPageChanged: (pos) {
+            userType = UserRole.values[pos];
+          },
+          children: [
+            PhoneLoginWidget(
+              codeSent: false,
+              onLoginRequested: (phone) {
+                loading = true;
+                screen.refresh();
+                screen.loginCaptain(phone);
               },
-              children: [
-                PhoneLoginWidget(
-                  codeSent: false,
-                  onLoginRequested: (phone) {
-                    loading = true;
-                    screen.refresh();
-                    screen.loginCaptain(phone);
-                  },
-                  onAlterRequest: () {
-                    Navigator.of(context)
-                        .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
-                  },
-                  isRegister: false,
-                  onRetry: () {
-                    screen.retryPhone();
-                  },
-                  onConfirm: (confirmCode) {
-                    loading = true;
-                    screen.refresh();
-                    screen.confirmCaptainSMS(confirmCode);
-                  },
+              onAlterRequest: () {
+                Navigator.of(context).pushNamed(
+                    AuthorizationRoutes.REGISTER_SCREEN,
+                    arguments: userType);
+              },
+              isRegister: false,
+              onRetry: () {
+                screen.retryPhone();
+              },
+              onConfirm: (confirmCode) {
+                loading = true;
+                screen.refresh();
+                screen.confirmCaptainSMS(confirmCode);
+              },
+            ),
+            EmailPasswordForm(
+              onLoginRequest: (email, password) {
+                loading = true;
+                screen.refresh();
+                screen.loginOwner(
+                  email,
+                  password,
+                );
+              },
+            ),
+          ],
+        )),
+        MediaQuery.of(context).viewInsets.bottom == 0
+            ? Container(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    errorMsg,
+                    maxLines: 3,
+                  ),
                 ),
-                EmailPasswordForm(
-                  onLoginRequest: (email, password) {
-                    loading = true;
-                    screen.refresh();
-                    screen.loginOwner(
-                      email,
-                      password,
-                    );
-                  },
-                ),
-              ],
-            )),
-        MediaQuery.of(context).viewInsets.bottom == 0 ? Container(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(errorMsg, maxLines: 3,),
-          ),
-        ) : Container()
+              )
+            : Container()
       ],
     );
   }

@@ -8,14 +8,20 @@ import 'package:flutter/material.dart';
 
 class RegisterStateInit extends RegisterState {
   UserRole userType = UserRole.ROLE_OWNER;
-  final registerTypeController =
+  var registerTypeController =
       PageController(initialPage: UserRole.ROLE_OWNER.index);
   bool loading = false;
-
+  bool flag = true;
   RegisterStateInit(RegisterScreenState screen) : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
+    UserRole userRole = ModalRoute.of(context).settings.arguments;
+    if (flag && userRole != null) {
+      registerTypeController = PageController(initialPage: userRole.index);
+      userType = userRole;
+      flag = false;
+    }
     return Column(
       children: [
         Padding(
@@ -41,12 +47,14 @@ class RegisterStateInit extends RegisterState {
           controller: registerTypeController,
           onPageChanged: (pos) {
             userType = UserRole.values[pos];
+            screen.refresh();
           },
           children: [
             PhoneLoginWidget(
               codeSent: false,
               onLoginRequested: (phone) {
                 loading = true;
+                screen.setRole(userType);
                 screen.refresh();
                 screen.registerCaptain(phone);
               },
@@ -63,6 +71,7 @@ class RegisterStateInit extends RegisterState {
             EmailPasswordRegisterForm(
               onRegisterRequest: (email, password, name) {
                 loading = true;
+                screen.setRole(userType);
                 screen.refresh();
                 screen.registerOwner(
                   email,

@@ -21,7 +21,7 @@ class PlanScreenStateLoaded extends PlanScreenState {
       appBar: AppBar(
         title: Text('${S.of(context).myPlan}'),
       ),
-          body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -191,22 +191,26 @@ class PlanScreenStateLoaded extends PlanScreenState {
       int paymentDay = activePlanModel.payments.last.paymentDate.day;
       int paymentMonth = activePlanModel.payments.last.paymentDate.month;
       int paymentYear = activePlanModel.payments.last.paymentDate.year;
-
+      String paymentDate = activePlanModel.nextPayment;
+      list.add(ListTile(
+        title: Text(
+          S.of(context).nextPaymentDate,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ));
       list.add(
         Card(
           color: Theme.of(context).primaryColor,
           child: ListTile(
-            title: Text(
-              S.of(context).nextPaymentDate,
-              style: TextStyle(color: Colors.white),
-            ),
-            trailing: Text(
-              paymentDay.toString() +
-                  '/' +
-                  paymentMonth.toString() +
-                  '/' +
-                  paymentYear.toString(),
-              style: TextStyle(color: Colors.white),
+            // title: Text(
+            //   S.of(context).nextPaymentDate,
+            //   style: TextStyle(color: Colors.white),
+            // ),
+            title: Center(
+              child: Text(
+                '$paymentDate',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -219,13 +223,13 @@ class PlanScreenStateLoaded extends PlanScreenState {
               S.of(context).myBalance,
               style: TextStyle(color: Colors.white),
             ),
-            trailing: Text(activePlanModel.total.toString(),
+            trailing: Text(
+              activePlanModel.total.toString(),
               style: TextStyle(color: Colors.white),
             ),
           ),
         ),
       );
-    
     } catch (e) {}
 
     list.add(ListTile(

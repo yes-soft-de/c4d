@@ -141,7 +141,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                     onPressed: () {
                       Navigator.of(context).pushNamed(
                         ChatRoutes.chatRoute,
-                        arguments: snapshot.data,
+                        arguments: 'F#${snapshot.data}',
                       );
                     });
               } else {

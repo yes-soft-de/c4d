@@ -3,6 +3,7 @@ import 'package:c4d/module_about/state_manager/about_screen_state_manager.dart';
 import 'package:c4d/module_about/ui/screen/about_screen/about_screen.dart';
 import 'package:c4d/module_about/ui/states/about/about_state.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_init/model/package/packages.model.dart';
 import 'package:c4d/module_init/ui/widget/package_card/package_card.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +131,7 @@ class AboutStatePageCaptain extends AboutState {
                   child: Text(S.of(context).next),
                   onPressed: () {
                     Navigator.of(context)
-                        .pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
+                        .pushNamed(AuthorizationRoutes.LOGIN_SCREEN,arguments: UserRole.ROLE_CAPTAIN);
                   },
                 )
               ],

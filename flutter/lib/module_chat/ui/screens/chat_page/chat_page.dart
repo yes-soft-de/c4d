@@ -31,7 +31,8 @@ class ChatPageState extends State<ChatPage> {
   String chatRoomId;
 
   bool initiated = false;
-
+  bool support = false;
+  bool feedBack = false;
   @override
   void initState() {
     widget._chatPageBloc.chatBlocStream.listen((event) {
@@ -53,6 +54,14 @@ class ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     if (currentState == ChatPageBloc.STATUS_CODE_INIT) {
       chatRoomId = ModalRoute.of(context).settings.arguments;
+      if (chatRoomId.substring(0,2) == 'A#') {
+        chatRoomId = chatRoomId.substring(2);
+        support = true;
+      }
+      if (chatRoomId.substring(0,2) == 'F#') {
+        chatRoomId = chatRoomId.substring(1);
+        feedBack = true;
+      }
       widget._chatPageBloc.getMessages(chatRoomId);
     }
 
@@ -83,7 +92,7 @@ class ChatPageState extends State<ChatPage> {
           ),
           ChatWriterWidget(
             onMessageSend: (msg) {
-              widget._chatPageBloc.sendMessage(chatRoomId, msg);
+              widget._chatPageBloc.sendMessage(chatRoomId, msg,support,feedBack);
             },
             uploadService: widget._uploadService,
           ),

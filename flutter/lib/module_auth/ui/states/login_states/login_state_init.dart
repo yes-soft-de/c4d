@@ -10,13 +10,19 @@ import '../../../authorization_routes.dart';
 
 class LoginStateInit extends LoginState {
   UserRole userType = UserRole.ROLE_OWNER;
-  final loginTypeController =
+  var loginTypeController =
       PageController(initialPage: UserRole.ROLE_OWNER.index);
-
+  bool flag = true;
   LoginStateInit(LoginScreenState screen) : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
+    UserRole userRole = ModalRoute.of(context).settings.arguments;
+    if (flag && userRole != null) {
+      loginTypeController = PageController(initialPage: userRole.index);
+      userType = userRole;
+      flag = false;
+    }
     return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -50,12 +56,14 @@ class LoginStateInit extends LoginState {
               PhoneLoginWidget(
                 codeSent: false,
                 onLoginRequested: (phone) {
+                  screen.setRole(userType);
                   screen.refresh();
                   screen.loginCaptain(phone);
                 },
                 onAlterRequest: () {
-                  Navigator.of(context)
-                      .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
+                  Navigator.of(context).pushNamed(
+                      AuthorizationRoutes.REGISTER_SCREEN,
+                      arguments: userType);
                 },
                 isRegister: false,
                 onRetry: () {
@@ -68,6 +76,7 @@ class LoginStateInit extends LoginState {
               ),
               EmailPasswordForm(
                 onLoginRequest: (email, password) {
+                  screen.setRole(userType);
                   screen.refresh();
                   screen.loginOwner(
                     email,

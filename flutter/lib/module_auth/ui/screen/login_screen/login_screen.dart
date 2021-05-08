@@ -26,6 +26,8 @@ class LoginScreenState extends State<LoginScreen> {
 
   StreamSubscription _stateSubscription;
   bool deepLinkChecked = false;
+  UserRole initRole;
+  UserRole get getInitRole => this.initRole;
 
   void refresh() {
     if (mounted) setState(() {});
@@ -92,5 +94,9 @@ class LoginScreenState extends State<LoginScreen> {
   void retryPhone() {
     _currentStates = LoginStateInit(this);
     if (mounted) setState(() {});
+  }
+
+  void setRole(UserRole userType) {
+    initRole = userType;
   }
 }

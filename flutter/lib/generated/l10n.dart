@@ -1914,6 +1914,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Location of customer`
+  String get locationOfCustomer {
+    return Intl.message(
+      'Location of customer',
+      name: 'locationOfCustomer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

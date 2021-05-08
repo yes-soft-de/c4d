@@ -10,14 +10,20 @@ import 'package:flutter/src/widgets/framework.dart';
 class RegisterStateError extends RegisterState {
   String errorMsg;
   UserRole userType = UserRole.ROLE_OWNER;
-  final registerTypeController =
+  var registerTypeController =
       PageController(initialPage: UserRole.ROLE_OWNER.index);
   bool loading = false;
-
+  bool flag = true;
   RegisterStateError(RegisterScreenState screen, this.errorMsg) : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
+    UserRole userRole = screen.getInitRole;
+    if (userRole != null && flag) {
+      registerTypeController = PageController(initialPage: userRole.index);
+      userType = userRole;
+      flag = false;
+    }
     if (loading) {
       Future.delayed(Duration(seconds: 30)).then((value) {
         loading = false;
