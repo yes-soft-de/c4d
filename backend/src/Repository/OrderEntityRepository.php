@@ -48,7 +48,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getOrdersByOwnerID($userID)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch')
+            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','OrderEntity.kilometer')
 
             ->andWhere('OrderEntity.ownerID = :userID')
 
@@ -61,7 +61,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function orderStatus($orderId)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'OrderEntity.uuid')
+            ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'OrderEntity.uuid','OrderEntity.kilometer','OrderEntity.createAt')
 
             // ->leftJoin(AcceptedOrderEntity::class, 'acceptedOrderEntity', Join::WITH, 'acceptedOrderEntity.orderID = OrderEntity.id')
 
@@ -118,8 +118,8 @@ class OrderEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderEntity')
             ->select('count(OrderEntity.id) as ordersCount') 
            
-            ->andWhere("OrderEntity.state = 'pending' or OrderEntity.state = 'ongoing' or OrderEntity.state = 'picked'")
-           
+            // ->andWhere("OrderEntity.state = 'pending' or OrderEntity.state = 'ongoing' or OrderEntity.state = 'picked'")
+            ->andWhere("OrderEntity.state != 'cancelled'")
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -175,7 +175,7 @@ class OrderEntityRepository extends ServiceEntityRepository
     public function getRecords($ownerID)
     {
         return $this->createQueryBuilder('OrderEntity')
-            ->addSelect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity') 
+            ->addSelect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date as orderDate', 'OrderEntity.updateDate as updateOrderDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity','OrderEntity.kilometer') 
 
             ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'branchesEntity.id = OrderEntity.fromBranch')
 
@@ -220,7 +220,9 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->where('OrderEntity.date >= :fromDate')
             ->andWhere('OrderEntity.date < :toDate')
+            ->andWhere("OrderEntity.state != 'cancelled'")
             ->andWhere('OrderEntity.ownerID = :ownerId')
+           
 
             ->setParameter('fromDate', $fromDate)
             ->setParameter('toDate', $toDate)
@@ -235,7 +237,8 @@ class OrderEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('OrderEntity')
 
           ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'OrderEntity.uuid', 'userProfileEntity.userName as userName')
-
+          
+          ->andWhere("OrderEntity.state != 'cancelled'")
           ->where('OrderEntity.date >= :fromDate')
           ->andWhere('OrderEntity.date < :toDate')
           ->andWhere('OrderEntity.ownerID = :ownerId')
@@ -260,7 +263,8 @@ class OrderEntityRepository extends ServiceEntityRepository
         
           ->where('OrderEntity.date >= :fromDate')
           ->andWhere('OrderEntity.date < :toDate')
-
+          ->andWhere("OrderEntity.state != 'cancelled'")
+          
           ->addGroupBy('OrderEntity.ownerID')
           
           ->addGroupBy('userProfileEntity.userName')
@@ -283,6 +287,7 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->select('SUBSTRING(OrderEntity.date, 1, 10) as myDate', 'OrderEntity.date', 'count(OrderEntity.id) as countOrdersInDay')
         
           ->andWhere('OrderEntity.ownerID = :ownerID') 
+          ->andWhere("OrderEntity.state != 'cancelled'")
           ->andWhere('OrderEntity.date >= :fromDate')
           ->andWhere('OrderEntity.date < :toDate')
 

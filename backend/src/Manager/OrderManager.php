@@ -199,4 +199,19 @@ class OrderManager
     {
         return $this->repository->countOrdersInDay($ownerID, $fromDate, $toDate);
     }
+
+    public function orderCancel($orderId)
+    {
+        $item = $this->repository->find($orderId);
+        $item->setState('cancelled');
+
+        if ($item) {
+            $item = $this->autoMapping->mapToObject(OrderEntity::class, OrderEntity::class, $item, $item);
+            
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $item;
+        }
+    }
 }

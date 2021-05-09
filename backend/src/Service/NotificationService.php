@@ -115,7 +115,6 @@ class NotificationService
             $message = CloudMessage::new()
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
 
-            $this->messaging->sendMulticast($message, $devicesToken); 
             $this->messaging->sendMulticast($message, $devicesToken);  
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
         }

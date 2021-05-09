@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrderEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=OrderEntityRepository::class)
@@ -78,7 +79,7 @@ class OrderEntity
     private $uuid;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $kilometer;
 
@@ -86,6 +87,12 @@ class OrderEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $subscribeId;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createAt;
 
 
     public function getId(): ?int
@@ -264,6 +271,18 @@ class OrderEntity
     public function setSubscribeId(?int $subscribeId): self
     {
         $this->subscribeId = $subscribeId;
+
+        return $this;
+    }
+    
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(?\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
 
         return $this;
     }

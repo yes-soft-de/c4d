@@ -142,6 +142,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->andWhere('subscription.ownerID=:ownerID')
             ->andWhere('subscription.id=:id')
             // ->andWhere("orderEntity.state ='deliverd'")
+            ->andWhere("orderEntity.state != 'cancelled'")
 
             ->addGroupBy('subscription.id')
             ->setMaxResults(1)
