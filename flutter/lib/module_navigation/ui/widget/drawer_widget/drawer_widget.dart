@@ -164,7 +164,7 @@ class DrawerWidget extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context)
-                          .pushNamed(SettingRoutes.ROUTE_SETTINGS);
+                          .pushNamed(SettingRoutes.ROUTE_SETTINGS,arguments: role);
                     },
                     child: ListTile(
                       leading: Icon(Icons.settings),

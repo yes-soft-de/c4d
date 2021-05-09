@@ -36,8 +36,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
+    UserRole userRole = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -84,7 +86,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               future: widget._authService.userRole,
               builder:
                   (BuildContext context, AsyncSnapshot<UserRole> snapshot) {
-
                 if (snapshot.data == UserRole.ROLE_OWNER) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -116,16 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
               },
             ),
-            FutureBuilder(
-              future: _getCaptainStateSwitch(),
-              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                if (snapshot.hasData) {
-                  return snapshot.data;
-                } else {
-                  return Container();
-                }
-              },
-            ),
+            _getCaptainStateSwitch(userRole ?? UserRole.ROLE_OWNER),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -227,14 +219,63 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Future<Widget> _getCaptainStateSwitch() async {
-    var userRole = await widget._authService.userRole;
-    print('${userRole}');
+  Future<Widget> switchBuilder() async {
+    var profile = await widget._profileService.getProfile();
+    return Switch(
+      onChanged: (bool value) {
+        profile.isOnline = value;
+        widget._notificationService
+            .setCaptainActive(value)
+            .whenComplete(() => setState(() {}));
+        widget._profileService
+            .updateCaptainProfile(
+              ProfileRequest(
+                name: profile.name,
+                image: profile.image,
+                phone: profile.phone,
+                drivingLicence: profile.drivingLicence,
+                city: 'Jedda',
+                branch: '-1',
+                car: profile.car,
+                age: profile.age.toString(),
+                isOnline: value == true ? 'active' : 'inactive',
+              ),
+            )
+            .whenComplete(() => setState(() {
+                  loading = false;
+                }));
+      },
+      value: profile.isOnline == true,
+    );
+  }
+
+  Widget switchProgressBuilder() {
+    return FutureBuilder(
+      future: switchBuilder(),
+      builder: (_, snape) {
+        if (snape.connectionState == ConnectionState.waiting) {
+          return Container(
+            width: 48,
+            height: 48,
+            child: Center(
+              child: Container(
+                height: 15,
+                width: 15,
+                child: CircularProgressIndicator()),
+            ),
+          );
+        } else {
+          return snape.data;
+        }
+      },
+    );
+  }
+
+  Widget _getCaptainStateSwitch(UserRole userRole) {
     if (userRole == UserRole.ROLE_OWNER) {
       return Container();
     } else {
       // The User is a captain
-      var profile = await widget._profileService.getProfile();
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -249,30 +290,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(S.of(context).myStatus),
-                Switch(
-                  onChanged: (bool value) {
-                    profile.isOnline = value;
-                    widget._notificationService
-                        .setCaptainActive(value)
-                        .whenComplete(() => setState(() {}));
-                    widget._profileService
-                        .updateCaptainProfile(
-                          ProfileRequest(
-                            name: profile.name,
-                            image: profile.image,
-                            phone: profile.phone,
-                            drivingLicence: profile.drivingLicence,
-                            city: 'Jedda',
-                            branch: '-1',
-                            car: profile.car,
-                            age: profile.age.toString(),
-                            isOnline: value == true ? 'active' : 'inactive',
-                          ),
-                        )
-                        .whenComplete(() => setState(() {}));
-                  },
-                  value: profile.isOnline == true,
-                )
+                switchProgressBuilder(),
               ],
             ),
           ),
