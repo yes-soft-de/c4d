@@ -31,4 +31,6 @@ class UserProfileResponse
     public $accountID;
     
     public $stcPay;
+    
+    public $newMessageStatus;
 }
