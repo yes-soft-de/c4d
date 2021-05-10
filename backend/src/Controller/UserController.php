@@ -408,4 +408,21 @@ class UserController extends BaseController
 
         return $this->response($response, self::CREATE);
     }
+
+    /**
+     * @Route("/ownerupdatenewmessagestatus", name="ownerUpdateNewMessageStatus", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateNewMessageStatusInUserProfile(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class,userProfileUpdateByAdminRequest::class,(object)$data);
+        
+        $response = $this->userService->updateNewMessageStatusInUserProfile($request,false);
+
+        return $this->response($response, self::CREATE);
+    }
 }

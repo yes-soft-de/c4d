@@ -300,4 +300,28 @@ class UserManager
         }
         return null;
     }
+
+    public function getOwnerByUuid($uuid)
+    {
+        return $this->profileRepository->getOwnerByUuid($uuid);
+    }
+
+    public function updateNewMessageStatusInUserProfile($request, $NewMessageStatus)
+    {
+        if ($request) {
+            $entity = $this->profileRepository->find($request->getId());
+        
+            if (!$entity) {
+                return null;
+            }
+            $entity->setNewMessageStatus($NewMessageStatus);
+        
+            $entity = $this->autoMapping->mapToObject(UserProfileEntity::class, UserProfileEntity::class, $entity, $entity);
+          
+            $this->entityManager->flush();
+
+            return $entity;
+        }
+        return null;
+    }
 }

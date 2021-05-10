@@ -67,6 +67,17 @@ class UserProfileEntity
      */
     private $phone;
 
+     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $newMessageStatus;
+
+    
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getUserID(): ?string
     {
         return $this->userID;
@@ -186,4 +197,17 @@ class UserProfileEntity
 
         return $this;
     }
+    
+    public function getNewMessageStatus(): ?bool
+    {
+        return $this->newMessageStatus;
+    }
+
+    public function setNewMessageStatus(?bool $newMessageStatus): self
+    {
+        $this->newMessageStatus = $newMessageStatus;
+
+        return $this;
+    }
+
 }

@@ -31,4 +31,8 @@ class UserProfileCreateResponse
     public $baseURL;
     
     public $bank;
+
+    public $uuid;
+    
+    public $newMessageStatus;
 }

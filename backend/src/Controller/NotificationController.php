@@ -118,4 +118,41 @@ class NotificationController extends BaseController
 
         return $this->response($response, self::CREATE);
     }
+
+    /**
+     * @Route("/notificationtoownerfromadmin", name="notificationToOwnerFromAdmin", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function notificationToOwnerFromAdmin(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
+        
+        $response = $this->notificationService->notificationToOwnerFromAdmin($request);
+
+        return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("/notificationtoadminfromowner", name="messageFromOwnerToAdmin", methods={"POST"})
+     * @IsGranted("ROLE_OWNER")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function notificationToAdminFromOwner(Request $request)
+    {
+        $response=[];
+        $data = json_decode($request->getContent(), true);
+      
+        $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
+       
+        $request->setUserID($this->getUser()->getUsername());
+       
+        $response = $this->notificationService->updateNewMessageStatusInUserProfile($request);
+        
+        return $this->response($response, self::CREATE);
+    }
 }

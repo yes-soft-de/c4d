@@ -31,7 +31,9 @@ class NotificationService
     const MESSAGE_NEW_CHAT = 'لديك رسالة جديدة';
     const MESSAGE_NEW_CHAT_FROM_ADMIN = 'لديك رسالة جديدة من الإدارة';
 
-    public function __construct(AutoMapping $autoMapping, Messaging $messaging, NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService, ReportService $reportService, UserService $userService)
+    public function __construct(AutoMapping $autoMapping,
+     Messaging $messaging,
+      NotificationManager $notificationManager, RoomIdHelperService $roomIdHelperService, ReportService $reportService, UserService $userService)
     {
         $this->messaging = $messaging;
         $this->notificationManager = $notificationManager;
@@ -139,6 +141,24 @@ class NotificationService
         return $response;    
     }
 
+    public function notificationToOwnerFromAdmin($request)
+    {
+        $response=[];
+        $item = $this->getOwnerUuid($request->getRoomID());
+       
+        if($item) {
+            $devicesToken = [];
+            $userTokenOne = $this->getNotificationTokenByUserID($item[0]['userID']);
+            $devicesToken[] = $userTokenOne;
+            $message = CloudMessage::new()
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
+
+            $this->messaging->sendMulticast($message, $devicesToken);  
+            $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
+        } 
+        return $response;    
+    }
+
     public function notificationTokenCreate(NotificationTokenRequest $request)
     {
         $userRegister = $this->notificationManager->notificationTokenCreate($request);
@@ -159,5 +179,21 @@ class NotificationService
     public function getCaptainUuid($uuid)
     {
         return $this->notificationManager->getCaptainUuid($uuid);
+    }
+
+    public function getOwnerUuid($uuid)
+    {
+        return $this->notificationManager->getOwnerUuid($uuid);
+    }
+
+    public function updateNewMessageStatusInUserProfile($request)
+    {
+        $response=[];
+        //NewMessageStatus = true
+        $item = $this->userService->updateNewMessageStatusInUserProfile($request,true);
+        if($item) {
+            $response[] =  $this->autoMapping->map('array', NotificationTokenResponse::class, $item);
+        }
+        return $response;
     }
 }

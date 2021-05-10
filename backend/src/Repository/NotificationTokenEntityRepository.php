@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\NotificationTokenEntity;
 use App\Entity\ReportEntity;
 use App\Entity\CaptainProfileEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
@@ -42,6 +43,19 @@ class NotificationTokenEntityRepository extends ServiceEntityRepository
         ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.uuid = :uuid')
 
         ->andWhere("captainProfileEntity.uuid = :uuid ")
+        ->setParameter('uuid', $uuid) 
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function getOwnerUuid($uuid)
+    {
+        return $this->createQueryBuilder('NotificationTokenEntity')
+        ->addSelect('UserProfileEntity.userID') 
+
+        ->leftJoin(UserProfileEntity::class, 'UserProfileEntity', Join::WITH, 'UserProfileEntity.uuid = :uuid')
+
+        ->andWhere("UserProfileEntity.uuid = :uuid ")
         ->setParameter('uuid', $uuid) 
         ->getQuery()
         ->getResult();

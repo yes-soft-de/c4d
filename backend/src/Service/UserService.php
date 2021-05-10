@@ -512,4 +512,14 @@ class UserService
        return  $this->autoMapping->map(CaptainProfileEntity::class, CaptainProfileCreateResponse::class, $response);
       
     }
+
+    public function updateNewMessageStatusInUserProfile($request, $NewMessageStatus)
+    {
+        $item = $this->userManager->getOwnerByUuid($request->getRoomID());
+   
+       $response = $this->userManager->updateNewMessageStatusInUserProfile($item, $NewMessageStatus);
+    
+        return  $this->autoMapping->map(UserProfileEntity::class, UserProfileResponse::class, $response);
+      
+    }
 }

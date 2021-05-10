@@ -31,7 +31,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('profile')
 
             ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story',
-                'profile.branch', 'profile.free', 'profile.status', 'profile.city', 'profile.phone', 'profile.image')
+                'profile.branch', 'profile.free', 'profile.status', 'profile.city', 'profile.phone', 'profile.image', 'profile.uuid')
             ->andWhere('profile.userID=:userID')
             ->setParameter('userID', $userID)
 
@@ -118,9 +118,18 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.id', 'profile.userID', 'profile.userName', 'profile.free', 'profile.branch', 'profile.uuid')
+            ->select('profile.id', 'profile.userID', 'profile.userName', 'profile.free', 'profile.branch', 'profile.uuid', 'profile.newMessageStatus')
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function getOwnerByUuid($uuid)
+    {
+        return $this->createQueryBuilder('profile')
+            ->andWhere('profile.uuid = :uuid')
+            ->setParameter('uuid',$uuid)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
