@@ -7,6 +7,7 @@ use App\Service\OrderService;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
+use App\Request\OrderCancelRequest;
 use App\Request\DeleteRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -259,5 +260,18 @@ class OrderController extends BaseController
         $result = $this->orderService->getTopOwners();
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("/ordercancel/{orderId}", name="orderCancel", methods={"PUT"})
+     * @IsGranted("ROLE_OWNER")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function orderCancel($orderId)
+    {
+        $response = $this->orderService->orderCancel($orderId);
+      
+        return $this->response($response, self::UPDATE);
     }
 }

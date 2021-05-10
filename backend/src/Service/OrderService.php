@@ -246,7 +246,7 @@ class OrderService
         $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
 
         $this->notificationService->notificationOrderUpdate($notificationRequest);
-        //notification <------end
+        // notification <------end
         // }
         // catch (\Exception $e)
         // {
@@ -306,7 +306,6 @@ class OrderService
         $response = [];
         if($userType == 'ROLE_OWNER') {
             $items = $this->orderManager->getRecords($userId);
-        
             foreach ($items as $item) {
                 
                 $item['record'] = $this->recordService->getRecordsByOrderId($item['id']);
@@ -380,7 +379,7 @@ class OrderService
      {
          $response = [];
          $date = $this->returnDate($year, $month);
-         
+        
     if ($userType == "owner") {
         $response['countOrdersInMonth'] = $this->orderManager->countOrdersInMonthForOwner($date[0], $date[1], $userId);
         $response['countOrdersInDay'] = $this->orderManager->countOrdersInDay($userId, $date[0],$date[1]);
@@ -481,5 +480,24 @@ class OrderService
         {
             return $this->params;
         }
+    }
+
+    public function orderCancel($orderId)
+    {
+        $order = $this->orderManager->orderStatus($orderId);
+       
+        $halfHourLaterTime = date_modify($order['createAt'],'+30 minutes');
+        $nowDate = new DateTime('now');
+        if ( $halfHourLaterTime < $nowDate) {
+            $response=(object)"can not remove it";
+        }
+        else {
+            $item = $this->orderManager->orderCancel($orderId);
+            if($item) {
+                $this->recordService->create($orderId, 'cancelled');
+            }
+            $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+        }
+        return $response;
     }
 }

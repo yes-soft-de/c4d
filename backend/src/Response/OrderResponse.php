@@ -33,4 +33,5 @@ class OrderResponse
     public $kilometer;
     public $rating;
     public $currentStage;
+    public $createAt;
 }
