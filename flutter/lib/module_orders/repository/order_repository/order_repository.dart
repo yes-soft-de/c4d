@@ -147,7 +147,7 @@ class OrderRepository {
   }
 
   Future<Map> getOrder(int orderId) async {
-    dynamic response = await _apiClient.get('${Urls.ORDER_BY_ID}+$orderId');
+    dynamic response = await _apiClient.get('${Urls.ORDER_BY_ID}$orderId');
 
     if (response == null) return null;
     return response['Data'];
