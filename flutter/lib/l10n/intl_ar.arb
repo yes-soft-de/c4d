@@ -17,9 +17,9 @@
   "iFinishedDelivering": "انتهى الطلب",
   "orderIsInUndefinedState": "الطلب في مرحلة غير معروفة",
   "searchingForCaptain": "جار البحث عن كابتن",
-  "captainIsInTheWay": "الكابتن على الطريق",
+  "captainIsInTheWay": "الكابتن في الطريق",
   "captainIsInStore": "الكابتن في المحل",
-  "captainIsDelivering": "الكابتن يوصل الطلب",
+  "captainIsDelivering": "جار توصيل الطلب",
   "captainGotTheCash": "حصل الكابتن على المال",
   "orderIsDone": "انتهى الطلب!",
   "pleaseInputPhoneNumber": "الرجاء ادخال رقم الهاتف",
@@ -187,5 +187,8 @@
   "date":"التاريخ",
   "go":"انطلق",
   "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found",
-  "locationOfCustomer": "موقع الزبون"
+  "locationOfCustomer": "موقع الزبون",
+  "sureForDelete":"هل أنت متأكد من قيامك بحذف هذا الطلب",
+  "deleteSuccess":"تمت عملية حذف الطلب بنجاح"
+
 }

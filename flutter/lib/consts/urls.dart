@@ -10,6 +10,8 @@ class Urls {
   static const BRANCHES_API = BASE_API + '/branches';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
   static const LOG_API = BASE_API + '/getRecords';
+  static const DELETE_ORDER = BASE_API + '/ordercancel/';
+
 
   static const REPORT_API = BASE_API + '/report';
 

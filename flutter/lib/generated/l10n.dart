@@ -1924,6 +1924,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you sure about deleting this order , please confirm`
+  String get sureForDelete {
+    return Intl.message(
+      'Are you sure about deleting this order , please confirm',
+      name: 'sureForDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the order has been deleted successfully`
+  String get deleteSuccess {
+    return Intl.message(
+      'the order has been deleted successfully',
+      name: 'deleteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
