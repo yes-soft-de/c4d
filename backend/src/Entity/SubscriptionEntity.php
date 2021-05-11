@@ -35,6 +35,7 @@ class SubscriptionEntity
     private $startDate;
 
     /**
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $endDate;
@@ -53,11 +54,6 @@ class SubscriptionEntity
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isFuture;
-
-    // /**
-    //  * @ORM\Column(type="boolean", nullable=true)
-    //  */
-    // private $pay;
 
 
     public function getId(): ?int

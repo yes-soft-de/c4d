@@ -28,8 +28,8 @@ class SubscriptionManager
 
     public function create(SubscriptionCreateRequest $request)
     { 
-        // NOTE: change active to inactive 
-        $request->setStatus('active');
+        
+        $request->setStatus('inactive');
         $request->setIsFuture(0);
         $subscriptionEntity = $this->autoMapping->map(SubscriptionCreateRequest::class, SubscriptionEntity::class, $request);
 
@@ -41,9 +41,8 @@ class SubscriptionManager
     }
 
     public function nxetSubscription(SubscriptionNextRequest $request, $status)
-    { 
-        // NOTE: change active to inactive 
-        $request->setStatus('active');
+    {  
+        $request->setStatus('inactive');
        
         if($status == "active") {
              $request->setIsFuture(1);
@@ -71,8 +70,7 @@ class SubscriptionManager
     public function subscriptionUpdateState(SubscriptionUpdateStateRequest $request)
     {
         $subscribeEntity = $this->subscribeRepository->find($request->getId());
-        
-        $request->setEndDate($request->getEndDate());
+        $subscribeEntity->setEndDate(date_modify(new DateTime('now'),'+1 month'));
 
         if (!$subscribeEntity) {
             return null;

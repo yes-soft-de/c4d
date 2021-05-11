@@ -62,8 +62,6 @@ App\Request\SubscriptionUpdateStateRequest:
   properties:
     id:
       - NotBlank: ~
-    endDate:
-      - NotBlank: ~
     status:
       - NotBlank: ~
 

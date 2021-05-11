@@ -6,8 +6,6 @@ class SubscriptionUpdateStateRequest
 {
     private $id;
 
-    private $endDate;
-
     private $status;
 
     private $note;
@@ -18,17 +16,5 @@ class SubscriptionUpdateStateRequest
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate($endDate): self
-    {
-        $this->endDate = new \DateTime($endDate);
-
-        return $this;
     }
 }
