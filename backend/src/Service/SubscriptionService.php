@@ -12,7 +12,6 @@ use App\Response\SubscriptionByIdResponse;
 use App\Response\MySubscriptionsResponse;
 use App\Response\RemainingOrdersResponse;
 use dateTime;
-use Symfony\Component\Validator\Constraints\Length;
 
 class SubscriptionService
 {
@@ -128,6 +127,7 @@ class SubscriptionService
         $response = [];
         //Get full information for the current subscription
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
+
         if ($remainingOrdersOfPackage['subscriptionEndDate']) {
    
             $endDate =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
@@ -200,11 +200,12 @@ class SubscriptionService
 
     public function packagebalance($ownerID)
     {
+        $response=[];
         $subscribe = $this->getSubscriptionCurrent($ownerID);
         if ($subscribe) {
-            return $this->saveFinisheAuto($ownerID, $subscribe['id']);
+           return $this->saveFinisheAuto($ownerID, $subscribe['id']);
         }
-
+        return $response;
     }
 
     public function totalAmountOfSubscriptions($ownerID)

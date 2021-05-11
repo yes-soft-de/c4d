@@ -138,11 +138,10 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
 
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
-            
+            //مراجعة
+            // ->andWhere("orderEntity.state != 'cancelled'")
             ->andWhere('subscription.ownerID=:ownerID')
             ->andWhere('subscription.id=:id')
-            // ->andWhere("orderEntity.state ='deliverd'")
-            ->andWhere("orderEntity.state != 'cancelled'")
 
             ->addGroupBy('subscription.id')
             ->setMaxResults(1)
