@@ -14,7 +14,7 @@ import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
-
+import 'package:c4d/module_plan/plan_routes.dart';
 @provide
 class SettingsScreen extends StatefulWidget {
   final AuthService _authService;
@@ -104,8 +104,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             IconButton(
                                 icon: Icon(Icons.autorenew_sharp),
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed(
-                                      InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                                  showModalBottomSheet(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(10))),
+                                      context: context,
+                                      builder: (context) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                S.of(context).renewPlan,
+                                                style: TextStyle(
+                                                    fontSize: 16.5,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 25, right: 25),
+                                              child: Divider(
+                                                thickness: 2.5,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: double.maxFinite,
+                                              height: 55,
+                                              child: FlatButton(
+                                                onPressed: () {
+                                                   Navigator.pop(context);
+                                                  Navigator.of(context).pushNamed(
+                                                     PlanRoutes.PLAN_ROUTE,
+                                                      arguments: true);
+                                                },
+                                                child: Text(
+                                                    S.of(context).renewOldPlan),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: double.maxFinite,
+                                              height: 55,
+                                              child: FlatButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  Navigator.of(context).pushNamed(
+                                                      InitAccountRoutes
+                                                          .INIT_ACCOUNT_SCREEN,
+                                                      arguments: true);
+                                                },
+                                                child: Text(
+                                                    S.of(context).renewNewPlan),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      });
                                 }),
                           ],
                         ),

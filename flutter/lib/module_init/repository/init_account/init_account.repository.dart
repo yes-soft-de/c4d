@@ -33,6 +33,18 @@ class InitAccountRepository {
 
     return false;
   }
+  Future<bool> renewPackage(int packageId) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.post(
+      Urls.RENEW_SUBSCRIPTION_API,
+      {'packageID': '$packageId'},
+      headers: {'Authorization': 'Bearer ' + token},
+    );
+
+    if (response['status_code'] == '201') return true;
+
+    return false;
+  }
 
   Future<dynamic> createCaptainProfile(
       CreateCaptainProfileRequest request) async {

@@ -12,11 +12,11 @@ class PlanScreen extends StatefulWidget {
   PlanScreen(this._manager);
 
   @override
-  State<StatefulWidget> createState() => _PlanScreenState();
+  State<StatefulWidget> createState() => PlanScreenState();
 }
 
-class _PlanScreenState extends State<PlanScreen> {
-  PlanScreenState _currentState;
+class PlanScreenState extends State<PlanScreen> {
+  PlanState _currentState;
 
   @override
   void initState() {
@@ -24,13 +24,17 @@ class _PlanScreenState extends State<PlanScreen> {
       _currentState = value;
       if (mounted) setState(() {});
     });
-    widget._manager.getActivePlan(widget);
+    widget._manager.getActivePlan(this);
     super.initState();
+  }
+
+  void renewPackage(int packageId)  {
+     widget._manager.renewPackage(packageId,this);
   }
 
   @override
   Widget build(BuildContext context) {
-    _currentState ??= PlanScreenStateLoading(widget);
+    _currentState ??= PlanScreenStateLoading(this);
     return Scaffold(
       body: _currentState.getUI(context) ?? Container(),
     );

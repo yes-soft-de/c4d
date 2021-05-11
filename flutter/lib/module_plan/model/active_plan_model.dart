@@ -1,6 +1,7 @@
 import 'package:c4d/module_plan/model/captain_balance_model.dart';
 
 class ActivePlanModel {
+  int id;
   String name;
   int cars;
   int orders;
@@ -11,13 +12,13 @@ class ActivePlanModel {
   List<PaymentModel> payments = <PaymentModel>[];
 
   ActivePlanModel(
-      {this.name,
+      {this.id,
+      this.name,
       this.cars,
       this.orders,
       this.activeOrders,
       this.activeCars,
       this.payments,
       this.total,
-      this.nextPayment
-      });
+      this.nextPayment});
 }

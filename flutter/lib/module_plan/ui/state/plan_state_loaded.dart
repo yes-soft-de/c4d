@@ -7,13 +7,14 @@ import 'package:c4d/module_plan/ui/widget/payment_row.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PlanScreenStateLoaded extends PlanScreenState {
+class PlanScreenStateLoaded extends PlanState {
   final ActivePlanModel activePlanModel;
-  PlanScreenStateLoaded(PlanScreen screen, this.activePlanModel)
+  PlanScreenStateLoaded(PlanScreenState screen, this.activePlanModel)
       : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
+    bool renew = ModalRoute.of(context).settings.arguments ?? false;
     if (activePlanModel.cars == 0) {
       activePlanModel.cars = 999999999;
     }
@@ -25,6 +26,24 @@ class PlanScreenStateLoaded extends PlanScreenState {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            renew
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 5,
+                      child: ListTile(
+                        tileColor: Theme.of(context).primaryColor,
+                        title: Text(S.of(context).renewSubscription,style: TextStyle(
+                          color: Colors.white
+                        ),),
+                        trailing: Icon(Icons.refresh,color: Colors.white,),
+                        onTap: () {
+                          screen.renewPackage(activePlanModel.id);
+                        },
+                      ),
+                    ),
+                  )
+                : Container(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(S.of(context).activePlan),

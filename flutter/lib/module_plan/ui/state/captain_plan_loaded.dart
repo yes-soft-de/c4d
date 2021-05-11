@@ -6,10 +6,10 @@ import 'package:c4d/module_plan/ui/widget/payment_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class CaptainPlanScreenStateLoaded extends PlanScreenState {
+class CaptainPlanScreenStateLoaded extends PlanState {
   BalanceModel captainBalanceModel;
 
-  CaptainPlanScreenStateLoaded(PlanScreen screen, this.captainBalanceModel)
+  CaptainPlanScreenStateLoaded(PlanScreenState screen, this.captainBalanceModel)
       : super(screen);
 
   @override

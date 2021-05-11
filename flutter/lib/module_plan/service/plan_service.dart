@@ -27,17 +27,20 @@ class PlanService {
     List orders = responses[0];
     PackageBalanceResponse packages = responses[1];
     BalanceModel balanceModel = responses[2];
-    var activePlan = ActivePlanModel(
-      activeCars: orders == null ? 0 : orders.length,
-      activeOrders: packages.data.countOrdersDelivered,
-      name: packages.data.packagename,
-      cars: int.tryParse(packages.data.packageCarCount),
-      orders: int.tryParse(packages.data.packageOrderCount),
-      payments: balanceModel.payments,
-      total: balanceModel.currentBalance,
-      nextPayment: balanceModel.nextPay.toString()
-    );
-    return activePlan;
+    if (balanceModel != null && packages != null) {
+      var activePlan = ActivePlanModel(
+          id: packages.data.packageID,
+          activeCars: orders == null ? 0 : orders.length,
+          activeOrders: packages.data.countOrdersDelivered,
+          name: packages.data.packagename,
+          cars: int.tryParse(packages.data.packageCarCount),
+          orders: int.tryParse(packages.data.packageOrderCount),
+          payments: balanceModel.payments,
+          total: balanceModel.currentBalance,
+          nextPayment: balanceModel.nextPay.toString());
+      return activePlan;
+    }
+    return null;
   }
 
   Future<BalanceModel> getOwnerPayments() async {
@@ -47,7 +50,10 @@ class PlanService {
       return null;
     }
 
-    var resultModel = BalanceModel(payments: [],currentBalance:result.data.currentTotal,nextPay: result.data.nextPay);
+    var resultModel = BalanceModel(
+        payments: [],
+        currentBalance: result.data.currentTotal,
+        nextPay: result.data.nextPay);
     result.data.payments.forEach((element) {
       resultModel.payments.add(PaymentModel(
         DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000),

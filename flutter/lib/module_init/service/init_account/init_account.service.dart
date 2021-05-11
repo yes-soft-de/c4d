@@ -38,6 +38,8 @@ class InitAccountService {
 
   Future<bool> subscribePackage(int packageId) async =>
       await _manager.subscribePackage(packageId);
+      Future<bool> renewPackage(int packageId) async =>
+      await _manager.renewPackage(packageId);
 
   Future<dynamic> createCaptainProfile(String name, String age, String image, String licence) {
     try {
