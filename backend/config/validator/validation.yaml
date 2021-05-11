@@ -141,8 +141,6 @@ App\Request\CaptainProfileUpdateByAdminRequest:
 
 App\Request\OrderCreateRequest:
   properties:
-    destination:
-      - NotBlank: ~
     date:
       - NotBlank: ~
     payment:
