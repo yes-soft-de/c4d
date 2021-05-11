@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "ProvideDistanceInKm" : MessageLookupByLibrary.simpleMessage("distance in KM"),
     "accept" : MessageLookupByLibrary.simpleMessage("Accept"),
     "acceptOrder" : MessageLookupByLibrary.simpleMessage("Accept Order"),
     "accountCreated" : MessageLookupByLibrary.simpleMessage("Account Created"),

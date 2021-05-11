@@ -1944,6 +1944,16 @@ class S {
       args: [],
     );
   }
+
+  /// `distance in KM`
+  String get ProvideDistanceInKm {
+    return Intl.message(
+      'distance in KM',
+      name: 'ProvideDistanceInKm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

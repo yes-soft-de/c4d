@@ -189,6 +189,7 @@
   "errorLoggingInFirebaseAccountNotFound": "Error logging in, firebase account not found",
   "locationOfCustomer": "موقع الزبون",
   "sureForDelete":"هل أنت متأكد من قيامك بحذف هذا الطلب",
-  "deleteSuccess":"تمت عملية حذف الطلب بنجاح"
+  "deleteSuccess":"تمت عملية حذف الطلب بنجاح",
+  "ProvideDistanceInKm":"المسافة المقطوعة بالكيلومتر"
 
 }
