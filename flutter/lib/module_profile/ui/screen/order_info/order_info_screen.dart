@@ -43,7 +43,7 @@ class OrderInfoScreenState extends State<OrderInfoScreen> {
           ),
         ),
       ),
-      body: currentState.getUI(context),
+      body: currentState?.getUI(context)??OrderInfoStateLoading(this).getUI(context),
     );
   }
 

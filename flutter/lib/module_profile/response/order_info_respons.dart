@@ -19,6 +19,7 @@ class OrderInfoRespons {
   String countOrdersInMonth;
   String countOrdersInDay;
   Owner owner;
+  var kilometer;
   OrderInfoRespons({
     this.id,
     this.ownerID,
@@ -38,6 +39,7 @@ class OrderInfoRespons {
     this.countOrdersInMonth,
     this.countOrdersInDay,
     this.owner,
+    this.kilometer
   });
 
   OrderInfoRespons.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class OrderInfoRespons {
     recipientPhone = json['recipientPhone'];
     fromBranch = BranchName.fromJson(json['fromBranch']);
     owner = Owner.fromJson(json['owner']);
+    kilometer = json['kilometer'];
   }
 }
 
