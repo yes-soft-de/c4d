@@ -259,13 +259,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
             height: 48,
             child: Center(
               child: Container(
-                height: 15,
-                width: 15,
-                child: CircularProgressIndicator()),
+                  height: 15, width: 15, child: CircularProgressIndicator()),
             ),
           );
-        } else {
+        } else if (snape.hasData) {
           return snape.data;
+        } else {
+          return Container(
+            width: 48,
+            height: 48,
+            child: Center(
+              child: Container(
+                  height: 15, width: 15, child: CircularProgressIndicator()),
+            ),
+          );
         }
       },
     );
