@@ -167,7 +167,7 @@ class OrdersListStateError extends OwnerOrdersListState {
   @override
   Widget getUI(BuildContext context) {
     return Center(
-      child: Text('${errorMsg}'),
+      child: Text('${errorMsg=='not verified'?S.of(context).notVerified:errorMsg}'),
     );
   }
 }

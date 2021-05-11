@@ -14,6 +14,7 @@ import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/response/order_info_respons.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/utils/logger/logger.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inject/inject.dart';
 
 @provide
@@ -66,7 +67,8 @@ class OrdersService {
       paymentMethod: response.payment,
       from: response.fromBranch.toString(),
       to: response.destination,
-      creationTime: DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000),
+      creationTime:
+          DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000),
       branchLocation: response.fromBranch?.location,
       status: StatusHelper.getStatus(response.state),
       id: orderId,
@@ -96,8 +98,9 @@ class OrdersService {
       response.forEach((element) {
         try {
           bool flag = true;
-          var creationDate = DateTime.fromMillisecondsSinceEpoch(
-              element.date.timestamp * 1000).toLocal();
+          var creationDate =
+              DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000)
+                  .toLocal();
           if (creationDate.difference(DateTime.now()).inMinutes <= 30) {
             flag = true;
           } else {
@@ -143,8 +146,21 @@ class OrdersService {
     );
     return _ordersManager.addNewOrder(orderRequest);
   }
-
+ Stream onUpdateChangeWatcher(int orderId) {
+    return FirebaseFirestore.instance
+        .collection('order_state')
+        .doc(orderId.toString())
+        .collection('order_history')
+        .snapshots();
+  }
   Future<OrderDetailsResponse> updateOrder(int orderId, OrderModel order) {
+    
+    FirebaseFirestore.instance
+        .collection('order_state')
+        .doc(orderId.toString())
+        .collection('order_history')
+        .add({'date': DateTime.now().toLocal().toIso8601String()});
+
     switch (order.status) {
       case OrderStatus.GOT_CAPTAIN:
         var request = AcceptOrderRequest(orderID: orderId.toString());
