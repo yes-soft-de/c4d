@@ -130,6 +130,15 @@ class OrderRepository {
     return CompanyInfoResponse.fromJson(response['Data'][0]);
   }
 
+  Future<bool> deleteOrder(int orderId) async {
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.put('${Urls.DELETE_ORDER}$orderId', {'state':'canceled'},
+        headers: {'Authorization': 'Bearer $token'});
+
+    if (response == null) return null;
+    return response['status_code'].toString() == '204';
+  }
+
   Future<List> getUpdates() async {
     dynamic response = await _apiClient.get('${Urls.UPDATES_API}');
 

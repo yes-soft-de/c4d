@@ -216,7 +216,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   }
 
   Future<List<Widget>> getNearbyOrdersList(BuildContext context) async {
-    var availableOrders = await sortLocations();
+    //var availableOrders = await sortLocations();
     var uiList = <Widget>[];
     orders.forEach((element) {
       uiList.add(Container(
@@ -240,35 +240,35 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     return uiList;
   }
 
-  Future<List<OrderModel>> sortLocations() async {
-    Location location = new Location();
+  // Future<List<OrderModel>> sortLocations() async {
+  //   Location location = new Location();
 
-    bool _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-    }
+  //   bool _serviceEnabled = await location.serviceEnabled();
+  //   if (!_serviceEnabled) {
+  //     _serviceEnabled = await location.requestService();
+  //   }
 
-    var _permissionGranted = await location.requestPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      return orders;
-    }
+  //   var _permissionGranted = await location.requestPermission();
+  //   if (_permissionGranted == PermissionStatus.denied) {
+  //     return orders;
+  //   }
 
-    final Distance distance = Distance();
+  //   final Distance distance = Distance();
 
-    var myLocation = await Location.instance.getLocation();
-    LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
-    orders.sort((a, b) {
-      try {
-        var pos1 = LatLng(a.to.lat, a.to.lon);
-        var pos2 = LatLng(b.to.lat, b.to.lon);
+  //   var myLocation = await Location.instance.getLocation();
+  //   LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
+  //   orders.sort((a, b) {
+  //     try {
+  //       var pos1 = LatLng(a.to.lat, a.to.lon);
+  //       var pos2 = LatLng(b.to.lat, b.to.lon);
 
-        var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
-            distance.as(LengthUnit.Kilometer, pos2, myPos);
-        return straightDistance;
-      } catch (e) {
-        return 1;
-      }
-    });
-    return orders.toList();
-  }
+  //       var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
+  //           distance.as(LengthUnit.Kilometer, pos2, myPos);
+  //       return straightDistance;
+  //     } catch (e) {
+  //       return 1;
+  //     }
+  //   });
+  //   return orders.toList();
+  // }
 }

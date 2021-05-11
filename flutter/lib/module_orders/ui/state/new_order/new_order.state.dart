@@ -307,7 +307,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                     // ),
 
                     Container(
-                      height: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: Color(0xff454F63),
@@ -318,7 +318,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                             Container(
                               width: MediaQuery.of(context).size.width - 75,
                               child: DateTimePicker(
-                                use24HourFormat: false,
+                                use24HourFormat: true,
                                 initialValue: DateTime.now().toString(),
                                 type: DateTimePickerType.dateTimeSeparate,
                                 locale: Locale.fromSubtags(languageCode: 'en'),
@@ -337,6 +337,8 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                                 ),
                                 onChanged: (date) {
                                   orderDate = DateTime.parse(date);
+                                  print(orderDate);
+                                  print(orderDate.toUtc().toIso8601String());
                                   screenState.refresh();
                                 },
                               ),
@@ -411,10 +413,10 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                       }
                       screenState.initNewOrder(
                         activeBranch,
-                        GeoJson(lat: 0, lon: 0),
+                        _toController.text,
                         _infoController.text.trim(),
                         _selectedPaymentMethod ?? _selectedPaymentMethod.trim(),
-                        orderDate.toIso8601String(),
+                        orderDate.toUtc().toIso8601String(),
                       );
                     },
                     child: Text(

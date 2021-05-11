@@ -49,6 +49,24 @@ class OrderStatusStateManager {
     });
   }
 
+  void deleteOrder(OrderModel model, OrderStatusScreenState screenState) {
+    _stateSubject.add(OrderDetailsStateLoading(screenState));
+    _ordersService.deleteOrder(model.id).then((value) {
+      if (value == null) {
+        _stateSubject.add(OrderDetailsStateError(
+            "sorry, we couldn't delever your request", screenState));
+      } else {
+        if (value) {
+          _stateSubject.add(OrderDetailsStateDeleteSuccess(screenState));
+        } else {
+          _stateSubject.add(OrderDetailsStateError(
+              "You're not allowed to preform this opperation right now",
+              screenState));
+        }
+      }
+    });
+  }
+
   void updateOrder(OrderModel model, OrderStatusScreenState screenState) {
     _ordersService.updateOrder(model.id, model).then((value) {
       getOrderDetails(model.id, screenState);
@@ -56,6 +74,6 @@ class OrderStatusStateManager {
   }
 
   Future report(int orderId, String reason) async {
-   await _reportService.createReport(orderId, reason);
+    await _reportService.createReport(orderId, reason);
   }
 }

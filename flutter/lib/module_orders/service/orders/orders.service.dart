@@ -32,7 +32,7 @@ class OrdersService {
     response.forEach((element) {
       if (element.state != 'delivered') {
         orders.add(new OrderModel(
-          to: element.location,
+          to: element.destination,
           clientPhone: element.recipientPhone,
           from: element.fromBranch.brancheName,
           creationTime: DateTime.fromMillisecondsSinceEpoch(
@@ -49,14 +49,24 @@ class OrdersService {
   Future<OrderModel> getOrderDetails(int orderId) async {
     OrderDetailsData response = await _ordersManager.getOrderDetails(orderId);
     if (response == null) return null;
+    bool canRemove = false;
+    var date;
+    if (response.createAt != null) {
+      date = DateTime.fromMillisecondsSinceEpoch(
+          response.createAt.timestamp * 1000);
+    } else {
+      date =
+          DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000);
+    }
 
-    var date =
-        DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000);
+    if (DateTime.now().difference(date).inMinutes <= 30) {
+      canRemove = true;
+    }
     OrderModel order = new OrderModel(
       paymentMethod: response.payment,
       from: response.fromBranch.toString(),
-      to: response.location,
-      creationTime: date,
+      to: response.destination,
+      creationTime: DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000),
       branchLocation: response.fromBranch?.location,
       status: StatusHelper.getStatus(response.state),
       id: orderId,
@@ -65,6 +75,7 @@ class OrdersService {
       captainPhone: response.acceptedOrder.isNotEmpty
           ? response.acceptedOrder.last.phone
           : null,
+      canRemove: canRemove,
     );
 
     return order;
@@ -86,15 +97,15 @@ class OrdersService {
         try {
           bool flag = true;
           var creationDate = DateTime.fromMillisecondsSinceEpoch(
-              element.date.timestamp * 1000);
-          if (creationDate.difference(DateTime.now()).inMinutes <= 30 ) {
+              element.date.timestamp * 1000).toLocal();
+          if (creationDate.difference(DateTime.now()).inMinutes <= 30) {
             flag = true;
           } else {
             flag = false;
           }
           if (flag) {
             orders.add(OrderModel(
-              to: element.location,
+              to: element.destination,
               from: element.fromBranch?.id.toString(),
               storeName: element.owner.userName,
               creationTime: DateTime.fromMillisecondsSinceEpoch(
@@ -115,7 +126,7 @@ class OrdersService {
 
   Future<bool> addNewOrder(
       Branch fromBranch,
-      GeoJson destination,
+      String destination,
       String note,
       String paymentMethod,
       String recipientName,
@@ -168,7 +179,7 @@ class OrdersService {
     List<OrderModel> orders = [];
     response.forEach((element) {
       orders.add(new OrderModel(
-        to: element.location,
+        to: element.destination,
         clientPhone: element.recipientPhone,
         branchLocation: element.fromBranch?.location,
         from: '',
@@ -205,5 +216,11 @@ class OrdersService {
     Map response = await _ordersManager.getOrder(orderId);
     if (response == null) return null;
     return OrderInfoRespons.fromJson(response);
+  }
+
+  Future<bool> deleteOrder(int id) async {
+    bool response = await _ordersManager.deleteOrder(id);
+    if (response == null) return null;
+    return response;
   }
 }

@@ -4,7 +4,7 @@ import 'package:latlong/latlong.dart';
 
 class OrderModel {
   int id;
-  GeoJson to;
+  String to;
   GeoJson branchLocation;
   LatLng toOnMap;
   String from;
@@ -17,22 +17,23 @@ class OrderModel {
   String chatRoomId;
   String storeName;
   String distance;
-
-  OrderModel({
-    this.id,
-    this.to,
-    this.from,
-    this.creationTime,
-    this.paymentMethod,
-    this.status,
-    this.storeName,
-    this.ownerPhone,
-    this.captainPhone,
-    this.clientPhone,
-    this.chatRoomId,
-    this.distance,
-    this.branchLocation
-  });
+  bool canRemove;
+  OrderModel(
+      {this.id,
+      this.to,
+      this.from,
+      this.creationTime,
+      this.paymentMethod,
+      this.status,
+      this.storeName,
+      this.ownerPhone,
+      this.captainPhone,
+      this.clientPhone,
+      this.chatRoomId,
+      this.distance,
+      this.branchLocation,
+      this.canRemove
+      });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     if (json == null) {

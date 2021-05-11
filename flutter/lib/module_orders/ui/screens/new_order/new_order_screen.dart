@@ -25,7 +25,7 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Branch fromBranch;
-  GeoJson destination;
+  String destination;
   String note;
   String paymentMethod;
   String recipientName;
@@ -47,7 +47,7 @@ class NewOrderScreenState extends State<NewOrderScreen> {
     );
   }
 
-  void initNewOrder(Branch fromBranch, GeoJson destination, String note,
+  void initNewOrder(Branch fromBranch, String destination, String note,
       String paymentMethod, String date) {
     this.fromBranch = fromBranch;
     this.destination = destination;

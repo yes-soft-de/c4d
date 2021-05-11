@@ -33,99 +33,138 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
             OrdersRoutes.OWNER_ORDERS_SCREEN, (route) => false);
         return;
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Flex(
-            direction: Axis.vertical,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: OrderProgressionHelper.getStatusIcon(
-                    currentOrder.status, context),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  OrderProgressionHelper.getCurrentStageHelper(
+      child: Scaffold(
+        floatingActionButton:
+            currentOrder.canRemove && currentOrder.status == OrderStatus.INIT
+                ? FloatingActionButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) {
+                            return AlertDialog(
+                              title: Text(S.of(context).confirm),
+                              content: Container(
+                                height: 50,
+                                child: Text(S.of(context).sureForDelete),
+                              ),
+                              actions: [
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(S.of(context).cancel)),
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      screenState.deleteOrder(currentOrder);
+                                    },
+                                    child: Text(S.of(context).confirm)),
+                              ],
+                            );
+                          });
+                    },
+                    backgroundColor: Colors.red,
+                    child: Icon(Icons.delete),
+                  )
+                : null,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Flex(
+              direction: Axis.vertical,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: OrderProgressionHelper.getStatusIcon(
                       currentOrder.status, context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    OrderProgressionHelper.getCurrentStageHelper(
+                        currentOrder.status, context),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: StepProgressIndicator(
+                    totalSteps: 5,
+                    currentStep: currentOrder.status.index,
+                  ),
+                ),
+                Text(
+                  timeago.format(currentOrder.creationTime,
+                      locale: Localizations.localeOf(context).languageCode),
                   textAlign: TextAlign.center,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: StepProgressIndicator(
-                  totalSteps: 5,
-                  currentStep: currentOrder.status.index,
-                ),
-              ),
-              Text(
-                timeago.format(currentOrder.creationTime, locale: Localizations.localeOf(context).languageCode),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-            ],
-          ),
-          currentOrder.status == OrderStatus.INIT ? Container() :Flex(
-            direction: Axis.vertical,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    ChatRoutes.chatRoute,
-                    arguments: currentOrder.chatRoomId,
-                  );
-                },
-                child: CommunicationCard(
-                  text: S.of(context).openChatRoom,
-                  image: Icon(
-                    Icons.chat_rounded,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  var url = WhatsAppLinkHelper.getWhatsAppLink(
-                      currentOrder.captainPhone);
-                  launch(url);
-                },
-                child: CommunicationCard(
-                  text: S.of(context).whatsappWithCaptain,
-                  image: FaIcon(
-                    FontAwesomeIcons.whatsapp,
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-              currentOrder.clientPhone == null
-                  ? Container()
-                  : GestureDetector(
-                      onTap: () {
-                        var url = WhatsAppLinkHelper.getWhatsAppLink(
-                            currentOrder.clientPhone);
-                        launch(url);
-                      },
-                      child: CommunicationCard(
-                        text: S.of(context).whatsappWithClient,
-                        image: FaIcon(
-                          FontAwesomeIcons.whatsapp,
-                          color: Colors.green,
+              ],
+            ),
+            currentOrder.status == OrderStatus.INIT
+                ? Container()
+                : Flex(
+                    direction: Axis.vertical,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            ChatRoutes.chatRoute,
+                            arguments: currentOrder.chatRoomId,
+                          );
+                        },
+                        child: CommunicationCard(
+                          text: S.of(context).openChatRoom,
+                          image: Icon(
+                            Icons.chat_rounded,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                          ),
                         ),
                       ),
-                    ),
-              Container(
-                height: 48,
-              ),
-            ],
-          ),
-        ],
+                      GestureDetector(
+                        onTap: () {
+                          var url = WhatsAppLinkHelper.getWhatsAppLink(
+                              currentOrder.captainPhone);
+                          launch(url);
+                        },
+                        child: CommunicationCard(
+                          text: S.of(context).whatsappWithCaptain,
+                          image: FaIcon(
+                            FontAwesomeIcons.whatsapp,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+                      currentOrder.clientPhone == null
+                          ? Container()
+                          : GestureDetector(
+                              onTap: () {
+                                var url = WhatsAppLinkHelper.getWhatsAppLink(
+                                    currentOrder.clientPhone);
+                                launch(url);
+                              },
+                              child: CommunicationCard(
+                                text: S.of(context).whatsappWithClient,
+                                image: FaIcon(
+                                  FontAwesomeIcons.whatsapp,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ),
+                      Container(
+                        height: 48,
+                      ),
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }

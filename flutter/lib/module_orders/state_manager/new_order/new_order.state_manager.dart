@@ -26,7 +26,7 @@ class NewOrderStateManager {
 
   void addNewOrder(
       Branch fromBranch,
-      GeoJson destination,
+      String destination,
       String note,
       String paymentMethod,
       String recipientName,

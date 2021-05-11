@@ -13,7 +13,9 @@ class UpdateOrderRequest {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
     data['state'] = this.state;
-    data['kilometer'] = this.distance;
+    if (distance != null) {
+      data['kilometer'] = double.tryParse(this.distance);
+    }
     return data;
   }
 }

@@ -38,4 +38,7 @@ class OrdersManager {
       _repository.updateOrder(acceptOrderRequest);
   Future<List> getUpdates() => _repository.getUpdates();
   Future<Map> getOrder(int orderId) => _repository.getOrder(orderId);
+
+  Future<bool> deleteOrder(int orderId) => _repository.deleteOrder(orderId);
+
 }
