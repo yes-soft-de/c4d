@@ -121,7 +121,7 @@ class DrawerWidget extends StatelessWidget {
                       title: Text(S.of(context).directSupport),
                     ),
                   ),
-                  role == UserRole.ROLE_CAPTAIN ? GestureDetector(
+                  chatID !=null ? GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         ChatRoutes.chatRoute,
