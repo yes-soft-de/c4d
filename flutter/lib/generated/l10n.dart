@@ -1954,6 +1954,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Your subscription not verified yet`
+  String get notVerified {
+    return Intl.message(
+      'Your subscription not verified yet',
+      name: 'notVerified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription options`
+  String get renewPlan {
+    return Intl.message(
+      'Subscription options',
+      name: 'renewPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Renew old package`
+  String get renewOldPlan {
+    return Intl.message(
+      'Renew old package',
+      name: 'renewOldPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription with new package`
+  String get renewNewPlan {
+    return Intl.message(
+      'Subscription with new package',
+      name: 'renewNewPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your subscription has been renewed`
+  String get successRenew {
+    return Intl.message(
+      'Your subscription has been renewed',
+      name: 'successRenew',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

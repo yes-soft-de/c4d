@@ -191,7 +191,11 @@
   "locationOfCustomer": "Location of customer",
   "sureForDelete":"Are you sure about deleting this order , please confirm",
   "deleteSuccess":"the order has been deleted successfully",
-  "ProvideDistanceInKm":"distance in KM"
-
+  "ProvideDistanceInKm":"distance in KM",
+  "notVerified":"Your subscription not verified yet",
+  "renewPlan":"Subscription options",
+  "renewOldPlan":"Renew old package",
+  "renewNewPlan":"Subscription with new package",
+  "successRenew":"Your subscription has been renewed"
 
 }

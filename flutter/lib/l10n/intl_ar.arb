@@ -190,6 +190,11 @@
   "locationOfCustomer": "موقع الزبون",
   "sureForDelete":"هل أنت متأكد من قيامك بحذف هذا الطلب",
   "deleteSuccess":"تمت عملية حذف الطلب بنجاح",
-  "ProvideDistanceInKm":"المسافة المقطوعة بالكيلومتر"
+  "ProvideDistanceInKm":"المسافة المقطوعة بالكيلومتر",
+  "notVerified":"لم يتم تفعيل الباقة بعد",
+  "renewPlan":"كيفية تجديد الإشتراك",
+  "renewOldPlan":"تجديد الاشتراك الحالي",
+  "renewNewPlan":"اشتراك بباقة جديدة",
+  "successRenew":"تم تجديد الباقة بنجاح"
 
 }
