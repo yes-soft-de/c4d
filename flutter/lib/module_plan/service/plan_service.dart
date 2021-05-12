@@ -37,7 +37,9 @@ class PlanService {
           orders: int.tryParse(packages.data.packageOrderCount),
           payments: balanceModel.payments,
           total: balanceModel.currentBalance,
-          nextPayment: balanceModel.nextPay.toString());
+          nextPayment: balanceModel.nextPay.toString(),
+          state: packages.data.subscriptionstatus
+          );
       return activePlan;
     }
     return null;

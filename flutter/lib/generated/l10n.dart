@@ -2004,6 +2004,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Important Note`
+  String get warnning {
+    return Intl.message(
+      'Important Note',
+      name: 'warnning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your subscription not activate yet please wait`
+  String get inactive {
+    return Intl.message(
+      'Your subscription not activate yet please wait',
+      name: 'inactive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You reach your limit of orders you can renew your subscription from settings`
+  String get outOforders {
+    return Intl.message(
+      'You reach your limit of orders you can renew your subscription from settings',
+      name: 'outOforders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your subscription is out of date please renew your subscription`
+  String get finishedDate {
+    return Intl.message(
+      'Your subscription is out of date please renew your subscription',
+      name: 'finishedDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your request not accepted from administration you can contact us to get info`
+  String get unaccept {
+    return Intl.message(
+      'Your request not accepted from administration you can contact us to get info',
+      name: 'unaccept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is no car available please wait your ongoing orders to finish`
+  String get outOfCars {
+    return Intl.message(
+      'There is no car available please wait your ongoing orders to finish',
+      name: 'outOfCars',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

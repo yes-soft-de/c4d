@@ -10,7 +10,7 @@ class ActivePlanModel {
   int total;
   String nextPayment;
   List<PaymentModel> payments = <PaymentModel>[];
-
+  String state;
   ActivePlanModel(
       {this.id,
       this.name,
@@ -20,5 +20,7 @@ class ActivePlanModel {
       this.activeCars,
       this.payments,
       this.total,
-      this.nextPayment});
+      this.nextPayment,
+      this.state
+      });
 }

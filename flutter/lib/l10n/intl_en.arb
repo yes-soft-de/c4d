@@ -196,6 +196,12 @@
   "renewPlan":"Subscription options",
   "renewOldPlan":"Renew old package",
   "renewNewPlan":"Subscription with new package",
-  "successRenew":"Your subscription has been renewed"
+  "successRenew":"Your subscription has been renewed",
+  "warnning":"Important Note",
+  "inactive":"Your subscription not activate yet please wait",
+  "outOforders":"You reach your limit of orders you can renew your subscription from settings",
+  "finishedDate":"Your subscription is out of date please renew your subscription",
+  "unaccept":"Your request not accepted from administration you can contact us to get info",
+  "outOfCars":"There is no car available please wait your ongoing orders to finish"
 
 }

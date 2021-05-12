@@ -1,3 +1,5 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
@@ -62,72 +64,112 @@ class OrdersListStateUnauthorized extends OwnerOrdersListState {
 class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
   final List<OrderModel> orders;
   final bool canMakeOrders;
-
-  OrdersListStateOrdersLoaded(this.orders, this.canMakeOrders, OwnerOrdersScreenState screenState)
+  final String canMakeOrderState;
+  OrdersListStateOrdersLoaded(this.orders, this.canMakeOrders,
+      this.canMakeOrderState, OwnerOrdersScreenState screenState)
       : super(screenState);
 
   @override
   Widget getUI(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () {
-        screenState.getMyOrders();
-        return Future.delayed(Duration(seconds: 3));
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () {
-                screenState.getMyOrders();
-                return Future.delayed(Duration(seconds: 3));
-              },
-              child: ListView.builder(
-                  itemCount: orders.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: EdgeInsets.all(10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            OrdersRoutes.ORDER_STATUS_SCREEN,
-                            arguments: orders[index].id,
-                          );
-                        },
-                        child: OrderCard(
-                          title:
-                              '${orders[index].from ?? ''}',
-                          subTitle:
-                              '${S.of(context).order} #${orders[index].id}:',
-                          time: timeago.format(orders[index].creationTime,
-                              locale:
-                                  Localizations.localeOf(context).languageCode),
-                          active: orders[index].status != OrderStatus.FINISHED,
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ),
-          canMakeOrders == false ? Container() : GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
-            },
-            child: Container(
-              color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  S.of(context).createNewOrder,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        //you may have error if you add to this widget icon and use the hot reloade use restart instead
+        !canMakeOrders
+            ? RefreshIndicator(
+                onRefresh: () {},
+                child: Flushbar(
+                  title: S.of(context).warnning,
+                  message: getTranslate(context, canMakeOrderState),
+                  backgroundColor: Colors.red,
+                  icon: Icon(
+                    Icons.info,
+                    size: 28.0,
+                    color: Colors.white,
+                  ),
+                  mainButton: orders.isNotEmpty
+                      ? null
+                      : IconButton(
+                          icon: Icon(
+                            Icons.refresh,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            screenState.getMyOrders();
+                          }),
                 ),
-              ),
-            ),
-          )
-        ],
-      ),
+              )
+            : Container(),
+
+        Expanded(
+          child: RefreshIndicator(
+            onRefresh: () {
+              screenState.getMyOrders();
+              return Future.delayed(Duration(seconds: 3));
+            },
+            child: ListView.builder(
+                itemCount: orders.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          OrdersRoutes.ORDER_STATUS_SCREEN,
+                          arguments: orders[index].id,
+                        );
+                      },
+                      child: OrderCard(
+                        title: '${orders[index].from ?? ''}',
+                        subTitle:
+                            '${S.of(context).order} #${orders[index].id}:',
+                        time: timeago.format(orders[index].creationTime,
+                            locale:
+                                Localizations.localeOf(context).languageCode),
+                        active: orders[index].status != OrderStatus.FINISHED,
+                      ),
+                    ),
+                  );
+                }),
+          ),
+        ),
+        canMakeOrders == false
+            ? Container()
+            : GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(OrdersRoutes.NEW_ORDER_SCREEN);
+                },
+                child: Container(
+                  color: Theme.of(context).primaryColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      S.of(context).createNewOrder,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              )
+      ],
     );
+  }
+
+  String getTranslate(BuildContext context, String state) {
+    if (state == 'inactive') {
+      return S.of(context).inactive;
+    } else if (state == 'orders finished') {
+      return S.of(context).outOforders;
+    } else if (state == 'date finished') {
+      return S.of(context).finishedDate;
+    } else if (state == 'unaccept') {
+      return S.of(context).unaccept;
+    } else if (state == 'finished cars') {
+      return S.of(context).outOfCars;
+    } else {
+      return state;
+    }
   }
 
   Future<List<OrderModel>> sortLocations() async {
@@ -167,7 +209,8 @@ class OrdersListStateError extends OwnerOrdersListState {
   @override
   Widget getUI(BuildContext context) {
     return Center(
-      child: Text('${errorMsg=='not verified'?S.of(context).notVerified:errorMsg}'),
+      child: Text(
+          '${errorMsg == 'not verified' ? S.of(context).notVerified : errorMsg}'),
     );
   }
 }

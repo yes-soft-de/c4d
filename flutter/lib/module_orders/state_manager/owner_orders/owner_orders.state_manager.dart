@@ -77,11 +77,16 @@ class OwnerOrdersStateManager {
         } else {
           can = value.cars > orders.length;
         }
-        _stateSubject
-            .add(OrdersListStateOrdersLoaded(orders, can, screenState));
+        if (!can) {
+          value.state = 'finished cars';
+        }
+        if (value.state != 'active') {
+          can = false;
+        }
+        _stateSubject.add(
+            OrdersListStateOrdersLoaded(orders, can, value.state, screenState));
       } else {
-        _stateSubject
-            .add(OrdersListStateError('not verified', screenState));
+        _stateSubject.add(OrdersListStateError('not verified', screenState));
       }
     });
   }
