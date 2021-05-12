@@ -126,6 +126,18 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getCountCancelledOrder()
+    {
+        return $this->createQueryBuilder('subscription')
+
+            ->select('count (subscription.id) as countCancelledOrder')
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
+            ->andWhere("orderEntity.state = 'cancelled'")
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     
     public function getRemainingOrders($ownerID, $id)
     {

@@ -23,7 +23,17 @@ class RecordManager
     public function create($record)
     {
         $recordEntity = $this->autoMapping->map('array', RecordEntity::class, $record);
-        $recordEntity->setDate($recordEntity->getDate());
+        
+        $this->entityManager->persist($recordEntity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $recordEntity;
+    }
+
+    public function createDeliveryDate($record)
+    {
+        $recordEntity = $this->autoMapping->map('array', RecordEntity::class, $record);
         
         $this->entityManager->persist($recordEntity);
         $this->entityManager->flush();

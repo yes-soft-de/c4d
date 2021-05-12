@@ -155,6 +155,10 @@ class SubscriptionManager
     {
         return $this->subscribeRepository->getRemainingOrders($ownerID, $id);
     }
+    public function getCountCancelledOrder($ownerID, $id)
+    {
+        return $this->subscribeRepository->getCountCancelledOrder($ownerID, $id);
+    }
 
     public function subscripeNewUsers($fromDate, $toDate)
     {

@@ -8,12 +8,11 @@ use App\Manager\AcceptedOrderManager;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Response\AcceptedOrderResponse;
 use App\Response\AcceptedOrdersResponse;
-use App\Response\CaptainTotalEarnResponse;
-use App\Response\ongoingCaptainsResponse;
 use App\Service\RecordService;
 use App\Service\RoomIdHelperService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use DateTime;
+
 class AcceptedOrderService
 {
     private $autoMapping;

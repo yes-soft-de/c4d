@@ -28,6 +28,17 @@ class RecordService
 
         return $this->autoMapping->map(RecordEntity::class, RecordResponse::class, $result);
     }
+
+    public function createDeliveryDate($orderID, $state, $deliveryDate)
+    {
+        $record['orderID'] = $orderID;
+        $record['state'] = $state;
+        $record['date'] = $deliveryDate;
+        $record['startTime'] = $deliveryDate;
+        $result = $this->recordManager->createDeliveryDate($record);
+
+        return $this->autoMapping->map(RecordEntity::class, RecordResponse::class, $result);
+    }
     
     public function getrecordByOrderId($orderId)
     {

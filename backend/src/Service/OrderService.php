@@ -74,6 +74,7 @@ class OrderService
         
                 // }
                 if ($item) {
+                    $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
                     $this->recordService->create($item->getId(), $item->getState());
                 }
                 $response =$this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);

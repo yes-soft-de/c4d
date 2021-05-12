@@ -36,6 +36,7 @@ class RecordEntity
 
      /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
      */
     private $date;
 
