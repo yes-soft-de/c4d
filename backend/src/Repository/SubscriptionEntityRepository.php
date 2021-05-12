@@ -127,13 +127,25 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getCountCancelledOrder()
+    public function getCountCancelledOrders()
     {
         return $this->createQueryBuilder('subscription')
 
             ->select('count (subscription.id) as countCancelledOrder')
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
             ->andWhere("orderEntity.state = 'cancelled'")
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getCountDeliveredOrders()
+    {
+        return $this->createQueryBuilder('subscription')
+
+            ->select('count (subscription.id) as countDeliveredOrders')
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
+            ->andWhere("orderEntity.state = 'deliverd'")
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -150,8 +162,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
 
             ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
-            //مراجعة
-            // ->andWhere("orderEntity.state != 'cancelled'")
+
             ->andWhere('subscription.ownerID=:ownerID')
             ->andWhere('subscription.id=:id')
 

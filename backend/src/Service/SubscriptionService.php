@@ -127,9 +127,13 @@ class SubscriptionService
         $response = [];
         //Get full information for the current subscription
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
-        $countCancelledOrder = $this->subscriptionManager->getCountCancelledOrder($ownerID, $subscribeId);
+        $countCancelledOrder = $this->subscriptionManager->getCountCancelledOrders($ownerID, $subscribeId);
+        $countDeliveredOrder = $this->subscriptionManager->getCountDeliveredOrders($ownerID, $subscribeId);
         //Not counting canceled orders
         $remainingOrdersOfPackage['remainingOrders'] = $remainingOrdersOfPackage['remainingOrders'] + $countCancelledOrder['countCancelledOrder'];
+       
+        $remainingOrdersOfPackage['countOrdersDelivered'] = $countDeliveredOrder['countDeliveredOrders'];
+
         if ($remainingOrdersOfPackage['subscriptionEndDate']) {
    
             $endDate =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
