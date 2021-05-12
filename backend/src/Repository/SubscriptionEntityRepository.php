@@ -45,9 +45,9 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
         
             ->select('subscription.id','subscription.status',  'packageEntity.name as packageName', 'subscription.startDate','subscription.endDate', 'subscription.note as subscriptionNote', 'userProfileEntity.userName', 'packageEntity.note as packageNote')
 
-            ->Join(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
 
-            ->join(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
 
             ->andWhere("subscription.status = 'inactive'")
 
