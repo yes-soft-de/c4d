@@ -50,10 +50,10 @@ class RecordEntityRepository extends ServiceEntityRepository
             ->select('RecordEntity.id, RecordEntity.state, RecordEntity.date')
             
             ->andWhere("RecordEntity.orderID =:orderId")
-            ->andWhere("RecordEntity.state = 'on way to pick order'")
+            // ->andWhere("RecordEntity.state = 'on way to pick order'")
             ->setParameter('orderId', $orderId)
-            // ->setMaxResults(1)
-            // ->addOrderBy('RecordEntity.id','ASC')
+            ->setMaxResults(1)
+            ->addOrderBy('RecordEntity.id','ASC')
             ->getQuery()
             ->getResult();
     }
