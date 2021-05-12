@@ -136,10 +136,12 @@ class SubscriptionService
 
         if ($remainingOrdersOfPackage['subscriptionEndDate']) {
    
-            $endDate =date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
+            $startDate =$remainingOrdersOfPackage['subscriptionStartDate'];
+            $endDate = date_timestamp_get($remainingOrdersOfPackage['subscriptionEndDate']);
+            $endDate1 = $remainingOrdersOfPackage['subscriptionEndDate'];
             
             $now =date_timestamp_get(new DateTime("now"));
-
+            if ($endDate1->format('y-m-d') != $startDate->format('y-m-d'))  {
             if ( $endDate <= $now)  {
 
                 $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'date finished');
@@ -157,7 +159,7 @@ class SubscriptionService
                 }
                 $response[] = ["subscripe finished, count Orders is finished"];
             }
-            
+        }   
         }
         $response = $this->autoMapping->map('array', RemainingOrdersResponse::class, $remainingOrdersOfPackage);
         $subscribeStauts = $this->subscriptionManager->subscriptionIsActive($ownerID, $subscribeId);
