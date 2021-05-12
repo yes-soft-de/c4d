@@ -53,23 +53,25 @@ class RecordService
     public function getRecordsWithcompletionTime($orderId)
     {
         $response=[];
+        $lastDate='';
+        $firstDate='';
         $records = $this->getRecordsByOrderId($orderId);
       
         foreach ($records as $rec) {
          
             $firstDate = $this->getFirstDate($rec['orderID']); 
             $lastDate = $this->getLastDate($rec['orderID']);
-           
-            if($firstDate[0]['date'] && $lastDate[0]['date']) {
-                $state['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
-            }
-            
+            if($firstDate && $lastDate) {
+                if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                    $state['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
+                }
+        }
             $state['finalOrder'] = $lastDate[0]['state'] ;
             $orderStatus = $this->autoMapping->map('array', RecordResponse::class, $state);
             $record[] = $this->autoMapping->map('array', RecordResponse::class, $rec);
 
     } 
-        if($firstDate && $lastDate) {
+        if($lastDate) {
             $response['orderStatus'] = $orderStatus ;
             $response['record'] = $record ;
             }

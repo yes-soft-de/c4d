@@ -315,10 +315,11 @@ class OrderService
                 $firstDate = $this->recordService->getFirstDate($item['id']); 
                 $lastDate = $this->recordService->getLastDate($item['id']);
                 $item['currentStage'] =  $lastDate;
-                if($firstDate[0]['date'] && $lastDate[0]['date']) {
-                    $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                if($firstDate && $lastDate) {
+                    if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                        $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                    }
                 }
-
                 $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
             }
         }
@@ -336,8 +337,10 @@ class OrderService
                 $firstDate = $this->recordService->getFirstDate($item['id']); 
                 $lastDate = $this->recordService->getLastDate($item['id']);
                 $item['currentStage'] =  $lastDate;
-                if($firstDate[0]['date'] && $lastDate[0]['date']) {
-                    $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                if($firstDate && $lastDate) {
+                    if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                        $item['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']); 
+                    }
                 }
                 $response []= $this->autoMapping->map('array', OrderResponse::class, $item);
             }
@@ -419,12 +422,13 @@ class OrderService
                 $order['record'] = $this->recordService->getrecordByOrderId($order['id']); 
                 $firstDate = $this->recordService->getFirstDate($order['id']); 
                 $lastDate = $this->recordService->getLastDate($order['id']);
-               
-                if($firstDate[0]['date'] && $lastDate[0]['date']) {
-                    $order['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
-                    
-                }
-                
+
+                if($firstDate && $lastDate) {
+                    if($firstDate[0]['date'] && $lastDate[0]['date']) {
+                        $order['completionTime'] = $this->subtractTowDates($firstDate[0]['date'], $lastDate[0]['date']);
+                        
+                    }
+            }
                 $response[] = $this->autoMapping->map('array', OrderResponse::class, $order);
                 
             }
