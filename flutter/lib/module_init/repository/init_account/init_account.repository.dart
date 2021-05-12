@@ -14,8 +14,9 @@ class InitAccountRepository {
   InitAccountRepository(this._apiClient, this._authService);
 
   Future<PackagesResponse> getPackages() async {
-    dynamic response = await _apiClient
-        .get(Urls.PACKAGES_API,);
+    dynamic response = await _apiClient.get(
+      Urls.PACKAGES_API,
+    );
     if (response == null) return null;
 
     return PackagesResponse.fromJson(response);
@@ -28,11 +29,10 @@ class InitAccountRepository {
       {'packageID': '$packageId'},
       headers: {'Authorization': 'Bearer ' + token},
     );
-
     if (response['status_code'] == '201') return true;
-
     return false;
   }
+
   Future<bool> renewPackage(int packageId) async {
     var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
