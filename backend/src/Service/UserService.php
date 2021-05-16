@@ -20,6 +20,7 @@ use App\Response\CaptainProfileCreateResponse;
 use App\Response\UserProfileResponse;
 use App\Response\UserRegisterResponse;
 use App\Response\AllUsersResponse;
+use App\Response\CaptainIsActiveResponse;
 use App\Response\RemainingOrdersResponse;
 // use App\Response\CaptainsOngoingResponse;
 use App\Response\CaptainTotalBounceResponse;
@@ -330,12 +331,15 @@ class UserService
 
     public function captainIsActive($captainID)
     {
-        $item = $this->userManager->captainIsActive($captainID);
-        if ($item) {
-          return  $item[0]['status'];
-        }
+        // $item = $this->userManager->captainIsActive($captainID);
+        // if ($item) {
+        //   return  $item[0]['status'];
+        // }
+        // return $item ;
 
-        return $item ;
+        $item = $this->userManager->captainIsActive($captainID);
+        $response = $this->autoMapping->map('array',CaptainIsActiveResponse::class, $item);
+        return $response ;
      }
 
      public function dashboardCaptains()

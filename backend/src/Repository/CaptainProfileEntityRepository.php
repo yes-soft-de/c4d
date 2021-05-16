@@ -139,7 +139,8 @@ class CaptainProfileEntityRepository extends ServiceEntityRepository
             ->setParameter('captainID', $captainID)
 
             ->getQuery()
-            ->getResult();
+            // ->getResult();
+           ->getOneOrNullResult();
     }
 
     public function countpendingCaptains()

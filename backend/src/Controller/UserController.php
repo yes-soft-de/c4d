@@ -379,7 +379,7 @@ class UserController extends BaseController
 
         return $this->response($response, self::FETCH);
     }
-
+  
      /**
      * @Route("/remainingcaptain", name="TheRemainingCaptainHasABoost",methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
@@ -424,5 +424,17 @@ class UserController extends BaseController
         $response = $this->userService->updateNewMessageStatusInUserProfile($request,false);
 
         return $this->response($response, self::CREATE);
+    }
+
+     /**
+     * @Route("/captainisactive", name="captainIsActive", methods={"GET"})
+     * @IsGranted("ROLE_CAPTAIN")
+     * @return JsonResponse
+     */
+    public function captainIsActive()
+    {
+        $result = $this->userService->captainIsActive($this->getUserId());
+       
+        return $this->response($result, self::FETCH);
     }
 }

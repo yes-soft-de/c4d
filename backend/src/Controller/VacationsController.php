@@ -53,6 +53,4 @@ class VacationsController extends BaseController
 
         return $this->response($result, self::CREATE);
     }
-
-    
 }

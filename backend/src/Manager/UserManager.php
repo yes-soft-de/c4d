@@ -143,8 +143,7 @@ class UserManager
 
             $captainProfile = $this->autoMapping->map(CaptainProfileCreateRequest::class, CaptainProfileEntity::class, $request);
             
-            //change this to inactive
-            $captainProfile->setStatus('active');
+            $captainProfile->setStatus('inactive');
 
             $captainProfile->setIsOnline('active');
             
