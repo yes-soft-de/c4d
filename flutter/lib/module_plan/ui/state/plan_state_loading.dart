@@ -1,3 +1,4 @@
+import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_plan/ui/screen/plan_screen.dart';
 import 'package:c4d/module_plan/ui/state/plan_state.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,7 +38,25 @@ class PlanScreenStateError extends PlanState {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: Text(S.of(context).notVerified),
+            child: Text(S.of(context).notSubscription,style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+
+            ),),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: FlatButton(
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                      InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                },
+                child: Text(S.of(context).subscribe),
+              ),
+            ),
           )
         ],
       ),

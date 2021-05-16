@@ -2064,6 +2064,36 @@ class S {
       args: [],
     );
   }
+
+  /// `You dont have a subscription yet`
+  String get notSubscription {
+    return Intl.message(
+      'You dont have a subscription yet',
+      name: 'notSubscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe`
+  String get subscribe {
+    return Intl.message(
+      'Subscribe',
+      name: 'subscribe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account not activated yet please wait`
+  String get captainNotActive {
+    return Intl.message(
+      'Your account not activated yet please wait',
+      name: 'captainNotActive',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

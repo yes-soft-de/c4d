@@ -154,7 +154,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                   Navigator.of(context).pushNamed(
                                                       InitAccountRoutes
                                                           .INIT_ACCOUNT_SCREEN,
-                                                      arguments: true);
+                                                      arguments: false);
                                                 },
                                                 child: Text(
                                                     S.of(context).renewNewPlan),
