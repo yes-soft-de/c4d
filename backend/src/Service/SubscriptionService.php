@@ -126,9 +126,13 @@ class SubscriptionService
     {
         $response = [];
         //Get full information for the current subscription
+        $remainingCarsOfPackage = $this->subscriptionManager->getRemainingCars($ownerID, $subscribeId);
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
         $countCancelledOrder = $this->subscriptionManager->getCountCancelledOrders($ownerID, $subscribeId);
         $countDeliveredOrder = $this->subscriptionManager->getCountDeliveredOrders($ownerID, $subscribeId);
+        
+        $remainingOrdersOfPackage['remainingCars']=$remainingCarsOfPackage['remainingCars'];
+
         //Not counting canceled orders
         $remainingOrdersOfPackage['remainingOrders'] = $remainingOrdersOfPackage['remainingOrders'] + $countCancelledOrder['countCancelledOrder'];
        
@@ -158,6 +162,15 @@ class SubscriptionService
                 $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
                 }
                 $response[] = ["subscripe finished, count Orders is finished"];
+            }
+            
+            if ($remainingCarsOfPackage['remainingCars'] == 0)  {
+       
+                $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'cars finished');
+                if($this->getNextSubscription($ownerID)) {
+                $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
+                }
+                $response[] = ["count cars is finished"];
             }
         }   
         }

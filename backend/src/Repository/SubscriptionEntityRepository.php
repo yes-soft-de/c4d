@@ -176,6 +176,33 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+    public function getRemainingCars($ownerID, $id)
+    {
+        return $this->createQueryBuilder('subscription')
+
+            ->select('packageEntity.carCount - count(orderEntity.id) as remainingCars','packageEntity.carCount', 'count(orderEntity.id)')
+
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
+
+            ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = subscription.ownerID')
+
+            ->leftJoin(PackageEntity::class, 'packageEntity', Join::WITH, 'packageEntity.id = subscription.packageID')
+
+            ->andWhere('subscription.ownerID=:ownerID')
+            ->andWhere('subscription.id=:id')
+            ->andWhere("orderEntity.state != 'deliverd'")
+            ->andWhere("orderEntity.state != 'cancelled'")
+
+            ->addGroupBy('subscription.id')
+            ->setMaxResults(1)
+            ->addOrderBy('subscription.id','DESC')
+           
+            ->setParameter('ownerID', $ownerID)
+            ->setParameter('id', $id)
+           
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     
     public function subscripeNewUsers($fromDate, $toDate)
     {

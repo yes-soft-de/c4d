@@ -14,4 +14,5 @@ class RemainingOrdersResponse
     public $subscriptionEndDate;
     public $packageCarCount;
     public $packageOrderCount;
+    public $remainingCars;
 }
