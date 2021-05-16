@@ -210,7 +210,7 @@ class OrdersListStateError extends OwnerOrdersListState {
   Widget getUI(BuildContext context) {
     return Center(
       child: Text(
-          '${errorMsg == 'not verified' ? S.of(context).notVerified : errorMsg}'),
+          '${errorMsg == 'not verified' ? S.of(context).notSubscription : errorMsg}'),
     );
   }
 }

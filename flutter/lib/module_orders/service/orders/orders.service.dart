@@ -47,6 +47,11 @@ class OrdersService {
     return orders.reversed.toList();
   }
 
+  Future<String> getCaptainStatus() async {
+    String response = await _ordersManager.getCaptainStatus();
+    return response;
+  }
+
   Future<OrderModel> getOrderDetails(int orderId) async {
     OrderDetailsData response = await _ordersManager.getOrderDetails(orderId);
     if (response == null) return null;
@@ -146,15 +151,16 @@ class OrdersService {
     );
     return _ordersManager.addNewOrder(orderRequest);
   }
- Stream onUpdateChangeWatcher(int orderId) {
+
+  Stream onUpdateChangeWatcher(int orderId) {
     return FirebaseFirestore.instance
         .collection('order_state')
         .doc(orderId.toString())
         .collection('order_history')
         .snapshots();
   }
+
   Future<OrderDetailsResponse> updateOrder(int orderId, OrderModel order) {
-    
     FirebaseFirestore.instance
         .collection('order_state')
         .doc(orderId.toString())

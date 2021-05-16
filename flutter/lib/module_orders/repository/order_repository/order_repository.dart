@@ -35,6 +35,17 @@ class OrderRepository {
     return response['status_code'] == '201' ? true : false;
   }
 
+  Future<String> getCaptainStatus() async {
+    await _authService.refreshToken();
+    var token = await _authService.getToken();
+    dynamic response = await _apiClient.get(
+      Urls.CAPTAIN_ACTIVE_STATUS_API,
+      headers: {'Authorization': 'Bearer ' + token},
+    );
+    if (response == null) return '';
+    return response['Data']['status']??'';
+  }
+
   Future<OrderDetailsData> getOrderDetails(int orderId) async {
     if (orderId == null) {
       return null;
@@ -132,7 +143,8 @@ class OrderRepository {
 
   Future<bool> deleteOrder(int orderId) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.put('${Urls.DELETE_ORDER}$orderId', {'state':'canceled'},
+    dynamic response = await _apiClient.put(
+        '${Urls.DELETE_ORDER}$orderId', {'state': 'canceled'},
         headers: {'Authorization': 'Bearer $token'});
 
     if (response == null) return null;

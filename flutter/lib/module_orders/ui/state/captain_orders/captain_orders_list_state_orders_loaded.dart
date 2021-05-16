@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -14,12 +15,12 @@ import 'captain_orders_list_state.dart';
 class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   final List<OrderModel> myOrders;
   final List<OrderModel> orders;
-
+  final String status;
   int currentPage = 0;
   final PageController _ordersPageController = PageController(initialPage: 0);
 
-  CaptainOrdersListStateOrdersLoaded(
-      CaptainOrdersScreenState screenState, this.myOrders, this.orders)
+  CaptainOrdersListStateOrdersLoaded(CaptainOrdersScreenState screenState,
+      this.myOrders, this.orders, this.status)
       : super(screenState);
 
   @override
@@ -37,6 +38,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
               controller: _ordersPageController,
               onPageChanged: (pos) {
                 currentPage = pos;
+                screenState.refresh();
               },
               children: [
                 FutureBuilder(
@@ -188,7 +190,20 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
 
   Future<List<Widget>> getMyOrdersList(BuildContext context) async {
     var uiList = <Widget>[];
-
+    if (status != 'active') {
+      uiList.add(
+        Flushbar(
+          title: S.of(context).warnning,
+          message: S.of(context).captainNotActive,
+          backgroundColor: Colors.red,
+          icon: Icon(
+            Icons.info,
+            size: 28.0,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
     var orders = myOrders;
     orders ??= [];
 
@@ -218,6 +233,20 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   Future<List<Widget>> getNearbyOrdersList(BuildContext context) async {
     //var availableOrders = await sortLocations();
     var uiList = <Widget>[];
+    if (status != 'active') {
+      uiList.add(
+        Flushbar(
+          title: S.of(context).warnning,
+          message: S.of(context).captainNotActive,
+          backgroundColor: Colors.red,
+          icon: Icon(
+            Icons.info,
+            size: 28.0,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
     orders.forEach((element) {
       uiList.add(Container(
         margin: EdgeInsets.all(10),

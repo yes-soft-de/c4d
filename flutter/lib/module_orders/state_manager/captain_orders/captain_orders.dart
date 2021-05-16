@@ -36,10 +36,11 @@ class CaptainOrdersListStateManager {
     CaptainOrdersListStateLoading(screenState);
     Future.wait([
       _ordersService.getNearbyOrders(),
-      _ordersService.getCaptainOrders()
+      _ordersService.getCaptainOrders(),
+      _ordersService.getCaptainStatus()
     ]).then((value) {
-      _stateSubject.add(
-          CaptainOrdersListStateOrdersLoaded(screenState, value[0], value[1]));
+      _stateSubject.add(CaptainOrdersListStateOrdersLoaded(
+          screenState, value[0], value[1], value[2]));
     }).catchError((e) {
       if (e is UnauthorizedException) {
         _stateSubject.add(CaptainOrdersListStateUnauthorized(screenState));
@@ -49,6 +50,7 @@ class CaptainOrdersListStateManager {
       }
     });
   }
+
   void companyInfo() {
     _ordersService.getCompanyInfo().then((info) => _companySubject.add(info));
   }
