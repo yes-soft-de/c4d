@@ -51,7 +51,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->addselect('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch','OrderEntity.kilometer')
 
             ->andWhere('OrderEntity.ownerID = :userID')
-
+            ->andWhere("OrderEntity.state != 'cancelled'")
             ->setParameter('userID', $userID)
 
             ->getQuery()
