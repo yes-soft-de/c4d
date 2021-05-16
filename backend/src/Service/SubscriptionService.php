@@ -126,12 +126,12 @@ class SubscriptionService
     {
         $response = [];
         //Get full information for the current subscription
-        $remainingCarsOfPackage = $this->subscriptionManager->getRemainingCars($ownerID, $subscribeId);
+        // $remainingCarsOfPackage = $this->subscriptionManager->getRemainingCars($ownerID, $subscribeId);
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
         $countCancelledOrder = $this->subscriptionManager->getCountCancelledOrders($ownerID, $subscribeId);
         $countDeliveredOrder = $this->subscriptionManager->getCountDeliveredOrders($ownerID, $subscribeId);
         
-        $remainingOrdersOfPackage['remainingCars']=$remainingCarsOfPackage['remainingCars'];
+        // $remainingOrdersOfPackage['remainingCars']=$remainingCarsOfPackage['remainingCars'];
 
         //Not counting canceled orders
         $remainingOrdersOfPackage['remainingOrders'] = $remainingOrdersOfPackage['remainingOrders'] + $countCancelledOrder['countCancelledOrder'];
@@ -164,14 +164,23 @@ class SubscriptionService
                 $response[] = ["subscripe finished, count Orders is finished"];
             }
             
-            if ($remainingCarsOfPackage['remainingCars'] == 0)  {
+            // if ($remainingCarsOfPackage['remainingCars'] == 0)  {
        
-                $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'cars finished');
-                if($this->getNextSubscription($ownerID)) {
-                $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
-                }
-                $response[] = ["count cars is finished"];
-            }
+            //     $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'cars finished');
+            //     if($this->getNextSubscription($ownerID)) {
+            //     $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
+            //     }
+            //     $response[] = ["count cars is finished"];
+            // }
+
+            // if ($remainingCarsOfPackage['remainingCars'] > 0)  {
+       
+            //     $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'active');
+            //     if($this->getNextSubscription($ownerID)) {
+            //     $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
+            //     }
+            //     $response[] = ["deliverd"];
+            // }
         }   
         }
         $response = $this->autoMapping->map('array', RemainingOrdersResponse::class, $remainingOrdersOfPackage);
