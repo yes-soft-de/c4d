@@ -17,8 +17,8 @@ class OwnerActivityStateRecordsLoaded extends ActivityState {
   Widget getUI(BuildContext context) {
     var list = <Widget>[];
     List<String> orderId;
-    list.addAll(activity.map(
-      (e) => GestureDetector(
+    list.addAll(activity.map((e) {
+      return GestureDetector(
         onTap: () {
           orderId = e.activity.split('#');
           Navigator.of(context).pushNamed(ProfileRoutes.ORDER_INFO_SCREEN,
@@ -28,17 +28,13 @@ class OwnerActivityStateRecordsLoaded extends ActivityState {
           child: ListTile(
             leading: Icon(Icons.check),
             title: Text('${e.activity}'),
-            subtitle: Text(
-              S.of(context).took +
-                  ' ' +
-                  e.startDate.difference(e.endDate).inMinutes.abs().toString() +
-                  ' ' +
-                  S.of(context).minutes,
-            ),
+            subtitle: Text(S.of(context).took +
+                ' ' +
+                complationDate(context, e.startDate, e.endDate)),
           ),
         ),
-      ),
-    ));
+      );
+    }));
 
     return SingleChildScrollView(
       child: Padding(
@@ -48,5 +44,31 @@ class OwnerActivityStateRecordsLoaded extends ActivityState {
         ),
       ),
     );
+  }
+
+  String complationDate(context, DateTime startTime, DateTime endTime) {
+    int days = 0;
+    int hours = 0;
+    int minutes = 0;
+    int seconds = startTime.difference(endTime).inSeconds.abs();
+    if (seconds >= 60) {
+      minutes += (seconds / 60).floor();
+      seconds = seconds - (minutes * 60);
+    }
+    if (minutes >= 60) {
+      hours += (minutes / 60).floor();
+      minutes = minutes - (hours * 60);
+    }
+    if (hours >= 24) {
+      days += (hours / 24).floor();
+      hours = hours - (days * 24);
+    }
+
+    String day = days > 0 ? '$days ${S.of(context).days}' : '';
+    String hour = hours > 0 ? '$hours ${S.of(context).hours}' : '';
+    String minute = minutes > 0 ? '$minutes ${S.of(context).minutes}' : '';
+    String second = seconds > 0 ? '$seconds ${S.of(context).seconds}' : '';
+
+    return '$day $hour $minute $second';
   }
 }

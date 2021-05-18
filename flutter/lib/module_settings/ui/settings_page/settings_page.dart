@@ -15,6 +15,7 @@ import 'package:c4d/module_localization/service/localization_service/localizatio
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_plan/plan_routes.dart';
+
 @provide
 class SettingsScreen extends StatefulWidget {
   final AuthService _authService;
@@ -136,10 +137,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                               height: 55,
                                               child: FlatButton(
                                                 onPressed: () {
-                                                   Navigator.pop(context);
-                                                  Navigator.of(context).pushNamed(
-                                                     PlanRoutes.PLAN_ROUTE,
-                                                      arguments: true);
+                                                  Navigator.pop(context);
+                                                  Navigator.of(context)
+                                                      .pushNamed(
+                                                          PlanRoutes.PLAN_ROUTE,
+                                                          arguments: true);
                                                 },
                                                 child: Text(
                                                     S.of(context).renewOldPlan),
@@ -194,6 +196,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         future: widget._localizationService.getLanguage(),
                         builder: (BuildContext context,
                             AsyncSnapshot<String> snapshot) {
+                          print(snapshot.data);
                           return DropdownButton(
                               value: snapshot.data ??
                                   Platform.localeName.substring(0, 2),

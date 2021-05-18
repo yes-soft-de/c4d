@@ -1825,10 +1825,10 @@ class S {
     );
   }
 
-  /// `Minutes`
+  /// `minute`
   String get minutes {
     return Intl.message(
-      'Minutes',
+      'minute',
       name: 'minutes',
       desc: '',
       args: [],
@@ -2090,6 +2090,36 @@ class S {
     return Intl.message(
       'Your account not activated yet please wait',
       name: 'captainNotActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `day`
+  String get days {
+    return Intl.message(
+      'day',
+      name: 'days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `second`
+  String get seconds {
+    return Intl.message(
+      'second',
+      name: 'seconds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hour`
+  String get hours {
+    return Intl.message(
+      'hour',
+      name: 'hours',
       desc: '',
       args: [],
     );

@@ -179,7 +179,7 @@
   "noImage": "No Image",
   "howWeWork": "How we work",
   "took": "Took",
-  "minutes": "Minutes",
+  "minutes": "minute",
   "iAgreeToTheTermsOsService": "I Agree to the Terms os service.",
   "iAgreeToTheTermsOfServicePrivacyPolicy": "I Agree To The Terms Of Service & privacy policy",
   "businessName":"Business Name",
@@ -205,7 +205,10 @@
   "outOfCars":"There is no car available please wait your ongoing orders to finish",
   "notSubscription":"You dont have a subscription yet",
   "subscribe":"Subscribe",
-  "captainNotActive":"Your account not activated yet please wait"
+  "captainNotActive":"Your account not activated yet please wait",
+  "days":"day",
+  "seconds":"second",
+  "hours":"hour"
 
 
 
