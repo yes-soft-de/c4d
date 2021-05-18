@@ -152,13 +152,13 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
               ),
             ),
           ),
-          Align(
+          renew!=null?Align(
             alignment: AlignmentDirectional.topStart,
             child: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context),
             ),
-          ),
+          ):Container(),
         ],
       ),
     );
