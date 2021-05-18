@@ -44,7 +44,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
             ->select("count(AcceptedOrderEntity.id) as countOrdersDeliverd ")
-            ->andWhere("AcceptedOrderEntity.state = 'deliverd'")
+            ->andWhere("AcceptedOrderEntity.state = 'delivered'")
             ->andWhere('AcceptedOrderEntity.captainID = :captainID')
             ->setParameter('captainID', $captainID)
             ->getQuery()
@@ -80,8 +80,8 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'branchesEntity.id = orderEntity.fromBranch')
 
             ->andWhere('AcceptedOrderEntity.captainID = :captainID')
-            ->andWhere("AcceptedOrderEntity.state != 'deliverd'")
-            ->andWhere("orderEntity.state != 'deliverd'")
+            ->andWhere("AcceptedOrderEntity.state != 'delivered'")
+            ->andWhere("orderEntity.state != 'delivered'")
             ->setParameter('captainID', $captainID)
             ->getQuery()
             ->getResult();
@@ -96,7 +96,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere('AcceptedOrderEntity.orderID = orderEntity.id')
             ->andWhere('AcceptedOrderEntity.captainID = :captainId')
-            ->andWhere("orderEntity.state = 'deliverd'")
+            ->andWhere("orderEntity.state = 'delivered'")
             ->setParameter('captainId', $captainId)
             ->getQuery()
             ->getResult();

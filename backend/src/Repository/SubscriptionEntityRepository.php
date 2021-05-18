@@ -145,7 +145,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
 
             ->select('count (subscription.id) as countDeliveredOrders')
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
-            ->andWhere("orderEntity.state = 'deliverd'")
+            ->andWhere("orderEntity.state = 'delivered'")
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -190,7 +190,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
 
             ->andWhere('subscription.ownerID=:ownerID')
             ->andWhere('subscription.id=:id')
-            ->andWhere("orderEntity.state != 'deliverd'")
+            ->andWhere("orderEntity.state != 'delivered'")
             ->andWhere("orderEntity.state != 'cancelled'")
 
             ->addGroupBy('subscription.id')

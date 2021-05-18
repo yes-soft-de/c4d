@@ -86,6 +86,7 @@ class AcceptedOrderService
     {
         $response = [];
         $orders = $this->acceptedOrderManager->getAcceptedOrderByCaptainId($captainId);
+        
         foreach ($orders as $order){
             $order['record'] = $this->recordService->getrecordByOrderId($order['orderID']);
             $response[] = $this->autoMapping->map('array', AcceptedOrdersResponse::class, $order);

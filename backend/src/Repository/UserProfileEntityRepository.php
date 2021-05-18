@@ -75,7 +75,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.ownerID = profile.userID')
             
             ->andWhere('profile.userID=:userID')
-            ->andWhere("orderEntity.state ='deliverd'")
+            ->andWhere("orderEntity.state ='delivered'")
 
             ->setParameter('userID', $userID)
 
