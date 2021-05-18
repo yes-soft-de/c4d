@@ -80,6 +80,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->leftJoin(BranchesEntity::class, 'branchesEntity', Join::WITH, 'branchesEntity.id = orderEntity.fromBranch')
 
             ->andWhere('AcceptedOrderEntity.captainID = :captainID')
+            ->andWhere("AcceptedOrderEntity.state != 'deliverd'")
             ->setParameter('captainID', $captainID)
             ->getQuery()
             ->getResult();
