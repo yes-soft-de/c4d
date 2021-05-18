@@ -95,7 +95,7 @@ class _ChatWriterWidget extends State<ChatWriterWidget> {
                   _imagePicker
                       .getImage(source: ImageSource.camera, imageQuality: 70)
                       .then((value) {
-                        if (value != null) {
+                    if (value != null) {
                       imageFile = File(value.path);
                       setState(() {});
                     }
@@ -114,14 +114,19 @@ class _ChatWriterWidget extends State<ChatWriterWidget> {
                 hintText: S.of(context).startWriting,
               ),
               controller: _msgController,
+              onChanged: (s) {
+                setState(() {});
+              },
             ),
           ),
         ),
         IconButton(
           padding: EdgeInsets.all(4),
-          onPressed: () {
-            sendMessage(_msgController.text.trim());
-          },
+          onPressed: _msgController.text.trim().isNotEmpty
+              ? () {
+                  sendMessage(_msgController.text.trim());
+                }
+              : null,
           icon: Icon(Icons.send),
         )
       ],
