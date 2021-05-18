@@ -321,7 +321,6 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                                 use24HourFormat: true,
                                 initialValue: DateTime.now().toString(),
                                 type: DateTimePickerType.dateTimeSeparate,
-                                locale: Locale.fromSubtags(languageCode: 'en'),
                                 firstDate: DateTime.now(),
                                 lastDate: DateTime(2100),
                                 style: TextStyle(
