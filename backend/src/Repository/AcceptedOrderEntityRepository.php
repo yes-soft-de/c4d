@@ -81,6 +81,7 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
 
             ->andWhere('AcceptedOrderEntity.captainID = :captainID')
             ->andWhere("AcceptedOrderEntity.state != 'deliverd'")
+            ->andWhere("orderEntity.state != 'deliverd'")
             ->setParameter('captainID', $captainID)
             ->getQuery()
             ->getResult();
