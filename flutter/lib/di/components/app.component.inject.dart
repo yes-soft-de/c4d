@@ -310,7 +310,8 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i79.PlanScreen _createPlanScreen() =>
       _i79.PlanScreen(_createPlanScreenStateManager());
   _i80.PlanScreenStateManager _createPlanScreenStateManager() =>
-      _i80.PlanScreenStateManager(_createPlanService(), _createAuthService());
+      _i80.PlanScreenStateManager(_createPlanService(), _createAuthService(),
+          _createInitAccountService());
   @override
   _i6.MyApp get app => _createMyApp();
 }

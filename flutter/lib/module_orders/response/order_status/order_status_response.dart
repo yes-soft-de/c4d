@@ -1,3 +1,4 @@
+import 'package:c4d/module_init/response/create_profile_response/create_profile_response.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 
 class OrderStatusResponse {
@@ -30,7 +31,7 @@ class OrderDetailsData {
   int id;
   String ownerID;
   List<String> source;
-  GeoJson destination;
+  String destination;
   Date date;
   Date updateDate;
   String note;
@@ -46,7 +47,7 @@ class OrderDetailsData {
   List<AcceptedOrder> acceptedOrder;
   List<dynamic> record;
   String uuid;
-
+  Date createAt;
   OrderDetailsData(
       {this.id,
       this.ownerID,
@@ -66,14 +67,18 @@ class OrderDetailsData {
       this.branchCity,
       this.acceptedOrder,
       this.record,
-      this.uuid});
+      this.uuid,
+      this.createAt});
 
   OrderDetailsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     ownerID = json['ownerID'];
     source = json['source'].cast<String>();
-    // destination = GeoJson.fromJson(json['destination']);
+    destination = json['destination'].toString();
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
+    createAt =
+        json['createAt'] != null ? new Date.fromJson(json['createAt']) : null;
+
     updateDate = json['updateDate'] != null
         ? new Date.fromJson(json['updateDate'])
         : null;

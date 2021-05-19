@@ -64,8 +64,8 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   }
 
   void subscribeToPackage(
-      int packageId, String name, String phone, String city) {
-    widget._stateManager.subscribePackage(this, packageId, name, phone, city);
+      int packageId, String name, String phone, String city,bool renew) {
+    widget._stateManager.subscribePackage(this, packageId, name, phone, city,renew);
   }
 
   void getPackages() {
@@ -90,7 +90,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
 
   @override
   void dispose() {
-    _streamSubscription.cancel();
+    _streamSubscription?.cancel();
     super.dispose();
   }
 }

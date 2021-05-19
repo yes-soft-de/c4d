@@ -26,7 +26,7 @@ class Data {
   int packageID;
   String packagename;
   int subscriptionID;
-  String remainingOrders;
+  var remainingOrders;
   int countOrdersDelivered;
   String subscriptionstatus;
   SubscriptionStartDate subscriptionStartDate;

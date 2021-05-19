@@ -28,6 +28,7 @@ class OrdersManager {
 
   Future<List<Order>> getCaptainOrders() => _repository.getCaptainOrders();
   Future<CompanyInfoResponse> getCompanyInfo() => _repository.getCompanyInfo();
+  Future<String> getCaptainStatus() => _repository.getCaptainStatus();
 
   Future<OrderDetailsResponse> acceptOrder(
           AcceptOrderRequest acceptOrderRequest) =>
@@ -38,4 +39,6 @@ class OrdersManager {
       _repository.updateOrder(acceptOrderRequest);
   Future<List> getUpdates() => _repository.getUpdates();
   Future<Map> getOrder(int orderId) => _repository.getOrder(orderId);
+
+  Future<bool> deleteOrder(int orderId) => _repository.deleteOrder(orderId);
 }

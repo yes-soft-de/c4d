@@ -28,12 +28,18 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void showSnackBar(String msg) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(msg)));
+  void showSnackBar(String msg,[Color color]) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(msg),backgroundColor:color,));
   }
 
   Future uuid(String orderId) async {
     return await widget._reportPrefsHelper.getUUId(orderId);
+  }
+
+  void deleteOrder(model) {
+    widget._stateManager.deleteOrder(model, this);
+    var context = _scaffoldKey.currentContext;
+    showSnackBar(S.of(context).deleteSuccess,Colors.green);
   }
 
   @override

@@ -121,7 +121,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               onTap: () {
                 print(currentOrder.branchLocation.lat);
                 var url = WhatsAppLinkHelper.getMapsLink(
-                    currentOrder.branchLocation.lat, currentOrder.branchLocation.lon);
+                    currentOrder.branchLocation.lat,
+                    currentOrder.branchLocation.lon);
                 launch(url);
               },
               child: CommunicationCard(
@@ -135,10 +136,9 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               ),
             ),
 
-            GestureDetector(
+           currentOrder.to.contains('maps') ? GestureDetector(
               onTap: () {
-                var url = WhatsAppLinkHelper.getMapsLink(
-                    currentOrder.to.lat, currentOrder.to.lon);
+                var url = currentOrder.to;
                 launch(url);
               },
               child: CommunicationCard(
@@ -150,7 +150,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       : Colors.black,
                 ),
               ),
-            ),
+            ):Container(),
             Container(
               height: 36,
             ),
@@ -164,7 +164,6 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
     if (currentOrder.status == OrderStatus.FINISHED) {
       return Container();
     }
-    print(currentOrder.status);
     if (currentOrder.status == OrderStatus.GOT_CASH) {
       return Card(
         elevation: 4,

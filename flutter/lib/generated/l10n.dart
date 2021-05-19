@@ -1825,10 +1825,10 @@ class S {
     );
   }
 
-  /// `Minutes`
+  /// `minute`
   String get minutes {
     return Intl.message(
-      'Minutes',
+      'minute',
       name: 'minutes',
       desc: '',
       args: [],
@@ -1920,6 +1920,206 @@ class S {
     return Intl.message(
       'Location of customer',
       name: 'locationOfCustomer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure about deleting this order , please confirm`
+  String get sureForDelete {
+    return Intl.message(
+      'Are you sure about deleting this order , please confirm',
+      name: 'sureForDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the order has been deleted successfully`
+  String get deleteSuccess {
+    return Intl.message(
+      'the order has been deleted successfully',
+      name: 'deleteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `distance in KM`
+  String get ProvideDistanceInKm {
+    return Intl.message(
+      'distance in KM',
+      name: 'ProvideDistanceInKm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your subscription not verified yet`
+  String get notVerified {
+    return Intl.message(
+      'Your subscription not verified yet',
+      name: 'notVerified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription options`
+  String get renewPlan {
+    return Intl.message(
+      'Subscription options',
+      name: 'renewPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Renew old package`
+  String get renewOldPlan {
+    return Intl.message(
+      'Renew old package',
+      name: 'renewOldPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscription with new package`
+  String get renewNewPlan {
+    return Intl.message(
+      'Subscription with new package',
+      name: 'renewNewPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your subscription has been renewed`
+  String get successRenew {
+    return Intl.message(
+      'Your subscription has been renewed',
+      name: 'successRenew',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Important Note`
+  String get warnning {
+    return Intl.message(
+      'Important Note',
+      name: 'warnning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your subscription not activate yet please wait`
+  String get inactive {
+    return Intl.message(
+      'Your subscription not activate yet please wait',
+      name: 'inactive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You reach your limit of orders you can renew your subscription from settings`
+  String get outOforders {
+    return Intl.message(
+      'You reach your limit of orders you can renew your subscription from settings',
+      name: 'outOforders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your subscription is out of date please renew your subscription`
+  String get finishedDate {
+    return Intl.message(
+      'Your subscription is out of date please renew your subscription',
+      name: 'finishedDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your request not accepted from administration you can contact us to get info`
+  String get unaccept {
+    return Intl.message(
+      'Your request not accepted from administration you can contact us to get info',
+      name: 'unaccept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is no car available please wait your ongoing orders to finish`
+  String get outOfCars {
+    return Intl.message(
+      'There is no car available please wait your ongoing orders to finish',
+      name: 'outOfCars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You dont have a subscription yet`
+  String get notSubscription {
+    return Intl.message(
+      'You dont have a subscription yet',
+      name: 'notSubscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe`
+  String get subscribe {
+    return Intl.message(
+      'Subscribe',
+      name: 'subscribe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account not activated yet please wait`
+  String get captainNotActive {
+    return Intl.message(
+      'Your account not activated yet please wait',
+      name: 'captainNotActive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `day`
+  String get days {
+    return Intl.message(
+      'day',
+      name: 'days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `second`
+  String get seconds {
+    return Intl.message(
+      'second',
+      name: 'seconds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hour`
+  String get hours {
+    return Intl.message(
+      'hour',
+      name: 'hours',
       desc: '',
       args: [],
     );

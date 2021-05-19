@@ -70,14 +70,24 @@ class OwnerOrdersStateManager {
   void isNewOrderAvailable(
       List<OrderModel> orders, OwnerOrdersScreenState screenState) {
     _planService.getOwnerCurrentPlan().then((value) {
-      bool can = false;
-      if (value.cars == 0) {
-        can = true;
+      if (value != null) {
+        bool can = false;
+        if (value.cars == 0) {
+          can = true;
+        } else {
+          can = value.cars > orders.length;
+        }
+        if (!can) {
+          value.state = 'finished cars';
+        }
+        if (value.state != 'active') {
+          can = false;
+        }
+        _stateSubject.add(
+            OrdersListStateOrdersLoaded(orders, can, value.state, screenState));
       } else {
-        can = value.cars > orders.length;
+        _stateSubject.add(OrdersListStateError('not verified', screenState));
       }
-      _stateSubject.add(OrdersListStateOrdersLoaded(
-          orders, can, screenState));
     });
   }
 
@@ -91,6 +101,7 @@ class OwnerOrdersStateManager {
       _updateStateSubject.add(UpdateListStateInit(value, screenState));
     });
   }
+
   void getTerms(TermsScreenState screenState) {
     _termsStateSubject.add(TermsListStateLoading(screenState));
     _profileService.getTerms().then((value) {

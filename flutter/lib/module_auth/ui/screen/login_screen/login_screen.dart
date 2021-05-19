@@ -48,9 +48,17 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: _currentStates.getUI(context),
+    return GestureDetector(
+      onTap: () {
+        var fucos = FocusScope.of(context);
+        if (fucos.canRequestFocus) {
+          fucos.unfocus();
+        }
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: _currentStates.getUI(context),
+        ),
       ),
     );
   }

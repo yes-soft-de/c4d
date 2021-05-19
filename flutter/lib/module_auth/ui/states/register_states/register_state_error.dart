@@ -79,7 +79,7 @@ class RegisterStateError extends RegisterState {
               },
             ),
             EmailPasswordRegisterForm(
-              onRegisterRequest: (email, name, password) {
+              onRegisterRequest: (email, password, name) {
                 screen.registerOwner(
                   email,
                   email,

@@ -22,12 +22,13 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
 
   @override
   Widget getUI(BuildContext context) {
+    bool renew = ModalRoute.of(context).settings.arguments ?? false;
     return SafeArea(
       child: Stack(
         children: [
           Positioned.fill(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(top:40.0,right: 16,left: 16,bottom: 16),
               child: Card(
                 elevation: 4,
                 child: SingleChildScrollView(
@@ -113,11 +114,11 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                             color: Theme.of(context).primaryColor,
                             onPressed: () {
                               screen.subscribeToPackage(
-                                _selectedPackageId,
-                                _nameController.text,
-                                _phoneController.text,
-                                _selectedCity,
-                              );
+                                  _selectedPackageId,
+                                  _nameController.text,
+                                  _phoneController.text,
+                                  _selectedCity,
+                                  renew);
                             },
                             child: Text(
                               S.of(context).next,
@@ -135,7 +136,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
             ),
           ),
           Positioned(
-            top: 8,
+            top: 16,
             left: 0,
             right: 0,
             child: Center(
@@ -151,6 +152,13 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
               ),
             ),
           ),
+          renew!=null?Align(
+            alignment: AlignmentDirectional.topStart,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ):Container(),
         ],
       ),
     );

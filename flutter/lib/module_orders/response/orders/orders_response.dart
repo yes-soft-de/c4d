@@ -41,7 +41,7 @@ class Order {
   String userName;
   dynamic source;
   OwnerResponse owner;
-  Destination destination;
+  String destination;
   Date date;
   Date updateDate;
   String note;
@@ -96,9 +96,7 @@ class Order {
       this.owner = OwnerResponse.fromJson(json['owner']);
     }
 
-    // destination = json['destination'] != null
-    //     ? new Destination.fromJson(json['destination'])
-    //     : null;
+    destination = json['destination'].toString();
     date = json['date'] != null ? new Date.fromJson(json['date']) : null;
     updateDate = json['updateDate'] != null
         ? new Date.fromJson(json['updateDate'])
@@ -134,7 +132,7 @@ class Order {
       data['source'] = this.source.map((v) => v.toJson()).toList();
     }
     if (this.destination != null) {
-      data['destination'] = this.destination.toJson();
+      data['destination'] = this.destination;
     }
     if (this.date != null) {
       data['date'] = this.date.toJson();

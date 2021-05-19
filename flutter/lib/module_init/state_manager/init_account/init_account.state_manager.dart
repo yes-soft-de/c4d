@@ -90,7 +90,7 @@ class InitAccountStateManager {
   }
 
   void subscribePackage(InitAccountScreenState screen, int packageId,
-      String name, String phone, String city) {
+      String name, String phone, String city,[bool renew =false]) {
     _stateSubject.add(
       InitAccountStateLoading(screen),
     );
@@ -103,7 +103,8 @@ class InitAccountStateManager {
         image:
             Urls.IMAGES_ROOT + 'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
       )),
-      _initAccountService.subscribePackage(packageId)
+      !renew?_initAccountService.subscribePackage(packageId)
+      :_initAccountService.renewPackage(packageId)
     ]).then((value) {
       _stateSubject.add(
         InitAccountStateSelectBranch(screen),

@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
@@ -14,12 +15,12 @@ import 'captain_orders_list_state.dart';
 class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   final List<OrderModel> myOrders;
   final List<OrderModel> orders;
-
+  final String status;
   int currentPage = 0;
   final PageController _ordersPageController = PageController(initialPage: 0);
 
-  CaptainOrdersListStateOrdersLoaded(
-      CaptainOrdersScreenState screenState, this.myOrders, this.orders)
+  CaptainOrdersListStateOrdersLoaded(CaptainOrdersScreenState screenState,
+      this.myOrders, this.orders, this.status)
       : super(screenState);
 
   @override
@@ -37,6 +38,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
               controller: _ordersPageController,
               onPageChanged: (pos) {
                 currentPage = pos;
+                screenState.refresh();
               },
               children: [
                 FutureBuilder(
@@ -188,7 +190,20 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
 
   Future<List<Widget>> getMyOrdersList(BuildContext context) async {
     var uiList = <Widget>[];
-
+    if (status != 'active') {
+      uiList.add(
+        Flushbar(
+          title: S.of(context).warnning,
+          message: S.of(context).captainNotActive,
+          backgroundColor: Colors.red,
+          icon: Icon(
+            Icons.info,
+            size: 28.0,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
     var orders = myOrders;
     orders ??= [];
 
@@ -216,8 +231,22 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
   }
 
   Future<List<Widget>> getNearbyOrdersList(BuildContext context) async {
-    var availableOrders = await sortLocations();
+    //var availableOrders = await sortLocations();
     var uiList = <Widget>[];
+    if (status != 'active') {
+      uiList.add(
+        Flushbar(
+          title: S.of(context).warnning,
+          message: S.of(context).captainNotActive,
+          backgroundColor: Colors.red,
+          icon: Icon(
+            Icons.info,
+            size: 28.0,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
     orders.forEach((element) {
       uiList.add(Container(
         margin: EdgeInsets.all(10),
@@ -240,35 +269,35 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     return uiList;
   }
 
-  Future<List<OrderModel>> sortLocations() async {
-    Location location = new Location();
+  // Future<List<OrderModel>> sortLocations() async {
+  //   Location location = new Location();
 
-    bool _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-    }
+  //   bool _serviceEnabled = await location.serviceEnabled();
+  //   if (!_serviceEnabled) {
+  //     _serviceEnabled = await location.requestService();
+  //   }
 
-    var _permissionGranted = await location.requestPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      return orders;
-    }
+  //   var _permissionGranted = await location.requestPermission();
+  //   if (_permissionGranted == PermissionStatus.denied) {
+  //     return orders;
+  //   }
 
-    final Distance distance = Distance();
+  //   final Distance distance = Distance();
 
-    var myLocation = await Location.instance.getLocation();
-    LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
-    orders.sort((a, b) {
-      try {
-        var pos1 = LatLng(a.to.lat, a.to.lon);
-        var pos2 = LatLng(b.to.lat, b.to.lon);
+  //   var myLocation = await Location.instance.getLocation();
+  //   LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
+  //   orders.sort((a, b) {
+  //     try {
+  //       var pos1 = LatLng(a.to.lat, a.to.lon);
+  //       var pos2 = LatLng(b.to.lat, b.to.lon);
 
-        var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
-            distance.as(LengthUnit.Kilometer, pos2, myPos);
-        return straightDistance;
-      } catch (e) {
-        return 1;
-      }
-    });
-    return orders.toList();
-  }
+  //       var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
+  //           distance.as(LengthUnit.Kilometer, pos2, myPos);
+  //       return straightDistance;
+  //     } catch (e) {
+  //       return 1;
+  //     }
+  //   });
+  //   return orders.toList();
+  // }
 }

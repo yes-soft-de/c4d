@@ -16,6 +16,7 @@ class InitAccountManager{
   Future<PackagesResponse> getPackages() async => await _repository.getPackages();
 
   Future<bool> subscribePackage(int packageId)async => await _repository.subscribePackage(packageId);
+  Future<bool> renewPackage(int packageId)async => await _repository.renewPackage(packageId);
 
   Future<dynamic> createCaptainProfile(CreateCaptainProfileRequest request) => _repository.createCaptainProfile(request);
 

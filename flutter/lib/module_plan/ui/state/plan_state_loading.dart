@@ -1,11 +1,14 @@
+import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_plan/ui/screen/plan_screen.dart';
 import 'package:c4d/module_plan/ui/state/plan_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_orders/orders_routes.dart';
 
-class PlanScreenStateLoading extends PlanScreenState {
-  PlanScreenStateLoading(PlanScreen screen) : super(screen);
+class PlanScreenStateLoading extends PlanState {
+  PlanScreenStateLoading(PlanScreenState screen) : super(screen);
 
   @override
   Widget getUI(BuildContext context) {
@@ -18,5 +21,79 @@ class PlanScreenStateLoading extends PlanScreenState {
         )
       ],
     );
+  }
+}
+
+class PlanScreenStateError extends PlanState {
+  PlanScreenStateError(PlanScreenState screen) : super(screen);
+
+  @override
+  Widget getUI(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(S.of(context).myPlan),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(S.of(context).notSubscription,style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+
+            ),),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: FlatButton(
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                      InitAccountRoutes.INIT_ACCOUNT_SCREEN);
+                },
+                child: Text(S.of(context).subscribe),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PlanScreenStateSuccess extends PlanState {
+  PlanScreenStateSuccess(PlanScreenState screen) : super(screen);
+
+  @override
+  Widget getUI(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(S.of(context).myPlan),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+                child: Icon(
+              Icons.check_circle,
+              color: Theme.of(context).primaryColor,
+              size: 125,
+            )),
+            SizedBox(height: 16),
+            Center(child: Text(S.of(context).successRenew)),
+            SizedBox(height: 16),
+            Center(
+                child: FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          OrdersRoutes.OWNER_ORDERS_SCREEN, (route) => false);
+                    },
+                    child: Text(S.of(context).next))),
+          ],
+        ));
   }
 }

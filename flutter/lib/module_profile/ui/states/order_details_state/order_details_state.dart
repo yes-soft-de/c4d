@@ -18,7 +18,7 @@ class OrderInfoStateInit extends OrderInfoState {
   Widget getUI(BuildContext context) {
     var format = DateFormat('yyyy-MM-dd');
     bool utc = order.date.timezone.name == 'UTC' ? true : false;
-   var date = format.format(DateTime.fromMillisecondsSinceEpoch(order.date.timestamp * 1000,isUtc: utc));
+   var date = format.format(DateTime.fromMillisecondsSinceEpoch(order.date.timestamp * 1000,));
     return ListView(
       children: [
         ListTile(
@@ -40,6 +40,11 @@ class OrderInfoStateInit extends OrderInfoState {
           leading: Icon(Icons.phone),
           title: Text(
               '${S.of(context).recipientPhoneNumber}  :  ${order.recipientPhone}'),
+        ),
+        ListTile(
+          leading: Icon(Icons.directions_car),
+          title: Text(
+              '${S.of(context).ProvideDistanceInKm}  :  ${order.kilometer}'),
         ),
         ListTile(
           leading: Icon(Icons.date_range),

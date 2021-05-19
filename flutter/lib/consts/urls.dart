@@ -10,6 +10,7 @@ class Urls {
   static const BRANCHES_API = BASE_API + '/branches';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
   static const LOG_API = BASE_API + '/getRecords';
+  static const DELETE_ORDER = BASE_API + '/ordercancel/';
 
   static const REPORT_API = BASE_API + '/report';
 
@@ -28,6 +29,7 @@ class Urls {
 
   static const PACKAGES_API = BASE_API + '/packages';
   static const SUBSCRIPTION_API = BASE_API + '/subscription';
+  static const RENEW_SUBSCRIPTION_API = BASE_API + '/nextsubscription';
 
   static const APPOINTMENT_API = BASE_API + '/dating';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
@@ -38,5 +40,5 @@ class Urls {
   static const TERMS_OWNER = BASE_API + '/';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
-
+  static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
 }
