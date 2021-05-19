@@ -196,7 +196,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         future: widget._localizationService.getLanguage(),
                         builder: (BuildContext context,
                             AsyncSnapshot<String> snapshot) {
-                          print(snapshot.data);
                           return DropdownButton(
                               value: snapshot.data ??
                                   Platform.localeName.substring(0, 2),
