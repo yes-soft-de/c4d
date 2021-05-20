@@ -152,7 +152,8 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
   final List<String> _paymentMethods = ['online', 'cash'];
   String _selectedPaymentMethod = 'online';
   DateTime orderDate = DateTime.now();
-
+  DateTime dateTime = DateTime.now();
+  TimeOfDay time = TimeOfDay.now();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _infoController = TextEditingController();
   final TextEditingController _toController = TextEditingController();
@@ -162,7 +163,8 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
       this.branches, LatLng location, NewOrderScreenState screenState)
       : super(screenState) {
     if (location != null) {
-      _toController.text = 'https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}';
+      _toController.text =
+          'https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}';
     }
   }
 
@@ -313,32 +315,60 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                         ),
                         child: Flex(
                           direction: Axis.horizontal,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width - 75,
-                              child: DateTimePicker(
-                                use24HourFormat: true,
-                                initialValue: DateTime.now().toString(),
-                                type: DateTimePickerType.dateTimeSeparate,
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime(2100),
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400),
-                                decoration: InputDecoration(
-                                  hintStyle: TextStyle(color: Colors.white),
-                                  labelStyle: TextStyle(color: Colors.white),
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(8),
-                                ),
-                                onChanged: (date) {
-                                  orderDate = DateTime.parse(date);
-                                  print(orderDate);
-                                  print(orderDate.toUtc().toIso8601String());
+                            InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(2100),
+                                ).then((value) {
+                                  dateTime = value;
+                                  orderDate = DateTime(
+                                    dateTime.year,
+                                    dateTime.month,
+                                    dateTime.day,
+                                    time.hour,
+                                    time.minute,
+                                  );
                                   screenState.refresh();
-                                },
+                                });
+                              },
+                              child: Container(
+                                width: 100,
+                                child: Center(
+                                    child: Text(
+                                  DateFormat('yMMMMd').format(dateTime),
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                ).then((value) {
+                                  time = value;
+                                  orderDate = DateTime(
+                                    dateTime.year,
+                                    dateTime.month,
+                                    dateTime.day,
+                                    time.hour,
+                                    time.minute,
+                                  );
+                                  screenState.refresh();
+                                });
+                              },
+                              child: Container(
+                                width: 100,
+                                child: Center(
+                                    child: Text(
+                                  DateFormat.jm().format(orderDate),
+                                  style: TextStyle(color: Colors.white),
+                                )),
                               ),
                             ),
                             Icon(
