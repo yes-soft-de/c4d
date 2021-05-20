@@ -43,8 +43,12 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   void moveToNext() {
     Navigator.of(context).pushNamedAndRemoveUntil(
       OrdersRoutes.OWNER_ORDERS_SCREEN,
-          (r) => false,
+      (r) => false,
     );
+  }
+
+  void goBack() {
+    Navigator.of(context).pop();
   }
 
   void initNewOrder(Branch fromBranch, String destination, String note,

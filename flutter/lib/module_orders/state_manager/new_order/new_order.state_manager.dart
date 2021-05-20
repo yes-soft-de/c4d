@@ -20,7 +20,8 @@ class NewOrderStateManager {
 
   void loadBranches(NewOrderScreenState screenState, LatLng location) {
     _profileService.getMyBranches().then((value) {
-      _stateSubject.add(NewOrderStateBranchesLoaded(value, location, screenState));
+      _stateSubject
+          .add(NewOrderStateBranchesLoaded(value, location, screenState));
     });
   }
 
@@ -39,7 +40,11 @@ class NewOrderStateManager {
             recipientName, recipientPhone, date)
         .then((newOrder) {
       if (newOrder) {
-        screenState.moveToNext();
+        if (destination.contains('/dir')) {
+          screenState.goBack();
+        } else {
+          screenState.moveToNext();
+        }
       } else {
         _stateSubject
             .add(NewOrderStateErrorState('Error Creating Order', screenState));

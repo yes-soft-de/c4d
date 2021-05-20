@@ -62,7 +62,7 @@ class NewOrderStateSuccessState extends NewOrderState {
               direction: Axis.vertical,
               children: [
                 TextFormField(
-                  controller: _phoneController,
+                  controller: _nameController,
                   autofocus: false,
                   validator: (v) {
                     if (v.isEmpty) {
@@ -76,7 +76,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                   ),
                 ),
                 TextFormField(
-                  controller: _nameController,
+                  controller: _phoneController,
                   autofocus: false,
                   validator: (v) {
                     if (v.isEmpty) {
@@ -162,14 +162,13 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
       this.branches, LatLng location, NewOrderScreenState screenState)
       : super(screenState) {
     if (location != null) {
-      _toController.text = S.current.fromWhatsapp;
+      _toController.text = 'https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}';
     }
   }
 
   @override
   Widget getUI(context) {
     orderDate ??= DateTime.now();
-
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
