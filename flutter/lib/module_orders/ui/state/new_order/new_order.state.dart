@@ -4,6 +4,7 @@ import 'package:c4d/consts/branch.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/response/orders/orders_response.dart';
 import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
+import 'package:c4d/module_orders/util/whatsapp_link_helper.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
@@ -164,7 +165,8 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
       : super(screenState) {
     if (location != null) {
       _toController.text =
-          'https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}';
+          WhatsAppLinkHelper.getMapsLink(location.latitude, location.longitude);
+      ;
     }
   }
 
@@ -325,15 +327,17 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                                   firstDate: DateTime.now(),
                                   lastDate: DateTime(2100),
                                 ).then((value) {
-                                  dateTime = value;
-                                  orderDate = DateTime(
-                                    dateTime.year,
-                                    dateTime.month,
-                                    dateTime.day,
-                                    time.hour,
-                                    time.minute,
-                                  );
-                                  screenState.refresh();
+                                  if (value != null) {
+                                    dateTime = value;
+                                    orderDate = DateTime(
+                                      dateTime.year,
+                                      dateTime.month,
+                                      dateTime.day,
+                                      time.hour,
+                                      time.minute,
+                                    );
+                                    screenState.refresh();
+                                  }
                                 });
                               },
                               child: Container(
@@ -351,15 +355,18 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                                   context: context,
                                   initialTime: TimeOfDay.now(),
                                 ).then((value) {
-                                  time = value;
-                                  orderDate = DateTime(
-                                    dateTime.year,
-                                    dateTime.month,
-                                    dateTime.day,
-                                    time.hour,
-                                    time.minute,
-                                  );
-                                  screenState.refresh();
+                                  if (value == null) {
+                                  } else {
+                                    time = value;
+                                    orderDate = DateTime(
+                                      dateTime.year,
+                                      dateTime.month,
+                                      dateTime.day,
+                                      time.hour,
+                                      time.minute,
+                                    );
+                                    screenState.refresh();
+                                  }
                                 });
                               },
                               child: Container(
@@ -402,7 +409,6 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                 ),
               ),
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

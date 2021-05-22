@@ -13,7 +13,7 @@ class WhatsAppLinkHelper {
     if (Platform.isAndroid) {
       return 'https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}';
     } else {
-      return 'comgooglemaps://www.google.com/maps/dir/?api=1&destination=${lat},${lon}';
+      return 'comgooglemaps://?destination=${lat},${lon}';
     }
   }
 }

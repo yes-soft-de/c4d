@@ -78,7 +78,8 @@ class OrdersService {
       status: StatusHelper.getStatus(response.state),
       id: orderId,
       chatRoomId: response.uuid,
-      ownerPhone: response.phone,
+      clientPhone: response.recipientPhone,
+      ownerPhone: response.phone ?? response.ownerResponse.phone,
       captainPhone: response.acceptedOrder.isNotEmpty
           ? response.acceptedOrder.last.phone
           : null,

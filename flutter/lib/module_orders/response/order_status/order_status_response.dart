@@ -48,6 +48,7 @@ class OrderDetailsData {
   List<dynamic> record;
   String uuid;
   Date createAt;
+  OwnerResponse ownerResponse;
   OrderDetailsData(
       {this.id,
       this.ownerID,
@@ -68,7 +69,8 @@ class OrderDetailsData {
       this.acceptedOrder,
       this.record,
       this.uuid,
-      this.createAt});
+      this.createAt,
+      this.ownerResponse});
 
   OrderDetailsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -91,20 +93,25 @@ class OrderDetailsData {
     fromBranch = json['fromBranch'] != null
         ? FromBranch.fromJson(json['fromBranch'])
         : null;
+    ownerResponse =
+        json['owner'] != null ? OwnerResponse.fromJson(json['owner']) : null;
     location = GeoJson.fromJson(json['location']);
     brancheName = json['brancheName'];
     branchCity = json['branchCity'];
     try {
       if (json['acceptedOrder'] != null) {
         if (json['acceptedOrder'] is List) {
-          List<Map<String, dynamic>> orders = json['accptedOrder'];
+          List<dynamic> orders = json['acceptedOrder'];
           acceptedOrder = <AcceptedOrder>[];
           orders.forEach((element) {
+            print(element);
             acceptedOrder.add(AcceptedOrder.fromJson(element));
           });
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     record = json['record'];
     uuid = json['uuid'];
   }
@@ -258,7 +265,7 @@ class AcceptedOrder {
   String captainName;
   String car;
   String image;
-  Null uuid;
+  String uuid;
   String phone;
 
   AcceptedOrder(

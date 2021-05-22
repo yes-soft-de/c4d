@@ -81,7 +81,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               ),
             ),
             // To WhatsApp with store owner
-            GestureDetector(
+           currentOrder.captainPhone != null ? GestureDetector(
               onTap: () {
                 var url =
                     WhatsAppLinkHelper.getWhatsAppLink(currentOrder.ownerPhone);
@@ -96,9 +96,9 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       : Colors.black,
                 ),
               ),
-            ),
+            ):Container(),
             // To WhatsApp with client
-            currentOrder.ownerPhone != null
+            currentOrder.clientPhone != null
                 ? GestureDetector(
                     onTap: () {
                       var url = WhatsAppLinkHelper.getWhatsAppLink(
@@ -119,7 +119,6 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             // To Open Maps
             GestureDetector(
               onTap: () {
-                print(currentOrder.branchLocation.lat);
                 var url = WhatsAppLinkHelper.getMapsLink(
                     currentOrder.branchLocation.lat,
                     currentOrder.branchLocation.lon);
