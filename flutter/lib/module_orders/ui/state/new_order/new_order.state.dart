@@ -159,13 +159,14 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
   final TextEditingController _infoController = TextEditingController();
   final TextEditingController _toController = TextEditingController();
   Branch activeBranch;
-
+  LatLng destination;
   NewOrderStateBranchesLoaded(
       this.branches, LatLng location, NewOrderScreenState screenState)
       : super(screenState) {
     if (location != null) {
       _toController.text =
           WhatsAppLinkHelper.getMapsLink(location.latitude, location.longitude);
+      destination = location;
       ;
     }
   }
@@ -271,44 +272,6 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                         ),
                       ),
                     ),
-
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(8),
-                    //     color: Color(0xff454F63),
-                    //   ),
-                    //   child: GestureDetector(
-                    //       onTap: () {
-                    //         DatePicker.showDatePicker(
-                    //           context,
-                    //         ).then((value) {
-                    //           orderDate = value;
-                    //           screenState.refresh();
-                    //         });
-                    //       },
-                    //       child: Row(
-                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //         children: [
-                    //           Padding(
-                    //             padding: EdgeInsets.fromLTRB(8, 16, 8, 16),
-                    //             child: Text(
-                    //               '${orderDate.toIso8601String().substring(11, 16)}',
-                    //               style: TextStyle(
-                    //                 color: Colors.white,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(16.0),
-                    //             child: Icon(
-                    //               Icons.calendar_today,
-                    //               color: Colors.grey,
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       )),
-                    // ),
-
                     Container(
                         height: 60,
                         decoration: BoxDecoration(
@@ -445,13 +408,15 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                             .showSnackBar(S.of(context).pleaseSelectABranch);
                         return;
                       }
+                      print(destination);
                       screenState.initNewOrder(
-                        activeBranch,
-                        _toController.text,
-                        _infoController.text.trim(),
-                        _selectedPaymentMethod ?? _selectedPaymentMethod.trim(),
-                        orderDate.toUtc().toIso8601String(),
-                      );
+                          activeBranch,
+                          _toController.text,
+                          _infoController.text.trim(),
+                          _selectedPaymentMethod ??
+                              _selectedPaymentMethod.trim(),
+                          orderDate.toUtc().toIso8601String(),
+                          destination);
                     },
                     child: Text(
                       S.of(context).apply,
@@ -490,22 +455,9 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
           style: TextStyle(color: Colors.white),
         ),
       );
-    } else if (branches.length == 1) {
+    } else {
       activeBranch = branches[0];
       return Container(
-        padding: EdgeInsets.fromLTRB(8, 16, 8, 16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Color(0xff454F63),
-        ),
-        child: Text(
-          S.of(context).defaultBranch,
-          style: TextStyle(color: Colors.white),
-        ),
-      );
-    } else {
-      return Container(
-        padding: EdgeInsets.fromLTRB(8, 16, 8, 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Color(0xff454F63),
@@ -514,27 +466,31 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
           data: Theme.of(context).copyWith(
             canvasColor: Color(0xff454F63),
           ),
-          child: DropdownButtonFormField(
-              decoration: InputDecoration(
-                fillColor: Color(0xff454F63),
-                focusColor: Color(0xff454F63),
-                hintText: S.of(context).branch,
-                hintStyle: TextStyle(color: Colors.white),
-              ),
-              items: branches
-                  .map((e) => DropdownMenuItem<Branch>(
-                        value: e,
-                        child: Text(
-                          '${S.of(context).branch} ${e.brancheName}',
-                          style: TextStyle(
-                            color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButtonFormField(
+                decoration: InputDecoration(
+                  fillColor: Color(0xff454F63),
+                  focusColor: Color(0xff454F63),
+                  hintText:
+                      '${S.of(context).branch} ${branches[0].brancheName}',
+                  hintStyle: TextStyle(color: Colors.white),
+                ),
+                items: branches
+                    .map((e) => DropdownMenuItem<Branch>(
+                          value: e,
+                          child: Text(
+                            '${S.of(context).branch} ${e.brancheName}',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                activeBranch = val;
-              }),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  activeBranch = val;
+                }),
+          ),
         ),
       );
     }

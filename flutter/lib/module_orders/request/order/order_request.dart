@@ -8,7 +8,7 @@ class CreateOrderRequest {
   String recipientName;
   String recipientPhone;
   String date;
-
+  GeoJson destination2;
   CreateOrderRequest(
       {this.fromBranch,
       this.destination,
@@ -16,7 +16,8 @@ class CreateOrderRequest {
       this.payment,
       this.recipientName,
       this.recipientPhone,
-      this.date});
+      this.date,
+      this.destination2});
 
   CreateOrderRequest.fromJson(Map<String, dynamic> json) {
     fromBranch = json['fromBranch'];
@@ -33,6 +34,9 @@ class CreateOrderRequest {
     data['fromBranch'] = this.fromBranch;
     //data['destination'] = this.destination.toJson();
     data['destination'] = this.destination;
+    if (this.destination2 != null) {
+      data['destination2'] = this.destination2.toJson();
+    }
     data['note'] = this.note;
     data['payment'] = this.payment;
     data['recipientName'] = this.recipientName;

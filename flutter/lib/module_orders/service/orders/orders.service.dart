@@ -16,7 +16,7 @@ import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:c4d/utils/logger/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inject/inject.dart';
-
+import 'package:latlong/latlong.dart';
 @provide
 class OrdersService {
   final OrdersManager _ordersManager;
@@ -84,6 +84,7 @@ class OrdersService {
           ? response.acceptedOrder.last.phone
           : null,
       canRemove: canRemove,
+      costumerLocation: response.destination2
     );
 
     return order;
@@ -140,7 +141,9 @@ class OrdersService {
       String paymentMethod,
       String recipientName,
       String recipientPhone,
-      String date) async {
+      String date,
+      LatLng destination2
+      ) async {
     var orderRequest = CreateOrderRequest(
       note: note,
       date: date,
@@ -149,6 +152,7 @@ class OrdersService {
       recipientName: recipientName,
       recipientPhone: recipientPhone,
       destination: destination,
+      destination2:destination2!=null?GeoJson(lat: destination2.latitude,lon: destination2.longitude) : null
     );
     return _ordersManager.addNewOrder(orderRequest);
   }
@@ -157,6 +161,14 @@ class OrdersService {
     return FirebaseFirestore.instance
         .collection('order_state')
         .doc(orderId.toString())
+        .collection('order_history')
+        .snapshots();
+  }
+
+  Stream onInsertChangeWatcher() {
+    return FirebaseFirestore.instance
+        .collection('orders')
+        .doc('new_order')
         .collection('order_history')
         .snapshots();
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:c4d/module_auth/exceptions/auth_exception.dart';
 import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_orders/service/orders/orders.service.dart';
@@ -25,7 +27,7 @@ class CaptainOrdersListStateManager {
   Stream<CompanyInfoResponse> get companyStream => _companySubject.stream;
 
   CaptainOrdersListStateManager(this._ordersService, this._profileService);
-
+  StreamSubscription _newOrderSubscription;
   void getProfile() {
     _profileService
         .getProfile()
@@ -41,6 +43,7 @@ class CaptainOrdersListStateManager {
     ]).then((value) {
       _stateSubject.add(CaptainOrdersListStateOrdersLoaded(
           screenState, value[0], value[1], value[2]));
+      initListenting(screenState);
     }).catchError((e) {
       if (e is UnauthorizedException) {
         _stateSubject.add(CaptainOrdersListStateUnauthorized(screenState));
@@ -48,6 +51,28 @@ class CaptainOrdersListStateManager {
         _stateSubject
             .add(CaptainOrdersListStateError(e.toString(), screenState));
       }
+    });
+  }
+
+  void initListenting(CaptainOrdersScreenState screenState) {
+    _newOrderSubscription =
+        _ordersService.onInsertChangeWatcher().listen((event) {
+      CaptainOrdersListStateLoading(screenState);
+      Future.wait([
+        _ordersService.getNearbyOrders(),
+        _ordersService.getCaptainOrders(),
+        _ordersService.getCaptainStatus()
+      ]).then((value) {
+        _stateSubject.add(CaptainOrdersListStateOrdersLoaded(
+            screenState, value[0], value[1], value[2]));
+      }).catchError((e) {
+        if (e is UnauthorizedException) {
+          _stateSubject.add(CaptainOrdersListStateUnauthorized(screenState));
+        } else {
+          _stateSubject
+              .add(CaptainOrdersListStateError(e.toString(), screenState));
+        }
+      });
     });
   }
 

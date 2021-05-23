@@ -81,22 +81,24 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               ),
             ),
             // To WhatsApp with store owner
-           currentOrder.captainPhone != null ? GestureDetector(
-              onTap: () {
-                var url =
-                    WhatsAppLinkHelper.getWhatsAppLink(currentOrder.ownerPhone);
-                launch(url);
-              },
-              child: CommunicationCard(
-                text: S.of(context).whatsappWithStoreOwner,
-                image: FaIcon(
-                  FontAwesomeIcons.whatsapp,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
-              ),
-            ):Container(),
+            currentOrder.captainPhone != null
+                ? GestureDetector(
+                    onTap: () {
+                      var url = WhatsAppLinkHelper.getWhatsAppLink(
+                          currentOrder.ownerPhone);
+                      launch(url);
+                    },
+                    child: CommunicationCard(
+                      text: S.of(context).whatsappWithStoreOwner,
+                      image: FaIcon(
+                        FontAwesomeIcons.whatsapp,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  )
+                : Container(),
             // To WhatsApp with client
             currentOrder.clientPhone != null
                 ? GestureDetector(
@@ -135,21 +137,29 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               ),
             ),
 
-           currentOrder.to.contains('maps') ? GestureDetector(
-              onTap: () {
-                var url = currentOrder.to;
-                launch(url);
-              },
-              child: CommunicationCard(
-                text: S.of(context).locationOfCustomer,
-                image: FaIcon(
-                  FontAwesomeIcons.locationArrow,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
-              ),
-            ):Container(),
+            currentOrder.to.contains('maps') ||
+                    currentOrder.costumerLocation != null ||
+                    currentOrder.to.contains('destination')
+                ? GestureDetector(
+                    onTap: () {
+                      var url = currentOrder.costumerLocation != null
+                          ? WhatsAppLinkHelper.getMapsLink(
+                              currentOrder.costumerLocation.lat,
+                              currentOrder.costumerLocation.lon)
+                          : currentOrder.to;
+                      launch(url);
+                    },
+                    child: CommunicationCard(
+                      text: S.of(context).locationOfCustomer,
+                      image: FaIcon(
+                        FontAwesomeIcons.locationArrow,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  )
+                : Container(),
             Container(
               height: 36,
             ),
@@ -264,7 +274,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             currentOrder.paymentMethod.toLowerCase().contains('ca'),
             context,
           ),
-          color: Theme.of(context).accentColor,
+          color: Colors.green,
           textColor: Colors.white,
           image: Icon(
             Icons.navigate_next_sharp,

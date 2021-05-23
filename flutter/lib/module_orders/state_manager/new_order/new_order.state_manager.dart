@@ -4,6 +4,7 @@ import 'package:c4d/module_orders/ui/screens/new_order/new_order_screen.dart';
 import 'package:c4d/module_orders/ui/state/new_order/new_order.state.dart';
 import 'package:c4d/module_profile/response/create_branch_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
 import 'package:rxdart/rxdart.dart';
@@ -33,14 +34,20 @@ class NewOrderStateManager {
       String recipientName,
       String recipientPhone,
       String date,
+      LatLng destination2,
       NewOrderScreenState screenState) {
     _stateSubject.add(NewOrderStateInit(screenState));
     _service
         .addNewOrder(fromBranch, destination, note, paymentMethod,
-            recipientName, recipientPhone, date)
+            recipientName, recipientPhone, date,destination2)
         .then((newOrder) {
+      FirebaseFirestore.instance
+          .collection('orders')
+          .doc('new_order')
+          .collection('order_history')
+          .add({'date': DateTime.now().toUtc().toIso8601String()});
       if (newOrder) {
-        if (destination.contains('/dir')) {
+        if (destination.contains('destination')) {
           screenState.goBack();
         } else {
           screenState.moveToNext();

@@ -31,13 +31,13 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   String recipientName;
   String recipientPhone;
   String date;
-
+  LatLng destination2;
   void addNewOrder(
     String recipientName,
     String recipientPhone,
   ) {
     widget._stateManager.addNewOrder(fromBranch, destination, note,
-        paymentMethod, recipientName, recipientPhone, date, this);
+        paymentMethod, recipientName, recipientPhone, date, destination2, this);
   }
 
   void moveToNext() {
@@ -52,12 +52,13 @@ class NewOrderScreenState extends State<NewOrderScreen> {
   }
 
   void initNewOrder(Branch fromBranch, String destination, String note,
-      String paymentMethod, String date) {
+      String paymentMethod, String date, LatLng destination2) {
     this.fromBranch = fromBranch;
     this.destination = destination;
     this.note = note;
     this.paymentMethod = paymentMethod;
     this.date = date;
+    this.destination2 = destination2;
     currentState = NewOrderStateSuccessState(this);
     refresh();
   }

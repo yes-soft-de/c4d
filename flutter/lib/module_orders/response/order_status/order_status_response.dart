@@ -49,6 +49,7 @@ class OrderDetailsData {
   String uuid;
   Date createAt;
   OwnerResponse ownerResponse;
+  GeoJson destination2;
   OrderDetailsData(
       {this.id,
       this.ownerID,
@@ -70,7 +71,8 @@ class OrderDetailsData {
       this.record,
       this.uuid,
       this.createAt,
-      this.ownerResponse});
+      this.ownerResponse,
+      this.destination2});
 
   OrderDetailsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -92,6 +94,9 @@ class OrderDetailsData {
     state = json['state'];
     fromBranch = json['fromBranch'] != null
         ? FromBranch.fromJson(json['fromBranch'])
+        : null;
+    destination2 = json['destination2'] != null
+        ? GeoJson.fromJson(json['destination2'])
         : null;
     ownerResponse =
         json['owner'] != null ? OwnerResponse.fromJson(json['owner']) : null;
