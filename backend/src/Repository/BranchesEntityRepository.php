@@ -46,16 +46,4 @@ class BranchesEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    public function getBrancheById($Id)
-    {
-        return $this->createQueryBuilder('BranchesEntity')
-            ->select('BranchesEntity.id', 'BranchesEntity.ownerID', 'BranchesEntity.location', 'BranchesEntity.city', 'BranchesEntity.brancheName') 
-
-            ->andWhere("BranchesEntity.ownerID = :userId ")
-
-            ->setParameter('userId',$userId)
-            ->getQuery()
-            ->getResult();
-    }
 }

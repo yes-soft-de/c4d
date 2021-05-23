@@ -9,6 +9,7 @@ class OrderResponse
     public $userName;
     public $source = [];
     public $destination;
+    public $destination2;
     public $date;
     public $updateDate;
     public $note;

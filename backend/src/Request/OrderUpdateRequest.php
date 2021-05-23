@@ -8,6 +8,7 @@ class OrderUpdateRequest
     private $ownerID;
     private $source = [];
     private $destination = [];
+    private $destination2 = [];
     private $note;
     private $payment;
     private $recipientName;

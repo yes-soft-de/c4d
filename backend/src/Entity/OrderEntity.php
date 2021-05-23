@@ -34,6 +34,11 @@ class OrderEntity
     private $destination = [];
 
     /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $destination2 = [];
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
@@ -139,6 +144,18 @@ class OrderEntity
     public function setDestination(array $destination): self
     {
         $this->destination = $destination;
+
+        return $this;
+    }
+
+    public function getDestination2(): ?array
+    {
+        return $this->destination2;
+    }
+
+    public function setDestination2(array $destination2): self
+    {
+        $this->destination2 = $destination2;
 
         return $this;
     }
