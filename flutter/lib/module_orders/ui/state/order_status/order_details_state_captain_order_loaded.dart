@@ -26,6 +26,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   @override
   Widget getUI(BuildContext context) {
+    print(currentOrder.costumerLocation);
     return WillPopScope(
       onWillPop: () {
         Navigator.of(context).pushNamedAndRemoveUntil(
@@ -80,44 +81,56 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                 ),
               ),
             ),
-            // To WhatsApp with store owner
-            currentOrder.captainPhone != null
-                ? GestureDetector(
-                    onTap: () {
-                      var url = WhatsAppLinkHelper.getWhatsAppLink(
-                          currentOrder.ownerPhone);
-                      launch(url);
-                    },
-                    child: CommunicationCard(
-                      text: S.of(context).whatsappWithStoreOwner,
-                      image: FaIcon(
-                        FontAwesomeIcons.whatsapp,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                    ),
-                  )
-                : Container(),
-            // To WhatsApp with client
-            currentOrder.clientPhone != null
-                ? GestureDetector(
-                    onTap: () {
-                      var url = WhatsAppLinkHelper.getWhatsAppLink(
-                          currentOrder.clientPhone);
-                      launch(url);
-                    },
-                    child: CommunicationCard(
-                      text: S.of(context).whatsappWithClient,
-                      image: FaIcon(
-                        FontAwesomeIcons.whatsapp,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
-                      ),
-                    ),
-                  )
-                : Container(),
+            Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // To WhatsApp with client
+                currentOrder.clientPhone != null
+                    ? Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            var url = WhatsAppLinkHelper.getWhatsAppLink(
+                                currentOrder.clientPhone);
+                            launch(url);
+                          },
+                          child: CommunicationCard(
+                            text: S.of(context).whatsappWithClient,
+                            image: FaIcon(
+                              FontAwesomeIcons.whatsapp,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(),
+                // To WhatsApp with store owner
+                currentOrder.ownerPhone != null
+                    ? Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            var url = WhatsAppLinkHelper.getWhatsAppLink(
+                                currentOrder.ownerPhone);
+                            launch(url);
+                          },
+                          child: CommunicationCard(
+                            text: S.of(context).store,
+                            image: FaIcon(
+                              FontAwesomeIcons.whatsapp,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
             // To Open Maps
             GestureDetector(
               onTap: () {
@@ -138,7 +151,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
             ),
 
             currentOrder.to.contains('maps') ||
-                    currentOrder.costumerLocation != null ||
+                    currentOrder.costumerLocation.lon != null ||
                     currentOrder.to.contains('destination')
                 ? GestureDetector(
                     onTap: () {

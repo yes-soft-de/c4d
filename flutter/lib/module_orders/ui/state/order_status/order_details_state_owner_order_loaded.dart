@@ -128,36 +128,50 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          var url = WhatsAppLinkHelper.getWhatsAppLink(
-                              currentOrder.captainPhone);
-                          launch(url);
-                        },
-                        child: CommunicationCard(
-                          text: S.of(context).whatsappWithCaptain,
-                          image: FaIcon(
-                            FontAwesomeIcons.whatsapp,
-                            color: Colors.green,
-                          ),
-                        ),
-                      ),
-                      currentOrder.clientPhone == null
-                          ? Container()
-                          : GestureDetector(
-                              onTap: () {
-                                var url = WhatsAppLinkHelper.getWhatsAppLink(
-                                    currentOrder.clientPhone);
-                                launch(url);
-                              },
-                              child: CommunicationCard(
-                                text: S.of(context).whatsappWithClient,
-                                image: FaIcon(
-                                  FontAwesomeIcons.whatsapp,
-                                  color: Colors.green,
+                      Flex(
+                        direction: Axis.horizontal,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          currentOrder.captainPhone == null
+                              ? Container()
+                              : Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      var url =
+                                          WhatsAppLinkHelper.getWhatsAppLink(
+                                              currentOrder.captainPhone);
+                                      launch(url);
+                                    },
+                                    child: CommunicationCard(
+                                      text: S.of(context).whatsappWithCaptain,
+                                      image: FaIcon(
+                                        FontAwesomeIcons.whatsapp,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                          currentOrder.clientPhone == null
+                              ? Container()
+                              : Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      var url =
+                                          WhatsAppLinkHelper.getWhatsAppLink(
+                                              currentOrder.clientPhone);
+                                      launch(url);
+                                    },
+                                    child: CommunicationCard(
+                                      text: S.of(context).whatsappWithClient,
+                                      image: FaIcon(
+                                        FontAwesomeIcons.whatsapp,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                        ],
+                      ),
                       Container(
                         height: 48,
                       ),

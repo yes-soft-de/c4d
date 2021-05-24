@@ -241,6 +241,9 @@ class GeoJson {
       return;
     }
     if (data is List) {
+      if (data.isEmpty) {
+        return;
+      }
       if (data.last is Map) {
         json = data.last;
       }

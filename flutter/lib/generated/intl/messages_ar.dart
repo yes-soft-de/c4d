@@ -199,6 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "smallLessThan20Employee" : MessageLookupByLibrary.simpleMessage("1 - 20 موظف"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("ابدأ الكتابة"),
     "stcPayCode" : MessageLookupByLibrary.simpleMessage("رقم حساب STC PAY"),
+    "store" : MessageLookupByLibrary.simpleMessage("المتجر"),
     "storeName" : MessageLookupByLibrary.simpleMessage("اسم المحل التجاري"),
     "storeOwner" : MessageLookupByLibrary.simpleMessage("محل تجاري"),
     "storePhone" : MessageLookupByLibrary.simpleMessage("رقم هاتف المحل"),
@@ -226,8 +227,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "weWillContactYouSoon" : MessageLookupByLibrary.simpleMessage("تم تسجيل الطلب، سنتواصل معك بأقرب وقت ممكن"),
     "welcomeToC4d" : MessageLookupByLibrary.simpleMessage("اهلا بك في C4D"),
     "welcomeToOrdersScreen" : MessageLookupByLibrary.simpleMessage("اهلا في قسم الطلبات"),
-    "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("واتساب مع الكابتن"),
-    "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("التحدث مع الزبون"),
-    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("واتساب مع صاحب المحل")
+    "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("الكابتن"),
+    "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("الزبون"),
+    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("صاحب المحل")
   };
 }

@@ -48,8 +48,8 @@
   "currentOrders": "طلباتي",
   "nearbyOrders": "الطلبات القريبة",
   "chatWithStoreOwner": "التحدث مع صاحب المحل",
-  "whatsappWithStoreOwner": "واتساب مع صاحب المحل",
-  "whatsappWithClient": "التحدث مع الزبون",
+  "whatsappWithStoreOwner": "صاحب المحل",
+  "whatsappWithClient": "الزبون",
   "getDirection": "موقع المحل (الاستلام)",
   "settings": "الاعدادات",
   "iAm": "من أنا",
@@ -104,7 +104,7 @@
   "info": "حول الطلب",
   "mohammad": "محمد",
   "deliverTo": "اسم المستلم",
-  "whatsappWithCaptain": "واتساب مع الكابتن",
+  "whatsappWithCaptain": "الكابتن",
   "order": "الطلب ",
   "home": "الرئيسية",
   "branch01": "الفرع 01",
@@ -208,7 +208,8 @@
   "days":"يوم",
   "seconds":"ثانية",
   "hours":"ساعة",
-  "failearRenew":"لم يتم تجديد الاشتراك بنجاح الرجاء إعادة المحاولة لاحقا"
+  "failearRenew":"لم يتم تجديد الاشتراك بنجاح الرجاء إعادة المحاولة لاحقا",
+  "store":"المتجر"
 
 
 }

@@ -48,8 +48,8 @@
   "currentOrders": "Current Orders",
   "nearbyOrders": "Nearby Orders",
   "chatWithStoreOwner": "Chat with Store Owner",
-  "whatsappWithStoreOwner": "WhatsApp with Store Owner",
-  "whatsappWithClient": "WhatsApp with Client",
+  "whatsappWithStoreOwner": "Store Owner",
+  "whatsappWithClient": "Client",
   "getDirection": "Get Direction",
   "settings": "Settings",
   "iAm": "I am",
@@ -104,7 +104,7 @@
   "info": "Info",
   "mohammad": "Mohammad",
   "deliverTo": "Deliver To",
-  "whatsappWithCaptain": "WhatsApp with Captain",
+  "whatsappWithCaptain": "Captain",
   "order": "Order",
   "home": "Home",
   "branch01": "Branch 01",
@@ -209,6 +209,8 @@
   "days":"day",
   "seconds":"second",
   "hours":"hour",
-  "failureRenew":"Your renew has been failed please try again"
+  "failureRenew":"Your renew has been failed please try again",
+  "store":"Store"
+
 
 }

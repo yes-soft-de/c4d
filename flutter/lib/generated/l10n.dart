@@ -515,20 +515,20 @@ class S {
     );
   }
 
-  /// `WhatsApp with Store Owner`
+  /// `Store Owner`
   String get whatsappWithStoreOwner {
     return Intl.message(
-      'WhatsApp with Store Owner',
+      'Store Owner',
       name: 'whatsappWithStoreOwner',
       desc: '',
       args: [],
     );
   }
 
-  /// `WhatsApp with Client`
+  /// `Client`
   String get whatsappWithClient {
     return Intl.message(
-      'WhatsApp with Client',
+      'Client',
       name: 'whatsappWithClient',
       desc: '',
       args: [],
@@ -1075,10 +1075,10 @@ class S {
     );
   }
 
-  /// `WhatsApp with Captain`
+  /// `Captain`
   String get whatsappWithCaptain {
     return Intl.message(
-      'WhatsApp with Captain',
+      'Captain',
       name: 'whatsappWithCaptain',
       desc: '',
       args: [],
@@ -2130,6 +2130,16 @@ class S {
     return Intl.message(
       'Your renew has been failed please try again',
       name: 'failureRenew',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Store`
+  String get store {
+    return Intl.message(
+      'Store',
+      name: 'store',
       desc: '',
       args: [],
     );

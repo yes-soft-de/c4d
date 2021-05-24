@@ -201,6 +201,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "smallLessThan20Employee" : MessageLookupByLibrary.simpleMessage("1 - 20 Employee"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("Start Writing"),
     "stcPayCode" : MessageLookupByLibrary.simpleMessage("STC Pay Code"),
+    "store" : MessageLookupByLibrary.simpleMessage("Store"),
     "storeName" : MessageLookupByLibrary.simpleMessage("Store Name"),
     "storeOwner" : MessageLookupByLibrary.simpleMessage("Store Owner"),
     "storePhone" : MessageLookupByLibrary.simpleMessage("Store Phone"),
@@ -228,8 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "weWillContactYouSoon" : MessageLookupByLibrary.simpleMessage("We will contact you soon"),
     "welcomeToC4d" : MessageLookupByLibrary.simpleMessage("Welcome to C4D"),
     "welcomeToOrdersScreen" : MessageLookupByLibrary.simpleMessage("Welcome to Orders Screen"),
-    "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("WhatsApp with Captain"),
-    "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("WhatsApp with Client"),
-    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("WhatsApp with Store Owner")
+    "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("Captain"),
+    "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("Client"),
+    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("Store Owner")
   };
 }
