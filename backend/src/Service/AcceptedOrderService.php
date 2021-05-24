@@ -23,15 +23,15 @@ class AcceptedOrderService
     private $params;
     private $notificationService;
 
-    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager, RecordService $recordService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService 
-    // NotificationService $notificationService
+    public function __construct(AutoMapping $autoMapping, AcceptedOrderManager $acceptedOrderManager, RecordService $recordService, ParameterBagInterface $params, RoomIdHelperService $roomIdHelperService ,
+    NotificationService $notificationService
     )
     {
         $this->autoMapping = $autoMapping;
         $this->acceptedOrderManager = $acceptedOrderManager;
         $this->recordService = $recordService;
         $this->roomIdHelperService = $roomIdHelperService;
-        // $this->notificationService = $notificationService;
+        $this->notificationService = $notificationService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -50,13 +50,19 @@ class AcceptedOrderService
             $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
 
             //start-----> notification
-            $notificationRequest = new SendNotificationRequest();
-            $notificationRequest->setUserIdOne($data[0]['ownerID']);
-            $notificationRequest->setUserIdTwo($item->getCaptainID());
-            $notificationRequest->setOrderID($request->getOrderID());
-            $this->notificationService->notificationOrderUpdate($notificationRequest);
-            // notification <------end
-        
+            try {
+                $notificationRequest = new SendNotificationRequest();
+                $notificationRequest->setUserIdOne($data[0]['ownerID']);
+                $notificationRequest->setUserIdTwo($item->getCaptainID());
+                $notificationRequest->setOrderID($request->getOrderID());
+                $this->notificationService->notificationOrderUpdate($notificationRequest);
+           
+             }
+            catch (\Exception $e)
+             {
+
+            }
+         // notification <------end
         }
        
         return $response;
