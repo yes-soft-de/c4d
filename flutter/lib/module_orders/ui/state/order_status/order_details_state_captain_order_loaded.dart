@@ -155,7 +155,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                     currentOrder.to.contains('destination')
                 ? GestureDetector(
                     onTap: () {
-                      var url = currentOrder.costumerLocation != null
+                      var url = currentOrder.costumerLocation.lon != null
                           ? WhatsAppLinkHelper.getMapsLink(
                               currentOrder.costumerLocation.lat,
                               currentOrder.costumerLocation.lon)
