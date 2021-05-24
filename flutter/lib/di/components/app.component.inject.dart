@@ -106,6 +106,8 @@ import '../../module_profile/state_manager/order/order_info_state_manager.dart'
 import '../../module_plan/plan_module.dart' as _i78;
 import '../../module_plan/ui/screen/plan_screen.dart' as _i79;
 import '../../module_plan/state_manager/plan_screen_state_manager.dart' as _i80;
+import '../../module_notifications/service/local_notification_service/local_notification_service.dart'
+    as _i81;
 
 class AppComponent$Injector implements _i1.AppComponent {
   AppComponent$Injector._();
@@ -134,7 +136,8 @@ class AppComponent$Injector implements _i1.AppComponent {
       _createSettingsModule(),
       _createAuthorizationModule(),
       _createProfileModule(),
-      _createPlanModule());
+      _createPlanModule(),
+      _createLocalNotificationService());
   _i7.AppThemeDataService _createAppThemeDataService() =>
       _i7.AppThemeDataService(_createThemePreferencesHelper());
   _i8.ThemePreferencesHelper _createThemePreferencesHelper() =>
@@ -312,6 +315,8 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i80.PlanScreenStateManager _createPlanScreenStateManager() =>
       _i80.PlanScreenStateManager(_createPlanService(), _createAuthService(),
           _createInitAccountService());
+  _i81.LocalNotificationService _createLocalNotificationService() =>
+      _i81.LocalNotificationService();
   @override
   _i6.MyApp get app => _createMyApp();
 }

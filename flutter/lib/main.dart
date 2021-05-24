@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_about/about_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
+import 'package:c4d/module_notifications/model/notification_model.dart';
 import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
 import 'package:c4d/module_plan/plan_module.dart';
@@ -21,13 +22,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inject/inject.dart';
-
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
 import 'module_auth/authoriazation_module.dart';
+import 'module_notifications/service/local_notification_service/local_notification_service.dart';
 import 'module_settings/settings_module.dart';
 import 'module_splash/splash_routes.dart';
-
 import 'package:timeago/timeago.dart' as timeago;
 
 void main() async {
@@ -39,6 +39,7 @@ void main() async {
   FlutterError.onError = (FlutterErrorDetails details) {
     FirebaseCrashlytics.instance.recordFlutterError(details);
   };
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) async {
@@ -70,21 +71,21 @@ class MyApp extends StatefulWidget {
   final AboutModule _aboutModule;
   final FireNotificationService _fireNotificationService;
   final PlanModule _planModule;
-
+  final LocalNotificationService _localNotificationService;
   MyApp(
-    this._themeDataService,
-    this._localizationService,
-    this._ordersModule,
-    this._chatModule,
-    this._aboutModule,
-    this._splashModule,
-    this._fireNotificationService,
-    this._initAccountModule,
-    this._settingsModule,
-    this._authorizationModule,
-    this._profileModule,
-    this._planModule,
-  );
+      this._themeDataService,
+      this._localizationService,
+      this._ordersModule,
+      this._chatModule,
+      this._aboutModule,
+      this._splashModule,
+      this._fireNotificationService,
+      this._initAccountModule,
+      this._settingsModule,
+      this._authorizationModule,
+      this._profileModule,
+      this._planModule,
+      this._localNotificationService);
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -94,7 +95,9 @@ class _MyAppState extends State<MyApp> {
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
+  //Initialisation of local notification
 
+  //end
   String lang;
   ThemeData activeTheme;
   bool authorized = false;
@@ -103,11 +106,17 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     widget._fireNotificationService.init();
+    widget._localNotificationService.init();
     widget._localizationService.localizationStream.listen((event) {
       timeago.setDefaultLocale(event);
       setState(() {});
     });
-
+    widget._fireNotificationService.onNotificationStream.listen((event) {
+      NotificationModel model = NotificationModel.fromJson(event);
+      widget._localNotificationService.showNotification(model);
+    });
+    widget._localNotificationService.onLocalNotificationStream.listen((event) {
+    });
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});
@@ -124,6 +133,7 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+
   Future<Widget> getConfiguratedApp(
     Map<String, WidgetBuilder> fullRoutesList,
   ) async {

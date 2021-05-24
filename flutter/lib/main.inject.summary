@@ -102,6 +102,13 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_notifications/service/local_notification_service/local_notification_service.dart#LocalNotificationService",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

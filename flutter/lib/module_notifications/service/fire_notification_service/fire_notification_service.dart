@@ -17,14 +17,16 @@ class FireNotificationService {
   final ProfileService _profileService;
   final NotificationRepo _notificationRepo;
 
-  FireNotificationService(this._prefsHelper,
-      this._profileService,
-      this._notificationRepo,);
+  FireNotificationService(
+    this._prefsHelper,
+    this._profileService,
+    this._notificationRepo,
+  );
 
-  static final PublishSubject<String> _onNotificationRecieved =
-  PublishSubject();
+  static final PublishSubject<Map<String, dynamic>> _onNotificationRecieved =
+      PublishSubject();
 
-  static Stream get onNotificationStream => _onNotificationRecieved.stream;
+  Stream get onNotificationStream => _onNotificationRecieved.stream;
 
   static StreamSubscription iosSubscription;
   final FirebaseMessaging _fcm = FirebaseMessaging();
@@ -43,17 +45,16 @@ class FireNotificationService {
 
   Future<void> refreshNotificationToken() async {
     var token = await _fcm.getToken();
+    print(token);
     if (token != null) {
       // And Subscribe to the changes
       try {
         _notificationRepo.postToken(token);
-      } catch (e) {
-
-      }
+      } catch (e) {}
       this._fcm.configure(
         onMessage: (Map<String, dynamic> message) async {
           Logger().info('FireNotificationService', 'onMessage: $message');
-          _onNotificationRecieved.add(message.toString());
+          _onNotificationRecieved.add(message);
         },
         onLaunch: (Map<String, dynamic> message) async {
           Logger().info('FireNotificationService', 'onMessage: $message');
