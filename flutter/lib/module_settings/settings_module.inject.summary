@@ -25,6 +25,13 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_settings/ui/settings_page/renew_subscription/screen/renew_subscription.dart#RenewSubscriptionScreen",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

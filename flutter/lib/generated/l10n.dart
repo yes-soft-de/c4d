@@ -2124,6 +2124,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Your renew has been failed please try again`
+  String get failureRenew {
+    return Intl.message(
+      'Your renew has been failed please try again',
+      name: 'failureRenew',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

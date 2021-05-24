@@ -7,6 +7,7 @@ import 'package:c4d/module_notifications/service/fire_notification_service/fire_
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:c4d/module_profile/response/profile_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
+import 'package:c4d/module_settings/setting_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 import 'package:c4d/generated/l10n.dart';
@@ -154,9 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                   Navigator.of(context).pushNamed(
-                                                      InitAccountRoutes
-                                                          .INIT_ACCOUNT_SCREEN,
-                                                      arguments: false);
+                                                      SettingRoutes.RENEW_SUBSCRIPTION);
                                                 },
                                                 child: Text(
                                                     S.of(context).renewNewPlan),

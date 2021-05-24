@@ -208,8 +208,7 @@
   "captainNotActive":"Your account not activated yet please wait",
   "days":"day",
   "seconds":"second",
-  "hours":"hour"
-
-
+  "hours":"hour",
+  "failureRenew":"Your renew has been failed please try again"
 
 }

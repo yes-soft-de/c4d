@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorLoadingData" : MessageLookupByLibrary.simpleMessage("Error Loading Data"),
     "errorLoggingInFirebaseAccountNotFound" : MessageLookupByLibrary.simpleMessage("Error logging in, firebase account not found"),
     "errorUploadingImages" : MessageLookupByLibrary.simpleMessage("Error Uploading Images!!"),
+    "failureRenew" : MessageLookupByLibrary.simpleMessage("Your renew has been failed please try again"),
     "finishOrderProvideDistanceInKm" : MessageLookupByLibrary.simpleMessage("Finish Order, Provide distance in KM"),
     "finishedDate" : MessageLookupByLibrary.simpleMessage("Your subscription is out of date please renew your subscription"),
     "fromWhatsapp" : MessageLookupByLibrary.simpleMessage("From WhatsApp"),
