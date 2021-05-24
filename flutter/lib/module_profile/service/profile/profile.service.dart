@@ -22,6 +22,10 @@ class ProfileService {
     this._preferencesHelper,
     this._authService,
   );
+  Future<UserRole> getRole() async {
+    var role = await _authService.userRole;
+    return role;
+  }
 
   Future<ProfileResponseModel> getProfile() async {
     var role = await _authService.userRole;
@@ -43,7 +47,6 @@ class ProfileService {
   }
 
   Future<bool> createProfile(ProfileRequest profileRequest) async {
-
     var role = await _authService.userRole;
 
     switch (role) {
@@ -59,7 +62,6 @@ class ProfileService {
   }
 
   Future<bool> updateProfile(ProfileRequest profileRequest) async {
-
     var role = await _authService.userRole;
 
     switch (role) {
@@ -149,7 +151,7 @@ class ProfileService {
     return status;
   }
 
-  Future <List<Terms>> getTerms() async {
+  Future<List<Terms>> getTerms() async {
     var role = await _authService.userRole;
     return await _manager.getTerms(role);
   }
