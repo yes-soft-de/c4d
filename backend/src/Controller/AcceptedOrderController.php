@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Service\AcceptedOrderService;
-use App\Service\UserService;
 use App\Request\AcceptedOrderCreateRequest;
 use App\Request\AcceptedOrderUpdateRequest;
 use App\Request\AcceptedOrderUpdateStateByCaptainRequest;
@@ -17,21 +16,24 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use stdClass;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Service\NotificationService;
+use App\Request\SendNotificationRequest;
 
 class AcceptedOrderController extends BaseController
 {
     private $autoMapping;
     private $validator;
     private $acceptedOrderService;
-    private $userService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AcceptedOrderService $acceptedOrderService, UserService $userService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AcceptedOrderService $acceptedOrderService
+    , NotificationService $notificationService
+    )
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->acceptedOrderService = $acceptedOrderService;
-        $this->userService = $userService;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -40,29 +42,40 @@ class AcceptedOrderController extends BaseController
      */
     public function create(Request $request)
     {   
-        // $response ="this captain inactive!!";
-        // $status = $this->userService->captainIsActive($this->getUserId());
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
+
+        $request->setCaptainID($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+            }
+
+        $response = $this->acceptedOrderService->create($request);
+        if (is_string($response)) {
+            return $this->response($response, self::ACCEPTED_ERROR);
+            }
         
-        // if ($status == 'active') {
-            $data = json_decode($request->getContent(), true);
+        //start-----> notification
+        try {
+            $data=$this->acceptedOrderService->getOwnerIdAndUuid($request->getOrderID());
 
-            $request = $this->autoMapping->map(stdClass::class, AcceptedOrderCreateRequest::class, (object)$data);
+            $notificationRequest = new SendNotificationRequest();
+            $notificationRequest->setUserIdOne($data[0]['ownerID']);
+            $notificationRequest->setUserIdTwo($request->setCaptainID($this->getUserId()));
+            $notificationRequest->setOrderID($request->getOrderID());
+            $this->notificationService->notificationOrderUpdate($notificationRequest);
 
-            $request->setCaptainID($this->getUserId());
+        }
+            catch (\Exception $e)
+        {
 
-            $violations = $this->validator->validate($request);
-            if (\count($violations) > 0) {
-                $violationsString = (string) $violations;
-
-                return new JsonResponse($violationsString, Response::HTTP_OK);
-            }
-
-            $response = $this->acceptedOrderService->create($request);
-            if (is_string($response)) {
-                return $this->response($response, self::ACCEPTED_ERROR);
-            }
-        // }
-
+        }
+        // notification <------end
         return $this->response($response, self::CREATE);
     }
 
