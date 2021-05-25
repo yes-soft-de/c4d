@@ -33,7 +33,7 @@ class OrderService
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService,
                                 RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService,
                                 UserService $userService, ParameterBagInterface $params,  RatingService $ratingService
-                                // , NotificationService $notificationService
+                                , NotificationService $notificationService
                                 )
     {
         $this->autoMapping = $autoMapping;
@@ -46,7 +46,7 @@ class OrderService
         $this->ratingService = $ratingService;
 
         $this->params = $params->get('upload_base_url') . '/';
-        // $this->notificationService = $notificationService;
+        $this->notificationService = $notificationService;
     }
 
     public function create(OrderCreateRequest $request)
@@ -65,14 +65,14 @@ class OrderService
                 $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
 
                 //start-----> notification
-                // try{
-                // $this->notificationService->notificationToCaptain();
-                // //notification <------end
-                // }
-                // catch (\Exception $e)
-                // {
+                try{
+                $this->notificationService->notificationToCaptain();
+                //notification <------end
+                }
+                catch (\Exception $e)
+                {
         
-                // }
+                }
                 if ($item) {
                     $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
                     $this->recordService->create($item->getId(), $item->getState());
