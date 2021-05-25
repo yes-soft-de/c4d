@@ -143,7 +143,7 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('subscription')
 
-            ->select('count (subscription.id) as countDeliveredOrders')
+            ->select('count (orderEntity.id) as countDeliveredOrders')
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
             ->andWhere("orderEntity.state = 'delivered'")
 
