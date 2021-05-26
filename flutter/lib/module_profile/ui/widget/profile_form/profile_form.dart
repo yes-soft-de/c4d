@@ -37,7 +37,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     if (profileRequest == null) {
     } else {
       _nameController.text = profileRequest.name;
-      countryCode = profileRequest.phone.substring(0, 4);
+      countryCode =profileRequest.phone.contains('+')?profileRequest.phone.substring(0, 4):'+963';
       _phoneController.text =
           profileRequest.phone.replaceFirst(countryCode, '0');
       _stcPayController.text = profileRequest.stcPay;
