@@ -26,7 +26,6 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   @override
   Widget getUI(BuildContext context) {
-    print(currentOrder.clientPhone);
     return WillPopScope(
       onWillPop: () {
         Navigator.of(context).pushNamedAndRemoveUntil(
@@ -86,7 +85,8 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // To WhatsApp with client
-                currentOrder.clientPhone != null
+                currentOrder.clientPhone != null &&
+                        currentOrder.clientPhone != ''
                     ? Expanded(
                         child: GestureDetector(
                           onTap: () {

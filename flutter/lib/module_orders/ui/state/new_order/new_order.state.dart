@@ -137,12 +137,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                   child: FlatButton(
                     padding: EdgeInsets.all(24),
                     onPressed: () {
-                      String phone = _phoneController.text;
-                      if (phone[0] == '0') {
-                        phone = phone.substring(1);
-                      }
-                      screenState.addNewOrder(
-                          _nameController.text,countryCode + phone);
+                      screenState.addNewOrder(null, null);
                     },
                     child: Text(
                       S.of(context).skip,
@@ -157,12 +152,13 @@ class NewOrderStateSuccessState extends NewOrderState {
                     textColor: Colors.white,
                     padding: EdgeInsets.all(24),
                     onPressed: () {
-                      String phone = _phoneController.text;
-                      if (phone[0] == '0') {
-                        phone = phone.substring(1);
-                      }
                       if (_contactFormKey.currentState.validate()) {
-                        screenState.addNewOrder(_nameController.text,countryCode + phone);
+                        String phone = _phoneController.text;
+                        if (phone[0] == '0') {
+                          phone = phone.substring(1);
+                        }
+                        screenState.addNewOrder(
+                            _nameController.text, countryCode + phone);
                       } else {
                         screenState
                             .showSnackBar(S.of(context).pleaseCompleteTheForm);
