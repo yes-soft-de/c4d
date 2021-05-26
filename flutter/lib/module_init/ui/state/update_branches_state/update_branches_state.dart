@@ -1,5 +1,6 @@
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_init/model/branches/branches_model.dart';
+import 'package:c4d/module_init/request/create_branch_request/create_branch_request.dart';
 import 'package:c4d/module_init/request/update_branch/update_branch_request.dart';
 import 'package:c4d/module_init/ui/screens/update_branches_screen/update_branches_screen.dart';
 
@@ -69,7 +70,8 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
             FlutterMap(
               mapController: _mapController,
               options: MapOptions(
-                center: branchLocation.location??LatLng(21.5429423, 39.1690945),
+                center:
+                    branchLocation?.location ?? LatLng(21.5429423, 39.1690945),
                 zoom: 15.0,
                 onTap: (newPos) {
                   saveMarker(newPos);
@@ -90,7 +92,8 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
             Align(
               alignment: AlignmentDirectional.bottomEnd,
               child: Padding(
-                padding: const EdgeInsets.only(bottom:182.0,right: 8,left: 8),
+                padding:
+                    const EdgeInsets.only(bottom: 182.0, right: 8, left: 8),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
@@ -156,13 +159,21 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
                         onPressed: branchLocation == null
                             ? null
                             : () {
-                                screenState.updateBranch(UpdateBranchesRequest(
-                                  branchName: branchLocation.branchName,
-                                  location: branchLocation.location,
-                                  city: branchLocation.city,
-                                  userName: branchLocation.userName,
-                                  id: branchLocation.id
-                                ));
+                                if (flag) {
+                                  screenState.createBranch(
+                                      CreateBrancheRequest(
+                                          branchName: branchLocation.branchName,
+                                          location: branchLocation.location
+                                          ));
+                                } else {
+                                  screenState.updateBranch(
+                                      UpdateBranchesRequest(
+                                          branchName: branchLocation.branchName,
+                                          location: branchLocation.location,
+                                          city: branchLocation.city,
+                                          userName: branchLocation.userName,
+                                          id: branchLocation.id));
+                                }
                               },
                       ),
                     ),
@@ -190,10 +201,11 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
               fit: FlexFit.tight,
               child: Padding(
                 padding: const EdgeInsets.only(right: 8.0, left: 8),
-                child: Text('${branchLocation.branchName}',style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600
-                ),),
+                child: Text(
+                  '${branchLocation.branchName}',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600),
+                ),
               )),
           Flexible(
             fit: FlexFit.tight,
@@ -203,7 +215,10 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                    icon: Icon(Icons.edit,color: Colors.white,),
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -256,13 +271,19 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
                       screenState.refresh();
                     }),
                 IconButton(
-                    icon: Icon(Icons.delete,color: Colors.white,),
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       branchLocation = null;
                       screenState.refresh();
                     }),
                 IconButton(
-                    icon: Icon(Icons.my_location,color: Colors.white,),
+                    icon: Icon(
+                      Icons.my_location,
+                      color: Colors.white,
+                    ),
                     onPressed: () {
                       _mapController.move(branchLocation.location, 15);
                     }),
@@ -290,7 +311,7 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
   }
 
   void saveMarker(LatLng location) {
-    branchLocation = model;
+    branchLocation = model??BranchesModel();
     branchLocation.location = location;
     branchLocation.branchName = '1';
   }

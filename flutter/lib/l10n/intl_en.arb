@@ -215,9 +215,13 @@
   "updateBranch":"Update Branch",
   "saveBranch":"Save Branch",
   "editBranchName":"Edit Branch Name",
-  "updateBranchSuccess":"Branch have been updated successfully",
+  "updateBranchSuccess":"Branch has been updated successfully",
   "updateBranchFailure":"Sorry your request for update branch faild please try again",
-  "phoneNumbertooShort":"Phone number is too short"
+  "phoneNumbertooShort":"Phone number is too short",
+  "addBranch":"Add Branch",
+  "addBranchSuccess":"Branch has been added successfully",
+  "addBranchFailure":"Sorry your request for add branch faild please try again"
+
 
 
 

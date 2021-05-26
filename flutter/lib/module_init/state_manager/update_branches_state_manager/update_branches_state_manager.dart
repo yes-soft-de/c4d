@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_init/request/create_branch_request/create_branch_request.dart';
 import 'package:c4d/module_init/request/update_branch/update_branch_request.dart';
 import 'package:c4d/module_init/service/branches_list/branches_list_service.dart';
 import 'package:c4d/module_init/ui/screens/update_branches_screen/update_branches_screen.dart';
@@ -15,7 +16,7 @@ class UpdateBranchStateManager {
 
   Stream<UpdateBranchState> get stateStream => _stateSubject.stream;
 
-  void UpdateBranch(
+  void updateBranch(
       UpdateBranchScreenState state, UpdateBranchesRequest request) {
     _stateSubject.add(UpdateBranchStateLoading(state));
     _branchesListService.updateBranch(request).then((value) {
@@ -24,6 +25,18 @@ class UpdateBranchStateManager {
       } else {
         _stateSubject.add(UpdateBranchStateLoaded(state));
         state.moveNext(value);
+      }
+    });
+  }
+  void createBranch(
+      UpdateBranchScreenState state, CreateBrancheRequest request) {
+    _stateSubject.add(UpdateBranchStateLoading(state));
+    _branchesListService.addBranch(request).then((value) {
+      if (value) {
+        state.moveNextAfterCreate(value);
+      } else {
+        _stateSubject.add(UpdateBranchStateLoaded(state));
+        state.moveNextAfterCreate(value);
       }
     });
   }

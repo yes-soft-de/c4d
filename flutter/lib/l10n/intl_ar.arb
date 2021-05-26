@@ -216,8 +216,10 @@
   "editBranchName":"تعديل اسم الفرع",
   "updateBranchSuccess":"تم تعديل الفرع بنجاح",
   "updateBranchFailure":"عذرا لم يتم تعديل الفرع بنجاح الرجاء إعادة المحاولة لاحقا",
-  "phoneNumbertooShort":"رقم الهاتف المدخل قصير"
-
+  "phoneNumbertooShort":"رقم الهاتف المدخل قصير",
+  "addBranch":"إضافة فرع",
+  "addBranchSuccess":"تمت إضافة الفرع بنجاح",
+  "addBranchFailure":"عذرا لم تنجح عملية إضافة فرع الرجاء إعادة المحاولة لاحقا"
 
 
 }

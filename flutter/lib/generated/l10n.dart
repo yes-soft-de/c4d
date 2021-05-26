@@ -2185,10 +2185,10 @@ class S {
     );
   }
 
-  /// `Branch have been updated successfully`
+  /// `Branch has been updated successfully`
   String get updateBranchSuccess {
     return Intl.message(
-      'Branch have been updated successfully',
+      'Branch has been updated successfully',
       name: 'updateBranchSuccess',
       desc: '',
       args: [],
@@ -2210,6 +2210,36 @@ class S {
     return Intl.message(
       'Phone number is too short',
       name: 'phoneNumbertooShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Branch`
+  String get addBranch {
+    return Intl.message(
+      'Add Branch',
+      name: 'addBranch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Branch has been added successfully`
+  String get addBranchSuccess {
+    return Intl.message(
+      'Branch has been added successfully',
+      name: 'addBranchSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry your request for add branch faild please try again`
+  String get addBranchFailure {
+    return Intl.message(
+      'Sorry your request for add branch faild please try again',
+      name: 'addBranchFailure',
       desc: '',
       args: [],
     );

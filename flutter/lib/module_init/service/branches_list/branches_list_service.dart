@@ -1,5 +1,6 @@
 import 'package:c4d/module_init/manager/branches/branches_manager.dart';
 import 'package:c4d/module_init/model/branches/branches_model.dart';
+import 'package:c4d/module_init/request/create_branch_request/create_branch_request.dart';
 import 'package:c4d/module_init/request/update_branch/update_branch_request.dart';
 import 'package:c4d/module_init/response/branches/branches_response.dart';
 import 'package:inject/inject.dart';
@@ -33,4 +34,6 @@ class BranchesListService {
 
   Future<bool> updateBranch(UpdateBranchesRequest request) async =>
       await _manager.updateBranch(request);
+      Future<bool> addBranch(CreateBrancheRequest request) async =>
+      await _manager.createBrannch(request);
 }
