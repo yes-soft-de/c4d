@@ -210,7 +210,15 @@
   "seconds":"second",
   "hours":"hour",
   "failureRenew":"Your renew has been failed please try again",
-  "store":"Store"
+  "store":"Store",
+  "updateBranches":"Update Branches",
+  "updateBranch":"Update Branch",
+  "saveBranch":"Save Branch",
+  "editBranchName":"Edit Branch Name",
+  "updateBranchSuccess":"Branch have been updated successfully",
+  "updateBranchFailure":"Sorry your request for update branch faild please try again",
+  "phoneNumbertooShort":"Phone number is too short"
+
 
 
 }

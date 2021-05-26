@@ -41,4 +41,6 @@ class Urls {
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
   static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
+  static const UPDATE_BRANCH_API = BASE_API + '/branches';
+
 }

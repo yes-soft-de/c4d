@@ -154,8 +154,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                               child: FlatButton(
                                                 onPressed: () {
                                                   Navigator.pop(context);
-                                                  Navigator.of(context).pushNamed(
-                                                      SettingRoutes.RENEW_SUBSCRIPTION);
+                                                  Navigator.of(context)
+                                                      .pushNamed(SettingRoutes
+                                                          .RENEW_SUBSCRIPTION);
                                                 },
                                                 child: Text(
                                                     S.of(context).renewNewPlan),
@@ -175,6 +176,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
               },
             ),
+            userRole != null
+                ? userRole == UserRole.ROLE_OWNER
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                                InitAccountRoutes.BRANCHES_LIST_SCREEN);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              color: Colors.black12,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Flex(
+                                direction: Axis.horizontal,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(S.of(context).updateBranches),
+                                  Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Icon(Icons.edit),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container()
+                : Container(),
             _getCaptainStateSwitch(userRole ?? UserRole.ROLE_OWNER),
             Padding(
               padding: const EdgeInsets.all(8.0),

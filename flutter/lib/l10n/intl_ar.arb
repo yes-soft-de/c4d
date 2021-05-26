@@ -209,7 +209,15 @@
   "seconds":"ثانية",
   "hours":"ساعة",
   "failearRenew":"لم يتم تجديد الاشتراك بنجاح الرجاء إعادة المحاولة لاحقا",
-  "store":"المتجر"
+  "store":"المتجر",
+  "updateBranches":"تعديل الأفرع",
+  "updateBranch":"تعديل الفرع",
+  "saveBranch":"حفظ الفرع",
+  "editBranchName":"تعديل اسم الفرع",
+  "updateBranchSuccess":"تم تعديل الفرع بنجاح",
+  "updateBranchFailure":"عذرا لم يتم تعديل الفرع بنجاح الرجاء إعادة المحاولة لاحقا",
+  "phoneNumbertooShort":"رقم الهاتف المدخل قصير"
+
 
 
 }

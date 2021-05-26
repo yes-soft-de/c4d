@@ -25,6 +25,20 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_init/ui/screens/branches_list_screen/branches_list_screen.dart#BranchesListScreen",
+                "qualifier": null
+              },
+              "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_init/ui/screens/update_branches_screen/update_branches_screen.dart#UpdateBranchScreen",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

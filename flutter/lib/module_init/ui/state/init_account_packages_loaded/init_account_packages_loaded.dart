@@ -14,6 +14,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
   String _selectedCity;
   String _selectedSize;
   int _selectedPackageId;
+  String countryCode = '+963';
 
   InitAccountStatePackagesLoaded(
     this.packages,
@@ -28,7 +29,8 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
         children: [
           Positioned.fill(
             child: Padding(
-              padding: const EdgeInsets.only(top:40.0,right: 16,left: 16,bottom: 16),
+              padding: const EdgeInsets.only(
+                  top: 40.0, right: 16, left: 16, bottom: 16),
               child: Card(
                 elevation: 4,
                 child: SingleChildScrollView(
@@ -57,11 +59,39 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                           decoration: InputDecoration(
                             hintText: S.of(context).storePhone,
                             labelText: S.of(context).storePhone,
+                            suffix: Container(
+                              height: 30,
+                              child: DropdownButton(
+                                underline: Container(),
+                                onChanged: (v) {
+                                  countryCode = v;
+                                  screen.refresh();
+                                },
+                                value: countryCode,
+                                items: [
+                                  DropdownMenuItem(
+                                    value: '+966',
+                                    child: Text(S.of(context).saudiArabia),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: '+961',
+                                    child: Text(S.of(context).lebanon),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: '+963',
+                                    child: Text(S.of(context).syria),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           keyboardType: TextInputType.phone,
                           validator: (phone) {
                             if (phone.isEmpty) {
                               return S.of(context).phoneIsRequired;
+                            }
+                            if (phone.length < 9) {
+                              return S.of(context).phoneNumbertooShort;
                             }
                             return null;
                           },
@@ -113,10 +143,14 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                                 borderRadius: BorderRadius.circular(15)),
                             color: Theme.of(context).primaryColor,
                             onPressed: () {
+                              String phone = _phoneController.text;
+                              if (phone[0] == '0') {
+                                phone = phone.substring(1);
+                              }
                               screen.subscribeToPackage(
                                   _selectedPackageId,
                                   _nameController.text,
-                                  _phoneController.text,
+                                  countryCode + phone,
                                   _selectedCity,
                                   renew);
                             },
@@ -128,7 +162,6 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                             ),
                           ),
                         ),
-                      
                       ],
                     ),
                   ),
@@ -153,13 +186,15 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
               ),
             ),
           ),
-          renew!=null?Align(
-            alignment: AlignmentDirectional.topStart,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ):Container(),
+          renew 
+              ? Align(
+                  alignment: AlignmentDirectional.topStart,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

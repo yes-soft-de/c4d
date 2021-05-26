@@ -2144,6 +2144,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Update Branches`
+  String get updateBranches {
+    return Intl.message(
+      'Update Branches',
+      name: 'updateBranches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Branch`
+  String get updateBranch {
+    return Intl.message(
+      'Update Branch',
+      name: 'updateBranch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Branch`
+  String get saveBranch {
+    return Intl.message(
+      'Save Branch',
+      name: 'saveBranch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Branch Name`
+  String get editBranchName {
+    return Intl.message(
+      'Edit Branch Name',
+      name: 'editBranchName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Branch have been updated successfully`
+  String get updateBranchSuccess {
+    return Intl.message(
+      'Branch have been updated successfully',
+      name: 'updateBranchSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry your request for update branch faild please try again`
+  String get updateBranchFailure {
+    return Intl.message(
+      'Sorry your request for update branch faild please try again',
+      name: 'updateBranchFailure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number is too short`
+  String get phoneNumbertooShort {
+    return Intl.message(
+      'Phone number is too short',
+      name: 'phoneNumbertooShort',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -81,37 +81,49 @@ import '../../module_init/ui/screens/init_account_screen/init_account_screen.dar
     as _i62;
 import '../../module_init/state_manager/init_account/init_account.state_manager.dart'
     as _i63;
-import '../../module_settings/settings_module.dart' as _i64;
-import '../../module_settings/ui/settings_page/settings_page.dart' as _i65;
-import '../../module_settings/ui/settings_page/renew_subscription/screen/renew_subscription.dart'
+import '../../module_init/ui/screens/branches_list_screen/branches_list_screen.dart'
+    as _i64;
+import '../../module_init/state_manager/branches_list_state_manager/branches_list_state_manager.dart'
+    as _i65;
+import '../../module_init/service/branches_list/branches_list_service.dart'
     as _i66;
-import '../../module_settings/state_manager/renew_subscription_state_manager.dart'
-    as _i67;
-import '../../module_auth/authoriazation_module.dart' as _i68;
-import '../../module_auth/ui/screen/login_screen/login_screen.dart' as _i69;
-import '../../module_auth/state_manager/login_state_manager/login_state_manager.dart'
+import '../../module_init/manager/branches/branches_manager.dart' as _i67;
+import '../../module_init/repository/branches/branches_repository.dart' as _i68;
+import '../../module_init/ui/screens/update_branches_screen/update_branches_screen.dart'
+    as _i69;
+import '../../module_init/state_manager/update_branches_state_manager/update_branches_state_manager.dart'
     as _i70;
-import '../../module_auth/ui/screen/register_screen/register_screen.dart'
-    as _i71;
-import '../../module_auth/state_manager/register_state_manager/register_state_manager.dart'
-    as _i72;
-import '../../module_profile/module_profile.dart' as _i73;
-import '../../module_profile/ui/screen/activity_screen/activity_screen.dart'
+import '../../module_settings/settings_module.dart' as _i71;
+import '../../module_settings/ui/settings_page/settings_page.dart' as _i72;
+import '../../module_settings/ui/settings_page/renew_subscription/screen/renew_subscription.dart'
+    as _i73;
+import '../../module_settings/state_manager/renew_subscription_state_manager.dart'
     as _i74;
-import '../../module_profile/state_manager/activity/activity_state_manager.dart'
-    as _i75;
-import '../../module_profile/ui/screen/edit_profile/edit_profile.dart' as _i76;
-import '../../module_profile/state_manager/edit_profile/edit_profile.dart'
+import '../../module_auth/authoriazation_module.dart' as _i75;
+import '../../module_auth/ui/screen/login_screen/login_screen.dart' as _i76;
+import '../../module_auth/state_manager/login_state_manager/login_state_manager.dart'
     as _i77;
-import '../../module_profile/ui/screen/order_info/order_info_screen.dart'
+import '../../module_auth/ui/screen/register_screen/register_screen.dart'
     as _i78;
-import '../../module_profile/state_manager/order/order_info_state_manager.dart'
+import '../../module_auth/state_manager/register_state_manager/register_state_manager.dart'
     as _i79;
-import '../../module_plan/plan_module.dart' as _i80;
-import '../../module_plan/ui/screen/plan_screen.dart' as _i81;
-import '../../module_plan/state_manager/plan_screen_state_manager.dart' as _i82;
+import '../../module_profile/module_profile.dart' as _i80;
+import '../../module_profile/ui/screen/activity_screen/activity_screen.dart'
+    as _i81;
+import '../../module_profile/state_manager/activity/activity_state_manager.dart'
+    as _i82;
+import '../../module_profile/ui/screen/edit_profile/edit_profile.dart' as _i83;
+import '../../module_profile/state_manager/edit_profile/edit_profile.dart'
+    as _i84;
+import '../../module_profile/ui/screen/order_info/order_info_screen.dart'
+    as _i85;
+import '../../module_profile/state_manager/order/order_info_state_manager.dart'
+    as _i86;
+import '../../module_plan/plan_module.dart' as _i87;
+import '../../module_plan/ui/screen/plan_screen.dart' as _i88;
+import '../../module_plan/state_manager/plan_screen_state_manager.dart' as _i89;
 import '../../module_notifications/service/local_notification_service/local_notification_service.dart'
-    as _i83;
+    as _i90;
 
 class AppComponent$Injector implements _i1.AppComponent {
   AppComponent$Injector._();
@@ -268,8 +280,10 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i59.NotificationsPrefsHelper();
   _i60.NotificationRepo _createNotificationRepo() =>
       _i60.NotificationRepo(_createApiClient(), _createAuthService());
-  _i61.InitAccountModule _createInitAccountModule() =>
-      _i61.InitAccountModule(_createInitAccountScreen());
+  _i61.InitAccountModule _createInitAccountModule() => _i61.InitAccountModule(
+      _createInitAccountScreen(),
+      _createBranchesListScreen(),
+      _createUpdateBranchScreen());
   _i62.InitAccountScreen _createInitAccountScreen() =>
       _i62.InitAccountScreen(_createInitAccountStateManager());
   _i63.InitAccountStateManager _createInitAccountStateManager() =>
@@ -278,53 +292,67 @@ class AppComponent$Injector implements _i1.AppComponent {
           _createProfileService(),
           _createAuthService(),
           _createImageUploadService());
-  _i64.SettingsModule _createSettingsModule() => _i64.SettingsModule(
+  _i64.BranchesListScreen _createBranchesListScreen() =>
+      _i64.BranchesListScreen(_createBranchesListStateManager());
+  _i65.BranchesListStateManager _createBranchesListStateManager() =>
+      _i65.BranchesListStateManager(_createBranchesListService());
+  _i66.BranchesListService _createBranchesListService() =>
+      _i66.BranchesListService(_createBranchesManager());
+  _i67.BranchesManager _createBranchesManager() =>
+      _i67.BranchesManager(_createBranchesRepository());
+  _i68.BranchesRepository _createBranchesRepository() =>
+      _i68.BranchesRepository(_createApiClient(), _createAuthService());
+  _i69.UpdateBranchScreen _createUpdateBranchScreen() =>
+      _i69.UpdateBranchScreen(_createUpdateBranchStateManager());
+  _i70.UpdateBranchStateManager _createUpdateBranchStateManager() =>
+      _i70.UpdateBranchStateManager(_createBranchesListService());
+  _i71.SettingsModule _createSettingsModule() => _i71.SettingsModule(
       _createSettingsScreen(), _createRenewSubscriptionScreen());
-  _i65.SettingsScreen _createSettingsScreen() => _i65.SettingsScreen(
+  _i72.SettingsScreen _createSettingsScreen() => _i72.SettingsScreen(
       _createAuthService(),
       _createLocalizationService(),
       _createAppThemeDataService(),
       _createProfileService(),
       _createFireNotificationService());
-  _i66.RenewSubscriptionScreen _createRenewSubscriptionScreen() =>
-      _i66.RenewSubscriptionScreen(_createRenewSubscriptionStateManager());
-  _i67.RenewSubscriptionStateManager _createRenewSubscriptionStateManager() =>
-      _i67.RenewSubscriptionStateManager(_createInitAccountService());
-  _i68.AuthorizationModule _createAuthorizationModule() =>
-      _i68.AuthorizationModule(_createLoginScreen(), _createRegisterScreen());
-  _i69.LoginScreen _createLoginScreen() =>
-      _i69.LoginScreen(_createLoginStateManager());
-  _i70.LoginStateManager _createLoginStateManager() =>
-      _i70.LoginStateManager(_createAuthService(), _createProfileService());
-  _i71.RegisterScreen _createRegisterScreen() =>
-      _i71.RegisterScreen(_createRegisterStateManager());
-  _i72.RegisterStateManager _createRegisterStateManager() =>
-      _i72.RegisterStateManager(_createAuthService(), _createAboutService());
-  _i73.ProfileModule _createProfileModule() => _i73.ProfileModule(
+  _i73.RenewSubscriptionScreen _createRenewSubscriptionScreen() =>
+      _i73.RenewSubscriptionScreen(_createRenewSubscriptionStateManager());
+  _i74.RenewSubscriptionStateManager _createRenewSubscriptionStateManager() =>
+      _i74.RenewSubscriptionStateManager(_createInitAccountService());
+  _i75.AuthorizationModule _createAuthorizationModule() =>
+      _i75.AuthorizationModule(_createLoginScreen(), _createRegisterScreen());
+  _i76.LoginScreen _createLoginScreen() =>
+      _i76.LoginScreen(_createLoginStateManager());
+  _i77.LoginStateManager _createLoginStateManager() =>
+      _i77.LoginStateManager(_createAuthService(), _createProfileService());
+  _i78.RegisterScreen _createRegisterScreen() =>
+      _i78.RegisterScreen(_createRegisterStateManager());
+  _i79.RegisterStateManager _createRegisterStateManager() =>
+      _i79.RegisterStateManager(_createAuthService(), _createAboutService());
+  _i80.ProfileModule _createProfileModule() => _i80.ProfileModule(
       _createActivityScreen(),
       _createEditProfileScreen(),
       _createOrderInfoScreen());
-  _i74.ActivityScreen _createActivityScreen() =>
-      _i74.ActivityScreen(_createActivityStateManager());
-  _i75.ActivityStateManager _createActivityStateManager() =>
-      _i75.ActivityStateManager(_createProfileService(), _createAuthService());
-  _i76.EditProfileScreen _createEditProfileScreen() =>
-      _i76.EditProfileScreen(_createEditProfileStateManager());
-  _i77.EditProfileStateManager _createEditProfileStateManager() =>
-      _i77.EditProfileStateManager(_createImageUploadService(),
+  _i81.ActivityScreen _createActivityScreen() =>
+      _i81.ActivityScreen(_createActivityStateManager());
+  _i82.ActivityStateManager _createActivityStateManager() =>
+      _i82.ActivityStateManager(_createProfileService(), _createAuthService());
+  _i83.EditProfileScreen _createEditProfileScreen() =>
+      _i83.EditProfileScreen(_createEditProfileStateManager());
+  _i84.EditProfileStateManager _createEditProfileStateManager() =>
+      _i84.EditProfileStateManager(_createImageUploadService(),
           _createProfileService(), _createAuthService());
-  _i78.OrderInfoScreen _createOrderInfoScreen() =>
-      _i78.OrderInfoScreen(_createOrderInfoStateManager());
-  _i79.OrderInfoStateManager _createOrderInfoStateManager() =>
-      _i79.OrderInfoStateManager(_createOrdersService());
-  _i80.PlanModule _createPlanModule() => _i80.PlanModule(_createPlanScreen());
-  _i81.PlanScreen _createPlanScreen() =>
-      _i81.PlanScreen(_createPlanScreenStateManager());
-  _i82.PlanScreenStateManager _createPlanScreenStateManager() =>
-      _i82.PlanScreenStateManager(_createPlanService(), _createAuthService(),
+  _i85.OrderInfoScreen _createOrderInfoScreen() =>
+      _i85.OrderInfoScreen(_createOrderInfoStateManager());
+  _i86.OrderInfoStateManager _createOrderInfoStateManager() =>
+      _i86.OrderInfoStateManager(_createOrdersService());
+  _i87.PlanModule _createPlanModule() => _i87.PlanModule(_createPlanScreen());
+  _i88.PlanScreen _createPlanScreen() =>
+      _i88.PlanScreen(_createPlanScreenStateManager());
+  _i89.PlanScreenStateManager _createPlanScreenStateManager() =>
+      _i89.PlanScreenStateManager(_createPlanService(), _createAuthService(),
           _createInitAccountService());
-  _i83.LocalNotificationService _createLocalNotificationService() =>
-      _i83.LocalNotificationService();
+  _i90.LocalNotificationService _createLocalNotificationService() =>
+      _i90.LocalNotificationService();
   @override
   _i6.MyApp get app => _createMyApp();
 }
