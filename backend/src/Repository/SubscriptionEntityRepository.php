@@ -127,14 +127,16 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getCountCancelledOrders()
+    public function getCountCancelledOrders($subscribeId)
     {
         return $this->createQueryBuilder('subscription')
 
             ->select('count (subscription.id) as countCancelledOrder')
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
             ->andWhere("orderEntity.state = 'cancelled'")
+            ->andWhere("orderEntity.subscribeId = :subscribeId")
 
+            ->setParameter('subscribeId', $subscribeId)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -157,8 +159,8 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
     public function getRemainingOrders($ownerID, $id)
     {
         return $this->createQueryBuilder('subscription')
-
-            ->select('subscription.id as subscriptionID', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrders', 'packageEntity.orderCount', 'packageEntity.name as packagename', 'packageEntity.id as packageID', 'count(orderEntity.id) as countOrdersDelivered ', 'subscription.startDate as subscriptionStartDate', 'subscription.endDate as subscriptionEndDate', 'userProfileEntity.userID', 'userProfileEntity.userName', 'packageEntity.carCount as packageCarCount', 'packageEntity.orderCount as packageOrderCount')
+//remainingOrderss : remainingOrders with cancelled order
+            ->select('subscription.id as subscriptionID', 'packageEntity.orderCount - count(orderEntity.id) as remainingOrderss', 'packageEntity.orderCount', 'packageEntity.name as packagename', 'packageEntity.id as packageID', 'count(orderEntity.id) as countOrdersDelivered ', 'subscription.startDate as subscriptionStartDate', 'subscription.endDate as subscriptionEndDate', 'userProfileEntity.userID', 'userProfileEntity.userName', 'packageEntity.carCount as packageCarCount', 'packageEntity.orderCount as packageOrderCount')
 
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.subscribeId = subscription.id')
 

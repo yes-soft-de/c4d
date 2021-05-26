@@ -161,9 +161,9 @@ class SubscriptionManager
         return $this->subscribeRepository->getRemainingCars($ownerID, $id);
     }
    
-    public function getCountCancelledOrders($ownerID, $id)
+    public function getCountCancelledOrders($subscribeId)
     {
-        return $this->subscribeRepository->getCountCancelledOrders($ownerID, $id);
+        return $this->subscribeRepository->getCountCancelledOrders($subscribeId);
     }
 
     public function getCountDeliveredOrders($ownerID, $subscribeId)
