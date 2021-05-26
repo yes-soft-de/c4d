@@ -61,7 +61,7 @@ class AcceptedOrderController extends BaseController
             }
         
         //start-----> notification
-        try {
+        // try {
             $data=$this->acceptedOrderService->getOwnerIdAndUuid($request->getOrderID());
 
             $notificationRequest = new SendNotificationRequest();
@@ -70,11 +70,11 @@ class AcceptedOrderController extends BaseController
             $notificationRequest->setOrderID($request->getOrderID());
             $this->notificationService->notificationOrderUpdate($notificationRequest);
 
-        }
-            catch (\Exception $e)
-        {
+        // }
+        //     catch (\Exception $e)
+        // {
 
-        }
+        // }
         // notification <------end
         return $this->response($response, self::CREATE);
     }

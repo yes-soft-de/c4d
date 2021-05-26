@@ -53,6 +53,7 @@ class NotificationService
 
     public function notificationOrderUpdate($request)
     {
+        $msg = $this::MESSAGE_ORDER_UPDATE.$request->getOrderID();
         $devicesToken = [];
         $userTokenOne = $this->getNotificationTokenByUserID($request->getUserIdOne());
         $devicesToken[] = $userTokenOne;
@@ -60,7 +61,7 @@ class NotificationService
         $devicesToken[] = $userTokenTwo;
 
         $message = CloudMessage::new()
-            ->withNotification(Notification::create('C4D', $this::MESSAGE_ORDER_UPDATE.$request->getOrderID()));
+            ->withNotification(Notification::create('C4D',$msg ));
 
         $this->messaging->sendMulticast($message, $devicesToken);
     }
