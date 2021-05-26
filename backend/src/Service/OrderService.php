@@ -245,7 +245,7 @@ class OrderService
         // try {
         $notificationRequest = new SendNotificationRequest();
         $notificationRequest->setUserIdOne($item->getOwnerID());
-        $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
+        // $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
         $notificationRequest->setOrderID($item->getId());
         $this->notificationService->notificationOrderUpdate($notificationRequest);
         // notification <------end

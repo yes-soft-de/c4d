@@ -66,7 +66,7 @@ class AcceptedOrderController extends BaseController
 
             $notificationRequest = new SendNotificationRequest();
             $notificationRequest->setUserIdOne($data[0]['ownerID']);
-            $notificationRequest->setUserIdTwo($request->setCaptainID($this->getUserId()));
+            // $notificationRequest->setUserIdTwo($request->setCaptainID($this->getUserId()));
             $notificationRequest->setOrderID($request->getOrderID());
             $this->notificationService->notificationOrderUpdate($notificationRequest);
 
