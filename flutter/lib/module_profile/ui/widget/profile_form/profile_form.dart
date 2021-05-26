@@ -5,35 +5,46 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:c4d/module_profile/model/profile_model/profile_model.dart';
 
-class ProfileFormWidget extends StatelessWidget {
+class ProfileFormWidget extends StatefulWidget {
   final Function(ProfileModel) onProfileSaved;
   final Function(ProfileModel) onImageUpload;
   final isCaptain;
   final ProfileRequest profileRequest;
 
+  @override
+  _ProfileFormWidgetState createState() => _ProfileFormWidgetState();
+  ProfileFormWidget({
+    @required this.onProfileSaved,
+    @required this.onImageUpload,
+    @required this.isCaptain,
+    this.profileRequest,
+  });
+}
+
+class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _stcPayController = TextEditingController();
   final _bankAccountNumberController = TextEditingController();
   final _bankNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  ProfileFormWidget({
-    @required this.onProfileSaved,
-    @required this.onImageUpload,
-    @required this.isCaptain,
-    this.profileRequest,
-  }) {
+  String countryCode = '+963';
+  ProfileRequest profileRequest;
+  @override
+  void initState() {
+    super.initState();
+    profileRequest = widget.profileRequest;
     if (profileRequest == null) {
-      return;
+    } else {
+      _nameController.text = profileRequest.name;
+      countryCode = profileRequest.phone.substring(0, 4);
+      _phoneController.text =
+          profileRequest.phone.replaceFirst(countryCode, '0');
+      _stcPayController.text = profileRequest.stcPay;
+      _bankAccountNumberController.text = profileRequest.bankAccountNumber;
+      _bankNameController.text = profileRequest.bankName;
     }
-    _nameController.text = profileRequest.name;
-    _phoneController.text = profileRequest.phone;
-    _stcPayController.text = profileRequest.stcPay;
-    _bankAccountNumberController.text = profileRequest.bankAccountNumber;
-    _bankNameController.text = profileRequest.bankName;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +71,7 @@ class ProfileFormWidget extends StatelessWidget {
                     bankNumber: _stcPayController.text,
                     bankName: _bankAccountNumberController.text,
                   );
-                  onImageUpload(profile);
+                  widget.onImageUpload(profile);
                 });
               },
               child: Container(
@@ -121,6 +132,31 @@ class ProfileFormWidget extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: S.of(context).phoneNumber,
                 labelText: S.of(context).phoneNumber,
+                suffix: Container(
+                  height: 30,
+                  child: DropdownButton(
+                    underline: Container(),
+                    onChanged: (v) {
+                      countryCode = v;
+                      if (mounted) setState(() {});
+                    },
+                    value: countryCode,
+                    items: [
+                      DropdownMenuItem(
+                        value: '+966',
+                        child: Text(S.of(context).saudiArabia),
+                      ),
+                      DropdownMenuItem(
+                        value: '+961',
+                        child: Text(S.of(context).lebanon),
+                      ),
+                      DropdownMenuItem(
+                        value: '+963',
+                        child: Text(S.of(context).syria),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               validator: (name) {
                 if (name == null) {
@@ -129,24 +165,33 @@ class ProfileFormWidget extends StatelessWidget {
                 if (name.isEmpty) {
                   return S.of(context).pleaseInputPhoneNumber;
                 }
+                if (name.length < 9) {
+                  return S.of(context).phoneNumbertooShort;
+                }
                 return null;
               },
             ),
-            isCaptain == true ? _getPaymentExtension(context) : Container(),
+            widget.isCaptain == true
+                ? _getPaymentExtension(context)
+                : Container(),
             RaisedButton(
                 color: Theme.of(context).primaryColor,
                 child: Text(S.of(context).save),
                 onPressed: () {
+                  String phone = _phoneController.text;
+                  if (phone[0] == '0') {
+                    phone = phone.substring(1);
+                  }
                   if (_formKey.currentState.validate()) {
                     var profile = ProfileModel(
                       image: profileRequest.image,
                       name: _nameController.text,
-                      phone: _phoneController.text,
+                      phone: countryCode + phone,
                       stcPay: _stcPayController.text,
                       bankName: _bankNameController.text,
                       bankNumber: _bankAccountNumberController.text,
                     );
-                    onProfileSaved(profile);
+                    widget.onProfileSaved(profile);
                   } else {
                     Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(S.of(context).pleaseCompleteTheForm)));
@@ -187,4 +232,3 @@ class ProfileFormWidget extends StatelessWidget {
     );
   }
 }
-

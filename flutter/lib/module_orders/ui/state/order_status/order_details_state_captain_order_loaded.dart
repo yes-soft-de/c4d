@@ -26,7 +26,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   @override
   Widget getUI(BuildContext context) {
-    print(currentOrder.costumerLocation);
+    print(currentOrder.clientPhone);
     return WillPopScope(
       onWillPop: () {
         Navigator.of(context).pushNamedAndRemoveUntil(

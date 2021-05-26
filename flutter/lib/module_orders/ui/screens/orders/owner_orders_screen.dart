@@ -39,6 +39,8 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
 
   void getMyOrders() {
     widget._stateManager.getMyOrders(this);
+    widget._stateManager.getProfile();
+    widget._stateManager.companyInfo();
   }
 
   void addOrderViaDeepLink(LatLng location) {

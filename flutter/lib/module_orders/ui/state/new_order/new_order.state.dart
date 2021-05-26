@@ -43,7 +43,7 @@ class NewOrderStateSuccessState extends NewOrderState {
   final _contactFormKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
-
+  String countryCode = '+963';
   NewOrderStateSuccessState(NewOrderScreenState screenState)
       : super(screenState);
 
@@ -83,11 +83,39 @@ class NewOrderStateSuccessState extends NewOrderState {
                     if (v.isEmpty) {
                       return S.of(context).pleaseProvideUsTheClientPhoneNumber;
                     }
+                    if (v.length < 9) {
+                      return S.of(context).phoneNumbertooShort;
+                    }
                     return null;
                   },
                   decoration: InputDecoration(
                     hintText: S.of(context).phoneNumber,
                     labelText: S.of(context).recipientPhoneNumber,
+                    suffix: Container(
+                      height: 30,
+                      child: DropdownButton(
+                        underline: Container(),
+                        onChanged: (v) {
+                          countryCode = v;
+                          screenState.refresh();
+                        },
+                        value: countryCode,
+                        items: [
+                          DropdownMenuItem(
+                            value: '+966',
+                            child: Text(S.of(context).saudiArabia),
+                          ),
+                          DropdownMenuItem(
+                            value: '+961',
+                            child: Text(S.of(context).lebanon),
+                          ),
+                          DropdownMenuItem(
+                            value: '+963',
+                            child: Text(S.of(context).syria),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   keyboardType: TextInputType.phone,
                 ),
@@ -109,8 +137,12 @@ class NewOrderStateSuccessState extends NewOrderState {
                   child: FlatButton(
                     padding: EdgeInsets.all(24),
                     onPressed: () {
+                      String phone = _phoneController.text;
+                      if (phone[0] == '0') {
+                        phone = phone.substring(1);
+                      }
                       screenState.addNewOrder(
-                          _nameController.text, _phoneController.text);
+                          _nameController.text,countryCode + phone);
                     },
                     child: Text(
                       S.of(context).skip,
@@ -125,9 +157,12 @@ class NewOrderStateSuccessState extends NewOrderState {
                     textColor: Colors.white,
                     padding: EdgeInsets.all(24),
                     onPressed: () {
+                      String phone = _phoneController.text;
+                      if (phone[0] == '0') {
+                        phone = phone.substring(1);
+                      }
                       if (_contactFormKey.currentState.validate()) {
-                        screenState.addNewOrder(
-                            _nameController.text, _phoneController.text);
+                        screenState.addNewOrder(_nameController.text,countryCode + phone);
                       } else {
                         screenState
                             .showSnackBar(S.of(context).pleaseCompleteTheForm);
