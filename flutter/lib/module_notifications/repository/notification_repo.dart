@@ -13,9 +13,11 @@ class NotificationRepo {
   void postToken(String token) {
     _authService.getToken().then(
       (value) {
-        if (token != null) {
-          _apiClient.post(Urls.NOTIFICATION_API, {'token': token},
-              headers: {'Authorization': 'Bearer ${value}'});
+        if (value != null) {
+          if (token != null) {
+            _apiClient.post(Urls.NOTIFICATION_API, {'token': token},
+                headers: {'Authorization': 'Bearer ${value}'});
+          }
         }
       },
     );

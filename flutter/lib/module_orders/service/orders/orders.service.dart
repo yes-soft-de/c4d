@@ -84,7 +84,7 @@ class OrdersService {
           ? response.acceptedOrder.last.phone
           : null,
       canRemove: canRemove,
-      costumerLocation: response.destination2
+      costumerLocation: response.destination2??GeoJson(lon: null,lat: null)
     );
 
     return order;

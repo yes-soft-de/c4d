@@ -45,7 +45,6 @@ class FireNotificationService {
 
   Future<void> refreshNotificationToken() async {
     var token = await _fcm.getToken();
-    print(token);
     if (token != null) {
       // And Subscribe to the changes
       try {
