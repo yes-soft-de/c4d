@@ -297,7 +297,8 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i65.BranchesListStateManager _createBranchesListStateManager() =>
       _i65.BranchesListStateManager(_createBranchesListService());
   _i66.BranchesListService _createBranchesListService() =>
-      _i66.BranchesListService(_createBranchesManager());
+      _i66.BranchesListService(
+          _createBranchesManager(), _createProfilePreferencesHelper());
   _i67.BranchesManager _createBranchesManager() =>
       _i67.BranchesManager(_createBranchesRepository());
   _i68.BranchesRepository _createBranchesRepository() =>

@@ -39,7 +39,7 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
     if (success) {
       Navigator.of(context).pop();
       Navigator.of(context)
-          .pushReplacementNamed(InitAccountRoutes.BRANCHES_LIST_SCREEN);
+          .pushReplacementNamed(InitAccountRoutes.BRANCHES_LIST_SCREEN,arguments: true);
       Flushbar(
         title: S.of(context).updateBranch,
         message: S.of(context).updateBranchSuccess,
@@ -71,7 +71,7 @@ class UpdateBranchScreenState extends State<UpdateBranchScreen> {
     if (success) {
       Navigator.of(context).pop();
       Navigator.of(context)
-          .pushReplacementNamed(InitAccountRoutes.BRANCHES_LIST_SCREEN);
+          .pushReplacementNamed(InitAccountRoutes.BRANCHES_LIST_SCREEN,arguments: true);
       Flushbar(
         title: S.of(context).addBranch,
         message: S.of(context).addBranchSuccess,
