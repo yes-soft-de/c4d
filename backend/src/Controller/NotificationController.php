@@ -51,12 +51,20 @@ class NotificationController extends BaseController
      */
     public function notificationNewChat(Request $request)
     {
+        $userType="";
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
         $request->setUserID($this->getUser()->getUsername());
-        
-        $response = $this->notificationService->notificationNewChat($request);
+
+        if ($this->isGranted('ROLE_OWNER')) {
+            $userType = "owner";
+        }
+        if ($this->isGranted('ROLE_CAPTAIN')) {
+            $userType = "captain";
+        }
+
+        $response = $this->notificationService->notificationNewChat($request, $userType);
 
         return $this->response($response, self::CREATE);
     }
