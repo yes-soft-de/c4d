@@ -49,7 +49,6 @@ class AuthService {
   Stream<AuthStatus> get authListener => _authSubject.stream;
 
   Future<void> _loginApiUser(UserRole role, AuthSource source) async {
-    Logger().error('AuthError', 'login api user', StackTrace.current);
     var store = FirebaseFirestore.instance;
     var user = _auth.currentUser;
     var existingProfile =
@@ -90,7 +89,6 @@ class AuthService {
   }
 
   Future<void> _registerApiNewUser(AppUser user) async {
-    Logger().error('AuthError', 'register New User', StackTrace.current);
     var store = FirebaseFirestore.instance;
     var existingProfile =
     await store.collection('users').doc(user.credential.uid).get();
