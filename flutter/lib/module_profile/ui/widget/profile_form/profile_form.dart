@@ -4,6 +4,7 @@ import 'package:c4d/module_profile/request/profile/profile_request.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:c4d/module_profile/model/profile_model/profile_model.dart';
+import 'dart:io';
 
 class ProfileFormWidget extends StatefulWidget {
   final Function(ProfileModel) onProfileSaved;
@@ -37,7 +38,9 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     if (profileRequest == null) {
     } else {
       _nameController.text = profileRequest.name;
-      countryCode =profileRequest.phone.contains('+')?profileRequest.phone.substring(0, 4):'+963';
+      countryCode = profileRequest.phone.contains('+')
+          ? profileRequest.phone.substring(0, 4)
+          : '+963';
       _phoneController.text =
           profileRequest.phone.replaceFirst(countryCode, '0');
       _stcPayController.text = profileRequest.stcPay;
@@ -46,6 +49,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     }
   }
 
+  ProfileModel profile;
   @override
   Widget build(BuildContext context) {
     var request = profileRequest ?? ProfileRequest.empty();
@@ -63,15 +67,17 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 ImagePicker()
                     .getImage(source: ImageSource.gallery)
                     .then((value) {
-                  var profile = ProfileModel(
-                    image: value.path,
-                    name: _nameController.text,
-                    phone: _phoneController.text,
-                    stcPay: _stcPayController.text,
-                    bankNumber: _stcPayController.text,
-                    bankName: _bankAccountNumberController.text,
-                  );
-                  widget.onImageUpload(profile);
+                  if (value != null) {
+                    profile = ProfileModel(
+                      image: value.path,
+                      name: _nameController.text,
+                      phone: _phoneController.text,
+                      stcPay: _stcPayController.text,
+                      bankNumber: _stcPayController.text,
+                      bankName: _bankAccountNumberController.text,
+                    );
+                    widget.onImageUpload(profile);
+                  }
                 });
               },
               child: Container(
@@ -93,7 +99,6 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                           width: 80,
                           fit: BoxFit.cover,
                           imageErrorBuilder: (e, s, h) {
-                            print('Error: ' + s.toString());
                             return Image.asset('assets/images/logo.jpg');
                           },
                         ),
