@@ -65,7 +65,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
             GestureDetector(
               onTap: () {
                 ImagePicker()
-                    .getImage(source: ImageSource.gallery)
+                    .getImage(source: ImageSource.gallery,imageQuality: 70)
                     .then((value) {
                   if (value != null) {
                     profile = ProfileModel(
