@@ -21,6 +21,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:inject/inject.dart';
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
@@ -114,6 +115,17 @@ class _MyAppState extends State<MyApp> {
     widget._fireNotificationService.onNotificationStream.listen((event) {
       NotificationModel model = NotificationModel.fromJson(event);
       widget._localNotificationService.showNotification(model);
+      if (Platform.isIOS){
+        Fluttertoast.showToast(
+            msg: '${model.body}',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.SNACKBAR,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Color(0xFF3ACCE1),
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
     });
     widget._localNotificationService.onLocalNotificationStream.listen((event) {
     });

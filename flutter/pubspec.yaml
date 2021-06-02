@@ -16,6 +16,7 @@ dependencies:
   date_time_picker: ^1.1.1
   another_flushbar: ^1.10.11
   flutter_local_notifications: ^4.0.1+2
+  fluttertoast: ^7.1.6
   # Localization Library
   flutter_localizations:
     sdk: flutter

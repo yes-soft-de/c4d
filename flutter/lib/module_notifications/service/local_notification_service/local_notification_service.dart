@@ -1,4 +1,5 @@
 import 'package:c4d/module_notifications/model/notification_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:inject/inject.dart';
@@ -32,8 +33,8 @@ class LocalNotificationService {
   }
 
   void showNotification(NotificationModel model) {
-    IOSNotificationDetails iOSPlatformChannelSpecifics =
-        IOSNotificationDetails();
+    IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails(
+        presentAlert: true, presentBadge: true, presentSound: true);
 
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails('1', 'c4d', 'delivery app',
@@ -54,5 +55,9 @@ class LocalNotificationService {
     if (payload != null) {
       _onNotificationRecieved.add(payload);
     }
+  }
+
+  Future onDidNotification(int id, String title, String body, String payload) {
+    _onNotificationRecieved.add(payload);
   }
 }
