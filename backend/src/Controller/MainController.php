@@ -54,7 +54,7 @@ class MainController extends BaseController
     }
 
     /**
-     * @Route("allusers", name="getAllUsers", methods={"GET"})
+     * @Route("allusers", name="getUsers", methods={"GET"})
      * @param Request $request
      * @return JsonResponse
      */
