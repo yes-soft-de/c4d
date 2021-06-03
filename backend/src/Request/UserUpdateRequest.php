@@ -10,8 +10,6 @@ class UserUpdateRequest
 
     private $password;
 
-    private $userID;
-
     public function getId()
     {
         return $this->id;
@@ -20,11 +18,6 @@ class UserUpdateRequest
     public function getPassword()
     {
         return $this->password;
-    }
-
-    public function getUserID()
-    {
-        return $this->userID;
     }
     
 }
