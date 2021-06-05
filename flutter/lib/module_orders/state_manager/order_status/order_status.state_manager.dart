@@ -89,11 +89,11 @@ class OrderStatusStateManager {
   }
 
   void updateOrder(OrderModel model, OrderStatusScreenState screenState) {
+    _stateSubject.add(OrderDetailsStateLoading(screenState));
     _ordersService.updateOrder(model.id, model).then((value) {
       getOrderDetails(model.id, screenState);
     });
   }
-
   Future report(int orderId, String reason) async {
     await _reportService.createReport(orderId, reason);
   }

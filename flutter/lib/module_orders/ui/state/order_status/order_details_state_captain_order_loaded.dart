@@ -259,19 +259,24 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                     labelText: S.of(context).finishOrderProvideDistanceInKm,
                   ),
                   keyboardType: TextInputType.number,
+                  onChanged: (v) {
+                    screenState.refresh();
+                  },
                 ),
               ),
               IconButton(
                   icon: Icon(Icons.check),
-                  onPressed: () {
-                    if (_distanceCalculator.text.isNotEmpty) {
-                      screenState.requestOrderProgress(
-                          currentOrder, _distanceCalculator.text);
-                    } else {
-                      screenState
-                          .showSnackBar(S.of(context).pleaseProvideTheDistance);
-                    }
-                  }),
+                  onPressed: _distanceCalculator.text.isNotEmpty
+                      ? () {
+                          if (_distanceCalculator.text.isNotEmpty) {
+                            screenState.requestOrderProgress(
+                                currentOrder, _distanceCalculator.text);
+                          } else {
+                            screenState.showSnackBar(
+                                S.of(context).pleaseProvideTheDistance);
+                          }
+                        }
+                      : null),
             ],
           ),
         ),

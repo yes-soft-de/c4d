@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "completedOrders" : MessageLookupByLibrary.simpleMessage("Completed Orders"),
     "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirmCode" : MessageLookupByLibrary.simpleMessage("Confirm Code"),
+    "confirmUpdateOrderStatus" : MessageLookupByLibrary.simpleMessage("Are you want to update this order status , please confirm"),
     "contactPhoneNumber" : MessageLookupByLibrary.simpleMessage("Contact Phone Number"),
     "createNewOrder" : MessageLookupByLibrary.simpleMessage("Create new order"),
     "createNewReport" : MessageLookupByLibrary.simpleMessage("Create new Report"),

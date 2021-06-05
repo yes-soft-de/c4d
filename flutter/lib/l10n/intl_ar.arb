@@ -219,7 +219,8 @@
   "phoneNumbertooShort":"رقم الهاتف المدخل قصير",
   "addBranch":"إضافة فرع",
   "addBranchSuccess":"تمت إضافة الفرع بنجاح",
-  "addBranchFailure":"عذرا لم تنجح عملية إضافة فرع الرجاء إعادة المحاولة لاحقا"
+  "addBranchFailure":"عذرا لم تنجح عملية إضافة فرع الرجاء إعادة المحاولة لاحقا",
+  "confirmUpdateOrderStatus":"الرجاء تأكيد عملية تحديث حالة الطلب"
 
 
 }

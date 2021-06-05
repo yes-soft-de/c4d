@@ -2244,6 +2244,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you want to update this order status , please confirm`
+  String get confirmUpdateOrderStatus {
+    return Intl.message(
+      'Are you want to update this order status , please confirm',
+      name: 'confirmUpdateOrderStatus',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

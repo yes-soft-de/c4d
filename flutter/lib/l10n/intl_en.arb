@@ -220,9 +220,7 @@
   "phoneNumbertooShort":"Phone number is too short",
   "addBranch":"Add Branch",
   "addBranchSuccess":"Branch has been added successfully",
-  "addBranchFailure":"Sorry your request for add branch faild please try again"
-
-
-
+  "addBranchFailure":"Sorry your request for add branch faild please try again",
+  "confirmUpdateOrderStatus":"Are you want to update this order status , please confirm"
 
 }

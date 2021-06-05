@@ -28,8 +28,11 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void showSnackBar(String msg,[Color color]) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(msg),backgroundColor:color,));
+  void showSnackBar(String msg, [Color color]) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(msg),
+      backgroundColor: color,
+    ));
   }
 
   Future uuid(String orderId) async {
@@ -39,7 +42,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
   void deleteOrder(model) {
     widget._stateManager.deleteOrder(model, this);
     var context = _scaffoldKey.currentContext;
-    showSnackBar(S.of(context).deleteSuccess,Colors.green);
+    showSnackBar(S.of(context).deleteSuccess, Colors.green);
   }
 
   @override
@@ -51,6 +54,12 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       }
     });
     super.initState();
+  }
+
+  void refresh() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void requestOrderProgress(OrderModel currentOrder, [String distance]) {
@@ -76,10 +85,31 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       case OrderStatus.FINISHED:
         break;
     }
-
-    currentOrder.distance = distance;
-    currentOrder.status = newStatus;
-    widget._stateManager.updateOrder(currentOrder, this);
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text(S.of(context).confirm),
+            content: Container(
+              child: Text(S.of(context).confirmUpdateOrderStatus),
+            ),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(S.of(context).cancel)),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    currentOrder.distance = distance;
+                    currentOrder.status = newStatus;
+                    widget._stateManager.updateOrder(currentOrder, this);
+                  },
+                  child: Text(S.of(context).confirm)),
+            ],
+          );
+        });
   }
 
   @override

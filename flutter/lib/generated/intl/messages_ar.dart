@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "completedOrders" : MessageLookupByLibrary.simpleMessage(" طلبات منتهية "),
     "confirm" : MessageLookupByLibrary.simpleMessage("تأكيد"),
     "confirmCode" : MessageLookupByLibrary.simpleMessage("تأكيد الرقم"),
+    "confirmUpdateOrderStatus" : MessageLookupByLibrary.simpleMessage("الرجاء تأكيد عملية تحديث حالة الطلب"),
     "contactPhoneNumber" : MessageLookupByLibrary.simpleMessage("رقم الهاتف للتواصل"),
     "createNewOrder" : MessageLookupByLibrary.simpleMessage("انشاء طلب جديد "),
     "createNewReport" : MessageLookupByLibrary.simpleMessage("دعم سريع"),
