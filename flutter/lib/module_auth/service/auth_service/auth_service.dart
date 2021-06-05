@@ -291,9 +291,8 @@ class AuthService {
         throw TokenExpiredException('Token is created ${diff} minutes ago');
       }
       return this._prefsHelper.getToken();
-    } on UnauthorizedException {
-      await _prefsHelper.deleteToken();
-      return null;
+    } on UnauthorizedException {  
+      return await refreshToken();
     } catch (e) {
       return null;
     }
@@ -309,7 +308,7 @@ class AuthService {
       password: password,
     ));
     await _prefsHelper.setToken(loginResponse.token);
-    return loginResponse.token;
+    return loginResponse!=null?loginResponse.token:null;
   }
 
   /// apple specific function
