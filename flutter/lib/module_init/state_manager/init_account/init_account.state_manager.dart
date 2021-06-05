@@ -100,8 +100,6 @@ class InitAccountStateManager {
         phone: phone,
         city: city,
         age: 30.toString(),
-        image:
-            Urls.IMAGES_ROOT + 'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
       )),
       !renew?_initAccountService.subscribePackage(packageId)
       :_initAccountService.renewPackage(packageId)
