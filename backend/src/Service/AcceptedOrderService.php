@@ -34,7 +34,7 @@ class AcceptedOrderService
 
     public function create(AcceptedOrderCreateRequest $request)
     {   
-        $response ="This order was received by another captain";
+        $response ="received";
         $acceptedOrder = $this->getAcceptedOrderByOrderId($request->getOrderID());
         if (!$acceptedOrder) {
             $item = $this->acceptedOrderManager->create($request);
