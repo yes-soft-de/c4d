@@ -56,9 +56,9 @@ class AcceptedOrderController extends BaseController
             }
 
         $response = $this->acceptedOrderService->create($request);
-        if (is_string($response)) {
-            return $this->response($response, self::ACCEPTED_ERROR);
-            }
+        // if (is_string($response)) {
+        //     return $this->response($response, self::ACCEPTED_ERROR);
+        //     }
         
         //start-----> notification
         // try {
