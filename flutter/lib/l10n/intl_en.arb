@@ -221,6 +221,10 @@
   "addBranch":"Add Branch",
   "addBranchSuccess":"Branch has been added successfully",
   "addBranchFailure":"Sorry your request for add branch faild please try again",
-  "confirmUpdateOrderStatus":"Are you want to update this order status , please confirm"
+  "confirmUpdateOrderStatus":"Are you want to update this order status , please confirm",
+  "error": "Error",
+  "orderReceved":"The order has been receved by another captain",
+  "allcity":"All City"
+
 
 }

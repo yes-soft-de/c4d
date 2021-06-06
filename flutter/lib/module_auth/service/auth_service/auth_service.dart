@@ -291,7 +291,7 @@ class AuthService {
         throw TokenExpiredException('Token is created ${diff} minutes ago');
       }
       return this._prefsHelper.getToken();
-    } on UnauthorizedException {  
+    } on TokenExpiredException {  
       return await refreshToken();
     } catch (e) {
       return null;

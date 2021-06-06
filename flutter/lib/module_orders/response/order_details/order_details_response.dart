@@ -12,21 +12,23 @@ class OrderDetailsResponse {
   String payment;
   String state;
   List<Record> record;
-
+  String error;
   OrderDetailsResponse(
       {this.id,
-        this.orderID,
-        this.captainID,
-        this.date,
-        this.duration,
-        this.source,
-        this.destination,
-        this.orderDate,
-        this.orderUpdateDate,
-        this.orderNote,
-        this.payment,
-        this.state,
-        this.record});
+      this.orderID,
+      this.captainID,
+      this.date,
+      this.duration,
+      this.source,
+      this.destination,
+      this.orderDate,
+      this.orderUpdateDate,
+      this.orderNote,
+      this.payment,
+      this.state,
+      this.record,
+      this.error
+      });
 
   OrderDetailsResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -37,7 +39,7 @@ class OrderDetailsResponse {
     // source = json['source'].cast<String>();
     // destination = json['destination'].cast<String>();
     orderDate =
-    json['orderDate'] != null ? new Date.fromJson(json['orderDate']) : null;
+        json['orderDate'] != null ? new Date.fromJson(json['orderDate']) : null;
     orderUpdateDate = json['orderUpdateDate'];
     orderNote = json['orderNote'];
     payment = json['payment'];
@@ -200,7 +202,7 @@ class Record {
     orderID = json['orderID'];
     state = json['state'];
     startTime =
-    json['startTime'] != null ? new Date.fromJson(json['startTime']) : null;
+        json['startTime'] != null ? new Date.fromJson(json['startTime']) : null;
   }
 
   Map<String, dynamic> toJson() {

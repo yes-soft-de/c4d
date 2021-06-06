@@ -41,7 +41,6 @@ class SplashScreen extends StatelessWidget {
       if (!isInited) {
         return AboutRoutes.ROUTE_ABOUT;
       }
-
       var role = await _authService.userRole;
 
       if (role == UserRole.ROLE_OWNER) {

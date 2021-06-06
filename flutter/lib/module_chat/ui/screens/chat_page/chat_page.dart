@@ -87,84 +87,92 @@ class ChatPageState extends State<ChatPage> {
       widget._chatPageBloc.getMessages(chatRoomId);
     }
 
-    return Scaffold(
-        body: Stack(
-      children: [
-        Column(
-          // direction: Axis.vertical,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            AppBar(
-              title: Text(
-                S.of(context).chatRoom,
-                style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
+    return GestureDetector(
+      onTap: () {
+        var focus = FocusScope.of(context);
+        if (focus.canRequestFocus) {
+          focus.unfocus();
+        }
+      },
+      child: Scaffold(
+          body: Stack(
+        children: [
+          Column(
+            // direction: Axis.vertical,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AppBar(
+                title: Text(
+                  S.of(context).chatRoom,
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: chatsMessagesWidgets != null
-                  ? ListView(
-                      controller: scrollController,
-                      children: chatsMessagesWidgets,
-                      reverse: false,
-                    )
-                  : ListView(
-                      children: [
-                        Center(
-                          child: Text(S.of(context).loading),
-                        )
-                      ],
-                    ),
-            ),
-            ChatWriterWidget(
-              onMessageSend: (msg) {
-                widget._chatPageBloc
-                    .sendMessage(chatRoomId, msg, support, feedBack);
-              },
-              uploadService: widget._uploadService,
-            ),
-          ],
-        ),
-        down
-            ? Positioned(
-                bottom: 100,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: InkWell(
-                    onTap: () {
-                      scrollController.jumpTo(
-                        scrollController.position.maxScrollExtent,
-                      );
-                      setState(() {
-                        down = false;
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(50),
-                    child: Container(
-                      width: 25,
-                      height: 25,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
+              Expanded(
+                child: chatsMessagesWidgets != null
+                    ? ListView(
+                        controller: scrollController,
+                        children: chatsMessagesWidgets,
+                        reverse: false,
+                      )
+                    : ListView(
+                        children: [
+                          Center(
+                            child: Text(S.of(context).loading),
+                          )
+                        ],
                       ),
-                      child: Icon(
-                        Icons.arrow_drop_down,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.black
-                            : Colors.white,
+              ),
+              ChatWriterWidget(
+                onMessageSend: (msg) {
+                  widget._chatPageBloc
+                      .sendMessage(chatRoomId, msg, support, feedBack);
+                },
+                uploadService: widget._uploadService,
+              ),
+            ],
+          ),
+          down
+              ? Positioned(
+                  bottom: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: InkWell(
+                      onTap: () {
+                        scrollController.jumpTo(
+                          scrollController.position.maxScrollExtent,
+                        );
+                        setState(() {
+                          down = false;
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        width: 25,
+                        height: 25,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        child: Icon(
+                          Icons.arrow_drop_down,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.black
+                              : Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-            : Container(),
-      ],
-    ));
+                )
+              : Container(),
+        ],
+      )),
+    );
   }
 
   Future<void> buildMessagesList(List<ChatModel> chatList) async {

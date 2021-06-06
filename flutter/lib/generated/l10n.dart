@@ -2254,6 +2254,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The order has been receved by another captain`
+  String get orderReceved {
+    return Intl.message(
+      'The order has been receved by another captain',
+      name: 'orderReceved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All City`
+  String get allcity {
+    return Intl.message(
+      'All City',
+      name: 'allcity',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

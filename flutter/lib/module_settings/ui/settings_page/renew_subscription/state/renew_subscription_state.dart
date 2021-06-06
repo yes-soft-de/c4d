@@ -50,7 +50,6 @@ class RenewPcakageSubscriptionStateLoaded
     RenewSubscriptionScreenState screenState,
   ) : super(screenState);
   String _selectedCity;
-  String _selectedSize;
   int _selectedPackageId;
   @override
   Widget getUI(BuildContext context) {
@@ -153,4 +152,5 @@ class RenewPcakageSubscriptionStateLoaded
       );
     }).toList();
   }
+
 }

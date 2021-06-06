@@ -504,14 +504,14 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                   fillColor: Color(0xff454F63),
                   focusColor: Color(0xff454F63),
                   hintText:
-                      '${S.of(context).branch} ${branches[0].brancheName}',
+                      '${branches[0].brancheName}',
                   hintStyle: TextStyle(color: Colors.white),
                 ),
                 items: branches
                     .map((e) => DropdownMenuItem<Branch>(
                           value: e,
                           child: Text(
-                            '${S.of(context).branch} ${e.brancheName}',
+                            '${e.brancheName}',
                             style: TextStyle(
                               color: Colors.white,
                             ),

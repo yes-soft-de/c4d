@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
@@ -54,6 +55,22 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       }
     });
     super.initState();
+  }
+
+  void goBack(String error) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
+    Flushbar(
+      title: S.of(context).error,
+      message: error,
+      icon: Icon(
+        Icons.info,
+        size: 28.0,
+        color: Colors.white,
+      ),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 3),
+    )..show(context);
   }
 
   void refresh() {
@@ -119,75 +136,83 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
       widget._stateManager.getOrderDetails(orderId, this);
       currentState = OrderDetailsStateInit(this);
     }
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        key: _scaffoldKey,
-        leading: IconButton(
-          icon: Icon(Icons.navigate_before),
-          onPressed: () {
-            if (currentState is OrderDetailsStateOwnerOrderLoaded) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  OrdersRoutes.OWNER_ORDERS_SCREEN, (route) => false);
-            } else if (currentState is OrderDetailsStateCaptainOrderLoaded) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
-            } else {
-              Navigator.of(context).pop();
-            }
-          },
-        ),
-        title: Text(
-          S.of(context).orderDetails,
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
-          ),
-        ),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.flag),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  child: Dialog(
-                    child: ReportDialogWidget(),
-                  ),
-                ).then((value) {
-                  if (value == null) {
-                    return;
-                  }
-                  if (value is String) {
-                    if (value.isNotEmpty) {
-                      widget._stateManager
-                          .report(orderId, value)
-                          .whenComplete(() => setState(() {}));
-                      showSnackBar(S.of(context).reportSent);
-                    }
-                  }
-                }).whenComplete(() => setState(() {}));
-              }),
-          FutureBuilder(
-            future: uuid(orderId.toString()),
-            builder: (_, snapshot) {
-              if (snapshot.hasData) {
-                return IconButton(
-                    icon: Icon(Icons.chat),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        ChatRoutes.chatRoute,
-                        arguments: 'F#${snapshot.data}',
-                      );
-                    });
+    return GestureDetector(
+      onTap: () {
+        var focus = FocusScope.of(context);
+        if (focus.canRequestFocus) {
+          focus.unfocus();
+        }
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          key: _scaffoldKey,
+          leading: IconButton(
+            icon: Icon(Icons.navigate_before),
+            onPressed: () {
+              if (currentState is OrderDetailsStateOwnerOrderLoaded) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    OrdersRoutes.OWNER_ORDERS_SCREEN, (route) => false);
+              } else if (currentState is OrderDetailsStateCaptainOrderLoaded) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
               } else {
-                return Container();
+                Navigator.of(context).pop();
               }
             },
           ),
-        ],
+          title: Text(
+            S.of(context).orderDetails,
+            style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
+          ),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.flag),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    child: Dialog(
+                      child: ReportDialogWidget(),
+                    ),
+                  ).then((value) {
+                    if (value == null) {
+                      return;
+                    }
+                    if (value is String) {
+                      if (value.isNotEmpty) {
+                        widget._stateManager
+                            .report(orderId, value)
+                            .whenComplete(() => setState(() {}));
+                        showSnackBar(S.of(context).reportSent);
+                      }
+                    }
+                  }).whenComplete(() => setState(() {}));
+                }),
+            FutureBuilder(
+              future: uuid(orderId.toString()),
+              builder: (_, snapshot) {
+                if (snapshot.hasData) {
+                  return IconButton(
+                      icon: Icon(Icons.chat),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          ChatRoutes.chatRoute,
+                          arguments: 'F#${snapshot.data}',
+                        );
+                      });
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ],
+        ),
+        body: currentState.getUI(context),
       ),
-      body: currentState.getUI(context),
     );
   }
 }

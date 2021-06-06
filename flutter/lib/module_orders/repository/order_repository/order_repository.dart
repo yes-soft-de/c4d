@@ -43,7 +43,7 @@ class OrderRepository {
       headers: {'Authorization': 'Bearer ' + token},
     );
     if (response == null) return '';
-    return response['Data']['status']??'';
+    return response['Data']['status'] ?? '';
   }
 
   Future<OrderDetailsData> getOrderDetails(int orderId) async {
@@ -115,6 +115,10 @@ class OrderRepository {
     );
 
     if (response == null) return null;
+
+    if (response is String) {
+      return OrderDetailsResponse(error: response);
+    }
 
     return OrderDetailsResponse.fromJson(response);
   }

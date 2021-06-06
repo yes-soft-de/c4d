@@ -38,9 +38,17 @@ class RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: _currentState.getUI(context),
+    return GestureDetector(
+      onTap: () {
+        var focus = FocusScope.of(context);
+        if (focus.canRequestFocus) {
+          focus.unfocus();
+        }
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: _currentState.getUI(context),
+        ),
       ),
     );
   }
@@ -73,6 +81,7 @@ class RegisterScreenState extends State<RegisterScreen> {
     Navigator.of(context).pushNamedAndRemoveUntil(
         InitAccountRoutes.INIT_ACCOUNT_SCREEN, (r) => false);
   }
+
   void setRole(UserRole userType) {
     initRole = userType;
   }

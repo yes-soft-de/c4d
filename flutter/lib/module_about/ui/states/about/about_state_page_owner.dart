@@ -15,6 +15,7 @@ class AboutStatePageOwner extends AboutState {
   AboutStatePageOwner(AboutScreenStateManager screenState, this.packages)
       : super(screenState);
   int get getCurrentPage => currentPage;
+  String _selectedCity;
   @override
   Widget getUI(BuildContext context) {
     return Stack(
@@ -95,17 +96,38 @@ class AboutStatePageOwner extends AboutState {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  S.of(context).ourPackages,
-                  style: TextStyle(
-                    fontSize: 24,
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Text(
+                    S.of(context).ourPackages,
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  child: Container(
+                    width: 150,
+                    child: DropdownButtonFormField(
+                        // value: _selectedCity,
+                        decoration: InputDecoration(
+                          hintText: S.of(context).chooseYourCity,
+                        ),
+                        items: _getCities(),
+                        onChanged: (value) {
+                          _selectedCity = value;
+                          screenState.refresh(this);
+                        }),
                   ),
                 ),
                 Container(
                   height: 240,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: _getPackagesCards(),
+                    children: _selectedCity == null
+                        ? _getPackagesCards()
+                        : _getPackages(_selectedCity),
                   ),
                 ),
                 Flex(
@@ -178,5 +200,46 @@ class AboutStatePageOwner extends AboutState {
       ));
     });
     return packagesCards;
+  }
+
+  List<DropdownMenuItem> _getCities() {
+    var cityNames = <String>{};
+    packages.forEach((element) {
+      cityNames.add('${element.city}');
+    });
+    cityNames.add(S.current.allcity);
+    var cityDropDown = <DropdownMenuItem>[];
+    cityNames.forEach((element) {
+      cityDropDown.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    });
+
+    return cityDropDown;
+  }
+
+  List<Widget> _getPackages(String city) {
+    if (packages == null) {
+      return [];
+    }
+    if (packages.isEmpty) {
+      return [];
+    }
+    if (_selectedCity == null) {
+      return [];
+    }
+    List<PackageModel> cityPackage = [];
+    for (int i = 0; i < packages.length; i++) {
+      if (packages[i].city == city || city == S.current.allcity) {
+        cityPackage.add(packages[i]);
+      }
+    }
+    return cityPackage.map((element) {
+      return PackageCard(
+        package: element,
+        active: false,
+      );
+    }).toList();
   }
 }

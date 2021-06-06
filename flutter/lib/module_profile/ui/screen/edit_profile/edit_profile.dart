@@ -42,11 +42,19 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     states ??= ProfileStateLoading(this);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).myProfile),
+    return GestureDetector(
+      onTap: () {
+        var focus = FocusScope.of(context);
+        if (focus.canRequestFocus) {
+          focus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(S.of(context).myProfile),
+        ),
+        body: states.getUI(context),
       ),
-      body: states.getUI(context),
     );
   }
 }

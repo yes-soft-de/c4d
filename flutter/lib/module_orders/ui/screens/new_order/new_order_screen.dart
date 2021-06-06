@@ -89,10 +89,18 @@ class NewOrderScreenState extends State<NewOrderScreen> {
       currentState = NewOrderStateInit(this);
       widget._stateManager.loadBranches(this, linkFromWhatsApp);
     }
-    return Scaffold(
-      key: _scaffoldKey,
-      body: SafeArea(
-        child: currentState.getUI(context),
+    return GestureDetector(
+      onTap: () {
+        var focus = FocusScope.of(context);
+        if (focus.canRequestFocus) {
+          focus.unfocus();
+        }
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: SafeArea(
+          child: currentState.getUI(context),
+        ),
       ),
     );
   }

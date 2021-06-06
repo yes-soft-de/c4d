@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
@@ -91,9 +92,18 @@ class OrderStatusStateManager {
   void updateOrder(OrderModel model, OrderStatusScreenState screenState) {
     _stateSubject.add(OrderDetailsStateLoading(screenState));
     _ordersService.updateOrder(model.id, model).then((value) {
-      getOrderDetails(model.id, screenState);
+      if (value != null) {
+        if (value.error != null) {
+          screenState.goBack(value.error=='received'?S.current.orderReceved:S.current.errorHappened);
+        } else {
+          getOrderDetails(model.id, screenState);
+        }
+      } else {
+        screenState.goBack(S.current.errorHappened);
+      }
     });
   }
+
   Future report(int orderId, String reason) async {
     await _reportService.createReport(orderId, reason);
   }
