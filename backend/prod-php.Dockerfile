@@ -20,6 +20,8 @@ RUN composer install
 # Install the actual backend
 COPY . .
 
+RUN chmod +x ./init-prod.sh
+
 # Expose for ... reasons
 EXPOSE 9000
-CMD [ "init-prod.sh" ]
+CMD [ "/var/www/init-prod.sh" ]
