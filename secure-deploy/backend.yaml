@@ -1,3 +1,39 @@
+################# Deployment #####################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c4d-nginx
+  labels:
+    app: c4d
+spec:
+  selector:
+    matchLabels:
+      app: c4d
+      tier: balancer
+  strategy:
+    type: Restart
+  template:
+    metadata:
+      labels:
+        app: c4d
+        tier: balancer
+    spec:
+      containers:
+      - name: c4d-nginx
+        image: eu.gcr.io/spring-gift-307220/c4d-nginx:latest
+        imagePullPolicy: Always
+        ports:
+        - name: nginx-port
+          containerPort: 80
+      - name: c4d-fpm
+        image: eu.gcr.io/spring-gift-307220/c4d-fpm:latest
+        imagePullPolicy: Always
+        ports:
+        - name: fpm-port
+          containerPort: 9000
+
+---
+
 ################### Service  #####################
 apiVersion: v1
 kind: Service
@@ -7,10 +43,8 @@ metadata:
     app: c4d
 spec:
   ports:
-    - port: 3306
+    - port: 80
   selector:
     app: c4d
     tier: backend
   clusterIP: None
-
-################### Deployment ###################
