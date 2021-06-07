@@ -9,12 +9,12 @@ spec:
   selector:
     matchLabels:
       app: c4d
-      tier: balancer
+      tier: backend
   template:
     metadata:
       labels:
         app: c4d
-        tier: balancer
+        tier: backend
     spec:
       containers:
       - name: c4d-nginx
