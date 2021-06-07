@@ -1,5 +1,5 @@
 FROM composer:latest as composer
-FROM php:fpm
+FROM php:7.4.20-fpm
 WORKDIR /var/www
 
 # Enabeling PHP exts
