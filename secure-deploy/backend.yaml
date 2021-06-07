@@ -40,6 +40,11 @@ spec:
               secretKeyRef:
                 name: backend-keys-kh992fh92k
                 key: public
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-pass-597mk6t468
+                key: password
           - name: PASSPHRASE
             valueFrom:
               secretKeyRef:
