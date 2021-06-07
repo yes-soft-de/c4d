@@ -1,0 +1,16 @@
+################### Service  #####################
+apiVersion: v1
+kind: Service
+metadata:
+  name: c4d-backend
+  labels:
+    app: c4d
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: c4d
+    tier: backend
+  clusterIP: None
+
+################### Deployment ###################
