@@ -24,4 +24,4 @@ RUN chmod +x ./init-prod.sh
 
 # Expose for ... reasons
 EXPOSE 9000
-CMD [ "/var/www/init-prod.sh" ]
+CMD [ "/var/www/init-prod.sh", "php-fpm" ]

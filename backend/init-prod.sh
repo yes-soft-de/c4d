@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Salute
+echo "Hello From FPM"
+
 # Write private and public pem keys
 mkdir -p config/jwt
 echo "$PRIVATE_PEM" | base64 --decode > config/jwt/private.pem
