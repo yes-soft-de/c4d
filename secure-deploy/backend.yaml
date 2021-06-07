@@ -10,8 +10,6 @@ spec:
     matchLabels:
       app: c4d
       tier: balancer
-  strategy:
-    type: Restart
   template:
     metadata:
       labels:
