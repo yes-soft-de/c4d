@@ -31,6 +31,22 @@ spec:
         ports:
         - name: fpm-port
           containerPort: 9000
+        env:
+          - name: PRIVATE_PEM
+            valueFrom:
+              secretKeyRef:
+                name: backend-keys-kh992fh92k
+                key: private
+          - name: PUBLIC_PEM
+            valueFrom:
+              secretKeyRef:
+                name: backend-keys-kh992fh92k
+                key: public
+          - name: PASSPHRASE
+            valueFrom:
+              secretKeyRef:
+                name: backend-keys-kh992fh92k
+                key: passphrase
 
 ---
 
