@@ -4,4 +4,4 @@
 
 echo "Hello from NGINX"
 
-nginx -g daemon off;
+nginx
