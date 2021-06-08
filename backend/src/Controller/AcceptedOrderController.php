@@ -61,36 +61,17 @@ class AcceptedOrderController extends BaseController
         //     }
         
         //start-----> notification
-        // try {
             $data=$this->acceptedOrderService->getOwnerIdAndUuid($request->getOrderID());
 
             $notificationRequest = new SendNotificationRequest();
             $notificationRequest->setUserIdOne($data[0]['ownerID']);
-            // $notificationRequest->setUserIdTwo($request->setCaptainID($this->getUserId()));
+         
             $notificationRequest->setOrderID($request->getOrderID());
             $this->notificationService->notificationOrderUpdate($notificationRequest);
 
-        // }
-        //     catch (\Exception $e)
-        // {
-
-        // }
         // notification <------end
         return $this->response($response, self::CREATE);
     }
-
-    // /**
-    //  * @Route("/getOrderStatusForCaptain/{orderId}", name="GetOrderStatusForCaptain", methods={"GET"})
-    //  * @IsGranted("ROLE_CAPTAIN")
-    //  * @param                                     Request $request
-    //  * @return                                    JsonResponse
-    //  */
-    // public function getOrderStatusForCaptain($orderId)
-    // {
-    //     $result = $this->acceptedOrderService->getOrderStatusForCaptain($this->getUserId(), $orderId);
-
-    //     return $this->response($result, self::FETCH);
-    // }
 
     /**
      * @Route("acceptedOrder", name="updateAcceptedOrder", methods={"PUT"})

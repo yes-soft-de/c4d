@@ -46,6 +46,9 @@ class AcceptedOrderService
             }
             $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
         }
+        if ($acceptedOrder) {
+            $response ="received";
+        }
         return $response;
     }
 
