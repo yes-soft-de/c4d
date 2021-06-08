@@ -65,14 +65,10 @@ class OrderService
                 $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
 
                 //start-----> notification
-                // try{
+               
                 $this->notificationService->notificationToCaptain();
                 //notification <------end
-                // }
-                // catch (\Exception $e)
-                // {
-        
-                // }
+                   
                 if ($item) {
                     $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
                     $this->recordService->create($item->getId(), $item->getState());
@@ -226,34 +222,41 @@ class OrderService
         return $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
     }
 
+    public function IsCaptainReceivedThisOrder($orderId, $captainId){
+        return $this->acceptedOrderService->IsCaptainReceivedThisOrder($orderId, $captainId);
+    }
+
     public function orderUpdateStateByCaptain(OrderUpdateStateByCaptainRequest $request)
     {
-        $item = $this->orderManager->orderUpdateStateByCaptain($request);
-        if($item) {
-            $acceptedOrderUpdateState = $this->acceptedOrderService->acceptedOrderUpdateStateByCaptain($item->getId(), $request->getState());
-        
-            $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($item->getId());
-            $record = $this->recordService->getRecordByOrderId($item->getId());
-        }
-        $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
-        if($item) {
-            $response->acceptedOrder =  $acceptedOrder;
-            $response->record =  $record;
-        }
+        $response ="received";
+        $captainReceived =$this->IsCaptainReceivedThisOrder($request->getId(), $request->getCaptainID());
 
-        //start-----> notification
-        // try {
-        $notificationRequest = new SendNotificationRequest();
-        $notificationRequest->setUserIdOne($item->getOwnerID());
-        // $notificationRequest->setUserIdTwo($acceptedOrder[0]['captainID']);
-        $notificationRequest->setOrderID($item->getId());
-        $this->notificationService->notificationOrderUpdate($notificationRequest);
-        // notification <------end
-        // }
-        // catch (\Exception $e)
-        // {
+        if ($captainReceived) {
 
-        // }
+            $item = $this->orderManager->orderUpdateStateByCaptain($request);
+            if($item) {
+                $acceptedOrderUpdateState = $this->acceptedOrderService->acceptedOrderUpdateStateByCaptain($item->getId(), $request->getState());
+            
+                $acceptedOrder = $this->acceptedOrderService->getAcceptedOrderByOrderId($item->getId());
+                $record = $this->recordService->getRecordByOrderId($item->getId());
+            }
+            $response = $this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
+            if($item) {
+                $response->acceptedOrder =  $acceptedOrder;
+                $response->record =  $record;
+            }
+
+            //start-----> notification
+            $notificationRequest = new SendNotificationRequest();
+            $notificationRequest->setUserIdOne($item->getOwnerID());
+            $notificationRequest->setOrderID($item->getId());
+            $this->notificationService->notificationOrderUpdate($notificationRequest);
+            // notification <------end
+
+        }
+        if ($captainReceived == false) {
+            $response ="received";
+        }
         return $response;
     }
 

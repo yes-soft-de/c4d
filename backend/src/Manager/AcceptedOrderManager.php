@@ -99,6 +99,11 @@ class AcceptedOrderManager
         return $this->repository->getAcceptedOrderByOrderId($orderId);
     }
 
+    public function IsCaptainReceivedThisOrder($orderId, $captainId)
+    {
+        return $this->repository->IsCaptainReceivedThisOrder($orderId, $captainId);
+    }
+
     public function getAcceptedOrderByCaptainId($captainId)
     {
         return $this->repository->getAcceptedOrderByCaptainId($captainId);

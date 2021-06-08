@@ -87,6 +87,10 @@ class AcceptedOrderService
     {
         return $this->acceptedOrderManager->getAcceptedOrderByOrderId($orderId);
     }
+    public function IsCaptainReceivedThisOrder($orderId, $captainId)
+    {
+        return $this->acceptedOrderManager->IsCaptainReceivedThisOrder($orderId, $captainId);
+    }
 
     public function getAcceptedOrderByCaptainId($captainId)
     {

@@ -161,7 +161,7 @@ class OrderController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, OrderUpdateStateByCaptainRequest::class, (object) $data);
-
+        $request->setCaptainID($this->getUserId());
         $response = $this->orderService->orderUpdateStateByCaptain($request);
       
         return $this->response($response, self::UPDATE);

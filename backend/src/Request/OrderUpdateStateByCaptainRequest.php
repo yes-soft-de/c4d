@@ -12,6 +12,8 @@ class OrderUpdateStateByCaptainRequest
     
     private $kilometer;
 
+    private $captainID;
+
     /**
      * @return mixed
      */
@@ -52,6 +54,26 @@ class OrderUpdateStateByCaptainRequest
     public function setKilometer($kilometer)
     {
         $this->kilometer = $kilometer;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of captainID
+     */ 
+    public function getCaptainID()
+    {
+        return $this->captainID;
+    }
+
+    /**
+     * Set the value of captainID
+     *
+     * @return  self
+     */ 
+    public function setCaptainID($captainID)
+    {
+        $this->captainID = $captainID;
 
         return $this;
     }
