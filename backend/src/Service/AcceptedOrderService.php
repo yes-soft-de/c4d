@@ -36,9 +36,13 @@ class AcceptedOrderService
     {   
         $response ="received";
         $acceptedOrder = $this->getAcceptedOrderByOrderId($request->getOrderID());
-        if (!$acceptedOrder) {
+
+        if ($acceptedOrder == true) {
+            $response ="received";
+        }
+
+        if ($acceptedOrder ==  false) {
             $item = $this->acceptedOrderManager->create($request);
-           
             if ($item) {
                $this->recordService->create($item->getOrderID(), $item->getState());
                $data = $this->getOwnerIdAndUuid($item->getOrderID());
@@ -46,9 +50,7 @@ class AcceptedOrderService
             }
             $response = $this->autoMapping->map(AcceptedOrderEntity::class, AcceptedOrderResponse::class, $item);
         }
-        if ($acceptedOrder) {
-            $response ="received";
-        }
+       
         return $response;
     }
 

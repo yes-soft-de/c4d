@@ -56,11 +56,9 @@ class AcceptedOrderController extends BaseController
             }
 
         $response = $this->acceptedOrderService->create($request);
-        // if (is_string($response)) {
-        //     return $this->response($response, self::ACCEPTED_ERROR);
-        //     }
         
         //start-----> notification
+        if (!is_string($response)) {
             $data=$this->acceptedOrderService->getOwnerIdAndUuid($request->getOrderID());
 
             $notificationRequest = new SendNotificationRequest();
@@ -68,7 +66,7 @@ class AcceptedOrderController extends BaseController
          
             $notificationRequest->setOrderID($request->getOrderID());
             $this->notificationService->notificationOrderUpdate($notificationRequest);
-
+        }
         // notification <------end
         return $this->response($response, self::CREATE);
     }
