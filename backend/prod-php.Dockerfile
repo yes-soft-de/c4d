@@ -1,6 +1,6 @@
 FROM composer:latest as composer
 FROM php:7.4.20-fpm
-WORKDIR /var/www
+WORKDIR /app/
 
 # Enabeling PHP exts
 RUN apt-get update && apt-get install -y \
@@ -24,4 +24,4 @@ RUN chmod +x ./init-prod.sh
 
 # Expose for ... reasons
 EXPOSE 9000
-CMD [ "/var/www/init-prod.sh" ]
+CMD [ "/app/init-prod.sh" ]
