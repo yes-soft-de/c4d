@@ -37,8 +37,10 @@ spec:
         image: eu.gcr.io/spring-gift-307220/c4d-nginx:latest
         imagePullPolicy: Always
         ports:
-        - name: nginx-port
+        - name: nginx-http-port
           containerPort: 80
+        - name: nginx-https-port
+          containerPort: 443
         volumeMounts:
         - name: c4d-persistent-storage
           mountPath: /var/www
