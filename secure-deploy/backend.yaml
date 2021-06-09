@@ -1,3 +1,19 @@
+###################### PVC #######################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: c4d-pv-claim
+  labels:
+    app: c4d
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+
 ################# Deployment #####################
 apiVersion: apps/v1
 kind: Deployment
@@ -23,12 +39,18 @@ spec:
         ports:
         - name: nginx-port
           containerPort: 80
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/www
       - name: c4d-fpm
         image: eu.gcr.io/spring-gift-307220/c4d-fpm:latest
         imagePullPolicy: Always
         ports:
         - name: fpm-port
           containerPort: 9000
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/www
         env:
           - name: PRIVATE_PEM
             valueFrom:
@@ -50,7 +72,10 @@ spec:
               secretKeyRef:
                 name: backend-keys-kh992fh92k
                 key: passphrase
-
+      volumes:
+      - name: c4d-persistent-storage
+        persistentVolumeClaim:
+          claimName: c4d-pv-claim
 ---
 
 ################### Service  #####################
