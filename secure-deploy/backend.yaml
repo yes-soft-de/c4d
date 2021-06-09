@@ -67,7 +67,7 @@ spec:
           - name: MYSQL_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: mysql-pass-597mk6t468
+                name: mysql-pass-h9tfk9gmgt
                 key: password
           - name: PASSPHRASE
             valueFrom:
