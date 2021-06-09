@@ -53,6 +53,10 @@ spec:
         volumeMounts:
         - name: c4d-persistent-storage
           mountPath: /var/www
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -a /app/. /var/www/app/"]
         env:
           - name: PRIVATE_PEM
             valueFrom:
