@@ -130,9 +130,10 @@ class SubscriptionService
         $remainingOrdersOfPackage = $this->subscriptionManager->getRemainingOrders($ownerID, $subscribeId);
        
         $countCancelledOrder = $this->subscriptionManager->getCountCancelledOrders($subscribeId);
-        
+        $countActiveCars = $this->subscriptionManager-> getCountActiveCars($ownerID, $subscribeId);
         $remainingOrdersOfPackage['remainingOrders']= $remainingOrdersOfPackage['remainingOrderss'] + $countCancelledOrder['countCancelledOrder'];
-
+        
+        $remainingOrdersOfPackage['countActiveCars'] = $countActiveCars['countActiveCars'];
         $countDeliveredOrder = $this->subscriptionManager->getCountDeliveredOrders($ownerID, $subscribeId);
 
         $remainingOrdersOfPackage['countOrdersDelivered'] = $countDeliveredOrder['countDeliveredOrders'];
