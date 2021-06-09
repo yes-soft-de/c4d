@@ -1,0 +1,8 @@
+auth:
+  rootPassword:
+    valueFrom:
+      secretKeyRef:
+        name: backend-keys-kh992fh92k
+        key: passphrase
+
+  database: "c4d-mysql"
