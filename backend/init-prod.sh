@@ -32,7 +32,7 @@ echo "MAILER_DSN=smtp://c938d7632db211:d6a130d7401a0a@smtp.mailtrap.io:2525" >> 
 ######################### End Env Creation #########################
 
 ################## Copy the project to the PVC #####################
-cp -a /source/. /var/www/
+cp -a /app/. /var/www/
 
 # Starting the FPM Process
 php-fpm
