@@ -21,4 +21,4 @@ spec:
         imagePullPolicy: Always
         ports:
         - name: p80-adminer
-          containerPort: 80
+          containerPort: 8080
