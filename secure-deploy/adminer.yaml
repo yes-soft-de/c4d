@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c4d-adminer
+  labels:
+    app: c4d
+spec:
+  selector:
+    matchLabels:
+      app: c4d
+      tier: adminer
+  template:
+    metadata:
+      labels:
+        app: c4d
+        tier: adminer
+    spec:
+      containers:
+      - name: c4d-adminer
+        image: adminer:latest
+        imagePullPolicy: Always
+        ports:
+        - name: p80-adminer
+          containerPort: 80
