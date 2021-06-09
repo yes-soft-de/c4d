@@ -71,20 +71,12 @@ class OwnerOrdersStateManager {
       List<OrderModel> orders, OwnerOrdersScreenState screenState) {
     _planService.getOwnerCurrentPlan().then((value) {
       if (value != null) {
-        bool can = false;
-        if (value.cars == 0) {
-          can = true;
-        } else {
-          can = value.cars > orders.length;
-        }
-        if (!can) {
-          value.state = 'finished cars';
-        }
+        bool can = true;
         if (value.state != 'active') {
           can = false;
         }
         _stateSubject.add(
-            OrdersListStateOrdersLoaded(orders, can, value.state, screenState));
+            OrdersListStateOrdersLoaded(orders, can, value.state, value.alert,value.averageOrder,screenState));
       } else {
         _stateSubject.add(OrdersListStateError('not verified', screenState));
       }

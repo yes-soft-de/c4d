@@ -84,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editBranchName" : MessageLookupByLibrary.simpleMessage("تعديل اسم الفرع"),
     "email" : MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
     "emailAddressIsRequired" : MessageLookupByLibrary.simpleMessage("يرجى توفير البريد الالكتروني"),
+    "emptyStaff" : MessageLookupByLibrary.simpleMessage("قائمة فارغة"),
     "error" : MessageLookupByLibrary.simpleMessage("تحذير"),
     "errorHappened" : MessageLookupByLibrary.simpleMessage("حدث خطأ ما الرجاء إعادة المحاولة لاحقا"),
     "errorLoadingBranches" : MessageLookupByLibrary.simpleMessage("حدث خطأ أثناء تحميل الفروع"),
@@ -143,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "openChatRoom" : MessageLookupByLibrary.simpleMessage("افتح غرفة المحادثة"),
     "openTheApp" : MessageLookupByLibrary.simpleMessage("افتح التطبيق"),
     "order" : MessageLookupByLibrary.simpleMessage("الطلب "),
+    "orderAverage" : MessageLookupByLibrary.simpleMessage("بالمئة من عدد الطلبيات المسموحة"),
     "orderCreatedReturnToOrders" : MessageLookupByLibrary.simpleMessage("انتهى انشاء الطلب"),
     "orderDetails" : MessageLookupByLibrary.simpleMessage("تفاصيل الطلب"),
     "orderIsCreated" : MessageLookupByLibrary.simpleMessage("تم الانشاء"),
@@ -160,7 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "outOforders" : MessageLookupByLibrary.simpleMessage("لقد استهلكت الحد الأقصى من الطلبات يمكنك تجديد الاشتراك من الإعدادات"),
     "package" : MessageLookupByLibrary.simpleMessage("باقة"),
     "password" : MessageLookupByLibrary.simpleMessage("كلمة السر"),
-    "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("كلمة السر قصيرة جدا"),
+    "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("كلمة السر قصيرة جدا يجب أن تكون 8 محارف على الأقل"),
     "paySubscription" : MessageLookupByLibrary.simpleMessage("دفع الاشتراك"),
     "paymentHistory" : MessageLookupByLibrary.simpleMessage("تاريخ الدفعات"),
     "paymentMethod" : MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
@@ -243,6 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeToOrdersScreen" : MessageLookupByLibrary.simpleMessage("اهلا في قسم الطلبات"),
     "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("الكابتن"),
     "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("الزبون"),
-    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("صاحب المحل")
+    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("صاحب المحل"),
+    "youReached" : MessageLookupByLibrary.simpleMessage("لقد تجاوزت")
   };
 }

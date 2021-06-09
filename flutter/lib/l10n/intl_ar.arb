@@ -90,7 +90,7 @@
   "welcomeToOrdersScreen": "اهلا في قسم الطلبات",
   "profile": "الملف الشخصي",
   "email": "البريد الالكتروني",
-  "passwordIsTooShort": "كلمة السر قصيرة جدا",
+  "passwordIsTooShort": "كلمة السر قصيرة جدا يجب أن تكون 8 محارف على الأقل",
   "password": "كلمة السر",
   "name": "الاسم",
   "nameIsRequired": "حقل الاسم فارغ",
@@ -223,7 +223,10 @@
   "confirmUpdateOrderStatus":"الرجاء تأكيد عملية تحديث حالة الطلب",
   "error": "تحذير",
   "orderReceved":"تم استلام الطلب من قبل كابتن آخر ",
-  "allcity":"جميع المدن"
+  "allcity":"جميع المدن",
+  "emptyStaff":"قائمة فارغة",
+  "youReached":"لقد تجاوزت",
+  "orderAverage":"بالمئة من عدد الطلبيات المسموحة"
 
 
 }

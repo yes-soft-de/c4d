@@ -5,6 +5,7 @@ import 'package:c4d/module_plan/model/captain_balance_model.dart';
 import 'package:c4d/module_plan/response/package_balance_response.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:inject/inject.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @provide
 class PlanService {
@@ -27,10 +28,28 @@ class PlanService {
     List orders = responses[0];
     PackageBalanceResponse packages = responses[1];
     BalanceModel balanceModel = responses[2];
+
     if (balanceModel != null && packages != null) {
+      var totalOrder = (packages.data.countOrdersDelivered * 100) /
+          int.tryParse(packages.data.packageOrderCount);
+      bool alert;
+      String orderAverage;
+      if (totalOrder >= 80.0) {
+        alert = await seenByUser(80);
+        orderAverage = '80';
+      } else if (totalOrder >= 50.0) {
+        alert = await seenByUser(50);
+        orderAverage = '50';
+      } else if (totalOrder >= 35.0) {
+        alert = await seenByUser(35);
+        orderAverage = '35';
+      } else {
+        alert = await seenByUser(totalOrder.toInt());
+        orderAverage = ' ';
+      }
       var activePlan = ActivePlanModel(
           id: packages.data.packageID,
-          activeCars: orders == null ? 0 : orders.length,
+          activeCars: packages.data.countActiveCar,
           activeOrders: packages.data.countOrdersDelivered,
           name: packages.data.packagename,
           cars: int.tryParse(packages.data.packageCarCount),
@@ -38,8 +57,9 @@ class PlanService {
           payments: balanceModel.payments,
           total: balanceModel.currentBalance,
           nextPayment: balanceModel.nextPay.toString(),
-          state: packages.data.subscriptionstatus
-          );
+          state: packages.data.subscriptionstatus,
+          alert: alert,
+          averageOrder: orderAverage);
       return activePlan;
     }
     return null;
@@ -86,5 +106,21 @@ class PlanService {
     });
 
     return resultModel;
+  }
+
+  Future<bool> seenByUser(int percent) async {
+    SharedPreferences sh = await SharedPreferences.getInstance();
+    if (percent < 35) {
+      await sh.remove('consumed 80%');
+      await sh.remove('consumed 50%');
+      await sh.remove('consumed 35%');
+      return false;
+    }
+    bool seen = await sh.getBool('consumed $percent%') ?? false;
+    if (!seen) {
+      await sh.setBool('consumed $percent%', true);
+      return true;
+    }
+    return false;
   }
 }

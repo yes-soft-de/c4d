@@ -2284,6 +2284,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Empty Stuff`
+  String get emptyStaff {
+    return Intl.message(
+      'Empty Stuff',
+      name: 'emptyStaff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have reached `
+  String get youReached {
+    return Intl.message(
+      'You have reached ',
+      name: 'youReached',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `percent of your orders limit`
+  String get orderAverage {
+    return Intl.message(
+      'percent of your orders limit',
+      name: 'orderAverage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

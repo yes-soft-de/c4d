@@ -84,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "editBranchName" : MessageLookupByLibrary.simpleMessage("Edit Branch Name"),
     "email" : MessageLookupByLibrary.simpleMessage("Email"),
     "emailAddressIsRequired" : MessageLookupByLibrary.simpleMessage("Email Address is Required"),
+    "emptyStaff" : MessageLookupByLibrary.simpleMessage("Empty Stuff"),
     "error" : MessageLookupByLibrary.simpleMessage("Error"),
     "errorHappened" : MessageLookupByLibrary.simpleMessage("Error Happened"),
     "errorLoadingBranches" : MessageLookupByLibrary.simpleMessage("Error Loading Branches"),
@@ -145,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "openChatRoom" : MessageLookupByLibrary.simpleMessage("Open Chat Room"),
     "openTheApp" : MessageLookupByLibrary.simpleMessage("Open the app"),
     "order" : MessageLookupByLibrary.simpleMessage("Order"),
+    "orderAverage" : MessageLookupByLibrary.simpleMessage("percent of your orders limit"),
     "orderCreatedReturnToOrders" : MessageLookupByLibrary.simpleMessage("Order Created, Return to Orders"),
     "orderDetails" : MessageLookupByLibrary.simpleMessage("Order Details"),
     "orderIsCreated" : MessageLookupByLibrary.simpleMessage("Order is created"),
@@ -245,6 +247,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "welcomeToOrdersScreen" : MessageLookupByLibrary.simpleMessage("Welcome to Orders Screen"),
     "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("Captain"),
     "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("Client"),
-    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("Store Owner")
+    "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("Store Owner"),
+    "youReached" : MessageLookupByLibrary.simpleMessage("You have reached ")
   };
 }

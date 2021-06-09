@@ -33,18 +33,20 @@ class Data {
   dynamic subscriptionEndDate;
   String packageCarCount;
   String packageOrderCount;
-
+  int countActiveCar;
   Data(
       {this.packageID,
-        this.packagename,
-        this.subscriptionID,
-        this.remainingOrders,
-        this.countOrdersDelivered,
-        this.subscriptionstatus,
-        this.subscriptionStartDate,
-        this.subscriptionEndDate,
-        this.packageCarCount,
-        this.packageOrderCount});
+      this.packagename,
+      this.subscriptionID,
+      this.remainingOrders,
+      this.countOrdersDelivered,
+      this.subscriptionstatus,
+      this.subscriptionStartDate,
+      this.subscriptionEndDate,
+      this.packageCarCount,
+      this.packageOrderCount,
+      this.countActiveCar
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     packageID = json['packageID'];
@@ -59,6 +61,7 @@ class Data {
     subscriptionEndDate = json['subscriptionEndDate'];
     packageCarCount = json['packageCarCount'];
     packageOrderCount = json['packageOrderCount'];
+    countActiveCar = json['countActiveCars'];
   }
 
   Map<String, dynamic> toJson() {

@@ -94,7 +94,9 @@ class OrderStatusStateManager {
     _ordersService.updateOrder(model.id, model).then((value) {
       if (value != null) {
         if (value.error != null) {
-          screenState.goBack(value.error=='received'?S.current.orderReceved:S.current.errorHappened);
+          screenState.goBack(value.error == 'received'
+              ? S.current.orderReceved
+              : S.current.errorHappened);
         } else {
           getOrderDetails(model.id, screenState);
         }

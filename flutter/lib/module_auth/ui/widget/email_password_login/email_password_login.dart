@@ -129,7 +129,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                           labelText: S.of(context).password,
                         ),
                         validator: (result) {
-                          if (result.length < 5) {
+                          if (result.length < 8) {
                             return S.of(context).passwordIsTooShort;
                           }
                           return null;

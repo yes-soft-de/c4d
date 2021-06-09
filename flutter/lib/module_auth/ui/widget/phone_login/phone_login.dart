@@ -127,7 +127,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
             if (widget.isRegister != false)
               CheckboxListTile(
                   value: agreed,
-                  title: Text(S.of(context).iAgreeToTheTermsOsService),
+                  title: Text(S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy),
                   onChanged: (v) {
                     agreed = v;
                     if (mounted) setState(() {});

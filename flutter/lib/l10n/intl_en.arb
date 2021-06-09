@@ -224,7 +224,9 @@
   "confirmUpdateOrderStatus":"Are you want to update this order status , please confirm",
   "error": "Error",
   "orderReceved":"The order has been receved by another captain",
-  "allcity":"All City"
-
+  "allcity":"All City",
+  "emptyStaff":"Empty Stuff",
+  "youReached":"You have reached ",
+  "orderAverage":"percent of your orders limit"
 
 }

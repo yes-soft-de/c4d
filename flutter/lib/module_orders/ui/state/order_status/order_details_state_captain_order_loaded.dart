@@ -132,7 +132,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
               ],
             ),
             // To Open Maps
-            GestureDetector(
+          currentOrder.branchLocation?.lon!=null ? GestureDetector(
               onTap: () {
                 var url = WhatsAppLinkHelper.getMapsLink(
                     currentOrder.branchLocation.lat,
@@ -148,7 +148,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       : Colors.black,
                 ),
               ),
-            ),
+            ):Container(),
 
             currentOrder.to.contains('maps') ||
                     currentOrder.costumerLocation.lon != null ||

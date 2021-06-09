@@ -65,10 +65,31 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
   final List<OrderModel> orders;
   final bool canMakeOrders;
   final String canMakeOrderState;
+  final bool alert;
+  final String average;
   OrdersListStateOrdersLoaded(this.orders, this.canMakeOrders,
-      this.canMakeOrderState, OwnerOrdersScreenState screenState)
-      : super(screenState);
-
+      this.canMakeOrderState, this.alert, this.average,OwnerOrdersScreenState screenState)
+      : super(screenState) {
+    if (this.alert) {
+      showDialog(
+          context: screenState.context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(S.current.warnning),
+              content: Container(
+                child: Text('${S.current.youReached} ${this.average} ${S.current.orderAverage}'),
+              ),
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(S.of(context).confirm)),
+              ],
+            );
+          });
+    }
+  }
   @override
   Widget getUI(BuildContext context) {
     return Column(
@@ -165,7 +186,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
       return S.of(context).finishedDate;
     } else if (state == 'unaccept') {
       return S.of(context).unaccept;
-    } else if (state == 'finished cars') {
+    } else if (state == 'cars finished') {
       return S.of(context).outOfCars;
     } else {
       return state;

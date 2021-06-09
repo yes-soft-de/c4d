@@ -115,9 +115,8 @@ class OrderRepository {
     );
 
     if (response == null) return null;
-
-    if (response is String) {
-      return OrderDetailsResponse(error: response);
+    if (response['Data'] is String) {
+      return OrderDetailsResponse(error:response['Data']);
     }
 
     return OrderDetailsResponse.fromJson(response);
@@ -132,6 +131,10 @@ class OrderRepository {
     );
 
     if (response == null) return null;
+    
+    if (response['Data'] is String) {
+      return OrderDetailsResponse(error:response['Data']);
+    }
 
     return OrderDetailsResponse.fromJson(response);
   }

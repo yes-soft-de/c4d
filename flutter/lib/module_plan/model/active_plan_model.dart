@@ -11,6 +11,8 @@ class ActivePlanModel {
   String nextPayment;
   List<PaymentModel> payments = <PaymentModel>[];
   String state;
+  bool alert = false;
+  String averageOrder;
   ActivePlanModel(
       {this.id,
       this.name,
@@ -21,6 +23,8 @@ class ActivePlanModel {
       this.payments,
       this.total,
       this.nextPayment,
-      this.state
+      this.state,
+      this.alert,
+      this.averageOrder
       });
 }

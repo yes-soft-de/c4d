@@ -83,14 +83,22 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
                           children: snapshot.data,
                         ),
                       );
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(child: CircularProgressIndicator()),
+                        ],
+                      );
+                    } else {
+                     return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(child:Text(S.of(context).emptyStaff)),
+                        ],
+                      );
                     }
-                    return Column(
-                      children: [
-                        Center(
-                          child: Text('Empty Stuff'),
-                        ),
-                      ],
-                    );
                   },
                 ),
               ],
@@ -204,7 +212,7 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
         ),
       );
     }
-    var orders = myOrders;
+    List<OrderModel> orders = await sortLocations(myOrders);
     orders ??= [];
 
     orders.forEach((element) {
@@ -269,35 +277,37 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     return uiList;
   }
 
-  // Future<List<OrderModel>> sortLocations() async {
-  //   Location location = new Location();
+  Future<List<OrderModel>> sortLocations(List<OrderModel> order) async {
+    Location location = new Location();
 
-  //   bool _serviceEnabled = await location.serviceEnabled();
-  //   if (!_serviceEnabled) {
-  //     _serviceEnabled = await location.requestService();
-  //   }
+    bool _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+    }
 
-  //   var _permissionGranted = await location.requestPermission();
-  //   if (_permissionGranted == PermissionStatus.denied) {
-  //     return orders;
-  //   }
+    var _permissionGranted = await location.requestPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      return order;
+    }
 
-  //   final Distance distance = Distance();
+    final Distance distance = Distance();
 
-  //   var myLocation = await Location.instance.getLocation();
-  //   LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
-  //   orders.sort((a, b) {
-  //     try {
-  //       var pos1 = LatLng(a.to.lat, a.to.lon);
-  //       var pos2 = LatLng(b.to.lat, b.to.lon);
-
-  //       var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
-  //           distance.as(LengthUnit.Kilometer, pos2, myPos);
-  //       return straightDistance;
-  //     } catch (e) {
-  //       return 1;
-  //     }
-  //   });
-  //   return orders.toList();
-  // }
+    var myLocation = await Location.instance.getLocation();
+    LatLng myPos = LatLng(myLocation.latitude, myLocation.longitude);
+    order.sort((a, b) {
+      try {
+        var pos1 = LatLng(a.branchLocation.lat, a.branchLocation.lon);
+        var pos2 = LatLng(b.branchLocation.lat, b.branchLocation.lon);
+        var straightDistance1 = distance.as(LengthUnit.Kilometer, pos1, myPos);
+        var straightDistance2 = distance.as(LengthUnit.Kilometer, pos2, myPos);
+        // var straightDistance = distance.as(LengthUnit.Kilometer, pos1, myPos) -
+        //     distance.as(LengthUnit.Kilometer, pos2, myPos);
+        return straightDistance1.compareTo(straightDistance2);
+      } catch (e) {
+        print(e.toString());
+        return 1;
+      }
+    });
+    return order.toList();
+  }
 }

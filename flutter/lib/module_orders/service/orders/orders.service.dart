@@ -17,6 +17,7 @@ import 'package:c4d/utils/logger/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
+
 @provide
 class OrdersService {
   final OrdersManager _ordersManager;
@@ -69,23 +70,23 @@ class OrdersService {
       canRemove = true;
     }
     OrderModel order = new OrderModel(
-      paymentMethod: response.payment,
-      from: response.fromBranch.toString(),
-      to: response.destination,
-      creationTime:
-          DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000),
-      branchLocation: response.fromBranch?.location,
-      status: StatusHelper.getStatus(response.state),
-      id: orderId,
-      chatRoomId: response.uuid,
-      clientPhone: response.recipientPhone,
-      ownerPhone: response.phone ?? response.ownerResponse.phone,
-      captainPhone: response.acceptedOrder.isNotEmpty
-          ? response.acceptedOrder.last.phone
-          : null,
-      canRemove: canRemove,
-      costumerLocation: response.destination2??GeoJson(lon: null,lat: null)
-    );
+        paymentMethod: response.payment,
+        from: response.fromBranch.toString(),
+        to: response.destination,
+        creationTime:
+            DateTime.fromMillisecondsSinceEpoch(response.date.timestamp * 1000),
+        branchLocation: response.fromBranch?.location,
+        status: StatusHelper.getStatus(response.state),
+        id: orderId,
+        chatRoomId: response.uuid,
+        clientPhone: response.recipientPhone,
+        ownerPhone: response.phone ?? response.ownerResponse.phone,
+        captainPhone: response.acceptedOrder.isNotEmpty
+            ? response.acceptedOrder.last.phone
+            : null,
+        canRemove: canRemove,
+        costumerLocation:
+            response.destination2 ?? GeoJson(lon: null, lat: null));
 
     return order;
   }
@@ -115,14 +116,14 @@ class OrdersService {
           }
           if (flag) {
             orders.add(OrderModel(
-              to: element.destination,
-              from: element.fromBranch?.id.toString(),
-              storeName: element.owner.userName,
-              creationTime: DateTime.fromMillisecondsSinceEpoch(
-                  element.date.timestamp * 1000),
-              paymentMethod: element.payment,
-              id: element.id,
-            ));
+                to: element.destination,
+                from: element.fromBranch?.id.toString(),
+                storeName: element.owner.userName,
+                creationTime: DateTime.fromMillisecondsSinceEpoch(
+                    element.date.timestamp * 1000),
+                paymentMethod: element.payment,
+                id: element.id,
+                branchLocation: element.fromBranch?.location??GeoJson(lat:40.159419,lon:-107.860011)));
           }
         } catch (e, stack) {
           Logger().error('Mapping Error',
@@ -142,18 +143,18 @@ class OrdersService {
       String recipientName,
       String recipientPhone,
       String date,
-      LatLng destination2
-      ) async {
+      LatLng destination2) async {
     var orderRequest = CreateOrderRequest(
-      note: note,
-      date: date,
-      payment: paymentMethod,
-      fromBranch: fromBranch.id.toString(),
-      recipientName: recipientName,
-      recipientPhone: recipientPhone,
-      destination: destination,
-      destination2:destination2!=null?GeoJson(lat: destination2.latitude,lon: destination2.longitude) : null
-    );
+        note: note,
+        date: date,
+        payment: paymentMethod,
+        fromBranch: fromBranch.id.toString(),
+        recipientName: recipientName,
+        recipientPhone: recipientPhone,
+        destination: destination,
+        destination2: destination2 != null
+            ? GeoJson(lat: destination2.latitude, lon: destination2.longitude)
+            : null);
     return _ordersManager.addNewOrder(orderRequest);
   }
 
