@@ -75,8 +75,11 @@ class OwnerOrdersStateManager {
         if (value.state != 'active') {
           can = false;
         }
-        _stateSubject.add(
-            OrdersListStateOrdersLoaded(orders, can, value.state, value.alert,value.averageOrder,screenState));
+        if (value.state == 'unsubscribed') {
+          screenState.goToSubscription();
+        }
+        _stateSubject.add(OrdersListStateOrdersLoaded(orders, can, value.state,
+            value.alert, value.averageOrder, screenState));
       } else {
         _stateSubject.add(OrdersListStateError('not verified', screenState));
       }

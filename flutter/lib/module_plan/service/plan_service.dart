@@ -28,10 +28,9 @@ class PlanService {
     List orders = responses[0];
     PackageBalanceResponse packages = responses[1];
     BalanceModel balanceModel = responses[2];
-
     if (balanceModel != null && packages != null) {
-      var totalOrder = (packages.data.countOrdersDelivered * 100) /
-          int.tryParse(packages.data.packageOrderCount);
+      var totalOrder = ((packages.data?.countOrdersDelivered ?? 0) * 100) /
+          int.tryParse(packages.data?.packageOrderCount ?? '1');
       bool alert;
       String orderAverage;
       if (totalOrder >= 80.0) {
@@ -47,6 +46,9 @@ class PlanService {
         alert = await seenByUser(totalOrder.toInt());
         orderAverage = ' ';
       }
+      if (packages.data.subscriptionstatus == 'unsubscribed') {
+        return ActivePlanModel(state: packages.data.subscriptionstatus);
+      }
       var activePlan = ActivePlanModel(
           id: packages.data.packageID,
           activeCars: packages.data.countActiveCar,
@@ -57,7 +59,7 @@ class PlanService {
           payments: balanceModel.payments,
           total: balanceModel.currentBalance,
           nextPayment: balanceModel.nextPay.toString(),
-          state: packages.data.subscriptionstatus,
+          state: packages.data.carsStatus ?? packages.data.subscriptionstatus,
           alert: alert,
           averageOrder: orderAverage);
       return activePlan;
@@ -110,15 +112,16 @@ class PlanService {
 
   Future<bool> seenByUser(int percent) async {
     SharedPreferences sh = await SharedPreferences.getInstance();
+    var user = await sh.getString('email') ?? '';
     if (percent < 35) {
-      await sh.remove('consumed 80%');
-      await sh.remove('consumed 50%');
-      await sh.remove('consumed 35%');
+      await sh.remove('$user consumed 80%');
+      await sh.remove('$user consumed 50%');
+      await sh.remove('$user consumed 35%');
       return false;
     }
-    bool seen = await sh.getBool('consumed $percent%') ?? false;
+    bool seen = await sh.getBool('$user consumed $percent%') ?? false;
     if (!seen) {
-      await sh.setBool('consumed $percent%', true);
+      await sh.setBool('$user consumed $percent%', true);
       return true;
     }
     return false;

@@ -2314,6 +2314,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Are your sure about renewing your subscription`
+  String get confirmRenewSub {
+    return Intl.message(
+      'Are your sure about renewing your subscription',
+      name: 'confirmRenewSub',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

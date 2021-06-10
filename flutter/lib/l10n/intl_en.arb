@@ -227,6 +227,7 @@
   "allcity":"All City",
   "emptyStaff":"Empty Stuff",
   "youReached":"You have reached ",
-  "orderAverage":"percent of your orders limit"
+  "orderAverage":"percent of your orders limit",
+  "confirmRenewSub":"Are your sure about renewing your subscription"
 
 }

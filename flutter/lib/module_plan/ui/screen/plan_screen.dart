@@ -28,8 +28,30 @@ class PlanScreenState extends State<PlanScreen> {
     super.initState();
   }
 
-  void renewPackage(int packageId)  {
-     widget._manager.renewPackage(packageId,this);
+  void renewPackage(int packageId) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text(S.of(context).confirm),
+            content: Container(
+              child: Text(S.of(context).confirmRenewSub),
+            ),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(S.of(context).cancel)),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    widget._manager.renewPackage(packageId, this);
+                  },
+                  child: Text(S.of(context).confirm)),
+            ],
+          );
+        });
   }
 
   @override
