@@ -131,6 +131,7 @@ class SubscriptionService
        
         $countCancelledOrder = $this->subscriptionManager->getCountCancelledOrders($subscribeId);
         $countActiveCars = $this->subscriptionManager-> getCountActiveCars($ownerID, $subscribeId);
+        
         $remainingOrdersOfPackage['remainingOrders']= $remainingOrdersOfPackage['remainingOrderss'] + $countCancelledOrder['countCancelledOrder'];
         
         $remainingOrdersOfPackage['countActiveCars'] = $countActiveCars['countActiveCars'];
@@ -147,7 +148,7 @@ class SubscriptionService
             $now =date_timestamp_get(new DateTime("now"));
             if ($endDate1->format('y-m-d') != $startDate->format('y-m-d'))  {
             if ( $endDate <= $now)  {
-
+    
                 $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'date finished');
                 if($this->getNextSubscription($ownerID)) {
                     $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
@@ -163,6 +164,20 @@ class SubscriptionService
                 }
                 $response[] = ["subscripe finished, count Orders is finished"];
             }
+    //         if ((int)$remainingOrdersOfPackage['packageCarCount'] - (int)$countActiveCars['countActiveCars'] == 0)  {
+    // var_dump("3");
+    //             $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'cars finished');
+    //             if($this->getNextSubscription($ownerID)) {
+    //             $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
+    //             }
+    //             $response[] = ["cars finished, count Cars is finished"];
+    //         }
+    //         if ((int)$remainingOrdersOfPackage['packageCarCount'] - (int)$countActiveCars['countActiveCars'] > 0  && $remainingOrdersOfPackage['remainingOrders'] > 0 )  {
+               
+    // var_dump("4");
+    //             $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'active');
+               
+    //         }
         }   
         }
         $response = $this->autoMapping->map('array', RemainingOrdersResponse::class, $remainingOrdersOfPackage);
@@ -212,7 +227,7 @@ class SubscriptionService
 
     public function packagebalance($ownerID)
     {
-        $response=[];
+        $response=['unsubscribed'];
         $subscribe = $this->getSubscriptionCurrent($ownerID);
         
         if ($subscribe) {
