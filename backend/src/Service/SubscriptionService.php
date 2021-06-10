@@ -76,7 +76,7 @@ class SubscriptionService
     public function updateFinishe($id, $status)
     {
         $result = $this->subscriptionManager->updateFinishe($id, $status);
-
+       
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $result);
     }
 
@@ -111,14 +111,15 @@ class SubscriptionService
 
     public function subscriptionIsActive($ownerID, $subscribeId)
     {
-        $this->saveFinisheAuto($ownerID, $subscribeId);
-    
+        $res = $this->saveFinisheAuto($ownerID, $subscribeId);
+        if($res->carsStatus){
+            return 'cars finished';
+        };
+ 
         $item = $this->subscriptionManager->subscriptionIsActive($ownerID, $subscribeId);
-        if ($item) {
+        if ($item) { 
           return  $item['status'];
-        }
-
-        return $item ;
+        }       
      }
 
     // check subscription , if time is finishe or order count is finishe, change status value to 'finished'
@@ -146,7 +147,9 @@ class SubscriptionService
             $endDate1 = $remainingOrdersOfPackage['subscriptionEndDate'];
             
             $now =date_timestamp_get(new DateTime("now"));
+
             if ($endDate1->format('y-m-d') != $startDate->format('y-m-d'))  {
+
             if ( $endDate <= $now)  {
     
                 $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'date finished');
@@ -164,28 +167,22 @@ class SubscriptionService
                 }
                 $response[] = ["subscripe finished, count Orders is finished"];
             }
-    //         if ((int)$remainingOrdersOfPackage['packageCarCount'] - (int)$countActiveCars['countActiveCars'] == 0)  {
-    // var_dump("3");
-    //             $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'cars finished');
-    //             if($this->getNextSubscription($ownerID)) {
-    //             $this->changeIsFutureToFalse($this->getNextSubscription($ownerID));
-    //             }
-    //             $response[] = ["cars finished, count Cars is finished"];
-    //         }
-    //         if ((int)$remainingOrdersOfPackage['packageCarCount'] - (int)$countActiveCars['countActiveCars'] > 0  && $remainingOrdersOfPackage['remainingOrders'] > 0 )  {
                
-    // var_dump("4");
-    //             $this->updateFinishe($remainingOrdersOfPackage['subscriptionID'], 'active');
-               
-    //         }
-        }   
+            if ((int)$remainingOrdersOfPackage['packageCarCount'] - (int)$countActiveCars['countActiveCars'] == 0)  {
+            $remainingOrdersOfPackage['carsStatus']= 'cars finished';
+            $response[] = ["cars finished"];
+                 }
+         }   
         }
+
+
         $response = $this->autoMapping->map('array', RemainingOrdersResponse::class, $remainingOrdersOfPackage);
         $subscribeStauts = $this->subscriptionManager->subscriptionIsActive($ownerID, $subscribeId);
         
         if ($subscribeStauts['status']) {
             $response->subscriptionstatus = $subscribeStauts['status'];
         }
+     
         return $response;
      }
 
@@ -227,7 +224,7 @@ class SubscriptionService
 
     public function packagebalance($ownerID)
     {
-        $response=['unsubscribed'];
+        $response['subscriptionStatus']='unsubscribed';
         $subscribe = $this->getSubscriptionCurrent($ownerID);
         
         if ($subscribe) {

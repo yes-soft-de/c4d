@@ -15,4 +15,5 @@ class RemainingOrdersResponse
     public $packageCarCount;
     public $packageOrderCount;
     public $countActiveCars;
+    public $carsStatus;
 }
