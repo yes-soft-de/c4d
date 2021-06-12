@@ -109,7 +109,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch')
 
             ->andWhere("OrderEntity.state = 'pending'")
-
+            ->addOrderBy('OrderEntity.id','DESC')
             ->getQuery()
             ->getResult();
     }
@@ -168,6 +168,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = OrderEntity.ownerID')
 
             ->andWhere("OrderEntity.state = 'ongoing' ") 
+            ->addOrderBy('OrderEntity.id','DESC')
             ->getQuery()
             ->getResult();
     }
@@ -207,7 +208,7 @@ class OrderEntityRepository extends ServiceEntityRepository
             ->select('OrderEntity.id', 'OrderEntity.ownerID', 'OrderEntity.source', 'OrderEntity.destination', 'OrderEntity.date', 'OrderEntity.updateDate', 'OrderEntity.note', 'OrderEntity.payment', 'OrderEntity.recipientName', 'OrderEntity.recipientPhone', 'OrderEntity.state', 'OrderEntity.fromBranch', 'userProfileEntity.userName as userName', 'OrderEntity.kilometer')
             
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = OrderEntity.ownerID')
-
+            ->addOrderBy('OrderEntity.id','DESC')
             ->getQuery()
             ->getResult();
     }
@@ -248,6 +249,7 @@ class OrderEntityRepository extends ServiceEntityRepository
           ->setParameter('fromDate', $fromDate)
           ->setParameter('toDate', $toDate)
           ->setParameter('ownerId', $ownerId)
+          ->addOrderBy('OrderEntity.id','DESC')
           ->getQuery()
           ->getResult();
        
