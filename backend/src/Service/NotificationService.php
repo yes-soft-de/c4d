@@ -68,24 +68,24 @@ class NotificationService
 
     public function notificationNewChat($request, $userType ='null')
     {
-
+        
         $item = $this->roomIdHelperService->getByRoomID($request->getRoomID());
         if($item) {
             $devicesToken = [];
-            if($userType == 'ROLE_OWNER') {
+            if($userType == 'owner') {
                 $userTokenOne = $this->getNotificationTokenByUserID($item['captainID']);
                 $devicesToken[] = $userTokenOne;
             }
            
-            if($userType == 'ROLE_CAPTAIN') {
+            if($userType == 'captain') {
                 $userTokenTwo = $this->getNotificationTokenByUserID($item['ownerID']);
                 $devicesToken[] = $userTokenTwo;
             }
 
             $message = CloudMessage::new()
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT));
-
-            $this->messaging->sendMulticast($message, $devicesToken);   
+            $this->messaging->sendMulticast($message, $devicesToken);  
+        
         }    
     }
 
