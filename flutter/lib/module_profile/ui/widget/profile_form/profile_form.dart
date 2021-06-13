@@ -29,7 +29,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   final _bankAccountNumberController = TextEditingController();
   final _bankNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String countryCode = '+963';
+  String countryCode = '+966';
   ProfileRequest profileRequest;
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
       _nameController.text = profileRequest.name;
       countryCode = profileRequest.phone.contains('+')
           ? profileRequest.phone.substring(0, 4)
-          : '+963';
+          : '+966';
       _phoneController.text =
           profileRequest.phone.replaceFirst(countryCode, '0');
       _stcPayController.text = profileRequest.stcPay;
@@ -137,31 +137,31 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
               decoration: InputDecoration(
                 hintText: S.of(context).phoneNumber,
                 labelText: S.of(context).phoneNumber,
-                suffix: Container(
-                  height: 30,
-                  child: DropdownButton(
-                    underline: Container(),
-                    onChanged: (v) {
-                      countryCode = v;
-                      if (mounted) setState(() {});
-                    },
-                    value: countryCode,
-                    items: [
-                      DropdownMenuItem(
-                        value: '+966',
-                        child: Text(S.of(context).saudiArabia),
-                      ),
-                      DropdownMenuItem(
-                        value: '+961',
-                        child: Text(S.of(context).lebanon),
-                      ),
-                      DropdownMenuItem(
-                        value: '+963',
-                        child: Text(S.of(context).syria),
-                      ),
-                    ],
-                  ),
-                ),
+                // suffix: Container(
+                //   height: 30,
+                //   child: DropdownButton(
+                //     underline: Container(),
+                //     onChanged: (v) {
+                //       countryCode = v;
+                //       if (mounted) setState(() {});
+                //     },
+                //     value: countryCode,
+                //     items: [
+                //       DropdownMenuItem(
+                //         value: '+966',
+                //         child: Text(S.of(context).saudiArabia),
+                //       ),
+                //       DropdownMenuItem(
+                //         value: '+961',
+                //         child: Text(S.of(context).lebanon),
+                //       ),
+                //       DropdownMenuItem(
+                //         value: '+963',
+                //         child: Text(S.of(context).syria),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ),
               validator: (name) {
                 if (name == null) {

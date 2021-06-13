@@ -14,7 +14,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
   String _selectedCity;
   String _selectedSize;
   int _selectedPackageId;
-  String countryCode = '+963';
+  String countryCode = '+966';
 
   InitAccountStatePackagesLoaded(
     this.packages,
@@ -59,31 +59,6 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                           decoration: InputDecoration(
                             hintText: S.of(context).storePhone,
                             labelText: S.of(context).storePhone,
-                            suffix: Container(
-                              height: 30,
-                              child: DropdownButton(
-                                underline: Container(),
-                                onChanged: (v) {
-                                  countryCode = v;
-                                  screen.refresh();
-                                },
-                                value: countryCode,
-                                items: [
-                                  DropdownMenuItem(
-                                    value: '+966',
-                                    child: Text(S.of(context).saudiArabia),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: '+961',
-                                    child: Text(S.of(context).lebanon),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: '+963',
-                                    child: Text(S.of(context).syria),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                           keyboardType: TextInputType.phone,
                           validator: (phone) {

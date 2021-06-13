@@ -43,7 +43,7 @@ class NewOrderStateSuccessState extends NewOrderState {
   final _contactFormKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
-  String countryCode = '+963';
+  String countryCode = '+966';
   NewOrderStateSuccessState(NewOrderScreenState screenState)
       : super(screenState);
 
@@ -90,32 +90,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                   },
                   decoration: InputDecoration(
                     hintText: S.of(context).phoneNumber,
-                    labelText: S.of(context).recipientPhoneNumber,
-                    suffix: Container(
-                      height: 30,
-                      child: DropdownButton(
-                        underline: Container(),
-                        onChanged: (v) {
-                          countryCode = v;
-                          screenState.refresh();
-                        },
-                        value: countryCode,
-                        items: [
-                          DropdownMenuItem(
-                            value: '+966',
-                            child: Text(S.of(context).saudiArabia),
-                          ),
-                          DropdownMenuItem(
-                            value: '+961',
-                            child: Text(S.of(context).lebanon),
-                          ),
-                          DropdownMenuItem(
-                            value: '+963',
-                            child: Text(S.of(context).syria),
-                          ),
-                        ],
-                      ),
-                    ),
+                    labelText: S.of(context).recipientPhoneNumber, 
                   ),
                   keyboardType: TextInputType.phone,
                 ),
