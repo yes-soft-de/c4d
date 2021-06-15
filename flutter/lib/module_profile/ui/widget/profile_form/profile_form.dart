@@ -1,3 +1,4 @@
+import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:c4d/consts/urls.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_profile/request/profile/profile_request.dart';
@@ -8,7 +9,7 @@ import 'dart:io';
 
 class ProfileFormWidget extends StatefulWidget {
   final Function(ProfileModel) onProfileSaved;
-  final Function(ProfileModel) onImageUpload;
+  final Function(ProfileModel, String, String) onImageUpload;
   final isCaptain;
   final ProfileRequest profileRequest;
 
@@ -25,6 +26,7 @@ class ProfileFormWidget extends StatefulWidget {
 class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
+  final _cityController = TextEditingController();
   final _stcPayController = TextEditingController();
   final _bankAccountNumberController = TextEditingController();
   final _bankNameController = TextEditingController();
@@ -46,6 +48,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
       _stcPayController.text = profileRequest.stcPay;
       _bankAccountNumberController.text = profileRequest.bankAccountNumber;
       _bankNameController.text = profileRequest.bankName;
+      _cityController.text = profileRequest.city;
     }
   }
 
@@ -65,7 +68,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
             GestureDetector(
               onTap: () {
                 ImagePicker()
-                    .getImage(source: ImageSource.gallery,imageQuality: 70)
+                    .getImage(source: ImageSource.gallery, imageQuality: 70)
                     .then((value) {
                   if (value != null) {
                     profile = ProfileModel(
@@ -76,7 +79,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                       bankNumber: _stcPayController.text,
                       bankName: _bankAccountNumberController.text,
                     );
-                    widget.onImageUpload(profile);
+                    widget.onImageUpload(profile, null, null);
                   }
                 });
               },
@@ -176,6 +179,9 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 return null;
               },
             ),
+            widget.isCaptain
+                ? _getCaptainMoreData(context, request)
+                : Container(),
             widget.isCaptain == true
                 ? _getPaymentExtension(context)
                 : Container(),
@@ -195,6 +201,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                       stcPay: _stcPayController.text,
                       bankName: _bankNameController.text,
                       bankNumber: _bankAccountNumberController.text,
+                      city: _cityController.text,
                     );
                     widget.onProfileSaved(profile);
                   } else {
@@ -234,6 +241,257 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _getCaptainMoreData(BuildContext context, ProfileRequest request) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+      child: Flex(
+        direction: Axis.vertical,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextFormField(
+            controller: _cityController,
+            decoration: InputDecoration(
+              hintText: S.of(context).chooseYourCity,
+              labelText: S.of(context).chooseYourCity,
+            ),
+            validator: (name) {
+              if (name == null) {
+                return S.of(context).pleaseCompleteTheForm;
+              }
+              if (name.isEmpty) {
+                return S.of(context).pleaseCompleteTheForm;
+              }
+
+              return null;
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 8.0,
+              bottom: 8.0,
+            ),
+            child: Container(
+                width: double.maxFinite,
+                height: 45,
+                color: Theme.of(context).primaryColor,
+                child: Center(
+                    child: Text(
+                  'identity',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ))),
+          ),
+          GestureDetector(
+            onTap: () {
+              ImagePicker()
+                  .getImage(source: ImageSource.gallery, imageQuality: 70)
+                  .then((value) {
+                if (value != null) {
+                  profile = ProfileModel(
+                    image: request.image,
+                    drivingLicence: request.drivingLicence,
+                    mechanicLicense: request.mechanicLicense,
+                    identity: value.path,
+                    city: _cityController.text,
+                    name: _nameController.text,
+                    phone: _phoneController.text,
+                    stcPay: _stcPayController.text,
+                    bankNumber: _stcPayController.text,
+                    bankName: _bankAccountNumberController.text,
+                  );
+                  widget.onImageUpload(profile, 'identity', value.path);
+                }
+              });
+            },
+            child: Container(
+              height: 150,
+              width: double.maxFinite,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      height: 96,
+                      width: 96,
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/logo.jpg',
+                        image: '${request.identity}'.contains('http')
+                            ? '${request.identity}'
+                            : '${Urls.IMAGES_ROOT}${request.identity}',
+                        height: 80,
+                        width: 80,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (e, s, h) {
+                          return Image.asset('assets/images/logo.jpg');
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Icon(
+                      Icons.add_a_photo,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 8.0,
+              bottom: 8.0,
+            ),
+            child: Container(
+                width: double.maxFinite,
+                height: 45,
+                color: Theme.of(context).primaryColor,
+                child: Center(
+                    child: Text(
+                  'Mechanic License',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ))),
+          ),
+          GestureDetector(
+            onTap: () {
+              ImagePicker()
+                  .getImage(source: ImageSource.gallery, imageQuality: 70)
+                  .then((value) {
+                if (value != null) {
+                  profile = ProfileModel(
+                    image: request.image,
+                    drivingLicence: request.drivingLicence,
+                    mechanicLicense: value.path,
+                    identity: request.identity,
+                    city: _cityController.text,
+                    name: _nameController.text,
+                    phone: _phoneController.text,
+                    stcPay: _stcPayController.text,
+                    bankNumber: _stcPayController.text,
+                    bankName: _bankAccountNumberController.text,
+                  );
+                  widget.onImageUpload(profile, 'mechanic', value.path);
+                }
+              });
+            },
+            child: Container(
+              height: 150,
+              width: double.maxFinite,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      height: 96,
+                      width: 96,
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/logo.jpg',
+                        image: '${request.mechanicLicense}'.contains('http')
+                            ? '${request.mechanicLicense}'
+                            : '${Urls.IMAGES_ROOT}${request.mechanicLicense}',
+                        height: 80,
+                        width: 80,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (e, s, h) {
+                          return Image.asset('assets/images/logo.jpg');
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Icon(
+                      Icons.add_a_photo,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 8.0,
+              bottom: 8.0,
+            ),
+            child: Container(
+                width: double.maxFinite,
+                height: 45,
+                color: Theme.of(context).primaryColor,
+                child: Center(
+                    child: Text(
+                  'driving Licence',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ))),
+          ),
+          GestureDetector(
+            onTap: () {
+              ImagePicker()
+                  .getImage(source: ImageSource.gallery, imageQuality: 70)
+                  .then((value) {
+                if (value != null) {
+                  profile = ProfileModel(
+                    image: request.image,
+                    drivingLicence: value.path,
+                    mechanicLicense: request.mechanicLicense,
+                    identity: request.identity,
+                    city: _cityController.text,
+                    name: _nameController.text,
+                    phone: _phoneController.text,
+                    stcPay: _stcPayController.text,
+                    bankNumber: _stcPayController.text,
+                    bankName: _bankAccountNumberController.text,
+                  );
+                  widget.onImageUpload(profile,'driving', value.path);
+                }
+              });
+            },
+            child: Container(
+              height: 150,
+              width: double.maxFinite,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      height: 96,
+                      width: 96,
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/logo.jpg',
+                        image: '${request.drivingLicence}'.contains('http')
+                            ? '${request.drivingLicence}'
+                            : '${Urls.IMAGES_ROOT}${request.drivingLicence}',
+                        height: 80,
+                        width: 80,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (e, s, h) {
+                          return Image.asset('assets/images/logo.jpg');
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Icon(
+                      Icons.add_a_photo,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

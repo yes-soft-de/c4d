@@ -23,8 +23,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     widget._stateManager.submitProfile(this, request);
   }
 
-  void uploadImage(ProfileRequest request) {
-    widget._stateManager.uploadImage(this, request);
+  void uploadImage(ProfileRequest request,String type,[String image]) {
+    widget._stateManager.uploadImage(this, request,type,image);
   }
 
   @override

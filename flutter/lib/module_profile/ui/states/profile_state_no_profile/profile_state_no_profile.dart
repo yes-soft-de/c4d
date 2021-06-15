@@ -8,7 +8,8 @@ import 'package:flutter/src/widgets/framework.dart';
 class ProfileStateNoProfile extends ProfileState {
   ProfileRequest request;
   final bool isCaptain;
-  ProfileStateNoProfile(EditProfileScreenState screenState, this.request, this.isCaptain)
+  ProfileStateNoProfile(
+      EditProfileScreenState screenState, this.request, this.isCaptain)
       : super(screenState);
 
   @override
@@ -23,16 +24,18 @@ class ProfileStateNoProfile extends ProfileState {
           request.bankAccountNumber = profile.bankNumber;
           request.bankName = profile.bankName;
           request.image = profile.image;
+          request.city = profile.city;
           screenState.saveProfile(request);
         },
-        onImageUpload: (profile) {
+        onImageUpload: (profile, type, image) {
           request.name = profile.name;
           request.phone = profile.phone;
           request.stcPay = profile.stcPay;
           request.bankAccountNumber = profile.bankNumber;
           request.bankName = profile.bankName;
           request.image = profile.image;
-          screenState.uploadImage(request);
+          request.city = profile.city;
+          screenState.uploadImage(request, type, image);
         },
         isCaptain: isCaptain,
       ),

@@ -26,16 +26,18 @@ class ProfileStateDirtyProfile extends ProfileState {
           request.stcPay = profile.stcPay;
           request.bankAccountNumber = profile.bankNumber;
           request.bankName = profile.bankName;
+          request.city = profile.city;
           screenState.saveProfile(request);
         },
-        onImageUpload: (profile) {
+        onImageUpload: (profile, type, image) {
           request.name = profile.name;
           request.phone = profile.phone;
           request.stcPay = profile.stcPay;
           request.bankAccountNumber = profile.bankNumber;
           request.bankName = profile.bankName;
           request.image = profile.image;
-          screenState.uploadImage(request);
+          request.city = profile.city;
+          screenState.uploadImage(request, type, image);
         },
       ),
     );

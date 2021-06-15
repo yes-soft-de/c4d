@@ -51,6 +51,9 @@ class ProfileResponseModel {
   String bankName;
   String accountID;
   String stcPay;
+  String city;
+  String mechanicLicense;
+  String identity;
 
   ProfileResponseModel(
       {this.id,
@@ -76,7 +79,11 @@ class ProfileResponseModel {
       this.isOnline,
       this.bankName,
       this.accountID,
-      this.stcPay});
+      this.stcPay,
+      this.city,
+      this.identity,
+      this.mechanicLicense,
+      });
 
   ProfileResponseModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -89,6 +96,7 @@ class ProfileResponseModel {
     location = json['location'];
     age = json['age'];
     car = json['car'];
+    city = json['city'];
     drivingLicence = json['drivingLicence'];
     drivingLicenceURL = json['drivingLicenceURL'];
     salary = json['salary'];
@@ -111,6 +119,8 @@ class ProfileResponseModel {
     baseURL = json['baseURL'];
     phone = json['phone'];
     isOnline = json['isOnline'] == 'active';
+    identity = json['identity'];
+    mechanicLicense = json['mechanicLicense'];
     if (json['bank'] != null) {
       bankName = json['bank']['bankName'];
       accountID = json['bank']['accountID'];

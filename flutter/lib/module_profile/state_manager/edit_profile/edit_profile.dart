@@ -29,10 +29,22 @@ class EditProfileStateManager {
 
   Stream<ProfileState> get stateStream => _stateSubject.stream;
 
-  void uploadImage(EditProfileScreenState screenState, ProfileRequest request) {
+  void uploadImage(
+      EditProfileScreenState screenState, ProfileRequest request, String type,
+      [String image]) {
     _authService.userRole.then((role) {
-      _imageUploadService.uploadImage(request.image).then((uploadedImageLink) {
-        request.image = uploadedImageLink;
+      _imageUploadService
+          .uploadImage(image ?? request.image)
+          .then((uploadedImageLink) {
+        if (type == 'identity') {
+          request.identity = uploadedImageLink;
+        } else if (type == 'mechanic') {
+          request.mechanicLicense = uploadedImageLink;
+        } else if (type == 'driving') {
+          request.drivingLicence = uploadedImageLink;
+        } else {
+          request.image = uploadedImageLink;
+        }
         _stateSubject.add(ProfileStateDirtyProfile(
           screenState,
           request,
@@ -74,18 +86,19 @@ class EditProfileStateManager {
           _stateSubject.add(ProfileStateGotProfile(
             screenState,
             ProfileRequest(
-              name: value.name,
-              image: value.image,
-              phone: value.phone,
-              drivingLicence: value.drivingLicence,
-              city: 'Jedda',
-              branch: '-1',
-              bankName: value.bankName,
-              bankAccountNumber: value.accountID,
-              stcPay: value.stcPay,
-              car: value.car,
-              age: value.age.toString(),
-            ),
+                name: value.name,
+                image: value.image,
+                phone: value.phone,
+                drivingLicence: value.drivingLicence,
+                city: value.city,
+                branch: '-1',
+                bankName: value.bankName,
+                bankAccountNumber: value.accountID,
+                stcPay: value.stcPay,
+                car: value.car,
+                age: value.age.toString(),
+                mechanicLicense: value.mechanicLicense,
+                identity: value.identity),
             role == UserRole.ROLE_CAPTAIN,
           ));
         }
