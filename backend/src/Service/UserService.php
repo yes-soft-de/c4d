@@ -216,6 +216,10 @@ class UserService
             $item['image'] = $this->params.$item['image'];
             $item['drivingLicenceURL'] = $item['drivingLicence'];
             $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+            $item['mechanicLicense'] = $item['mechanicLicense'];
+            $item['mechanicLicense'] = $this->params.$item['mechanicLicense'];
+            $item['identity'] = $item['identity'];
+            $item['identity'] = $this->params.$item['identity'];
             $item['baseURL'] = $this->params;
             $item['rating'] = $this->ratingService->getRatingByCaptainID($captainID);
             $item['bank'] = $this->bankService->getAccountByUserId($captainID);
@@ -245,6 +249,10 @@ class UserService
             $item['image'] = $this->params.$item['image'];
             $item['drivingLicenceURL'] = $item['drivingLicence'];
             $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+            $item['mechanicLicense'] = $item['mechanicLicense'];
+            $item['mechanicLicense'] = $this->params.$item['mechanicLicense'];
+            $item['identity'] = $item['identity'];
+            $item['identity'] = $this->params.$item['identity'];
             $item['baseURL'] = $this->params;
             $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
 
@@ -270,6 +278,10 @@ class UserService
             $item['image'] = $this->params.$item['image'];
             $item['drivingLicenceURL'] = $item['drivingLicence'];
             $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+            $item['mechanicLicense'] = $item['mechanicLicense'];
+            $item['mechanicLicense'] = $this->params.$item['mechanicLicense'];
+            $item['identity'] = $item['identity'];
+            $item['identity'] = $this->params.$item['identity'];
             $item['baseURL'] = $this->params;
 
             $countOrdersDeliverd = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
@@ -295,6 +307,10 @@ class UserService
                 $item['image'] = $this->params.$item['image'];
                 $item['drivingLicenceURL'] = $item['drivingLicence'];
                 $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+                $item['mechanicLicense'] = $item['mechanicLicense'];
+                $item['mechanicLicense'] = $this->params.$item['mechanicLicense'];
+                $item['identity'] = $item['identity'];
+                $item['identity'] = $this->params.$item['identity'];
                 $item['baseURL'] = $this->params;
                 $response[]  = $this->autoMapping->map('array', CaptainProfileEntity::class, $item);
             }
@@ -318,6 +334,10 @@ class UserService
             $item['image'] = $this->params.$item['image'];
             $item['drivingLicenceURL'] = $item['drivingLicence'];
             $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+            $item['mechanicLicense'] = $item['mechanicLicense'];
+            $item['mechanicLicense'] = $this->params.$item['mechanicLicense'];
+            $item['identity'] = $item['identity'];
+            $item['identity'] = $this->params.$item['identity'];
             $item['baseURL'] = $this->params;
 
             $item['countOrdersDeliverd'] = $this->acceptedOrderService->countAcceptedOrder($item['captainID']);
@@ -374,6 +394,10 @@ class UserService
             $item['image'] = $this->params.$item['image'];
             $item['drivingLicenceURL'] = $item['drivingLicence'];
             $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+            $item['mechanicLicense'] = $item['mechanicLicense'];
+            $item['mechanicLicense'] = $this->params.$item['mechanicLicense'];
+            $item['identity'] = $item['identity'];
+            $item['identity'] = $this->params.$item['identity'];
             $item['baseURL'] = $this->params;
 
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $item);
@@ -436,6 +460,10 @@ class UserService
                 $item['image'] = $this->params.$item['image'];
                 $item['drivingLicenceURL'] = $item['drivingLicence'];
                 $item['drivingLicence'] = $this->params.$item['drivingLicence'];
+                $item['mechanicLicense'] = $item['mechanicLicense'];
+                $item['mechanicLicense'] = $this->params.$item['mechanicLicense'];
+                $item['identity'] = $item['identity'];
+                $item['identity'] = $this->params.$item['identity'];
                 $item['baseURL'] = $this->params;
                 $respons[] = $this->autoMapping->map('array', AllUsersResponse::class, $item);
             }
@@ -462,6 +490,10 @@ class UserService
                 $captain['image'] = $this->params.$captain['image'];
                 $captain['drivingLicenceURL'] = $captain['drivingLicence'];
                 $captain['drivingLicence'] = $this->params.$captain['drivingLicence'];
+                $captain['mechanicLicense'] = $captain['mechanicLicense'];
+                $captain['mechanicLicense'] = $this->params.$captain['mechanicLicense'];
+                $captain['identity'] = $captain['identity'];
+                $captain['identity'] = $this->params.$captain['identity'];
                 $captain['baseURL'] = $this->params;
 
             $response[]  = $this->autoMapping->map('array',CaptainProfileCreateResponse::class,  $captain);

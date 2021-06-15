@@ -97,6 +97,21 @@ class CaptainProfileEntity
      */
     private $newMessageStatus;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mechanicLicense;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $identity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
 
     public function getId(): ?int
     {
@@ -291,6 +306,42 @@ class CaptainProfileEntity
     public function setNewMessageStatus(?bool $newMessageStatus): self
     {
         $this->newMessageStatus = $newMessageStatus;
+
+        return $this;
+    }
+
+    public function getMechanicLicense(): ?string
+    {
+        return $this->mechanicLicense;
+    }
+
+    public function setMechanicLicense(?string $mechanicLicense): self
+    {
+        $this->mechanicLicense = $mechanicLicense;
+
+        return $this;
+    }
+    
+    public function getIdentity(): ?string
+    {
+        return $this->identity;
+    }
+
+    public function setIdentity(?string $identity): self
+    {
+        $this->identity = $identity;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

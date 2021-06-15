@@ -49,4 +49,10 @@ class AllUsersResponse
     public $drivingLicenceURL;
     
     public $newMessageStatus;
+    
+    public $mechanicLicense;
+
+    public $identity;
+
+    public $city;
 }

@@ -27,8 +27,16 @@ class CaptainProfileCreateRequest
     public $phone;
 
     private $bankName;
+
     private $accountID;
+
     private $stcPay;
+
+    private $mechanicLicense;
+
+    private $identity;
+
+    private $city;
 
     /**
      * Get the value of captainID
@@ -198,6 +206,46 @@ class CaptainProfileCreateRequest
     public function setUuid(?string $uuid): self
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of mechanicLicense
+     */ 
+    public function getMechanicLicense()
+    {
+        return $this->mechanicLicense;
+    }
+
+    /**
+     * Set the value of mechanicLicense
+     *
+     * @return  self
+     */ 
+    public function setMechanicLicense($mechanicLicense)
+    {
+        $this->mechanicLicense = $mechanicLicense;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of identity
+     */ 
+    public function getIdentity()
+    {
+        return $this->identity;
+    }
+
+    /**
+     * Set the value of identity
+     *
+     * @return  self
+     */ 
+    public function setIdentity($identity)
+    {
+        $this->identity = $identity;
 
         return $this;
     }
