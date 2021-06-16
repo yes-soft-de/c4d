@@ -228,6 +228,9 @@
   "emptyStaff":"Empty Stuff",
   "youReached":"You have reached ",
   "orderAverage":"percent of your orders limit",
-  "confirmRenewSub":"Are your sure about renewing your subscription"
+  "confirmRenewSub":"Are your sure about renewing your subscription",
+  "city":"City",
+  "mechanichLicence":"Mechanich Licence",
+  "identity":"Identity"
 
 }

@@ -227,7 +227,10 @@
   "emptyStaff":"قائمة فارغة",
   "youReached":"لقد تجاوزت",
   "orderAverage":"بالمئة من عدد الطلبيات المسموحة",
-  "confirmRenewSub":"هل أنت متأكد من عملية تجديد اشتراكك"
+  "confirmRenewSub":"هل أنت متأكد من عملية تجديد اشتراكك",
+  "city":"المدينة",
+  "mechanichLicence":"رخصة الميكانيك",
+  "identity":"الهوية"
 
 
 }

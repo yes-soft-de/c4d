@@ -255,7 +255,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
             controller: _cityController,
             decoration: InputDecoration(
               hintText: S.of(context).chooseYourCity,
-              labelText: S.of(context).chooseYourCity,
+              labelText: S.of(context).city,
             ),
             validator: (name) {
               if (name == null) {
@@ -279,7 +279,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 color: Theme.of(context).primaryColor,
                 child: Center(
                     child: Text(
-                  'identity',
+                  S.of(context).identity,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -353,7 +353,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 color: Theme.of(context).primaryColor,
                 child: Center(
                     child: Text(
-                  'Mechanic License',
+                  S.of(context).mechanichLicence,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -427,7 +427,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 color: Theme.of(context).primaryColor,
                 child: Center(
                     child: Text(
-                  'driving Licence',
+                  S.of(context).driverLicence,
                   style: TextStyle(
                     color: Colors.white,
                   ),
