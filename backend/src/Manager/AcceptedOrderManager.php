@@ -114,6 +114,11 @@ class AcceptedOrderManager
         return $this->repository->countAcceptedOrder($captainId);
     }
 
+    public function  getOrderKilometers($captainId)
+    {
+        return $this->repository->getOrderKilometers($captainId);
+    }
+
     public function getTop5Captains()
     {        
         return $this->repository->getTop5Captains( );

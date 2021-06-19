@@ -13,4 +13,7 @@ class CompanyInfoResponse
     public $stc;
     public $email;
     public $uuid;
+    public $kilometers;
+    public $maxKilometerBonus;
+    public $minKilometerBonus;
 }

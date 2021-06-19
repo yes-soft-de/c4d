@@ -11,4 +11,5 @@ class CaptainTotalBounceResponse
     public $countOrdersDeliverd;
     public $payments;
     public $bank;
+    public $kilometerBonus;
 }

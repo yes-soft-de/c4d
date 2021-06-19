@@ -11,4 +11,7 @@ class companyInfoCreateRequest
     private $bank;
     private $stc;
     private $email;
+    private $kilometers;
+    private $maxKilometerBonus;
+    private $minKilometerBonus;
 }

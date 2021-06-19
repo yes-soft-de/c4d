@@ -12,6 +12,9 @@ class companyInfoUpdateRequest
     private $bank;
     private $stc;
     private $email;
+    private $kilometers;
+    private $maxKilometerBonus;
+    private $minKilometerBonus;
 
     /**
      * Get the value of id

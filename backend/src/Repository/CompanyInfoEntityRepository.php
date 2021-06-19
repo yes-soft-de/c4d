@@ -34,7 +34,7 @@ class CompanyInfoEntityRepository extends ServiceEntityRepository
     public function  getcompanyinfoAll()
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
-            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email, CompanyInfoEntity.kilometers, CompanyInfoEntity.maxKilometerBonus, CompanyInfoEntity.minKilometerBonus')
             ->getQuery()
             ->getResult();
     }
@@ -42,7 +42,7 @@ class CompanyInfoEntityRepository extends ServiceEntityRepository
     public function  getcompanyinfoAllOwner($userId)
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
-            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email, CompanyInfoEntity.kilometers, CompanyInfoEntity.maxKilometerBonus, CompanyInfoEntity.minKilometerBonus')
             ->addSelect('userProfileEntity.uuid')
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = :userId')
             ->setParameter('userId',$userId)
@@ -53,7 +53,7 @@ class CompanyInfoEntityRepository extends ServiceEntityRepository
     public function getcompanyinfoAllCaptain($userId)
     {
         return $this->createQueryBuilder('CompanyInfoEntity') 
-            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email')
+            ->select('CompanyInfoEntity.id, CompanyInfoEntity.phone, CompanyInfoEntity.phone2, CompanyInfoEntity.whatsapp, CompanyInfoEntity.fax, CompanyInfoEntity.bank, CompanyInfoEntity.stc, CompanyInfoEntity.email, CompanyInfoEntity.kilometers, CompanyInfoEntity.maxKilometerBonus, CompanyInfoEntity.minKilometerBonus')
             ->addSelect('captainProfileEntity.uuid')
             ->leftJoin(CaptainProfileEntity::class, 'captainProfileEntity', Join::WITH, 'captainProfileEntity.captainID = :userId')
             ->setParameter('userId',$userId)

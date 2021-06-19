@@ -109,6 +109,11 @@ class AcceptedOrderService
     {
         return $this->acceptedOrderManager->countAcceptedOrder($captainId);
     }
+    
+    public function getOrderKilometers($captainId)
+    {
+        return $this->acceptedOrderManager->getOrderKilometers($captainId);
+    }
 
     public function getTop5Captains()
      {

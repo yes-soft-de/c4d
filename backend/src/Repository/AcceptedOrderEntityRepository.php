@@ -10,6 +10,7 @@ use App\Entity\OrderEntity;
 use App\Entity\BranchesEntity;
 use App\Entity\UserProfileEntity;
 use App\Entity\RecordEntity;
+use App\Entity\CompanyInfoEntity;
 use Doctrine\ORM\Query\Expr\Join;
 
 /**
@@ -114,6 +115,26 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->andWhere('AcceptedOrderEntity.orderID = orderEntity.id')
             ->andWhere('AcceptedOrderEntity.captainID = :captainId')
             ->andWhere("orderEntity.state = 'delivered'")
+            ->setParameter('captainId', $captainId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getOrderKilometers($captainId)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select('orderEntity.id', 'orderEntity.kilometer as orderKilometers')
+            ->addSelect('companyInfoEntity.kilometers', 'companyInfoEntity.maxKilometerBonus', 'companyInfoEntity.minKilometerBonus')
+
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
+            ->join(CompanyInfoEntity::class, 'companyInfoEntity')
+
+            ->andWhere('AcceptedOrderEntity.orderID = orderEntity.id')
+            ->andWhere('AcceptedOrderEntity.captainID = :captainId')
+            ->andWhere("orderEntity.state = 'delivered'")
+
+            // ->andWhere("orderEntity.kilometer >= companyInfoEntity.kilometers")
+
             ->setParameter('captainId', $captainId)
             ->getQuery()
             ->getResult();

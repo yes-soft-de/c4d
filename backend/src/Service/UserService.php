@@ -405,35 +405,58 @@ class UserService
          return $response;
      }
 
+     public function getOrderKilometers($captainId)
+     {
+       $orderKilometers = $this->acceptedOrderService->getOrderKilometers($captainId);
+       foreach ($orderKilometers as $orderKilometer) {
+        if ($orderKilometer['orderKilometers'] >= $orderKilometer['kilometers']) {
+            $Kilometer = $orderKilometer['orderKilometers'] - $orderKilometer['kilometers'];
+            $kilometerBonus1 = $Kilometer * $orderKilometer['maxKilometerBonus'];
+            $sumKilometerBonus[] = $kilometerBonus1; 
+        }
+
+        if ($orderKilometer['orderKilometers'] < $orderKilometer['kilometers']) {
+            $Kilometer = $orderKilometer['orderKilometers'];
+            $kilometerBonus2 = $Kilometer * $orderKilometer['minKilometerBonus'];
+            $sumKilometerBonus[] = $kilometerBonus2; 
+
+        }
+       }
+        return array_sum($sumKilometerBonus);
+     }
      public function totalBounceCaptain($captainProfileId,  $user='null', $captainId='null')
     {
         $response = [];
 
         $item = $this->userManager->totalBounceCaptain($captainProfileId);
-       
+      
         if ($user == "captain") { 
             $sumAmount = $this->paymentCaptainService->getSumAmount($captainId);
             $payments = $this->paymentCaptainService->getpayments($captainId);
             $bank = $this->bankService->getAccount($captainId);
+            $sumKilometerBonus = $this->getOrderKilometers($captainId);
+          
         }
         if ($user == "admin") { 
             $sumAmount = $this->paymentCaptainService->getSumAmount($item[0]['captainID']);
             $payments = $this->paymentCaptainService->getpayments($item[0]['captainID']);
             $bank = $this->bankService->getAccount($item[0]['captainID']);
+            $sumKilometerBonus = $this->getOrderKilometers($item[0]['captainID']);
+            
         }
 
         if ($item) {
+             $item['kilometerBonus'] = $sumKilometerBonus;
              $countAcceptedOrder = $this->acceptedOrderService->countAcceptedOrder($item[0]['captainID']);
-
              $item['bounce'] = $item[0]['bounce'] * $countAcceptedOrder[0]['countOrdersDeliverd'];
              $item['countOrdersDeliverd'] = $countAcceptedOrder[0]['countOrdersDeliverd'];
              $item['sumPayments'] = $sumAmount[0]['sumPayments'];
-             $item['NetProfit'] = $item['bounce'] + $item[0]['salary'];
-             $item['total'] = $item['sumPayments'] - ($item['bounce'] + $item[0]['salary']);
+             $item['NetProfit'] = $item['bounce'] + $item[0]['salary'] + $item['kilometerBonus'];
+             $item['total'] = $item['sumPayments'] - ($item['bounce'] + $item[0]['salary'] + $item['kilometerBonus']);
              $item['payments'] = $payments;
              $item['bank'] = $bank;
             if ($user == "captain") {
-                 $item['total'] = ($item['bounce'] + $item[0]['salary']) - $item['sumPayments'];
+                 $item['total'] = ($item['bounce'] + $item[0]['salary'] + $item['kilometerBonus']) - $item['sumPayments'];
             }
              $response = $this->autoMapping->map('array', CaptainTotalBounceResponse::class,  $item);
             
