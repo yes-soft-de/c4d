@@ -120,6 +120,26 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function countAcceptedOrderInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select('count(AcceptedOrderEntity.orderID) as countOrdersDeliverd')
+
+            ->join(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
+
+            ->andWhere('AcceptedOrderEntity.orderID = orderEntity.id')
+            ->andWhere('AcceptedOrderEntity.captainID = :captainId')
+            ->andWhere("orderEntity.state = 'delivered'")
+            ->andWhere('AcceptedOrderEntity.dateOnly >= :fromDate')
+            ->andWhere('AcceptedOrderEntity.dateOnly < :toDate')
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
+            ->setParameter('captainId', $captainId)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getOrderKilometers($captainId)
     {
         return $this->createQueryBuilder('AcceptedOrderEntity')
@@ -133,7 +153,28 @@ class AcceptedOrderEntityRepository extends ServiceEntityRepository
             ->andWhere('AcceptedOrderEntity.captainID = :captainId')
             ->andWhere("orderEntity.state = 'delivered'")
 
-            // ->andWhere("orderEntity.kilometer >= companyInfoEntity.kilometers")
+            ->setParameter('captainId', $captainId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getOrderKilometersInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('AcceptedOrderEntity')
+            ->select('orderEntity.id', 'orderEntity.kilometer as orderKilometers')
+            ->addSelect('companyInfoEntity.kilometers', 'companyInfoEntity.maxKilometerBonus', 'companyInfoEntity.minKilometerBonus')
+
+            ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'orderEntity.id = AcceptedOrderEntity.orderID')
+            ->join(CompanyInfoEntity::class, 'companyInfoEntity')
+
+            ->andWhere('AcceptedOrderEntity.orderID = orderEntity.id')
+            ->andWhere('AcceptedOrderEntity.captainID = :captainId')
+            ->andWhere("orderEntity.state = 'delivered'")
+            ->andWhere('AcceptedOrderEntity.dateOnly >= :fromDate')
+            ->andWhere('AcceptedOrderEntity.dateOnly < :toDate')
+
+            ->setParameter('fromDate', $fromDate)
+            ->setParameter('toDate', $toDate)
 
             ->setParameter('captainId', $captainId)
             ->getQuery()

@@ -33,9 +33,20 @@ class PaymentCaptainService
     public function getpayments($captainId)
     {
        return $this->paymentManager->getpayments($captainId);
-        }
+    }
+
+    public function getpaymentsInThisMonth($captainId, $fromDate, $toDate)
+    {
+       return $this->paymentManager->getpaymentsInThisMonth($captainId, $fromDate, $toDate);
+    }
+    
     public function getSumAmount($captainId)
     {
        return $this->paymentManager->getSumAmount($captainId);
+    }
+
+    public function getSumAmountInThisMonth($captainId, $fromDate, $toDate)
+    {
+       return $this->paymentManager->getSumAmountInThisMonth($captainId, $fromDate, $toDate);
     }
 }

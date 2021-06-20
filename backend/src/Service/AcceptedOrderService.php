@@ -110,9 +110,20 @@ class AcceptedOrderService
         return $this->acceptedOrderManager->countAcceptedOrder($captainId);
     }
     
+
+    public function countAcceptedOrderInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->acceptedOrderManager->countAcceptedOrderInThisMonth($captainId, $fromDate, $toDate);
+    }
+    
     public function getOrderKilometers($captainId)
     {
         return $this->acceptedOrderManager->getOrderKilometers($captainId);
+    }
+    
+    public function getOrderKilometersInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->acceptedOrderManager->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
     }
 
     public function getTop5Captains()

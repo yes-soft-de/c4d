@@ -22,12 +22,12 @@ use App\Response\UserRegisterResponse;
 use App\Response\AllUsersResponse;
 use App\Response\CaptainIsActiveResponse;
 use App\Response\RemainingOrdersResponse;
-// use App\Response\CaptainsOngoingResponse;
+use App\Response\CaptainTotalBounceInThisMonthResponse;
 use App\Response\CaptainTotalBounceResponse;
 use App\Service\PaymentCaptainService;
 use App\Service\BankService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-
+use DateTime;
 
 class UserService
 {
@@ -424,6 +424,28 @@ class UserService
        }
         return array_sum($sumKilometerBonus);
      }
+
+     public function getOrderKilometersInThisMonth($captainId, $fromDate, $toDate)
+     {
+       $orderKilometers = $this->acceptedOrderService->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
+
+       foreach ($orderKilometers as $orderKilometer) {
+        if ($orderKilometer['orderKilometers'] >= $orderKilometer['kilometers']) {
+            $Kilometer = $orderKilometer['orderKilometers'] - $orderKilometer['kilometers'];
+            $kilometerBonus1 = $Kilometer * $orderKilometer['maxKilometerBonus'];
+            $sumKilometerBonus[] = $kilometerBonus1; 
+        }
+
+        if ($orderKilometer['orderKilometers'] < $orderKilometer['kilometers']) {
+            $Kilometer = $orderKilometer['orderKilometers'];
+            $kilometerBonus2 = $Kilometer * $orderKilometer['minKilometerBonus'];
+            $sumKilometerBonus[] = $kilometerBonus2; 
+
+        }
+       }
+        return array_sum($sumKilometerBonus);
+     }
+
      public function totalBounceCaptain($captainProfileId,  $user='null', $captainId='null')
     {
         $response = [];
@@ -464,6 +486,64 @@ class UserService
 
         return $response;
     }
+    
+     public function totalBounceCaptainInThisMonth($captainProfileId,  $user='null', $captainId='null')
+    {
+        $response = [];
+        $dateNow =new DateTime("now");
+        $year = $dateNow->format("Y");
+        $month = $dateNow->format("m");
+        $date = $this->returnDate($year, $month);
+
+        $item = $this->userManager->totalBounceCaptain($captainProfileId);
+      
+        if ($user == "captain") { 
+            $sumAmount = $this->paymentCaptainService->getSumAmountInThisMonth($captainId, $date[1], $date[0]);
+           
+            $payments = $this->paymentCaptainService->getpaymentsInThisMonth($captainId, $date[1], $date[0]);
+            // $bank = $this->bankService->getAccount($captainId);
+            $sumKilometerBonus = $this->getOrderKilometersInThisMonth($captainId, $date[1], $date[0]);
+          
+        }
+        if ($user == "admin") { 
+            $sumAmount = $this->paymentCaptainService->getSumAmountInThisMonth($item[0]['captainID'], $date[1], $date[0]);
+            $payments = $this->paymentCaptainService->getpaymentsInThisMonth($item[0]['captainID'], $date[1], $date[0]);
+            // $bank = $this->bankService->getAccount($item[0]['captainID']);
+            $sumKilometerBonus = $this->getOrderKilometersInThisMonth($item[0]['captainID'], $date[1], $date[0]);
+            
+        }
+
+        if ($item) {
+             $item['kilometerBonusInThisMonth'] = $sumKilometerBonus;
+             $countAcceptedOrder = $this->acceptedOrderService->countAcceptedOrderInThisMonth($item[0]['captainID'], $date[1], $date[0]);
+             
+             $item['bounceInThisMonth'] = $item[0]['bounce'] * $countAcceptedOrder[0]['countOrdersDeliverd'];
+             $item['countOrdersDeliverdInThisMonth'] = $countAcceptedOrder[0]['countOrdersDeliverd'];
+             $item['sumPaymentsInThisMonth'] = $sumAmount[0]['sumPayments'];
+             $item['NetProfitInThisMonth'] = $item['bounceInThisMonth'] + $item[0]['salary'] + $item['kilometerBonusInThisMonth'];
+             $item['totalInThisMonth'] = $item['sumPaymentsInThisMonth'] - ($item['bounceInThisMonth'] + $item[0]['salary'] + $item['kilometerBonusInThisMonth']);
+             $item['paymentsInThisMonth'] = $payments;
+            //  $item['bank'] = $bank;
+            if ($user == "captain") {
+                 $item['totalInThisMonth'] = ($item['bounceInThisMonth'] + $item[0]['salary'] + $item['kilometerBonusInThisMonth']) - $item['sumPaymentsInThisMonth'];
+            }
+             $response = $this->autoMapping->map('array', CaptainTotalBounceInThisMonthResponse::class,  $item);
+            
+        }
+
+        return $response;
+    }
+
+    public function returnDate($year, $month)
+    {
+        $fromDate =new \DateTime($year . '-' . $month . '-01'); 
+        $toDate = new \DateTime($fromDate->format('Y-m-d') . ' +1 month');
+     //    if you want get top captains in this month must change (-1 month) to (+1 month) in back line
+     //    return [$fromDate,  $toDate];
+ 
+     //    if you want get top captains in last month must change (+1 month) to (-1 month) in back line
+        return [$toDate,  $fromDate];
+     }
 
     public function getUsers($userType)
     {
@@ -537,6 +617,12 @@ class UserService
     {
         $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
         return $this->totalBounceCaptain($item['id'], 'captain', $captainID);
+    }
+
+    public function getCaptainMybalanceInThisMonth($captainID)
+    {
+        $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
+        return $this->totalBounceCaptainInThisMonth($item['id'], 'captain', $captainID);
     }
 
     public function remainingcaptain()

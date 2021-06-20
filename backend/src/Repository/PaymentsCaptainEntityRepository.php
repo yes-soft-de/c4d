@@ -32,6 +32,23 @@ class PaymentsCaptainEntityRepository extends ServiceEntityRepository
                ->getResult();
     }
     
+    public function  getpaymentsInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('PaymentsCaptain')
+               ->select('PaymentsCaptain.id, PaymentsCaptain.captainId, PaymentsCaptain.amount, PaymentsCaptain.date')
+
+               ->andWhere('PaymentsCaptain.captainId = :captainId')
+               ->andWhere('PaymentsCaptain.date >= :fromDate')
+               ->andWhere('PaymentsCaptain.date < :toDate')
+               
+               ->setParameter('captainId', $captainId)
+               ->setParameter('fromDate', $fromDate)
+               ->setParameter('toDate', $toDate)
+
+               ->getQuery()
+               ->getResult();
+    }
+    
     public function getSumAmount($captainId)
     {
         return $this->createQueryBuilder('PaymentsCaptain')
@@ -39,6 +56,23 @@ class PaymentsCaptainEntityRepository extends ServiceEntityRepository
                ->andWhere('PaymentsCaptain.captainId = :captainId')
 
                ->setParameter('captainId', $captainId)
+
+               ->getQuery()
+               ->getResult();
+    }
+    
+    public function getSumAmountInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->createQueryBuilder('PaymentsCaptain')
+               ->select('sum(PaymentsCaptain.amount) as sumPayments')
+
+               ->where('PaymentsCaptain.captainId = :captainId')
+               ->andWhere('PaymentsCaptain.date >= :fromDate')
+               ->andWhere('PaymentsCaptain.date < :toDate')
+
+               ->setParameter('captainId', $captainId)
+               ->setParameter('fromDate', $fromDate)
+               ->setParameter('toDate', $toDate)
 
                ->getQuery()
                ->getResult();

@@ -38,8 +38,18 @@ class PaymentCaptainManager
         return $this->repository->getpayments($captainId);
     }
 
+    public function getpaymentsInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->repository->getpaymentsInThisMonth($captainId, $fromDate, $toDate);
+    }
+
     public function getSumAmount($captainId)
     {
         return $this->repository->getSumAmount($captainId);
+    }
+
+    public function getSumAmountInThisMonth($captainId, $fromDate, $toDate)
+    {
+        return $this->repository->getSumAmountInThisMonth($captainId, $fromDate, $toDate);
     }
 }

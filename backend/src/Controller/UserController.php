@@ -344,6 +344,18 @@ class UserController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+    /**
+     * @Route("/totalBounceCaptainInThisMonth/{captainProfileId}", name="totalBounceCaptainInThisMonth",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function totalBounceCaptainInThisMonth($captainProfileId)
+    {
+        $result = $this->userService->totalBounceCaptainInThisMonth($captainProfileId,'admin');
+
+        return $this->response($result, self::FETCH);
+    }
 
      /**
      * @Route("/getUsers/{userType}", name="getUsers",methods={"GET"})
@@ -376,6 +388,18 @@ class UserController extends BaseController
     public function getCaptainMybalance()
     {
         $response = $this->userService->getCaptainMybalance($this->getUserId());
+
+        return $this->response($response, self::FETCH);
+    }
+    
+     /**
+     * @Route("/captainmybalanceinthismonth", name="getCaptainMybalanceInThisMonth",methods={"GET"})
+     * @IsGranted("ROLE_CAPTAIN")
+     *  @return JsonResponse
+     */
+    public function getCaptainMybalanceInThisMonth()
+    {
+        $response = $this->userService->getCaptainMybalanceInThisMonth($this->getUserId());
 
         return $this->response($response, self::FETCH);
     }
