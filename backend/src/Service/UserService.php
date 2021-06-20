@@ -537,7 +537,7 @@ class UserService
     public function returnDate($year, $month)
     {
         $fromDate =new \DateTime($year . '-' . $month . '-01'); 
-        $toDate = new \DateTime($fromDate->format('Y-m-d') . ' +1 month');
+        $toDate = new \DateTime($fromDate->format('Y-m-d') . ' -1 month');
      //    if you want get top captains in this month must change (-1 month) to (+1 month) in back line
      //    return [$fromDate,  $toDate];
  
