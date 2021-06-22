@@ -24,6 +24,25 @@ class RecordController extends BaseController
     } 
     
     /**
+      * @Route("/record/{orderId}/{IsCaptainArrived}", name="CreateRecord", methods={"POST"})
+      * @param                     Request $request
+      * @return                    JsonResponse
+      */
+      public function createRecord($orderId, $IsCaptainArrived)
+      {
+          if ($IsCaptainArrived == 1){
+            $state = "captain arrived";
+          }
+          if ($IsCaptainArrived == 0){
+            $state = "captain not arrived";
+          }
+          
+          $response = $this->recordService->create($orderId, $state);
+  
+          return $this->response($response, self::CREATE);
+      }
+
+    /**
       * @Route("/record/{orderId}", name="GetRecordByOrderId", methods={"GET"})
       * @param                     Request $request
       * @return                    JsonResponse
