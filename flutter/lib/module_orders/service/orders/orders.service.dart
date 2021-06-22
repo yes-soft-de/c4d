@@ -17,6 +17,7 @@ import 'package:c4d/utils/logger/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @provide
 class OrdersService {
@@ -53,6 +54,25 @@ class OrdersService {
     return response;
   }
 
+  Future<bool> getConfirmOrderState(var orderId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var confirm = await sharedPreferences
+        .getBool('captain is in store owner for order $orderId');
+    return confirm == null;
+  }
+
+  Future<void> setConfirmOrderState(var orderId, bool answar) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setBool(
+        'captain is in store owner for order $orderId', answar);
+  }
+
+  Future sendOrderReportState(var orderId, bool answar) async {
+    await setConfirmOrderState(orderId, answar);
+    var result = await _ordersManager.sendToRecord(orderId, answar);
+    return result;
+  }
+
   Future<OrderModel> getOrderDetails(int orderId) async {
     OrderDetailsData response = await _ordersManager.getOrderDetails(orderId);
     if (response == null) return null;
@@ -69,6 +89,7 @@ class OrdersService {
     if (DateTime.now().difference(date).inMinutes <= 30) {
       canRemove = true;
     }
+    bool showConfirmingOrderState = await getConfirmOrderState(orderId);
     OrderModel order = new OrderModel(
         paymentMethod: response.payment,
         from: response.fromBranch.toString(),
@@ -85,6 +106,7 @@ class OrdersService {
             ? response.acceptedOrder.last.phone
             : null,
         canRemove: canRemove,
+        showConfirm: showConfirmingOrderState,
         costumerLocation:
             response.destination2 ?? GeoJson(lon: null, lat: null));
 
@@ -123,7 +145,8 @@ class OrdersService {
                     element.date.timestamp * 1000),
                 paymentMethod: element.payment,
                 id: element.id,
-                branchLocation: element.fromBranch?.location??GeoJson(lat:40.159419,lon:-107.860011)));
+                branchLocation: element.fromBranch?.location ??
+                    GeoJson(lat: 40.159419, lon: -107.860011)));
           }
         } catch (e, stack) {
           Logger().error('Mapping Error',

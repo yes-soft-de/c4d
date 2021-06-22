@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmCode" : MessageLookupByLibrary.simpleMessage("Confirm Code"),
     "confirmRenewSub" : MessageLookupByLibrary.simpleMessage("Are your sure about renewing your subscription"),
     "confirmUpdateOrderStatus" : MessageLookupByLibrary.simpleMessage("Are you want to update this order status , please confirm"),
+    "confirmingCaptainLocation" : MessageLookupByLibrary.simpleMessage("Confirm with yes and no if captain reach you"),
     "contactPhoneNumber" : MessageLookupByLibrary.simpleMessage("Contact Phone Number"),
     "createNewOrder" : MessageLookupByLibrary.simpleMessage("Create new order"),
     "createNewReport" : MessageLookupByLibrary.simpleMessage("Create new Report"),
@@ -146,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newOrder" : MessageLookupByLibrary.simpleMessage("New Order"),
     "next" : MessageLookupByLibrary.simpleMessage("Next"),
     "nextPaymentDate" : MessageLookupByLibrary.simpleMessage("Next Payment Date:"),
+    "no" : MessageLookupByLibrary.simpleMessage("No"),
     "noImage" : MessageLookupByLibrary.simpleMessage("No Image"),
     "notSubscription" : MessageLookupByLibrary.simpleMessage("You dont have a subscription yet"),
     "notVerified" : MessageLookupByLibrary.simpleMessage("Your subscription not verified yet"),
@@ -195,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "reasonOfTheReport" : MessageLookupByLibrary.simpleMessage("Reason of the report"),
     "recipientName" : MessageLookupByLibrary.simpleMessage("Recipient Name"),
     "recipientPhoneNumber" : MessageLookupByLibrary.simpleMessage("Recipient Phone Number"),
+    "redo" : MessageLookupByLibrary.simpleMessage("Redo"),
     "register" : MessageLookupByLibrary.simpleMessage("Register"),
     "registerSuccessSetupMyProfile" : MessageLookupByLibrary.simpleMessage("Register Success, Setup my profile"),
     "renewNewPlan" : MessageLookupByLibrary.simpleMessage("Subscription with new package"),
@@ -214,6 +217,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("Searching for Captain"),
     "seconds" : MessageLookupByLibrary.simpleMessage("second"),
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("Send me code"),
+    "sendToRecordFaild" : MessageLookupByLibrary.simpleMessage("Sending record has been failed"),
+    "sendToRecordSuccess" : MessageLookupByLibrary.simpleMessage("The report send with a success"),
+    "sendingReport" : MessageLookupByLibrary.simpleMessage("Sending report within 15 second"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "share" : MessageLookupByLibrary.simpleMessage("Share"),
     "signOut" : MessageLookupByLibrary.simpleMessage("Sign out"),
@@ -258,6 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("Captain"),
     "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("Client"),
     "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("Store Owner"),
+    "yes" : MessageLookupByLibrary.simpleMessage("Yes"),
     "youReached" : MessageLookupByLibrary.simpleMessage("You have reached ")
   };
 }

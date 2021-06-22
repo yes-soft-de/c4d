@@ -43,5 +43,6 @@ class Urls {
   static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
   static const UPDATE_BRANCH_API = BASE_API + '/branches';
   static const GET_CAPTAIN_BALANCE_DETAILS = BASE_API + '/getCaptainBalanceDetails';
+  static const SEND_TO_RECORD = BASE_API + '/record';
  
 }

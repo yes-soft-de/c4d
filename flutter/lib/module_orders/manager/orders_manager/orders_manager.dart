@@ -41,4 +41,7 @@ class OrdersManager {
   Future<Map> getOrder(int orderId) => _repository.getOrder(orderId);
 
   Future<bool> deleteOrder(int orderId) => _repository.deleteOrder(orderId);
+
+  Future sendToRecord(var orderId, answar) =>
+      _repository.sendToRecord(orderId, answar);
 }

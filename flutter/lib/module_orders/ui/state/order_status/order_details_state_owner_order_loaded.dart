@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:c4d/consts/order_status.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
@@ -23,7 +24,71 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
   OrderDetailsStateOwnerOrderLoaded(
     this.currentOrder,
     OrderStatusScreenState screenState,
-  ) : super(screenState);
+  ) : super(screenState) {
+    if (this.currentOrder.showConfirm &&
+        this.currentOrder.status == OrderStatus.IN_STORE) {
+      showOwnerAlertConfirm(screenState.context);
+    }
+  }
+  bool redo = false;
+  void showFlush(context, answar) {
+    Flushbar flushbar;
+    flushbar = Flushbar(
+      duration: Duration(seconds: 15),
+      backgroundColor: Theme.of(context).primaryColor,
+      title: S.of(context).warnning,
+      message: S.of(context).sendingReport,
+      icon: Icon(
+        Icons.warning,
+        size: 28.0,
+        color: Colors.white,
+      ),
+      mainButton: FlatButton(
+          onPressed: () {
+            redo = true;
+            screenState.refresh();
+            flushbar.dismiss();
+            screenState.changeStateToLoaded(currentOrder);
+          },
+          textColor: Colors.white,
+          child: Text(S.of(context).redo)),
+    );
+    flushbar
+      ..onStatusChanged = (FlushbarStatus status) {
+        if (FlushbarStatus.DISMISSED == status && !redo) {
+          screenState.sendOrderReportState(currentOrder.id, answar);
+        }
+      }
+      ..show(context);
+  }
+
+  void showOwnerAlertConfirm(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(S.current.warnning),
+            content: Container(
+              child: Text(S.of(context).confirmingCaptainLocation),
+            ),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    showFlush(context, true);
+                  },
+                  child: Text(S.of(context).yes)),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    showFlush(context, false);
+                  },
+                  child: Text(S.of(context).no))
+            ],
+          );
+        });
+  }
 
   @override
   Widget getUI(BuildContext context) {

@@ -2414,6 +2414,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Sending record has been failed`
+  String get sendToRecordFaild {
+    return Intl.message(
+      'Sending record has been failed',
+      name: 'sendToRecordFaild',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The report send with a success`
+  String get sendToRecordSuccess {
+    return Intl.message(
+      'The report send with a success',
+      name: 'sendToRecordSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm with yes and no if captain reach you`
+  String get confirmingCaptainLocation {
+    return Intl.message(
+      'Confirm with yes and no if captain reach you',
+      name: 'confirmingCaptainLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Redo`
+  String get redo {
+    return Intl.message(
+      'Redo',
+      name: 'redo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sending report within 15 second`
+  String get sendingReport {
+    return Intl.message(
+      'Sending report within 15 second',
+      name: 'sendingReport',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

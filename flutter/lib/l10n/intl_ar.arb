@@ -236,7 +236,12 @@
   "sumBalance":"مجموع الدفعات",
   "totalBonus":"الراتب",
   "netProfite":"مجموع الأرباح",
-  "balanceDetails":"تفاصيل المدفوعات"
-
-
+  "balanceDetails":"تفاصيل المدفوعات",
+  "sendToRecordFaild":"فشلت عملية إرسال التقرير",
+  "sendToRecordSuccess":"تم إرسال التقرير بنجاح",
+  "yes":"نعم",
+  "no":"لا",
+  "confirmingCaptainLocation":"هل وصل الكابتن للمتجر للتأكيد جاوب بنعم أو لا",
+  "redo":"تراجع",
+  "sendingReport":"سيتم إرسال التقرير بعد 15 ثانية الرجاء الانتظار أو التراجع عن خيارك"
 }

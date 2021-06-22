@@ -116,7 +116,7 @@ class OrderRepository {
 
     if (response == null) return null;
     if (response['Data'] is String) {
-      return OrderDetailsResponse(error:response['Data']);
+      return OrderDetailsResponse(error: response['Data']);
     }
 
     return OrderDetailsResponse.fromJson(response);
@@ -131,9 +131,9 @@ class OrderRepository {
     );
 
     if (response == null) return null;
-    
+
     if (response['Data'] is String) {
-      return OrderDetailsResponse(error:response['Data']);
+      return OrderDetailsResponse(error: response['Data']);
     }
 
     return OrderDetailsResponse.fromJson(response);
@@ -170,5 +170,12 @@ class OrderRepository {
 
     if (response == null) return null;
     return response['Data'];
+  }
+
+  Future sendToRecord(var orderId, bool answar) async {
+    dynamic response =
+        await _apiClient.post('${Urls.SEND_TO_RECORD}/$orderId/$answar', {});
+    if (response == null) return null;
+    return response;
   }
 }

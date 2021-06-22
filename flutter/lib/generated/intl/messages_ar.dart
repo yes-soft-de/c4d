@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirmCode" : MessageLookupByLibrary.simpleMessage("تأكيد الرقم"),
     "confirmRenewSub" : MessageLookupByLibrary.simpleMessage("هل أنت متأكد من عملية تجديد اشتراكك"),
     "confirmUpdateOrderStatus" : MessageLookupByLibrary.simpleMessage("الرجاء تأكيد عملية تحديث حالة الطلب"),
+    "confirmingCaptainLocation" : MessageLookupByLibrary.simpleMessage("هل وصل الكابتن للمتجر للتأكيد جاوب بنعم أو لا"),
     "contactPhoneNumber" : MessageLookupByLibrary.simpleMessage("رقم الهاتف للتواصل"),
     "createNewOrder" : MessageLookupByLibrary.simpleMessage("انشاء طلب جديد "),
     "createNewReport" : MessageLookupByLibrary.simpleMessage("دعم سريع"),
@@ -144,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newOrder" : MessageLookupByLibrary.simpleMessage("طلب جديد"),
     "next" : MessageLookupByLibrary.simpleMessage("التالي"),
     "nextPaymentDate" : MessageLookupByLibrary.simpleMessage("تاريخ الدفعة القادمة:"),
+    "no" : MessageLookupByLibrary.simpleMessage("لا"),
     "noImage" : MessageLookupByLibrary.simpleMessage("لا يوجد صورة"),
     "notSubscription" : MessageLookupByLibrary.simpleMessage("لم تشترك بباقة بعد الرجاء الاشتراك من الإعدادات"),
     "notVerified" : MessageLookupByLibrary.simpleMessage("لم يتم تفعيل الباقة بعد"),
@@ -193,6 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "reasonOfTheReport" : MessageLookupByLibrary.simpleMessage("سبب طلب الدعم"),
     "recipientName" : MessageLookupByLibrary.simpleMessage("اسم المستلم"),
     "recipientPhoneNumber" : MessageLookupByLibrary.simpleMessage("رقم هاتف المستلم"),
+    "redo" : MessageLookupByLibrary.simpleMessage("تراجع"),
     "register" : MessageLookupByLibrary.simpleMessage("انشاء حساب جديد"),
     "registerSuccessSetupMyProfile" : MessageLookupByLibrary.simpleMessage("تم تأكيد الحساب، اتجه للاشتراك"),
     "renewNewPlan" : MessageLookupByLibrary.simpleMessage("اشتراك بباقة جديدة"),
@@ -212,6 +215,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchingForCaptain" : MessageLookupByLibrary.simpleMessage("جار البحث عن كابتن"),
     "seconds" : MessageLookupByLibrary.simpleMessage("ثانية"),
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("ارسل رمز التأكيد"),
+    "sendToRecordFaild" : MessageLookupByLibrary.simpleMessage("فشلت عملية إرسال التقرير"),
+    "sendToRecordSuccess" : MessageLookupByLibrary.simpleMessage("تم إرسال التقرير بنجاح"),
+    "sendingReport" : MessageLookupByLibrary.simpleMessage("سيتم إرسال التقرير بعد 15 ثانية الرجاء الانتظار أو التراجع عن خيارك"),
     "settings" : MessageLookupByLibrary.simpleMessage("الاعدادات"),
     "share" : MessageLookupByLibrary.simpleMessage("المشاركة"),
     "signOut" : MessageLookupByLibrary.simpleMessage("تسحيل الخروج"),
@@ -256,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "whatsappWithCaptain" : MessageLookupByLibrary.simpleMessage("الكابتن"),
     "whatsappWithClient" : MessageLookupByLibrary.simpleMessage("الزبون"),
     "whatsappWithStoreOwner" : MessageLookupByLibrary.simpleMessage("صاحب المحل"),
+    "yes" : MessageLookupByLibrary.simpleMessage("نعم"),
     "youReached" : MessageLookupByLibrary.simpleMessage("لقد تجاوزت")
   };
 }

@@ -237,6 +237,13 @@
   "sumBalance":"Sum Balance",
   "totalBonus":"Total Salary",
   "netProfite":"General Profite",
-  "balanceDetails":"Balance Details"
+  "balanceDetails":"Balance Details",
+  "sendToRecordFaild":"Sending record has been failed",
+  "sendToRecordSuccess":"The report send with a success",
+  "yes":"Yes",
+  "no":"No",
+  "confirmingCaptainLocation":"Confirm with yes and no if captain reach you",
+  "redo":"Redo",
+  "sendingReport":"Sending report within 15 seconds"
 
 }

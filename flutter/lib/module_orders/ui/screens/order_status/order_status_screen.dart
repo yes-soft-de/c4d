@@ -57,6 +57,38 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
     super.initState();
   }
 
+  void sendOrderReportState(var orderId, bool answar) {
+    widget._stateManager.sendOrderReportState(orderId, answar, this);
+  }
+
+  void sendState(bool success) {
+    if (success) {
+      Flushbar(
+        title: S.of(context).warnning,
+        message: S.of(context).sendToRecordSuccess,
+        icon: Icon(
+          Icons.info,
+          size: 28.0,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 3),
+      )..show(context);
+    } else {
+      Flushbar(
+        title: S.of(context).warnning,
+        message: S.of(context).sendToRecordFaild,
+        icon: Icon(
+          Icons.info,
+          size: 28.0,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 3),
+      )..show(context);
+    }
+  }
+
   void goBack(String error) {
     Navigator.of(context).pushNamedAndRemoveUntil(
         OrdersRoutes.CAPTAIN_ORDERS_SCREEN, (route) => false);
@@ -127,6 +159,17 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
             ],
           );
         });
+  }
+
+  void getOrderDetails(var orderId) {
+    widget._stateManager.getOrderDetails(orderId, this);
+  }
+
+  void changeStateToLoaded(OrderModel order) {
+    currentState = OrderDetailsStateOwnerOrderLoaded(order, this);
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override

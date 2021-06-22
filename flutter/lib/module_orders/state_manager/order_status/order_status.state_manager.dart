@@ -44,8 +44,6 @@ class OrderStatusStateManager {
                 .add(OrderDetailsStateCaptainOrderLoaded(order, screenState));
           } else if (role == UserRole.ROLE_OWNER) {
             initListenting(orderId, screenState);
-            _stateSubject
-                .add(OrderDetailsStateOwnerOrderLoaded(order, screenState));
           } else {
             _stateSubject.add(OrderDetailsStateError(
                 'Error Defining Login Type', screenState));
@@ -108,6 +106,17 @@ class OrderStatusStateManager {
 
   Future report(int orderId, String reason) async {
     await _reportService.createReport(orderId, reason);
+  }
+
+  void sendOrderReportState(
+      var orderId, bool answar, OrderStatusScreenState screenState) {
+    _ordersService.sendOrderReportState(orderId, answar).then((value) {
+      if (value != null) {
+        screenState.sendState(true);
+      } else {
+        screenState.sendState(false);
+      }
+    });
   }
 
   void dispose() {
