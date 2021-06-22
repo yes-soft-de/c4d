@@ -200,9 +200,9 @@ methods: PUT
 #### Update order State By Captain
 ROLE_CAPTAIN
 
-<!-- state: picked or ongoing or deliverd . -->
+<!-- state: picked or ongoing or delivered . -->
 <!-- next was  adopted -->
-state: in store or picked or ongoing or cash or deliverd
+state: in store or picked or ongoing or cash or delivered
 kilometer: number of integer
 
 ```
