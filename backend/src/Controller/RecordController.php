@@ -24,7 +24,7 @@ class RecordController extends BaseController
     } 
     
     /**
-      * @Route("/record/{orderId}/{IsCaptainArrived}", name="CreateRecord", methods={"POST"})
+      * @Route("/record/{orderId}/{IsCaptainArrived}", name="confirm the access of the captain for store and stored in the record", methods={"POST"})
       * @param                     Request $request
       * @return                    JsonResponse
       */
