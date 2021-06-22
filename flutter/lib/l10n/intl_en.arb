@@ -231,6 +231,12 @@
   "confirmRenewSub":"Are your sure about renewing your subscription",
   "city":"City",
   "mechanichLicence":"Mechanich Licence",
-  "identity":"Identity"
+  "identity":"Identity",
+  "bonus":"Bonus",
+  "kiloBonus":"Fuel Bonus",
+  "sumBalance":"Sum Balance",
+  "totalBonus":"Total Salary",
+  "netProfite":"General Profite",
+  "balanceDetails":"Balance Details"
 
 }

@@ -230,7 +230,13 @@
   "confirmRenewSub":"هل أنت متأكد من عملية تجديد اشتراكك",
   "city":"المدينة",
   "mechanichLicence":"رخصة الميكانيك",
-  "identity":"الهوية"
+  "identity":"الهوية",
+  "bonus":"مكافأة",
+  "kiloBonus":"اجور التوصيل",
+  "sumBalance":"مجموع الدفعات",
+  "totalBonus":"الراتب",
+  "netProfite":"مجموع الأرباح",
+  "balanceDetails":"تفاصيل المدفوعات"
 
 
 }

@@ -18,7 +18,7 @@ class CaptainPlanScreenStateLoaded extends PlanState {
       appBar: AppBar(
         title: Text('${S.of(context).myBalance}'),
       ),
-          body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: _getUI(context),
         ),
@@ -34,7 +34,9 @@ class CaptainPlanScreenStateLoaded extends PlanState {
     int paymentYear = DateTime.now().year;
     if (captainBalanceModel.payments.isNotEmpty) {
       paymentDay = captainBalanceModel.payments.last.paymentDate.day;
-      paymentMonth = int.parse(captainBalanceModel.payments.last.paymentDate.day.toString())+1;
+      paymentMonth = int.parse(
+              captainBalanceModel.payments.last.paymentDate.day.toString()) +
+          1;
       paymentYear = captainBalanceModel.payments.last.paymentDate.year;
     }
 
@@ -52,18 +54,77 @@ class CaptainPlanScreenStateLoaded extends PlanState {
       ListTile(
         title: Text(S.of(context).currentBalance),
         trailing: Text(
-          '${captainBalanceModel.currentBalance ?? 0} ' + S.of(context).saudiRiyal,
+          '${captainBalanceModel.currentBalance ?? 0} ' +
+              S.of(context).saudiRiyal,
           style: TextStyle(color: Theme.of(context).primaryColor),
         ),
       ),
     );
 
-    list.add(ListTile(title: Text(S.of(context).paymentHistory, style: TextStyle(fontWeight: FontWeight.bold),),));
+    list.add(ListTile(
+      title: Text(
+        S.of(context).paymentHistory,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    ));
 
     captainBalanceModel.payments.forEach((element) {
       list.add(PaymentRow(element.paymentDate, element.amount));
     });
-
+    if (captainBalanceModel.details) {
+      list.add(ListTile(
+        title: Text(
+          S.of(context).balanceDetails,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ));
+      list.add(
+        ListTile(
+          title: Text(S.of(context).bonus),
+          trailing: Text(
+            '${captainBalanceModel.bonus ?? 0} ' + S.of(context).saudiRiyal,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
+        ),
+      );
+      list.add(
+        ListTile(
+          title: Text(S.of(context).kiloBonus),
+          trailing: Text(
+            '${captainBalanceModel.kiloBonus ?? 0} ' + S.of(context).saudiRiyal,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
+        ),
+      );
+      list.add(
+        ListTile(
+          title: Text(S.of(context).sumBalance),
+          trailing: Text(
+            '${captainBalanceModel.sumBalance ?? 0} ' +
+                S.of(context).saudiRiyal,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
+        ),
+      );
+      list.add(
+        ListTile(
+          title: Text(S.of(context).totalBonus),
+          trailing: Text(
+            '${captainBalanceModel.total ?? 0} ' + S.of(context).saudiRiyal,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
+        ),
+      );
+      list.add(
+        ListTile(
+          title: Text(S.of(context).netProfite),
+          trailing: Text(
+            '${captainBalanceModel.netProfit ?? 0} ' + S.of(context).saudiRiyal,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
+        ),
+      );
+    }
     return list;
   }
 }

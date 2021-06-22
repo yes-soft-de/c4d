@@ -2354,6 +2354,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Bonus`
+  String get bonus {
+    return Intl.message(
+      'Bonus',
+      name: 'bonus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fuel Bonus`
+  String get kiloBonus {
+    return Intl.message(
+      'Fuel Bonus',
+      name: 'kiloBonus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sum Balance`
+  String get sumBalance {
+    return Intl.message(
+      'Sum Balance',
+      name: 'sumBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Salary`
+  String get totalBonus {
+    return Intl.message(
+      'Total Salary',
+      name: 'totalBonus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General Profite`
+  String get netProfite {
+    return Intl.message(
+      'General Profite',
+      name: 'netProfite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Balance Details`
+  String get balanceDetails {
+    return Intl.message(
+      'Balance Details',
+      name: 'balanceDetails',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

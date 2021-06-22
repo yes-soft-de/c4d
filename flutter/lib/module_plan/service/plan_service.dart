@@ -90,13 +90,28 @@ class PlanService {
 
   Future<BalanceModel> getCaptainBalance() async {
     var result = await _packageBalanceManager.getCaptainBalance();
-
+    var balanceDetails =
+        await _packageBalanceManager.getCaptainBalanceDetails();
     if (result == null) {
       return null;
     }
-
-    var resultModel = BalanceModel(payments: []);
-    resultModel.bonus = result.data.bounce;
+    var resultModel;
+    if (resultModel != null) {
+      resultModel = BalanceModel(
+          payments: [],
+          total: balanceDetails.data.totalInThisMonth,
+          sumBalance: int.parse(balanceDetails.data.sumPaymentsInThisMonth),
+          bonus: balanceDetails.data.bounceinThisMonth,
+          netProfit: balanceDetails.data.netProfitInThisMonth,
+          kiloBonus: balanceDetails.data.kilometerBonusInThisMonth,
+          details: true,
+          );
+    } else {
+      resultModel = BalanceModel(
+        payments: [],
+      );
+      resultModel.bonus = result.data.bounce;
+    }
     if (result.data.total != null) {
       resultModel.currentBalance = result.data.total;
     }
