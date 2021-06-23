@@ -407,6 +407,7 @@ class UserService
 
      public function getOrderKilometers($captainId)
      {
+       $sumKilometerBonus = [];
        $orderKilometers = $this->acceptedOrderService->getOrderKilometers($captainId);
        foreach ($orderKilometers as $orderKilometer) {
         if ($orderKilometer['orderKilometers'] >= $orderKilometer['kilometers']) {
@@ -427,6 +428,7 @@ class UserService
 
      public function getOrderKilometersInThisMonth($captainId, $fromDate, $toDate)
      {
+        $sumKilometerBonus = [];
        $orderKilometers = $this->acceptedOrderService->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
 
        foreach ($orderKilometers as $orderKilometer) {
@@ -615,14 +617,22 @@ class UserService
 
     public function getCaptainMybalance($captainID)
     {
+        $response = [];
         $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
-        return $this->totalBounceCaptain($item['id'], 'captain', $captainID);
+        if($item) {
+            $response[] = $this->totalBounceCaptain($item['id'], 'captain', $captainID);
+        }
+        return $response;
     }
 
     public function getCaptainMybalanceInThisMonth($captainID)
     {
+        $response = [];
         $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
-        return $this->totalBounceCaptainInThisMonth($item['id'], 'captain', $captainID);
+        if($item) {
+            $response[] = $this->totalBounceCaptainInThisMonth($item['id'], 'captain', $captainID);
+        }
+        return $response;
     }
 
     public function remainingcaptain()
