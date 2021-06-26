@@ -40,11 +40,14 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     if (profileRequest == null) {
     } else {
       _nameController.text = profileRequest.name;
-      countryCode = profileRequest.phone.contains('+')
-          ? profileRequest.phone.substring(0, 4)
-          : '+966';
-      _phoneController.text =
-          profileRequest.phone.replaceFirst(countryCode, '0');
+      if (profileRequest.phone != null) {
+        countryCode = profileRequest.phone.contains('+')
+            ? profileRequest.phone.substring(0, 4)
+            : '+966';
+        _phoneController.text =
+            profileRequest.phone.replaceFirst(countryCode, '0');
+      }
+
       _stcPayController.text = profileRequest.stcPay;
       _bankAccountNumberController.text = profileRequest.bankAccountNumber;
       _bankNameController.text = profileRequest.bankName;
@@ -451,7 +454,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                     bankNumber: _stcPayController.text,
                     bankName: _bankAccountNumberController.text,
                   );
-                  widget.onImageUpload(profile,'driving', value.path);
+                  widget.onImageUpload(profile, 'driving', value.path);
                 }
               });
             },
