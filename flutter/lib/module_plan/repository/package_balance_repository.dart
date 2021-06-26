@@ -15,7 +15,7 @@ class PackageBalanceRepository {
   Future<PackageBalanceResponse> getCaptainPackage() async {
     ApiClient client = new ApiClient(new Logger());
     var response =
-        await client.get('http://c4d.yes-cloud.de/html/public/packagebalance/');
+        await client.get(Urls.PACKAGE_BALANCE);
 
     if (response == null) return null;
     return PackageBalanceResponse.fromJson(response);
@@ -26,7 +26,7 @@ class PackageBalanceRepository {
     await _authService.refreshToken();
     var token = await _authService.getToken();
     var response = await client
-        .get('http://c4d.yes-cloud.de/html/public/packagebalance/', headers: {
+        .get(Urls.PACKAGE_BALANCE, headers: {
       'Authorization': 'Bearer ' + token,
     });
 
@@ -41,7 +41,7 @@ class PackageBalanceRepository {
 
     try {
       var response = await client.get(
-        'http://c4d.yes-cloud.de/html/public/payments/',
+        Urls.PAYMENT,
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -63,7 +63,7 @@ class PackageBalanceRepository {
     await _authService.refreshToken();
     var token = await _authService.getToken();
     var response = await client
-        .get('http://c4d.yes-cloud.de/html/public/captainmybalance', headers: {
+        .get(Urls.GET_CAPTAIN_BALANCE, headers: {
       'Authorization': 'Bearer ' + token,
     });
 

@@ -219,7 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sendMeCode" : MessageLookupByLibrary.simpleMessage("Send me code"),
     "sendToRecordFaild" : MessageLookupByLibrary.simpleMessage("Sending record has been failed"),
     "sendToRecordSuccess" : MessageLookupByLibrary.simpleMessage("The report send with a success"),
-    "sendingReport" : MessageLookupByLibrary.simpleMessage("Sending report within 15 second"),
+    "sendingReport" : MessageLookupByLibrary.simpleMessage("Sending report within 15 seconds"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "share" : MessageLookupByLibrary.simpleMessage("Share"),
     "signOut" : MessageLookupByLibrary.simpleMessage("Sign out"),

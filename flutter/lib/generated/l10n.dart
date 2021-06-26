@@ -2475,10 +2475,10 @@ class S {
     );
   }
 
-  /// `Sending report within 15 second`
+  /// `Sending report within 15 seconds`
   String get sendingReport {
     return Intl.message(
-      'Sending report within 15 second',
+      'Sending report within 15 seconds',
       name: 'sendingReport',
       desc: '',
       args: [],
