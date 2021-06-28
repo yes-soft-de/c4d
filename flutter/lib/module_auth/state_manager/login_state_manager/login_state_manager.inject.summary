@@ -32,6 +32,13 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_notifications/service/fire_notification_service/fire_notification_service.dart#FireNotificationService",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

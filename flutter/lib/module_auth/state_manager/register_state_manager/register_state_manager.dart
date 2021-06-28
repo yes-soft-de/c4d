@@ -8,6 +8,7 @@ import 'package:c4d/module_auth/ui/states/register_states/register_state_code_se
 import 'package:c4d/module_auth/ui/states/register_states/register_state_error.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state_init.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state_success.dart';
+import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,16 +17,19 @@ class RegisterStateManager {
   final AuthService _authService;
   final AboutService _aboutService;
   final _registerStateSubject = PublishSubject<RegisterState>();
-
+  final FireNotificationService _fireNotificationService;
   RegisterScreenState _registerScreen;
 
-  RegisterStateManager(this._authService, this._aboutService) {
+  RegisterStateManager(
+      this._authService, this._aboutService, this._fireNotificationService) {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
           _aboutService.setInited().then((value) {
             _registerStateSubject.add(RegisterStateSuccess(_registerScreen));
+            _fireNotificationService.refreshNotificationToken();
           });
+
           break;
         case AuthStatus.CODE_SENT:
           _registerStateSubject

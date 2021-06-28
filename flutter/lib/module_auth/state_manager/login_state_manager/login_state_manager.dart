@@ -7,6 +7,7 @@ import 'package:c4d/module_auth/ui/states/login_states/login_state_code_sent.dar
 import 'package:c4d/module_auth/ui/states/login_states/login_state_error.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state_init.dart';
 import 'package:c4d/module_auth/ui/states/login_states/login_state_success.dart';
+import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
@@ -17,32 +18,36 @@ class LoginStateManager {
   final ProfileService _profileService;
   final PublishSubject<LoginState> _loginStateSubject =
       PublishSubject<LoginState>();
-
+  final FireNotificationService _fireNotificationService;
   String _email;
   String _password;
 
   LoginScreenState _screenState;
 
-  LoginStateManager(this._authService, this._profileService) {
+  LoginStateManager(
+      this._authService, this._profileService, this._fireNotificationService) {
     _authService.authListener.listen((event) {
       switch (event) {
         case AuthStatus.AUTHORIZED:
-          checkInited(_screenState);
+          _fireNotificationService
+              .refreshNotificationToken()
+              .whenComplete(() => checkInited(_screenState));
+
           break;
         case AuthStatus.CODE_SENT:
           _loginStateSubject.add(LoginStateCodeSent(_screenState));
           break;
         case AuthStatus.CODE_TIMEOUT:
-          _loginStateSubject.add(LoginStateError(
-              _screenState, 'Code Timeout', _email, _password));
+          _loginStateSubject.add(
+              LoginStateError(_screenState, 'Code Timeout', _email, _password));
           break;
         default:
           _loginStateSubject.add(LoginStateInit(_screenState));
           break;
       }
     }).onError((err) {
-      _loginStateSubject.add(LoginStateError(
-          _screenState, err.toString(), _email, _password));
+      _loginStateSubject.add(
+          LoginStateError(_screenState, err.toString(), _email, _password));
     });
   }
 
