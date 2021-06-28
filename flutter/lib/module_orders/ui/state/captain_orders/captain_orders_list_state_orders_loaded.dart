@@ -92,10 +92,10 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
                         ],
                       );
                     } else {
-                     return Column(
+                      return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Center(child:Text(S.of(context).emptyStaff)),
+                          Center(child: Text(S.of(context).emptyStaff)),
                         ],
                       );
                     }
@@ -288,6 +288,9 @@ class CaptainOrdersListStateOrdersLoaded extends CaptainOrdersListState {
     var _permissionGranted = await location.requestPermission();
     if (_permissionGranted == PermissionStatus.denied) {
       return order;
+    }
+    if (order == null) {
+      return [];
     }
 
     final Distance distance = Distance();
