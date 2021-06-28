@@ -13,6 +13,7 @@ services:
             - "80:80"
         volumes:
             - ./:/var/www/c4d/backend
+            - upload:/var/www/c4d/upload
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - php74-service
@@ -30,6 +31,7 @@ services:
             - "9000:9000"
         volumes:
             - ./:/var/www/c4d/backend
+            - upload:/var/www/c4d/upload
         networks:
             - c4d
 
@@ -49,7 +51,8 @@ services:
             MYSQL_PASSWORD: secret
         networks:
             - c4d
-
+volumes:
+  upload:
     # node
     # node-service:
     #     image: node:latest
