@@ -617,20 +617,20 @@ class UserService
 
     public function getCaptainMybalance($captainID)
     {
-        $response = [];
+        $response = "";
         $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
         if($item) {
-            $response[] = $this->totalBounceCaptain($item['id'], 'captain', $captainID);
+            $response = $this->totalBounceCaptain($item['id'], 'captain', $captainID);
         }
         return $response;
     }
 
     public function getCaptainMybalanceInThisMonth($captainID)
     {
-        $response = [];
+        $response = "";
         $item = $this->userManager->getcaptainprofileByCaptainID($captainID);
         if($item) {
-            $response[] = $this->totalBounceCaptainInThisMonth($item['id'], 'captain', $captainID);
+            $response = $this->totalBounceCaptainInThisMonth($item['id'], 'captain', $captainID);
         }
         return $response;
     }
