@@ -16,7 +16,8 @@ platform :android do
     )
     gradle(
       task: "bundle",
-      build_type: "Release"
+      build_type: "Release",
+      properties: { 'versionCode' => ENV["GITHUB_RUN_NUMBER"] }
     )
   end
 end
