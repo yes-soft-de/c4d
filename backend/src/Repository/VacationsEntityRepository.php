@@ -19,32 +19,28 @@ class VacationsEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, VacationsEntity::class);
     }
 
-    // /**
-    //  * @return VacationsEntity[] Returns an array of VacationsEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getHistoryVacationsForCaptain($captainId)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('vacations') 
+        ->select('vacations.id, vacations.startDate , vacations.endDate')
+            ->andWhere('vacations.captainId = :captainId')   
+            ->andWhere("vacations.state = 'vacation'")   
+            ->setParameter('captainId',$captainId)        
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?VacationsEntity
+    public function getLastVacationForCaptains($captainId)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('vacations') 
+        ->select('vacations.id, vacations.endDate')  
+            ->andWhere('vacations.captainId = :captainId') 
+            ->andWhere("vacations.state = 'vacation'")  
+            ->addOrderBy('vacations.id','DESC') 
+            ->setMaxResults(1)
+            ->groupBy('vacations.id')
+            ->setParameter('captainId',$captainId)       
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
 }

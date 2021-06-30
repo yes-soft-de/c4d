@@ -18,6 +18,7 @@ use App\Request\CaptainProfileUpdateByAdminRequest;
 use App\Request\CaptainProfileUpdateRequest;
 use App\Request\UserRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserManager

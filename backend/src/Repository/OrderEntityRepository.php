@@ -139,8 +139,11 @@ class OrderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('OrderEntity')
             ->select('count(OrderEntity.id) as countOngoingOrders')
-
-            ->andWhere("OrderEntity.state = 'ongoing' ") 
+ 
+            // ->andWhere("OrderEntity.state = 'ongoing' ") 
+            ->andWhere("OrderEntity.state != 'cancelled'") 
+            ->andWhere("OrderEntity.state != 'delivered'") 
+            ->andWhere("OrderEntity.state != 'pending'") 
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -167,7 +170,10 @@ class OrderEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(UserProfileEntity::class, 'userProfileEntity', Join::WITH, 'userProfileEntity.userID = OrderEntity.ownerID')
 
-            ->andWhere("OrderEntity.state = 'ongoing' ") 
+            // ->andWhere("OrderEntity.state = 'ongoing' ")
+            ->andWhere("OrderEntity.state != 'cancelled'") 
+            ->andWhere("OrderEntity.state != 'delivered'") 
+            ->andWhere("OrderEntity.state != 'pending'") 
             ->getQuery()
             ->getResult();
     }

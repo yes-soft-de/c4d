@@ -53,4 +53,30 @@ class VacationsController extends BaseController
 
         return $this->response($result, self::CREATE);
     }
+
+     /**
+      * @Route("/vacation/{captainID}", name="GetHistoryVacationsForCaptain", methods={"GET"})
+      * @param Request $request
+      * @return  JsonResponse
+      */
+      public function getHistoryVacationsForCaptain($captainID)
+      {
+          $result = $this->vacationsService->getHistoryVacationsForCaptain($captainID);
+  
+          return $this->response($result, self::FETCH);
+      }
+
+       /**
+     * @Route("/getDayOfCaptains", name="getDayOfCaptains",methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     * @param                                     Request $request
+     * @return                                    JsonResponse
+     */
+    public function getDayOfCaptains()
+    {
+        $result = $this->vacationsService->getDayOfCaptains();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

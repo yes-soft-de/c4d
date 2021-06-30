@@ -319,18 +319,18 @@ class UserController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
-    /**
-     * @Route("/getDayOfCaptains", name="getDayOfCaptains",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     * @param                                     Request $request
-     * @return                                    JsonResponse
-     */
-    public function getDayOfCaptains()
-    {
-        $result = $this->userService->getDayOfCaptains();
+    // /**
+    //  * @Route("/getDayOfCaptains", name="getDayOfCaptains",methods={"GET"})
+    //  * @IsGranted("ROLE_ADMIN")
+    //  * @param                                     Request $request
+    //  * @return                                    JsonResponse
+    //  */
+    // public function getDayOfCaptains()
+    // {
+    //     $result = $this->userService->getDayOfCaptains();
 
-        return $this->response($result, self::FETCH);
-    }
+    //     return $this->response($result, self::FETCH);
+    // }
 
     /**
      * @Route("/totalBounceCaptain/{captainProfileId}", name="TotalBounceCaptain",methods={"GET"})

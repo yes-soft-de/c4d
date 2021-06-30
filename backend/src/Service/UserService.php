@@ -383,7 +383,7 @@ class UserService
          return $response;
      }
 
-     public function GetDayOfCaptains()
+     public function getDayOfCaptains()
      {
          $response = [];
 

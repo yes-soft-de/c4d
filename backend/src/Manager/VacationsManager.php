@@ -36,31 +36,13 @@ class VacationsManager
         return $entity;
     }
 
-    public function getPackages($user)
-    {
-        return $this->packageRepository->getPackages($user);
+    public function getHistoryVacationsForCaptain($captainID) {
+        return $this->vacationsRepository->getHistoryVacationsForCaptain($captainID);
     }
 
-    public function getAllpackages()
-    {
-        return $this->packageRepository->getAllpackages();
-    }
-    public function getpackagesById($id)
-    {
-        return $this->packageRepository->getpackagesById($id);
+    public function getLastVacationForCaptains($captainId) {
+        return $this->vacationsRepository->getLastVacationForCaptains($captainId);
+        
     }
 
-    public function update(PackageUpdateStateRequest $request)
-    {
-        $entity = $this->packageRepository->find($request->getId());
-
-        if (!$entity) {
-            return null;
-        }
-        $entity = $this->autoMapping->mapToObject(PackageUpdateStateRequest::class, PackageEntity::class, $request, $entity);
-
-        $this->entityManager->flush();
-
-        return $entity;
-    }
 }

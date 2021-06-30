@@ -736,6 +736,11 @@ state = vacation  OR work
 /vacation
 methods: POST
 ```
+#### Get History Vacations For Captain 
+```
+/vacation/{captainID}
+methods: GET
+```
 
 ### TermsCaptain
 
