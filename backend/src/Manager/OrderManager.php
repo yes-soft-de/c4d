@@ -182,7 +182,7 @@ class OrderManager
 
     public function countOrdersInMonthForOwner($fromDate, $toDate, $ownerId)
     {
-        return $this->repository->countOrdersInMonthForOwner($fromDate, $toDate, $ownerId);
+        return $this->repository->countOrdersInMonthForOwner($toDate, $fromDate, $ownerId);
     }
 
     public function getAllOrders($fromDate, $toDate, $ownerId)
@@ -197,7 +197,7 @@ class OrderManager
 
     public function countOrdersInDay($ownerID, $fromDate, $toDate)
     {
-        return $this->repository->countOrdersInDay($ownerID, $fromDate, $toDate);
+        return $this->repository->countOrdersInDay($ownerID, $toDate, $fromDate);
     }
 
     public function orderCancel($orderId)

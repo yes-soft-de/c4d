@@ -133,12 +133,12 @@ class AcceptedOrderService
 
     public function countOrdersInMonthForCaptin($fromDate, $toDate, $captainId)
      {
-         return $this->acceptedOrderManager->countOrdersInMonthForCaptin($fromDate, $toDate, $captainId);
+         return $this->acceptedOrderManager->countOrdersInMonthForCaptin($toDate, $fromDate, $captainId);
      }
 
     public function getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId)
      {
-         return $this->acceptedOrderManager->getAcceptedOrderByCaptainIdInMonth($fromDate, $toDate, $captainId);
+         return $this->acceptedOrderManager->getAcceptedOrderByCaptainIdInMonth($toDate, $fromDate, $captainId);
      }
 
     public function getTopCaptainsInThisMonth()
@@ -183,7 +183,7 @@ class AcceptedOrderService
 
     public function countOrdersInDay($captainID, $fromDate, $toDate)
      {
-         return $this->acceptedOrderManager->countOrdersInDay($captainID, $fromDate, $toDate);
+         return $this->acceptedOrderManager->countOrdersInDay($captainID, $toDate, $fromDate);
      }
 
     public function getOwnerIdAndUuid($orderId)

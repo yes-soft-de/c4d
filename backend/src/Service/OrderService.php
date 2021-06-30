@@ -234,7 +234,6 @@ class OrderService
     {
         $response ="received";
         $captainReceived =$this->IsCaptainReceivedThisOrder($request->getId(), $request->getCaptainID());
-
         if ($captainReceived) {
 
             $item = $this->orderManager->orderUpdateStateByCaptain($request);
@@ -378,7 +377,7 @@ class OrderService
     public function returnDate($year, $month)
     {
         $fromDate =new \DateTime($year . '-' . $month . '-01'); 
-        $toDate = new \DateTime($fromDate->format('Y-m-d h:i:s') . ' -1 month');
+        $toDate = new \DateTime($fromDate->format('Y-m-d h:i:s') . ' +1 month');
         // if you want get top captains in this month must change (-1 month) to (+1 month) in back line
     //    return [$fromDate,  $toDate];
 
