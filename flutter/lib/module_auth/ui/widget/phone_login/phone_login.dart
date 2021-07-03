@@ -31,11 +31,11 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
 
   final GlobalKey _signUpFormKey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
-  String countryCode = '+963';
+  String countryCode = '+966';
 
   bool retryEnabled = false;
   bool agreed = false;
-  String hint = '900000000';
+  String hint = '500000000';
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,7 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
         }
       });
     }
-    if (countryCode == '+963') {
-      hint = '900000000';
-    } else if (countryCode == '+966') {
+   if (countryCode == '+966') {
       hint = '500000000';
     } else {
       hint = '700000000';
@@ -84,10 +82,6 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                       DropdownMenuItem(
                         value: '+961',
                         child: Text(S.of(context).lebanon),
-                      ),
-                      DropdownMenuItem(
-                        value: '+963',
-                        child: Text(S.of(context).syria),
                       ),
                     ],
                   ),
