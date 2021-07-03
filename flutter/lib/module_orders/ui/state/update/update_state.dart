@@ -31,27 +31,33 @@ class UpdateListStateInit extends UpdateListState {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: updates.length,
-          itemBuilder: (context, index) {
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-              color: Theme.of(context).primaryColor,
-              child: ListTile(
-                title: Text(
-                  '${updates[index].title}',
-                  style: TextStyle(color: Colors.white),
+        child: updates != null
+            ? ListView.builder(
+                itemCount: updates.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    color: Theme.of(context).primaryColor,
+                    child: ListTile(
+                      title: Text(
+                        '${updates[index].title}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        '${updates[index].content}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
+              )
+            : Container(
+                child: Center(
+                  child: Text(S.of(context).emptyStaff),
                 ),
-                subtitle: Text(
-                  '${updates[index].content}',
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
-            );
-          },
-        ),
       ),
     );
   }

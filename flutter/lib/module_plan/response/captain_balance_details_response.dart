@@ -36,15 +36,13 @@ class Data {
     sumPaymentsInThisMonth = json['sumPaymentsInThisMonth'];
     totalInThisMonth = json['totalInThisMonth'];
     countOrdersDeliverd = json['countOrdersDeliverd'];
-    paymentsInThisMonth = json['paymentsInThisMonth'];
-    if (json['payments'] != null) {
+    if (json['paymentsInThisMonth'] != null) {
       paymentsInThisMonth = new List<Payments>();
-      json['payments'].forEach((v) {
+      json['paymentsInThisMonth'].forEach((v) {
         paymentsInThisMonth.add(new Payments.fromJson(v));
       });
     }
   }
-
 }
 
 class Payments {
