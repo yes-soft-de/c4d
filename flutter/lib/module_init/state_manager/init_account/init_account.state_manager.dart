@@ -145,9 +145,10 @@ class InitAccountStateManager {
           screen,
         ));
       } else {
-        _stateSubject.add(
-          InitAccountStatePayment(screen),
-        );
+        // _stateSubject.add(
+        //   InitAccountStatePayment(screen),
+        // );
+         screen.moveToOrders();
       }
     });
   }
