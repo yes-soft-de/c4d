@@ -108,6 +108,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
               whatsapp: _companyInfo.whatsapp ?? '',
               phone: _companyInfo.phone ?? '',
               chatID: _companyInfo.uuid ?? '',
+              companyInfo: _companyInfo,
             )
           : _companyInfo != null
               ? DrawerWidget(
@@ -115,6 +116,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
                   whatsapp: _companyInfo.whatsapp ?? '',
                   phone: _companyInfo.phone ?? '',
                   chatID: _companyInfo.uuid ?? '',
+                  companyInfo: _companyInfo,
                 )
               : DrawerWidget(
                   role: UserRole.ROLE_CAPTAIN,

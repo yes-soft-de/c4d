@@ -96,11 +96,11 @@ class PlanService {
       return null;
     }
     var resultModel;
-    if (resultModel != null) {
+    if (balanceDetails != null) {
       resultModel = BalanceModel(
           payments: [],
           total: balanceDetails.data.totalInThisMonth,
-          sumBalance: int.parse(balanceDetails.data.sumPaymentsInThisMonth),
+          sumBalance: balanceDetails.data.sumPaymentsInThisMonth,
           bonus: balanceDetails.data.bounceinThisMonth,
           netProfit: balanceDetails.data.netProfitInThisMonth,
           kiloBonus: balanceDetails.data.kilometerBonusInThisMonth,

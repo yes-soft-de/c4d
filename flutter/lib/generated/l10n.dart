@@ -2484,6 +2484,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Comunity`
+  String get social {
+    return Intl.message(
+      'Comunity',
+      name: 'social',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

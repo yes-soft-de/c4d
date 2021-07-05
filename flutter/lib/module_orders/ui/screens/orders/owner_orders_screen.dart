@@ -125,6 +125,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
               whatsapp: _companyInfo.whatsapp ?? '',
               phone: _companyInfo.phone ?? '',
               chatID: _companyInfo.uuid ?? '',
+              companyInfo: _companyInfo,
             )
           : _companyInfo != null
               ? DrawerWidget(
@@ -132,6 +133,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
                   whatsapp: _companyInfo.whatsapp ?? '',
                   phone: _companyInfo.phone ?? '',
                   chatID: _companyInfo.uuid ?? '',
+                  companyInfo: _companyInfo,
                 )
               : DrawerWidget(
                   role: UserRole.ROLE_OWNER,

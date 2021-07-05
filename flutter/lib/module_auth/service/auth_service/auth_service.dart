@@ -308,7 +308,7 @@ class AuthService {
       username: email ?? uid,
       password: password,
     ));
-    await _prefsHelper.setToken(loginResponse.token);
+    await _prefsHelper.setToken(loginResponse?.token);
     return loginResponse!=null?loginResponse.token:null;
   }
 

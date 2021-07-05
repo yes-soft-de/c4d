@@ -16,7 +16,7 @@ class Data {
   int bounceinThisMonth;
   int kilometerBonusInThisMonth;
   int netProfitInThisMonth;
-  String sumPaymentsInThisMonth;
+  var sumPaymentsInThisMonth;
   int totalInThisMonth;
   int countOrdersDeliverd;
   List<Payments> paymentsInThisMonth;

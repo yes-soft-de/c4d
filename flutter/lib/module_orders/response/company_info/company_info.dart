@@ -8,6 +8,9 @@ class CompanyInfoResponse {
   String stc;
   String email;
   String uuid;
+  var kilometers;
+  var maxKilometerBonus;
+  var minKilometerBonus;
   CompanyInfoResponse(
       {this.id,
       this.phone,
@@ -17,7 +20,10 @@ class CompanyInfoResponse {
       this.email,
       this.fax,
       this.stc,
-      this.uuid});
+      this.uuid,
+      this.kilometers,
+      this.maxKilometerBonus,
+      this.minKilometerBonus});
 
   CompanyInfoResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -29,6 +35,9 @@ class CompanyInfoResponse {
     fax = json['fax'];
     stc = json['stc'];
     uuid = json['uuid'];
+    kilometers = json['kilometers'];
+    maxKilometerBonus = json['maxKilometerBonus'];
+    minKilometerBonus = json['minKilometerBonus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -42,6 +51,22 @@ class CompanyInfoResponse {
     data['email'] = this.email;
     data['stc'] = this.stc;
     data['uuid'] = this.uuid;
+    return data;
+  }
+  Map<String, dynamic> toJsonCaptain() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = this.id;
+    data['phone'] = this.phone;
+    data['phone2'] = this.phone2;
+    data['whatsapp'] = this.whatsapp;
+    data['bank'] = this.bank;
+    data['fax'] = this.fax;
+    data['email'] = this.email;
+    data['stc'] = this.stc;
+    data['uuid'] = this.uuid;
+    data['kilometers'] = this.kilometers;
+    data['maxKilometerBonus'] = this.maxKilometerBonus;
+    data['minKilometerBonus'] = this.minKilometerBonus;
     return data;
   }
 }

@@ -244,6 +244,7 @@
   "no":"No",
   "confirmingCaptainLocation":"Confirm with yes and no if captain reach you",
   "redo":"Redo",
-  "sendingReport":"Sending report within 15 seconds"
+  "sendingReport":"Sending report within 15 seconds",
+  "social":"Comunity"
 
 }
