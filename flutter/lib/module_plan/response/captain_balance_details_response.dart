@@ -13,12 +13,12 @@ class BalanceDetailsResponse {
 }
 
 class Data {
-  int bounceinThisMonth;
-  int kilometerBonusInThisMonth;
-  int netProfitInThisMonth;
+  var bounceinThisMonth;
+  var kilometerBonusInThisMonth;
+  var netProfitInThisMonth;
   var sumPaymentsInThisMonth;
-  int totalInThisMonth;
-  int countOrdersDeliverd;
+  var totalInThisMonth;
+  var countOrdersDeliverd;
   List<Payments> paymentsInThisMonth;
   Data(
       {this.bounceinThisMonth,
@@ -48,7 +48,7 @@ class Data {
 class Payments {
   int id;
   String captainId;
-  int amount;
+  var amount;
   Date date;
 
   Payments({this.id, this.captainId, this.amount, this.date});

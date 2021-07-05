@@ -1,14 +1,14 @@
 class BalanceModel {
   DateTime nextPaymentDate;
-  int currentBalance;
-  int bonus;
-  int salary;
+  var currentBalance;
+  var bonus;
+  var salary;
   List<PaymentModel> payments;
   var nextPay;
-  int netProfit;
-  int kiloBonus;
-  int sumBalance;
-  int total;
+  var netProfit;
+  var kiloBonus;
+  var sumBalance;
+  var total;
   bool details;
   BalanceModel(
       {this.nextPaymentDate,
@@ -27,7 +27,7 @@ class BalanceModel {
 
 class PaymentModel {
   DateTime paymentDate;
-  int amount;
+  var amount;
 
   PaymentModel(this.paymentDate, this.amount);
 }
