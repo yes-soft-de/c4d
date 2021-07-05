@@ -2,10 +2,13 @@ import 'package:c4d/consts/urls.dart';
 import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_chat/chat_routes.dart';
+import 'package:c4d/module_navigation/ui/comunity_screen.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
+import 'package:c4d/module_orders/response/company_info/company_info.dart';
 import 'package:c4d/module_plan/plan_routes.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
 import 'package:c4d/module_settings/setting_routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
@@ -20,14 +23,16 @@ class DrawerWidget extends StatelessWidget {
   final phone;
   final UserRole role;
   final String chatID;
-  DrawerWidget(
-      {this.username,
-      this.user_image,
-      this.whatsapp,
-      this.phone,
-      @required this.role,
-      this.chatID})
-      : assert(role != null);
+  final CompanyInfoResponse companyInfo;
+  DrawerWidget({
+    this.username,
+    this.user_image,
+    this.whatsapp,
+    this.phone,
+    @required this.role,
+    this.chatID,
+    this.companyInfo
+  }) : assert(role != null);
 
   @override
   Widget build(BuildContext context) {
@@ -121,18 +126,20 @@ class DrawerWidget extends StatelessWidget {
                       title: Text(S.of(context).directSupport),
                     ),
                   ),
-                  chatID !=null ? GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        ChatRoutes.chatRoute,
-                        arguments: 'A#$chatID',
-                      );
-                    },
-                    child: ListTile(
-                      leading: Icon(Icons.chat),
-                      title: Text(S.of(context).directSupport),
-                    ),
-                  ):Container(),
+                  chatID != null
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              ChatRoutes.chatRoute,
+                              arguments: 'A#$chatID',
+                            );
+                          },
+                          child: ListTile(
+                            leading: Icon(Icons.chat),
+                            title: Text(S.of(context).directSupport),
+                          ),
+                        )
+                      : Container(),
                   GestureDetector(
                       onTap: () {
                         String url = 'https://c4d-app.web.app/privacy.html';
@@ -163,8 +170,9 @@ class DrawerWidget extends StatelessWidget {
                       )),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(SettingRoutes.ROUTE_SETTINGS,arguments: role);
+                      Navigator.of(context).pushNamed(
+                          SettingRoutes.ROUTE_SETTINGS,
+                          arguments: role);
                     },
                     child: ListTile(
                       leading: Icon(Icons.settings),
@@ -175,7 +183,8 @@ class DrawerWidget extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Share.share('check out my website https://c4d.com');
+                      Share.share(
+                          '${S.of(context).pleaseDownloadC4d} https://c4d.yes-soft.de/');
                     },
                     child: ListTile(
                       leading: Icon(Icons.ios_share),
@@ -206,6 +215,19 @@ class DrawerWidget extends StatelessWidget {
                           S.of(context).howWeWork,
                         ),
                       )),
+                companyInfo != null ? GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) {
+                          return ComunityScreen(role==UserRole.ROLE_CAPTAIN ? companyInfo.toJsonCaptain() :companyInfo.toJson());
+                        }));
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.people),
+                        title: Text(
+                          S.of(context).social,
+                        ),
+                      )):Container(),
                 ],
               ),
               Container(
@@ -214,30 +236,30 @@ class DrawerWidget extends StatelessWidget {
                   direction: Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                        icon: Icon(
-                          Icons.phone,
-                        ),
-                        onPressed: () {
-                          launch('tel:$phone');
-                        }),
-                    IconButton(
-                        icon: FaIcon(
-                          FontAwesomeIcons.whatsapp,
-                        ),
-                        onPressed: () {
-                          launch('https://wa.me/$whatsapp');
-                        }),
-                    IconButton(
-                        icon: FaIcon(
-                          FontAwesomeIcons.facebook,
-                        ),
-                        onPressed: () {}),
-                    IconButton(
-                        icon: FaIcon(
-                          FontAwesomeIcons.twitter,
-                        ),
-                        onPressed: () {}),
+                    // IconButton(
+                    //     icon: Icon(
+                    //       Icons.phone,
+                    //     ),
+                    //     onPressed: () {
+                    //       launch('tel:$phone');
+                    //     }),
+                    //   IconButton(
+                    //       icon: FaIcon(
+                    //         FontAwesomeIcons.whatsapp,
+                    //       ),
+                    //       onPressed: () {
+                    //         launch('https://wa.me/$whatsapp');
+                    //       }),
+                    // //   IconButton(
+                    //       icon: FaIcon(
+                    //         FontAwesomeIcons.facebook,
+                    //       ),
+                    //       onPressed: () {}),
+                    //   IconButton(
+                    //       icon: FaIcon(
+                    //         FontAwesomeIcons.twitter,
+                    //       ),
+                    //       onPressed: () {}),
                   ],
                 ),
               ),
