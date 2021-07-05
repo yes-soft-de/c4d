@@ -428,7 +428,7 @@ class UserService
 
      public function getOrderKilometersInThisMonth($captainId, $fromDate, $toDate)
      {
-        $sumKilometerBonus = [];
+       $sumKilometerBonus = [];
        $orderKilometers = $this->acceptedOrderService->getOrderKilometersInThisMonth($captainId, $fromDate, $toDate);
 
        foreach ($orderKilometers as $orderKilometer) {
@@ -496,32 +496,34 @@ class UserService
         $year = $dateNow->format("Y");
         $month = $dateNow->format("m");
         $date = $this->returnDate($year, $month);
-
+       
         $item = $this->userManager->totalBounceCaptain($captainProfileId);
-      
+       
         if ($user == "captain") { 
-            $sumAmount = $this->paymentCaptainService->getSumAmountInThisMonth($captainId, $date[1], $date[0]);
-           
-            $payments = $this->paymentCaptainService->getpaymentsInThisMonth($captainId, $date[1], $date[0]);
+            $sumAmount = $this->paymentCaptainService->getSumAmountInThisMonth($captainId, $date[0], $date[1]);
+            if( $sumAmount[0]['sumPayments'] == null){$sumAmount[0]['sumPayments'] = 0;}
+            $payments = $this->paymentCaptainService->getpaymentsInThisMonth($captainId, $date[0], $date[1]);
             // $bank = $this->bankService->getAccount($captainId);
-            $sumKilometerBonus = $this->getOrderKilometersInThisMonth($captainId, $date[1], $date[0]);
+            $sumKilometerBonus = $this->getOrderKilometersInThisMonth($captainId, $date[0], $date[1]);
           
         }
         if ($user == "admin") { 
-            $sumAmount = $this->paymentCaptainService->getSumAmountInThisMonth($item[0]['captainID'], $date[1], $date[0]);
-            $payments = $this->paymentCaptainService->getpaymentsInThisMonth($item[0]['captainID'], $date[1], $date[0]);
+           
+            $sumAmount = $this->paymentCaptainService->getSumAmountInThisMonth($item[0]['captainID'], $date[0], $date[1]);
+            if( $sumAmount[0]['sumPayments'] == null){$sumAmount[0]['sumPayments'] = 0;}
+            $payments = $this->paymentCaptainService->getpaymentsInThisMonth($item[0]['captainID'], $date[0], $date[1]);
             // $bank = $this->bankService->getAccount($item[0]['captainID']);
-            $sumKilometerBonus = $this->getOrderKilometersInThisMonth($item[0]['captainID'], $date[1], $date[0]);
+            $sumKilometerBonus = $this->getOrderKilometersInThisMonth($item[0]['captainID'], $date[0], $date[1]);
             
         }
 
         if ($item) {
              $item['kilometerBonusInThisMonth'] = $sumKilometerBonus;
-             $countAcceptedOrder = $this->acceptedOrderService->countAcceptedOrderInThisMonth($item[0]['captainID'], $date[1], $date[0]);
+             $countAcceptedOrder = $this->acceptedOrderService->countAcceptedOrderInThisMonth($item[0]['captainID'], $date[0], $date[1]);
              
              $item['bounceInThisMonth'] = $item[0]['bounce'] * $countAcceptedOrder[0]['countOrdersDeliverd'];
              $item['countOrdersDeliverdInThisMonth'] = $countAcceptedOrder[0]['countOrdersDeliverd'];
-             $item['sumPaymentsInThisMonth'] = $sumAmount[0]['sumPayments'];
+             $item['sumPaymentsInThisMonth'] = (int)$sumAmount[0]['sumPayments'];
              $item['NetProfitInThisMonth'] = $item['bounceInThisMonth'] + $item[0]['salary'] + $item['kilometerBonusInThisMonth'];
              $item['totalInThisMonth'] = $item['sumPaymentsInThisMonth'] - ($item['bounceInThisMonth'] + $item[0]['salary'] + $item['kilometerBonusInThisMonth']);
              $item['paymentsInThisMonth'] = $payments;
