@@ -84,6 +84,11 @@ class ChatPageState extends State<ChatPage> {
         chatRoomId = chatRoomId.substring(2);
         feedBack = true;
       }
+      if (chatRoomId.substring(0, 2) == 'O#') {
+        chatRoomId = chatRoomId.substring(2);
+        feedBack = true;
+        support = true;
+      }
       widget._chatPageBloc.getMessages(chatRoomId);
     }
 

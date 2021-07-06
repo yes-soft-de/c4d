@@ -40,6 +40,7 @@ class Urls {
   static const TERMS_OWNER = BASE_API + '/';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
+  static const NOTIFICATIONTOADMINFROMOWNER_API = BASE_API + '/notificationtoadminfromowner';
   static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
   static const UPDATE_BRANCH_API = BASE_API + '/branches';
   static const GET_CAPTAIN_BALANCE_DETAILS =
