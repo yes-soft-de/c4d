@@ -31,7 +31,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('profile')
 
             ->select('profile.id', 'profile.userName','profile.userID', 'profile.image', 'profile.story',
-                'profile.branch', 'profile.free', 'profile.status', 'profile.city', 'profile.phone', 'profile.image', 'profile.uuid')
+                'profile.branch', 'profile.free', 'profile.status', 'profile.city', 'profile.phone', 'profile.image', 'profile.uuid', 'profile.newMessageStatus')
             ->andWhere('profile.userID=:userID')
             ->setParameter('userID', $userID)
 
@@ -99,7 +99,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.story', 'profile.free', 'profile.branch as branchcount')
+            ->select('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.story', 'profile.free', 'profile.branch as branchcount', 'profile.newMessageStatus')
             ->addSelect('orderEntity.id as orderID', 'orderEntity.date', 'orderEntity.source', 'orderEntity.fromBranch', 'orderEntity.payment', 'orderEntity.destination','branchesEntity.location','branchesEntity.brancheName','branchesEntity.city as branchCity', 'acceptedOrderEntity.captainID','captainProfileEntity.name as captainName')
        
             ->leftJoin(OrderEntity::class, 'orderEntity', Join::WITH, 'profile.userID = orderEntity.ownerID')
