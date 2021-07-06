@@ -556,6 +556,12 @@ class UserService
             $items = $this->userManager->getOwners();
 
             foreach ($items as $item) {
+                if ($item['image'])
+                {
+                    $item['imageURL'] = $item['image'];
+                    $item['image'] = $this->params.$item['image'];
+                }
+                $item['baseURL'] = $this->params;
                 $respons[] = $this->autoMapping->map('array', AllUsersResponse::class, $item);
             }
         }

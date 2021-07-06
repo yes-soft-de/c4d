@@ -80,6 +80,7 @@ class UserManager
 
             $userProfile->setStatus('inactive');
             $userProfile->setFree(false);
+            $userProfile->setNewMessageStatus(false);
 
             $this->entityManager->persist($userProfile);
             $this->entityManager->flush();
