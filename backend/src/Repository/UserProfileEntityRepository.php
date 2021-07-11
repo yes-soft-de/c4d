@@ -118,7 +118,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.id', 'profile.userID', 'profile.userName', 'profile.free', 'profile.branch', 'profile.uuid', 'profile.newMessageStatus')
+            ->select('profile.id', 'profile.userID', 'profile.userName', 'profile.free', 'profile.branch', 'profile.uuid', 'profile.newMessageStatus', 'profile.image')
 
             ->getQuery()
             ->getResult();

@@ -591,6 +591,12 @@ class UserService
             $owners = $this->userManager->getAllOwners();
             
             foreach ($owners as $owner) {
+                if ($owner['image'])
+                {
+                    $owner['imageURL'] = $owner['image'];
+                    $owner['image'] = $this->params.$owner['image'];
+                }
+                $owner['baseURL'] = $this->params;
                 $response[] = $this->autoMapping->map('array', UserProfileCreateResponse::class, $owner);
             }
         }
