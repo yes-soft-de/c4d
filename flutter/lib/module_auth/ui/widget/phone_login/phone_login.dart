@@ -79,10 +79,6 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                         value: '+966',
                         child: Text(S.of(context).saudiArabia),
                       ),
-                      DropdownMenuItem(
-                        value: '+961',
-                        child: Text(S.of(context).lebanon),
-                      ),
                     ],
                   ),
                   Expanded(

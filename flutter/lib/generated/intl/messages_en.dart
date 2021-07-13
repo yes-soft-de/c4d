@@ -225,7 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "signOut" : MessageLookupByLibrary.simpleMessage("Sign out"),
     "skip" : MessageLookupByLibrary.simpleMessage("Skip"),
     "smallLessThan20Employee" : MessageLookupByLibrary.simpleMessage("1 - 20 Employee"),
-    "social" : MessageLookupByLibrary.simpleMessage("Comunity"),
+    "social" : MessageLookupByLibrary.simpleMessage("Company contact info"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("Start Writing"),
     "stcPayCode" : MessageLookupByLibrary.simpleMessage("STC Pay Code"),
     "store" : MessageLookupByLibrary.simpleMessage("Store"),

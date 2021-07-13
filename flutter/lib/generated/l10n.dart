@@ -2485,10 +2485,10 @@ class S {
     );
   }
 
-  /// `Comunity`
+  /// `Company contact info`
   String get social {
     return Intl.message(
-      'Comunity',
+      'Company contact info',
       name: 'social',
       desc: '',
       args: [],

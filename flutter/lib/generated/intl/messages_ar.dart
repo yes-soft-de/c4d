@@ -223,7 +223,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "signOut" : MessageLookupByLibrary.simpleMessage("تسحيل الخروج"),
     "skip" : MessageLookupByLibrary.simpleMessage("تخطي"),
     "smallLessThan20Employee" : MessageLookupByLibrary.simpleMessage("1 - 20 موظف"),
-    "social" : MessageLookupByLibrary.simpleMessage("مواقع التواصل"),
+    "social" : MessageLookupByLibrary.simpleMessage("معلومات الشركة"),
     "startWriting" : MessageLookupByLibrary.simpleMessage("ابدأ الكتابة"),
     "stcPayCode" : MessageLookupByLibrary.simpleMessage("رقم حساب STC PAY"),
     "store" : MessageLookupByLibrary.simpleMessage("المتجر"),
