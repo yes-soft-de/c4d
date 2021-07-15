@@ -17,6 +17,7 @@ dependencies:
   another_flushbar: ^1.10.11
   flutter_local_notifications: ^4.0.1+2
   fluttertoast: ^7.1.6
+  audioplayers: ^0.17.4
   # Localization Library
   flutter_localizations:
     sdk: flutter
@@ -151,6 +152,7 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
+    - assets/
 
 flutter_intl:
   enabled: true
