@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:analyzer_plugin/protocol/protocol.dart';
+import 'package:audioplayers/audio_cache.dart';
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_about/about_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
@@ -96,6 +97,7 @@ class _MyAppState extends State<MyApp> {
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
+  AudioCache audioCache = AudioCache();
   //Initialisation of local notification
 
   //end
@@ -108,27 +110,32 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     widget._fireNotificationService.init();
     widget._localNotificationService.init();
+    if (Platform.isIOS) {
+      if (audioCache.fixedPlayer != null) {
+        audioCache.fixedPlayer.startHeadlessService();
+      }
+    }
     widget._localizationService.localizationStream.listen((event) {
       timeago.setDefaultLocale(event);
       setState(() {});
     });
-    widget._fireNotificationService.onNotificationStream.listen((event) {
+    widget._fireNotificationService.onNotificationStream.listen((event) async {
       NotificationModel model = NotificationModel.fromJson(event);
-      widget._localNotificationService.showNotification(model);
-      if (Platform.isIOS){
-        Fluttertoast.showToast(
+       widget._localNotificationService.showNotification(model);
+      if (Platform.isIOS) {
+        await audioCache.play('rington.mp3');
+        await Fluttertoast.showToast(
             msg: '${model.body}',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.SNACKBAR,
             timeInSecForIosWeb: 1,
             backgroundColor: Color(0xFF3ACCE1),
             textColor: Colors.white,
-            fontSize: 16.0
-        );
-      }
+            fontSize: 16.0);
+     }
     });
-    widget._localNotificationService.onLocalNotificationStream.listen((event) {
-    });
+    widget._localNotificationService.onLocalNotificationStream
+        .listen((event) {});
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});
