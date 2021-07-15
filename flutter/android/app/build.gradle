@@ -48,8 +48,7 @@ android {
 
     defaultConfig {
         applicationId "de.yessoft.c4d"
-        multiDexEnabled true
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
