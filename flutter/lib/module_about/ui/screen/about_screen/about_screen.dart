@@ -20,10 +20,10 @@ class AboutScreen extends StatefulWidget {
   void moveToRegister([UserRole role]) {
     if (role != null) {
       Navigator.of(_scaffoldKey.currentContext)
-          .pushNamed(AuthorizationRoutes.LOGIN_SCREEN, arguments: role);
+          .pushNamed(AuthorizationRoutes.REGISTER_SCREEN, arguments: role);
     } else {
       Navigator.of(_scaffoldKey.currentContext)
-          .pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
+          .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
     }
   }
 
