@@ -219,7 +219,7 @@ class DrawerWidget extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (_) {
-                          return ComunityScreen(role==UserRole.ROLE_CAPTAIN ? companyInfo.toJsonCaptain() :companyInfo.toJson());
+                          return ComunityScreen(role==UserRole.ROLE_CAPTAIN ? companyInfo.toJsonCaptain() : companyInfo.toJson());
                         }));
                       },
                       child: ListTile(

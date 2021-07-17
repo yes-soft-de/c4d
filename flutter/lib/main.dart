@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
       if (Platform.isIOS) {
         await audioCache.play('rington.mp3');
         await Fluttertoast.showToast(
-            msg: '${model.body}',
+            msg: '${model.body ?? S.current.newMessageCommingOut}',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.SNACKBAR,
             timeInSecForIosWeb: 1,

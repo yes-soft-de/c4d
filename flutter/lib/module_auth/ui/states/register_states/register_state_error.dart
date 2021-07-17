@@ -1,3 +1,4 @@
+import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
@@ -66,7 +67,8 @@ class RegisterStateError extends RegisterState {
                 screen.registerCaptain(phone);
               },
               onAlterRequest: () {
-                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
               },
               isRegister: true,
               onRetry: () {

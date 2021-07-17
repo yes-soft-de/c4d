@@ -117,7 +117,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                             launch(url);
                           },
                           child: CommunicationCard(
-                            text: S.of(context).store,
+                            text: S.of(context).whatsappWithStoreOwner,
                             image: FaIcon(
                               FontAwesomeIcons.whatsapp,
                               color: Theme.of(context).brightness ==

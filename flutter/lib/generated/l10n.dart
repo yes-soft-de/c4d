@@ -2494,6 +2494,106 @@ class S {
       args: [],
     );
   }
+
+  /// `You have consumed 35%`
+  String get orderAverage35 {
+    return Intl.message(
+      'You have consumed 35%',
+      name: 'orderAverage35',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have consumed 40%`
+  String get orderAverage40 {
+    return Intl.message(
+      'You have consumed 40%',
+      name: 'orderAverage40',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have consumed 75%`
+  String get orderAverage75 {
+    return Intl.message(
+      'You have consumed 75%',
+      name: 'orderAverage75',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have consumed 80%`
+  String get orderAverage80 {
+    return Intl.message(
+      'You have consumed 80%',
+      name: 'orderAverage80',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dear`
+  String get dear {
+    return Intl.message(
+      'Dear',
+      name: 'dear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whatsapp`
+  String get whatsapp {
+    return Intl.message(
+      'Whatsapp',
+      name: 'whatsapp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kilometers limit`
+  String get kilometerLimt {
+    return Intl.message(
+      'Kilometers limit',
+      name: 'kilometerLimt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `bonus on max limit`
+  String get kilometerLimtMax {
+    return Intl.message(
+      'bonus on max limit',
+      name: 'kilometerLimtMax',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `bonus on min limit`
+  String get kilometerLimtMin {
+    return Intl.message(
+      'bonus on min limit',
+      name: 'kilometerLimtMin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have new notification`
+  String get newMessageCommingOut {
+    return Intl.message(
+      'You have new notification',
+      name: 'newMessageCommingOut',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

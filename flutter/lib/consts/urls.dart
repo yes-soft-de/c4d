@@ -15,7 +15,7 @@ class Urls {
   static const REPORT_API = BASE_API + '/report';
 
   static const NEARBY_ORDERS_API = BASE_API + '/closestOrders';
-  static const OWNER_ORDERS_API = BASE_API + '/orders/';
+  static const OWNER_ORDERS_API = BASE_API + '/orders';
   static const CAPTAIN_ACCEPTED_ORDERS_API = BASE_API + '/getAcceptedOrder/';
   static const NEW_ORDER_API = BASE_API + '/order';
   static const CAPTAIN_ORDER_UPDATE_API = BASE_API + '/orderUpdateState';

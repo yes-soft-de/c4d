@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
 
 class EmailPasswordRegisterForm extends StatefulWidget {
@@ -163,7 +164,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                         padding: const EdgeInsets.all(16.0),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pop();
+                            Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
                           },
                           child: Text(
                             S.of(context).iHaveAnAccount,

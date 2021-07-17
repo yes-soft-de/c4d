@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,13 +23,17 @@ class ComunityScreen extends StatelessWidget {
 List<Widget> getTiles(Map tiles, BuildContext context) {
   List<Widget> widgets = [];
   tiles.forEach((key, value) {
-    if (key.toString() != 'uuid' && key.toString() != 'id') {
+    if (key.toString() != 'uuid' &&
+        key.toString() != 'id' &&
+        key.toString() != 'fax') {
       widgets.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
-          onTap: key.toString() == 'phone' ? (){
-            launch('tel:$value');
-          } : null,
+          onTap: key.toString() == 'phone'
+              ? () {
+                  launch('tel:$value');
+                }
+              : null,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
@@ -38,7 +43,7 @@ List<Widget> getTiles(Map tiles, BuildContext context) {
           ),
           tileColor: Theme.of(context).primaryColor,
           title: Text(
-            key.toString(),
+            getMessage(key.toString()),
             style: TextStyle(color: Colors.white),
           ),
           subtitle: Text(value.toString()),
@@ -60,5 +65,17 @@ IconData getIcon(String key) {
   if (key == 'kilometers') return FontAwesomeIcons.road;
   if (key == 'maxKilometerBonus') return FontAwesomeIcons.moneyBillAlt;
   if (key == 'minKilometerBonus') return FontAwesomeIcons.coins;
+}
 
+String getMessage(String key) {
+  if (key == 'phone') return S.current.phoneNumber;
+  if (key == 'phone2') return '${S.current.phoneNumber} 2';
+  if (key == 'whatsapp') return S.current.whatsapp;
+  if (key == 'bank') return S.current.bankName;
+  if (key == 'fax') return 'fax';
+  if (key == 'email') return S.current.email;
+  if (key == 'stc') return S.current.stcPayCode;
+  if (key == 'kilometers') return S.current.kilometerLimt;
+  if (key == 'maxKilometerBonus') return S.current.kilometerLimtMax;
+  if (key == 'minKilometerBonus') return S.current.kilometerLimtMin;
 }

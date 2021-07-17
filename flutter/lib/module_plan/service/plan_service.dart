@@ -36,9 +36,12 @@ class PlanService {
       if (totalOrder >= 80.0) {
         alert = await seenByUser(80);
         orderAverage = '80';
-      } else if (totalOrder >= 50.0) {
-        alert = await seenByUser(50);
-        orderAverage = '50';
+      } else if (totalOrder >= 75.0) {
+        alert = await seenByUser(75);
+        orderAverage = '75';
+      } else if (totalOrder >= 40.0) {
+        alert = await seenByUser(40);
+        orderAverage = '40';
       } else if (totalOrder >= 35.0) {
         alert = await seenByUser(35);
         orderAverage = '35';
@@ -98,14 +101,14 @@ class PlanService {
     var resultModel;
     if (balanceDetails != null) {
       resultModel = BalanceModel(
-          payments: [],
-          total: balanceDetails.data.totalInThisMonth,
-          sumBalance: balanceDetails.data.sumPaymentsInThisMonth,
-          bonus: balanceDetails.data.bounceinThisMonth,
-          netProfit: balanceDetails.data.netProfitInThisMonth,
-          kiloBonus: balanceDetails.data.kilometerBonusInThisMonth,
-          details: true,
-          );
+        payments: [],
+        total: balanceDetails.data.totalInThisMonth,
+        sumBalance: balanceDetails.data.sumPaymentsInThisMonth,
+        bonus: balanceDetails.data.bounceinThisMonth,
+        netProfit: balanceDetails.data.netProfitInThisMonth,
+        kiloBonus: balanceDetails.data.kilometerBonusInThisMonth,
+        details: true,
+      );
     } else {
       resultModel = BalanceModel(
         payments: [],

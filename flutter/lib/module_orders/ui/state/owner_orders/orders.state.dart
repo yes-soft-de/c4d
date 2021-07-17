@@ -7,7 +7,7 @@ import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/ui/screens/orders/owner_orders_screen.dart';
 import 'package:c4d/module_orders/ui/widgets/order_widget/order_card.dart';
-
+import 'package:c4d/utils/helper/order_average_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
@@ -67,17 +67,42 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
   final String canMakeOrderState;
   final bool alert;
   final String average;
-  OrdersListStateOrdersLoaded(this.orders, this.canMakeOrders,
-      this.canMakeOrderState, this.alert, this.average,OwnerOrdersScreenState screenState)
+  OrdersListStateOrdersLoaded(
+      this.orders,
+      this.canMakeOrders,
+      this.canMakeOrderState,
+      this.alert,
+      this.average,
+      OwnerOrdersScreenState screenState)
       : super(screenState) {
-    if (this.alert) {
+    if (!this.alert) {
       showDialog(
           context: screenState.context,
           builder: (context) {
             return AlertDialog(
               title: Text(S.current.warnning),
               content: Container(
-                child: Text('${S.current.youReached} ${this.average} ${S.current.orderAverage}'),
+                height: 125,
+                child: SingleChildScrollView(
+                  child: Flex(
+                    direction: Axis.vertical,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${S.of(context).dear} ${screenState.currentProfile.name}',
+                        textAlign: TextAlign.start,
+                      ),
+                      Container(
+                        height: 4,
+                      ),
+                      Text(
+                        OrderAverageHelper.getOrderAlertAverage(average),
+                        textAlign: TextAlign.start,
+                      )
+                    ],
+                  ),
+                ),
               ),
               actions: [
                 FlatButton(

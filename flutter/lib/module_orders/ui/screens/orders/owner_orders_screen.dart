@@ -31,7 +31,7 @@ class OwnerOrdersScreen extends StatefulWidget {
 
 class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
   OwnerOrdersListState _currentState;
-  ProfileResponseModel _currentProfile;
+  ProfileResponseModel currentProfile;
   CompanyInfoResponse _companyInfo;
 
   StreamSubscription _stateSubscription;
@@ -69,7 +69,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
     });
 
     _profileSubscription = widget._stateManager.profileStream.listen((event) {
-      _currentProfile = event;
+      currentProfile = event;
       if (mounted) {
         setState(() {});
       }
@@ -116,11 +116,11 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
               }),
         ],
       ),
-      drawer: _currentProfile != null && _companyInfo != null
+      drawer: currentProfile != null && _companyInfo != null
           ? DrawerWidget(
               role: UserRole.ROLE_OWNER,
-              username: _currentProfile.name ?? 'user',
-              user_image: _currentProfile.image ??
+              username: currentProfile.name ?? 'user',
+              user_image: currentProfile.image ??
                   'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
               whatsapp: _companyInfo.whatsapp ?? '',
               phone: _companyInfo.phone ?? '',

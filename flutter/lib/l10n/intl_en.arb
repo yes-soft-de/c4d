@@ -245,6 +245,16 @@
   "confirmingCaptainLocation":"Confirm with yes and no if captain reach you",
   "redo":"Redo",
   "sendingReport":"Sending report within 15 seconds",
-  "social":"Company contact info"
-
+  "social":"Company contact info",
+  "orderAverage35":"You have consumed 35%",
+  "orderAverage40":"You have consumed 40%",
+  "orderAverage75":"You have consumed 75%",
+  "orderAverage80":"You have consumed 80%",
+  "dear":"Dear",
+  "whatsapp":"Whatsapp",
+  "kilometerLimt":"Kilometers limit",
+  "kilometerLimtMax":"bonus on max limit",
+  "kilometerLimtMin":"bonus on min limit",
+  "newMessageCommingOut":"You have new notification"
+  
 }
