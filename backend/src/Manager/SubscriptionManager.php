@@ -26,11 +26,19 @@ class SubscriptionManager
         $this->subscribeRepository = $subscribeRepository;
     }
 
-    public function create(SubscriptionCreateRequest $request)
+    public function create(SubscriptionCreateRequest $request, $status)
     { 
         
         $request->setStatus('inactive');
-        $request->setIsFuture(0);
+        // $request->setIsFuture(0);
+        
+        if($status == "active") {
+            $request->setIsFuture(1);
+            }
+        else{
+           $request->setIsFuture(0);
+           }
+
         $subscriptionEntity = $this->autoMapping->map(SubscriptionCreateRequest::class, SubscriptionEntity::class, $request);
 
         $this->entityManager->persist($subscriptionEntity);

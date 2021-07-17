@@ -26,7 +26,13 @@ class SubscriptionService
 
     public function create(SubscriptionCreateRequest $request)
     {
-        $subscriptionResult = $this->subscriptionManager->create($request);
+        $status = "inactive";
+        $SubscriptionCurrent = $this->getSubscriptionCurrent($request->getOwnerID());
+   
+        if($SubscriptionCurrent) {
+            $status = $this->subscriptionIsActive($request->getOwnerID(), $SubscriptionCurrent['id']);
+        }
+        $subscriptionResult = $this->subscriptionManager->create($request, $status);
 
         return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
     }
