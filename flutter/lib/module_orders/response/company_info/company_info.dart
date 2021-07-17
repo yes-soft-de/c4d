@@ -56,11 +56,11 @@ class CompanyInfoResponse {
   Map<String, dynamic> toJsonCaptain() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
-    data['phone'] = this.phone;
-    data['phone2'] = this.phone2;
-    data['whatsapp'] = this.whatsapp;
+    // data['phone'] = this.phone;
+    // data['phone2'] = this.phone2;
+    // data['whatsapp'] = this.whatsapp;
     data['bank'] = this.bank;
-    data['fax'] = this.fax;
+    // data['fax'] = this.fax;
     data['email'] = this.email;
     data['stc'] = this.stc;
     data['uuid'] = this.uuid;
