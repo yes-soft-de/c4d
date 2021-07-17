@@ -316,6 +316,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<Widget> switchBuilder() async {
     var profile = await widget._profileService.getProfile();
     return Switch(
+      activeColor: Colors.green,
+      inactiveTrackColor:Colors.red,
       onChanged: (bool value) {
         profile.isOnline = value;
         widget._notificationService
