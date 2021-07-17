@@ -245,9 +245,11 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             
             ->andWhere('subscription.ownerID=:ownerID')
             ->andWhere('subscription.isFuture= 1')
-           
+           //
             ->setParameter('ownerID', $ownerID)
-           
+            ->addOrderBy('subscription.id','ASC')
+            ->setMaxResults(1)
+           //
             ->getQuery()
             ->getOneOrNullResult();
     }
