@@ -70,6 +70,10 @@ class SubscriptionManager
         return $subscriptionEntity;
     }
 
+    public function getIsFuture($ownerID){
+        return $this->subscribeRepository->getIsFuture($ownerID);
+    }
+    
     public function getSubscriptionForOwner($userId)
     {
         return $this->subscribeRepository->getSubscriptionForOwner($userId);
