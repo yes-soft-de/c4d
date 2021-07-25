@@ -7,7 +7,7 @@ class NotificationModel {
   String title;
   String body;
   var payLoad;
-  NotificationModel(this.id, this.title, this.body, this.payLoad);
+  NotificationModel({this.id, this.title, this.body, this.payLoad});
   NotificationModel.fromJson(Map<String, dynamic> json) {
     var data = json['data'];
     if (data != null) {

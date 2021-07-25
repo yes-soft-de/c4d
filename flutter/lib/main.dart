@@ -7,6 +7,7 @@ import 'package:c4d/module_about/about_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
 import 'package:c4d/module_init/init_account_module.dart';
 import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
+import 'package:c4d/module_notifications/model/notification_ios_model.dart';
 import 'package:c4d/module_notifications/model/notification_model.dart';
 import 'package:c4d/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:c4d/module_orders/orders_module.dart';
@@ -121,7 +122,15 @@ class _MyAppState extends State<MyApp> {
     });
     widget._fireNotificationService.onNotificationStream.listen((event) async {
       NotificationModel model = NotificationModel.fromJson(event);
-       widget._localNotificationService.showNotification(model);
+      if (Platform.isIOS) {
+        NotificationIosModel iosModel = NotificationIosModel.fromJson(event);
+        model = NotificationModel(
+          body: iosModel?.aps?.alert?.body,
+          title: iosModel?.aps?.alert?.title,
+          payLoad: ''
+        );
+      }
+      widget._localNotificationService.showNotification(model);
       if (Platform.isIOS) {
         await audioCache.play('rington.mp3');
         await Fluttertoast.showToast(
@@ -132,7 +141,7 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Color(0xFF3ACCE1),
             textColor: Colors.white,
             fontSize: 16.0);
-     }
+      }
     });
     widget._localNotificationService.onLocalNotificationStream
         .listen((event) {});
