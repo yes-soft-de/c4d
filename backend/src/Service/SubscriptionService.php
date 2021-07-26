@@ -26,21 +26,48 @@ class SubscriptionService
 
     public function create(SubscriptionCreateRequest $request)
     {
-        $subscriptionResult = $this->subscriptionManager->create($request);
+        $response="error";
+        $IsFuture = $this->getIsFuture($request->getOwnerID());
+        if ( $IsFuture == 0 || $IsFuture == null)
+        {
+            $status = "inactive";
+            $SubscriptionCurrent = $this->getSubscriptionCurrent($request->getOwnerID());
+    
+            if($SubscriptionCurrent) {
+                $status = $this->subscriptionIsActive($request->getOwnerID(), $SubscriptionCurrent['id']);
+            }
+            $subscriptionResult = $this->subscriptionManager->create($request, $status);
 
-        return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
+            $response = $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
+        }
+        return $response;
     }
     
     public function nxetSubscription(SubscriptionNextRequest $request)
     {
-       $SubscriptionCurrent = $this->getSubscriptionCurrent($request->getOwnerID());
-       
-       $status = $this->subscriptionIsActive($request->getOwnerID(), $SubscriptionCurrent['id']);
-        $subscriptionResult = $this->subscriptionManager->nxetSubscription($request, $status);
+        $response="error";
+        $IsFuture = $this->getIsFuture($request->getOwnerID());
+        if ( $IsFuture == 0)
+        {
+           $SubscriptionCurrent = $this->getSubscriptionCurrent($request->getOwnerID());
         
-        return $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
+           $status = $this->subscriptionIsActive($request->getOwnerID(), $SubscriptionCurrent['id']);
+           $subscriptionResult = $this->subscriptionManager->nxetSubscription($request, $status);
+            
+           $response = $this->autoMapping->map(SubscriptionEntity::class, SubscriptionResponse::class, $subscriptionResult);
+        }
+        return $response;
     }
 
+    public function getIsFuture($ownerID)
+    {
+        $item = $this->subscriptionManager->getIsFuture($ownerID);
+        if($item){
+            return $item['isFuture'];
+        }
+        return null;
+        
+    }
     public function getSubscriptionForOwner($ownerID)
     {
        $response = [];

@@ -23,6 +23,21 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, SubscriptionEntity::class);
     }
 
+    public function getIsFuture($ownerID)
+    {
+        return $this->createQueryBuilder('subscription')
+        ->select('subscription.isFuture')
+
+        ->andWhere("subscription.ownerID = :ownerID")
+        ->andWhere("subscription.isFuture = :isFuture")
+
+        ->setParameter('ownerID', $ownerID)
+        ->setParameter('isFuture', 1)
+
+        ->getQuery()
+        ->getOneOrNullResult();
+    ;
+    }
     public function getSubscriptionForOwner($userId)
     {
         return $this->createQueryBuilder('subscription')
@@ -245,9 +260,11 @@ class SubscriptionEntityRepository extends ServiceEntityRepository
             
             ->andWhere('subscription.ownerID=:ownerID')
             ->andWhere('subscription.isFuture= 1')
-           
+           //
             ->setParameter('ownerID', $ownerID)
-           
+            ->addOrderBy('subscription.id','ASC')
+            ->setMaxResults(1)
+           //
             ->getQuery()
             ->getOneOrNullResult();
     }
