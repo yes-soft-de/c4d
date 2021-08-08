@@ -65,7 +65,9 @@ class NotificationService
         // $devicesToken[] = $userTokenTwo;
 
         $message = CloudMessage::new()
-            ->withNotification(Notification::create('C4D',$msg ));
+            ->withNotification(Notification::create('C4D',$msg ))
+            ->withDefaultSounds()
+            ->withHighestPossiblePriority();
 
         $this->messaging->sendMulticast($message, $devicesToken);
     }
@@ -87,7 +89,8 @@ class NotificationService
             }
 
             $message = CloudMessage::new()
-                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT));
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT))->withDefaultSounds()
+                ->withHighestPossiblePriority();
             $this->messaging->sendMulticast($message, $devicesToken);  
         
         }    
@@ -125,7 +128,9 @@ class NotificationService
             $userTokenOne = $this->getNotificationTokenByUserID($item[0]['captainID']);
             $devicesToken[] = $userTokenOne;
             $message = CloudMessage::new()
-                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN))
+                ->withDefaultSounds()
+                ->withHighestPossiblePriority();
 
             $this->messaging->sendMulticast($message, $devicesToken);  
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
@@ -143,7 +148,9 @@ class NotificationService
             $userTokenOne = $this->getNotificationTokenByUserID($item[0]['userId']);
             $devicesToken[] = $userTokenOne;
             $message = CloudMessage::new()
-                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN))
+                ->withDefaultSounds()
+                ->withHighestPossiblePriority();
 
             $this->messaging->sendMulticast($message, $devicesToken);  
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
@@ -161,7 +168,9 @@ class NotificationService
             $userTokenOne = $this->getNotificationTokenByUserID($item[0]['userID']);
             $devicesToken[] = $userTokenOne;
             $message = CloudMessage::new()
-                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN));
+                ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN))
+                ->withDefaultSounds()
+                ->withHighestPossiblePriority();
 
             $this->messaging->sendMulticast($message, $devicesToken);  
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
