@@ -13,6 +13,7 @@ use App\Service\UserService;
 use App\Request\NotificationTokenRequest;
 use App\Response\NotificationTokenResponse;
 use Kreait\Firebase\Messaging;
+use Kreait\Firebase\Messaging\ApnsConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
 
@@ -46,7 +47,10 @@ class NotificationService
     public function notificationToCaptain()
     {
         $message = CloudMessage::withTarget('topic', $this::CAPTAIN_TOPIC)
-            ->withNotification(Notification::create('C4D', $this::MESSAGE_CAPTAIN_NEW_ORDER));
+            ->withNotification(Notification::create('C4D', $this::MESSAGE_CAPTAIN_NEW_ORDER))
+            ->withDefaultSounds()
+            ->withHighestPossiblePriority()
+        ;
 
         $this->messaging->send($message);
     }
