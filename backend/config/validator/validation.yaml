@@ -111,8 +111,6 @@ App\Request\userProfileUpdateByAdminRequest:
 
 App\Request\CaptainProfileUpdateRequest:
   properties:
-    name:
-      - NotBlank: ~
     image:
       - NotBlank: ~
     location:

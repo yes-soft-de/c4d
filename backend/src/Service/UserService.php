@@ -55,9 +55,26 @@ class UserService
         $this->params = $params->get('upload_base_url') . '/';
     }
 
-    public function userRegister(UserRegisterRequest $request)
+    public function captainRegister(UserRegisterRequest $request)
     {
-        $userRegister = $this->userManager->userRegister($request);
+        $uuid = $this->recordService->uuid();
+        $userRegister = $this->userManager->captainRegister($request, $uuid);
+        if ($userRegister instanceof UserEntity) {
+            
+        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+
+        }
+        if ($userRegister == true) {
+          
+            $user = $this->userManager->getUserByUserID($request->getUserID());
+            $user['found']="yes";
+            return $user;
+        }
+    }
+    public function ownerRegister(UserRegisterRequest $request)
+    {
+        $uuid = $this->recordService->uuid();
+        $userRegister = $this->userManager->ownerRegister($request, $uuid);
         if ($userRegister instanceof UserEntity) {
             
         return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
@@ -76,7 +93,7 @@ class UserService
         $uuid = $this->recordService->uuid();
         $userProfile = $this->userManager->userProfileCreate($request, $uuid);
 
-        if ($userProfile instanceof UserProfile) {
+        if ($userProfile instanceof UserProfileEntity) {
 
             return $this->autoMapping->map(UserProfileEntity::class,UserProfileCreateResponse::class, $userProfile);
        }
@@ -89,12 +106,12 @@ class UserService
     public function userProfileUpdate(UserProfileUpdateRequest $request)
     {
         $item = $this->userManager->userProfileUpdate($request);
-        $bank = $this->bankService->updateFromProfile($request);
-        if ($bank) {
-        $item->bankName = $bank->bankName;
-        $item->accountID = $bank->accountID;
-        $item->stcPay = $bank->stcPay;
-        }
+        // $bank = $this->bankService->updateFromProfile($request);
+        // if ($bank) {
+        // $item->bankName = $bank->bankName;
+        // $item->accountID = $bank->accountID;
+        // $item->stcPay = $bank->stcPay;
+        // }
         return $this->autoMapping->map(UserProfileEntity::class, UserProfileResponse::class, $item);
     }
 

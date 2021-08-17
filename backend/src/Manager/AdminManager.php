@@ -35,11 +35,8 @@ class AdminManager
         }
 
         $adminCreate->setCreateDate(new \DateTime('now'));
-
-        if ($request->getRoles() == null) {
-            $request->setRoles(['user']);
-        }
-        $adminCreate->setRoles($request->getRoles());
+        
+        $adminCreate->setRoles(['ROLE_ADMIN']);
 
         $this->entityManager->persist($adminCreate);
         $this->entityManager->flush();
