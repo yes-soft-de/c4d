@@ -68,7 +68,8 @@ class UserManager
             $captainProfile->setUuid($uuid);
             $captainProfile->setCaptainID($userRegister->getId());
             $captainProfile->setName($request->getUserName());
-            
+            $captainProfile->setIsOnline('active');
+
             $this->entityManager->persist($captainProfile);
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -87,7 +88,7 @@ class UserManager
             $captainProfile->setUuid($uuid);
             $captainProfile->setCaptainID($userProfile['id']);
             $captainProfile->setCaptainName($request->getUserName());
-            
+            $captainProfile->setIsOnline('active');
             
             $this->entityManager->persist($captainProfile);
             $this->entityManager->flush();
