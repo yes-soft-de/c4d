@@ -16,8 +16,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use stdClass;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-// use App\Service\NotificationService;
-// use App\Request\SendNotificationRequest;
+use App\Service\NotificationService;
+use App\Request\SendNotificationRequest;
 
 class AcceptedOrderController extends BaseController
 {
@@ -26,14 +26,14 @@ class AcceptedOrderController extends BaseController
     private $acceptedOrderService;
 
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AcceptedOrderService $acceptedOrderService
-    // , NotificationService $notificationService
+    , NotificationService $notificationService
     )
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->acceptedOrderService = $acceptedOrderService;
-        // $this->notificationService = $notificationService;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -61,11 +61,11 @@ class AcceptedOrderController extends BaseController
         if (!is_string($response)) {
             $data=$this->acceptedOrderService->getOwnerIdAndUuid($request->getOrderID());
 
-            // $notificationRequest = new SendNotificationRequest();
-            // $notificationRequest->setUserIdOne($data[0]['ownerID']);
+            $notificationRequest = new SendNotificationRequest();
+            $notificationRequest->setUserIdOne($data[0]['ownerID']);
          
-            // $notificationRequest->setOrderID($request->getOrderID());
-            // $this->notificationService->notificationOrderUpdate($notificationRequest);
+            $notificationRequest->setOrderID($request->getOrderID());
+            $this->notificationService->notificationOrderUpdate($notificationRequest);
         }
         // notification <------end
         return $this->response($response, self::CREATE);

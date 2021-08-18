@@ -8,7 +8,7 @@ use App\Manager\OrderManager;
 use App\Request\OrderCreateRequest;
 use App\Request\OrderUpdateRequest;
 use App\Request\OrderUpdateStateByCaptainRequest;
-// use App\Request\SendNotificationRequest;
+use App\Request\SendNotificationRequest;
 use App\Response\OrderResponse;
 use App\Response\DeleteResponse;
 use App\Response\OrdersongoingResponse;
@@ -28,12 +28,12 @@ class OrderService
     private $userService;
     private $params;
     private $ratingService;
-    // private $notificationService;
+    private $notificationService;
 
     public function __construct(AutoMapping $autoMapping, OrderManager $orderManager, AcceptedOrderService $acceptedOrderService,
                                 RecordService $recordService, BranchesService $branchesService, SubscriptionService $subscriptionService,
                                 UserService $userService, ParameterBagInterface $params,  RatingService $ratingService
-                                // , NotificationService $notificationService
+                                , NotificationService $notificationService
                                 )
     {
         $this->autoMapping = $autoMapping;
@@ -46,7 +46,7 @@ class OrderService
         $this->ratingService = $ratingService;
 
         $this->params = $params->get('upload_base_url') . '/';
-        // $this->notificationService = $notificationService;
+        $this->notificationService = $notificationService;
     }
 
     public function create(OrderCreateRequest $request)
@@ -63,13 +63,12 @@ class OrderService
                 $uuid = $this->recordService->uuid();
                 
                 $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
-
-                //start-----> notification
-               
-                // $this->notificationService->notificationToCaptain();
-                //notification <------end
                    
                 if ($item) {
+                    
+                //start-----> notification
+                $this->notificationService->notificationToCaptain($item->getId());
+                //notification <------end
                     $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
                     $this->recordService->create($item->getId(), $item->getState());
                 }
@@ -250,10 +249,10 @@ class OrderService
             }
 
             //start-----> notification
-            // $notificationRequest = new SendNotificationRequest();
-            // $notificationRequest->setUserIdOne($item->getOwnerID());
-            // $notificationRequest->setOrderID($item->getId());
-            // $this->notificationService->notificationOrderUpdate($notificationRequest);
+            $notificationRequest = new SendNotificationRequest();
+            $notificationRequest->setUserIdOne($item->getOwnerID());
+            $notificationRequest->setOrderID($item->getId());
+            $this->notificationService->notificationOrderUpdate($notificationRequest);
             // notification <------end
 
         }
