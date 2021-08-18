@@ -121,9 +121,7 @@ App\Request\CaptainProfileUpdateRequest:
       - NotBlank: ~
     drivingLicence:
       - NotBlank: ~
-    state:
-      - NotBlank: ~
-
+      
 App\Request\CaptainProfileUpdateByAdminRequest:
   properties:
     captainID:

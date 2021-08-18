@@ -18,7 +18,7 @@ class CaptainProfileUpdateRequest
 
     private $drivingLicence;
 
-    private $state;
+    // private $state;
     
     private $phone;
 
