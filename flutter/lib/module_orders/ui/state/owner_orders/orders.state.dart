@@ -75,7 +75,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
       this.average,
       OwnerOrdersScreenState screenState)
       : super(screenState) {
-    if (!this.alert) {
+    if (this.alert == true) {
       showDialog(
           context: screenState.context,
           builder: (context) {

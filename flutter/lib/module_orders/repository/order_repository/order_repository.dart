@@ -65,7 +65,7 @@ class OrderRepository {
     var token = await _authService.getToken();
 
     if (token == null) {
-      throw UnauthorizedException('User Not Logged In');
+      throw AuthorizationException('User Not Logged In');
     }
 
     dynamic response = await _apiClient.get(
