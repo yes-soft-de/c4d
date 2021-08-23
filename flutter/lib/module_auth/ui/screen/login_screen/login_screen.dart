@@ -23,8 +23,10 @@ class LoginScreenState extends State<LoginScreen> {
   UserRole currentUserRole;
 
   LoginState _currentStates;
+  AsyncSnapshot loadingSnapshot = AsyncSnapshot.nothing();
 
   StreamSubscription _stateSubscription;
+  StreamSubscription _loadingSubscription;
   bool deepLinkChecked = false;
   UserRole initRole;
   UserRole get getInitRole => this.initRole;
@@ -42,6 +44,12 @@ class LoginScreenState extends State<LoginScreen> {
         setState(() {
           _currentStates = event;
         });
+      }
+    });
+    _loadingSubscription = widget._stateManager.loadingStream.listen((event) {
+      loadingSnapshot = event;
+      if (mounted) {
+        setState(() {});
       }
     });
   }
@@ -66,6 +74,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     _stateSubscription.cancel();
+    _loadingSubscription.cancel();
     super.dispose();
   }
 
@@ -84,24 +93,14 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void loginCaptain(String phoneNumber) {
+  void loginCaptain(String username, String password) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.loginCaptain(phoneNumber, this);
+    widget._stateManager.loginClient(username, password, currentUserRole, this);
   }
 
-  void loginOwner(String email, String password) {
+  void loginOwner(String username, String password) {
     currentUserRole = UserRole.ROLE_OWNER;
-    widget._stateManager.loginOwner(email, password, this);
-  }
-
-  void confirmCaptainSMS(String smsCode) {
-    currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.confirmCaptainCode(smsCode, this);
-  }
-
-  void retryPhone() {
-    _currentStates = LoginStateInit(this);
-    if (mounted) setState(() {});
+    widget._stateManager.loginClient(username, password, currentUserRole, this);
   }
 
   void setRole(UserRole userType) {

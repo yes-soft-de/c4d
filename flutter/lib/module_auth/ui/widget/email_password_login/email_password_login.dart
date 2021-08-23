@@ -2,40 +2,39 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
 
-class EmailPasswordForm extends StatefulWidget {
+class OwnerLoginForm extends StatefulWidget {
   final Function(String, String) onLoginRequest;
   final String email;
   final String password;
+  final bool loading;
 
-  EmailPasswordForm({
+  OwnerLoginForm({
     this.onLoginRequest,
     this.email,
     this.password,
+    this.loading
   });
 
   @override
   State<StatefulWidget> createState() => _EmailPasswordLoginState();
 }
 
-class _EmailPasswordLoginState extends State<EmailPasswordForm> {
+class _EmailPasswordLoginState extends State<OwnerLoginForm> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final TextEditingController _loginEmailController = TextEditingController();
   final TextEditingController _loginPasswordController =
       TextEditingController();
 
-  bool loading = false;
-
   @override
   void initState() {
+    _loginEmailController.text = widget.email;
+    _loginPasswordController.text = widget.password;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-    _loginEmailController.text = widget.email;
-    _loginPasswordController.text = widget.password;
-
     return Form(
       key: _loginFormKey,
       autovalidateMode: AutovalidateMode.always,
@@ -79,14 +78,14 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          labelText: S.of(context).email,
+                          labelText: S.of(context).username,
                         ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus(),
                         // Move focus to next
                         validator: (result) {
                           if (result.isEmpty) {
-                            return S.of(context).emailAddressIsRequired;
+                            return S.of(context).registerHint;
                           }
                           return null;
                         },
@@ -129,7 +128,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                           labelText: S.of(context).password,
                         ),
                         validator: (result) {
-                          if (result.length < 8) {
+                          if (result.length < 6) {
                             return S.of(context).passwordIsTooShort;
                           }
                           return null;
@@ -159,7 +158,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                           .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
                     },
                     child: Text(
-                      loading == true
+                      widget.loading == true
                           ? S.of(context).loading
                           : S.of(context).register,
                       textAlign: TextAlign.center,
@@ -174,12 +173,10 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                     color: Theme.of(context).primaryColor,
-                    onPressed: loading == true
+                    onPressed: widget.loading == true
                         ? null
                         : () {
                             if (_loginFormKey.currentState.validate()) {
-                              loading = true;
-                              setState(() {});
                               widget.onLoginRequest(
                                 _loginEmailController.text,
                                 _loginPasswordController.text,

@@ -9,10 +9,10 @@ class TokenExpiredException implements Exception {
   String toString() => 'TokenExpiredException ${msg}';
 }
 
-class UnauthorizedException implements Exception {
+class AuthorizationException implements Exception {
   final String msg;
 
-  const UnauthorizedException(this.msg);
+  const AuthorizationException(this.msg);
 
   @override
   String toString() => msg;

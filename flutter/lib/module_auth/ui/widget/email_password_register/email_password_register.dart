@@ -75,20 +75,67 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: TextFormField(
-                        controller: _registerEmailController,
+                        controller: _registerNameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          labelText: S.of(context).email,
+                          labelText: S.of(context).name,
                         ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus(),
                         // Move focus to next
                         validator: (result) {
                           if (result.isEmpty) {
-                            return S.of(context).emailAddressIsRequired;
+                            return S.of(context).nameIsRequired;
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 2.0,
+                            // has the effect of softening the shadow
+                            spreadRadius: 2.0,
+                            // has the effect of extending the shadow
+                            offset: Offset(
+                              5.0, // horizontal, move right 10
+                              5.0, // vertical, move down 10
+                            ),
+                          )
+                        ]),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: TextFormField(
+                        controller: _registerEmailController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          labelText: S.of(context).username,
+                        ),
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: () => node.nextFocus(),
+                        // Move focus to next
+                        validator: (result) {
+                          if (result.isEmpty) {
+                            return S.of(context).registerHint;
                           }
                           return null;
                         },
@@ -131,7 +178,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                           labelText: S.of(context).password,
                         ),
                         validator: (result) {
-                          if (result.length < 8) {
+                          if (result.length < 6) {
                             return S.of(context).passwordIsTooShort;
                           }
                           return null;
@@ -164,7 +211,8 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                         padding: const EdgeInsets.all(16.0),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
+                            Navigator.of(context)
+                                .pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
                           },
                           child: Text(
                             S.of(context).iHaveAnAccount,
@@ -190,9 +238,9 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                                     loading = true;
                                     setState(() {});
                                     widget.onRegisterRequest(
+                                      _registerNameController.text.trim(),
                                       _registerEmailController.text.trim(),
                                       _registerPasswordController.text.trim(),
-                                      _registerNameController.text.trim(),
                                     );
                                   }
                                 },

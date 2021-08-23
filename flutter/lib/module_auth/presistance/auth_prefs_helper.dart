@@ -101,7 +101,7 @@ class AuthPrefsHelper {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     var token = await preferencesHelper.getString('token');
     if (token == null) {
-      throw UnauthorizedException('Token not found');
+      throw AuthorizationException('Token not found');
     }
     return token;
   }
@@ -112,7 +112,7 @@ class AuthPrefsHelper {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     var dateStr = await preferencesHelper.getString('token_date');
     if (dateStr == null) {
-      throw UnauthorizedException('Token date not found');
+      throw AuthorizationException('Token date not found');
     }
     return DateTime.parse(dateStr);
   }
@@ -129,7 +129,7 @@ class AuthPrefsHelper {
     SharedPreferences preferencesHelper = await SharedPreferences.getInstance();
     var type = await preferencesHelper.getInt('role');
     if (type == null) {
-      throw UnauthorizedException('User Role not found');
+      throw AuthorizationException('User Role not found');
     }
     return UserRole.values[type];
   }
