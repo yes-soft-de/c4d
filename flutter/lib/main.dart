@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:analyzer_plugin/protocol/protocol.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_about/about_module.dart';
@@ -15,12 +16,15 @@ import 'package:c4d/module_plan/plan_module.dart';
 import 'package:c4d/module_profile/module_profile.dart';
 import 'package:c4d/module_splash/splash_module.dart';
 import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
+import 'package:c4d/utils/helper/global_key.dart';
 import 'package:c4d/utils/logger/logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -121,30 +125,40 @@ class _MyAppState extends State<MyApp> {
       setState(() {});
     });
     widget._fireNotificationService.onNotificationStream.listen((event) async {
-      NotificationModel model = NotificationModel.fromJson(event);
+      NotificationModel model;
+      if (Platform.isAndroid) {
+        model = NotificationModel.fromJson(event);
+      }
       if (Platform.isIOS) {
         NotificationIosModel iosModel = NotificationIosModel.fromJson(event);
         model = NotificationModel(
-          body: iosModel?.aps?.alert?.body,
-          title: iosModel?.aps?.alert?.title,
-          payLoad: ''
-        );
+            body: iosModel?.aps?.alert?.body,
+            title: iosModel?.aps?.alert?.title);
       }
       widget._localNotificationService.showNotification(model);
       if (Platform.isIOS) {
         await audioCache.play('rington.mp3');
-        await Fluttertoast.showToast(
-            msg: '${model.body ?? S.current.newMessageCommingOut}',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.SNACKBAR,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Color(0xFF3ACCE1),
-            textColor: Colors.white,
-            fontSize: 16.0);
+       await Flushbar(
+         title: model.title,
+         message: model.body ?? S.current.newMessageCommingOut,
+         shouldIconPulse: false,
+         icon:Image.asset('assets/images/icon.jpg'),
+       ).show(GlobalVariable.navState.currentContext);
+        // await Fluttertoast.showToast(
+        //     msg: '${model.body ?? S.current.newMessageCommingOut}',
+        //     toastLength: Toast.LENGTH_SHORT,
+        //     gravity: ToastGravity.SNACKBAR,
+        //     timeInSecForIosWeb: 1,
+        //     backgroundColor: Color(0xFF3ACCE1),
+        //     textColor: Colors.white,
+        //     fontSize: 16.0);
       }
     });
-    widget._localNotificationService.onLocalNotificationStream
-        .listen((event) {});
+    widget._localNotificationService.onLocalNotificationStream.listen((event) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushNamed(GlobalVariable.navState.currentContext, event);
+      });
+    });
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});
@@ -168,6 +182,7 @@ class _MyAppState extends State<MyApp> {
     var activeLanguage = await widget._localizationService.getLanguage();
     var theme = await widget._themeDataService.getActiveTheme();
     return MaterialApp(
+      navigatorKey: GlobalVariable.navState,
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[observer],
       locale: Locale.fromSubtags(

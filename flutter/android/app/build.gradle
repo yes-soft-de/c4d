@@ -47,7 +47,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.yessoft.c4d"
+        applicationId "de.yes_soft.c4d"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
@@ -64,7 +64,7 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -75,4 +75,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.google.firebase:firebase-iid"
+    implementation 'com.google.firebase:firebase-messaging'
 }

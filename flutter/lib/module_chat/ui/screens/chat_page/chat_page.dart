@@ -1,3 +1,4 @@
+import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
@@ -12,11 +13,9 @@ import 'package:c4d/module_upload/service/image_upload/image_upload_service.dart
 class ChatPage extends StatefulWidget {
   final ChatPageBloc _chatPageBloc;
   final ImageUploadService _uploadService;
+  final AuthService _authservice;
 
-  ChatPage(
-    this._chatPageBloc,
-    this._uploadService,
-  );
+  ChatPage(this._chatPageBloc, this._uploadService, this._authservice);
 
   @override
   State<StatefulWidget> createState() => ChatPageState();
@@ -182,12 +181,11 @@ class ChatPageState extends State<ChatPage> {
 
   Future<void> buildMessagesList(List<ChatModel> chatList) async {
     List<ChatBubbleWidget> newMessagesList = [];
-    FirebaseAuth auth = await FirebaseAuth.instance;
-    User user = auth.currentUser;
+    String username = widget._authservice.username;
     chatList.forEach((element) {
       newMessagesList.add(ChatBubbleWidget(
         message: element.msg,
-        me: element.sender == user.uid ? true : false,
+        me: element.sender == username ? true : false,
         sentDate: element.sentDate,
       ));
     });

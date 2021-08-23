@@ -1,17 +1,15 @@
 import 'dart:math';
 
-import 'package:c4d/module_notifications/repository/notification_repo.dart';
-
 class NotificationModel {
   int id;
   String title;
   String body;
-  var payLoad;
+  Payload payLoad;
   NotificationModel({this.id, this.title, this.body, this.payLoad});
   NotificationModel.fromJson(Map<String, dynamic> json) {
     var data = json['data'];
     if (data != null) {
-      payLoad = data ?? '';
+      payLoad = Payload.fromJson(data);
     }
     var notification = json['notification'];
     if (notification != null) {
@@ -19,5 +17,13 @@ class NotificationModel {
       title = notification['title'];
       body = notification['body'];
     }
+  }
+}
+
+class Payload {
+  String clickAction;
+  Payload(this.clickAction);
+  Payload.fromJson(dynamic json) {
+    clickAction = json['action'];
   }
 }

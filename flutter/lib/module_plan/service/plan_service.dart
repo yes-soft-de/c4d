@@ -133,7 +133,8 @@ class PlanService {
     var user = await sh.getString('email') ?? '';
     if (percent < 35) {
       await sh.remove('$user consumed 80%');
-      await sh.remove('$user consumed 50%');
+      await sh.remove('$user consumed 75%');
+      await sh.remove('$user consumed 40%');
       await sh.remove('$user consumed 35%');
       return false;
     }

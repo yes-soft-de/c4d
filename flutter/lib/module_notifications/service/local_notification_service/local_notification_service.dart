@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:c4d/module_notifications/model/notification_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,21 +36,30 @@ class LocalNotificationService {
 
   void showNotification(NotificationModel model) {
     IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails(
-        presentAlert: true, presentBadge: true, presentSound: true);
-
+        presentAlert: true, presentBadge: true, presentSound: true,
+      
+        );
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('1', 'c4d', 'delivery app',
+        AndroidNotificationDetails(
+          'local_notifications', 'Loacle notifications', 'Showing notifications while the app running',
             importance: Importance.max,
-            priority: Priority.high,
-            showWhen: false);
+            priority: Priority.max,
+            playSound: true,
+            showWhen: true,
+            channelShowBadge: true,
+            enableLights: true,
+            enableVibration: true,
+            onlyAlertOnce: false,
+            category: 'Locale',  
+            );
 
     NotificationDetails platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
 
     flutterLocalNotificationsPlugin.show(
-        1, model.title, model.body, platformChannelSpecifics,
-        payload: model.payLoad.toString());
+        model.id, model.title, model.body, platformChannelSpecifics,
+        payload: model.payLoad.clickAction);
   }
 
   Future selectNotification(String payload) async {
