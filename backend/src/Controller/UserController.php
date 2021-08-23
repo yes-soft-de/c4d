@@ -57,7 +57,14 @@ class UserController extends BaseController
         }
 
         $response = $this->userService->captainRegister($request);
-       
+        $isArray = is_array($response);
+        if($isArray){
+            $found = isset($response['found']);
+        
+            if( $found == "yes"){
+                return $this->response($response, self::ERROR); 
+          }
+        }
         return $this->response($response, self::CREATE);
     }
 
@@ -79,10 +86,38 @@ class UserController extends BaseController
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
-
+      
         $response = $this->userService->ownerRegister($request);
-       
+
+        $isArray = is_array($response);
+        if($isArray){
+            $found = isset($response['found']);
+        
+            if( $found == "yes"){
+                return $this->response($response, self::ERROR); 
+          }
+        }
         return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("/checkUserType/{userType}", name="checkUserType", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkUserType($userType)
+    {
+        $response = $this->userService->checkUserType($userType,$this->getUserId());
+       
+        if($response == "yes"){
+            $response ="yes is"." ".$userType;
+            return $this->response($response, self::CREATE); 
+          }
+        if($response == "no"){
+            $response ="no not a"." ".$userType;
+            return $this->response($response, self::ERROR); 
+          }
+       
     }
 
     /**

@@ -71,6 +71,7 @@ class UserService
             return $user;
         }
     }
+
     public function ownerRegister(UserRegisterRequest $request)
     {
         $uuid = $this->recordService->uuid();
@@ -86,6 +87,12 @@ class UserService
             $user['found']="yes";
             return $user;
         }
+    }
+
+    public function checkUserType($userType,$userID)
+    {
+        return $this->userManager->checkUserType($userType,$userID);
+       
     }
 
     public function userProfileCreate(UserProfileCreateRequest $request)
