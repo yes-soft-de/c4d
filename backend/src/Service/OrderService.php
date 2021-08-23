@@ -63,13 +63,12 @@ class OrderService
                 $uuid = $this->recordService->uuid();
                 
                 $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
-
-                //start-----> notification
-               
-                $this->notificationService->notificationToCaptain();
-                //notification <------end
                    
                 if ($item) {
+                    
+                //start-----> notification
+                $this->notificationService->notificationToCaptain($item->getId());
+                //notification <------end
                     $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
                     $this->recordService->create($item->getId(), $item->getState());
                 }

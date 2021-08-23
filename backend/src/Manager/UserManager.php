@@ -40,7 +40,7 @@ class UserManager
         $this->profileRepository = $profileRepository;
     }
 
-    public function userRegister(UserRegisterRequest $request)
+    public function captainRegister(UserRegisterRequest $request, $uuid)
     {
         $userProfile = $this->getUserByUserID($request->getUserID());
         if ($userProfile == null) {
@@ -53,15 +53,103 @@ class UserManager
             $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
         }
 
-        $userRegister->setRoles($request->getRoles());
+        $userRegister->setRoles(["ROLE_CAPTAIN"]);
 
         $this->entityManager->persist($userRegister);
         $this->entityManager->flush();
         $this->entityManager->clear();
+        // Second, create the captain's profile
+        $captainProfile = $this->getCaptainProfileByCaptainID($request->getUserID());
+                    
+        if ($captainProfile == null) {
+            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
+            
+            $captainProfile->setStatus('inactive');
+            $captainProfile->setUuid($uuid);
+            $captainProfile->setCaptainID($userRegister->getId());
+            $captainProfile->setName($request->getUserName());
+            $captainProfile->setIsOnline('active');
 
+            $this->entityManager->persist($captainProfile);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+        }
         return $userRegister;
+        }
+        else
+        {
+        $captainProfile = $this->getCaptainProfileByCaptainID($userProfile['id']);
+
+        if ($captainProfile == null)
+        {
+            $captainProfile = $this->autoMapping->map(UserRegisterRequest::class, CaptainProfileEntity::class, $request);
+            
+            $captainProfile->setStatus('active');
+            $captainProfile->setUuid($uuid);
+            $captainProfile->setCaptainID($userProfile['id']);
+            $captainProfile->setCaptainName($request->getUserName());
+            $captainProfile->setIsOnline('active');
+            
+            $this->entityManager->persist($captainProfile);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+        }
+        return true;
     }
-    else {
+    }
+    public function ownerRegister(UserRegisterRequest $request, $uuid)
+    {
+        $userProfile = $this->getUserByUserID($request->getUserID());
+        if ($userProfile == null) {
+
+        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
+
+        $user = new UserEntity($request->getUserID());
+
+        if ($request->getPassword()) {
+            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+        }
+
+        $userRegister->setRoles(["ROLE_OWNER"]);
+
+        $this->entityManager->persist($userRegister);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+        // Second, create the captain's profile
+        $ownerProfile = $this->getUserProfileByUserID($request->getUserID());
+                    
+        if ($ownerProfile == null) {
+            $ownerProfile = $this->autoMapping->map(UserRegisterRequest::class, UserProfileEntity::class, $request);
+            
+            $ownerProfile->setStatus('inactive');
+            $ownerProfile->setUuid($uuid);
+            $ownerProfile->setUserID($userRegister->getId());
+            $ownerProfile->setUserName($request->getUserName());
+            
+            $this->entityManager->persist($ownerProfile);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+        }
+        return $userRegister;
+        }
+        else
+        {
+        $ownerProfile = $this->getUserProfileByUserID($userProfile['id']);
+
+        if ($ownerProfile == null)
+        {
+            $ownerProfile = $this->autoMapping->map(UserRegisterRequest::class, UserProfileEntity::class, $request);
+            
+            $ownerProfile->setStatus('active');
+            $ownerProfile->setUuid($uuid);
+            $ownerProfile->setUserID($userProfile['id']);
+            $ownerProfile->setUserName($request->getUserName());
+            
+            
+            $this->entityManager->persist($ownerProfile);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+        }
         return true;
     }
     }
@@ -79,7 +167,8 @@ class UserManager
             $userProfile = $this->autoMapping->map(UserProfileCreateRequest::class, UserProfileEntity::class, $request);
 
             $userProfile->setStatus('inactive');
-            $userProfile->setFree(false);
+
+            $userProfile->setIsOnline('active');
             $userProfile->setNewMessageStatus(false);
 
             $this->entityManager->persist($userProfile);
@@ -98,6 +187,10 @@ class UserManager
         $item = $this->profileRepository->getUserProfile($request->getUserID());
 
         if ($item) {
+            if ($item) {
+                if($request->getUserName() == null) {
+                    $request->setUserName($item->getUserName());
+                }
             $item = $this->autoMapping->mapToObject(UserProfileUpdateRequest::class, UserProfileEntity::class, $request, $item);
 
             $this->entityManager->flush();
@@ -105,8 +198,8 @@ class UserManager
 
             return $item;
         }
+     }
     }
-
     public function userProfileUpdateByAdmin(userProfileUpdateByAdminRequest $request)
     {
         $item = $this->profileRepository->find($request->getId());
@@ -164,6 +257,9 @@ class UserManager
     {
         $item = $this->captainProRepository->getByCaptainIDForUpdate($request->getUserID());
         if ($item) {
+            if($request->getName() == null) {
+                $request->setName($item->getName());
+            }
             $item = $this->autoMapping->mapToObject(CaptainProfileUpdateRequest::class, CaptainProfileEntity::class, $request, $item);
             $this->entityManager->flush();
             $this->entityManager->clear();

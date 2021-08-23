@@ -38,11 +38,11 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/user", name="userRegister", methods={"POST"})
+     * @Route("/captainRegister", name="captainRegister", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function userRegister(Request $request)
+    public function captainRegister(Request $request)
     {
         $data = json_decode($request->getContent(), true);
         
@@ -56,7 +56,31 @@ class UserController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $response = $this->userService->userRegister($request);
+        $response = $this->userService->captainRegister($request);
+       
+        return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("/ownerRegister", name="ownerRegister", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function ownerRegister(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        
+
+        $request = $this->autoMapping->map(stdClass::class, UserRegisterRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->userService->ownerRegister($request);
        
         return $this->response($response, self::CREATE);
     }

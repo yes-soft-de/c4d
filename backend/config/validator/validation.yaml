@@ -111,8 +111,6 @@ App\Request\userProfileUpdateByAdminRequest:
 
 App\Request\CaptainProfileUpdateRequest:
   properties:
-    name:
-      - NotBlank: ~
     image:
       - NotBlank: ~
     location:
@@ -123,9 +121,7 @@ App\Request\CaptainProfileUpdateRequest:
       - NotBlank: ~
     drivingLicence:
       - NotBlank: ~
-    state:
-      - NotBlank: ~
-
+      
 App\Request\CaptainProfileUpdateByAdminRequest:
   properties:
     captainID:
