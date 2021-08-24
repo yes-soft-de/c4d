@@ -49,7 +49,7 @@ class InitAccountRepository {
   Future<dynamic> createCaptainProfile(
       CreateCaptainProfileRequest request) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(
+    dynamic response = await _apiClient.put(
       Urls.CAPTAIN_PROFILE_API,
       request.toJSON(),
       headers: {'Authorization': 'Bearer ' + token},
@@ -60,7 +60,7 @@ class InitAccountRepository {
   Future<dynamic> createBankAccount(
       CreateBankAccountRequest createBankAccountRequest) async {
     var token = await _authService.getToken();
-    dynamic response = await _apiClient.post(
+    dynamic response = await _apiClient.put(
       Urls.CREATE_BANK_ACCOUNT_API,
       createBankAccountRequest.toJson(),
       headers: {'Authorization': 'Bearer ' + token},
