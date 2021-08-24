@@ -141,30 +141,7 @@ class OrdersService {
               DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000)
                   .toLocal();
           if (creationDate.difference(DateTime.now()).inMinutes <= 35) {
-            if (totalDestance != null) {
-              if (totalDestance <= 5.0  && creationDate.difference(DateTime.now()).inMinutes <= 35) {
-                flag = true;
-              } else if (totalDestance <= 8.0  && creationDate.difference(DateTime.now()).inMinutes <= 32){
-                flag = true;
-              }
-              else if (totalDestance <= 12.0  && creationDate.difference(DateTime.now()).inMinutes <= 29){
-                flag = true;
-              }
-              else if (totalDestance <= 16.0  && creationDate.difference(DateTime.now()).inMinutes <= 26){
-                flag = true;
-              }
-              else if (totalDestance <= 20.0  && creationDate.difference(DateTime.now()).inMinutes <= 23){
-                flag = true;
-              }
-              else if (totalDestance <= 24.0  && creationDate.difference(DateTime.now()).inMinutes <= 20){
-                flag = true;
-              }
-               else {
-                flag = false;
-              }
-            } else {
-              flag = creationDate.difference(DateTime.now()).inMinutes <= 10 ? true : false;
-            }
+            flag = true;
           } else {
             flag = false;
           }

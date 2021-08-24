@@ -24,6 +24,7 @@ class CaptainOrdersScreen extends StatefulWidget {
 }
 
 class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
+  int currentPage = 0;
   CaptainOrdersListState currentState;
   ProfileResponseModel _currentProfile;
   CompanyInfoResponse _companyInfo;
@@ -50,6 +51,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
     });
   }
 
+  Timer timer;
   @override
   void initState() {
     super.initState();
@@ -76,6 +78,16 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
         setState(() {});
       }
     });
+   timer = Timer.periodic(Duration(minutes: 3), (t) {
+      print('Timer refreching state after 3 minutes at ===> ${t.tick}');
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
