@@ -1,4 +1,4 @@
-package de.yes_soft.c4d
+package de.yessoft.c4d
 
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugins.firebasemessaging.FirebaseMessagingPlugin
