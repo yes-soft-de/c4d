@@ -184,7 +184,7 @@ class _CaptainLoginWidgetState extends State<CaptainLoginWidget> {
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          S.of(context).sendMeCode,
+                         widget.isRegister ? S.current.register : S.of(context).login,
                           style: TextStyle(
                             color: Colors.white,
                           ),
