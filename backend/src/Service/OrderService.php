@@ -65,13 +65,13 @@ class OrderService
                 $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
                    
                 if ($item) {
-                try {
+                // try {
                     //start-----> notification
                     $this->notificationService->notificationToCaptain($item->getId());
                     //notification <------end
-                }
-                catch(\Exception $e) {
-                }
+                // }
+                // catch(\Exception $e) {
+                // }
                     $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
                     $this->recordService->create($item->getId(), $item->getState());
                 }
