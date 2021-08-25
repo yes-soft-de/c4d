@@ -267,13 +267,13 @@ class UserController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, CaptainProfileUpdateRequest::class, (object)$data);
         $request->setUserID($this->getUserId());
-        $violations = $this->validator->validate($request);
+        // $violations = $this->validator->validate($request);
 
-        if (\count($violations) > 0) {
-            $violationsString = (string) $violations;
+        // if (\count($violations) > 0) {
+        //     $violationsString = (string) $violations;
 
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
+        //     return new JsonResponse($violationsString, Response::HTTP_OK);
+        // }
 
         $response = $this->userService->captainprofileUpdate($request);
 
