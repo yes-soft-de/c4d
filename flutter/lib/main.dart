@@ -125,6 +125,10 @@ class _MyAppState extends State<MyApp> {
       setState(() {});
     });
     widget._fireNotificationService.onNotificationStream.listen((event) async {
+      print('//////////////////////////////////////////////////////////////////////////');
+      print(event);
+      print('//////////////////////////////////////////////////////////////////////////');
+
       NotificationModel model;
       if (Platform.isAndroid) {
         model = NotificationModel.fromJson(event);
@@ -138,12 +142,12 @@ class _MyAppState extends State<MyApp> {
       widget._localNotificationService.showNotification(model);
       if (Platform.isIOS) {
         await audioCache.play('rington.mp3');
-       await Flushbar(
-         title: model.title,
-         message: model.body ?? S.current.newMessageCommingOut,
-         shouldIconPulse: false,
-         icon:Image.asset('assets/images/icon.jpg'),
-       ).show(GlobalVariable.navState.currentContext);
+        await Flushbar(
+          title: model.title,
+          message: model.body ?? S.current.newMessageCommingOut,
+          shouldIconPulse: false,
+          icon: Image.asset('assets/images/icon.jpg'),
+        ).show(GlobalVariable.navState.currentContext);
         // await Fluttertoast.showToast(
         //     msg: '${model.body ?? S.current.newMessageCommingOut}',
         //     toastLength: Toast.LENGTH_SHORT,
@@ -154,9 +158,16 @@ class _MyAppState extends State<MyApp> {
         //     fontSize: 16.0);
       }
     });
-    widget._localNotificationService.onLocalNotificationStream.listen((event) {
+    widget._localNotificationService.onLocalNotificationStream
+        .listen((Payload event) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushNamed(GlobalVariable.navState.currentContext, event);
+        SchedulerBinding.instance.addPostFrameCallback(
+          (_) {
+            Navigator.pushNamed(GlobalVariable.navState.currentContext,
+                event.clickAction.toString(),
+                arguments: event.argument);
+          },
+        );
       });
     });
     widget._themeDataService.darkModeStream.listen((event) {

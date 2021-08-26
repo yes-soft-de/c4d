@@ -21,48 +21,48 @@ import '../../module_auth/service/auth_service/auth_service.dart' as _i16;
 import '../../module_auth/presistance/auth_prefs_helper.dart' as _i17;
 import '../../module_auth/manager/auth_manager/auth_manager.dart' as _i18;
 import '../../module_auth/repository/auth/auth_repository.dart' as _i19;
-import '../../module_profile/service/profile/profile.service.dart' as _i20;
-import '../../module_profile/manager/profile/profile.manager.dart' as _i21;
+import '../../module_about/service/about_service/about_service.dart' as _i20;
+import '../../module_about/manager/about_manager.dart' as _i21;
+import '../../module_about/repository/about_repository.dart' as _i22;
+import '../../module_profile/service/profile/profile.service.dart' as _i23;
+import '../../module_profile/manager/profile/profile.manager.dart' as _i24;
 import '../../module_profile/repository/profile/profile.repository.dart'
-    as _i22;
-import '../../module_profile/prefs_helper/profile_prefs_helper.dart' as _i23;
-import '../../module_orders/ui/screens/order_status/order_status_screen.dart'
-    as _i24;
-import '../../module_orders/state_manager/order_status/order_status.state_manager.dart'
     as _i25;
-import '../../module_report/service/report_service.dart' as _i26;
-import '../../module_report/manager/report_manager.dart' as _i27;
-import '../../module_report/repository/report_repository.dart' as _i28;
-import '../../module_report/presistance/report_prefs_helper.dart' as _i29;
-import '../../module_orders/ui/screens/orders/owner_orders_screen.dart' as _i30;
+import '../../module_profile/prefs_helper/profile_prefs_helper.dart' as _i26;
+import '../../module_orders/ui/screens/order_status/order_status_screen.dart'
+    as _i27;
+import '../../module_orders/state_manager/order_status/order_status.state_manager.dart'
+    as _i28;
+import '../../module_report/service/report_service.dart' as _i29;
+import '../../module_report/manager/report_manager.dart' as _i30;
+import '../../module_report/repository/report_repository.dart' as _i31;
+import '../../module_report/presistance/report_prefs_helper.dart' as _i32;
+import '../../module_orders/ui/screens/orders/owner_orders_screen.dart' as _i33;
 import '../../module_orders/state_manager/owner_orders/owner_orders.state_manager.dart'
-    as _i31;
-import '../../module_plan/service/plan_service.dart' as _i32;
-import '../../module_plan/manager/package_balance_manager.dart' as _i33;
-import '../../module_plan/repository/package_balance_repository.dart' as _i34;
+    as _i34;
+import '../../module_plan/service/plan_service.dart' as _i35;
+import '../../module_plan/manager/package_balance_manager.dart' as _i36;
+import '../../module_plan/repository/package_balance_repository.dart' as _i37;
 import '../../module_orders/ui/screens/captain_orders/captain_orders.dart'
-    as _i35;
+    as _i38;
 import '../../module_orders/state_manager/captain_orders/captain_orders.dart'
-    as _i36;
-import '../../module_orders/ui/screens/update/update.dart' as _i37;
-import '../../module_orders/ui/screens/terms/terms.dart' as _i38;
-import '../../module_chat/chat_module.dart' as _i39;
-import '../../module_chat/ui/screens/chat_page/chat_page.dart' as _i40;
-import '../../module_chat/bloc/chat_page/chat_page.bloc.dart' as _i41;
-import '../../module_chat/service/chat/char_service.dart' as _i42;
-import '../../module_chat/manager/chat/chat_manager.dart' as _i43;
-import '../../module_chat/repository/chat/chat_repository.dart' as _i44;
+    as _i39;
+import '../../module_orders/ui/screens/update/update.dart' as _i40;
+import '../../module_orders/ui/screens/terms/terms.dart' as _i41;
+import '../../module_chat/chat_module.dart' as _i42;
+import '../../module_chat/ui/screens/chat_page/chat_page.dart' as _i43;
+import '../../module_chat/bloc/chat_page/chat_page.bloc.dart' as _i44;
+import '../../module_chat/service/chat/char_service.dart' as _i45;
+import '../../module_chat/manager/chat/chat_manager.dart' as _i46;
+import '../../module_chat/repository/chat/chat_repository.dart' as _i47;
 import '../../module_upload/service/image_upload/image_upload_service.dart'
-    as _i45;
-import '../../module_upload/manager/upload_manager/upload_manager.dart' as _i46;
+    as _i48;
+import '../../module_upload/manager/upload_manager/upload_manager.dart' as _i49;
 import '../../module_upload/repository/upload_repository/upload_repository.dart'
-    as _i47;
-import '../../module_about/about_module.dart' as _i48;
+    as _i50;
+import '../../module_about/about_module.dart' as _i51;
 import '../../module_about/state_manager/about_screen_state_manager.dart'
-    as _i49;
-import '../../module_about/service/about_service/about_service.dart' as _i50;
-import '../../module_about/manager/about_manager.dart' as _i51;
-import '../../module_about/repository/about_repository.dart' as _i52;
+    as _i52;
 import '../../module_init/service/init_account/init_account.service.dart'
     as _i53;
 import '../../module_init/manager/init_account/init_account.manager.dart'
@@ -184,85 +184,85 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i14.OrderRepository(_createApiClient(), _createAuthService());
   _i15.ApiClient _createApiClient() => _i15.ApiClient(_createLogger());
   _i3.Logger _createLogger() => _singletonLogger ??= _i3.Logger();
-  _i16.AuthService _createAuthService() =>
-      _i16.AuthService(_createAuthPrefsHelper(), _createAuthManager());
+  _i16.AuthService _createAuthService() => _i16.AuthService(
+      _createAuthPrefsHelper(), _createAuthManager(), _createAboutService());
   _i17.AuthPrefsHelper _createAuthPrefsHelper() => _i17.AuthPrefsHelper();
   _i18.AuthManager _createAuthManager() =>
       _i18.AuthManager(_createAuthRepository());
   _i19.AuthRepository _createAuthRepository() =>
       _i19.AuthRepository(_createApiClient(), _createLogger());
-  _i20.ProfileService _createProfileService() => _i20.ProfileService(
+  _i20.AboutService _createAboutService() =>
+      _i20.AboutService(_createAboutManager());
+  _i21.AboutManager _createAboutManager() =>
+      _i21.AboutManager(_createAboutRepository());
+  _i22.AboutRepository _createAboutRepository() =>
+      _i22.AboutRepository(_createApiClient());
+  _i23.ProfileService _createProfileService() => _i23.ProfileService(
       _createProfileManager(),
       _createProfilePreferencesHelper(),
       _createAuthService());
-  _i21.ProfileManager _createProfileManager() =>
-      _i21.ProfileManager(_createProfileRepository());
-  _i22.ProfileRepository _createProfileRepository() =>
-      _i22.ProfileRepository(_createApiClient(), _createAuthService());
-  _i23.ProfilePreferencesHelper _createProfilePreferencesHelper() =>
-      _i23.ProfilePreferencesHelper();
-  _i24.OrderStatusScreen _createOrderStatusScreen() => _i24.OrderStatusScreen(
+  _i24.ProfileManager _createProfileManager() =>
+      _i24.ProfileManager(_createProfileRepository());
+  _i25.ProfileRepository _createProfileRepository() =>
+      _i25.ProfileRepository(_createApiClient(), _createAuthService());
+  _i26.ProfilePreferencesHelper _createProfilePreferencesHelper() =>
+      _i26.ProfilePreferencesHelper();
+  _i27.OrderStatusScreen _createOrderStatusScreen() => _i27.OrderStatusScreen(
       _createOrderStatusStateManager(), _createReportPrefsHelper());
-  _i25.OrderStatusStateManager _createOrderStatusStateManager() =>
-      _i25.OrderStatusStateManager(
+  _i28.OrderStatusStateManager _createOrderStatusStateManager() =>
+      _i28.OrderStatusStateManager(
           _createOrdersService(), _createAuthService(), _createReportService());
-  _i26.ReportService _createReportService() =>
-      _i26.ReportService(_createReportManager());
-  _i27.ReportManager _createReportManager() =>
-      _i27.ReportManager(_createReportRepository());
-  _i28.ReportRepository _createReportRepository() => _i28.ReportRepository(
+  _i29.ReportService _createReportService() =>
+      _i29.ReportService(_createReportManager());
+  _i30.ReportManager _createReportManager() =>
+      _i30.ReportManager(_createReportRepository());
+  _i31.ReportRepository _createReportRepository() => _i31.ReportRepository(
       _createApiClient(), _createAuthService(), _createReportPrefsHelper());
-  _i29.ReportPrefsHelper _createReportPrefsHelper() => _i29.ReportPrefsHelper();
-  _i30.OwnerOrdersScreen _createOwnerOrdersScreen() =>
-      _i30.OwnerOrdersScreen(_createOwnerOrdersStateManager());
-  _i31.OwnerOrdersStateManager _createOwnerOrdersStateManager() =>
-      _i31.OwnerOrdersStateManager(_createOrdersService(), _createAuthService(),
+  _i32.ReportPrefsHelper _createReportPrefsHelper() => _i32.ReportPrefsHelper();
+  _i33.OwnerOrdersScreen _createOwnerOrdersScreen() =>
+      _i33.OwnerOrdersScreen(_createOwnerOrdersStateManager());
+  _i34.OwnerOrdersStateManager _createOwnerOrdersStateManager() =>
+      _i34.OwnerOrdersStateManager(_createOrdersService(), _createAuthService(),
           _createProfileService(), _createPlanService());
-  _i32.PlanService _createPlanService() => _i32.PlanService(
+  _i35.PlanService _createPlanService() => _i35.PlanService(
       _createOrdersService(),
       _createProfileService(),
       _createPackageBalanceManager());
-  _i33.PackageBalanceManager _createPackageBalanceManager() =>
-      _i33.PackageBalanceManager(_createPackageBalanceRepository());
-  _i34.PackageBalanceRepository _createPackageBalanceRepository() =>
-      _i34.PackageBalanceRepository(_createAuthService());
-  _i35.CaptainOrdersScreen _createCaptainOrdersScreen() =>
-      _i35.CaptainOrdersScreen(_createCaptainOrdersListStateManager());
-  _i36.CaptainOrdersListStateManager _createCaptainOrdersListStateManager() =>
-      _i36.CaptainOrdersListStateManager(
+  _i36.PackageBalanceManager _createPackageBalanceManager() =>
+      _i36.PackageBalanceManager(_createPackageBalanceRepository());
+  _i37.PackageBalanceRepository _createPackageBalanceRepository() =>
+      _i37.PackageBalanceRepository(_createAuthService());
+  _i38.CaptainOrdersScreen _createCaptainOrdersScreen() =>
+      _i38.CaptainOrdersScreen(_createCaptainOrdersListStateManager());
+  _i39.CaptainOrdersListStateManager _createCaptainOrdersListStateManager() =>
+      _i39.CaptainOrdersListStateManager(
           _createOrdersService(), _createProfileService());
-  _i37.UpdateScreen _createUpdateScreen() =>
-      _i37.UpdateScreen(_createOwnerOrdersStateManager());
-  _i38.TermsScreen _createTermsScreen() =>
-      _i38.TermsScreen(_createOwnerOrdersStateManager());
-  _i39.ChatModule _createChatModule() =>
-      _i39.ChatModule(_createChatPage(), _createAuthService());
-  _i40.ChatPage _createChatPage() => _i40.ChatPage(
+  _i40.UpdateScreen _createUpdateScreen() =>
+      _i40.UpdateScreen(_createOwnerOrdersStateManager());
+  _i41.TermsScreen _createTermsScreen() =>
+      _i41.TermsScreen(_createOwnerOrdersStateManager());
+  _i42.ChatModule _createChatModule() =>
+      _i42.ChatModule(_createChatPage(), _createAuthService());
+  _i43.ChatPage _createChatPage() => _i43.ChatPage(
       _createChatPageBloc(), _createImageUploadService(), _createAuthService());
-  _i41.ChatPageBloc _createChatPageBloc() =>
-      _i41.ChatPageBloc(_createChatService());
-  _i42.ChatService _createChatService() =>
-      _i42.ChatService(_createChatManager());
-  _i43.ChatManager _createChatManager() =>
-      _i43.ChatManager(_createChatRepository());
-  _i44.ChatRepository _createChatRepository() =>
-      _i44.ChatRepository(_createApiClient(), _createAuthService());
-  _i45.ImageUploadService _createImageUploadService() =>
-      _i45.ImageUploadService(_createUploadManager());
-  _i46.UploadManager _createUploadManager() =>
-      _i46.UploadManager(_createUploadRepository());
-  _i47.UploadRepository _createUploadRepository() => _i47.UploadRepository();
-  _i48.AboutModule _createAboutModule() =>
-      _i48.AboutModule(_createAboutScreenStateManager());
-  _i49.AboutScreenStateManager _createAboutScreenStateManager() =>
-      _i49.AboutScreenStateManager(_createLocalizationService(),
+  _i44.ChatPageBloc _createChatPageBloc() =>
+      _i44.ChatPageBloc(_createChatService());
+  _i45.ChatService _createChatService() =>
+      _i45.ChatService(_createChatManager(), _createAuthService());
+  _i46.ChatManager _createChatManager() =>
+      _i46.ChatManager(_createChatRepository());
+  _i47.ChatRepository _createChatRepository() =>
+      _i47.ChatRepository(_createApiClient(), _createAuthService());
+  _i48.ImageUploadService _createImageUploadService() =>
+      _i48.ImageUploadService(_createUploadManager());
+  _i49.UploadManager _createUploadManager() =>
+      _i49.UploadManager(_createUploadRepository());
+  _i50.UploadRepository _createUploadRepository() => _i50.UploadRepository();
+  _i51.AboutModule _createAboutModule() =>
+      _i51.AboutModule(_createAboutScreenStateManager());
+  _i52.AboutScreenStateManager _createAboutScreenStateManager() =>
+      _i52.AboutScreenStateManager(_createLocalizationService(),
           _createAboutService(), _createInitAccountService());
-  _i50.AboutService _createAboutService() =>
-      _i50.AboutService(_createAboutManager());
-  _i51.AboutManager _createAboutManager() =>
-      _i51.AboutManager(_createAboutRepository());
-  _i52.AboutRepository _createAboutRepository() =>
-      _i52.AboutRepository(_createApiClient());
   _i53.InitAccountService _createInitAccountService() =>
       _i53.InitAccountService(_createInitAccountManager());
   _i54.InitAccountManager _createInitAccountManager() =>

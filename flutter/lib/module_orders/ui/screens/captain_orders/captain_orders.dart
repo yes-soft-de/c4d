@@ -78,11 +78,11 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
         setState(() {});
       }
     });
-   timer = Timer.periodic(Duration(minutes: 3), (t) {
+    timer = Timer.periodic(Duration(minutes: 3), (t) {
       print('Timer refreching state after 3 minutes at ===> ${t.tick}');
-       if (mounted) {
-      setState(() {});
-    }
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 

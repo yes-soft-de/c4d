@@ -173,7 +173,7 @@ class ChatPageState extends State<ChatPage> {
                     ),
                   ),
                 )
-              : Container(),
+              : SizedBox(),
         ],
       )),
     );
@@ -181,7 +181,7 @@ class ChatPageState extends State<ChatPage> {
 
   Future<void> buildMessagesList(List<ChatModel> chatList) async {
     List<ChatBubbleWidget> newMessagesList = [];
-    String username = widget._authservice.username;
+    String username = await widget._authservice.username;
     chatList.forEach((element) {
       newMessagesList.add(ChatBubbleWidget(
         message: element.msg,

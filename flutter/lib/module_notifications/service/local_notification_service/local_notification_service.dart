@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
-
+import 'dart:convert';
 @provide
 class LocalNotificationService {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static final PublishSubject<String> _onNotificationRecieved =
+  static final PublishSubject<Payload> _onNotificationRecieved =
       PublishSubject();
 
-  Stream get onLocalNotificationStream => _onNotificationRecieved.stream;
+  Stream<Payload> get onLocalNotificationStream => _onNotificationRecieved.stream;
 
   Future<void> init() async {
     AndroidInitializationSettings initializationSettingsAndroid =
@@ -59,16 +59,16 @@ class LocalNotificationService {
 
     flutterLocalNotificationsPlugin.show(
         model.id, model.title, model.body, platformChannelSpecifics,
-        payload: model.payLoad.clickAction);
+        payload:json.encode(model.payLoad));
   }
 
   Future selectNotification(String payload) async {
     if (payload != null) {
-      _onNotificationRecieved.add(payload);
+      _onNotificationRecieved.add(Payload.fromJson(payload));
     }
   }
 
-  Future onDidNotification(int id, String title, String body, String payload) {
+  Future onDidNotification(int id, String title, String body, Payload payload) {
     _onNotificationRecieved.add(payload);
   }
 }

@@ -22,8 +22,16 @@ class NotificationModel {
 
 class Payload {
   String clickAction;
-  Payload(this.clickAction);
+  dynamic argument;
+  Payload(this.clickAction, this.argument);
   Payload.fromJson(dynamic json) {
-    clickAction = json['action'];
+    clickAction = json['navigate_route'];
+    argument = json['argument'];
+  }
+ Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['navigate_route'] = this.clickAction;
+    data['argument'] = this.argument;
+    return data;
   }
 }

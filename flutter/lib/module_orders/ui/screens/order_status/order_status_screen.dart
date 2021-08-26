@@ -248,7 +248,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                         );
                       });
                 } else {
-                  return Container();
+                  return SizedBox();
                 }
               },
             ),

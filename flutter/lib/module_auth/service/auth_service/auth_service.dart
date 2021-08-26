@@ -1,4 +1,5 @@
 import 'package:c4d/generated/l10n.dart';
+import 'package:c4d/module_about/service/about_service/about_service.dart';
 import 'package:c4d/module_auth/enums/auth_status.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/exceptions/auth_exception.dart';
@@ -16,18 +17,16 @@ import 'package:c4d/module_auth/response/regester_response/regester_response.dar
 class AuthService {
   final AuthPrefsHelper _prefsHelper;
   final AuthManager _authManager;
+  final AboutService _aboutService;
   final PublishSubject<AuthStatus> _authSubject = PublishSubject<AuthStatus>();
 
-  AuthService(
-    this._prefsHelper,
-    this._authManager,
-  );
+  AuthService(this._prefsHelper, this._authManager, this._aboutService);
 
   Future<bool> get isLoggedIn => _prefsHelper.isSignedIn();
 
   Stream<AuthStatus> get authListener => _authSubject.stream;
 
-  String get username => _prefsHelper.getUsername() ?? '';
+  Future<String> get username => _prefsHelper.getUsername() ?? '';
   Future<UserRole> get userRole => _prefsHelper.getCurrentRole();
 
   Future<void> loginApi(
@@ -51,12 +50,17 @@ class AuthService {
       throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages(
           loginResult.statusCode ?? '0'));
     }
-    var checkLoginType = await _authManager.userTypeCheck(userRole == UserRole.ROLE_CAPTAIN ? 'ROLE_CAPTAIN' : 'ROLE_OWNER',loginResult.token);
+    var checkLoginType = await _authManager.userTypeCheck(
+        userRole == UserRole.ROLE_CAPTAIN ? 'ROLE_CAPTAIN' : 'ROLE_OWNER',
+        loginResult.token);
     if (checkLoginType == null) {
       await logout();
       _authSubject.addError(StatusCodeHelper.getStatusCodeMessages('403'));
-      throw AuthorizationException(StatusCodeHelper.getStatusCodeMessages('403'));
+      throw AuthorizationException(
+          StatusCodeHelper.getStatusCodeMessages('403'));
     }
+    
+    await _aboutService.setInited();
     await _prefsHelper.setCurrentRole(userRole);
     await _prefsHelper.setUsername(username);
     await _prefsHelper.setPassword(password);
@@ -67,7 +71,9 @@ class AuthService {
 
   Future<void> registerApi(RegisterRequest request, UserRole userRole) async {
     // Create the profile in our database
-    RegisterResponse registerResponse = userRole == UserRole.ROLE_CAPTAIN ? await _authManager.registerCaptain(request) : await _authManager.registerOwner(request);
+    RegisterResponse registerResponse = userRole == UserRole.ROLE_CAPTAIN
+        ? await _authManager.registerCaptain(request)
+        : await _authManager.registerOwner(request);
     if (registerResponse == null) {
       _authSubject.addError(S.current.networkError);
       throw AuthorizationException(S.current.invalidCredentials);

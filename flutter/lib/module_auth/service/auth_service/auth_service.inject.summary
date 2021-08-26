@@ -32,6 +32,13 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_about/service/about_service/about_service.dart#AboutService",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

@@ -2,25 +2,23 @@ import 'package:c4d/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class CaptainLoginWidget extends StatefulWidget {
-  final Function(String,String) onLoginRequested;
+  final Function(String, String) onLoginRequested;
   // To switch between register and login
   final Function() onAlterRequest;
   final bool isRegister;
   final bool loading;
 
-  CaptainLoginWidget({
-    this.onLoginRequested,
-    this.isRegister = false,
-    this.onAlterRequest,
-    this.loading
-  });
+  CaptainLoginWidget(
+      {this.onLoginRequested,
+      this.isRegister = false,
+      this.onAlterRequest,
+      this.loading});
 
   @override
   State<StatefulWidget> createState() => _CaptainLoginWidgetState();
 }
 
 class _CaptainLoginWidgetState extends State<CaptainLoginWidget> {
-
   final GlobalKey _signUpFormKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -39,8 +37,8 @@ class _CaptainLoginWidgetState extends State<CaptainLoginWidget> {
             MediaQuery.of(context).viewInsets.bottom == 0
                 ? Container(
                     height: 144, child: Image.asset('assets/images/track.png'))
-                : Container(),
-                 Flex(
+                : SizedBox(),
+            Flex(
               direction: Axis.vertical,
               children: [
                 Padding(
@@ -140,9 +138,6 @@ class _CaptainLoginWidgetState extends State<CaptainLoginWidget> {
                 ),
               ],
             ),
-           
-
-
             GestureDetector(
               onTap: () {
                 if (widget.onAlterRequest != null) widget.onAlterRequest();
@@ -163,7 +158,6 @@ class _CaptainLoginWidgetState extends State<CaptainLoginWidget> {
                     agreed = v;
                     if (mounted) setState(() {});
                   }),
-
             widget.loading == true
                 ? Center(
                     child: Text(S.of(context).loading),
@@ -179,12 +173,15 @@ class _CaptainLoginWidgetState extends State<CaptainLoginWidget> {
                           ? null
                           : () {
                               setState(() {});
-                              widget.onLoginRequested(_usernameController.text,_passwordController.text);
+                              widget.onLoginRequested(_usernameController.text,
+                                  _passwordController.text);
                             },
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                         widget.isRegister ? S.current.register : S.of(context).login,
+                          widget.isRegister
+                              ? S.current.register
+                              : S.of(context).login,
                           style: TextStyle(
                             color: Colors.white,
                           ),

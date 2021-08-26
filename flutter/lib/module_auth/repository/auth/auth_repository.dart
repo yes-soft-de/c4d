@@ -26,9 +26,10 @@ class AuthRepository {
   Future checkUserType(String role, String token) async {
     dynamic result = await _apiClient.post(Urls.CHECK_USER_ROLE + '/$role', {},
         headers: {'Authorization': 'Bearer $token'});
-    if (result == null) return null;
 
-    return true;
+    if (result == null) return null;
+    
+    return result['status_code'] == '425' ? null : true;
   }
 
   Future<RegisterResponse> createCaptain(RegisterRequest request) async {

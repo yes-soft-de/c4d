@@ -145,7 +145,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
                           }),
                 ),
               )
-            : Container(),
+            : SizedBox(),
 
         Expanded(
           child: RefreshIndicator(
@@ -180,7 +180,7 @@ class OrdersListStateOrdersLoaded extends OwnerOrdersListState {
           ),
         ),
         canMakeOrders == false
-            ? Container()
+            ? SizedBox()
             : GestureDetector(
                 onTap: () {
                   Navigator.of(context)

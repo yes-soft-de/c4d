@@ -77,16 +77,16 @@ class FireNotificationService {
                 await NotificationsPrefsHelper().setLaunch(message);
                 SchedulerBinding.instance.addPostFrameCallback((_) {
                   Navigator.pushNamed(GlobalVariable.navState.currentContext,
-                      message['data']['action'].toString());
-                });
+                      message['data']['navigate_route'].toString(),arguments:message['data']['argument']);
+                },);
               },
               onResume: (Map<String, dynamic> message) async {
                 //_onNotificationRecieved.add(message);
                 Logger().info('FireNotificationService', 'onResume: $message');
                 SchedulerBinding.instance.addPostFrameCallback((_) {
                   Navigator.pushNamed(GlobalVariable.navState.currentContext,
-                      message['data']['action'].toString());
-                });
+                      message['data']['navigate_route'].toString(),arguments:message['data']['argument']);
+                },);
               },
             );
       } catch (e) {

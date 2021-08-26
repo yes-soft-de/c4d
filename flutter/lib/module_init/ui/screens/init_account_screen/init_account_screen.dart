@@ -64,8 +64,9 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   }
 
   void subscribeToPackage(
-      int packageId, String name, String phone, String city,bool renew) {
-    widget._stateManager.subscribePackage(this, packageId, name, phone, city,renew);
+      int packageId, String name, String phone, String city, bool renew) {
+    widget._stateManager
+        .subscribePackage(this, packageId, name, phone, city, renew);
   }
 
   void getPackages() {
@@ -84,7 +85,7 @@ class InitAccountScreenState extends State<InitAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: currentState == null ? Container() : currentState.getUI(context),
+      body: currentState == null ? SizedBox() : currentState.getUI(context),
     );
   }
 

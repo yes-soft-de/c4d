@@ -58,7 +58,7 @@ class PlanScreenState extends State<PlanScreen> {
   Widget build(BuildContext context) {
     _currentState ??= PlanScreenStateLoading(this);
     return Scaffold(
-      body: _currentState.getUI(context) ?? Container(),
+      body: _currentState.getUI(context) ?? SizedBox(),
     );
   }
 }

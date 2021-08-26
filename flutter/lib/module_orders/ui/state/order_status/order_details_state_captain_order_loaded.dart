@@ -106,7 +106,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                           ),
                         ),
                       )
-                    : Container(),
+                    : SizedBox(),
                 // To WhatsApp with store owner
                 currentOrder.ownerPhone != null
                     ? Expanded(
@@ -128,27 +128,29 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                           ),
                         ),
                       )
-                    : Container(),
+                    : SizedBox(),
               ],
             ),
             // To Open Maps
-          currentOrder.branchLocation?.lon!=null ? GestureDetector(
-              onTap: () {
-                var url = WhatsAppLinkHelper.getMapsLink(
-                    currentOrder.branchLocation.lat,
-                    currentOrder.branchLocation.lon);
-                launch(url);
-              },
-              child: CommunicationCard(
-                text: S.of(context).getDirection,
-                image: FaIcon(
-                  FontAwesomeIcons.mapSigns,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
-              ),
-            ):Container(),
+            currentOrder.branchLocation?.lon != null
+                ? GestureDetector(
+                    onTap: () {
+                      var url = WhatsAppLinkHelper.getMapsLink(
+                          currentOrder.branchLocation.lat,
+                          currentOrder.branchLocation.lon);
+                      launch(url);
+                    },
+                    child: CommunicationCard(
+                      text: S.of(context).getDirection,
+                      image: FaIcon(
+                        FontAwesomeIcons.mapSigns,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  )
+                : SizedBox(),
 
             currentOrder.to.contains('maps') ||
                     currentOrder.costumerLocation.lon != null ||
@@ -172,7 +174,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                       ),
                     ),
                   )
-                : Container(),
+                : SizedBox(),
             Container(
               height: 36,
             ),
@@ -184,7 +186,7 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
 
   Widget _getNextStageCard(BuildContext context) {
     if (currentOrder.status == OrderStatus.FINISHED) {
-      return Container();
+      return SizedBox();
     }
     if (currentOrder.status == OrderStatus.GOT_CASH) {
       return Card(
