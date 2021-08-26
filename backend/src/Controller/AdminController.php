@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\AdminCreateRequest;
 use App\Service\AdminService;
+use App\Service\NotificationService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,13 +19,16 @@ class AdminController extends BaseController
     private $autoMapping;
     private $validator;
     private $adminService;
+    private $notificationService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AdminService $adminService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator,
+                                AdminService $adminService, NotificationService $notificationService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->adminService = $adminService;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -48,5 +52,15 @@ class AdminController extends BaseController
         $response = $this->adminService->adminCreate($request);
 
         return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("/yazan", name="yazan", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function yazan()
+    {
+        $this->notificationService->notificationToCaptain(8);
     }
 }
