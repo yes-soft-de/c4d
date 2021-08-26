@@ -46,19 +46,21 @@ class NotificationService
 
     public function notificationToCaptain($orderId)
     {
-        $data = [
-            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
-            // 'title' => 'C4D',
-            // 'body' => $this::MESSAGE_CAPTAIN_NEW_ORDER,
-            'navigate_route' => '/order_status',
-            'argument' => $orderId,
+       $payload = [
+            'data' => [
+                'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+                // 'title' => 'C4D',
+                // 'body' => $this::MESSAGE_CAPTAIN_NEW_ORDER,
+                'navigate_route' => '/order_status',
+                'argument' => $orderId,
+            ],
         ];
         $message = CloudMessage::withTarget('topic', $this::CAPTAIN_TOPIC)
             ->withNotification(Notification::create('C4D', $this::MESSAGE_CAPTAIN_NEW_ORDER))
             ->withDefaultSounds()
             ->withHighestPossiblePriority()
         ;
-        $message->withData($data);
+        $message->withData($payload);
         $this->messaging->send($message);
     }
 
