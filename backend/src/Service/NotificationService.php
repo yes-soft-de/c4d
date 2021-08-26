@@ -63,7 +63,7 @@ class NotificationService
 
         $message = $message->withData($payload);
 
-        dd($message);
+
         $this->messaging->send($message);
     }
 
