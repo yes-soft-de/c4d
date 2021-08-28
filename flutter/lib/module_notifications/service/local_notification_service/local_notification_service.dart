@@ -7,15 +7,17 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:convert';
+
 @provide
 class LocalNotificationService {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static final PublishSubject<Payload> _onNotificationRecieved =
+  static final PublishSubject<dynamic> _onNotificationRecieved =
       PublishSubject();
 
-  Stream<Payload> get onLocalNotificationStream => _onNotificationRecieved.stream;
+  Stream<dynamic> get onLocalNotificationStream =>
+      _onNotificationRecieved.stream;
 
   Future<void> init() async {
     AndroidInitializationSettings initializationSettingsAndroid =
@@ -36,22 +38,25 @@ class LocalNotificationService {
 
   void showNotification(NotificationModel model) {
     IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails(
-        presentAlert: true, presentBadge: true, presentSound: true,
-      
-        );
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-          'local_notifications', 'Loacle notifications', 'Showing notifications while the app running',
-            importance: Importance.max,
-            priority: Priority.max,
-            playSound: true,
-            showWhen: true,
-            channelShowBadge: true,
-            enableLights: true,
-            enableVibration: true,
-            onlyAlertOnce: false,
-            category: 'Locale',  
-            );
+      'local_notifications',
+      'Loacle notifications',
+      'Showing notifications while the app running',
+      importance: Importance.max,
+      priority: Priority.max,
+      playSound: true,
+      showWhen: true,
+      channelShowBadge: true,
+      enableLights: true,
+      enableVibration: true,
+      onlyAlertOnce: false,
+      category: 'Locale',
+    );
 
     NotificationDetails platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
@@ -59,12 +64,13 @@ class LocalNotificationService {
 
     flutterLocalNotificationsPlugin.show(
         model.id, model.title, model.body, platformChannelSpecifics,
-        payload:json.encode(model.payLoad));
+        payload: json.encode(model.payLoad));
   }
 
   Future selectNotification(String payload) async {
     if (payload != null) {
-      _onNotificationRecieved.add(Payload.fromJson(payload));
+      var data = json.decode(payload);
+      await _onNotificationRecieved.add(Payload.fromJson(data));
     }
   }
 

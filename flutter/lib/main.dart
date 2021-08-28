@@ -125,9 +125,11 @@ class _MyAppState extends State<MyApp> {
       setState(() {});
     });
     widget._fireNotificationService.onNotificationStream.listen((event) async {
-      print('//////////////////////////////////////////////////////////////////////////');
+      print(
+          '//////////////////////////////////////////////////////////////////////////');
       print(event);
-      print('//////////////////////////////////////////////////////////////////////////');
+      print(
+          '//////////////////////////////////////////////////////////////////////////');
 
       NotificationModel model;
       if (Platform.isAndroid) {
@@ -158,17 +160,10 @@ class _MyAppState extends State<MyApp> {
         //     fontSize: 16.0);
       }
     });
-    widget._localNotificationService.onLocalNotificationStream
-        .listen((Payload event) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        SchedulerBinding.instance.addPostFrameCallback(
-          (_) {
-            Navigator.pushNamed(GlobalVariable.navState.currentContext,
-                event.clickAction.toString(),
-                arguments: event.argument);
-          },
-        );
-      });
+    widget._localNotificationService.onLocalNotificationStream.listen((event) {
+      Navigator.pushNamed(
+          GlobalVariable.navState.currentContext, event.clickAction.toString(),
+          arguments: event?.argument);
     });
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
