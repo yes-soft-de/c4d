@@ -24,6 +24,7 @@ class AcceptedOrderController extends BaseController
     private $autoMapping;
     private $validator;
     private $acceptedOrderService;
+    private $notificationService;
 
     public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AcceptedOrderService $acceptedOrderService
     , NotificationService $notificationService

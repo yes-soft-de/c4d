@@ -63,31 +63,42 @@ class NotificationService
 
         $message = $message->withData($payload);
 
-
         $this->messaging->send($message);
     }
 
     public function notificationOrderUpdate($request)
     {
+        $payload = [
+
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => '/order_status',
+            'argument' => $request->getOrderID(),
+         ];
         $msg = $this::MESSAGE_ORDER_UPDATE.$request->getOrderID();
         $devicesToken = [];
         $userTokenOne = $this->getNotificationTokenByUserID($request->getUserIdOne());
         $devicesToken[] = $userTokenOne;
-        // $userTokenTwo = $this->getNotificationTokenByUserID($request->getUserIdTwo());
-        // $devicesToken[] = $userTokenTwo;
 
         $message = CloudMessage::new()
             ->withNotification(Notification::create('C4D',$msg ))
             ->withDefaultSounds()
             ->withHighestPossiblePriority();
 
+        $message = $message->withData($payload);
         $this->messaging->sendMulticast($message, $devicesToken);
     }
 
     public function notificationNewChat($request, $userType ='null')
-    {
+    {         
+       $payload = [
+
+        'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+        'navigate_route' => '/chat',
+        'argument' => $request->getRoomID(),
+        ];
         
         $item = $this->roomIdHelperService->getByRoomID($request->getRoomID());
+    
         if($item) {
             $devicesToken = [];
             if($userType == 'owner') {
@@ -103,6 +114,7 @@ class NotificationService
             $message = CloudMessage::new()
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT))->withDefaultSounds()
                 ->withHighestPossiblePriority();
+            $message = $message->withData($payload);
             $this->messaging->sendMulticast($message, $devicesToken);  
         
         }    
@@ -133,6 +145,12 @@ class NotificationService
     public function notificationToCaptainFromAdmin($request)
     {
         $response=[];
+        $payload = [
+
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => '/chat',
+            'argument' => $request->getRoomID(),
+            ];
         $item = $this->getCaptainUuid($request->getRoomID());
        
         if($item) {
@@ -143,8 +161,8 @@ class NotificationService
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN))
                 ->withDefaultSounds()
                 ->withHighestPossiblePriority();
-
-            $this->messaging->sendMulticast($message, $devicesToken);  
+            $message = $message->withData($payload);
+            $this->messaging->sendMulticast($message, $devicesToken); 
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
         }
         return $response;       
@@ -153,6 +171,12 @@ class NotificationService
     public function notificationToReportFromAdmin($request)
     {
         $response=[];
+        $payload = [
+
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => '/chat',
+            'argument' => $request->getRoomID(),
+            ];
         $item = $this->getByReprotUuid($request->getRoomID());
        
         if($item) {
@@ -163,7 +187,7 @@ class NotificationService
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN))
                 ->withDefaultSounds()
                 ->withHighestPossiblePriority();
-
+            $message = $message->withData($payload);
             $this->messaging->sendMulticast($message, $devicesToken);  
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
         } 
@@ -173,6 +197,12 @@ class NotificationService
     public function notificationToOwnerFromAdmin($request)
     {
         $response=[];
+        $payload = [
+
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'navigate_route' => '/chat',
+            'argument' => $request->getRoomID(),
+            ];
         $item = $this->getOwnerUuid($request->getRoomID());
        
         if($item) {
@@ -183,7 +213,7 @@ class NotificationService
                 ->withNotification(Notification::create('C4D', $this::MESSAGE_NEW_CHAT_FROM_ADMIN))
                 ->withDefaultSounds()
                 ->withHighestPossiblePriority();
-
+            $message = $message->withData($payload);
             $this->messaging->sendMulticast($message, $devicesToken);  
             $response[]= $this->autoMapping->map('array',NotificationTokenResponse::class, $devicesToken);
         } 

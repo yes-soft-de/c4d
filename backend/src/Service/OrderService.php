@@ -65,16 +65,13 @@ class OrderService
                 $item = $this->orderManager->create($request, $uuid, $subscriptionCurrent['id']);
                    
                 if ($item) {
-                // try {
-                    //start-----> notification
-                    $this->notificationService->notificationToCaptain($item->getId());
-                    //notification <------end
-                // }
-                // catch(\Exception $e) {
-                // }
-                    $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
-                    $this->recordService->create($item->getId(), $item->getState());
-                }
+                //start-----> notification
+                $this->notificationService->notificationToCaptain($item->getId());
+                //notification <------end
+                
+                $this->recordService->createDeliveryDate($item->getId(), 'deliveryDate', $item->getDate());
+                $this->recordService->create($item->getId(), $item->getState());
+              }
                 $response =$this->autoMapping->map(OrderEntity::class, OrderResponse::class, $item);
             }
             
