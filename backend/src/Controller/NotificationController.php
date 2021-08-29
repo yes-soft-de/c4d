@@ -37,8 +37,8 @@ class NotificationController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
-        $request->setUserID($this->getUser()->getUsername());
-
+        // $request->setUserID($this->getUser()->getUsername());
+        $request->setUserID($this->getUserId());
         $response = $this->notificationService->notificationTokenCreate($request);
 
         return $this->response($response, self::CREATE);
@@ -55,7 +55,8 @@ class NotificationController extends BaseController
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
-        $request->setUserID($this->getUser()->getUsername());
+        // $request->setUserID($this->getUser()->getUsername());
+        $request->setUserID($this->getUserId());
 
         if ($this->isGranted('ROLE_OWNER')) {
             $userType = "owner";
@@ -81,7 +82,8 @@ class NotificationController extends BaseController
       
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
        
-        $request->setUserID($this->getUser()->getUsername());
+        // $request->setUserID($this->getUser()->getUsername());
+        $request->setUserID($this->getUserId());
        
         if ($this->isGranted('ROLE_OWNER')) {
              $response = $this->notificationService->updateNewMessageStatusInReport($request);
@@ -157,7 +159,8 @@ class NotificationController extends BaseController
       
         $request = $this->autoMapping->map(stdClass::class,NotificationTokenRequest::class,(object)$data);
        
-        $request->setUserID($this->getUser()->getUsername());
+        // $request->setUserID($this->getUser()->getUsername());
+        $request->setUserID($this->getUserId());
        
         $response = $this->notificationService->updateNewMessageStatusInUserProfile($request);
         
