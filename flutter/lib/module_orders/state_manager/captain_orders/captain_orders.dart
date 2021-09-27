@@ -46,7 +46,7 @@ class CaptainOrdersListStateManager {
           screenState, value[0], value[1], value[2]));
       initListenting(screenState);
     }).catchError((e) {
-      if (e is UnauthorizedException) {
+      if (e is AuthorizationException) {
         _stateSubject.add(CaptainOrdersListStateUnauthorized(screenState));
       } else {
         _stateSubject
@@ -70,7 +70,7 @@ class CaptainOrdersListStateManager {
               _stateSubject.add(CaptainOrdersListStateOrdersLoaded(
                   screenState, value[0], value[1], value[2]));
             }).catchError((e) {
-              if (e is UnauthorizedException) {
+              if (e is AuthorizationException) {
                 _stateSubject
                     .add(CaptainOrdersListStateUnauthorized(screenState));
               } else {

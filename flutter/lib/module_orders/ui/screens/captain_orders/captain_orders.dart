@@ -24,6 +24,7 @@ class CaptainOrdersScreen extends StatefulWidget {
 }
 
 class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
+  int currentPage = 0;
   CaptainOrdersListState currentState;
   ProfileResponseModel _currentProfile;
   CompanyInfoResponse _companyInfo;
@@ -50,6 +51,7 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
     });
   }
 
+  Timer timer;
   @override
   void initState() {
     super.initState();
@@ -76,6 +78,17 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
         setState(() {});
       }
     });
+    timer = Timer.periodic(Duration(minutes: 3), (t) {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -118,7 +131,13 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
                   chatID: _companyInfo.uuid ?? '',
                   companyInfo: _companyInfo,
                 )
-              : DrawerWidget(
+              :_currentProfile != null
+          ? DrawerWidget(
+              role: UserRole.ROLE_CAPTAIN,
+              username: _currentProfile.name ?? 'user',
+              user_image: _currentProfile.image ??
+                  'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+            ) : DrawerWidget(
                   role: UserRole.ROLE_CAPTAIN,
                 ),
       body: currentState.getUI(context),

@@ -175,7 +175,12 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
   @override
   Widget build(BuildContext context) {
     if (currentState == null) {
-      orderId = ModalRoute.of(context).settings.arguments;
+      var args = ModalRoute.of(context).settings.arguments;
+      if (args is String) {
+        orderId = int.tryParse(args);
+      } else {
+        orderId = args;
+      }
       widget._stateManager.getOrderDetails(orderId, this);
       currentState = OrderDetailsStateInit(this);
     }
@@ -248,7 +253,7 @@ class OrderStatusScreenState extends State<OrderStatusScreen> {
                         );
                       });
                 } else {
-                  return Container();
+                  return SizedBox();
                 }
               },
             ),
