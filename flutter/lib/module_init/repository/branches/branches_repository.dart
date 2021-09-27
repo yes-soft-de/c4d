@@ -15,7 +15,6 @@ class BranchesRepository {
 
   Future<bool> updateBranch(UpdateBranchesRequest request) async {
     var token = await _authService.getToken();
-    print(token);
     dynamic response = await _apiClient.put(
       Urls.UPDATE_BRANCH_API,
       request.toJson(),

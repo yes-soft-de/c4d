@@ -61,9 +61,10 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                           height: 56,
                           width: 56,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.black
-                                : Colors.white,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.black
+                                    : Colors.white,
                             shape: BoxShape.circle,
                           ),
                           child: Stack(
@@ -93,6 +94,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                             hintText: S.of(context).name,
                             labelText: S.of(context).name,
                           ),
+                          onChanged: (s) {
+                            screen.refresh();
+                          },
                         ),
                         Container(
                           height: 16,
@@ -103,6 +107,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                             hintText: S.of(context).age,
                             labelText: S.of(context).age,
                           ),
+                          onChanged: (s) {
+                            screen.refresh();
+                          },
                           keyboardType: TextInputType.number,
                         )
                       ],
@@ -125,10 +132,14 @@ class InitAccountCaptainInitProfile extends InitAccountState {
             ),
           ),
           FlatButton(
-              onPressed: captainImage == null || captainImage == null
+              onPressed: captainImage == null ||
+                      driverLicence == null ||
+                      _nameController.text.trim() == '' ||
+                      _ageController.text.trim() == ''
                   ? null
                   : () {
-                      screen.submitProfile(captainImage, driverLicence, _nameController.text, _ageController.text);
+                      screen.submitProfile(captainImage, driverLicence,
+                          _nameController.text, _ageController.text);
                     },
               child: Text(
                 S.of(context).uploadAndSubmit,
@@ -201,7 +212,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
         ),
       ));
     } else {
-      return Container();
+      return SizedBox();
     }
   }
 }

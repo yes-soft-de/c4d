@@ -18,7 +18,7 @@ class InitAccountStatePayment extends InitAccountState {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Container(),
+          SizedBox(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(

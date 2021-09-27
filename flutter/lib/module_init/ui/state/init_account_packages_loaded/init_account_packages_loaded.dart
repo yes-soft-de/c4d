@@ -161,7 +161,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
               ),
             ),
           ),
-          renew 
+          renew
               ? Align(
                   alignment: AlignmentDirectional.topStart,
                   child: IconButton(

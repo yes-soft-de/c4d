@@ -66,7 +66,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       key: scaffoldKey,
-//       body: currentState == null ? Container() : currentState.getUI(context),
+//       body: currentState == null ? SizedBox() : currentState.getUI(context),
 //     );
 //   }
 
