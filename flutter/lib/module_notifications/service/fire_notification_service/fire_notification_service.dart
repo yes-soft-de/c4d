@@ -5,11 +5,16 @@ import 'package:c4d/module_network/http_client/http_client.dart';
 import 'package:c4d/module_notifications/preferences/notification_preferences/notification_preferences.dart';
 import 'package:c4d/module_notifications/repository/notification_repo.dart';
 import 'package:c4d/module_profile/service/profile/profile.service.dart';
+import 'package:c4d/utils/helper/global_key.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:c4d/utils/logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @provide
 class FireNotificationService {
@@ -49,19 +54,33 @@ class FireNotificationService {
       // And Subscribe to the changes
       try {
         _notificationRepo.postToken(token);
-      } catch (e) {}
-      this._fcm.configure(
-        onMessage: (Map<String, dynamic> message) async {
-          Logger().info('FireNotificationService', 'onMessage: $message');
-          _onNotificationRecieved.add(message);
-        },
-        onLaunch: (Map<String, dynamic> message) async {
-          Logger().info('FireNotificationService', 'onMessage: $message');
-        },
-        onResume: (Map<String, dynamic> message) async {
-          Logger().info('FireNotificationService', 'onMessage: $message');
-        },
-      );
+        this._fcm.configure(
+              onBackgroundMessage:
+                  Platform.isIOS ? null : backgroundMessageHandler,
+              onMessage: (Map<String, dynamic> message) async {
+                Logger().info('FireNotificationService', 'onMessage: $message');
+                _onNotificationRecieved.add(message);
+              },
+              onLaunch: (Map<String, dynamic> message) async {
+                Logger().info('FireNotificationService', 'onLaunch: $message');
+                await NotificationsPrefsHelper().setLaunch(message);
+                SchedulerBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pushNamed(GlobalVariable.navState.currentContext,
+                      message['data']['navigate_route'].toString(),arguments:message['data']['argument']);
+                },);
+              },
+              onResume: (Map<String, dynamic> message) async {
+                //_onNotificationRecieved.add(message);
+                Logger().info('FireNotificationService', 'onResume: $message');
+                SchedulerBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pushNamed(GlobalVariable.navState.currentContext,
+                      message['data']['navigate_route'].toString(),arguments:message['data']['argument']);
+                },);
+              },
+            );
+      } catch (e) {
+        Logger().error('action', e.toString(), StackTrace.current);
+      }
     }
   }
 
@@ -72,5 +91,13 @@ class FireNotificationService {
     } else {
       await _fcm.unsubscribeFromTopic('captains');
     }
+  }
+
+  static Future<dynamic> backgroundMessageHandler(
+      Map<String, dynamic> message) async {
+    print('AppPushs myBackgroundMessageHandler : $message');
+    await NotificationsPrefsHelper().setBackgroundData(message);
+    _onNotificationRecieved.add(message);
+    return Future<void>.value();
   }
 }

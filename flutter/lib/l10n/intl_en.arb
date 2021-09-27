@@ -255,6 +255,24 @@
   "kilometerLimt":"Kilometers limit",
   "kilometerLimtMax":"bonus on max limit",
   "kilometerLimtMin":"bonus on min limit",
-  "newMessageCommingOut":"You have new notification"
+  "newMessageCommingOut":"You have new notification",
+  "statusCodeOk": "Data fetched succesfuly",
+  "statusCodeCreated": "The request has succeeded and a new resource has been created as a result",
+  "statusCodeBadRequest":"The server could not understand the request due to invalid syntax",
+  "statusCodeUnauthorized":"Unauthorized",
+  "StatusCodeNotFound":"Data not found",
+  "username": "Username",
+  "registerHint": "username or phone number",
+  "registerSuccess": "Your account has been registered successfully",
+  "loginSuccess": "Your account has been logged successfully",
+  "dataDecodeError": "Error with Decoding Data",
+  "internalServerError": "Internal server error",
+  "invalidCredentials": "Wrong username or password",
+  "networkError": "There is problem with your connection , please try again",
+  "packageInfo":"Pakcage Info",
+  "packageNote":"Package Note"
+
+
+
   
 }

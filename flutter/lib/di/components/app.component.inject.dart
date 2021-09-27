@@ -190,7 +190,7 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i18.AuthManager _createAuthManager() =>
       _i18.AuthManager(_createAuthRepository());
   _i19.AuthRepository _createAuthRepository() =>
-      _i19.AuthRepository(_createApiClient());
+      _i19.AuthRepository(_createApiClient(), _createLogger());
   _i20.AboutService _createAboutService() =>
       _i20.AboutService(_createAboutManager());
   _i21.AboutManager _createAboutManager() =>
@@ -243,12 +243,12 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i41.TermsScreen(_createOwnerOrdersStateManager());
   _i42.ChatModule _createChatModule() =>
       _i42.ChatModule(_createChatPage(), _createAuthService());
-  _i43.ChatPage _createChatPage() =>
-      _i43.ChatPage(_createChatPageBloc(), _createImageUploadService());
+  _i43.ChatPage _createChatPage() => _i43.ChatPage(
+      _createChatPageBloc(), _createImageUploadService(), _createAuthService());
   _i44.ChatPageBloc _createChatPageBloc() =>
       _i44.ChatPageBloc(_createChatService());
   _i45.ChatService _createChatService() =>
-      _i45.ChatService(_createChatManager());
+      _i45.ChatService(_createChatManager(), _createAuthService());
   _i46.ChatManager _createChatManager() =>
       _i46.ChatManager(_createChatRepository());
   _i47.ChatRepository _createChatRepository() =>
@@ -325,8 +325,8 @@ class AppComponent$Injector implements _i1.AppComponent {
       _i76.LoginScreen(_createLoginStateManager());
   _i77.LoginStateManager _createLoginStateManager() => _i77.LoginStateManager(
       _createAuthService(),
-      _createProfileService(),
-      _createFireNotificationService());
+      _createFireNotificationService(),
+      _createProfileService());
   _i78.RegisterScreen _createRegisterScreen() =>
       _i78.RegisterScreen(_createRegisterStateManager());
   _i79.RegisterStateManager _createRegisterStateManager() =>

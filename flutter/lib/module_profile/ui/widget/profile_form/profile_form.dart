@@ -146,7 +146,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                 // suffix: Container(
                 //   height: 30,
                 //   child: DropdownButton(
-                //     underline: Container(),
+                //     underline: SizedBox(),
                 //     onChanged: (v) {
                 //       countryCode = v;
                 //       if (mounted) setState(() {});
@@ -184,19 +184,19 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
             ),
             widget.isCaptain
                 ? _getCaptainMoreData(context, request)
-                : Container(),
+                : SizedBox(),
             widget.isCaptain == true
                 ? _getPaymentExtension(context)
-                : Container(),
+                : SizedBox(),
             RaisedButton(
                 color: Theme.of(context).primaryColor,
                 child: Text(S.of(context).save),
                 onPressed: () {
-                  String phone = _phoneController.text;
-                  if (phone[0] == '0') {
-                    phone = phone.substring(1);
-                  }
-                  if (_formKey.currentState.validate()) {
+                  if (_formKey.currentState.validate() && ((profileRequest.identity != null && profileRequest.mechanicLicense != null && profileRequest.drivingLicence != null) || !widget.isCaptain)) {
+                    String phone = _phoneController.text;
+                    if (phone[0] == '0') {
+                      phone = phone.substring(1);
+                    }
                     var profile = ProfileModel(
                       image: profileRequest.image,
                       name: _nameController.text,

@@ -172,7 +172,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   );
                 } else {
-                  return Container();
+                  return SizedBox();
                 }
               },
             ),
@@ -209,8 +209,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ),
                       )
-                    : Container()
-                : Container(),
+                    : SizedBox()
+                : SizedBox(),
             _getCaptainStateSwitch(userRole ?? UserRole.ROLE_OWNER),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -317,7 +317,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     var profile = await widget._profileService.getProfile();
     return Switch(
       activeColor: Colors.green,
-      inactiveTrackColor:Colors.red,
+      inactiveTrackColor: Colors.red,
       onChanged: (bool value) {
         profile.isOnline = value;
         widget._notificationService
@@ -376,7 +376,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _getCaptainStateSwitch(UserRole userRole) {
     if (userRole == UserRole.ROLE_OWNER) {
-      return Container();
+      return SizedBox();
     } else {
       // The User is a captain
       return Padding(

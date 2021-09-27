@@ -127,7 +127,6 @@ class ProfileResponseModel {
       stcPay = json['bank']['stcPay'];
     }
 
-    print('Stc: $stcPay, $accountID $bankName');
   }
 
   Map<String, dynamic> toJson() {
