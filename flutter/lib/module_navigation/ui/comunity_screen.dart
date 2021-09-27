@@ -25,11 +25,11 @@ List<Widget> getTiles(Map tiles, BuildContext context) {
   tiles.forEach((key, value) {
     if (key.toString() != 'uuid' &&
         key.toString() != 'id' &&
-        key.toString() != 'fax') {
+        key.toString() != 'fax' && !key.toString().contains('meter')) {
       widgets.add(Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
-          onTap: key.toString() == 'phone'
+          onTap: key.toString().contains('phone')
               ? () {
                   launch('tel:$value');
                 }
