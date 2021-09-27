@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:c4d/module_auth/enums/user_type.dart';
+import 'package:c4d/module_auth/request/register_request/register_request.dart';
 import 'package:c4d/module_auth/state_manager/register_state_manager/register_state_manager.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
 import 'package:c4d/module_auth/ui/states/register_states/register_state_init.dart';
@@ -22,16 +25,26 @@ class RegisterScreenState extends State<RegisterScreen> {
   UserRole currentUserRole;
   UserRole initRole;
   UserRole get getInitRole => this.initRole;
+  AsyncSnapshot loadingSnapshot = AsyncSnapshot.nothing();
+  StreamSubscription _stateSubscription;
+
+  StreamSubscription _loadingSubscription;
   @override
   void initState() {
     super.initState();
 
     _currentState = RegisterStateInit(this);
-    widget._stateManager.stateStream.listen((event) {
+    _stateSubscription = widget._stateManager.stateStream.listen((event) {
       if (this.mounted) {
         setState(() {
           _currentState = event;
         });
+      }
+    });
+    _loadingSubscription = widget._stateManager.loadingStream.listen((event) {
+      loadingSnapshot = event;
+      if (mounted) {
+        setState(() {});
       }
     });
   }
@@ -53,28 +66,31 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  @override
+  void dispose() {
+    _stateSubscription.cancel();
+    _loadingSubscription.cancel();
+    super.dispose();
+  }
+
   void refresh() {
     if (mounted) setState(() {});
   }
 
-  void registerCaptain(String phoneNumber) {
+  void registerCaptain(String username, String name, String password) {
     currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.registerCaptain(phoneNumber, this);
+    widget._stateManager.registerClient(
+        RegisterRequest(userID: username, userName: name, password: password),
+        currentUserRole,
+        this);
   }
 
-  void registerOwner(String email, String username, String password) {
+  void registerOwner(String username, String name, String password) {
     currentUserRole = UserRole.ROLE_OWNER;
-    widget._stateManager.registerOwner(email, username, password, this);
-  }
-
-  void confirmCaptainSMS(String smsCode) {
-    currentUserRole = UserRole.ROLE_CAPTAIN;
-    widget._stateManager.confirmCaptainCode(smsCode);
-  }
-
-  void retryPhone() {
-    currentUserRole = UserRole.ROLE_CAPTAIN;
-    _currentState = RegisterStateInit(this);
+    widget._stateManager.registerClient(
+        RegisterRequest(userID: username, userName: name, password: password),
+        currentUserRole,
+        this);
   }
 
   void moveToNext() {

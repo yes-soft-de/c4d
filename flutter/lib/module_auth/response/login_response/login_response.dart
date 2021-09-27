@@ -1,10 +1,18 @@
+import 'package:c4d/utils/logger/logger.dart';
+
 class LoginResponse {
   String token;
-
-  LoginResponse({this.token});
+  String statusCode;
+  LoginResponse({this.token, this.statusCode});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
+    try {
+      token = json['token'];
+      statusCode = json['code'] ?? json['statusCode'] ?? json['status_code'];
+    } catch (e) {
+      Logger().error('Auth Login Response', e.toString(), StackTrace.current);
+      statusCode = '-1';
+    }
   }
 
   Map<String, dynamic> toJson() {
