@@ -36,7 +36,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -47,10 +47,12 @@ android {
     }
 
     defaultConfig {
-    
+//        configurations.all {
+//            resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+//        }
         applicationId "de.yessoft.c4d"
-        minSdkVersion 23
-        targetSdkVersion 31
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -65,7 +67,7 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -76,4 +78,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.google.firebase:firebase-messaging:20.1.0"
 }
