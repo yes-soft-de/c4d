@@ -2594,6 +2594,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Data fetched succesfuly`
+  String get statusCodeOk {
+    return Intl.message(
+      'Data fetched succesfuly',
+      name: 'statusCodeOk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The request has succeeded and a new resource has been created as a result`
+  String get statusCodeCreated {
+    return Intl.message(
+      'The request has succeeded and a new resource has been created as a result',
+      name: 'statusCodeCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The server could not understand the request due to invalid syntax`
+  String get statusCodeBadRequest {
+    return Intl.message(
+      'The server could not understand the request due to invalid syntax',
+      name: 'statusCodeBadRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unauthorized`
+  String get statusCodeUnauthorized {
+    return Intl.message(
+      'Unauthorized',
+      name: 'statusCodeUnauthorized',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data not found`
+  String get StatusCodeNotFound {
+    return Intl.message(
+      'Data not found',
+      name: 'StatusCodeNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message(
+      'Username',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `username or phone number`
+  String get registerHint {
+    return Intl.message(
+      'username or phone number',
+      name: 'registerHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account has been registered successfully`
+  String get registerSuccess {
+    return Intl.message(
+      'Your account has been registered successfully',
+      name: 'registerSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account has been logged successfully`
+  String get loginSuccess {
+    return Intl.message(
+      'Your account has been logged successfully',
+      name: 'loginSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error with Decoding Data`
+  String get dataDecodeError {
+    return Intl.message(
+      'Error with Decoding Data',
+      name: 'dataDecodeError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Internal server error`
+  String get internalServerError {
+    return Intl.message(
+      'Internal server error',
+      name: 'internalServerError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong username or password`
+  String get invalidCredentials {
+    return Intl.message(
+      'Wrong username or password',
+      name: 'invalidCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is problem with your connection , please try again`
+  String get networkError {
+    return Intl.message(
+      'There is problem with your connection , please try again',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

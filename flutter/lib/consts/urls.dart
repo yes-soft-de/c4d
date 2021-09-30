@@ -4,6 +4,11 @@ class Urls {
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
   static const SIGN_UP_API = BASE_API + '/user';
+  static const SIGN_UP_API_CAPTAIN = BASE_API + '/captainRegister';
+  static const SIGN_UP_API_OWNER = BASE_API + '/ownerRegister';
+  static const CHECK_USER_ROLE = BASE_API + '/checkUserType';
+
+
   static const OWNER_PROFILE_API = BASE_API + '/userprofile';
   static const CAPTAIN_PROFILE_API = BASE_API + '/captainprofile';
   static const CREATE_BANK_ACCOUNT_API = BASE_API + '/captainprofile';

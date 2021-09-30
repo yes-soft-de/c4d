@@ -171,7 +171,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
               ],
             ),
             currentOrder.status == OrderStatus.INIT
-                ? Container()
+                ? SizedBox()
                 : Flex(
                     direction: Axis.vertical,
                     children: [
@@ -198,7 +198,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           currentOrder.captainPhone == null
-                              ? Container()
+                              ? SizedBox()
                               : Expanded(
                                   child: GestureDetector(
                                     onTap: () {
@@ -217,7 +217,7 @@ class OrderDetailsStateOwnerOrderLoaded extends OrderDetailsState {
                                   ),
                                 ),
                           currentOrder.clientPhone == null
-                              ? Container()
+                              ? SizedBox()
                               : Expanded(
                                   child: GestureDetector(
                                     onTap: () {

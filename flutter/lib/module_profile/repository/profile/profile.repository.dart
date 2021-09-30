@@ -34,7 +34,7 @@ class ProfileRepository {
       if (response == null) return null;
 
       return ProfileResponse.fromJson(response).data;
-    } on UnauthorizedException {
+    } on AuthorizationException {
       return null;
     } on TokenExpiredException {
       return null;
@@ -55,7 +55,7 @@ class ProfileRepository {
         return null;
       }
       return ProfileResponse.fromJson(response).data;
-    } on UnauthorizedException {
+    } on AuthorizationException {
       return null;
     } on TokenExpiredException {
       return null;

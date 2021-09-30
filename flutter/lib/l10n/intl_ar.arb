@@ -254,6 +254,22 @@
   "kilometerLimt":"عدد الكيلومترات",
   "kilometerLimtMax":"قيمة التعويض في حال تجاوز حد الكيلومترات",
   "kilometerLimtMin":"قيمة التعويض في حال عدم تجاوز حد الكيلومترات",
-  "newMessageCommingOut":"لديك إشعار جديد"
-  
+  "newMessageCommingOut":"لديك إشعار جديد",
+  "statusCodeOk": "تم جلب المعلومات بنجاح",
+  "statusCodeCreated": "نجح الطلب وتم إنشاء تغيير جديد نتيجة لذلك ",
+  "statusCodeBadRequest":"تعذر على الخادم فهم الطلب",
+  "statusCodeUnauthorized":"أنت غير مخول بالقيام بهذا الطلب",
+  "StatusCodeNotFound":"لم يتمكن الخادم من العثور على طلبك",
+  "username": "اسم المستخدم",
+  "registerHint": "اسم مستخدم أو رقم هاتف",
+  "registerSuccess": "تم تسجيل حسابك بنجاح",
+  "loginSuccess": "تم تسجيل الدخول بنجاح",
+  "networkError": "هناك مشكلة بالاتصال بالشبكة الرجاء إعادة المحاولة لاحقا",
+  "dataDecodeError": "هناك مشكلة في تفسير البيانات",
+  "internalServerError": "هناك مشكلة ما في الخادم",
+  "invalidCredentials": "هناك خطأ في كلمة السر أو اسم المستخدم"
+
+
+
+
 }

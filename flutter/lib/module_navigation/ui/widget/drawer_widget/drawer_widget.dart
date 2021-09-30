@@ -24,15 +24,15 @@ class DrawerWidget extends StatelessWidget {
   final UserRole role;
   final String chatID;
   final CompanyInfoResponse companyInfo;
-  DrawerWidget({
-    this.username,
-    this.user_image,
-    this.whatsapp,
-    this.phone,
-    @required this.role,
-    this.chatID,
-    this.companyInfo
-  }) : assert(role != null);
+  DrawerWidget(
+      {this.username,
+      this.user_image,
+      this.whatsapp,
+      this.phone,
+      @required this.role,
+      this.chatID,
+      this.companyInfo})
+      : assert(role != null);
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,9 @@ class DrawerWidget extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).pushNamed(
                               ChatRoutes.chatRoute,
-                              arguments:role == UserRole.ROLE_CAPTAIN?'A#$chatID':'O#$chatID',
+                              arguments: role == UserRole.ROLE_CAPTAIN
+                                  ? 'A#$chatID'
+                                  : 'O#$chatID',
                             );
                           },
                           child: ListTile(
@@ -139,7 +141,7 @@ class DrawerWidget extends StatelessWidget {
                             title: Text(S.of(context).directSupport),
                           ),
                         )
-                      : Container(),
+                      : SizedBox(),
                   GestureDetector(
                       onTap: () {
                         String url = 'https://c4d-app.web.app/privacy.html';
@@ -215,19 +217,24 @@ class DrawerWidget extends StatelessWidget {
                           S.of(context).howWeWork,
                         ),
                       )),
-                companyInfo != null ? GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (_) {
-                          return ComunityScreen(role==UserRole.ROLE_CAPTAIN ? companyInfo.toJsonCaptain() : companyInfo.toJson());
-                        }));
-                      },
-                      child: ListTile(
-                        leading: Icon(Icons.people),
-                        title: Text(
-                          S.of(context).social,
-                        ),
-                      )):Container(),
+                  companyInfo != null
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (_) {
+                              return ComunityScreen(
+                                  role == UserRole.ROLE_CAPTAIN
+                                      ? companyInfo.toJsonCaptain()
+                                      : companyInfo.toJson());
+                            }));
+                          },
+                          child: ListTile(
+                            leading: Icon(Icons.people),
+                            title: Text(
+                              S.of(context).social,
+                            ),
+                          ))
+                      : SizedBox(),
                 ],
               ),
               Container(

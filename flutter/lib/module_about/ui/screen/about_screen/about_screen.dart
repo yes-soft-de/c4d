@@ -77,7 +77,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   ? _currentState.getUI(context)
                   : AboutStatePageInit(widget._stateManager).getUI(context)),
           _currentState is AboutStatePageOwner && currentPage != 3
-              ? Container()
+              ? SizedBox()
               : GestureDetector(
                   onTap: () {
                     widget.moveToRegister(role);

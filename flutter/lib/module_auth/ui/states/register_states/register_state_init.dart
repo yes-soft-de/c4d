@@ -1,3 +1,4 @@
+import 'package:c4d/generated/l10n.dart';
 import 'package:c4d/module_auth/authorization_routes.dart';
 import 'package:c4d/module_auth/enums/user_type.dart';
 import 'package:c4d/module_auth/ui/screen/register_screen/register_screen.dart';
@@ -5,15 +6,21 @@ import 'package:c4d/module_auth/ui/states/register_states/register_state.dart';
 import 'package:c4d/module_auth/ui/widget/email_password_register/email_password_register.dart';
 import 'package:c4d/module_auth/ui/widget/phone_login/phone_login.dart';
 import 'package:c4d/module_auth/ui/widget/user_type_selector/user_type_selector.dart';
+import 'package:c4d/utils/helper/custom_alert_bar.dart';
 import 'package:flutter/material.dart';
 
 class RegisterStateInit extends RegisterState {
   UserRole userType = UserRole.ROLE_OWNER;
   var registerTypeController =
       PageController(initialPage: UserRole.ROLE_OWNER.index);
-  bool loading = false;
   bool flag = true;
-  RegisterStateInit(RegisterScreenState screen) : super(screen);
+  final RegisterScreenState screen;
+  RegisterStateInit(this.screen, {String error}) : super(screen) {
+    if (error != null){
+ CustomFlushBarHelper.createError(
+          title: S.current.warnning, message: error).show(this.screen.context);
+    }
+  }
 
   @override
   Widget getUI(BuildContext context) {
@@ -51,32 +58,26 @@ class RegisterStateInit extends RegisterState {
             screen.refresh();
           },
           children: [
-            PhoneLoginWidget(
-              codeSent: false,
-              onLoginRequested: (phone) {
-                loading = true;
+            CaptainLoginWidget(
+              onLoginRequested: (username, password) {
                 screen.setRole(userType);
                 screen.refresh();
-                screen.registerCaptain(phone);
+                screen.registerCaptain(username, '', password);
               },
               onAlterRequest: () {
-                Navigator.of(context).pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
+                Navigator.of(context)
+                    .pushNamed(AuthorizationRoutes.LOGIN_SCREEN);
               },
               isRegister: true,
-              onConfirm: (confirmCode) {
-                loading = true;
-                screen.refresh();
-                screen.confirmCaptainSMS(confirmCode);
-              },
+              loading: screen.loadingSnapshot == AsyncSnapshot.waiting(),
             ),
             EmailPasswordRegisterForm(
-              onRegisterRequest: (email, password, name) {
-                loading = true;
+              onRegisterRequest: (name, username, password) {
                 screen.setRole(userType);
                 screen.refresh();
                 screen.registerOwner(
-                  email,
-                  email,
+                  username,
+                  name,
                   password,
                 );
               },

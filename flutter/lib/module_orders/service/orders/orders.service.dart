@@ -1,4 +1,5 @@
 import 'package:c4d/consts/order_status.dart';
+import 'package:c4d/module_deep_links/service/deep_links_service.dart';
 import 'package:c4d/module_orders/manager/orders_manager/orders_manager.dart';
 import 'package:c4d/module_orders/model/order/order_model.dart';
 import 'package:c4d/module_orders/model/update/update_model.dart';
@@ -124,14 +125,22 @@ class OrdersService {
     }
 
     var orders = <OrderModel>[];
+    var currentPos = await DeepLinksService.defaultLocation();
+    final Distance distance = Distance();
     if (response.isNotEmpty) {
       response.forEach((element) {
         try {
+          double totalDestance;
+          if (currentPos != null && element.fromBranch?.location != null) {
+            var branchLoc = element.fromBranch?.location;
+            totalDestance = distance.as(LengthUnit.Kilometer, currentPos,
+                LatLng(branchLoc.lat ?? 0, branchLoc.lon ?? 0));
+          }
           bool flag = true;
           var creationDate =
               DateTime.fromMillisecondsSinceEpoch(element.date.timestamp * 1000)
                   .toLocal();
-          if (creationDate.difference(DateTime.now()).inMinutes <= 30) {
+          if (creationDate.difference(DateTime.now()).inMinutes <= 35) {
             flag = true;
           } else {
             flag = false;

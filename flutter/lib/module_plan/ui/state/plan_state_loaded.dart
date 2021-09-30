@@ -33,17 +33,21 @@ class PlanScreenStateLoaded extends PlanState {
                       elevation: 5,
                       child: ListTile(
                         tileColor: Theme.of(context).primaryColor,
-                        title: Text(S.of(context).renewSubscription,style: TextStyle(
-                          color: Colors.white
-                        ),),
-                        trailing: Icon(Icons.refresh,color: Colors.white,),
+                        title: Text(
+                          S.of(context).renewSubscription,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        trailing: Icon(
+                          Icons.refresh,
+                          color: Colors.white,
+                        ),
                         onTap: () {
                           screen.renewPackage(activePlanModel.id);
                         },
                       ),
                     ),
                   )
-                : Container(),
+                : SizedBox(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(S.of(context).activePlan),

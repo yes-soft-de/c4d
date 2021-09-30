@@ -160,11 +160,9 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
                             ? null
                             : () {
                                 if (flag) {
-                                  screenState.createBranch(
-                                      CreateBrancheRequest(
-                                          branchName: branchLocation.branchName,
-                                          location: branchLocation.location
-                                          ));
+                                  screenState.createBranch(CreateBrancheRequest(
+                                      branchName: branchLocation.branchName,
+                                      location: branchLocation.location));
                                 } else {
                                   screenState.updateBranch(
                                       UpdateBranchesRequest(
@@ -188,7 +186,7 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
   }
 
   Widget _getMarkerCards(BuildContext context) {
-    if (branchLocation == null) return Container();
+    if (branchLocation == null) return SizedBox();
     return Card(
       elevation: 3,
       color: Colors.green,
@@ -311,7 +309,7 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
   }
 
   void saveMarker(LatLng location) {
-    branchLocation = model??BranchesModel();
+    branchLocation = model ?? BranchesModel();
     branchLocation.location = location;
     branchLocation.branchName = '1';
   }

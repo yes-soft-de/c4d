@@ -61,9 +61,10 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                           height: 56,
                           width: 56,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.black
-                                : Colors.white,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.black
+                                    : Colors.white,
                             shape: BoxShape.circle,
                           ),
                           child: Stack(
@@ -128,7 +129,8 @@ class InitAccountCaptainInitProfile extends InitAccountState {
               onPressed: captainImage == null || captainImage == null
                   ? null
                   : () {
-                      screen.submitProfile(captainImage, driverLicence, _nameController.text, _ageController.text);
+                      screen.submitProfile(captainImage, driverLicence,
+                          _nameController.text, _ageController.text);
                     },
               child: Text(
                 S.of(context).uploadAndSubmit,
@@ -201,7 +203,7 @@ class InitAccountCaptainInitProfile extends InitAccountState {
         ),
       ));
     } else {
-      return Container();
+      return SizedBox();
     }
   }
 }
