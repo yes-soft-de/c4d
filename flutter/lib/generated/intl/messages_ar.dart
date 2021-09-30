@@ -186,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "outOfCars" : MessageLookupByLibrary.simpleMessage("لا يوجد سيارات متوفرة لك الرجاء انتظار طلباتك الجارية حتى الانتهاء"),
     "outOforders" : MessageLookupByLibrary.simpleMessage("لقد استهلكت الحد الأقصى من الطلبات يمكنك تجديد الاشتراك من الإعدادات"),
     "package" : MessageLookupByLibrary.simpleMessage("باقة"),
+    "packageInfo" : MessageLookupByLibrary.simpleMessage("تفاصيل الحزمة"),
+    "packageNote" : MessageLookupByLibrary.simpleMessage("ملاحظات الحزمة"),
     "password" : MessageLookupByLibrary.simpleMessage("كلمة السر"),
     "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("كلمة السر قصيرة جدا يجب أن تكون 8 محارف على الأقل"),
     "paySubscription" : MessageLookupByLibrary.simpleMessage("دفع الاشتراك"),

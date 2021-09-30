@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:another_flushbar/flushbar.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:c4d/abstracts/module/yes_module.dart';
 import 'package:c4d/module_about/about_module.dart';
 import 'package:c4d/module_chat/chat_module.dart';
@@ -29,6 +28,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:inject/inject.dart';
+import 'package:soundpool/soundpool.dart';
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
 import 'module_auth/authoriazation_module.dart';
@@ -102,35 +102,33 @@ class _MyAppState extends State<MyApp> {
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
-  AudioCache audioCache = AudioCache();
+  Soundpool pool = Soundpool(streamType: StreamType.notification);
+
+
   //Initialisation of local notification
 
   //end
   String lang;
   ThemeData activeTheme;
   bool authorized = false;
-
+  int soundId;
   @override
   void initState() {
     super.initState();
     widget._fireNotificationService.init();
     widget._localNotificationService.init();
     if (Platform.isIOS) {
-      if (audioCache.fixedPlayer != null) {
-        audioCache.fixedPlayer.startHeadlessService();
-      }
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        soundId = await rootBundle.load('assets/rington.mp3').then((ByteData soundData) {
+          return pool.load(soundData);
+        });
+      });
     }
     widget._localizationService.localizationStream.listen((event) {
       timeago.setDefaultLocale(event);
       setState(() {});
     });
     widget._fireNotificationService.onNotificationStream.listen((event) async {
-      print(
-          '//////////////////////////////////////////////////////////////////////////');
-      print(event);
-      print(
-          '//////////////////////////////////////////////////////////////////////////');
-
       NotificationModel model;
       if (Platform.isAndroid) {
         model = NotificationModel.fromJson(event);
@@ -143,7 +141,9 @@ class _MyAppState extends State<MyApp> {
       }
       widget._localNotificationService.showNotification(model);
       if (Platform.isIOS) {
-        await audioCache.play('rington.mp3');
+        if (soundId != null){
+          await pool.play(soundId);
+        }
         await Flushbar(
           title: model.title,
           message: model.body ?? S.current.newMessageCommingOut,

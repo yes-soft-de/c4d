@@ -78,7 +78,6 @@ class DrawerWidget extends StatelessWidget {
                                       ),
                                       fit: BoxFit.cover,
                                       onError: (c, s) {
-                                        print('Error ' + c.toString());
                                         return AssetImage(
                                           'assets/images/logo.jpg',
                                         );
@@ -155,7 +154,6 @@ class DrawerWidget extends StatelessWidget {
                       )),
                   GestureDetector(
                       onTap: () {
-                        print(role);
                         if (role == UserRole.ROLE_CAPTAIN) {
                           Navigator.of(context)
                               .pushNamed(OrdersRoutes.TERMS_SCREEN);

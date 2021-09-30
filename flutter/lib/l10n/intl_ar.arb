@@ -267,9 +267,8 @@
   "networkError": "هناك مشكلة بالاتصال بالشبكة الرجاء إعادة المحاولة لاحقا",
   "dataDecodeError": "هناك مشكلة في تفسير البيانات",
   "internalServerError": "هناك مشكلة ما في الخادم",
-  "invalidCredentials": "هناك خطأ في كلمة السر أو اسم المستخدم"
-
-
-
+  "invalidCredentials": "هناك خطأ في كلمة السر أو اسم المستخدم",
+  "packageInfo":"تفاصيل الحزمة",
+  "packageNote":"ملاحظات الحزمة"
 
 }

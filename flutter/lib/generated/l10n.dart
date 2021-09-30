@@ -2724,6 +2724,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Pakcage Info`
+  String get packageInfo {
+    return Intl.message(
+      'Pakcage Info',
+      name: 'packageInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Package Note`
+  String get packageNote {
+    return Intl.message(
+      'Package Note',
+      name: 'packageNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -74,6 +74,7 @@ class _CaptainLoginWidgetState extends State<CaptainLoginWidget> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           labelText: S.of(context).username,
+                          hintText: S.of(context).registerHint
                         ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus(),
