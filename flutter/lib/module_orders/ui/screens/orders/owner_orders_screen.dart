@@ -45,7 +45,8 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
   }
 
   void goToSubscription() {
-    Navigator.of(context).pushNamedAndRemoveUntil(InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false);
   }
 
   void addOrderViaDeepLink(LatLng location) {
@@ -135,9 +136,16 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
                   chatID: _companyInfo.uuid ?? '',
                   companyInfo: _companyInfo,
                 )
-              : DrawerWidget(
-                  role: UserRole.ROLE_OWNER,
-                ),
+              : currentProfile != null
+                  ? DrawerWidget(
+                      role: UserRole.ROLE_OWNER,
+                      username: currentProfile.name ?? 'user',
+                      user_image: currentProfile.image ??
+                          'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+                    )
+                  : DrawerWidget(
+                      role: UserRole.ROLE_OWNER,
+                    ),
       body: _currentState.getUI(context),
     );
   }
