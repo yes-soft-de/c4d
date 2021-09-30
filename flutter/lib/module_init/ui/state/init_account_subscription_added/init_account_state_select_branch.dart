@@ -166,7 +166,6 @@ class InitAccountStateSelectBranch extends InitAccountState {
                                 ),
                               );
                             }).then((result) {
-                              print('Dialog Result $result');
                           if (result != null) {
                             branchLocation[i].name = result;
                             screen.refresh();

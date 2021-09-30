@@ -79,7 +79,6 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
       }
     });
     timer = Timer.periodic(Duration(minutes: 3), (t) {
-      print('Timer refreching state after 3 minutes at ===> ${t.tick}');
       if (mounted) {
         setState(() {});
       }
@@ -132,7 +131,13 @@ class CaptainOrdersScreenState extends State<CaptainOrdersScreen> {
                   chatID: _companyInfo.uuid ?? '',
                   companyInfo: _companyInfo,
                 )
-              : DrawerWidget(
+              :_currentProfile != null
+          ? DrawerWidget(
+              role: UserRole.ROLE_CAPTAIN,
+              username: _currentProfile.name ?? 'user',
+              user_image: _currentProfile.image ??
+                  'https://orthosera-dental.com/wp-content/uploads/2016/02/user-profile-placeholder.png',
+            ) : DrawerWidget(
                   role: UserRole.ROLE_CAPTAIN,
                 ),
       body: currentState.getUI(context),

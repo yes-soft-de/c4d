@@ -188,6 +188,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "outOfCars" : MessageLookupByLibrary.simpleMessage("There is no car available please wait your ongoing orders to finish"),
     "outOforders" : MessageLookupByLibrary.simpleMessage("You reach your limit of orders you can renew your subscription from settings"),
     "package" : MessageLookupByLibrary.simpleMessage("Package"),
+    "packageInfo" : MessageLookupByLibrary.simpleMessage("Pakcage Info"),
+    "packageNote" : MessageLookupByLibrary.simpleMessage("Package Note"),
     "password" : MessageLookupByLibrary.simpleMessage("Password"),
     "passwordIsTooShort" : MessageLookupByLibrary.simpleMessage("Password is too short"),
     "paySubscription" : MessageLookupByLibrary.simpleMessage("Pay Subscription"),

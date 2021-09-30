@@ -47,8 +47,11 @@ android {
     }
 
     defaultConfig {
+//        configurations.all {
+//            resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+//        }
         applicationId "de.yessoft.c4d"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -64,7 +67,7 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }

@@ -37,16 +37,6 @@ class FireNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
 
   Future<void> init() async {
-    print('//////////////////////////////////////////////////////////////////////////////////////////');
-    print('###################FIREBASE LOG###############################');
-    print('BACKGROUND');
-    var back = await _prefsHelper.getBackgroundData();
-    print(back.toString());
-    print('LAUNCH');
-    var launch = await _prefsHelper.getLaunch();
-    print(launch.toString());
-    print('//////////////////////////////////////////////////////////////////////////////////////////');
-
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {});
 
@@ -64,7 +54,6 @@ class FireNotificationService {
       // And Subscribe to the changes
       try {
         _notificationRepo.postToken(token);
-        print(token);
         this._fcm.configure(
               onBackgroundMessage:
                   Platform.isIOS ? null : backgroundMessageHandler,

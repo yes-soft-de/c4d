@@ -260,7 +260,6 @@ class UpdateBranchStateLoaded extends UpdateBranchState {
                               ),
                             );
                           }).then((result) {
-                        print('Dialog Result $result');
                         if (result != null) {
                           branchLocation.branchName = result;
                           screenState.refresh();

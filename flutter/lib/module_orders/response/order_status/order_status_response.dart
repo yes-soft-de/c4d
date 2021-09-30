@@ -109,7 +109,6 @@ class OrderDetailsData {
           List<dynamic> orders = json['acceptedOrder'];
           acceptedOrder = <AcceptedOrder>[];
           orders.forEach((element) {
-            print(element);
             acceptedOrder.add(AcceptedOrder.fromJson(element));
           });
         }

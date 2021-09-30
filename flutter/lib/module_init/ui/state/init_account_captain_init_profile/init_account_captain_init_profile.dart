@@ -94,6 +94,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                             hintText: S.of(context).name,
                             labelText: S.of(context).name,
                           ),
+                          onChanged: (s) {
+                            screen.refresh();
+                          },
                         ),
                         Container(
                           height: 16,
@@ -104,6 +107,9 @@ class InitAccountCaptainInitProfile extends InitAccountState {
                             hintText: S.of(context).age,
                             labelText: S.of(context).age,
                           ),
+                          onChanged: (s) {
+                            screen.refresh();
+                          },
                           keyboardType: TextInputType.number,
                         )
                       ],
@@ -126,7 +132,10 @@ class InitAccountCaptainInitProfile extends InitAccountState {
             ),
           ),
           FlatButton(
-              onPressed: captainImage == null || captainImage == null
+              onPressed: captainImage == null ||
+                      driverLicence == null ||
+                      _nameController.text.trim() == '' ||
+                      _ageController.text.trim() == ''
                   ? null
                   : () {
                       screen.submitProfile(captainImage, driverLicence,

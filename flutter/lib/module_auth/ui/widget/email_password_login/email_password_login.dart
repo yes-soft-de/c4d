@@ -78,6 +78,7 @@ class _EmailPasswordLoginState extends State<OwnerLoginForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(16),
                           ),
+                          hintText: S.of(context).registerHint,
                           labelText: S.of(context).username,
                         ),
                         textInputAction: TextInputAction.next,

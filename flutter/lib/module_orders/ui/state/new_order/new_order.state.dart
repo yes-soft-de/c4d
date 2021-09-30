@@ -414,7 +414,6 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                             .showSnackBar(S.of(context).pleaseSelectABranch);
                         return;
                       }
-                      print(destination);
                       screenState.initNewOrder(
                           activeBranch,
                           _toController.text,

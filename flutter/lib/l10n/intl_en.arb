@@ -268,7 +268,10 @@
   "dataDecodeError": "Error with Decoding Data",
   "internalServerError": "Internal server error",
   "invalidCredentials": "Wrong username or password",
-  "networkError": "There is problem with your connection , please try again"
+  "networkError": "There is problem with your connection , please try again",
+  "packageInfo":"Pakcage Info",
+  "packageNote":"Package Note"
+
 
 
   
