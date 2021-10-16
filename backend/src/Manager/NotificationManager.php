@@ -78,6 +78,11 @@ class NotificationManager
         return $this->notificationTokenEntityRepository->getCaptainUuid($uuid);
     }
 
+    public function getTokens()
+    {
+        return $this->notificationTokenEntityRepository->getTokens();
+    }
+
     public function getOwnerUuid($uuid)
     {
         return $this->notificationTokenEntityRepository->getOwnerUuid($uuid);

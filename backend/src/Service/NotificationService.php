@@ -12,6 +12,7 @@ use App\Service\ReportService;
 use App\Service\UserService;
 use App\Request\NotificationTokenRequest;
 use App\Response\NotificationTokenResponse;
+use App\Response\NotificationTokensResponse;
 use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Messaging\ApnsConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
@@ -44,9 +45,17 @@ class NotificationService
         $this->userService = $userService;
     }
 
+    public function getTokens()
+    {
+       return $this->notificationManager->getTokens();
+    }
+
     public function notificationToCaptain($orderId)
     {
-
+        $getTokens = $this->getTokens();
+        foreach ($getTokens as $token) {
+            $tokens[] = $token['token'];
+        }
        $payload = [
 
                 'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
@@ -54,17 +63,16 @@ class NotificationService
                 'argument' => $orderId,
         ];
 
-        $message = CloudMessage::withTarget('topic', $this::CAPTAIN_TOPIC)
-
+//        $message = CloudMessage::withTarget('topic', $this::CAPTAIN_TOPIC)
+        $message = CloudMessage::new()
             ->withNotification(
                 Notification::create('C4D', $this::MESSAGE_CAPTAIN_NEW_ORDER))
             ->withDefaultSounds()
             ->withHighestPossiblePriority();
-
         $message = $message->withData($payload);
+        $this->messaging->sendMulticast($message, $tokens);
 
-
-        $this->messaging->send($message);
+//        $this->messaging->send($message);
     }
 
     public function notificationOrderUpdate($request)
@@ -211,6 +219,12 @@ class NotificationService
     {
         return $this->notificationManager->getCaptainUuid($uuid);
     }
+
+    public function getCaptainsIds()
+    {
+        return $this->notificationManager->getCaptainsIds();
+    }
+
 
     public function getOwnerUuid($uuid)
     {
