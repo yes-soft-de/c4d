@@ -220,12 +220,6 @@ class NotificationService
         return $this->notificationManager->getCaptainUuid($uuid);
     }
 
-    public function getCaptainsIds()
-    {
-        return $this->notificationManager->getCaptainsIds();
-    }
-
-
     public function getOwnerUuid($uuid)
     {
         return $this->notificationManager->getOwnerUuid($uuid);
