@@ -104,7 +104,6 @@ class _MyAppState extends State<MyApp> {
       FirebaseAnalyticsObserver(analytics: analytics);
   Soundpool pool = Soundpool(streamType: StreamType.notification);
 
-
   //Initialisation of local notification
 
   //end
@@ -119,7 +118,9 @@ class _MyAppState extends State<MyApp> {
     widget._localNotificationService.init();
     if (Platform.isIOS) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        soundId = await rootBundle.load('assets/rington.mp3').then((ByteData soundData) {
+        soundId = await rootBundle
+            .load('assets/rington.mp3')
+            .then((ByteData soundData) {
           return pool.load(soundData);
         });
       });
@@ -134,6 +135,7 @@ class _MyAppState extends State<MyApp> {
         model = NotificationModel.fromJson(event);
       }
       if (Platform.isIOS) {
+        Logger().error('event', event.toString() , StackTrace.current);
         NotificationIosModel iosModel = NotificationIosModel.fromJson(event);
         model = NotificationModel(
             body: iosModel?.aps?.alert?.body,
@@ -141,23 +143,17 @@ class _MyAppState extends State<MyApp> {
       }
       widget._localNotificationService.showNotification(model);
       if (Platform.isIOS) {
-        if (soundId != null){
+        if (soundId != null) {
           await pool.play(soundId);
         }
         await Flushbar(
+          flushbarPosition: FlushbarPosition.TOP,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           title: model.title,
           message: model.body ?? S.current.newMessageCommingOut,
           shouldIconPulse: false,
           icon: Image.asset('assets/images/icon.jpg'),
         ).show(GlobalVariable.navState.currentContext);
-        // await Fluttertoast.showToast(
-        //     msg: '${model.body ?? S.current.newMessageCommingOut}',
-        //     toastLength: Toast.LENGTH_SHORT,
-        //     gravity: ToastGravity.SNACKBAR,
-        //     timeInSecForIosWeb: 1,
-        //     backgroundColor: Color(0xFF3ACCE1),
-        //     textColor: Colors.white,
-        //     fontSize: 16.0);
       }
     });
     widget._localNotificationService.onLocalNotificationStream.listen((event) {
