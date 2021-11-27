@@ -57,8 +57,40 @@ class OrderDetailsStateCaptainOrderLoaded extends OrderDetailsState {
                 fontSize: 26,
               ),
             ),
-            SizedBox(
-              height: 56,
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child:Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 16,),
+                      Icon(
+                        Icons.info,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 16,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(S.current.orderDetails,style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                          ),textAlign: TextAlign.start,),
+                          SizedBox(height: 16,),
+                          Text(currentOrder.note??'',style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
             // To Progress the Order
             _getNextStageCard(context),

@@ -7,6 +7,7 @@ import 'package:c4d/module_init/init_routes.dart';
 import 'package:c4d/module_navigation/ui/widget/drawer_widget/drawer_widget.dart';
 import 'package:c4d/module_orders/orders_routes.dart';
 import 'package:c4d/module_orders/response/company_info/company_info.dart';
+import 'package:c4d/module_orders/state_manager/new_order/new_order.state_manager.dart';
 import 'package:c4d/module_orders/state_manager/owner_orders/owner_orders.state_manager.dart';
 import 'package:c4d/module_orders/ui/state/owner_orders/orders.state.dart';
 import 'package:c4d/module_profile/profile_routes.dart';
@@ -20,16 +21,15 @@ import 'package:latlong/latlong.dart';
 @provide
 class OwnerOrdersScreen extends StatefulWidget {
   final OwnerOrdersStateManager _stateManager;
+  final NewOrderStateManager _newOrderStateManager;
 
-  OwnerOrdersScreen(
-    this._stateManager,
-  );
+  OwnerOrdersScreen(this._stateManager, this._newOrderStateManager);
 
   @override
   OwnerOrdersScreenState createState() => OwnerOrdersScreenState();
 }
 
-class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
+class OwnerOrdersScreenState extends State<OwnerOrdersScreen> with WidgetsBindingObserver {
   OwnerOrdersListState _currentState;
   ProfileResponseModel currentProfile;
   CompanyInfoResponse _companyInfo;
@@ -48,7 +48,6 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
     Navigator.of(context).pushNamedAndRemoveUntil(
         InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false);
   }
-
   void addOrderViaDeepLink(LatLng location) {
     _currentState = OrdersListStateInit(this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -81,13 +80,33 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> {
         setState(() {});
       }
     });
-
-    widget._stateManager.getProfile();
-    widget._stateManager.companyInfo();
-    widget._stateManager.getMyOrders(this);
-
+    widget._newOrderStateManager.getSavedLoc().then((value) {
+      if (value != null){
+        Navigator.of(context).pushNamed(
+          OrdersRoutes.NEW_ORDER_SCREEN,
+          arguments: value,
+        );
+      }
+      else {
+        widget._stateManager.getProfile();
+        widget._stateManager.companyInfo();
+        widget._stateManager.getMyOrders(this);
+      }
+    });
     DeepLinksService.checkForGeoLink().then((value) {
       if (value != null) {
+        Navigator.of(context).pushNamed(
+          OrdersRoutes.NEW_ORDER_SCREEN,
+          arguments: value,
+        );
+      }
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    widget._newOrderStateManager.getSavedLoc().then((value) {
+      if (value != null){
         Navigator.of(context).pushNamed(
           OrdersRoutes.NEW_ORDER_SCREEN,
           arguments: value,

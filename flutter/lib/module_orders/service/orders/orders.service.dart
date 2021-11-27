@@ -108,6 +108,7 @@ class OrdersService {
             : null,
         canRemove: canRemove,
         showConfirm: showConfirmingOrderState,
+        note: response.note,
         costumerLocation:
             response.destination2 ?? GeoJson(lon: null, lat: null));
 
@@ -163,8 +164,7 @@ class OrdersService {
         }
       });
     }
-
-    return orders;
+  return orders;
   }
 
   Future<bool> addNewOrder(

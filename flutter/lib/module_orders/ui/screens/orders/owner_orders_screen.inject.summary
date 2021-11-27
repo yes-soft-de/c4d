@@ -25,6 +25,13 @@
                 "qualifier": null
               },
               "isProvider": false
+            },
+            {
+              "lookupKey": {
+                "root": "asset:c4d/lib/module_orders/state_manager/new_order/new_order.state_manager.dart#NewOrderStateManager",
+                "qualifier": null
+              },
+              "isProvider": false
             }
           ]
         }

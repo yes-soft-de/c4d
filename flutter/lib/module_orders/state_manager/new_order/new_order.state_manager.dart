@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:inject/inject.dart';
 import 'package:latlong/latlong.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @provide
 class NewOrderStateManager {
@@ -58,4 +59,23 @@ class NewOrderStateManager {
       }
     });
   }
+  Future<void> saveLoc(LatLng loc) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('initOrderLocLat',loc.latitude.toString());
+    await sharedPreferences.setString('initOrderLocLon',loc.longitude.toString());
+  }
+  Future<LatLng> getSavedLoc() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    double lat = double.parse(sharedPreferences.get('initOrderLocLat') ?? '0');
+    double lon = double.parse(sharedPreferences.get('initOrderLocLon') ?? '0');
+    if (lat == 0 || lon == 0){
+      return null;
+    }
+    return LatLng(lat, lon);
+  }
+    Future<void> deleteLoc() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove('initOrderLocLat');
+    await sharedPreferences.remove('initOrderLocLon');
+    }
 }

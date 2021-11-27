@@ -20,6 +20,7 @@ class OrderModel {
   bool canRemove;
   GeoJson costumerLocation;
   bool showConfirm;
+  String note;
   OrderModel(
       {this.id,
       this.to,
@@ -36,7 +37,8 @@ class OrderModel {
       this.branchLocation,
       this.canRemove,
       this.costumerLocation,
-      this.showConfirm
+      this.showConfirm,
+      this.note
       });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
