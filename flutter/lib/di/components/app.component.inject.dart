@@ -219,8 +219,8 @@ class AppComponent$Injector implements _i1.AppComponent {
   _i31.ReportRepository _createReportRepository() => _i31.ReportRepository(
       _createApiClient(), _createAuthService(), _createReportPrefsHelper());
   _i32.ReportPrefsHelper _createReportPrefsHelper() => _i32.ReportPrefsHelper();
-  _i33.OwnerOrdersScreen _createOwnerOrdersScreen() =>
-      _i33.OwnerOrdersScreen(_createOwnerOrdersStateManager());
+  _i33.OwnerOrdersScreen _createOwnerOrdersScreen() => _i33.OwnerOrdersScreen(
+      _createOwnerOrdersStateManager(), _createNewOrderStateManager());
   _i34.OwnerOrdersStateManager _createOwnerOrdersStateManager() =>
       _i34.OwnerOrdersStateManager(_createOrdersService(), _createAuthService(),
           _createProfileService(), _createPlanService());

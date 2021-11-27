@@ -122,7 +122,7 @@ class AboutStatePageOwner extends AboutState {
                   ),
                 ),
                 Container(
-                  height: 240,
+                  height: 275,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: _selectedCity == null
