@@ -17,7 +17,7 @@ class PackageCard extends StatelessWidget {
     print(package.note);
     return Card(
       child: Container(
-          height: 240,
+          height: 275,
           width: 400,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),

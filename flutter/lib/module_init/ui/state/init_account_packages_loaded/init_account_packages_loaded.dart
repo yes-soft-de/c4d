@@ -101,7 +101,7 @@ class InitAccountStatePackagesLoaded extends InitAccountState {
                         //package
                         AnimatedContainer(
                           duration: Duration(seconds: 1),
-                          height: _selectedCity == null ? 0 : 196,
+                          height: _selectedCity == null ? 0 : 275,
                           margin: EdgeInsets.only(top: 20),
                           child: ListView(
                             scrollDirection: Axis.horizontal,
