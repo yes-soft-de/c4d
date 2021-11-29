@@ -35,7 +35,7 @@ class InitAccountStateSelectBranch extends InitAccountState {
               layers: [
                 TileLayerOptions(
                   urlTemplate:
-                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      'https://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
                   subdomains: ['a', 'b', 'c'],
                 ),
                 MarkerLayerOptions(
