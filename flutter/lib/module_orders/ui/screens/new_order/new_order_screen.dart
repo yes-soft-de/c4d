@@ -85,6 +85,13 @@ class NewOrderScreenState extends State<NewOrderScreen> {
     });
   }
 
+  Future<String> getInfo() async{
+   return await widget._stateManager.getInfo();
+  }
+  void saveInfo(String info) {
+    widget._stateManager.saveInfo(info);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (currentState == null) {

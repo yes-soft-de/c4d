@@ -90,7 +90,7 @@ class NewOrderStateSuccessState extends NewOrderState {
                   },
                   decoration: InputDecoration(
                     hintText: S.of(context).phoneNumber,
-                    labelText: S.of(context).recipientPhoneNumber, 
+                    labelText: S.of(context).recipientPhoneNumber,
                   ),
                   keyboardType: TextInputType.phone,
                 ),
@@ -175,6 +175,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
       destination = location;
       ;
     }
+    screenState.getInfo().then((value) => _infoController.text = value);
   }
 
   @override
@@ -364,6 +365,9 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
               child: Card(
                 child: TextFormField(
                   controller: _infoController,
+                  onChanged: (v) {
+                    screenState.saveInfo(v);
+                  },
                   autofocus: false,
                   style: TextStyle(
                     color: Theme.of(context).brightness == Brightness.dark
@@ -477,8 +481,7 @@ class NewOrderStateBranchesLoaded extends NewOrderState {
                 decoration: InputDecoration(
                   fillColor: Color(0xff454F63),
                   focusColor: Color(0xff454F63),
-                  hintText:
-                      '${branches[0].brancheName}',
+                  hintText: '${branches[0].brancheName}',
                   hintStyle: TextStyle(color: Colors.white),
                 ),
                 items: branches

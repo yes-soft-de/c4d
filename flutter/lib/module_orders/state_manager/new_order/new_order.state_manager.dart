@@ -73,9 +73,20 @@ class NewOrderStateManager {
     }
     return LatLng(lat, lon);
   }
-    Future<void> deleteLoc() async {
+    Future<void> saveInfo(String info) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('initOrderInfo',info);
+  }
+  Future<String> getInfo() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String info = await sharedPreferences.get('initOrderInfo');
+    return info;
+  }
+
+  Future<void> deleteLoc() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove('initOrderLocLat');
     await sharedPreferences.remove('initOrderLocLon');
-    }
+    await sharedPreferences.remove('initOrderInfo');
+  }
 }
