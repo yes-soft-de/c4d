@@ -29,7 +29,8 @@ class OwnerOrdersScreen extends StatefulWidget {
   OwnerOrdersScreenState createState() => OwnerOrdersScreenState();
 }
 
-class OwnerOrdersScreenState extends State<OwnerOrdersScreen> with WidgetsBindingObserver {
+class OwnerOrdersScreenState extends State<OwnerOrdersScreen>
+    with WidgetsBindingObserver {
   OwnerOrdersListState _currentState;
   ProfileResponseModel currentProfile;
   CompanyInfoResponse _companyInfo;
@@ -48,6 +49,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> with WidgetsBindin
     Navigator.of(context).pushNamedAndRemoveUntil(
         InitAccountRoutes.INIT_ACCOUNT_SCREEN, (route) => false);
   }
+
   void addOrderViaDeepLink(LatLng location) {
     _currentState = OrdersListStateInit(this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -59,6 +61,7 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> with WidgetsBindin
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _currentState = OrdersListStateInit(this);
 
     _stateSubscription = widget._stateManager.stateStream.listen((event) {
@@ -81,13 +84,12 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> with WidgetsBindin
       }
     });
     widget._newOrderStateManager.getSavedLoc().then((value) {
-      if (value != null){
+      if (value != null) {
         Navigator.of(context).pushNamed(
           OrdersRoutes.NEW_ORDER_SCREEN,
           arguments: value,
         );
-      }
-      else {
+      } else {
         widget._stateManager.getProfile();
         widget._stateManager.companyInfo();
         widget._stateManager.getMyOrders(this);
@@ -105,14 +107,16 @@ class OwnerOrdersScreenState extends State<OwnerOrdersScreen> with WidgetsBindin
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    widget._newOrderStateManager.getSavedLoc().then((value) {
-      if (value != null){
-        Navigator.of(context).pushNamed(
-          OrdersRoutes.NEW_ORDER_SCREEN,
-          arguments: value,
-        );
-      }
-    });
+    if (ModalRoute.of(context).settings.name == OrdersRoutes.NEW_ORDER_SCREEN) {
+      widget._newOrderStateManager.getSavedLoc().then((value) {
+        if (value != null) {
+          Navigator.of(context).pushNamed(
+            OrdersRoutes.NEW_ORDER_SCREEN,
+            arguments: value,
+          );
+        }
+      });
+    }
   }
 
   @override
